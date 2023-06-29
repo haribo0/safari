@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ja.safari.user.mapper.UserSqlMapper">
+
+		<!-- 회원가입 -->
+		<insert id="insert">
+			INSERT INTO user_table VALUES(
+			    user_table_seq.nextval,
+			    #{email},
+			    #{pw},
+			    #{nickname},
+			    #{phone},
+			    #{gender},
+			    #{birth},
+			    #{profile_img_link},
+			    SYSDATE
+			)
+		</insert>
+		
+		<!-- 로그인 -->
+		<select id="selectByIdAndPw" resultType="com.ja.safari.dto.UserDto">
+			SELECT * FROM user_table WHERE email = #{email} AND pw = #{pw}
+		</select>
+		
+		<!-- 로그인 -->
+		<select id="selectUserDtoById" resultType="com.ja.safari.dto.UserDto">
+			SELECT * FROM user_table WHERE id = #{id}
+		</select>
+		
+
+</mapper>
