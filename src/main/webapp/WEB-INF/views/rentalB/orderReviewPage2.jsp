@@ -45,10 +45,10 @@
 	<jsp:include page="../common/headerB.jsp"></jsp:include>
 	<!-- 헤더 섹션 -->
 
-	<div class="container main_box">
-		<div class="row">
+	<div class="container-fluid main_box">
+		<div class="row ms-5">
 		
-			<div class="col-2">
+			<div class="col-2 ">
 				<div class="list-group list-group-flush">
 					
 					<!-- 왼쪽 카테고리 리스트 -->
@@ -64,21 +64,24 @@
 			</div>
 			
 			
-			<div class="col container ms-3">
+			
+			
+			
+			
+			
+			<div class="col container  me-5">
 			
     			<h4 class="row mt-3 mb-0 fw-regular">리뷰 관리</h4>
 
 				<div class="row  mb-2">
-					<!-- 상품 리스트 -->
+					
+					
+					<!-- 상품 리스트 COLUMN  -->
+				
 					<div class="col-3">
 						
 						
-						<!-- <div class="row" style="height: 31px">
-							<div class="col">
-								
-							</div>
-							
-						</div> -->
+						
 						
 						<div class="row mt-4">
 								
@@ -119,8 +122,12 @@
 						</div>
 						
 					</div>
-					<!-- 리뷰 답변 -->
-					<div class="col ms-4">
+					
+					
+					
+					<!-- 리뷰 답변 COLUMN  -->
+					
+					<div class="col ms-4 px-3">
 						
 						<div class="row mt-4">
 								

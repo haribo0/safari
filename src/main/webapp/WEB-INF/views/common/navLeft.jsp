@@ -1,7 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
     
-<div class="listContainer">
+    
+    
+    
+    
+<div class="row">
+	<div class="col me-5"><a href="./mainPage" class="btn"><img class="img-fluid" max-width="300px" src="/safari/resources/img/logo2.png"></a></div>
+	<div class="col-2"></div>
+</div>
+
+    
+<div class="listContainer mt-3">
 	<ul class="list-group">
 	  <li class="list-group-item border border-0  pt-2 pb-0"><a class="btn fs-5 fw-medium text  py-1" href="./mainPage"> <span style="font-size: 20px;">  <i class="bi bi-speedometer2"></i></span>&nbsp;대시보드</a></li>
 
@@ -41,3 +52,65 @@
 	  
 	</ul>
 </div>
+
+
+
+<div class="row mt-5">
+	<div class="col">
+	
+		
+	
+		<div class="row mt-5">
+			<div class="col ms-3">		        
+		           		
+			</div>
+		</div>
+	
+		<div class="row mt-5">
+			<div class="col ms-3">		        
+		           		
+			</div>
+		</div>
+	
+		<div class="row mt-5">
+			<div class="col ms-3">		        
+		           		
+			</div>
+		</div>
+		
+		<div class="row">
+			<div class="col ms-3">
+		        
+		           <c:choose>
+	           		<c:when test="${!empty businessUser}">
+	           			<a href="${pageContext.request.contextPath}/rentalBusiness/businessLogoutProcess" class="text-secondary mt-2 text-opacity-50 text-decoration-none">로그아웃</a>
+	           		</c:when>
+	           		<c:otherwise>
+	        			<a href="${pageContext.request.contextPath}/rentalBusiness/businessLoginPage" class="btn btn-dark me-2">로그인</a>
+	           		</c:otherwise>
+	           	</c:choose>
+		          
+			
+			</div>
+		</div>
+		
+		<div class="row mt-3">
+			<div class="col ms-3">		        
+		           <c:if test="${!empty businessUser}">
+		           		<a href="./myInfoPage" class="text-black text-decoration-none fs-5">
+		           			<div class="fs-6">반갑습니다,</div>
+		           			<div> ${businessUser.business_name} 님  </div>
+		           			
+		           		</a>
+		           </c:if>			
+			</div>
+		</div>
+		
+		
+
+	
+	</div>
+</div>
+
+
+

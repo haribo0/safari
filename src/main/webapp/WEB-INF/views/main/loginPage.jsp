@@ -47,8 +47,9 @@
 	<div class="row mt-5 justify-content-center">
 
         <div class="col-sm-6" style="max-width: 320px; cursor: pointer;">
-          <img class="img-fluid" src="/safari/resources/img/kakao_login_large_wide.png"  alt="">
-          
+        	<a href="#">
+        		<img class="img-fluid" src="/safari/resources/img/kakao_login_large_wide.png"  alt="">
+        	</a>
         </div>
 
         
@@ -65,5 +66,43 @@
 	<!-- 푸터 섹션 -->
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+
+
+
+<script >
+
+
+function ajaxTemplate() {
+
+	const xhr = new XMLHttpRequest();
+
+	xhr.onreadystatechange = function() {
+		if(xhr.readyState == 4 && xhr.status == 200){
+			const response = JSON.parse(xhr.responseText);
+			
+		}
+	}
+
+
+
+	// post 방식 
+	xhr.open("post", "url");
+	xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+	xhr.send("params");
+
+}
+
+
+
+
+
+
+
+
+</script>
+
+
+
+
 </body>	
 </html>

@@ -455,6 +455,18 @@
 	
 	</select>
 	
+	<!-- 상품별 판매량 -->
+	<select id="getSalesByProduct" resultType="map">
+	
+		<![CDATA[
+			SELECT it.TITLE , count(*) AS SALES
+			FROM rental_order_table ot, rental_item_table it
+			WHERE ot.item_id = it.id 
+			GROUP BY it.TITLE
+	  	]]>
+	
+	</select>
+	
 	<!-- 상품별 월별 판매량 -->
 	<select id="getSalesGroupByProductByMonth" resultType="map">
 	

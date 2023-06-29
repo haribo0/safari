@@ -449,6 +449,11 @@ public class RentalBusinessServiceImpl {
 		return rentalSqlMapper.getSalesByMonth();
 	}
 	
+	// 상품별 판매량 
+	public List<Map<String, Object>> getSalesByProduct() {
+		return rentalSqlMapper.getSalesByProduct();
+	}
+	
 	// 구매자 성별 비율 
 	public List<Map<String, Object>> getSalesByGender() {
 		return rentalSqlMapper.getSalesByGender();

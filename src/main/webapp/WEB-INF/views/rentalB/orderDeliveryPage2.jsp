@@ -16,10 +16,10 @@
 	<jsp:include page="../common/headerB.jsp"></jsp:include>
 	<!-- 헤더 섹션 -->
 
-	<div class="container main_box">
-		<div class="row">
+	<div class="container-fluid main_box">
+		<div class="row ms-5">
 		
-			<div class="col-2">
+			<div class="col-2 ">
 				<div class="list-group list-group-flush">
 					
 					<!-- 왼쪽 카테고리 리스트 -->
@@ -28,7 +28,7 @@
 					
 				</div>
 				
-				<div class="row mt-5 mb-5">
+				<div class="row mt-5 mb-5 me-5">
 					<div class="col"> </div>
 				</div>
 			

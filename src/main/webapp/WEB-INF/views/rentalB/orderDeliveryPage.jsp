@@ -33,10 +33,10 @@
 
 	
 	
-	<div class="container">
+	<div class="container-fluid">
 		<div class="row">
 		
-			<div class="col-2">
+			<div class="col-2 ms-5">
 				<div class="list-group list-group-flush">
 					
 					<!-- 왼쪽 카테고리 리스트 -->
@@ -51,7 +51,7 @@
 			
 			</div>
 			
-			<div class="col ms-3">
+			<div class="col ms-3 me-5">
 			    
 			    <h4 class="row mt-3 mb-4 fw-regular">배송 관리</h4>
 			

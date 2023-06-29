@@ -39,10 +39,10 @@
 	</div> -->
 	
 	
-	<div class="container">
-		<div class="row">
+	<div class="container-fluid">
+		<div class="row ms-5">
 		
-			<div class="col-2">
+			<div class="col-2 ">
 				<div class="list-group list-group-flush">
 					
 					<!-- 왼쪽 카테고리 리스트 -->
@@ -57,20 +57,13 @@
 			
 			</div>
 			
-			<div class="col ms-3">
+			<div class="col ms-3 me-5">
 			    <h4 class="row mt-3 mb-4 fw-regular">주문 관리</h4>
 				
 				<div class="row mt-3 mb-2">
-					<form action="#" method="GET" class="d-flex" role="search">
+					<!-- <form action="#" method="GET" class="d-flex" role="search"> -->
 					
-					<div class="col-3 me-2">
-					      <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-					</div>
-					<div class="col-1 me-3 d-grid">
-					      <button class="btn btn-outline-dark" type="submit">Search</button>
-					</div>
-					
-					<div class="col-1 me-4 text-end col-form-label">
+					<div class="col-1 me-1 text-end col-form-label">
 						진행상태 
 					</div>
 					
@@ -87,20 +80,19 @@
 						</select>
 					</div>
 					
-					<!-- <div class="col-1 me-4 text-end col-form-label">
-						진행상태 
+					<div class="col-1 me-1 text-end col-form-label">
+						상품 
 					</div>
 					
 					<div class="col-2">
-						
 						<select name="searchType" class="form-select">
-							<option value="title" selected>제목</option>
-							<option value="content">내용</option>
-							<option value="nickname">작성자</option>
+							<option value="" selected >선택</option>
+							
 						</select>
-					</div> -->
+					</div>
 					
-					</form>
+					
+					<!-- </form> -->
 				    
 				   
 			    	
@@ -115,14 +107,11 @@
 						<div class="row py-2 border-bottom  border-2 text-center">
 							<div class="col-1 fw-bold text-body-tertiary">#</div>
 							<div class="col-3 fw-bold text-body-tertiary">상품</div>
-							<div class="col-2 fw-bold text-body-tertiary">주문일자</div>
+							<div class="col-2 fw-bold text-body-tertiary">시작일</div>
 							<div class="col-2 fw-bold text-body-tertiary">주소</div>
 							
 							<div class="col-1 fw-bold text-body-tertiary">가격</div>
-							<!-- <div class="col-2 fw-bold text-body-tertiary">보증금</div> -->
 							<div class="col-2 fw-bold text-body-tertiary">상태</div>
-							<!-- <div class="col-1 fw-bold text-body-tertiary">TYPE</div> -->
-							<!-- <div class="col-1 fw-bold text-body-tertiary">ACTION</div> -->
 						</div>
 						
 						<c:forEach var="map" items="${list}" >
@@ -130,7 +119,7 @@
 								<div class="col-1">${map.order.id }</div>
 								<div class="col-3">${map.product.title }</div>
 								<div class="col-2">
-									<fmt:formatDate value="${map.order.reg_date}" pattern="MM/dd/yyyy" />
+									<fmt:formatDate value="${map.order.start_date}" pattern="MM/dd/yyyy" />
 								</div>
 								<div class="col-2">${map.order.address }</div>
 								
@@ -151,11 +140,6 @@
 								</c:choose>
 								
 								
-								<!-- <div class="col-1 ">
-								
-									<i class="bi bi-gear-fill text-secondary px-2 c_pointer"></i>
-									
-								</div> -->
 							</div>
 						</c:forEach>
 						

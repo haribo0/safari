@@ -20,10 +20,10 @@
 	<jsp:include page="../common/headerB.jsp"></jsp:include>
 	<!-- 헤더 섹션 -->
 
-	<div class="container main_box">
-		<div class="row">
+	<div class="container-fluid main_box  ">
+		<div class="row ms-5">
 		
-			<div class="col-2">
+			<div class="col-2 ">
 				<div class="list-group list-group-flush">
 				
 					<!-- 왼쪽 카테고리 리스트 -->
@@ -38,7 +38,7 @@
 			</div>
 			
 			
-			<div class="col ms-3">
+			<div class="col ">
 							
 				<h4 class="row mt-3 mb-4 fw-regular">대시보드 </h4>
 
@@ -88,11 +88,11 @@
 						  <div class="card-body">
 						    <h5 class="fs-6 fw-medium"> 최근 주문 </h5>
 						    <hr class="border">
-						    <div class="fw-light fs-4 text-dark mt-2">
+						    <div class="fw-light fs-5 text-dark mt-2">
 						    	5 건 
 						    	<span class="fw-light fs-6 text-secondary"> &nbsp; / 일주일</span>
 						    </div>
-						    <div class="fw-light fs-4 text-dark mt-2">
+						    <div class="fw-light fs-5 text-dark mt-2">
 						    	24 건 
 						    	<span class="fw-light fs-6 text-secondary"> &nbsp; / 한달</span>
 						    </div>
@@ -153,8 +153,8 @@
 			</div>
 			
 			
-			
-		
+			<!-- 빈공간  -->
+			 <div class="col-1"> &nbsp; </div>
 		
 		</div>
 	</div>
@@ -185,7 +185,8 @@ function getDataForChart() {
 			let barLabels = [];
 			let	barData = [];
 			response.saleList.forEach(function(data){
-				barLabels.push(data.MONTH);
+				// 너무 길면 자르기
+				barLabels.push(data.TITLE.length > 10 ? data.TITLE.substring(0, 5)+".." : data.TITLE);
 				barData.push(data.SALES);
 			});
 			makeBarChart(barData,barLabels);
@@ -224,7 +225,7 @@ function makeBarChart(d, l) {
 	   data: {
 	     labels: l,
 	     datasets: [{
-	       label: '월별 주문',
+	       label: '상품별 주문',
 	       data: d,
 	       borderWidth: 1,
 	       backgroundColor: [
@@ -245,7 +246,14 @@ function makeBarChart(d, l) {
 	       y: {
 	         beginAtZero: true
 	       }
+	   
+	   
 	     }
+	   
+	   
+	   
+	   
+	   
 	   }
 	 });
 }
