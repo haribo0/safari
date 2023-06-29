@@ -107,7 +107,7 @@
 						<div class="row mt-1">
 							<div class="col " id="productList">
 								<div class="row pt-2">
-									<div class="col pb-2" onclick="getReviewsByProductAndStatus(0,-1)">상품 전체</div>
+									<div class="col pb-2" onclick="getReviewsByProductAndStatus(0,-1)" style="cursor:pointer;">상품 전체</div>
 								</div>
 								<hr class="border">
 								
@@ -225,6 +225,7 @@ function getProductList() {
 				/* col.onclick = function() {
 			          getAllReviews(data.id, 0);
 			    }; */
+			    col.style.cursor = "pointer";
 		        col.addEventListener("click", function() {
 		        	getReviewsByProductAndStatus( data.id , -1);
 		          });

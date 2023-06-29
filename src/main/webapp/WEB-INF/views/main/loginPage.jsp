@@ -38,7 +38,22 @@
 		        <button class="btn btn-secondary">로그인</button>
 		      </div>
 		</form>		
+		
+
+	      
 	</div>
+	
+			
+	<div class="row mt-5 justify-content-center">
+
+        <div class="col-sm-6" style="max-width: 320px; cursor: pointer;">
+          <img class="img-fluid" src="/safari/resources/img/kakao_login_large_wide.png"  alt="">
+          
+        </div>
+
+        
+    </div>
+	
 	
 	<div class="d-flex justify-content-center my-5">
 		<a href="./joinPage" class="btn btn-primary text-center">회원가입</a>	
