@@ -72,7 +72,6 @@ function getViewAll(mainId2,subId2,cityId2,townId2,statusId2,orderId2){
 	
     const xhr = new XMLHttpRequest();
     let idx = 0;
-    listParent.innerHTML = ""; 
     mainId = mainId2==0?mainId:mainId2;
 	subId = subId2==0?subId:subId2;
 	cityId = cityId2==0?cityId:cityId2;
@@ -90,7 +89,7 @@ function getViewAll(mainId2,subId2,cityId2,townId2,statusId2,orderId2){
     xhr.onreadystatechange = function(){
     	if(xhr.readyState == 4 && xhr.status == 200){
         	const response = JSON.parse(xhr.responseText);
-        	
+        	listParent.innerHTML = ""; 
         	if(response.result == "success"){
         		
         		const recentOrderBox = document.getElementById("recentOrder");
@@ -223,7 +222,7 @@ function getViewAll(mainId2,subId2,cityId2,townId2,statusId2,orderId2){
                   
                     const divCol3 = document.createElement("div");
                     divCol3.classList.add("col", "ms-0", "p-0", "w-0", "smaller-text");
-                    divCol3.textContent = map.productCityDto.product_city_name + map.productTownDto.product_town_name;
+                    divCol3.textContent = map.productCityDto.product_city_name + ' ' + map.productTownDto.product_town_name;
                   
                     divRow4.appendChild(divCol3);
                     divCol.appendChild(divRow4);

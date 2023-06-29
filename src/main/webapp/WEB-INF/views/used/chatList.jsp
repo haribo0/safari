@@ -80,10 +80,11 @@
 		<p>중고 > 채팅방목록<p>
 		<div class="w-100 border-bottom">
 		</div>
-		<div class="container mt-4 ps-0">
-			<h3 class="fs-3 mb-3">${sessionUser.nickname }님의 채팅방 목록</h3>
+		<h3 class="fs-3 mb-3 mt-3">${sessionUser.nickname }님의 채팅방 목록</h3>
+		<div class="container mt-1 ps-0" id="chatRoomListStart">
+			
 		</div>
-		 	<c:forEach items="${list }" var="map">
+		<%-- <c:forEach items="${list }" var="map">
 		 		<div class="row align-items-center" onclick="modalOn(${map.productRequestDto.id},${map.userDto.id })">
 		 			<div class="col-1 pe-0"><i class="bi bi-person-circle fs-3"></i></div>
 		 			<div class="col-1 w-0 ms-0">${map.userDto.nickname }</div>
@@ -92,7 +93,7 @@
 		 			<div class="col-2">${map.productRequestDto.reg_date }</div>
 		 			<div class="col-5"></div>
 		 		</div>
-		 </c:forEach>
+		 </c:forEach> --%>
 	</div>
 </div>
 	
@@ -136,6 +137,74 @@
 	let requestId2 = null;
 	let receiverId2 = null;
 	
+	// 채팅방 룸 목록 열기 
+	function reloadChatRoomList() {
+		const chatRoomListStartBox = document.getElementById("chatRoomListStart");
+		
+		const xhr = new XMLHttpRequest();
+				
+	    xhr.onreadystatechange = function(){
+	        if(xhr.readyState == 4 && xhr.status == 200){
+	            const response = JSON.parse(xhr.responseText);
+	            chatRoomListStartBox.innerHTML = "";
+	            for(data of response.chatRoomList){
+	  			  const row = document.createElement('div');
+	  			  console.log("data.productRequestDto.id",data.productRequestDto.id)
+	  			  console.log("data.userDto.id",data.userDto.id)
+	  			  row.className = 'row align-items-center';
+	  			  row.setAttribute("onclick", "modalOn("+data.productRequestDto.id + "," + data.userDto.id + ")");
+
+	  			  const col1 = document.createElement('div');
+	  			  col1.className = 'col-1 pe-0';
+	  			  const col1Icon = document.createElement('i');
+	  			  col1Icon.className = 'bi bi-person-circle fs-3';
+	  			  col1.appendChild(col1Icon);
+
+	  			  const col2 = document.createElement('div');
+	  			  col2.className = 'col-1 w-0 ms-0';
+	  			  col2.textContent = data.userDto.nickname;
+
+	  			  const col3 = document.createElement('div');
+	  			  col3.className = 'col-1';
+	  			  const col3Img = document.createElement('img');
+	  			  col3Img.alt = '사진';
+	  			  col3Img.src = '/safarifile/' + data.productImgDto.product_img_link;
+	  			  col3Img.width = '50';
+	  			  col3Img.height = '50';
+	  			  col3.appendChild(col3Img);
+
+	  			  const col4 = document.createElement('div');
+	  			  col4.className = 'col ms-0 p-0';
+	  			  col4.textContent = data.productDto.title;
+
+	  			  const col5 = document.createElement('div');
+	  			  col5.className = 'col-2';
+		  		  const regDate = new Date(data.productRequestDto.reg_date);
+		  		  const formattedDate = regDate.getFullYear() + '-' + ('0' + (regDate.getMonth() + 1)).slice(-2) + '-' + ('0' + regDate.getDate()).slice(-2);
+		  		  col5.textContent = formattedDate;
+
+	  			  const col6 = document.createElement('div');
+	  			  col6.className = 'col-5';
+
+	  			  row.appendChild(col1);
+	  			  row.appendChild(col2);
+	  			  row.appendChild(col3);
+	  			  row.appendChild(col4);
+	  			  row.appendChild(col5);
+	  			  row.appendChild(col6);
+
+	  			  chatRoomListStart.appendChild(row);
+	  		      }
+	        }
+	    }
+		
+		
+	    //post
+		xhr.open("get", "./chatListAjax");
+		xhr.send();
+	}
+	
+	let intervalHandler = null;
 	// 모달 열기 
 	function  modalOn(requestId, receiverId) {
 		const myModal = bootstrap.Modal.getOrCreateInstance('#chatModal');
@@ -145,10 +214,11 @@
 		console.log("requestId"+requestId);
 		console.log("receiverId"+receiverId);
 		
+		reloadChatList(requestId);
+		
 		// 열 때
 		myModal.show();
 		
-		reloadChatList(requestId);
 		
 		// 전송버튼 
  		const sendBox = document.getElementById("sendContent");
@@ -158,6 +228,19 @@
 		
 		// 전송버튼 누르면 해당 메소드 불러오기 
 		sendBox.setAttribute("onclick", "insertContent("+requestId+","+receiverId+")")
+		
+		
+		if(intervalHandler != null){
+			clearInterval(intervalHandler);
+			intervalHandler = null;
+		}
+		
+		intervalHandler = setInterval(() => {
+			reloadChatList(requestId);
+		}, 3000);
+		
+		
+		
 	}
 	
 	// Textarea에서 Enter 칠 때도 전송되기(단, shirt+enter 안되게)
@@ -205,7 +288,6 @@
 function reloadChatList(requestId) {
 	// chatlisBox 
     const getChatbox = document.getElementById("getChatList");
-    getChatbox.innerHTML = ""; //초기화 얘만 innerHTML 허용... 
     
     const xhr = new XMLHttpRequest();
 	
@@ -214,6 +296,9 @@ function reloadChatList(requestId) {
 			const response = JSON.parse(xhr.responseText);
 			mySessionId = response.sessionId;
 
+		    getChatbox.innerHTML = ""; //초기화 얘만 innerHTML 허용... 
+			
+			
 			// 채팅 내용 반복문 돌리기 
 			for(data of response.chatList){
 				  const row1 = document.createElement('div');
@@ -253,7 +338,6 @@ function reloadChatList(requestId) {
 					  getChatbox.appendChild(row1);
 					
 				  }
-				  
 			}
 			// 채팅 화면 마지막으로 맞추기 
 			getChatbox.scrollTop = getChatbox.scrollHeight;
@@ -271,7 +355,14 @@ function modalHide(e) {
        myModal.hide();
 }
 	
+window.addEventListener("DOMContentLoaded", function() {
+	//사실상 시작 시점...
+	reloadChatRoomList();
 	
+	
+	
+	
+});	
 </script>
 </body>	
 </html>
