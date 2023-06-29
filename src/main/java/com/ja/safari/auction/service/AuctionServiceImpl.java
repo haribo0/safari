@@ -211,9 +211,7 @@ public class AuctionServiceImpl {
 	public Map<String, Object> getAuctionProductDetail(int id) {
 		
 		Map<String, Object> map = new HashMap<>();
-		
-		
-		
+
 		AuctionItemDto auctionDto = auctionSqlMapper.getAuctionProductDetail(id);
 		map.put("auctionDto", auctionDto); 
 		
@@ -286,8 +284,8 @@ public class AuctionServiceImpl {
 	}
 	
 	// 낙찰 시 경매 종료 상태 업데이트
-	public void renewSuccessfulBidOrEnd(int id) {
-		auctionSqlMapper.renewSuccessfulBidOrEnd(id);
+	public void renewImmediateSuccessfulBid(int id) {
+		auctionSqlMapper.renewImmediateSuccessfulBid(id);
 	}
 	
 	// 입찰 정보 조회
