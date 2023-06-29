@@ -22,6 +22,7 @@
 
 	<div class="container main_box">
 		<h1 class="text-center fs-3"><b>사파리메인</b> 페이지</h1>
+		test 
 	</div>
 	<!-- 푸터 섹션 -->
 	<jsp:include page="../common/footer.jsp"></jsp:include>
