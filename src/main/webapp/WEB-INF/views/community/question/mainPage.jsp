@@ -11,7 +11,7 @@
 </head>
 <body>
 
-	안녕하세요
+	1111
 	<!-- 헤더 섹션 -->
 	<jsp:include page="../../common/header.jsp"></jsp:include>
 	<!-- 헤더 섹션 -->
