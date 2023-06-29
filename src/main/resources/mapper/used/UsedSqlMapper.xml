@@ -254,7 +254,7 @@
 	ORDER BY reg_date DESC
 </select>
 
-<insert id="insertProductChat">
+<insert id="insertProductChat" >
 	INSERT INTO product_chat VALUES(
 	product_chat_seq.nextval,
 	#{purchase_request_id},
@@ -270,7 +270,7 @@
 	update PRODUCT_REQUEST set reg_date=
 </update> -->
 
-<select id="selectProductChatByRequestId">
+<select id="selectProductChatByRequestId" resultType="com.ja.safari.dto.ProductChatDto">
 	select * from product_chat where purchase_request_id=#{requestId} order by id
 </select>
 
