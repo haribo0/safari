@@ -445,23 +445,23 @@ public class RentalBusinessServiceImpl {
 
 	
 	// 월별 판매량 
-	public List<Map<String, Object>> getSalesByMonth() {
-		return rentalSqlMapper.getSalesByMonth();
+	public List<Map<String, Object>> getSalesByMonth(Integer businessId) {
+		return rentalSqlMapper.getSalesByMonth(businessId);
 	}
 	
 	// 상품별 판매량 
-	public List<Map<String, Object>> getSalesByProduct() {
-		return rentalSqlMapper.getSalesByProduct();
+	public List<Map<String, Object>> getSalesByProduct(Integer businessId) {
+		return rentalSqlMapper.getSalesByProduct(businessId);
 	}
 	
 	// 구매자 성별 비율 
-	public List<Map<String, Object>> getSalesByGender() {
-		return rentalSqlMapper.getSalesByGender();
+	public List<Map<String, Object>> getSalesByGender(Integer businessId) {
+		return rentalSqlMapper.getSalesByGender(businessId);
 	}
 	
 	// 월별 매출
-	public List<Map<String, Object>> getRevenueByDay() {
-		return rentalSqlMapper.getRevenueByDay();
+	public List<Map<String, Object>> getRevenueByDay(Integer businessId) {
+		return rentalSqlMapper.getRevenueByDay(businessId);
 	}
 
 }

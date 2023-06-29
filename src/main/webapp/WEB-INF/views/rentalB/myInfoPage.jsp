@@ -23,7 +23,9 @@
 	<div class="container-fluid main_box">
 		<div class="row ms-5">
 		
-			<div class="col-2">
+		
+			<div class="col-2" style=""></div>
+			<div class="col-2" style="position: fixed;">
 				<div class="list-group list-group-flush">
 					
 					<!-- 왼쪽 카테고리 리스트 -->
@@ -39,14 +41,14 @@
 			</div>
 			
 			
-			<div class="col container me-5">
+			<div class="col container ">
 			
     			<h4 class="row mt-3 mb-4 fw-regular">내 정보</h4>
 
 				<div class="row">
 					
 				    <div class="col"></div>
-				    <div class="col-2 d-grid">
+				    <div class="col-2 d-grid ">
 				    	<div class="btn btn-dark btn-sm" onclick="openModal()">정보 수정</div>
 				    </div>
 				    
@@ -179,7 +181,7 @@
 			
 			
 		
-		
+			<div class="col-1"></div>
 		</div>
 	</div>
 	

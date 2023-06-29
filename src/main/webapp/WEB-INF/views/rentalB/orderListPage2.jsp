@@ -42,7 +42,9 @@
 	<div class="container-fluid">
 		<div class="row ms-5">
 		
-			<div class="col-2 ">
+		
+			<div class="col-2" style=""></div>
+			<div class="col-2" style="position: fixed;">
 				<div class="list-group list-group-flush">
 					
 					<!-- 왼쪽 카테고리 리스트 -->
@@ -57,7 +59,7 @@
 			
 			</div>
 			
-			<div class="col ms-3 me-5">
+			<div class="col ">
 			    <h4 class="row mt-3 mb-4 fw-regular">주문 관리</h4>
 				
 				<div class="row mt-3 mb-2">
@@ -92,7 +94,7 @@
 					</div>
 					
 					
-					<!-- </form> -->
+					
 				    
 				   
 			    	
@@ -104,18 +106,19 @@
 				
 				<div class="row mt-4">
 					<div class="col" style="font-size: 15px;">
-						<div class="row py-2 border-bottom  border-2 text-center">
+						<div class="row py-2 border-bottom  border-2 mb-4 text-center">
 							<div class="col-1 fw-bold text-body-tertiary">#</div>
 							<div class="col-3 fw-bold text-body-tertiary">상품</div>
-							<div class="col-2 fw-bold text-body-tertiary">시작일</div>
+							<div class="col-2 fw-bold text-body-tertiary">대여시작</div>
 							<div class="col-2 fw-bold text-body-tertiary">주소</div>
 							
-							<div class="col-1 fw-bold text-body-tertiary">가격</div>
+							<div class="col-2 fw-bold text-body-tertiary">가격</div>
 							<div class="col-2 fw-bold text-body-tertiary">상태</div>
 						</div>
 						
 						<c:forEach var="map" items="${list}" >
-							<div class="row border-bottom py-3 mt-1 text-center ">
+						
+							<div class="row py-2  mt-2 mb-1 text-center ">
 								<div class="col-1">${map.order.id }</div>
 								<div class="col-3">${map.product.title }</div>
 								<div class="col-2">
@@ -123,8 +126,8 @@
 								</div>
 								<div class="col-2">${map.order.address }</div>
 								
-								<div class="col-1">
-									<fmt:formatNumber value="${map.order.price}" pattern="#,###" />
+								<div class="col-2">
+									<fmt:formatNumber value="${map.order.price}" pattern="#,###" /> <span>원 / 월</span>
 								</div> 
 								
 								<c:choose>
@@ -140,29 +143,23 @@
 								</c:choose>
 								
 								
+								
+							</div>
+							<div class="row text-center ">
+								<hr class="border">
 							</div>
 						</c:forEach>
 						
 						
 						
-						<!-- <div class="row border-bottom py-3">
-							<div class="col-2">63323-542</div>
-							<div class="col-2">Argentina AR</div>
-							<div class="col-2">1818 Barnett Park</div>
-							<div class="col-2">1/1/2017</div>
-							<div class="col-1 ps-0"><button class="btn_delivered fw-bold">Delivered</button></div>
-							<div class="col-1">Retail</div>
-							<div class="col-2">
-								<i class="bi bi-gear-fill text-secondary px-2 c_pointer"></i>
-								<i class="bi bi-pencil-fill text-secondary px-2 c_pointer"></i>
-								<i class="bi bi-trash2-fill text-secondary px-2 c_pointer"></i>
-							</div>
-						</div> -->
+						
 						
 					</div>
 				</div>
 				
 			</div>
+			
+			<div class="col-1"></div>
 		</div>
 	</div>
 	

@@ -590,9 +590,9 @@ public class RentalBusinessRestController {
 		}
 		
 		map.put("result", "success");
-		map.put("saleList", rentalService.getSalesByProduct());
-		map.put("genderList", rentalService.getSalesByGender());
-		map.put("revenueList", rentalService.getRevenueByDay());
+		map.put("saleList", rentalService.getSalesByProduct(businessDto.getId()));
+		map.put("genderList", rentalService.getSalesByGender(businessDto.getId()));
+		map.put("revenueList", rentalService.getRevenueByDay(businessDto.getId()));
 
 		
 		return map;

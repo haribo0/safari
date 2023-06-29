@@ -263,10 +263,6 @@ public class RentalBusinessController {
 	public String businessRegisterProcess(HttpSession session, RentalBusinessDto rentalBusinessDto, String addressDetail,
 			MultipartFile regImg) {
 		
-		RentalBusinessDto businessUser = (RentalBusinessDto)session.getAttribute("businessUser");
-		if(businessUser==null) {
-			return "redirect:./loginPage";
-		}
 		
 		// 파일 저장 로직 
 		if(regImg != null) {
@@ -305,6 +301,7 @@ public class RentalBusinessController {
 		rentalBusinessDto.setBusiness_address(address);
 		
 		rentalService.registerBusiness(rentalBusinessDto);
+		
 		
 		return "redirect:./mainPage";
 	}

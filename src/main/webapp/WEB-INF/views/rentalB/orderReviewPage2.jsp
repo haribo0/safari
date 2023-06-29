@@ -48,7 +48,9 @@
 	<div class="container-fluid main_box">
 		<div class="row ms-5">
 		
-			<div class="col-2 ">
+		
+			<div class="col-2" style=""></div>
+			<div class="col-2" style="position: fixed;">
 				<div class="list-group list-group-flush">
 					
 					<!-- 왼쪽 카테고리 리스트 -->

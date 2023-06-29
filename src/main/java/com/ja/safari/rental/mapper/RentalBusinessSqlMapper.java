@@ -158,16 +158,16 @@ public interface RentalBusinessSqlMapper {
 	
 	
 	// 월별 주문수 
-	public List<Map<String, Object>> getSalesByMonth();
+	public List<Map<String, Object>> getSalesByMonth(Integer businessId);
 	
 	// 상품별 주문수 
-	public List<Map<String, Object>> getSalesByProduct();
+	public List<Map<String, Object>> getSalesByProduct(Integer businessId);
 	
 	// 고객 성별 비율
-	public List<Map<String, Object>> getSalesByGender();
+	public List<Map<String, Object>> getSalesByGender(Integer businessId);
 	
 	// 월별 매출 
-	public List<Map<String, Object>> getRevenueByDay();
+	public List<Map<String, Object>> getRevenueByDay(Integer businessId);
 
 
 

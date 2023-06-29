@@ -38,7 +38,9 @@
 	<div class="container-fluid main_box">
 		<div class="row ms-5">
 		
-			<div class="col-2 ">
+		
+			<div class="col-2" style=""></div>
+			<div class="col-2" style="position: fixed;">
 				<div class="list-group list-group-flush">
 					
 					<!-- 왼쪽 카테고리 리스트 -->
@@ -54,7 +56,7 @@
 			</div>
 			
 			
-			<div class="col ms-3 me-5">
+			<div class="col">
 		    	
 		    	<h4 class="row mt-3 fw-regular">상품 관리</h4>
 
@@ -113,11 +115,13 @@
 						  			
 								  </a>
 									
-								  <ul class="dropdown-menu ps-2 pe-2">
+								  <ul class="dropdown-menu px-3">
 								  	<c:forEach items="${map.discountedPriceList}" var="dto">
-								  		<li class="f-sm2 text-center">
+								  		<li class="f-sm2 text-center mt-1">
+								  			
 								  			<fmt:formatNumber value="${dto.discounted_price}" pattern="#,###" var="formattedPrice2" />
 								  			${formattedPrice2} 원 / ${dto.rental_period}개월
+								  			
 								  		</li>
 								  	</c:forEach>
 								  </ul>
@@ -145,7 +149,7 @@
 			
 			
 		
-		
+		<div class="col-1"></div>
 		</div>
 	</div>
 	
