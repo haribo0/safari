@@ -1,0 +1,238 @@
+@charset "UTF-8";
+
+a {
+	color: inherit;
+	text-decoration: none;
+}
+
+
+
+.sortBox {
+	width: 100%;
+	height: 40px;
+	border: 0.5px solid #edebe6;		
+}
+
+.auctionBox {
+	width: 100%;
+	height: 150px;
+	border: 0.5px solid #edebe6;
+}
+
+.mainPageAuctionImg {
+	height: 120px;
+}
+
+.detailPageAuctionImg {
+	height: 66px;
+}
+
+/* 리뷰 */
+input[type="radio"] {
+	
+	display: none;
+}
+
+
+.tab_content {font-size:0;}
+
+
+input[type="radio"] + label {
+	display: inline-block;
+	padding: 10px;
+	background: white;
+	width: 250px;
+	border: 0.4px solid #E2E3E5;
+	color: black;
+	font-weight: bold;
+	font-size: 17px;
+	cursor: pointer; /* 마우스가 올라가면 커서를 바꾸는 속성 */
+}
+
+input[type="radio"]:checked + label { /* :checked - 체크가 되었을 때 변화되는 속성*/
+	background: #E2E3E5;
+	color: #000;
+}
+
+.conbox {
+
+	height: 600px;
+	background: white;
+	display: none;
+	font-size: 16px;
+}
+
+input[id="tab01"]:checked ~ .con1 {
+	display: block; /* 화면에 보이게 설정 */
+}
+input[id="tab02"]:checked ~ .con2 {
+	display: block;
+}
+input[id="tab03"]:checked ~ .con3 {
+	display: block;
+}
+
+
+.chatBox {
+	width: 200px;
+	height: 380px;
+	border: 0.3px solid #E2E3E5;
+	font-size: 14px;
+    display: flex;
+    flex-direction: column-reverse;
+}
+
+.bidBox {
+	width: 100%;
+	height: 30px;
+	background-color: #FF8200;
+	font-weight: bold;
+	color: white;
+	
+}
+
+.noticeBox {
+	width: 100%;
+	height: 56px;
+	background-color: #f0ebe9;
+}
+
+
+.seller-bubble {
+	position: relative;
+	background: #cafc03;
+	border-radius: .4em;
+	/*height: 30px;*/
+	text-align: middle;
+	display: flex;
+	align-items: center;
+	  padding: 10px;
+    white-space: pre-wrap; /* 텍스트 줄바꿈을 위한 설정 */
+}
+
+.seller-bubble:after {
+	content: '';
+	position: absolute;
+	left: 0;
+	top: 50%;
+	width: 0;
+	height: 0;
+	border: 9px solid transparent;
+	border-right-color: #cafc03;
+	border-left: 0;
+	border-top: 0;
+	margin-top: -4.5px;
+	margin-left: -9px;
+}
+
+
+
+
+.speech-bubble {
+	position: relative;
+	background: #d7edef;
+	border-radius: .4em;
+	/*height: 30px;*/
+	text-align: middle;
+	display: flex;
+	align-items: center;
+	  padding: 10px;
+    white-space: pre-wrap; /* 텍스트 줄바꿈을 위한 설정 */
+}
+
+.speech-bubble:after {
+	content: '';
+	position: absolute;
+	left: 0;
+	top: 50%;
+	width: 0;
+	height: 0;
+	border: 9px solid transparent;
+	border-right-color: #d7edef;
+	border-left: 0;
+	border-top: 0;
+	margin-top: -4.5px;
+	margin-left: -9px;
+}
+
+
+
+.my-speech-bubble {
+	position: relative;
+	background: #f5f542;
+	border-radius: .4em;
+	/*height: 30px;*/
+	text-align: middle;
+	display: flex;
+	align-items: center;
+	padding: 10px;
+    white-space: pre-wrap; /* 텍스트 줄바꿈을 위한 설정 */
+}
+
+
+
+.my-speech-bubble:after {
+	content: '';
+	position: absolute;
+	right: 0;
+	top: 50%;
+	width: 0;
+	height: 0;
+	border: 15px solid transparent;
+	border-left-color: #f5f542;
+	border-right: 0;
+	border-top: 0;
+	margin-top: -4.5px;
+	margin-right:  -9px;
+}
+
+
+/* 카운트 다운 */
+
+.countdown {
+    background-clip: border-box;
+    border-radius: 10px;
+    /*box-shadow: 0 0 10px rgba(96, 134, 181, .3);*/
+    border: none;
+    text-align: center;
+}
+
+.countdown_body {
+    font-size: 0;
+    padding: 1.25rem;
+}
+
+.countdown_title {
+    font-size: 25px;
+    margin: 0 0 .75rem;
+}
+
+.countdown_section {
+    display: inline-block;
+    margin-left: 4px;
+}
+
+.countdown_section:first-child {
+    margin-left: 0;
+}
+
+.countdown_section .value {
+    background-color: #333;
+    border-radius: 10px;
+    font-size: 50px;
+    color: #333;
+    line-height: 100px;
+    text-align: center;
+    height: 100px;
+    width: 100px;
+}
+
+.countdown_label {
+    font-size: 11px;
+    padding-top: 4px;
+    text-align: center;
+}
+/* 카운트 다운 */
+
+
+

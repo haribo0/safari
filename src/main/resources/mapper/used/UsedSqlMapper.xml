@@ -1,0 +1,279 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ja.safari.used.mapper.UsedSqlMapper">
+
+<select id="selectUserDtoById" resultType="com.ja.safari.dto.UserDto">
+	SELECT * FROM USER_TABLE WHERE id=#{id}
+</select>
+
+
+<select id="selectMainCategory" resultType="com.ja.safari.dto.ProductMainCategoryDto">
+	select * from PRODUCT_MAIN_CATEGORY order by id
+</select>
+
+<select id="selectSubCategory" resultType="com.ja.safari.dto.ProductSubCategoryDto">
+	select * from PRODUCT_SUB_CATEGORY 
+	where product_main_category_id = #{mainCategoryId}
+	order by id
+</select>
+
+<select id="selectProductCity" resultType="com.ja.safari.dto.ProductCityDto">
+	select * from PRODUCT_CITY order by id
+</select>
+
+<select id="selectProductTown" resultType="com.ja.safari.dto.ProductTownDto">
+	select * from PRODUCT_TOWN
+	where product_city_id = #{cityId}
+	order by id
+</select>
+
+<select id="selectProductTownById" resultType="com.ja.safari.dto.ProductTownDto">
+	SELECT * FROM PRODUCT_TOWN WHERE id = #{townId}
+</select>
+
+<select id="selectProductCityByTownId" resultType="com.ja.safari.dto.ProductCityDto">
+	SELECT * FROM PRODUCT_CITY WHERE id = (SELECT product_city_id FROM PRODUCT_TOWN WHERE id=#{townId})
+</select>
+
+<select id="createProductPk" resultType="int">
+	select product_seq.nextval from dual
+</select>
+
+<insert id="insertProduct">
+	INSERT INTO product VALUES(
+	#{id},
+	#{user_id},
+	#{product_sub_category},
+	#{product_town_id},
+	#{title},
+	#{price},
+	#{content},
+	#{location},
+	0,
+	SYSDATE
+)
+</insert>
+
+<insert id="insertProductImg">
+	INSERT INTO product_img VALUES(
+		product_img_seq.nextval,
+		#{product_id},
+		#{product_img_link}
+	)
+</insert>
+
+<select id="selectProductByAllCondition" resultType="com.ja.safari.dto.ProductDto">
+	SELECT p.*, NVL(pl.likeCount, 0) AS Likecount
+	FROM product p
+	LEFT JOIN (
+    SELECT product_id, COUNT(*) AS likeCount
+    FROM PRODUCT_LIKE
+    GROUP BY product_id
+	) pl ON p.id = pl.product_id
+	WHERE 1 = 1
+	<if test="mainId != -1">
+	AND product_sub_category 
+	IN (SELECT id FROM PRODUCT_SUB_CATEGORY 
+	WHERE product_main_category_id = #{mainId}
+		<if test="subId != -1">
+		AND id = #{subId}
+		</if>
+	)
+	</if>
+	<if test="cityId != -1">
+	AND product_town_id 
+	IN (SELECT id FROM product_town 
+	WHERE product_city_id=#{cityId})
+	</if>
+	<if test="townId != -1">
+	AND product_town_id 
+	IN (SELECT id FROM product_town 
+	WHERE id=#{townId})
+	</if>
+	<if test="statusId == 1">
+	AND id NOT IN
+	(SELECT product_id FROM product_request WHERE status IN('거래완료'))
+	</if>
+	<if test="orderId == -1"> 
+	ORDER BY reg_date DESC
+	</if>
+	<if test="orderId == 1"> 
+		ORDER BY NVL(pl.likeCount, 0) DESC
+	</if>
+	<if test="orderId == 2"> 
+		ORDER BY price
+	</if>
+	<if test="orderId == 3"> 
+		ORDER BY price DESC
+	</if>
+</select>
+
+
+
+<select id="selectProduct" resultType="com.ja.safari.dto.ProductDto">
+	select * from product order by id DESC
+</select>
+
+<select id="selectProductImg" resultType="com.ja.safari.dto.ProductImgDto">
+	SELECT * FROM PRODUCT_IMG WHERE ID = (SELECT MIN(ID) FROM PRODUCT_IMG WHERE PRODUCT_ID = #{productId})
+</select>
+
+<select id="selectProductImgAll" resultType="com.ja.safari.dto.ProductImgDto">
+	SELECT * FROM PRODUCT_IMG WHERE product_id = #{productID} ORDER BY ID
+</select>
+
+<select id="selectProductById" resultType="com.ja.safari.dto.ProductDto">
+	select * from product where id = #{productId}
+</select>
+
+<update id="updateProductViewsById">
+	update product set views = views + 1 where id = #{productId}
+</update>
+
+<select id="selectProductLikeCountByProductId" resultType="int">
+	SELECT count(*) FROM PRODUCT_LIKE WHERE product_id=#{productId}
+</select>
+
+<insert id="insertProductLike">
+	insert into PRODUCT_LIKE values(
+		product_like_seq.nextval,
+		#{product_id},
+		#{user_id},
+		SYSDATE
+	)
+</insert>
+
+<delete id="deleteProductLike">
+	delete from PRODUCT_LIKE
+		where product_id = #{product_id} 
+		and user_id = #{user_id}
+</delete>
+
+<select id="selectMyProductLike" resultType="int">
+	SELECT count(*) FROM PRODUCT_LIKE WHERE product_id=#{product_id} and user_id = #{user_id}
+</select>
+
+<select id="selectProductSubCategoryById" resultType="com.ja.safari.dto.ProductSubCategoryDto">
+	SELECT * FROM product_sub_category WHERE id=#{id}
+</select>
+
+<select id="selectProductMainbCategoryById" resultType="com.ja.safari.dto.ProductMainCategoryDto">
+	SELECT * FROM product_main_category WHERE id=#{id}
+</select>
+
+<update id="updateProduct">
+	update product set product_sub_category=#{product_sub_category}, 
+	product_town_id=#{product_town_id},
+	title=#{title}, price=#{price},
+	 content=#{content}, location =#{location}, reg_date = SYSDATE
+	 where id=#{id}
+</update>
+
+<delete id="deleteProductImgByProductId">
+	delete from PRODUCT_IMG
+		where product_id = #{productId} 
+</delete>
+
+<delete id="deleteProductByProductId">
+	delete from PRODUCT
+		where id = #{id} 
+</delete>
+
+<insert id="insertProductRequest">
+	insert into PRODUCT_REQUEST values(
+		PRODUCT_REQUEST_SEQ.nextval,
+		#{product_id},
+		#{user_id},
+		'거래요청',
+		SYSDATE
+	)
+</insert>
+
+<select id="selectProductRequestByProductId" resultType="com.ja.safari.dto.ProductRequestDto">
+	select * from PRODUCT_REQUEST where product_id = #{productId} order by id DESC
+</select>
+
+<select id="selectProductRequestCountByUser" resultType="int">
+	SELECT COUNT(*) FROM PRODUCT_REQUEST WHERE product_id=#{productId} AND user_id=#{userId}
+</select>
+
+<delete id="deleteProductRequestByUser">
+	delete from PRODUCT_REQUEST WHERE product_id=#{productId} AND user_id=#{userId}
+</delete>
+
+<update id="updateProductRequestStatusReservate">
+	update PRODUCT_REQUEST set status='예약중' WHERE product_id=#{productId} AND user_id=#{userId}
+</update>
+
+<update id="updateProductRequestStatusComplete">
+	update PRODUCT_REQUEST set status='거래완료' WHERE product_id=#{productId} AND user_id=#{userId}
+</update>
+
+<update id="updateProductRequestStatusCancel">
+	update PRODUCT_REQUEST set status='거래요청' WHERE product_id=#{productId} AND user_id=#{userId}
+</update>
+
+<select id="countProductRequestReservation" resultType="int">
+	SELECT COUNT(*) FROM PRODUCT_REQUEST WHERE product_id=#{productId} and status='예약중'
+</select>
+
+<select id="countProductRequestComplete" resultType="int">
+	SELECT COUNT(*) FROM PRODUCT_REQUEST WHERE product_id=#{productId} and status='거래완료'
+</select>
+
+<select id="countProductRequestByProductId" resultType="int">
+	SELECT COUNT(*) FROM product_request WHERE product_id=#{productId}
+</select>
+
+<select id="selectBestProduct" resultType="com.ja.safari.dto.ProductDto">
+	SELECT * FROM product WHERE id in (SELECT product_id FROM 
+	(SELECT product_id, ROWNUM rn FROM (
+	SELECT product_id,count(*) FROM PRODUCT_LIKE WHERE product_id NOT IN
+	(SELECT product_id FROM product_request WHERE status IN('거래완료'))
+	GROUP BY product_id ORDER BY count(*) DESC)
+	ORDER BY rn))
+</select>
+
+<select id="selectProductByCategory" resultType="com.ja.safari.dto.ProductDto">
+	SELECT * FROM PRODUCT 
+	WHERE product_sub_category IN 
+	(SELECT id FROM PRODUCT_SUB_CATEGORY 
+	WHERE product_main_category_id = #{mainId}
+	<if test="subId != null and subId != ''">  
+	AND id = #{subId}
+	</if>
+	)
+</select>
+
+<select id="selectProductRequestAllByUserId" resultType="com.ja.safari.dto.ProductRequestDto">
+	SELECT * FROM PRODUCT_REQUEST WHERE user_id=#{userId}
+	OR product_id 
+	IN(SELECT id FROM product WHERE user_id=#{userId})
+	ORDER BY reg_date DESC
+</select>
+
+<insert id="insertProductChat">
+	INSERT INTO product_chat VALUES(
+	product_chat_seq.nextval,
+	#{purchase_request_id},
+	#{sender_id},
+	#{receiver_id},
+	#{content},
+	'N',
+	SYSDATE
+)
+</insert>
+
+<!-- <update>
+	update PRODUCT_REQUEST set reg_date=
+</update> -->
+
+<select id="selectProductChatByRequestId">
+	select * from product_chat where purchase_request_id=#{requestId} order by id
+</select>
+
+
+
+</mapper>

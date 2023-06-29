@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ja.safari.community.mapper.CommunitySqlMapper">
+
+	<select id="createPk" resultType="int">
+		select help_table_seq.nextval from dual
+	</select>
+	
+	<insert id="registerHelpBoard">
+	insert into help_table values(
+    #{id},
+    #{user_id},
+    #{title},
+    #{content},
+    0,
+    #{points},
+    '진행중',
+    #{location},
+    sysdate
+	)
+	</insert>
+	
+	
+	
+	<select id="selectAllHelpBoards" resultType="com.ja.safari.dto.HelpDto">
+		select ht2.* from(
+    		select ht1.*, rownum rnum from(
+        		select ht.* from help_table ht
+        		order by id desc
+        	) ht1
+     	)ht2
+     	<![CDATA[ 
+		where ht2.rnum >= ((#{helpPage}-1)*10)+1 and ht2.rnum <= #{helpPage}*10
+		]]>
+	</select>
+	
+	 <select id="getHelpBoardCount" resultType="int">
+		select count(*) from help_table
+	</select>
+	
+	<select id="getHelpBoard" resultType="com.ja.safari.dto.HelpDto">
+		select * from help_table where id=#{id}
+	</select>
+	
+	<update id="updateHelpBoard">
+	update help_table
+		set 
+	  		title= #{title} , content= #{content} , points= #{points} , location=#{location} 
+		where 
+	  		id=#{id}
+	</update>
+	
+    
+  <delete id="deleteHelpBoard">
+  	delete from help_table where id=#{id}
+  </delete>
+  
+  <update id="increaseHelpReadCount">
+  	update help_table
+	set views = views + 1
+	where id = #{id}
+  </update>
+  
+  <!-- 해주세요 게시물 댓글 insert -->
+  <insert id="registerHelpComment">
+  insert into help_comment_table values(
+    HELP_COMMENT_TABLE_SEQ.nextval,
+    #{user_id},
+    #{help_id},
+    #{content},
+    '채택 대기중',
+    sysdate
+    )
+  </insert>
+  
+  <!-- 해주세요 게시글 댓글 리스트 조회 -->
+  <select id="selectAllHelpComments" resultType="com.ja.safari.dto.HelpCommentDto">
+  select * from help_comment_table where help_id=#{help_id} order by id desc
+  </select>
+  
+  
+    
+    <delete id="deleteHelpComment">
+    delete from help_comment_table where id=#{id}
+    </delete>
+  
+  <!--해주세요 게시물 이미지 insert  --> 
+  <insert id="insertHelpBoardImage">
+	insert into help_img_table values(
+    help_img_table_seq.nextval,
+    #{help_id},
+    #{help_img_link},
+    #{help_original_filename}
+    )
+  </insert>
+  
+  <select id="selectHelpBoardImageByHelpId" resultType="com.ja.safari.dto.HelpImgDto">
+  	select * from help_img_table
+	where help_id = #{helpId}
+  </select>
+	
+	<!-- 해주세요 좋아요 insert -->
+	<insert id="insertHelpLike">
+	insert into help_like_table values(
+    help_like_table_seq.nextval,
+    #{user_id},
+    #{help_id},
+    sysdate
+	)
+	</insert>
+	
+	<!-- 해주세요 -->
+	<select id="getHelpLikeCountByBoardId" resultType="int">
+	select count(*) from help_like_table where help_id = #{help_id}
+	</select>
+
+	
+	<!-- 해주세요 댓글수 보드에 출력 -->
+	<select id="selectAllHelpCommentCountByBoardId" resultType="int">
+	select count(*) from help_comment_table where help_id=#{help_id}
+	</select>
+
+	<!-- 해주세요 좋아요 수 보드에 출력 -->
+	<select id="selectAllHelpLikeCountByBoardId" resultType="int">
+	select count(*) from help_like_table where help_id=#{help_id}
+	</select>
+
+	<!-- 해주세요 이미지 보드에 출력 -->
+	<select id="selectAllHelpImgByBoardId" resultType="int">
+	select count(*) from help_img_table where help_id=#{help_id}
+	</select>
+	
+	
+	
+	
+	
+	<!-- 구인구직  -->
+	
+	
+	<!-- 구인구직 게시판 PK 조회 -->
+	<select id="createRecruitPk" resultType="int">
+		SELECT recruit_table_seq.nextval FROM dual 		
+	</select>
+	
+	<!-- 구인구직 게시판 insert -->
+	<insert id="registerRecruitBoard">
+		INSERT INTO recruit_table VALUES(
+		    #{id},
+			#{user_id},
+			#{position_category_id},
+			#{title},
+			#{content},
+			#{phone},
+			#{email},
+			#{salary},
+			#{location},
+			#{opening},
+			#{gender},
+			#{age_limit},
+			0,
+			'모집중',
+			sysdate,
+			sysdate
+		)
+	</insert>
+	
+	<!-- 구인구직 게시판 이미지 테이블 insert : image-->
+	<insert id="insertRecruitBoardImage">
+		insert into recruit_img_link_table values(
+			recruit_img_link_table_seq.nextval,
+			#{recruit_id},
+			#{img_name},
+			#{img_link}
+		)
+	</insert>
+
+	<!-- 구인구직 게시판 이미지 select -->	
+	<select id="selectRecruitBoardImageByRecruitId" resultType="com.ja.safari.dto.RecruitImgLinkDto">
+		select * from recruit_img_link_table
+		where recruit_id = #{recruit_id}
+	</select>
+	
+	<!-- 구인구직 좋아요 insert : like-->
+	<insert id="insertRecruitLike">
+		insert into recruit_like_table values(
+		    RECRUIT_LIKE_TABLE_SEQ.nextval,
+		    #{user_id},
+		    #{recruit_id},
+		    sysdate
+		)
+	</insert>
+	
+	<!-- 구인구직 좋아요 delete -->	
+	<delete id="deleteRecruitLike">
+		delete from recruit_like_table
+		where recruit_id = #{recruit_id}
+		and user_id = {user_id}
+	</delete>
+	
+	<!-- 구인구직 좋아요 개수 count -->
+	<select id="countLikeByRecruitBoardId" resultType="int">
+		select count(*) from recruit_like_table
+		where recruit_id = #{recruit_id}
+	</select>
+
+	<!-- 구인구직 게시판 전체 조회 -->
+	<select id="selectAllRecruitBoards" resultType="com.ja.safari.dto.RecruitDto">
+	select * 
+	from recruit_table 
+	order by id desc
+	</select>
+
+	<!-- 구인구직 게시판 상세보기 -->
+	<select id="selectById" resultType="com.ja.safari.dto.RecruitDto">
+		select * 
+		from recruit_table 
+		where id=#{id}
+	</select>
+	
+	
+	
+	
+	
+	
+</mapper>

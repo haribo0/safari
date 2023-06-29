@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ja.safari.community.mapper.PromotionReviewMapper">
+
+<select id="createPK" resultType="int">
+	SELECT promotion_review_seq.nextval FROM dual
+</select>
+
+<select id="selectPromotionReviewAll" resultType="com.ja.safari.dto.PromotionReviewDto">
+	SELECT t2.* FROM (
+		SELECT t1.*, ROWNUM rnum FROM(
+			SELECT pro_review.*
+			FROM promotion_review pro_review
+			INNER JOIN user_table ut ON ut.id = pro_review.user_id
+			WHERE 1=1
+			<if test="promoReview_searchType != null and promoReview_searchWord != null">
+				<choose>
+					<when test="promoReview_searchType == 'promotion_review_title'">
+						AND pro_review.promotion_review_title LIKE '%' || #{promoReview_searchWord} || '%'
+					</when>
+					<when test="promoReview_searchType == 'promotion_review_content'">
+						AND pro_review.promotion_review_content LIKE '%' || #{promoReview_searchWord} || '%'
+					</when>
+					<when test="promoReview_searchType == 'nickname'">
+						AND ut.nickname LIKE '%' || #{promoReview_searchWord} || '%'
+					</when>
+				</choose>
+			</if>
+			ORDER BY pro_review.id DESC
+			
+		) t1
+	) t2
+	<![CDATA[
+	WHERE t2.rnum >= ((#{page}-1)*10) + 1 AND t2.rnum <= #{page}*10
+	]]>
+</select>
+
+<select id="getPromotionReviewCount" resultType="int">
+	SELECT COUNT(*)
+	FROM promotion_review pro_review
+	INNER JOIN user_table ut ON ut.id = pro_review.user_id
+	<if test="promoReview_searchType != null and promoReview_searchWord != null">
+		<choose>
+			<when test="promoReview_searchType == 'promotion_review_title'">
+				AND pro_review.promotion_review_title LIKE '%' || #{promoReview_searchWord} || '%'
+			</when>
+			<when test="promoReview_searchType == 'promotion_review_content'">
+				AND pro_review.promotion_review_content LIKE '%' || #{promoReview_searchWord} || '%'
+			</when>
+			<when test="promoReview_searchType == 'nickname'">
+				AND ut.nickname LIKE '%' || #{promoReview_searchWord} || '%'
+			</when>
+		</choose>
+	</if>
+</select>
+
+<insert id = "insertPromotionReview">
+	INSERT INTO promotion_review VALUES(
+		#{id},
+		#{user_id},
+		#{rental_item_id},
+		#{promotion_review_title},
+		#{promotion_review_content},
+		#{promotion_review_rating},
+		#{promotion_review_views},
+		SYSDATE
+	)
+</insert>
+
+<select id = "selectPromotionReviewImgAll" resultType="com.ja.safari.dto.PromotionReviewImgDto">
+	SELECT *
+	FROM promotion_review_img
+	WHERE promotion_review_id = #{promotion_review_id}
+</select>
+
+<insert id="insertPromotionReviewImg">
+	INSERT INTO promotion_review_img VALUES(
+		promotion_review_img_seq.nextval,
+		#{promotion_review_id},
+		#{rental_review_img}
+	)
+</insert>
+
+<select id="selectByPromoReviewId" resultType="com.ja.safari.dto.PromotionReviewDto">
+	SELECT *
+	FROM promotion_review
+	WHERE id = #{id}
+</select>
+
+<select id="selectByPromoReviewImgId" resultType="com.ja.safari.dto.PromotionReviewImgDto">
+	SELECT *
+	FROM promotion_review_img
+	WHERE promotion_review_id = #{promotion_review_id}
+</select>
+
+<update id="updatePromotionReview">
+	UPDATE promotion_review
+	SET rental_item_id = #{rental_item_id},
+		promotion_review_title = #{promotion_review_title},
+		promotion_review_content = #{promotion_review_content}
+	WHERE id = #{id}
+</update>
+
+<delete id="deletePromotionReview">
+	DELETE FROM promotion_review WHERE id = #{id}
+</delete>
+
+<delete id="deletePromotionReviewImg">
+	DELETE FROM promotion_review_img WHERE promotion_review_id = #{promotion_review_id}
+</delete>
+
+<update id="increaseViewCount">
+	UPDATE promotion_review
+	SET promotion_review_views = promotion_review_views + 1
+	WHERE id = #{id}	
+</update>
+
+<insert id="insertPromotionReviewLike">
+	INSERT INTO promotion_review_like VALUES (
+		promotion_review_like_seq.NEXTVAL,
+		#{review_id},
+		#{user_id},
+		SYSDATE
+	)
+</insert>
+
+<delete id="deletePromotionReviewLike">
+	DELETE FROM promotion_review_like
+	WHERE review_id = #{review_id}
+	AND user_id = #{user_id}
+</delete>
+
+<select id="countPromoReviewMyLike" resultType="int">
+	SELECT COUNT(*) FROM promotion_review_like
+	WHERE review_id = #{review_id}
+	AND user_id = #{user_id}
+</select>
+
+<select id="countLikeByUserId" resultType="int">
+	SELECT COUNT(*) FROM promotion_review_like
+	WHERE review_id = #{review_id}
+</select>
+
+
+
+
+
+</mapper>

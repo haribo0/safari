@@ -1,0 +1,19 @@
+@charset "UTF-8";
+
+.category_box {
+	height: 1000px;
+	width: 220px;
+	border: 0.5px solid #edebe6;
+}
+
+ul, li {
+	list-style: none;
+}
+
+.inputPriceBox {
+ 	width: 80px;
+ 	height: 20px;
+ 	float: left;
+ 	font-size: 11px;
+ 	text-align: center;
+}

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ja.safari.user.mapper.UserSqlMapper">
+
+		<!-- 회원가입 -->
+		<insert id="insert">
+			INSERT INTO user_table VALUES(
+			    user_table_seq.nextval,
+			    #{email},
+			    #{pw},
+			    #{nickname},
+			    #{phone},
+			    #{gender},
+			    #{birth},
+			    #{profile_img_link},
+			    SYSDATE
+			)
+		</insert>
+		
+		<!-- 로그인 -->
+		<select id="selectByIdAndPw" resultType="com.ja.safari.dto.UserDto">
+			SELECT * FROM user_table WHERE email = #{email} AND pw = #{pw}
+		</select>
+		
+		<!-- 유저아이디로 유저 dto 가져오기  -->
+		<select id="selectUserDtoById" resultType="com.ja.safari.dto.UserDto">
+			SELECT * FROM user_table WHERE id = #{id}
+		</select>
+		
+		
+		
+		
+		
+				
+		<!-- 주소추가 -->
+		<insert id="insertUserAddress">
+			INSERT INTO user_address_table VALUES(
+				user_address_table_seq.nextval,
+				#{user_id},
+				#{address}
+			)
+		</insert>
+		
+		<!-- 주소가져오기 -->
+ 		<select id="selectAddressListAllById" resultType="com.ja.safari.dto.UserAddressDto">
+			SELECT * FROM user_address_table WHERE #{user_id} = #{id}
+		</select>
+		
+		<!-- 렌탈리스트 가져오기 -->
+ 		<select id="selectRentalOrderedListById" resultType="com.ja.safari.dto.RentalOrderDto">
+			select * from rental_order_table WHERE user_id = #{id}
+		</select>
+		
+				
+		<!-- 아래서부터 09 코드 -->
+		<!-- 회원 pk로 회원 정보 조회 -->
+		<select id="getUserInfoById" resultType="com.ja.safari.dto.UserDto">
+			SELECT * FROM user_table WHERE id = #{id}
+		</select>
+		
+
+</mapper>

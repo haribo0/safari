@@ -1,0 +1,71 @@
+@font-face {
+    font-family: 'SUIT-Regular';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_suit@1.0/SUIT-Regular.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+body{font-family: 'SUIT-Regular','Noto Sans KR', sans-serif; color: #333;}
+
+.ico_sns i{cursor: pointer;}
+
+.search_box{background-image:url('../image/magnifying-glass-solid.svg'); background-size: 16px; background-position: 90% 50%;  background-repeat:no-repeat; padding-left:20px;}
+
+
+.input_box {
+	border: 1px solid #ccc;
+	border-radius: 8px;
+  position: relative;
+  height: 60px;
+  overflow: hidden;
+}
+
+.input_box input {
+  width: 100%;
+  height: 100%;
+  color: #333;
+  padding-top: 16px;
+  border: none;
+  background-color: #fff;
+}
+.input_box label {
+  position: absolute;
+  bottom: 0px;
+  left: 0px;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+.input_box label::after {
+  content: "";
+  position: absolute;
+  bottom: -1px;
+  left: 0px;
+  width: 100%;
+  height: 100%;
+  border-bottom: 1px solid #333;
+  transform: translateX(-100%);
+  transition: all 0.3s ease;
+}
+
+.content-name {
+  position: absolute;
+  bottom: 12px;
+  left: 4px;
+  padding-bottom: 4px;
+  transition: all 0.3s ease;
+}
+.input_box input:focus {
+  outline: none;
+}
+.input_box input:focus + .label-name .content-name,
+.input_box input:valid + .label-name .content-name {
+  transform: translateY(-80%);
+  font-size: 12px;
+  left: 0px;
+  color: #333;
+}
+.input_box input:focus + .label-name::after,
+.input_box input:valid + .label-name::after {
+  transform: translateX(0%);
+}

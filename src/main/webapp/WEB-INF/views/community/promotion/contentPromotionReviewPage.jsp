@@ -1,0 +1,322 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>세부</title>
+<!-- 메타 섹션 -->
+<jsp:include page="../../common/meta.jsp"></jsp:include>
+<!-- 메타 섹션 -->
+</head>
+<style>
+.scroll-container {
+  overflow-y: auto; /* 세로 스크롤바를 보여주는 속성 */
+  height: 500px; /* 스크롤 영역의 높이 설정 */
+}
+
+/* 세로 스크롤 바 */
+.scroll-container::-webkit-scrollbar {
+  width: 5px; /* 스크롤 바의 너비 */
+}
+
+/* 스크롤 바의 트랙 */
+.scroll-container::-webkit-scrollbar-track {
+  background-color: #ffffff; /* 트랙의 배경색 */
+}
+
+/* 스크롤 바의 핸들 */
+.scroll-container::-webkit-scrollbar-thumb {
+  background-color: #a9a9a9; /* 핸들의 배경색 */
+}
+
+/* 스크롤 바의 핸들을 클릭할 때의 스타일 */
+.scroll-container::-webkit-scrollbar-thumb:hover {
+  background-color: #555; /* 핸들의 배경색 */
+}
+/*별점 별 색깔 */
+.btn.bi.bi-star-fill {
+  color: #FACD4C; /* 원하는 아이콘 색상으로 변경 */
+}
+
+
+
+
+</style>
+<script>
+// uri 복사
+function clip(){
+
+	var url = '';
+	var textarea = document.createElement("textarea");
+	document.body.appendChild(textarea);
+	url = window.document.location.href;
+	textarea.value = url;
+	textarea.select();
+	document.execCommand("copy");
+	document.body.removeChild(textarea);
+	alert("URL이 복사되었습니다.")
+}
+
+</script>
+
+<body>
+	<!-- 헤더 섹션 -->
+	<jsp:include page="../../common/header.jsp"></jsp:include>
+	<!-- 헤더 섹션 -->
+
+	<!--  커뮤니티>써봤어요> 이런 거 -->
+	<div class="container-fluid d-flex align-items-center justify-content-between p-3 px-5 mb-3 bg-light">
+		<div class="container">
+			<div class="row px-4">
+				<p class="mb-0 text-body-secondary"><span class="mx-2" style="font-size: 15px;">커뮤니티</span> &gt; <span class="mx-2" style="font-size: 15px;">써봤어요</span> &gt;<span class="mx-2" style="font-size: 15px;">어쩌고</span> </p>
+			</div>
+		</div>
+	</div>
+	
+
+	<div class="container main_box">
+	<!--  뒤로가기 버튼 -->
+	<div class = "row mt-3">
+		<div class = "col-1">
+		<a href="./allPromotionReviewPage" style="text-decoration: none; color: inherit;">
+			<i class="bi bi-arrow-left-square-fill fs-1"></i>
+		</a>
+		</div>
+		<div class = "col-9"></div>
+		
+	<!--  session 보고 수정/삭제 버튼 -->
+		<c:if test="${!empty sessionUser && sessionUser.id == data.userDto.id }">
+			<div class = "col-1 text-end">
+				<button class = "form-control btn btn-outline-dark rounded-pill me-2">
+				<a href="./updatePromotionReviewPage?id=${data.promotionReviewDto.id }" style="text-decoration: none; color: inherit;">수정</a>
+				</button>
+			</div>
+			<div class = "col-1 text-end">
+				<button class = "form-control btn btn-dark rounded-pill me-2">
+				<a href="./deletePromotionReviewProcess?id=${data.promotionReviewDto.id }" style="text-decoration: none; color: inherit;">삭제</a>
+				</button>
+			</div>	
+		</c:if>
+	
+		
+	</div>
+	
+	<div class = "row">
+		<!--  사진 첨부(게시물 등록자가 올린것들?) -->
+		<div class = "col"> 
+		
+
+		
+			<!--  상세 게시물 사진 -->
+			<div class = "row mt-3">
+				<div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="true">
+					 <div class="carousel-indicators">
+						<button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+					    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+					  
+					 </div>
+					 <div class="carousel-inner">
+						 <div class="carousel-item active">
+						    <img src="/uploadPromoFiles/${data.promotionReviewImgDtoList[0].rental_review_img }" class="d-block w-100" alt="...">
+						 </div>
+						 <div class="carousel-item">
+					     	<img src="/uploadPromoFiles/${data.promotionReviewImgDtoList[1].rental_review_img }" class="d-block w-100" alt="...">
+					    </div>
+				  	</div>
+					 <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+					  	<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+					    <span class="visually-hidden">Previous</span>
+					 </button>
+					 <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+					 	<span class="carousel-control-next-icon" aria-hidden="true"></span>
+					    <span class="visually-hidden">Next</span>
+					 </button>
+				</div>
+			
+			</div>
+			<div class = "row">
+				<div class = "col">
+					<button class = "form-control btn btn-dark me-2">
+						<i class="bi bi-fast-forward"></i>&nbsp; 더 알아보기 &nbsp;<i class="bi bi-fast-forward"></i>
+					</button>
+				</div>
+			</div>	
+			
+			<!--  별점 받는 내역들(댓글처럼) -->
+			<div class = "row mt-5">
+				<div class = "col fs-6 fw-semibold">
+					총 공감수
+				</div>
+			<!--  댓글 아이콘 -->
+				<div class = "col-1">			
+					<a href="#" style="text-decoration: none; color: inherit;">
+					<span class="bi bi-chat-dots-fill fs-5"></span>
+					</a>
+				</div>
+			</div>
+			<div class = "reviewlist container border border-1 mt-3" style="border-radius: 10px;">
+				<div class = "row mt-2">
+					<div class = "col">
+						공감 수 : n개  ,  ..
+					</div>
+				</div>
+			</div>
+			
+			
+		</div>
+		<div class = "col-1">
+			<div class="d-flex" style="height: 450px;">
+				  <div class="vr"></div>
+			</div>
+		</div>
+		<!--  게시물 내용 -->
+		<div class = "col-7 scroll-container"> 
+			
+			<div class = "row">
+				<div class = "col">
+					<div class = "row mt-2">
+						<div class = "col">
+						
+						<span class="badge text-bg-warning">BEST</span>
+							
+						</div>
+						<div class = "col"></div>
+					</div>
+					<div class = "row mt-3">
+						<div class = "col fs-6 text-secondary">
+							Category(대여)
+						</div>
+					</div>
+					<div class = "row mt-2">
+						<div class = "col fw-semibold fs-3"> 
+							${data.promotionReviewDto.promotion_review_title}
+						</div>
+					</div>
+					
+					<!--  프로필 -->
+					<div class = "row mt-3">
+						<div class = "col-2">
+							<div class="d-flex align-items-center">
+							<img src="${data.userDto.profile_img_link }" class="rounded-circle" style="width: 50px; height: 50px;" alt="프로필사진">				
+							
+										
+							</div>
+						</div>
+						<div class = "col text-start">
+							${data.userDto.nickname }
+							<div class = "row">
+								<div class = "col fst-italic text-secondary">
+									<fmt:formatDate value="${data.promotionReviewDto.reg_date }" pattern="yy.MM.dd"/>		
+									&nbsp; · &nbsp;
+									<i class="bi bi-eye-fill fs-6 text-secondary">${data.promotionReviewDto.promotion_review_views }</i>			
+								</div>
+								
+								
+							</div>
+						</div>
+						<div class = "col"></div>
+						<div class = "col-1 d-flex justify-content-center align-items-center">
+							<!--  공감하트버튼 -->
+							<button class="btn bi bi-heart fs-4" type="button" aria-expanded="false">
+							</button>
+						</div>
+						<div class = "col-1 p-0 d-flex align-items-center ">
+							<!--  공유버튼 -->
+							<a href="" onclick="clip(); return false;" style="text-decoration: none; color: inherit;">
+								<span class = "bi bi-share-fill fs-4"></span>
+							</a>
+						</div>
+
+
+					</div>
+					<!--  프로필이랑 본문 사이 선 -->
+					<div class = "row">
+						<div class = "col">
+							<hr class="my-4" style="border-color: gray;">
+						</div>
+					</div>
+						<!--  본문 내용 -->
+					<div class = "row mt-5">
+						<div class = "col">
+							${data.promotionReviewDto.promotion_review_content}
+						</div>
+					</div>
+					<%-- 
+					<!--  댓글 버튼(dropdown 형식) -->
+					<div class = "row mt-5">
+						<div class = "col">
+							<div class="btn-group">
+							  <button class="btn btn-outline-dark btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+							    댓글 n (new)
+							  </button>
+							  <ul class="dropdown-menu" style="width: 750px; overflow-x: auto;">
+							  
+								  <li class = "mt-1 fw-semibold">댓글</li>
+								  
+							   
+							  </ul>
+							</div>
+						</div>
+					</div>
+					
+					--%>
+					
+					<!--  댓글 작성 -->	
+					<div class = "row mt-5">
+						<div class = "col">
+							<div class = "row">
+								<div class = "col fw-semibold fs-6">댓글</div>
+							</div>
+							<div class = "row mt-5">
+								<div class = "col">
+									<c:if test="${!empty sessionUser}">
+									<form action="promotion/writePromotionReivewCommentProcess" method="post">
+										${data.userDto.nickname } 
+										<input class = "form-control" type = "text" name = "promotion_review_comment" placeholder="댓글 작성하기">
+										<input type = "hidden" name = "promotion_review__id"  value = "${data.promotionReviewDto.id }" ><br>
+										<button class = "btn btn-dark">작성 완료</button>
+									</form>
+									</c:if>
+								</div>
+							</div>
+						</div>
+					</div>
+					
+				</div>
+			</div>
+			
+			
+			
+
+		</div>
+			
+			
+			
+			
+			
+	</div>
+		
+	</div>
+	
+
+
+
+
+
+
+
+
+
+</div> <!--  container div 닫는 곳 -->
+	<!-- 푸터 섹션 -->
+	<jsp:include page="../../common/footer.jsp"></jsp:include>
+	<!-- 푸터 섹션 -->
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+		crossorigin="anonymous"></script>
+</body>
+</html>

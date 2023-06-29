@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ja.safari.rental.mapper.RentalSqlMapper">
+
+	<select id="createPk" resultType="int">
+		select rental_review_table_seq.nextval from dual
+	</select>
+
+	<!-- 아이디 중복 확인 -->
+	<select id="countUsersByBusinessUserId" resultType="int">
+		SELECT COUNT(*) FROM rental_buisness_table WHERE business_userid = #{businessUserId}
+	</select>
+	
+
+	<!-- 회원 가입  -->
+	<insert id="registerBusiness">
+		insert into rental_buisness_table values(
+			rental_buisness_table_seq.nextval,
+			#{business_userid},
+			#{pw},
+			#{reg_num},
+			#{reg_img_link},
+			#{business_owner},
+			#{business_name},
+			#{business_address},
+			#{phone},
+			SYSDATE,
+			'N'
+		)
+	</insert>
+	
+	<!-- 로그인 -->
+	<select id="selectBusinessUserByIdAndPw" resultType="com.ja.safari.dto.RentalBusinessDto">
+		SELECT * 
+		FROM rental_buisness_table 
+		WHERE business_userid = #{business_userid} 
+			AND pw = #{pw}
+	</select>
+	
+	<!-- 렌탈 카테고리 리스트 -->
+	<select id="selectCategoryListAll" resultType="com.ja.safari.dto.RentalMainCategoryDto">
+		SELECT *
+		FROM rental_main_category_table
+	</select>
+	
+	<!-- 렌탈 서브카테고리 리스트 -->
+	<select id="selectSubCategoryList" resultType="com.ja.safari.dto.RentalSubCategoryDto">
+		SELECT * 
+		FROM rental_sub_category_table
+		WHERE main_category_id = #{mainCategoryId}
+	</select>
+	
+	<!-- 렌탈 상품 리스트 -->
+	<select id="selectRentalItemListAll" resultType="com.ja.safari.dto.RentalItemDto">
+		SELECT * FROM rental_item_table
+	</select>
+
+	<!-- 상품 하나 가져오기 -->
+	<select id="selectById" resultType="com.ja.safari.dto.RentalItemDto">
+		SELECT * 
+		FROM rental_item_table 
+		WHERE id = #{id}
+	</select>
+	
+	<!-- 상품 상세 이미지 가져오기 -->
+	<select id="selectItemImageByItemId" resultType="com.ja.safari.dto.RentalItemImgDto">
+		SELECT * 
+		FROM rental_item_img_table
+		WHERE item_id = #{itemId}
+	</select>
+	
+	<!-- 상품 좋아요 여부확인  -->
+	<select id="countMyLike" resultType="int">
+		SELECT COUNT(*) FROM rental_item_like_table
+		WHERE item_id = #{item_id}
+		AND user_id = #{user_id}
+	</select>
+	
+	<!-- 상품 좋아요 지우기 -->
+	<delete id="deleteLike">
+		DELETE FROM rental_item_like_table
+		WHERE item_id = #{item_id}
+		AND user_id = #{user_id}
+	</delete>
+	
+	<!-- 상품 좋아요 생성 -->
+	<insert id="insertLike">
+		INSERT INTO rental_item_like_table
+		values (
+			rental_item_like_table_seq.nextval,
+			#{user_id},
+			#{item_id},
+			SYSDATE
+		)
+	</insert>
+	
+	<!-- 상품 좋아요 갯수  -->
+	<select id="countLikeById" resultType="int">
+		SELECT COUNT(*) FROM rental_item_like_table
+		WHERE item_id = #{item_id}
+	</select>
+	
+	<!-- 기간별 할인 리스트  -->
+	<select id="selectPeriodDiscById" resultType="com.ja.safari.dto.RentalPeriodDiscDto">
+		SELECT * FROM rental_period_disc_table
+		WHERE item_id = #{id}
+	</select>
+	
+	<!-- 대여 오더 신청 -->
+	<insert id="insertRentalOrder">
+	INSERT INTO rental_order_table values(
+	    rental_order_table_seq.nextval,
+	    #{user_id},
+	    #{item_id},
+	    #{start_date},
+	    #{end_date},
+	    #{address},
+	    #{price},
+	    #{original_price},
+	    #{deposit},
+	    SYSDATE,
+	    'N'
+		)
+	</insert>
+	
+	<!-- 대여 반납 신청 -->
+	<insert id="insertRentalReturn">
+	INSERT INTO rental_item_return_table values(
+		rental_item_return_table_seq.nextval,
+   		#{rental_order_id},
+    	SYSDATE,
+    	'N'
+		)
+	</insert>
+	
+	<!-- 대여 리뷰 작성 -->
+	<insert id="insertRentalReview">
+	INSERT INTO rental_review_table values(
+		#{id},
+		#{user_id},
+   		#{rental_id},
+	   	#{rental_review_title},
+	    #{rental_review_content},
+	    #{rental_review_rating},
+	    '0',
+	    'test',
+	    SYSDATE,
+	    SYSDATE
+		)
+	</insert>
+	
+	<!-- 대여 리뷰이미지 작성 -->
+	<insert id="insertRentalReviewImg">
+	INSERT INTO rental_review_img_table values(
+		rental_review_img_table_seq.nextval,
+   		#{review_id},
+    	#{rental_review_img}
+		)
+	</insert>
+	
+	<!-- 대여 리뷰 불러오기  -->
+	<select id="selectRentalReviewAll" resultType="com.ja.safari.dto.RentalReviewDto">
+		SELECT a.id, a.rental_review_title, a.rental_review_content, a.rental_review_rating, a.rental_review_views, a.rental_reply_review  
+		FROM rental_review_table a inner join rental_order_table b
+		on a.rental_id = b.id
+		join rental_item_table c
+		on c.id = b.item_id
+		where b.item_id = #{id}
+	</select>
+	
+	<!-- 대여 평균 리뷰점수 불러오기  -->
+	<select id="selectRatingAvg" resultType="Double">
+		SELECT TRUNC(AVG(rental_review_rating),1) FROM (
+			SELECT a.*, rental_review_rating FROM rental_item_table a join rental_order_table b 
+			on a.id = b.item_id
+			join rental_review_table c
+			on b.id = c.rental_id
+			WHERE b.item_id = #{id}
+			) d group by d.id
+	</select>
+	
+	<!--대여 리뷰 갯수  -->
+	<select id="selectReviewCount" resultType="Integer">
+		SELECT COUNT(rental_review_rating) FROM (
+			SELECT a.*, rental_review_rating FROM rental_item_table a join rental_order_table b 
+			on a.id = b.item_id
+			join rental_review_table c
+			on b.id = c.rental_id
+			WHERE b.item_id = #{id}
+			)
+	</select>
+	
+	<!--대여 리뷰 이미지 불러오기  -->
+	<select id="selectRentalReviewImgAll" resultType="com.ja.safari.dto.RentalReviewImgDto">
+		SELECT * FROM rental_review_img_table WHERE review_id = #{id}
+	</select>
+	
+	
+	<!-- 
+	<update id="updateCustomerInfo">
+		update m_customer 
+			set user_id = #{user_id},
+			 user_pw = #{user_pw},
+			 nickname = #{nickname},
+			 gender = #{gender},
+			 email = #{email},
+			 birth = #{birth},
+			 phone = #{phone}
+			where id = #{id}
+	</update>
+	
+	 resultType="com.ja.safari.dto.RentalBusinessDto"
+ -->
+	
+	
+	
+	
+</mapper>
