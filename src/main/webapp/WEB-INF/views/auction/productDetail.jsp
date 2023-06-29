@@ -1485,17 +1485,27 @@ function formatDate(date) {
     
 // 날짜 변경    
 function formatDateTime(dateTimeString) {
-	  const date = new Date(dateTimeString);
-	  const year = date.getFullYear();
-	  const month = date.getMonth() + 1;
-	  const day = date.getDate();
-	  const hours = date.getHours();
-	  const minutes = date.getMinutes();
-	  const period = hours >= 12 ? '오후' : '오전';
-	  const formattedDateTime = year + '.' + month + '.' + day + ' ' + period + ' ' + (hours % 12) + ':' + minutes.toString().padStart(2, '0');
+  const date = new Date(dateTimeString);
+  const year = date.getFullYear();
+  const month = date.getMonth() + 1;
+  const day = date.getDate();
+  let hours = date.getHours();
+  const minutes = date.getMinutes();
+  let period = '오전';
 
-	  return formattedDateTime;
-	}    
+  if (hours >= 12) {
+    period = '오후';
+    if (hours > 12) {
+      hours -= 12;
+    }
+  } else if (hours === 0) {
+    hours = 12;
+  }
+
+  const formattedDateTime = year + '.' + month + '.' + day + ' ' + period + ' ' + hours + ':' + minutes.toString().padStart(2, '0');
+
+  return formattedDateTime;
+}  
 
 /*입찰 기록 리스트 출력*/
 function reloadBidList() {
@@ -2066,6 +2076,7 @@ window.addEventListener("DOMContentLoaded", function(){
  
     //refreshTotalLikeCount();
     refreshMyHeart();
+    //reloadChatList();
     setInterval(reloadChatList, 100);
     setInterval(getCurrentPrice, 100);
 

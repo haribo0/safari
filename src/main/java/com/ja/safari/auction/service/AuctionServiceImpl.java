@@ -251,8 +251,8 @@ public class AuctionServiceImpl {
 	}
 	
 	
-	// 입찰하기
-	public void submitBidRequest(AuctionBidDto auctionBidDto) {
+	// 입찰하기 
+	public synchronized void submitBidRequest(AuctionBidDto auctionBidDto) {
 		auctionSqlMapper.submitBidRequest(auctionBidDto);
 	}
 	
