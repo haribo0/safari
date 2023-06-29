@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>  
 <!DOCTYPE html>
@@ -109,19 +108,22 @@
 	        <h5 class="modal-title">채팅</h5>
 	        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 	      </div>
-	      <div class="modal-body">
-			<div class="chat-container" id="getChat">
-				<div class="row">
-					<div class="col">
-					</div>
-					<div class="col-8">
-					</div>
-				</div>
+	      <div class="modal-header">
+	      	<div class="row">
+	      		<div class="col btn btn-outline-secondary text-dark me-3 ms-2">예약하기</div>
+	      		<div class="col btn btn-outline-secondary text-dark me-3">약속잡기</div>
+	      		<div class="col btn btn-outline-secondary text-dark">송금하기</div>
+	      	</div>
+	      </div>
+	      <div class="modal-body" style="height: 400px">
+			<div class="chat-container overflow-y-scroll" style="height:380px;" id="getChatList">
 			</div>
 	      </div>
-	      <div class="modal-footer">
-	        <textarea id="chatContent" placeholder="메시지 보내기" cols="47" rows="1" class="ms-3"></textarea>
-			    <button class="send-button me-0" id="insertContent">전송</button>
+	      <div class="modal-footer justify-content-start">
+	      		<textarea id="chatContent" placeholder="메시지 보내기" rows="1" cols="20" class="form-control" style="width: 80%;"></textarea>
+	      	
+			    <button class="send-button btn btn-primary ms-3 px-3" id="sendContent">전송</button>
+	       		
 	      </div>
 	    </div>
 	  </div>
@@ -130,32 +132,47 @@
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
 <script>
-
+	let mySessionId = null;
+	let requestId2 = null;
+	let receiverId2 = null;
+	
 	// 모달 열기 
 	function  modalOn(requestId, receiverId) {
 		const myModal = bootstrap.Modal.getOrCreateInstance('#chatModal');
+		requestId2=requestId;
+		receiverId2=receiverId;
+		
+		console.log("requestId"+requestId);
+		console.log("receiverId"+receiverId);
+		
 		// 열 때
 		myModal.show();
 		
-		// 전송버튼 id=insertContent
-		const insertBox = document.getElementById("insertContent");
-		// 메시지 textarea id = chatContent
-		const inputField = document.getElementById("chatContent");
-		// Textarea에서 Enter 칠 때 
-		  inputField.addEventListener("keyup", function(event) {
-		    if (event.key === "Enter") {
-		    	// 다른 성능 막는 것 
-		    	event.preventDefault();
-		    	insertContent(requestId, receiverId);
-		    }
-		  });
+		reloadChatList(requestId);
+		
+		// 전송버튼 
+ 		const sendBox = document.getElementById("sendContent");
+		// 텍스트상자
+		const textareaBox = document.getElementById("chatContent");
+		textareaBox.addEventListener("keyup", keyUpEvent);
 		
 		// 전송버튼 누르면 해당 메소드 불러오기 
-		insertBox.setAttribute("onclick", "insertContent("+requestId+","+receiverId+")")
-		
+		sendBox.setAttribute("onclick", "insertContent("+requestId+","+receiverId+")")
 	}
 	
+	// Textarea에서 Enter 칠 때도 전송되기(단, shirt+enter 안되게)
+	function keyUpEvent(e) {
+		console.log(e)
+	    if (e.key === "Enter" && !e.shiftKey) {
+	    	insertContent(requestId2, receiverId2);
+	    }
+	}
+
 	function insertContent(requestId, receiverId) {
+		const textareaBox = document.getElementById("chatContent");
+		/* textareaBox.removeEventListener("keyup", keyUpEvent); */
+		console.log("requestId2"+requestId);
+		console.log("receiverId2"+receiverId);
 		// 메시지 textarea id = chatContent 
 		const contentBox = document.getElementById("chatContent");
 		// 메시지 내용 
@@ -172,56 +189,86 @@
 	            const response = JSON.parse(xhr.responseText);
 	            // textarea안에 값 지우기 
 	            contentBox.value = "";
-	            reloadChatList();
+	            reloadChatList(requestId);
 	        }
 	    }
 	    //post
 		xhr.open("post", "./insertProductChatDto");
 		xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
-		xhr.send("purchase_request_id="+requestId+"&receiver_id="+receiverId+"&content="+content);
+		xhr.send("purchase_request_id="+requestId+"&receiver_id="+receiverId+"&content="+contentValue);
 		/* xhr.send(`requestId=\${requestId}&receiverId=\${receiverId}`); */
 		
 	}
 	
-	function dd(e) {
-		
-		const myModal = bootstrap.Modal.getOrCreateInstance('#chatModal');
-		
-		// 닫을 때
-	       myModal.hide();
 
-	}
-
-
-	
-function reloadChatList() {
-    const getChatbox = document.getElementById("getChat");
-
+// 채팅 목록 리로딩 
+function reloadChatList(requestId) {
+	// chatlisBox 
+    const getChatbox = document.getElementById("getChatList");
+    getChatbox.innerHTML = ""; //초기화 얘만 innerHTML 허용... 
+    
     const xhr = new XMLHttpRequest();
+	
+	xhr.onreadystatechange = function(){
+		if(xhr.readyState == 4 && xhr.status == 200){
+			const response = JSON.parse(xhr.responseText);
+			mySessionId = response.sessionId;
 
-    xhr.onreadystatechange = function(){
-        if(xhr.readyState == 4 && xhr.status == 200){
-            const response = JSON.parse(xhr.responseText);
-            getChatbox.innerHTML = "";
+			// 채팅 내용 반복문 돌리기 
+			for(data of response.chatList){
+				  const row1 = document.createElement('div');
+				  row1.classList.add('row', 'mt-3');
+				  
+				  if(mySessionId!=data.receiver_id){
+					  const col1 = document.createElement('div');
+					  col1.classList.add('col');
+					  const col2 = document.createElement('div');
+					  col2.classList.add('col-8', 'me-2', 'text-end');
+					  col2.innerText = data.content;
+					  
+					  row1.appendChild(col1);
+					  row1.appendChild(col2);
+					  
+					  getChatbox.appendChild(row1);
+				  }else {
+					  const colIcon = document.createElement('div');
+					  colIcon.classList.add('col-1', 'ms-2', 'text-left');
 
-            // 동네 옵션에 따른 추가 
-            let defaultOption = document.createElement("option");
-            defaultOption.value = "0";
-            defaultOption.selected = true;
-            defaultOption.textContent = "동네를 선택하세요";
-            townBox.appendChild(defaultOption);
+					  const icon = document.createElement('i');
+					  icon.classList.add('bi', 'bi-person-circle', 'fs-4');
+					  colIcon.style.lineHeight = 1;
+					  colIcon.appendChild(icon);
+					  
+					  const col3 = document.createElement('div');
+					  col3.classList.add('col-8', 'ms-2', 'text-left');
+					  col3.innerText = data.content;
+					  
+					  const col4 = document.createElement('div');
+					  col4.classList.add('col');
+					  
+					  row1.appendChild(colIcon);
+					  row1.appendChild(col3);
+					  row1.appendChild(col4);
+					  
+					  getChatbox.appendChild(row1);
+					
+				  }
+				  
+			}
+			// 채팅 화면 마지막으로 맞추기 
+			getChatbox.scrollTop = getChatbox.scrollHeight;
+		}
+	}
+	
+	//get
+	xhr.open("get", "./reloadChatList?requestId=" + requestId);
+	xhr.send();
+}
 
-            response.getTownList.forEach(function(data) {
-                const option = document.createElement("option");
-                option.value = data.id;
-                option.textContent = data.product_town_name;
-                townBox.appendChild(option);
-            });
-        }
-    }
-
-    xhr.open("get", "./getTownList?cityId="+cityId);
-    xhr.send();
+//modal 닫을 때
+function modalHide(e) {
+	const myModal = bootstrap.Modal.getOrCreateInstance('#chatModal');
+       myModal.hide();
 }
 	
 	

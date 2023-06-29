@@ -361,6 +361,6 @@ public class UsedServiceImpl {
 	public List<ProductChatDto> selectProductChatByRequestId(Integer requestId) {
 		return usedSqlMapper.selectProductChatByRequestId(requestId);
 	}
-	
+
 	
 }
