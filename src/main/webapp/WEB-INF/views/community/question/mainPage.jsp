@@ -7,17 +7,12 @@
 <head>
 <meta charset="UTF-8">
 <title>사파리 | 로그인</title>
-	<!-- 메타 섹션 -->
-	<jsp:include page="../../common/meta.jsp"></jsp:include>
-	<!-- 메타 섹션 -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
 </head>
 <body>
 	<!-- 헤더 섹션 -->
 	<jsp:include page="../../common/header.jsp"></jsp:include>
 	<!-- 헤더 섹션 -->
-	
-	
 	
 	 <!-- 커뮤니티 메뉴바 -->
       <div class="row">
@@ -27,16 +22,15 @@
       </div>
       <!-- 커뮤니티 메뉴바 -->
       
-      <div class="container text-center mt-2">
-	<h2 class="text-center fw-bold fs-3"> 해주세요 게시판 </h2>
+    <div class="container text-center mt-2">
+	<h2 class="text-center fw-bold fs-3"> 궁금해요 게시판 </h2>
 	</div>
-
-   <%--게시판 시작 --%>
+	
+	 <%--게시판 시작 --%>
 	<div class = "container">
 	
-   <%--helpBoardList--%>
+	<%--QuestionBoardList--%>
 	<div class="row">
-	
 	
 	<div class="col text-center">
 		<table class="table">
@@ -78,52 +72,18 @@
 			</c:forEach>
 			</tbody>
 		</table>
-		<%-- <button type="button" class="btn btn-primary">글쓰기</button>--%>
-		
-	<%--글쓰기 버튼 시작 --%>
+	
+	
+   
+     <%--글쓰기 버튼 시작 --%>
 	<div class="row">
 	<div class="col text-end">
-		<span class="text-dark"><a href="./writeContentPage"><i class="bi bi-pencil-square fas fa-2x fa-icon"></i></a></span>
+		<a href="./questionWriteContentPage">글쓰기</a>
 	</div>
 	</div>
 	<%--글쓰기 버튼 끝 --%>	
 	
-	
-		<div class="row"><%--페이지 버튼 --%>
-			<div class="col-5 mx-auto">
-				<nav aria-label="Page navigation example">
-				  <ul class="pagination mb-0">
-				   <li class="page-item"><a class="page-link" href="#">&lt;</a></li>   
-				   <c:forEach begin="1" end="${totalHelpPage}" var="helpIndex">
-				   		<c:choose>
-				   			<c:when test="${helpIndex == currentHelpPage}">
-				   				<li class="page-item active"><a class="page-link" href="/safari/community/help/mainPage?helpPage=${helpIndex}">${helpIndex}</a></li>
-				   			</c:when>
-				   			<c:otherwise>
-				   				<li class="page-item"><a class="page-link" href="/safari/community/help/mainPage?helpPage=${helpIndex}">${helpIndex}</a></li>
-				   			</c:otherwise>
-				   		</c:choose>
-				   	
-				   </c:forEach>
-				   <li class="page-item"><a class="page-link" href="#">&gt;</a></li>
-				  </ul>
-				 </nav>
-			</div>
-	</div>
 
-
-<%--오른쪽 시작--%>
-	<%--<div class="col-3">
-	</div> --%>
-	<%--오른쪽 끝--%>
-</div>
-</div>	
-<%--게시판 끝 --%>
-	
-	</div>
-
-	
-	
 	
 	<!-- 푸터 섹션 -->
 	<jsp:include page="../../common/footer.jsp"></jsp:include>
@@ -131,7 +91,4 @@
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
 </body>	
-</html>	
-
-
-
+</html>	      

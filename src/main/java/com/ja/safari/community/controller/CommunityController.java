@@ -27,6 +27,7 @@ import com.ja.safari.dto.HelpImgDto;
 import com.ja.safari.dto.HelpLikeDto;
 import com.ja.safari.dto.PromotionReviewDto;
 import com.ja.safari.dto.PromotionReviewImgDto;
+import com.ja.safari.dto.QuestionDto;
 import com.ja.safari.dto.RecruitDto;
 import com.ja.safari.dto.RecruitImgLinkDto;
 import com.ja.safari.dto.RecruitLikeDto;
@@ -60,6 +61,9 @@ public class CommunityController {
 		model.addAttribute("helpBoardList", helpBoardList);
 		model.addAttribute("totalHelpPage", totalHelpPage);
 		model.addAttribute("currentHelpPage", helpPage);
+		
+		List<Map<String, Object>> helpBestBoardList = communityService.selectBestHelpBoards();
+		model.addAttribute("helpBestBoardList", helpBestBoardList);
 		
 		//int helpCommentCount = communityService.selectAllHelpBoards();
 		//model.addAttribute("helpCommentCount", helpCommentCount);
@@ -190,9 +194,18 @@ public class CommunityController {
 	
 	// 해주세요 댓글 등록
 	@RequestMapping("help/writeCommentProcess/{id}")
-	public String writeCommentProcess(HelpCommentDto helpCommentDto, @PathVariable  int id){
+	public String writeCommentProcess(HttpSession session, HelpCommentDto helpCommentDto, @PathVariable  int id){
 	
-		communityService.registerHelpComment(helpCommentDto);
+		UserDto sessionUser = (UserDto)session.getAttribute("sessionUser");
+		
+		if(sessionUser == null) { 
+			
+			return "redirect:/user/loginPage";
+			
+		} else {
+			
+			communityService.registerHelpComment(helpCommentDto);
+		}
 		
 		
 		return "redirect:/community/help/readContentPage/" + id;
@@ -207,28 +220,71 @@ public class CommunityController {
 		return "redirect:/community/help/readContentPage/" + boardId ;
 	}
 	
-	//해주세요 게시물 좋아요
-	@RequestMapping("help/insertHelpLikeProcess/{id}") // helpDto에 데이터를 컨트롤러에서 직접 넣기 위해 매개변수로 지정
-	public String insertHelpLikeProcess(HttpSession session, HelpLikeDto helpLikeDto, @PathVariable int id) {
+	//해주세요 게시물 좋아요 insert
+		@RequestMapping("help/insertHelpLikeProcess/{id}") // helpDto에 데이터를 컨트롤러에서 직접 넣기 위해 매개변수로 지정
+		//jsp에서 좋아요를 클릭하면 게시글 id만 받아오는데 현재 세션 유저의 id를 dto에 담기 위해 매개변수에 dto 선언해준것
+		//helplikedto에 게시글 id랑 유저 id를 담아주기 위해 선언한 것
+		//데이터를 dto에 담기 위해 설계
+		public String insertHelpLikeProcess(HttpSession session, HelpLikeDto helpLikeDto, @PathVariable int id) {
+			
+			
+			//System.out.println("id = " + id);
+			UserDto sessionUser = (UserDto) session.getAttribute("sessionUser");
+			
+			if(sessionUser == null) {
+				return "redirect:/user/loginPage";//고치기
+						
+			}else {
+				helpLikeDto.setUser_id(sessionUser.getId());
+				helpLikeDto.setHelp_id(id);
+				
+				 // 유저의 게시글 좋아요 여부 확인
+		         int helplikeCount = communityService.checkHelpLike(helpLikeDto);
+
+			         if (helplikeCount > 0) {
+			             //System.out.println("삭제가 되나요?");
+			             communityService.removeHelpLike(helpLikeDto);
+			             
+			         } else {
+			             communityService.insertHelpLike(helpLikeDto);
+			         }
 		
-		
-		//System.out.println("id = " + id);
-		UserDto sessionUser = (UserDto) session.getAttribute("sessionUser");
-		
-		helpLikeDto.setUser_id(sessionUser.getId());
-		helpLikeDto.setHelp_id(id);
-		
+			         return "redirect:/community/help/readContentPage/" + id;
+			}
+			
+			
+		}
 	
-		
-		communityService.insertHelpLike(helpLikeDto);
-		
-		return "redirect:/community/help/readContentPage/" + id;
+	
+	// 궁금해요 메인 페이지
+	@RequestMapping("question/mainPage")
+	public String question() {
+		return "/community/question/mainPage";
+	}
+
+	
+	@RequestMapping("question/questionWriteContentPage")
+	public String questionWriteContentPage() {
+		return "/community/question/questionWriteContentPage";
 	}
 	
+	@RequestMapping("question/questionWriteContentProcess")
+	public String questionWriteContentProcess(QuestionDto questionDto) {
+		
+		communityService.registerQuestionBoard(questionDto);
+		
+		return "redirect:./mainPage";
+	}
 	
-	
-	
-	
+	@RequestMapping("question/questionReadContentPage/{id}")
+	public String questionReadContentPage(@PathVariable int id, Model model) {
+		
+		Map<String, Object> map = communityService.getQuestionBoardByBoardId(id);
+		
+		model.addAttribute("map", map);
+		
+		return "/community/question/questionReadContentPage";
+	}
 	
 	
 

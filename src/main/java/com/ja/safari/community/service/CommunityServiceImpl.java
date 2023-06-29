@@ -13,6 +13,7 @@ import com.ja.safari.dto.HelpCommentDto;
 import com.ja.safari.dto.HelpDto;
 import com.ja.safari.dto.HelpImgDto;
 import com.ja.safari.dto.HelpLikeDto;
+import com.ja.safari.dto.QuestionDto;
 import com.ja.safari.dto.RecruitDto;
 import com.ja.safari.dto.RecruitImgLinkDto;
 import com.ja.safari.dto.RecruitLikeDto;
@@ -75,6 +76,42 @@ public class CommunityServiceImpl {
 		
 		return helpBoardList; 
 	}
+	
+	//해주세요 메인페이지 best 리스트 조회 
+	public List<Map<String, Object>> selectBestHelpBoards(){
+		
+		//화면에 출력해주기 위한 그릇(리스트)
+		List<Map<String, Object>> helpBoardList = new ArrayList<>();
+		
+		List<HelpDto> helpDtoList = communitySqlMapper.selectBestHelpBoard();
+		
+		for(HelpDto helpDto : helpDtoList) {
+			
+			Map<String, Object> map = new HashMap<>();
+			
+			UserDto userDto = communitySqlMapper.selectUserByUserId(helpDto.getUser_id());
+			
+			int helpCommentCount = communitySqlMapper.selectAllHelpCommentCountByBoardId(helpDto.getId());
+			
+			int helpLikeCount = communitySqlMapper.selectAllHelpLikeCountByBoardId(helpDto.getId());
+			
+			int helpImgCount = communitySqlMapper.selectAllHelpImgByBoardId(helpDto.getId());
+			
+			
+			map.put("helpImgCount", helpImgCount);
+			map.put("helpLikeCount", helpLikeCount);
+			map.put("helpCommentCount", helpCommentCount);
+			map.put("userDto", userDto);
+			map.put("helpDto", helpDto);
+		
+			
+			helpBoardList.add(map);
+		}
+		
+		return helpBoardList; 
+	}
+		
+	
 	// 매개변수 id : 게시글 id / 게시글 하나 조회
 	public int getHelpBoardCount() {
 		
@@ -96,7 +133,7 @@ public class CommunityServiceImpl {
 		map.put("helpDto", helpDto);
 		map.put("helpImgDtoList",helpImgDtoList);
 		
-		System.out.println(helpDto.getId());
+		//System.out.println(helpDto.getId());
 		
 		return map;
 	}
@@ -128,6 +165,21 @@ public class CommunityServiceImpl {
 		communitySqlMapper.deleteHelpComment(id);
 	}
 	
+	//해주세요 좋아요 insert
+	public void insertHelpLike(HelpLikeDto helpLikeDto) {
+		communitySqlMapper.insertHelpLike(helpLikeDto);
+	}
+	
+	//해주세요 좋아요 눌렀는지 조회/delete
+	public int checkHelpLike(HelpLikeDto helpLikeDto) {
+		return communitySqlMapper.checkHelpLike(helpLikeDto);
+	}
+	
+
+	//해주세요 좋아요 delete
+	public void removeHelpLike(HelpLikeDto helpLikeDto) {
+		communitySqlMapper.removeHelpLike(helpLikeDto);
+	}
 	//해주세요 댓글 개수 조회
 //	public List<Map<String, Object>> selectAllHelpCommentCountByBoardId(int help_id){
 //		
@@ -178,17 +230,32 @@ public class CommunityServiceImpl {
 			
 		}
 				
-	// 해주세요 게시물 좋아요 
-	public void insertHelpLike(HelpLikeDto helpLikeDto) {
-		communitySqlMapper.insertHelpLike(helpLikeDto);
-	}
+
 	
 	public int getHelpLikeCountByBoardId(int help_id) {
 		int HelpBoardLikeCount = communitySqlMapper.getHelpLikeCountByBoardId(help_id);
 		return HelpBoardLikeCount;
 	}
 	
+	//궁금해요 게시물 등록 
+	public void registerQuestionBoard(QuestionDto questionDto) {
+		communitySqlMapper.registerQuestionBoard(questionDto);
+	}
 	
+	//궁금해요 게시물 조회
+	public Map<String, Object> getQuestionBoardByBoardId(int id){
+		
+		Map<String, Object> map = new HashMap<>();
+		
+		QuestionDto questionDto = communitySqlMapper.getQuestionBoardByBoardId(id);
+		
+		UserDto userDto = userSqlMapper.selectUserDtoById(questionDto.getUser_id());
+		
+		map.put("userDto", userDto);
+		map.put("questionDto", userDto);
+		
+		return map;
+	}
 
 	/*
 	 * public int getHelpLikeCountByBoardId(int help_id) { int boardLikeCount =

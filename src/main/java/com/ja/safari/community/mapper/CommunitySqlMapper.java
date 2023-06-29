@@ -2,16 +2,15 @@ package com.ja.safari.community.mapper;
 
 import java.util.List;
 
-import org.apache.ibatis.annotations.Param;
-
 import com.ja.safari.dto.HelpCommentDto;
 import com.ja.safari.dto.HelpDto;
 import com.ja.safari.dto.HelpImgDto;
 import com.ja.safari.dto.HelpLikeDto;
-import com.ja.safari.dto.PromotionReviewDto;
+import com.ja.safari.dto.QuestionDto;
 import com.ja.safari.dto.RecruitDto;
 import com.ja.safari.dto.RecruitImgLinkDto;
 import com.ja.safari.dto.RecruitLikeDto;
+import com.ja.safari.dto.UserDto;
 
 public interface CommunitySqlMapper {
 	
@@ -23,6 +22,8 @@ public interface CommunitySqlMapper {
 	
 	// 해주세요 pk 
 	public int createPk();
+	
+	public UserDto selectUserByUserId(int id);
 	
 	//해주세요 게시글 등록
 	public void registerHelpBoard(HelpDto helpDto);
@@ -67,6 +68,24 @@ public interface CommunitySqlMapper {
 	
 	//해주세요 이미지 유무 출력
 	public int selectAllHelpImgByBoardId(int help_id);
+	
+	//해주세요 좋아요 1개 체크
+	public int checkHelpLike(HelpLikeDto helpLikeDto);
+		
+	//해주세요 좋아요 1개 삭제
+	public int removeHelpLike(HelpLikeDto helpLikeDto);
+	
+	//해주세요 베스트 게시글 출력
+	public List<HelpDto> selectBestHelpBoard();
+	
+	
+	
+	//궁금해요 게시물 등록 
+	public void registerQuestionBoard(QuestionDto questionDto);
+	
+	//궁금해요 게시물 조회
+	public QuestionDto getQuestionBoardByBoardId(int id);
+	
 //	public List<HelpDto> registerHelpBoardselectAll();
 	
 //	public void registerCommunity(CommunityDto communityDto);

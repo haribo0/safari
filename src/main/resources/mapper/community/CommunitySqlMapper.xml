@@ -8,6 +8,10 @@
 		select help_table_seq.nextval from dual
 	</select>
 	
+	<select id="selectUserByUserId" resultType="com.ja.safari.dto.UserDto">
+	select * from user_table where id=#{id}
+	</select>
+	
 	<insert id="registerHelpBoard">
 	insert into help_table values(
     #{id},
@@ -82,17 +86,17 @@
   
   
     
-    <delete id="deleteHelpComment">
-    delete from help_comment_table where id=#{id}
-    </delete>
+  <delete id="deleteHelpComment">
+  delete from help_comment_table where id=#{id}
+  </delete>
   
   <!--해주세요 게시물 이미지 insert  --> 
   <insert id="insertHelpBoardImage">
 	insert into help_img_table values(
-    help_img_table_seq.nextval,
-    #{help_id},
-    #{help_img_link},
-    #{help_original_filename}
+	    help_img_table_seq.nextval,
+	    #{help_id},
+	    #{help_img_link},
+	    #{help_original_filename}
     )
   </insert>
   
@@ -104,10 +108,10 @@
 	<!-- 해주세요 좋아요 insert -->
 	<insert id="insertHelpLike">
 	insert into help_like_table values(
-    help_like_table_seq.nextval,
-    #{user_id},
-    #{help_id},
-    sysdate
+	    help_like_table_seq.nextval,
+	    #{user_id},
+	    #{help_id},
+	    sysdate
 	)
 	</insert>
 	
@@ -132,8 +136,52 @@
 	select count(*) from help_img_table where help_id=#{help_id}
 	</select>
 	
+	<!-- 해주세요 베스트 게시물 --><!-- 쿼리 쉽게 변경 -->
+	<select id="selectBestHelpBoard" resultType="com.ja.safari.dto.HelpDto">
+	select t1.* from(
+	select ht.*,(select count(*) from help_like_table hlt where hlt.help_id = ht.id)+ ht.views as helplikeAndViewCount
+	from help_table ht 
+	order by (select count(*) from help_like_table hlt where hlt.help_id = ht.id)*10 + ht.views*0.5 desc
+	)t1
+	<![CDATA[
+	where rownum <=3
+	]]> 
+	</select>
 	
 	
+	<!-- 해주세요 좋아요 입력/취소 -->
+	 <select id="checkHelpLike" resultType="int">
+		select count(*) 
+		from help_like_table 
+		where help_id=#{help_id} and user_id=#{user_id}
+	</select>
+	
+	<delete id="removeHelpLike">
+		delete from help_like_table 
+		where help_id=#{help_id} and user_id=#{user_id}
+	</delete>
+	
+	<!--              궁금해요                   -->
+	
+	<!-- 궁금해요 게시물 insert -->
+	<insert id="registerQuestionBoard">
+	insert into question_table values(
+    question_table_seq.nextval,
+    #{user_id},
+    #{question_category_id},
+    #{title},
+    #{content},
+    0,
+    #{points},
+    '진행중',
+    sysdate
+	)
+	</insert>
+	
+	<!-- 궁금해요 게시물 select -->
+	<select id="getQuestionBoardByBoardId" resultType="com.ja.safari.dto.QuestionDto" >
+	select * from question_table where id=#{id}
+	</select>
 	
 	
 	<!-- 구인구직  -->

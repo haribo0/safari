@@ -24,16 +24,13 @@
 	<div class="col-3"></div>
 	<%--왼쪽 끝 --%>
 	
-	
-	
-	
 	<%--가운데 시작 --%>
 	<div class="col ">
 		<div class="container">	
 	
 	<!-- 만약 파일 보내는 경우 - enctype="multipart/form-data" 꼭 변경해야 함, 무조건 post방식-->
 	<%--글쓰기 폼 시작 --%>
-	<form action="/safari/community/help/writeContentProcess" method="post" enctype="multipart/form-data">
+	<form action="/safari/community/question/questionWriteContentProcess" method="post">
 		
 		<div class="row">
 			<div class="col">
@@ -49,19 +46,19 @@
 				  	<td>작성자: ${sessionUser.nickname}</td>
 				  </tr>
 				  <tr>
+				  	<td><input type="number" class="form-control" placeholder="카테고리"  name="question_category_id" maxlength="10"></td>
+				  </tr>
+				  <tr>
 				  	<td><textarea type="text" class="form-control" placeholder="내용을 입력해주세요" name="content" maxlength="3000" style="height:400px;"></textarea></td>
 				  </tr>
 				  <tr> 
 				  	<td><input type="text" class="form-control" placeholder="포인트"  name="points" maxlength="10"></td>
 				  </tr>
-				  <tr> 
-				  	<td><input type="text" class="form-control" placeholder="위치"  name="location" maxlength="10"></td>
-				  </tr>
 				</tbody>
 				</table>
-				<input name="helpBoardFiles" type="file" onchange="readURLContent(this)" id="helpBoardFiles" multiple accept="image/*">
+				<!-- <input name="helpBoardFiles" type="file" onchange="readURLContent(this)" id="helpBoardFiles" multiple accept="image/*">-->
 				</div>
-			</div>
+			</div> 
 			
 			<div class="row">
 			<div class="col text-center">
@@ -94,3 +91,4 @@
 </body>	
 </html>	
 <%--템플릿 끝 --%>
+	
