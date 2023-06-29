@@ -35,8 +35,6 @@ public class RestAuctionController {
 	@Autowired
 	private UserServiceImpl userService;
 	
-	
-	
 	// 경매 메인 페이지에서 경매 리스트 실시간으로 출력 (추후 카테고리에 따라 쿼리 수정해야함)
 	@RequestMapping("getAuctionList")
 	public Map<String, Object> getAuctionList(HttpSession session) {
@@ -48,6 +46,7 @@ public class RestAuctionController {
 
 		return map;
 	}
+	
 	
 	// 경매 메인 페이지에서 대규모 카테고리 출력
 	@RequestMapping("getProductMainCategoriesForMenu")
@@ -306,14 +305,17 @@ public class RestAuctionController {
 		auctionBidDto.setAuction_item_id(auctionItemId);
 		auctionBidDto.setUser_buyer_id(sessionUser.getId());
 		
+		
 		AuctionItemDto auctionItemDto = auctionService.getAuctionItem(auctionBidDto.getAuction_item_id());
 		map.put("auctionItemDto", auctionItemDto);
 		
-		
+		// 입찰한 유저의 정보
+		UserDto userDto = userService.selectUserDtoById(sessionUser.getId());
+		map.put("userDto", userDto);
 		
 		auctionService.submitBidRequest(auctionBidDto);
 		
-		session.setAttribute("auctionBidInfo", auctionBidDto);
+		//session.setAttribute("auctionBidInfo", auctionBidDto);
 		
 		map.put("result", "success");	
 
@@ -383,12 +385,12 @@ public class RestAuctionController {
 	}
 	
 	// 경매 낙찰 후 경매 종료 처리
-	@RequestMapping("renewSuccessfulBidOrEnd")
+	@RequestMapping("renewImmediateSuccessfulBid")
 	public Map<String, Object> renewSuccessfulBidOrEnd(int auctionItemId) {
 		
 		Map<String, Object> map = new HashMap<>();
 		
-		auctionService.renewSuccessfulBidOrEnd(auctionItemId);
+		auctionService.renewImmediateSuccessfulBid(auctionItemId);
 		
 		map.put("result", "success");
 		

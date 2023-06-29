@@ -601,7 +601,6 @@ function registerAuctionProduct() {
 	    xhr.send(formData);	
 	    
 
-   
 	  }	    
 
 

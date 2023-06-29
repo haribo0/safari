@@ -256,7 +256,7 @@
 	
 	
 	<!-- 낙찰 시 경매 종료로 상태 업데이트 -->
-	<update id="renewSuccessfulBidOrEnd">
+	<update id="renewImmediateSuccessfulBid">
 		UPDATE auction_item
 			SET auction_status = '종료'
 			WHERE id = #{id}
