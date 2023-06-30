@@ -17,7 +17,7 @@
   border-radius: 10px; /* 테두리의 굴곡 정도 */
   text-align: end; /* 내용을 오른쪽 정렬 */
   width: auto;
-  max-width: 400px;
+  max-width: 320px;
 }
 
 .otherContent {
@@ -27,7 +27,7 @@
   border-radius: 10px; /* 테두리의 굴곡 정도 */
   text-align: start; /* 내용을 왼쪽 정렬 */
   width: auto;
-  max-width: 400px;
+  max-width: 320px;
 }
 </style>
 </head>
@@ -138,8 +138,8 @@
 	<div class="modal" id="chatModal" tabindex="-1" onclick="reloadChatRoomList()">
 	  <div class="modal-dialog">
 	    <div class="modal-content">
-	      <div class="modal-header">
-	        <h5 class="modal-title">과의 채팅</h5>
+	      <div class="modal-header position-relative">
+ 	        <div class="modal-title position-absolute top-50 start-50 translate-middle fw-bold fs-3" id="modalTitle"></div>
 	        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 	      </div>
 	      <div class="modal-header">
@@ -186,7 +186,7 @@
 	  			  console.log("data.userDto.id",data.userDto.id)
 	  			  console.log("data.content",data.chatContent)
 	  			  row.className = 'row align-items-center';
-	  			  row.setAttribute("onclick", "modalOn("+data.productRequestDto.id + "," + data.userDto.id + ")");
+	  			  row.setAttribute("onclick", "modalOn("+data.productRequestDto.id + "," + data.userDto.id + "," + "'" + data.userDto.nickname + "'" + ")");
 
 	  			  const col1 = document.createElement('div');
 	  			  col1.className = 'col-1 pe-0';
@@ -253,18 +253,21 @@
 	
 	let intervalHandler = null;
 	// 모달 열기 
-	function  modalOn(requestId, receiverId) {
+	function  modalOn(requestId, receiverId, userNickname) {
+		const userNickname2 = userNickname;
 		const myModal = bootstrap.Modal.getOrCreateInstance('#chatModal');
 		requestId2=requestId;
 		receiverId2=receiverId;
 		
+		
 		console.log("requestId"+requestId);
 		console.log("receiverId"+receiverId);
+		const modalTitleBox = document.getElementById("modalTitle");
+		modalTitleBox.innerText = userNickname2;
 		
 		reloadChatList(requestId);
 		// 열 때
 		myModal.show();
-		
 		
 		// 전송버튼 
  		const sendBox = document.getElementById("sendContent");
@@ -342,22 +345,34 @@ function reloadChatList(requestId) {
 			mySessionId = response.sessionId;
 
 		    getChatbox.innerHTML = ""; //초기화 얘만 innerHTML 허용... 
-			
+			let time = null;
 			
 			// 채팅 내용 반복문 돌리기 
 			for(data of response.chatList){
 				  const row1 = document.createElement('div');
 				  row1.classList.add('row', 'mt-3');
 				  
+				  
 				  if(mySessionId!=data.receiver_id){
 					  const col1 = document.createElement('div');
 					  col1.classList.add('col');
+					  const col1row1 = document.createElement('div');
+					  col1row1.classList.add('row', 'justify-content-end', 'm-1');
+					  const col1row2 = document.createElement('div');
+					  col1row2.classList.add('row');
+					  
+					  if(data.read_unread == 'N'){
+						  col1row1.innerText = '1';
+					  }
+					  
 					  const col2 = document.createElement('div');
-					  col2.classList.add('col-8', 'me-3', 'myContent');
+					  col2.classList.add('col-7', 'me-3', 'myContent');
 					  col2.innerText = data.content;
 					  
 					  row1.appendChild(col1);
 					  row1.appendChild(col2);
+					  col1.appendChild(col1row1);
+					  col1.appendChild(col1row2);
 					  
 					  getChatbox.appendChild(row1);
 				  }else {
@@ -370,15 +385,25 @@ function reloadChatList(requestId) {
 					  colIcon.appendChild(icon);
 					  
 					  const col3 = document.createElement('div');
-					  col3.classList.add('col-8', 'ms-2', 'text-left', 'otherContent');
+					  col3.classList.add('col-7', 'ms-2', 'text-left', 'otherContent');
 					  col3.innerText = data.content;
 					  
 					  const col4 = document.createElement('div');
-					  col4.classList.add('col');
+					  col4.classList.add('col', 'd-flex', 'flex-column', 'justify-content-end');
+					  const col4row1 = document.createElement('div');
+					  col4row1.classList.add('row', 'justify-content-start', 'm-1');
+					  const col4row2 = document.createElement('div');
+					  col4row2.classList.add('row');
+					  
+					  if(data.read_unread == 'N'){
+						  col4row1.innerText = '1';
+					  }
 					  
 					  row1.appendChild(colIcon);
 					  row1.appendChild(col3);
 					  row1.appendChild(col4);
+					  col4.appendChild(col4row1);
+					  col4.appendChild(col4row2);
 					  
 					  getChatbox.appendChild(row1);
 					
