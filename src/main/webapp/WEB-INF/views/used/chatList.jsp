@@ -29,6 +29,11 @@
   width: auto;
   max-width: 320px;
 }
+
+.chatTime {
+    font-size: 12px;
+}
+
 </style>
 </head>
 <body>
@@ -343,26 +348,49 @@ function reloadChatList(requestId) {
 		if(xhr.readyState == 4 && xhr.status == 200){
 			const response = JSON.parse(xhr.responseText);
 			mySessionId = response.sessionId;
-
-		    getChatbox.innerHTML = ""; //초기화 얘만 innerHTML 허용... 
-			let time = null;
 			
+		    getChatbox.innerHTML = ""; //초기화 얘만 innerHTML 허용... 
+			let yearMonthDay = null;
+		    
 			// 채팅 내용 반복문 돌리기 
 			for(data of response.chatList){
+				// 시간 몇월
+				  const regDate = new Date(data.reg_date);  
+				  const year = regDate.getFullYear();
+				  const month = regDate.getMonth() + 1;
+				  const day = regDate.getDate();
+				  const formattedDateHappen = year + '년 ' + month + '월 ' + day + '일';
+				  console.log(yearMonthDay);
+				  console.log(formattedDateHappen);
+				  
+				  if(yearMonthDay != formattedDateHappen){
+					  const yearMonthDayRow = document.createElement('div');
+					  yearMonthDayRow.classList.add('row', 'justify-content-center', 'mt-4');
+					  yearMonthDayRow.innerText = formattedDateHappen;
+					  getChatbox.appendChild(yearMonthDayRow);
+					  yearMonthDay = formattedDateHappen;
+				  }
+				
 				  const row1 = document.createElement('div');
 				  row1.classList.add('row', 'mt-3');
 				  
-				  
 				  if(mySessionId!=data.receiver_id){
 					  const col1 = document.createElement('div');
-					  col1.classList.add('col');
+					  col1.classList.add('col', 'd-flex', 'flex-column', 'justify-content-end');
 					  const col1row1 = document.createElement('div');
-					  col1row1.classList.add('row', 'justify-content-end', 'm-1');
+					  col1row1.classList.add('row', 'justify-content-end', 'mx-1');
 					  const col1row2 = document.createElement('div');
-					  col1row2.classList.add('row');
+					  col1row2.classList.add('row', 'justify-content-end', 'mx-1', 'chatTime');
+					  const regDate = new Date(data.reg_date);
+					  const formattedDate = regDate.toLocaleTimeString('ko-KR', { hour: 'numeric', minute: '2-digit' });
+					  col1row2.innerText = formattedDate;
+					  
+					  
 					  
 					  if(data.read_unread == 'N'){
 						  col1row1.innerText = '1';
+					  }else{
+						  col1row1.innerText = ' ';
 					  }
 					  
 					  const col2 = document.createElement('div');
@@ -405,8 +433,8 @@ function reloadChatList(requestId) {
 					  col4.appendChild(col4row1);
 					  col4.appendChild(col4row2);
 					  
+					  
 					  getChatbox.appendChild(row1);
-					
 				  }
 			}
 			// 채팅 화면 마지막으로 맞추기 
