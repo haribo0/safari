@@ -17,6 +17,7 @@
   border-radius: 10px; /* 테두리의 굴곡 정도 */
   text-align: end; /* 내용을 오른쪽 정렬 */
   width: auto;
+  max-width: 400px;
 }
 
 .otherContent {
@@ -26,6 +27,7 @@
   border-radius: 10px; /* 테두리의 굴곡 정도 */
   text-align: start; /* 내용을 왼쪽 정렬 */
   width: auto;
+  max-width: 400px;
 }
 </style>
 </head>
@@ -137,7 +139,7 @@
 	  <div class="modal-dialog">
 	    <div class="modal-content">
 	      <div class="modal-header">
-	        <h5 class="modal-title">채팅</h5>
+	        <h5 class="modal-title">과의 채팅</h5>
 	        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 	      </div>
 	      <div class="modal-header">
@@ -148,7 +150,7 @@
 	      	</div>
 	      </div>
 	      <div class="modal-body" style="height: 400px">
-			<div class="chat-container overflow-y-scroll" style="height:380px;" id="getChatList">
+			<div class="chat-container overflow-y-scroll overflow-x-hidden" style="height:380px;" id="getChatList">
 			</div>
 	      </div>
 	      <div class="modal-footer justify-content-start">
@@ -260,7 +262,6 @@
 		console.log("receiverId"+receiverId);
 		
 		reloadChatList(requestId);
-		
 		// 열 때
 		myModal.show();
 		
