@@ -7,10 +7,10 @@ public class CsEmpDto {
 	private int id;
 	private int master;
 	private String department;
-	private String position;
+	private String job_position;
 	private String name;
 	private String nickname;
-	private String userid;
+	private String username;
 	private String password;
 	private Date reg_date;
 	
@@ -19,16 +19,16 @@ public class CsEmpDto {
 		// TODO Auto-generated constructor stub
 	}
 
-	public CsEmpDto(int id, int master, String department, String position, String name, String nickname, String userid,
+	public CsEmpDto(int id, int master, String department, String job_position, String name, String nickname, String username,
 			String password, Date reg_date) {
 		super();
 		this.id = id;
 		this.master = master;
 		this.department = department;
-		this.position = position;
+		this.job_position = job_position;
 		this.name = name;
 		this.nickname = nickname;
-		this.userid = userid;
+		this.username = username;
 		this.password = password;
 		this.reg_date = reg_date;
 	}
@@ -57,12 +57,14 @@ public class CsEmpDto {
 		this.department = department;
 	}
 
-	public String getPosition() {
-		return position;
+	
+
+	public String getJob_position() {
+		return job_position;
 	}
 
-	public void setPosition(String position) {
-		this.position = position;
+	public void setJob_position(String job_position) {
+		this.job_position = job_position;
 	}
 
 	public String getName() {
@@ -81,12 +83,13 @@ public class CsEmpDto {
 		this.nickname = nickname;
 	}
 
-	public String getUserid() {
-		return userid;
+	
+	public String getUsername() {
+		return username;
 	}
 
-	public void setUserid(String userid) {
-		this.userid = userid;
+	public void setUsername(String username) {
+		this.username = username;
 	}
 
 	public String getPassword() {

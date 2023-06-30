@@ -5,7 +5,11 @@
 
 <mapper namespace="com.ja.safari.cs.mapper.CsSqlMapper">
 
-
+	<select id="getEmpDtoByUserNameAndPw" resultType="com.ja.safari.dto.CsEmpDto">
+		SELECT * FROM cs_emp
+		WHERE username = #{username}
+		AND password = #{password}
+	</select>
 	
 	
 	

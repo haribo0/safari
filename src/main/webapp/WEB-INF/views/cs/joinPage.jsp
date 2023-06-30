@@ -11,7 +11,7 @@
 </head>
 <body>
 	<!-- 헤더 섹션 -->
-	<jsp:include page="../common/header.jsp"></jsp:include>
+	<jsp:include page="../common/csTopNav2.jsp"></jsp:include>
 	<!-- 헤더 섹션 -->
 	
 	<div class="container d-flex justify-content-center">
