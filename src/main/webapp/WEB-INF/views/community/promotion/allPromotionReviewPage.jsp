@@ -173,7 +173,7 @@
 			</div> <!-- <div class = "col-10"> 닫는곳 -->
 		</div>
 	
-		<!--  페이징(나중에 가운데로 옮기세요)-->
+		<!-- 페이징-->
 		<div class = "row mt-3 d-flex justify-content-center">
 			<div class = "col-2 ms-0">
 				<nav aria-label="Page navigation">

@@ -20,11 +20,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.ja.safari.community.service.CommunityServiceImpl;
+import com.ja.safari.community.service.PromotionReviewCommentServiceImpl;
 import com.ja.safari.community.service.PromotionReviewServiceImpl;
 import com.ja.safari.dto.HelpCommentDto;
 import com.ja.safari.dto.HelpDto;
 import com.ja.safari.dto.HelpImgDto;
 import com.ja.safari.dto.HelpLikeDto;
+import com.ja.safari.dto.PromotionReviewCommentDto;
 import com.ja.safari.dto.PromotionReviewDto;
 import com.ja.safari.dto.PromotionReviewImgDto;
 import com.ja.safari.dto.QuestionDto;
@@ -43,6 +45,9 @@ public class CommunityController {
 	@Autowired
 	private PromotionReviewServiceImpl promotionReviewService;
 
+	@Autowired
+	private PromotionReviewCommentServiceImpl promotionReviewCommentService;
+	
 	// 커뮤니티 메인 페이지
 	@RequestMapping("mainPage")
 	public String main() {
@@ -688,10 +693,24 @@ public class CommunityController {
 			return "/community/promotion/allPromotionReviewPage";
 		}
 		
-
 		
-		
-		
+		// 댓글 버튼 process
+		@RequestMapping("promotion/writePromotionReivewCommentProcess")
+		public String writePromotionReivewCommentProcess(HttpSession session, PromotionReviewCommentDto params) {
+			
+			UserDto sessionUser = (UserDto) session.getAttribute("sessionUser");
+			
+			int userId = sessionUser.getId();	
+			params.setUser_id(userId);
+			
+			System.out.println(params.getPromotion_review_id());
+			System.out.println(params.getUser_id());
+			
+			
+			promotionReviewCommentService.writePromotionReivewComment(params);
+			
+			return "redirect:/community/promotion/contentPromotionReviewPage?id=" + params.getPromotion_review_id();
+		}
 		
 		
 		
