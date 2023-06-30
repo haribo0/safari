@@ -9,7 +9,25 @@
 <!-- 메타 섹션 -->
 <jsp:include page="../common/meta.jsp"></jsp:include>
 <!-- 메타 섹션 -->
+<style>
+.myContent {
+  background-color: rgba(75, 137, 220, 0.25);  /* 배경색 */
+  color: #000000; /* 글자색 */
+  padding: 10px; /* 여백 */
+  border-radius: 10px; /* 테두리의 굴곡 정도 */
+  text-align: end; /* 내용을 오른쪽 정렬 */
+  width: auto;
+}
 
+.otherContent {
+  background-color: #EAEAEA; /* 배경색 */
+  color: #000000; /* 글자색 */
+  padding: 10px; /* 여백 */
+  border-radius: 10px; /* 테두리의 굴곡 정도 */
+  text-align: start; /* 내용을 왼쪽 정렬 */
+  width: auto;
+}
+</style>
 </head>
 <body>
 	<!-- 헤더 섹션 -->
@@ -204,8 +222,8 @@
 	  			  const col3Img = document.createElement('img');
 	  			  col3Img.alt = '사진';
 	  			  col3Img.src = '/safarifile/' + data.productImgDto.product_img_link;
-	  			  col3Img.width = '50';
-	  			  col3Img.height = '50';
+	  			  col3Img.width = '60';
+	  			  col3Img.height = '60';
 	  			  col3.appendChild(col3Img);
 
 	  			  const col4 = document.createElement('div');
@@ -334,7 +352,7 @@ function reloadChatList(requestId) {
 					  const col1 = document.createElement('div');
 					  col1.classList.add('col');
 					  const col2 = document.createElement('div');
-					  col2.classList.add('col-8', 'me-2', 'text-end');
+					  col2.classList.add('col-8', 'me-3', 'myContent');
 					  col2.innerText = data.content;
 					  
 					  row1.appendChild(col1);
@@ -351,7 +369,7 @@ function reloadChatList(requestId) {
 					  colIcon.appendChild(icon);
 					  
 					  const col3 = document.createElement('div');
-					  col3.classList.add('col-8', 'ms-2', 'text-left');
+					  col3.classList.add('col-8', 'ms-2', 'text-left', 'otherContent');
 					  col3.innerText = data.content;
 					  
 					  const col4 = document.createElement('div');
