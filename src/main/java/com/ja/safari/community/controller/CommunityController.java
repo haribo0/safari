@@ -532,11 +532,12 @@ public class CommunityController {
 		
 		// 커뮤니티 프로모션 게시글 세부 페이지
 		@RequestMapping("promotion/contentPromotionReviewPage")
-		public String contentPromotionReviewPage(Model model, int id) {
+		public String contentPromotionReviewPage(Model model, Integer id) {
 			
 			promotionReviewService.increaseViewCount(id);
 			
-			Map<String, Object> map = promotionReviewService.getPromotionReview(id);	
+			Map<String, Object> map = promotionReviewService.getPromotionReview(id);
+			List<Map<String, Object>> promoCommentDtoList = promotionReviewCommentService.getpromotionReviewCommentDtoList(id);
 			
 			// html escape(enter키)
 			PromotionReviewDto promotionReviewDto = (PromotionReviewDto)map.get("promotionReviewDto");
@@ -546,7 +547,9 @@ public class CommunityController {
 			promotionReviewContent = promotionReviewContent.replaceAll("\n", "<br>");
 			promotionReviewDto.setPromotion_review_content(promotionReviewContent);
 			
+			
 			model.addAttribute("data", map);
+			model.addAttribute("promoCommentDtoList", promoCommentDtoList);
 			
 			return "/community/promotion/contentPromotionReviewPage";
 		}
