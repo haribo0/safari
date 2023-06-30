@@ -44,7 +44,6 @@ public class CsController {
 		return "cs/registerPage";
 	}
 	
-	
 	@RequestMapping("dashboard") 
 	public String dashboard(){
 		
@@ -79,6 +78,15 @@ public class CsController {
 		if(empUser==null) return "redirect:./loginPage";
 		
 		session.setAttribute("empUser", empUser);
+		
+		return "redirect:./mainPage";
+	}
+	
+	
+	@RequestMapping("logoutProcess") 
+	public String logoutProcess(HttpSession session){
+		
+		session.invalidate();
 		
 		return "redirect:./mainPage";
 	}

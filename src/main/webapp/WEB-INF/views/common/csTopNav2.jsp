@@ -16,41 +16,60 @@
     
     <!-- 왼쪽 메뉴 -->
     <ul class="navbar-nav  me-auto mb-lg-0">
-      <c:if test="${!empty empUser && empUser.master == 1}">
+      <%-- <c:if test="${!empty empUser && empUser.master == 1}">
       
         <li class="nav-item">
           <a class="nav-link" href="#">대시보드</a>
         </li>
-      </c:if>
+      </c:if> --%>
     
-      <li class="nav-item">
-        <a class="nav-link" href="#">1대1 문의</a>
+      <li class="nav-item ms-3">
+        <a class="nav-link" href="#"> 1대1 문의</a>
       </li>
       
-      <li class="nav-item">
-        <a class="nav-link" href="#">실시간 채팅</a>
+      <li class="nav-item ms-3">
+        <a class="nav-link" href="#"> 실시간 채팅</a>
       </li>
     </ul>
     
+    
     <!-- 오른쪽 메뉴 -->
-    <ul class="navbar-nav ml-auto">
-      <!-- <li class="nav-item">
-        <a class="nav-link" href="#">메뉴1</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">메뉴2</a>
-      </li> -->
-      <li class="nav-item me-3">
-        <c:choose>
-	          <c:when test="${!empty empUser}">
-	            <a href="${pageContext.request.contextPath}/cs/logoutProcess" class="nav-link">로그아웃</a>
-	          </c:when>
-	          <c:otherwise>
-	            <a href="${pageContext.request.contextPath}/cs/loginPage" class="btn btn-dark me-2">로그인</a>
-	          </c:otherwise>
-        </c:choose>
-      </li>
-    </ul>
+    <!-- 오른쪽 메뉴 -->
+	<ul class="navbar-nav ml-auto">
+	  <!-- <li class="nav-item">
+	    <a class="nav-link" href="#">메뉴1</a>
+	  </li> -->
+	  
+	  <li class="nav-item me-1">
+	    <a class="nav-link" href="#"><i class="bi bi-bell"></i></a>
+	  </li>
+	  
+	  <li class="nav-item me-4">
+	    <c:if test="${!empty empUser}">
+	      <div class="nav-item dropdown">
+	        <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+	          ${empUser.nickname}님
+	        </a>
+	        <ul class="dropdown-menu" aria-labelledby="userDropdown">
+	          <li><a class="dropdown-item" href="#"> 근무중 </a></li>
+	          <li><a class="dropdown-item" href="${pageContext.request.contextPath}/cs/logoutProcess">로그아웃</a></li>
+	        </ul>
+	      </div>
+	    </c:if>
+	  </li>
+	  
+	  <li class="nav-item me-3">
+	    <c:choose>
+	      <c:when test="${empty empUser}">
+	        <a href="${pageContext.request.contextPath}/cs/loginPage" class="nav-link me-2">로그인</a>
+	      </c:when>
+	    </c:choose>
+	  </li>
+	</ul>
+
+    
+    
+    
   </div>
 </nav>
 
