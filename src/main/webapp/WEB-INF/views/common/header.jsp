@@ -13,7 +13,7 @@
 	      <!-- <div class="d-flex flex-wrap align-items-center justify-content-around justify-content-lg-start"> -->
 	      <div class="d-flex flex-wrap justify-content-lg-between align-items-center">
 	      	<div class="d-flex align-items-center">
-	      		<h1 class="me-5"><a href="../main/mainPage" class="btn">LOGO(사파리)</a></h1>
+	      		<h1 class="me-5"><a href="${pageContext.request.contextPath}/main/mainPage" class="btn">LOGO(사파리)</a></h1>
 	      		
 	      		<form class="col-12 col-lg-auto me-lg-4" role="search">
 		          <input type="search" class="form-control rounded-pill search_box" placeholder="검색" aria-label="Search">
