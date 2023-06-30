@@ -178,6 +178,7 @@
 	     });
 	     // 드래그 아이템 추가하기
 	     for (let i = 1; i <= 5; i++) {
+	    	 // 직원 이름 
 	       const div = document.createElement('div');
 	       div.className = 'fc-event fc-h-event fc-daygrid-event fc-daygrid-block-event';
 	       const eventDiv = document.createElement('div');

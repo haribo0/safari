@@ -57,6 +57,13 @@ public class CsController {
 	}
 	
 	
+	@RequestMapping("employees") 
+	public String employees(){
+		
+		return "cs/employees";
+	}
+	
+	
 	
 	
 	

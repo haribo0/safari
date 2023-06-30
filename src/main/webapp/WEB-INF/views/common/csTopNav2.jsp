@@ -12,7 +12,7 @@
       <img class="img-fluid my-2 ms-4 me-3" width="74px" src="/safari/resources/img/logopng1.png">
     </a>
     
-    <a class="navbar-brand" href="#">고객관리서비스</a>
+    <a class="navbar-brand" href="./mainPage">고객관리서비스</a>
     
     <!-- 왼쪽 메뉴 -->
     <ul class="navbar-nav  me-auto mb-lg-0">
@@ -22,18 +22,27 @@
           <a class="nav-link" href="#">대시보드</a>
         </li>
       </c:if> --%>
-    
-      <li class="nav-item ms-3">
-        <a class="nav-link" href="#"> 1대1 문의</a>
-      </li>
       
-      <li class="nav-item ms-3">
-        <a class="nav-link" href="#"> 실시간 채팅</a>
-      </li>
+      
+    
+		<li class="nav-item ms-3">
+		  <a class="nav-link" href="#"> 1대1 문의</a>
+		</li>
+		
+		<li class="nav-item ms-3">
+		  <a class="nav-link" href="#"> 실시간 채팅</a>
+		</li>
+		
+		<c:if test="${!empty empUser && empUser.master == 1}">
+		  <li class="nav-item ms-3">
+		    <a class="nav-link" href="./employees">직원 관리</a>
+		  </li>
+		</c:if>
+    
     </ul>
     
     
-    <!-- 오른쪽 메뉴 -->
+    
     <!-- 오른쪽 메뉴 -->
 	<ul class="navbar-nav ml-auto">
 	  <!-- <li class="nav-item">

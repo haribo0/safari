@@ -304,7 +304,7 @@ function getItemToBeReturnedList() {
 					btn1.innerText = "수취확인";
 					btn1.setAttribute('data-order-id', data.orderDto.id);
 					btn1.setAttribute('data-return-id', data.returnDto.id);
-					btn1.setAttribute('onclick', changeReturnShippingStatus);
+					btn1.setAttribute('onclick', "changeReturnShippingStatus(this)");
 					col5.appendChild(btn1);
 				listContainer.appendChild(col5);
 				
