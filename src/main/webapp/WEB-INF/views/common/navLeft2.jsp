@@ -5,16 +5,6 @@
     
     
 <!-- <div class=""> -->
-
-<div class="row bg-dark">
-	<div class="col bg-dark">
-		<div class="row bg-dark">
-			<div class="col bg-dark"></div>
-		</div>
-	</div>
-
-
-</div>
     
 <div class="row">
 	<div class="col me-5"><a href="./mainPage" class="btn"><img class="img-fluid" max-width="300px" src="/safari/resources/img/logo2.png"></a></div>

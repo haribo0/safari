@@ -271,25 +271,25 @@ function getItemToBeReturnedList() {
 				
 				const col1 = document.createElement("div");
 				col1.classList.add("col-1");
-				col1.classList.add("text-center");
+				col1.classList.add("text-center","my-auto");
 				col1.innerText = data.orderDto.id;
 				listContainer.appendChild(col1);
 				
 				const col2 = document.createElement("div");
 				col2.classList.add("col-3");
-				col2.classList.add("text-center");
+				col2.classList.add("text-center","my-auto");
 				col2.innerText = data.productDto.title;
 				listContainer.appendChild(col2);
 				
 				const col3 = document.createElement("div");
 				col3.classList.add("col-4");
-				col3.classList.add("text-center");
+				col3.classList.add("text-center","my-auto");
 				col3.innerText = data.orderDto.address;
 				listContainer.appendChild(col3);
 				
 				const col4 = document.createElement("div");
 				col4.classList.add("col-2");
-				col4.classList.add("text-center");
+				col4.classList.add("text-center","my-auto");
 				const regDate = new Date(data.returnDto.reg_date);
 			    const formattedRegDate = regDate.toLocaleDateString('en-US', { month: '2-digit', day: '2-digit', year: 'numeric' });
 				col4.innerText = formattedRegDate;
@@ -297,7 +297,7 @@ function getItemToBeReturnedList() {
 				
 				const col5 = document.createElement("div");
 				col5.classList.add("col-2");
-				col5.classList.add("text-center");
+				col5.classList.add("text-center","my-auto");
 					const btn1 = document.createElement("div");
 					btn1.classList.add("col");
 					btn1.className = 'btn btn-dark';
@@ -352,26 +352,25 @@ function getItemReturnedList() {
 				
 				const col1 = document.createElement("div");
 				col1.classList.add("col-1");
-				col1.classList.add("text-center");
-				col1.classList.add("text-center");
+				col1.classList.add("text-center","my-auto");
 				col1.innerText = data.orderDto.id;
 				listContainer.appendChild(col1);
 				
 				const col2 = document.createElement("div");
 				col2.classList.add("col-3");
-				col2.classList.add("text-center");
+				col2.classList.add("text-center","my-auto");
 				col2.innerText = data.productDto.title;
 				listContainer.appendChild(col2);
 				
 				const col3 = document.createElement("div");
 				col3.classList.add("col-4");
-				col3.classList.add("text-center");
+				col3.classList.add("text-center","my-auto");
 				col3.innerText = data.orderDto.address;
 				listContainer.appendChild(col3);
 				
 				const col4 = document.createElement("div");
 				col4.classList.add("col-2");
-				col4.classList.add("text-center");
+				col4.classList.add("text-center","my-auto");
 				const regDate = new Date(data.returnDto.reg_date);
 			    const formattedRegDate = regDate.toLocaleDateString('en-US', { month: '2-digit', day: '2-digit', year: 'numeric' });
 				col4.innerText = formattedRegDate;
@@ -379,7 +378,7 @@ function getItemReturnedList() {
 				
 				const col5 = document.createElement("div");
 				col5.classList.add("col-2");
-				col5.classList.add("text-center");
+				col5.classList.add("text-center","my-auto");
 					const btn1 = document.createElement("div");
 					btn1.classList.add("col");
 					btn1.className = 'btn btn-outline-dark';

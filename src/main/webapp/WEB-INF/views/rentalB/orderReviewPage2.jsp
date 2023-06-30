@@ -288,7 +288,7 @@ function getReviewsByProductAndStatus(productId, status) {
 		statusNum = status;
 	} */
 	
-	console.log(productIdNum);
+	/* console.log(productIdNum); */
 	
 	
 

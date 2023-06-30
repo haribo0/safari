@@ -187,7 +187,7 @@ function getDataForChart() {
 			let	barData = [];
 			response.saleList.forEach(function(data){
 				// 너무 길면 자르기
-				barLabels.push(data.TITLE.length > 10 ? data.TITLE.substring(0, 5)+".." : data.TITLE);
+				barLabels.push(data.TITLE.length > 10 ? data.TITLE.substring(0, 7)+".." : data.TITLE);
 				barData.push(data.SALES);
 			});
 			makeBarChart(barData,barLabels);
