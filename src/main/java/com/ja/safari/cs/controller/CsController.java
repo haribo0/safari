@@ -45,7 +45,10 @@ public class CsController {
 	}
 	
 	@RequestMapping("dashboard") 
-	public String dashboard(){
+	public String dashboard(HttpSession session){
+		
+		CsEmpDto empUser = (CsEmpDto) session.getAttribute("empUser");
+		if(empUser==null) return "redirect:./loginPage";
 		
 		return "cs/dashboard";
 	}
@@ -58,7 +61,10 @@ public class CsController {
 	
 	
 	@RequestMapping("employees") 
-	public String employees(){
+	public String employees(HttpSession session){
+		
+		CsEmpDto empUser = (CsEmpDto) session.getAttribute("empUser");
+		if(empUser==null) return "redirect:./loginPage";
 		
 		return "cs/employees";
 	}

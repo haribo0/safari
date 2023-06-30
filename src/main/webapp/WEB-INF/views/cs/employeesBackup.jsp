@@ -253,7 +253,6 @@ function getEmployeeList() {
 				// 첫 번째 줄 생성
 				const rowDiv = document.createElement('div');
 				rowDiv.classList.add('row', 'text-center', 'py-1');
-				rowDiv.id ='row-'+map.empDto.id;
 				
 				// 번호 열 생성
 				const col1Div = document.createElement('div');
@@ -290,7 +289,7 @@ function getEmployeeList() {
 				  const checkbox = document.createElement('input');
 				  checkbox.type = 'checkbox';
 				  checkbox.name = 'weekday';
-				  checkbox.className = 'inputWeekday';
+				  checkbox.className = 'checkWeek'
 				  checkbox.setAttribute("data-emp-id", map.empDto.id);
 				  checkbox.value = daysOfWeek[i];
 				  checkbox.id = 'checkbox-'+map.empDto.id+"-"+i;
@@ -299,31 +298,36 @@ function getEmployeeList() {
 				  label.textContent = daysOfWeek[i];
 				  label.className = 'pe-2';
 				  label.setAttribute('for', 'checkbox-'+map.empDto.id+"-"+i);
-				
-				  // 변화가 있으면 함수 실행 
-				  checkbox.addEventListener('change',changeDataForSchedule);
+				  
+				  checkbox.addEventListener('change', function() {
+					    if (checkbox.checked) {
+					      console.log('Checked:', checkbox.value);
+					    } else {
+					      console.log('Unchecked:', checkbox.value);
+					    }
+					  });
 
 				  col5Div.appendChild(checkbox);
 				  col5Div.appendChild(label);
 				}
-				rowDiv.appendChild(col5Div);
 				
+				rowDiv.appendChild(col5Div);
 
 				// 출근 열 생성
 				const col6Div = document.createElement('div');
 				col6Div.classList.add('col');
 				const select1 = document.createElement('select');
-				select1.className = 'startTime';
 				select1.id = 'start_time-'+map.empDto.id;
 				select1.name = 'start_time';
-				for (let hour = 09; hour <= 18; hour++) {
-					  let option = document.createElement('option');
-					  let time = ('0' + hour).slice(-2) + ':00';
-					  option.value = hour;
-					  option.textContent = time;
-					  select1.appendChild(option);
-					}
-				select1.addEventListener('change',changeDataForSchedule);
+				for (let hour = 9; hour <= 18; hour++) {
+				  for (let minutes = 0; minutes <= 30; minutes += 30) {
+				    let option = document.createElement('option');
+				    let time = ('0' + hour).slice(-2) + ':' + ('0' + minutes).slice(-2);
+				    option.value = time;
+				    option.textContent = time;
+				    select1.appendChild(option);
+				  }
+				}
 				col6Div.appendChild(select1);
 				rowDiv.appendChild(col6Div);
 
@@ -331,16 +335,14 @@ function getEmployeeList() {
 				const col7Div = document.createElement('div');
 				col7Div.classList.add('col');
 				const select = document.createElement('select');
-				select.className = 'endTime';
 				select.name = 'end_time';
 				for (let hour = 12; hour <= 22; hour++) {
 				  let option = document.createElement('option');
 				  let time = ('0' + hour).slice(-2) + ':00';
-				  option.value = hour;
+				  option.value = time;
 				  option.textContent = time;
 				  select.appendChild(option);
 				}
-				select.addEventListener('change',changeDataForSchedule);
 				col7Div.appendChild(select);
 				rowDiv.appendChild(col7Div);
 
@@ -370,52 +372,25 @@ function getEmployeeList() {
 }
 
 
-function changeDataForSchedule(e) {
-
-	const empId = e.currentTarget.getAttribute("data-emp-id");
-	const rowBox = document.getElementById("row-"+empId);
+function getDataForSchedule(e) {
 	
-	// 체크 박스 요일 
-	const checkboxes = rowBox.querySelectorAll('.inputWeekday');
-	let days = []; 
-	rowBox.querySelectorAll('.inputWeekday').forEach(function(checkbox){
-		if (checkbox.checked) {
-			days.push(checkbox.value);
-		}
-	});
-	
-	// 출근 시간 숫자 
-	const startTimeBox = rowBox.querySelector('.startTime');
-	startTime = startTimeBox.value;
-	
-	// 퇴근 시간 숫자 
-	const endTimeBox = rowBox.querySelector('.endTime');
-	endTime = endTimeBox.value;
+	const empId = e.getAttribute("data-emp-id");
 	
 	
-	const xhr = new XMLHttpRequest();
-
-	xhr.onreadystatechange = function() {
-		if(xhr.readyState == 4 && xhr.status == 200){
-			const response = JSON.parse(xhr.responseText);
-			
-		}
-	}
-
-	// post 방식 
-	xhr.open("post", "./changeSchedule");
-	xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-	xhr.send("days="+days+"&startTime="+startTime+"&endTime="+endTime+"&empId="+empId);
+	
 	
 	
 	
 }
 
-
+ function setFunc() {
+	 
+	 let inputWeekday = document.querySelectorAll('')
+ }
 
 window.addEventListener("DOMContentLoaded",function(){
 	getEmployeeList();
-
+	setFunc()
 	
 });
  

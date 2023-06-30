@@ -5,10 +5,50 @@
 
 <mapper namespace="com.ja.safari.cs.mapper.CsSqlMapper">
 
+	<!-- 로그인 -->
 	<select id="getEmpDtoByUserNameAndPw" resultType="com.ja.safari.dto.CsEmpDto">
 		SELECT * FROM cs_emp
 		WHERE username = #{username}
 		AND password = #{password}
+	</select>
+
+
+	<!-- 직원 등록 -->
+	<insert id="registerEmployee" >
+		INSERT INTO cs_emp VALUES(
+			cs_emp_seq.nextval,
+			0,
+			'고객관리',
+			'사원',
+			#{name},
+			#{nickname},
+			#{username},
+			#{password},
+			SYSDATE
+		)
+	</insert>
+	
+	<!-- 직원 리스트 -->
+	<select id="getEmployeeList" resultType="com.ja.safari.dto.CsEmpDto">
+		SELECT * FROM cs_emp
+		ORDER BY id
+	</select>
+	
+	<!-- 직원 근무 상태 -->
+	<select id="getAttendanceLogByEmpId" resultType="com.ja.safari.dto.CsAttendanceLogDto">
+		<!-- SELECT * FROM CS_ATTENDANCE_LOG 
+		WHERE id = (SELECT max(id) FROM (
+			SELECT * FROM cs_attendance_log
+			WHERE emp_id = #{empId}
+		)) -->
+		SELECT * FROM (
+			SELECT t1.*, rownum rm FROM 
+			(SELECT *
+			FROM cs_attendance_log
+			WHERE emp_id = #{empId}
+			ORDER BY time_in DESC) t1
+		) t2
+		WHERE t2.rm = 1
 	</select>
 	
 	

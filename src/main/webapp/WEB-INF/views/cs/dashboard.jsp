@@ -84,30 +84,10 @@
 
 
 <div class="container-fluid">
-	<div class="row mt-5">
+	<div class="row ">
 		<div class="col-3"></div>
-		<div class="col-1 pt-5">
-			<div id='external-events'>
-			  <h4>스케줄</h4>
-			  <div id='external-events-list'></div>
-			</div>
-		</div>
-		<div class="col-5">
-			
-			<!-- <div id='calendar'></div> -->
-			
-			<!-- <div id='wrap'>
-				드래그 박스
-				<div id='external-events'>
-				  <h4>Draggable Events</h4>
-				  <div id='external-events-list'></div>
-				</div>
-				calendar 태그
-				<div id='calendar-wrap'>
-				  <div id='calendar'></div>
-				</div>
-			</div> -->
-			
+		
+		<div class="col-6">
 			
 			
 			<div id='wrap'>
@@ -165,28 +145,7 @@
     */
 
 	   document.addEventListener('DOMContentLoaded', function() {
-	     // 드래그 박스 취득
-	     var containerEl = document.getElementById('external-events-list');
-	     // 설정하기
-	     new FullCalendar.Draggable(containerEl, {
-	       itemSelector: '.fc-event',
-	       eventData: function(eventEl) {
-	         return {
-	           title: eventEl.innerText.trim()
-	         };
-	       }
-	     });
-	     // 드래그 아이템 추가하기
-	     for (let i = 1; i <= 5; i++) {
-	    	 // 직원 이름 
-	       const div = document.createElement('div');
-	       div.className = 'fc-event fc-h-event fc-daygrid-event fc-daygrid-block-event';
-	       const eventDiv = document.createElement('div');
-	       eventDiv.className = 'fc-event-main';
-	       eventDiv.innerText = 'Event ' + i;
-	       div.appendChild(eventDiv);
-	       containerEl.appendChild(div);
-	     }
+	     
 	     // calendar element 취득
 	     var calendarEl = document.getElementById('calendar');
 	     // full-calendar 생성하기
@@ -210,30 +169,61 @@
 	     calendar.render();
 	   });
 
+    
+    document.addEventListener('DOMContentLoaded', function() {
+    	  var calendarEl = document.getElementById('calendar');
+    	  var calendar = new FullCalendar.Calendar(calendarEl, {
+    	    // FullCalendar 설정과 옵션
+    	    // ...
+    	    events: function(info, successCallback, failureCallback) {
+    	      // fetch API를 사용하여 서버에서 이벤트 데이터를 가져옴
+    	      fetch('/api/events') // 이벤트 데이터를 제공하는 API 엔드포인트
+    	        .then(function(response) {
+    	          return response.json(); // JSON 형식으로 응답 데이터 변환
+    	        })
+    	        .then(function(data) {
+    	          var events = data.events; // 서버 응답으로부터 이벤트 배열 추출
+    	          successCallback(events); // FullCalendar에 이벤트 배열 전달
+    	        })
+    	        .catch(function(error) {
+    	          failureCallback(error); // 에러 처리
+    	        });
+    	    }
+    	  });
 
+    	  calendar.render();
+    	});
 
    
-   
-   /* import { Calendar } from '@fullcalendar/core';
-   import interactionPlugin, { Draggable } from '@fullcalendar/interaction'; */
-   
-   /* document.addEventListener('DOMContentLoaded', function() {
-	   let draggableEl = document.getElementById('mydraggable');
-	   let calendarEl = document.getElementById('mycalendar');
+    /* document.addEventListener('DOMContentLoaded', function() {
+    	  var calendarEl = document.getElementById('calendar');
+    	  var calendar = new FullCalendar.Calendar(calendarEl, {
+    	    // FullCalendar 설정과 옵션
+    	    // ...
+    	    events: function(info, successCallback, failureCallback) {
+    	      var xhr = new XMLHttpRequest();
+    	      xhr.open('GET', '/api/events', true);
+    	      xhr.onload = function() {
+    	        if (xhr.status >= 200 && xhr.status < 400) {
+    	          var data = JSON.parse(xhr.responseText);
+    	          var events = data.events;
+    	          successCallback(events); // FullCalendar에 이벤트 배열 전달
+    	        } else {
+    	          failureCallback(xhr.statusText); // 에러 처리
+    	        }
+    	      };
+    	      xhr.onerror = function() {
+    	        failureCallback(xhr.statusText); // 에러 처리
+    	      };
+    	      xhr.send();
+    	    }
+    	  });
 
-	   let calendar = new Calendar(calendarEl, {
-	     plugins: [ interactionPlugin ],
-	     droppable: true
-	   });
+    	  calendar.render();
+    	}); */
 
-	   calendar.render();
-
-	   new Draggable(draggableEl);
-	 }); */
-   
-   
-   
-   
+    
+    
  </script>
  
  
