@@ -326,27 +326,44 @@ public class UsedServiceImpl {
 		return usedSqlMapper.countProductRequestByProductId(productId);
 	}
 	
-	// 사용자가 거래요청한 것과 거래요청 받은 것의 리스트 (상품Dto, 회원Dto, 요청Dto) 
+	// 사용자가 거래요청한 것과 거래요청 받은 것의 리스트 (상품Dto, 회원Dto, 요청Dto, 동네Dto) 
 	public List<Map<String, Object>> selectProductRequestAllByUserId(Integer userId) {
 		List<Map<String, Object>> list = new ArrayList<Map<String,Object>>();
 		List<ProductRequestDto> productRequestDtoList = usedSqlMapper.selectProductRequestAllByUserId(userId);
 		for(ProductRequestDto productRequestDto:productRequestDtoList) {
 			Map<String, Object> map = new HashMap<>();
+			Integer requestId = productRequestDto.getId();
 			ProductDto productDto = usedSqlMapper.selectProductById(productRequestDto.getProduct_id());
+			ProductTownDto productTownDto = usedSqlMapper.selectProductTownById(productDto.getProduct_town_id()); 
 			ProductImgDto productImgDto = usedSqlMapper.selectProductImg(productRequestDto.getProduct_id());
-			// 내가 거래요청한 채팅일 때
+			ProductChatDto productChatDto = usedSqlMapper.selectLastChatContent(requestId);
+			// 내가 거래요청한 채팅일 때 & chat내용이 null일때 
 			UserDto userDto = null;
-			if(productRequestDto.getUser_id()==userId) {
+			String chatContent = null;
+			if(productRequestDto.getUser_id()==userId && usedSqlMapper.selectChatCount(requestId)==0) {
 				// 상대방 UserDto 
 				userDto = usedSqlMapper.selectUserDtoById(productDto.getUser_id());
-			}// 내상품에 대한 채팅을 받았을 때 
+				chatContent = "";
+			}else if(productRequestDto.getUser_id()==userId && usedSqlMapper.selectChatCount(requestId)>0){
+				userDto = usedSqlMapper.selectUserDtoById(productDto.getUser_id());
+				chatContent = productChatDto.getContent();
+			}
+			else if(productRequestDto.getUser_id()!=userId && usedSqlMapper.selectChatCount(requestId)==0) {
+			// 내상품에 대한 채팅을 받았을 때 & chat내용이 null일때 
+				userDto = usedSqlMapper.selectUserDtoById(productRequestDto.getUser_id());
+				chatContent = "";
+		    }    
 			else {
 				userDto = usedSqlMapper.selectUserDtoById(productRequestDto.getUser_id());
+				chatContent = productChatDto.getContent();
 			}
+			
 			map.put("productRequestDto", productRequestDto);
 			map.put("productDto", productDto);
 			map.put("userDto", userDto);
 			map.put("productImgDto", productImgDto);
+			map.put("productTownDto", productTownDto);
+			map.put("chatContent", chatContent);
 			list.add(map);
 		}
 		return list;

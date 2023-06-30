@@ -87,11 +87,24 @@
 		<%-- <c:forEach items="${list }" var="map">
 		 		<div class="row align-items-center" onclick="modalOn(${map.productRequestDto.id},${map.userDto.id })">
 		 			<div class="col-1 pe-0"><i class="bi bi-person-circle fs-3"></i></div>
-		 			<div class="col-1 w-0 ms-0">${map.userDto.nickname }</div>
+		 			<div class="col-5 w-0 ms-0">
+			 			<div class="row">
+			 				<div class="col">
+			 				${map.userDto.nickname }
+			 				</div>
+			 				<div class="col-1 text-secondary">
+			 				${map.productTownDto.product_town_name}
+			 				</div>
+			 				<div class="col text-secondary">
+			 				${map.productRequestDto.reg_date }
+			 				</div>
+			 			</div>
+			 			<div class="row">
+			 				${map.productChatDto.content }
+			 			</div>
+		 			</div>
 		 			<div class="col-1"><img alt="사진" src="/safarifile/${map.productImgDto.product_img_link}" width="50" height="50"></div>
-		 			<div class="col ms-0 p-0">${map.productDto.title }</div>
-		 			<div class="col-2">${map.productRequestDto.reg_date }</div>
-		 			<div class="col-5"></div>
+		 			<div class="col"></div>
 		 		</div>
 		 </c:forEach> --%>
 	</div>
@@ -102,7 +115,7 @@
 	<!-- 푸터 섹션 -->
 	
 		<!-- 채팅창 모달 -->
-	<div class="modal" id="chatModal" tabindex="-1">
+	<div class="modal" id="chatModal" tabindex="-1" onclick="reloadChatRoomList()">
 	  <div class="modal-dialog">
 	    <div class="modal-content">
 	      <div class="modal-header">
@@ -142,7 +155,7 @@
 		const chatRoomListStartBox = document.getElementById("chatRoomListStart");
 		
 		const xhr = new XMLHttpRequest();
-				
+		
 	    xhr.onreadystatechange = function(){
 	        if(xhr.readyState == 4 && xhr.status == 200){
 	            const response = JSON.parse(xhr.responseText);
@@ -151,19 +164,41 @@
 	  			  const row = document.createElement('div');
 	  			  console.log("data.productRequestDto.id",data.productRequestDto.id)
 	  			  console.log("data.userDto.id",data.userDto.id)
+	  			  console.log("data.content",data.chatContent)
 	  			  row.className = 'row align-items-center';
 	  			  row.setAttribute("onclick", "modalOn("+data.productRequestDto.id + "," + data.userDto.id + ")");
 
 	  			  const col1 = document.createElement('div');
 	  			  col1.className = 'col-1 pe-0';
 	  			  const col1Icon = document.createElement('i');
-	  			  col1Icon.className = 'bi bi-person-circle fs-3';
+	  			  col1Icon.className = 'bi bi-person-circle fs-1';
 	  			  col1.appendChild(col1Icon);
 
 	  			  const col2 = document.createElement('div');
-	  			  col2.className = 'col-1 w-0 ms-0';
-	  			  col2.textContent = data.userDto.nickname;
-
+	  			  col2.className = 'col-5 w-0 ms-0';
+	  			  
+	  			  const row1 = document.createElement('div');
+	  			  row1.className = 'row align-items-center';
+	  			  
+	  			  const row1col1 = document.createElement('div');
+	  			  row1col1.className = 'col-1 p-0 fw-bold fs-4';
+	  			  row1col1.textContent = data.userDto.nickname;
+	  			
+	  			  const row1col2 = document.createElement('div');
+	  			  row1col2.className = 'col-2 text-secondary';
+	  			  row1col2.textContent = data.productTownDto.product_town_name;
+	  			  
+	  			  const row1col3 = document.createElement('div');
+	  			  row1col3.className = 'col text-secondary';
+	  			  const regDate = data.productRequestDto.reg_date;
+	  			  const formattedDate = new Date(regDate).toLocaleDateString('ko-KR', { month: 'short', day: '2-digit' });
+	  			  row1col3.textContent = formattedDate;
+	  			  
+	  			  const row2 = document.createElement('div');
+	  			  row2.className = 'row';
+	  			  row2.textContent = data.chatContent;
+	  			  
+	  			  
 	  			  const col3 = document.createElement('div');
 	  			  col3.className = 'col-1';
 	  			  const col3Img = document.createElement('img');
@@ -174,30 +209,22 @@
 	  			  col3.appendChild(col3Img);
 
 	  			  const col4 = document.createElement('div');
-	  			  col4.className = 'col ms-0 p-0';
-	  			  col4.textContent = data.productDto.title;
-
-	  			  const col5 = document.createElement('div');
-	  			  col5.className = 'col-2';
-		  		  const regDate = new Date(data.productRequestDto.reg_date);
-		  		  const formattedDate = regDate.getFullYear() + '-' + ('0' + (regDate.getMonth() + 1)).slice(-2) + '-' + ('0' + regDate.getDate()).slice(-2);
-		  		  col5.textContent = formattedDate;
-
-	  			  const col6 = document.createElement('div');
-	  			  col6.className = 'col-5';
+	  			  col4.className = 'col';
 
 	  			  row.appendChild(col1);
 	  			  row.appendChild(col2);
 	  			  row.appendChild(col3);
 	  			  row.appendChild(col4);
-	  			  row.appendChild(col5);
-	  			  row.appendChild(col6);
+	  			  col2.appendChild(row1);
+	  			  col2.appendChild(row2);
+	  			  row1.appendChild(row1col1);
+	  			  row1.appendChild(row1col2);
+	  			  row1.appendChild(row1col3);
 
-	  			  chatRoomListStart.appendChild(row);
+	  			  chatRoomListStartBox.appendChild(row);
 	  		      }
 	        }
 	    }
-		
 		
 	    //post
 		xhr.open("get", "./chatListAjax");
@@ -229,7 +256,7 @@
 		// 전송버튼 누르면 해당 메소드 불러오기 
 		sendBox.setAttribute("onclick", "insertContent("+requestId+","+receiverId+")")
 		
-		
+		// 3초마다 채팅 업로드 
 		if(intervalHandler != null){
 			clearInterval(intervalHandler);
 			intervalHandler = null;
@@ -238,7 +265,6 @@
 		intervalHandler = setInterval(() => {
 			reloadChatList(requestId);
 		}, 3000);
-		
 		
 		
 	}

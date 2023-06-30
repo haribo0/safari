@@ -170,6 +170,15 @@ public class UsedController {
 			
 			int productId = usedService.createProductPk();
 			productDto.setId(productId);
+			System.out.println(productDto.getId());
+			System.out.println(productDto.getUser_id());
+			System.out.println(productDto.getTitle());
+			System.out.println(productDto.getContent());
+			System.out.println(productDto.getLocation());
+			System.out.println(productDto.getPrice());
+			System.out.println(productDto.getProduct_sub_category());
+			System.out.println(productDto.getProduct_town_id());
+			
 			usedService.insertProduct(productDto);
 			
 			if(images != null) {

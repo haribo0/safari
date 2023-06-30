@@ -46,13 +46,13 @@
 	#{id},
 	#{user_id},
 	#{product_sub_category},
-	#{product_town_id},
 	#{title},
 	#{price},
 	#{content},
 	#{location},
 	0,
-	SYSDATE
+	SYSDATE,
+	#{product_town_id}
 )
 </insert>
 
@@ -272,6 +272,14 @@
 
 <select id="selectProductChatByRequestId" resultType="com.ja.safari.dto.ProductChatDto">
 	select * from product_chat where purchase_request_id=#{requestId} order by id
+</select>
+
+<select id="selectLastChatContent" resultType="com.ja.safari.dto.ProductChatDto">
+	SELECT * FROM PRODUCT_CHAT WHERE id =(SELECT max(id) FROM product_chat WHERE purchase_request_id = #{requestId})
+</select>
+
+<select id="selectChatCount" resultType="int">
+	SELECT COUNT(*) FROM PRODUCT_CHAT WHERE purchase_request_id = #{requestId}
 </select>
 
 
