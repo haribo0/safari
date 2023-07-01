@@ -21,10 +21,10 @@
 	<!-- 헤더 섹션 -->
 
 	<div class="container-fluid main_box  ">
-		<div class="row ms-5">
+		<div class="row"> <!-- 2023-07-01 시욱수정 -->
 		
 			<div class="col-2" style=""></div>
-			<div class="col-2" style="position: fixed;">
+			<div class="col-2 bg-dark h-100" style="position: fixed;"> <!-- 2023-07-01 시욱수정 -->
 				<div class="list-group list-group-flush">
 				
 					<!-- 왼쪽 카테고리 리스트 -->
@@ -39,12 +39,12 @@
 			</div>
 			
 			
-			<div class="col">
+			<div class="col mt-5"> <!-- 2023-07-01 시욱수정 -->
 							
-				<h4 class="row mt-3 mb-4 fw-regular">대시보드 </h4>
+				<h4 class="ps-4 ms-4 mt-3 mb-4 fw-regular">대시보드 </h4> <!-- 2023-07-01 시욱수정 -->
 
 
-				<div class="row mt-5">
+				<div class="row mt-5 ms-4"> <!-- 2023-07-01 시욱수정 -->
 					<div class="col">
 						<div class="card" >
 						  <div class="card-body">
@@ -82,7 +82,7 @@
 					
 				</div>
 				
-				<div class="row mt-5">
+				<div class="row mt-5 ms-4"> <!-- 2023-07-01 시욱수정 -->
 				
 					<div class="col-2">
 						<div class="card" >
