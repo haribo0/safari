@@ -446,10 +446,11 @@ public class CommunityController {
 		@RequestMapping("promotion/promotionReviewMainPage")
 		public String promotionReviewMainPage(Model model, @RequestParam(value = "page", defaultValue = "1") int page,
 				String promoReview_searchType,
-				String promoReview_searchWord
+				String promoReview_searchWord,
+				PromotionReviewCommentDto promotionReviewCommentDto
 				) {
 		
-			List<Map<String, Object>> promoReviewList = promotionReviewService.getPromotionReviewList(page, promoReview_searchType, promoReview_searchWord);		
+			List<Map<String, Object>> promoReviewList = promotionReviewService.getPromotionReviewList(page, promoReview_searchType, promoReview_searchWord, promotionReviewCommentDto);		
 			
 			model.addAttribute("promoReviewList", promoReviewList);
 			
@@ -665,11 +666,17 @@ public class CommunityController {
 		public String allPromotionReviewPage(Model model,
 					@RequestParam(value = "page", defaultValue = "1") int page,
 					String promoReview_searchType,
-					String promoReview_searchWord
+					String promoReview_searchWord,
+					PromotionReviewCommentDto promotionReviewCommentDto
 					) {
 			
-			List<Map<String, Object>> promoReviewList = promotionReviewService.getPromotionReviewList(page, promoReview_searchType, promoReview_searchWord);
+			
+			
+			List<Map<String, Object>> promoReviewList = promotionReviewService.getPromotionReviewList(page, promoReview_searchType, promoReview_searchWord, promotionReviewCommentDto);
 			int promotionReviewCount = promotionReviewService.getPromotionReviewCount(promoReview_searchType, promoReview_searchWord);
+			
+			
+			
 			int totalPage = (int)Math.ceil(promotionReviewCount/10.0);
 			
 			int startPage = ((page-1)/5)*5 + 1;
