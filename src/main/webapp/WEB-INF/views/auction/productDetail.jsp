@@ -714,7 +714,7 @@ let startDate = null;
 let endDate = null;
 
 // 즉시 낙찰 여부를 담을 변수 선언
-let immeDiateSuccess = null;
+//let immeDiateSuccess = null;
 
 // 현재 최고 입찰자는 누구인지?
 let nowMaxBider = null;	
@@ -1393,7 +1393,7 @@ function updateAuctionCountDown() {
     
     
    // 경매 종료
-   if(endDate <= nowDate || immeDiateSuccess == "ImmediateBidSuccess") {
+   if(endDate <= nowDate) {
  	  renewInputBidBoxEnd(); // 입찰버튼 업데이트, 한번만 갱신 (o)
  	  showCountDownTableEnd(); // 카운트다운 제목 업데이트, 한번만 갱신 (o)
  	  renewAuctionButtonStatusEnd(); // 제품 정보 버튼 업데이트 (o)
@@ -1829,7 +1829,7 @@ function bidRequest() {
 
 
 // 즉시 낙찰 상태 확인 후 업데이트
-function checkImmediateBid() {
+/*function checkImmediateBid() {
 	
 	
 	const xhr = new XMLHttpRequest();
@@ -1850,7 +1850,7 @@ function checkImmediateBid() {
     xhr.open("get", "/safari/auction/getAuctionStatusByAuctionItemId/" + auctionItemId); 
     xhr.send();	
 	
-}
+}*/
 
 
 // 즉시 낙찰 및 경매 종료 db 업데이트
@@ -1860,8 +1860,6 @@ function renewSuccessfulImmediateBid(auctionItemId) {
         if(xhr.readyState == 4 && xhr.status == 200){
             const response = JSON.parse(xhr.responseText);
             
-            immeDiateSuccess = "ImmediateBidSuccess";
-            console.log("즉시 낙찰 되어 db에 업데이트 중입니다.");
         }
     }
     xhr.open("get", "/safari/auction/renewImmediateSuccessfulBid?auctionItemId=" + auctionItemId); // 종료로 db에 저장
@@ -2554,7 +2552,7 @@ window.addEventListener("DOMContentLoaded", function(){
     getSellerId();
     setInterval(getNowMaxBiderId, 10);
     
-    setInterval(checkImmediateBid, 10); // 즉시낙찰여부확인
+    //setInterval(checkImmediateBid, 10); // 즉시낙찰여부확인
     setInterval(getTop3BidList, 100);
     
    // checkImmediateBid();

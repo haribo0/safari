@@ -106,6 +106,9 @@ public interface AuctionSqlMapper {
 	// 즉시 낙찰 시 경매 종료로 상태 업데이트
 	public void renewImmediateSuccessfulBid(int id);
 	
+	// 즉시 낙찰 시 날짜 상태 업데이트
+	public void renewImmediateSuccessfulBidEndDate(int id);
+	
 	// 한 경매의 입찰 리스트 출력
 	public List<AuctionBidDto> getBidList(int auctionItemId);
 	

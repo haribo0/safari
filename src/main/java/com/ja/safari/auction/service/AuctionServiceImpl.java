@@ -350,9 +350,14 @@ public class AuctionServiceImpl {
 		return auctionSqlMapper.getAuctionCountDown(id);
 	}
 	
-	// 낙찰 시 경매 종료 상태 업데이트
+	// 즉시 낙찰 시 경매 종료 상태 업데이트
 	public void renewImmediateSuccessfulBid(int id) {
 		auctionSqlMapper.renewImmediateSuccessfulBid(id);
+	}
+	
+	// 즉시 낙찰 시 날짜 상태 업데이트
+	public void renewImmediateSuccessfulBidEndDate(int id) {
+		auctionSqlMapper.renewImmediateSuccessfulBidEndDate(id);
 	}
 	
 	// 입찰 정보 조회

@@ -470,13 +470,15 @@ public class RestAuctionController {
 		
 	}
 	
-	// 경매 낙찰 후 경매 종료 처리
+	// 경매 즉시 낙찰 후 경매 종료 처리
 	@RequestMapping("renewImmediateSuccessfulBid")
 	public Map<String, Object> renewSuccessfulBidOrEnd(int auctionItemId) {
 		
 		Map<String, Object> map = new HashMap<>();
 		
 		auctionService.renewImmediateSuccessfulBid(auctionItemId);
+		
+		auctionService.renewImmediateSuccessfulBidEndDate(auctionItemId);
 		
 		map.put("result", "success");
 		
