@@ -23,7 +23,7 @@
 	      </div>
 	      <div class="modal-body">
 			<p class="me-5">반납하게 되시는 날은 다음과 같습니다: <span class="date_return"></span></p> 
-			
+			<p class="return_desc"></p>
 	      </div>
 	      <div class="modal-footer">
 	        <span class="btn btn-secondary" data-bs-dismiss="modal">취소</span>
@@ -141,7 +141,6 @@
 						<div class="d-flex justify-content-between">
 							<div>
 								<h4>${data.product.title }</h4>
-								
 								<p>시작날: <fmt:formatDate pattern="yyyy-MM-dd" value="${data.orderedItem.start_date }" /> || 반납예정일: <fmt:formatDate pattern="yyyy-MM-dd" value="${data.orderedItem.end_date }" /></p>
 								<p>배송지:${data.orderedItem.address} </p>
 								<p>배송여부: ${data.orderedItem.is_shipped}</p>
@@ -149,8 +148,8 @@
 							
 							<div class="d-flex flex-column">
 								<c:if test="${data.orderedItem.is_shipped == 'Y'}">
-									<button type="button" class="btn btn-primary" data-order-id="${data.orderedItem.id}" data-bs-toggle="modal" data-bs-target="#modalReturn" data-bs-whatever="대여반납신청">대여반납신청</button>
-									<button type="button" class="btn btn-success my-2" data-order-id="${data.orderedItem.id}" data-bs-toggle="modal" data-bs-target="#modalReview" data-bs-whatever="대여리뷰작성"> 대여리뷰작성</button>								
+									<button type="button" class="btn btn-primary" data-order-id="${data.orderedItem.id}" data-original-price="${data.orderedItem.original_price}" data-rego-price="${data.orderedItem.price }" data-enddate="${data.orderedItem.end_date }" data-deposit="${data.orderedItem.deposit}" data-bs-toggle="modal" data-bs-target="#modalReturn">대여반납신청</button>
+									<button type="button" class="btn btn-success my-2" data-order-id="${data.orderedItem.id}" data-bs-toggle="modal" data-bs-target="#modalReview"> 대여리뷰작성</button>								
 								</c:if>
 							</div>	
 						</div>
@@ -171,89 +170,118 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
 
 <script>
+	//로그인된 세션 초기화
+	let mySessionId = null;
+	// 세션가져오기
+	function getSessionId(){
+		const xhr = new XMLHttpRequest();
+		
+		xhr.onreadystatechange = function(){
+			if(xhr.readyState == 4 && xhr.status == 200){
+				const response = JSON.parse(xhr.responseText);
+				if(response.result == "success"){
+					mySessionId = response.id; 
+				}
+			}
+		}
+		
+		xhr.open("get", "../user/getMyId", false);
+		xhr.send();		
+	}
+	
+	window.addEventListener("DOMContentLoaded", function(){
+		getSessionId()
+		
+	});
 
-// 반납하게되는 날(금일)
+let formattedDate
+
+// 반납하게되는 날(오늘)
 const setRegDate = () => {
       const today = new Date();
       const yyyy = today.getFullYear();
       const mm = String(today.getMonth() + 1).padStart(2, '0');
       const dd = String(today.getDate()).padStart(2, '0');
-      const formattedDate = `\${yyyy}-\${mm}-\${dd}`;
+      formattedDate = `\${yyyy}-\${mm}-\${dd}`;
       const dateReturn = document.querySelector('.date_return')
-		dateReturn.innerText = formattedDate
+	  dateReturn.innerText = formattedDate
   };
-
-  
-// 로그인된 세션 초기화
-let mySessionId = null;
-// 세션가져오기
-function getSessionId(){
-	const xhr = new XMLHttpRequest();
-	
-	xhr.onreadystatechange = function(){
-		if(xhr.readyState == 4 && xhr.status == 200){
-			const response = JSON.parse(xhr.responseText);
-			if(response.result == "success"){
-				mySessionId = response.id; 
-			}
-		}
-	}
-	
-	xhr.open("get", "../user/getMyId", false);
-	xhr.send();		
-}
-
-window.addEventListener("DOMContentLoaded", function(){
-	getSessionId()
-	
-});
 
 const modalReturn = document.getElementById('modalReturn')
 const modalReview = document.getElementById('modalReview')
 
-if (modalReturn) {
-	modalReturn.addEventListener('show.bs.modal', event => {
-    // Button that triggered the modal
+// 반납 안내 모달
+if (modalReturn) {modalReturn.addEventListener('show.bs.modal', event => {
+	const returnDesc = document.querySelector(".return_desc")
+	returnDesc.innerHTML = ''
     const button = event.relatedTarget
-    // Extract info from data-bs-* attributes
     const recipient = button.getAttribute('data-bs-whatever')
     const orderId = button.getAttribute('data-order-id')
-    console.log('오더 아이디:: ', orderId)
-    // If necessary, you could initiate an Ajax request here
-    // and then do the updating in a callback.
-
-    // Update the modal's content.
-    const modalTitle = modalReturn.querySelector('.modal-title')
+    const endRego = new Date();
+    const endDate = button.getAttribute('data-enddate')
+    const originalPrice= button.getAttribute('data-original-price')
+    const price = button.getAttribute('data-rego-price')
+    const deposit = button.getAttribute('data-deposit')
+    
     const form = modalReturn.querySelector('form')
     
+	let endDateObj = new Date(endDate.replace('KST', 'GMT+0900'));
+    
+    const yyyy = endDateObj.getFullYear();
+    const mm = String(endDateObj.getMonth() + 1).padStart(2, '0');
+    const dd = String(endDateObj.getDate()).padStart(2, '0');
+    formattedEndDate = `\${yyyy}-\${mm}-\${dd}`;
+    
     form.setAttribute('action', `../rental/rentalReturnProcess?rental_order_id=\${orderId}`)
-
-    modalTitle.textContent = `반납신청서`
     
     setRegDate()
+    
+    const remainMonth = getMonthDiffer(new Date(formattedDate),new Date(formattedEndDate))
+    console.log('deposit:: ', deposit)
+    console.log('내야할 돈:: ', ((originalPrice - price) * remainMonth))
+    
+    
+    const span = document.createElement('span')
+    span.innerText = `남은 결제 비용은 기존가격(\${originalPrice}) - 계약된 가격(\${price}) * 남은 개월수(\${remainMonth}) 그리고 보증금(\${deposit})에서 계산되어 \${(originalPrice - price) * remainMonth - deposit}원 입니다`
+    
+    returnDesc.appendChild(span)
+    
+    
   })
 }
+
+// 리뷰 작성 모달
 if (modalReview) {
 	modalReview.addEventListener('show.bs.modal', event => {
-    // Button that triggered the modal
     const button = event.relatedTarget
-    // Extract info from data-bs-* attributes
     const recipient = button.getAttribute('data-bs-whatever')
     const orderId = button.getAttribute('data-order-id')
-    // If necessary, you could initiate an Ajax request here
-    // and then do the updating in a callback.
-
-    // Update the modal's content.
-    const modalTitle = modalReview.querySelector('.modal-title')
     const form = modalReview.querySelector('form')
     
     form.setAttribute('action', `../rental/writeRentalReviewProcess?rental_id=\${orderId}`)
-
-    modalTitle.textContent = `리뷰작성`
     
     setRegDate()
   })
 }
+
+	
+function getMonthDiffer(startMonth, endMonth) {
+	  return (
+	    endMonth.getMonth() -
+	    startMonth.getMonth() +
+	    12 * (endMonth.getFullYear() - startMonth.getFullYear())
+	  );
+}
+	
+	
+	
+
+
+
+
+
+
+
 
 </script>
 </body>	
