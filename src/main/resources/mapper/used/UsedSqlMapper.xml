@@ -266,10 +266,6 @@
 )
 </insert>
 
-<!-- <update>
-	update PRODUCT_REQUEST set reg_date=
-</update> -->
-
 <select id="selectProductChatByRequestId" resultType="com.ja.safari.dto.ProductChatDto">
 	select * from product_chat where purchase_request_id=#{requestId} order by id
 </select>
@@ -282,6 +278,11 @@
 	SELECT COUNT(*) FROM PRODUCT_CHAT WHERE purchase_request_id = #{requestId}
 </select>
 
-
+<update id="updateIsRead">
+	UPDATE PRODUCT_CHAT SET read_unread='Y' 
+	WHERE purchase_request_id=#{requestId} 
+	AND receiver_id=#{receiverId} 
+	AND read_unread='N'
+</update>
 
 </mapper>
