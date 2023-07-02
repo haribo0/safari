@@ -290,10 +290,21 @@ public class RestAuctionController {
 		return map;
 	}
 	
+	
+	// 경매 종료 시간 실시간으로 받아오기
+	@RequestMapping("getAuctionEndTimeInRealTime/{auctionItemId}")
+	public Map<String, Object> getAuctionEndTimeInRealTime(@PathVariable int auctionItemId) {
+
+		Map<String, Object> map  =  new HashMap<>();
+
+		map.put("auctionEndTime", auctionService.getAuctionEndTimeInRealTime(auctionItemId));
+		
+		return map;
+	}
 
 	
 	
-	// 입찰요청
+	/*// 입찰요청
 	@RequestMapping("bidRequest/{auctionItemId}")
 	public Map<String, Object> bidRequest(HttpSession session, @PathVariable int auctionItemId,
 																	AuctionBidDto auctionBidDto) {
@@ -314,15 +325,57 @@ public class RestAuctionController {
 		map.put("userDto", userDto);
 		
 		auctionService.submitBidRequest(auctionBidDto);
-		
-		//session.setAttribute("auctionBidInfo", auctionBidDto);
-		
-		map.put("result", "success");	
+		map.put("result", "success");
 
-		
 		return map;
 		
+	}*/
+	
+	//입찰요청
+	@RequestMapping("bidRequest/{auctionItemId}")
+	public Map<String, Object> bidRequest(HttpSession session, @PathVariable int auctionItemId,
+																	AuctionBidDto auctionBidDto) {
+		
+		Map<String, Object> map  =  new HashMap<>();
+		
+		UserDto sessionUser = (UserDto) session.getAttribute("sessionUser");
+		
+		auctionBidDto.setAuction_item_id(auctionItemId);
+		auctionBidDto.setUser_buyer_id(sessionUser.getId());
+		
+		
+		AuctionItemDto auctionItemDto = auctionService.getAuctionItem(auctionBidDto.getAuction_item_id());
+		map.put("auctionItemDto", auctionItemDto);
+		
+		// 입찰한 유저의 정보
+		UserDto userDto = userService.selectUserDtoById(sessionUser.getId());
+		map.put("userDto", userDto);
+		
+		boolean bidSuccess = auctionService.submitBidRequest(auctionBidDto);
+		
+		// 입찰 성공할 경우
+		  if (bidSuccess) {
+			    map.put("result", "success");
+			    
+			 } else {
+			    map.put("result", "failure");
+			  }
+
+		return map;
+		
+	} 
+	
+	//  한 경매의 입찰 순위 3위까지 출력
+	@RequestMapping("getTop3BidList") 
+	public Map<String, Object> getTop3BidList(int auctionItemId) {
+		
+		Map<String, Object> map = new HashMap<>();
+		
+		map.put("top3BidList", auctionService.getAuctionTop3BidPrice(auctionItemId));
+		
+		return map;
 	}
+	
 	
 	
 	// 입찰 기록 리스트 출력
@@ -332,6 +385,8 @@ public class RestAuctionController {
 		Map<String, Object> map = new HashMap<>();
 		
 		map.put("bidList", auctionService.getBidList(auctionItemId));
+		
+		map.put("bidCount", auctionService.getBidCount(auctionItemId));
 		
 		return map;
 		
@@ -348,6 +403,37 @@ public class RestAuctionController {
 		return map;
 		
 	}
+	
+	// 현 시간 각 경매의 최고 입찰자가 누구인지 회원pk로 출력하기
+	@RequestMapping("checkNowMaxBiderByAuctionItemId/{auctionItemId}") 
+	public Map<String, Object> checkNowMaxBiderByAuctionItemId(@PathVariable int auctionItemId)  {
+		
+		Map<String, Object> map = new HashMap<>();
+		
+		map.put("nowMaxBider", auctionService.checkNowMaxBiderByAuctionItemId(auctionItemId));
+		
+		if (userService.selectUserDtoById(auctionService.checkNowMaxBiderByAuctionItemId(auctionItemId)) == null) {
+				map.put("result", "fail");
+			
+		} else {
+				map.put("nowMaxBiderDto", 
+				userService.selectUserDtoById(auctionService.checkNowMaxBiderByAuctionItemId(auctionItemId))); 
+		}
+	
+		return map;
+	}
+	
+	// 종료 시간이 1분 미만일 때 입찰하였을 경우, 경매 종료 시간 1분 늘리기
+	@RequestMapping("renewEndTimeAuctionItem/{auctionItemId}") 
+	public Map<String, Object> renewEndTimeAuctionItem(@PathVariable int auctionItemId) {
+		
+		Map<String, Object> map = new HashMap<>();
+	
+		auctionService.renewEndTimeAuctionItem(auctionItemId);
+		
+		return map;
+	}
+	
 	
 	// 경매 물품 현재 상황 조회 
 	@RequestMapping("getAuctionStatusByAuctionItemId/{auctionItemId}")
@@ -411,17 +497,6 @@ public class RestAuctionController {
 			map.put("currentPrice", auctionService.getCurrentPriceByAuctionItem(auctionItemId));
 		}
 		
-		return map;
-	}
-	
-	// 카운트다운
-	@RequestMapping("getAuctionCountDown/{auctionItemId}") 
-	public Map<String, Object> getAuctionCountDown(@PathVariable int auctionItemId) {
-		
-		Map<String, Object> map = new HashMap<>();
-		
-		map.put("countDownInfo", auctionService.getAuctionStatusByAuctionItemId(auctionItemId));
-	
 		return map;
 	}
 	
@@ -519,7 +594,7 @@ public class RestAuctionController {
 		return map;
 	}
 	
-	// 경매 채팅방에서 내 채팅 삭제
+	/* 경매 채팅방에서 내 채팅 삭제
 	@RequestMapping("removeMessageInAuctionChatroom/{id}")
 	public Map<String, Object> removeMessageInAuctionChatroom(@PathVariable int id) {
 		
@@ -530,5 +605,5 @@ public class RestAuctionController {
 		map.put("result", "success");
 		
 		return map;
-	}
+	}*/
 }

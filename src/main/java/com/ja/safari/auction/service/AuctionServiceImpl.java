@@ -44,7 +44,6 @@ public class AuctionServiceImpl {
 		
 		auctionItemDto.setId(auctionItemPk);
 		
-		
 		auctionSqlMapper.registerAuctionProduct(auctionItemDto);
 		
 		// 제품 이미지 등록
@@ -196,6 +195,8 @@ public class AuctionServiceImpl {
 		return auctionSqlMapper.getAuctionProductDetail(id);
 	}
 	
+	
+	
 	// 경매 물품 대규모 카테고리명 조회
 	public ProductMainCategoryDto getProductMainCategory(int id) {
 		return auctionSqlMapper.getProductMainCategory(id);
@@ -245,6 +246,13 @@ public class AuctionServiceImpl {
 		return map;
 	}
 	
+	
+	
+	// 경매 종료 시간 실시간으로 받아오기
+	public AuctionItemDto getAuctionEndTimeInRealTime(int auctionItemId) {
+		return auctionSqlMapper.getAuctionEndTimeInRealTime(auctionItemId);
+	}
+	
 	// 경매 현재가 계속 업데이트
 	public Integer getCurrentPriceByAuctionItem(int auctionItemId) {
 		return auctionSqlMapper.getCurrentBidPriceByAuctionItem(auctionItemId);
@@ -252,13 +260,72 @@ public class AuctionServiceImpl {
 	
 	
 	// 입찰하기 
-	public synchronized void submitBidRequest(AuctionBidDto auctionBidDto) {
-		auctionSqlMapper.submitBidRequest(auctionBidDto);
+	public synchronized boolean submitBidRequest(AuctionBidDto auctionBidDto) {
+		
+			if (auctionBidDto.getBid_price() > auctionSqlMapper.checkBidAttemptYn(auctionBidDto.getAuction_item_id())) {
+				auctionSqlMapper.submitBidRequest(auctionBidDto);
+				return true;
+			} else {
+				return false;
+			 }
+		
+}
+
+	
+	// 한 경매의 입찰 순위 3위까지 출력
+	public List<Map<String, Object>> getAuctionTop3BidPrice(int auctionItemId) {
+		
+		List<Map<String, Object>> top3BidList = new ArrayList<>();
+		
+		List<AuctionBidDto> getTop3BidList = auctionSqlMapper.getAuctionTop3BidPrice(auctionItemId);
+		
+		for(AuctionBidDto auctionBidDto : getTop3BidList) {
+			
+			Map<String, Object> map = new HashMap<>();
+			
+			UserDto userDto = userSqlMapper.selectUserDtoById(auctionBidDto.getUser_buyer_id());
+			
+			map.put("userDto", userDto);
+			map.put("auctionBidDto", auctionBidDto);
+			
+			top3BidList.add(map);
+		}
+		
+		return top3BidList;
 	}
 	
+
+
 	// 입찰버튼 갱신하기 위해 경매 상태 조회
 	public AuctionItemDto getStatusForRenewInputBidBox(int auctionItemId) {
 		return auctionSqlMapper.getStatusForRenewInputBidBox(auctionItemId);
+	}
+	
+	// 경매 입찰 수 조회
+	public int getBidCount(int auctionItemId) {
+		return auctionSqlMapper.getBidCount(auctionItemId);
+	}
+	
+	
+	
+	// 현 시간 각 경매의 최고 입찰자가 누구인지 회원pk로 출력하기
+	public Integer checkNowMaxBiderByAuctionItemId(int auctionItemId) {
+		
+		int  user_buyer_id; // 최고 입찰자를 담을 변수
+		
+		// 아무도 입찰 안했을 경우 에러처리
+		if (auctionSqlMapper.checkNowMaxBiderByAuctionItemId(auctionItemId) == null) { 
+			user_buyer_id = 0;
+		} else {
+			user_buyer_id = auctionSqlMapper.checkNowMaxBiderByAuctionItemId(auctionItemId);
+		}
+		return user_buyer_id;
+	}
+	
+	// 종료 시간이 1분 미만일 때 입찰하였을 경우, 경매 종료 시간 1분 늘리기
+	public void renewEndTimeAuctionItem(int auctionItemId) {
+		
+		auctionSqlMapper.renewEndTimeAuctionItem(auctionItemId);
 	}
 	
 
@@ -330,7 +397,6 @@ public class AuctionServiceImpl {
 		return bidList;
 	}
 	
-	//
 	
 	
 	

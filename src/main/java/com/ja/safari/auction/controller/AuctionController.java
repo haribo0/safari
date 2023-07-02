@@ -150,6 +150,8 @@ public class AuctionController {
 		return "auction/productDetail";
 	}
 	
+	
+	
 	// 입찰페이지 접속
 	@RequestMapping("bidPage/{id}")
 	public String bidPage(HttpSession session, Model model, @PathVariable int id) {
