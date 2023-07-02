@@ -229,9 +229,40 @@
 	  			  
 	  			  const row1col3 = document.createElement('div');
 	  			  row1col3.className = 'col text-secondary';
-	  			  const regDate = data.productRequestDto.reg_date;
-	  			  const formattedDate = new Date(regDate).toLocaleDateString('ko-KR', { month: 'short', day: '2-digit' });
-	  			  row1col3.textContent = formattedDate;
+	  			  if(data.lastChatDate == ""){
+	  				const regDate = data.productRequestDto.reg_date;
+		  			const formattedDate = new Date(regDate).toLocaleDateString('ko-KR', { month: 'short', day: '2-digit' });
+		  			row1col3.textContent = formattedDate;
+	  			  }else{
+	  				const currentDate = new Date();
+		  			const chatDate = new Date(Date.parse(data.lastChatDate));
+		  			const yesterday = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate() - 1);
+		  			  // 오늘 날짜인 경우
+		  			  if (currentDate.toDateString() === chatDate.toDateString()) {
+		  				 const hours = chatDate.getHours();
+		  				  const minutes = chatDate.getMinutes();
+		  				  const period = hours < 12 ? '오전' : '오후';
+		  				  const formattedHours = hours % 12 || 12;
+		  				  const formattedMinutes = String(minutes).padStart(2, '0');
+		  				  row1col3.textContent = period + " "+  formattedHours+":"+formattedMinutes;
+		  			  }
+	
+		  			  // 어제 날짜인 경우
+		  			  else if (yesterday === chatDate.toDateString()) {
+		  				row1col3.textContent = '어제';
+		  			  }
+	
+		  			  // 그 외의 경우
+		  			  else{
+		  				 const month = chatDate.getMonth() + 1;
+						  const day = chatDate.getDate();
+						  row1col3.textContent = month+"월 "+ day+"일";  
+		  			  }
+	  				  
+	  				  
+	  				 /* row1col3.textContent = data.lastChatDate; */
+	  			  }
+	  			  
 	  			  
 	  			  const row2 = document.createElement('div');
 	  			  row2.className = 'row';

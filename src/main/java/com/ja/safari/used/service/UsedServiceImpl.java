@@ -349,25 +349,32 @@ public class UsedServiceImpl {
 			UserDto userDto = null;
 			String chatContent = null;
 			String lastChatDate = null;
-			// 현재 시간 
-			LocalDate currentDate = LocalDate.now();
+
 			if(productRequestDto.getUser_id()==userId && usedSqlMapper.selectChatCount(requestId)==0) {
 				// 상대방 UserDto 
 				userDto = usedSqlMapper.selectUserDtoById(productDto.getUser_id());
 				chatContent = "";
+				lastChatDate = "";
 			    
 			}else if(productRequestDto.getUser_id()==userId && usedSqlMapper.selectChatCount(requestId)>0){
 				userDto = usedSqlMapper.selectUserDtoById(productDto.getUser_id());
 				chatContent = productChatDto.getContent();
+				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+				String formattedDateTime = sdf.format(productChatDto.getReg_date());
+				lastChatDate = formattedDateTime;
 			}
 			else if(productRequestDto.getUser_id()!=userId && usedSqlMapper.selectChatCount(requestId)==0) {
 			// 내상품에 대한 채팅을 받았을 때 & chat내용이 null일때 
 				userDto = usedSqlMapper.selectUserDtoById(productRequestDto.getUser_id());
 				chatContent = "";
+				lastChatDate = "";
 		    }    
 			else {
 				userDto = usedSqlMapper.selectUserDtoById(productRequestDto.getUser_id());
 				chatContent = productChatDto.getContent();
+				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+				String formattedDateTime = sdf.format(productChatDto.getReg_date());
+				lastChatDate = formattedDateTime;
 			}
 			
 			map.put("productRequestDto", productRequestDto);
@@ -377,6 +384,7 @@ public class UsedServiceImpl {
 			map.put("productTownDto", productTownDto);
 			map.put("chatContent", chatContent);
 			map.put("unreadCount", unreadCount);
+			map.put("lastChatDate", lastChatDate);
 			list.add(map);
 		}
 		return list;
