@@ -30,6 +30,16 @@
   max-width: 320px;
 }
 
+.unreadCount{
+	padding :2px;
+	width: 15px;
+	background: red;
+	color: white;
+	border-radius: 10px;
+	font-size: 12px;
+	font-weight: bold;
+}
+
 .chatTime {
     font-size: 12px;
 }
@@ -129,6 +139,9 @@
 			 			</div>
 		 			</div>
 		 			<div class="col-1"><img alt="사진" src="/safarifile/${map.productImgDto.product_img_link}" width="50" height="50"></div>
+		 			<div class="col-1">
+		 				${map.unreadCount}
+		 			</div>
 		 			<div class="col"></div>
 		 		</div>
 		 </c:forEach> --%>
@@ -148,6 +161,7 @@
 	        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 	      </div>
 	      <div class="modal-header">
+	      	<p class="row" style="clear: both;">사진</p>
 	      	<div class="row">
 	      		<div class="col btn btn-outline-secondary text-dark me-3 ms-2">예약하기</div>
 	      		<div class="col btn btn-outline-secondary text-dark me-3">약속잡기</div>
@@ -200,7 +214,7 @@
 	  			  col1.appendChild(col1Icon);
 
 	  			  const col2 = document.createElement('div');
-	  			  col2.className = 'col-5 w-0 ms-0';
+	  			  col2.className = 'col-3 w-0 ms-0';
 	  			  
 	  			  const row1 = document.createElement('div');
 	  			  row1.className = 'row align-items-center';
@@ -210,7 +224,7 @@
 	  			  row1col1.textContent = data.userDto.nickname;
 	  			
 	  			  const row1col2 = document.createElement('div');
-	  			  row1col2.className = 'col-2 text-secondary';
+	  			  row1col2.className = 'col-3 text-secondary';
 	  			  row1col2.textContent = data.productTownDto.product_town_name;
 	  			  
 	  			  const row1col3 = document.createElement('div');
@@ -221,7 +235,12 @@
 	  			  
 	  			  const row2 = document.createElement('div');
 	  			  row2.className = 'row';
-	  			  row2.textContent = data.chatContent;
+	  			  if(data.chatContent==null || data.chatContent===''){
+	  				row2.textContent = ' ';
+	  				row2.className = 'mt-3'
+	  			  }else{
+	  				row2.textContent = data.chatContent;
+	  			  }
 	  			  
 	  			  
 	  			  const col3 = document.createElement('div');
@@ -234,12 +253,24 @@
 	  			  col3.appendChild(col3Img);
 
 	  			  const col4 = document.createElement('div');
-	  			  col4.className = 'col';
+	  			  if(data.unreadCount == 0){
+	  				col4.innerText = '';
+	  				col4.className = 'col-1';
+	  			  }else{
+	  				col4.className ='col-1 unreadCount text-center';
+	  				col4.innerText = data.unreadCount;
+	  			  }
+	  			  
+	  			  
+	  			  
+	  			  const col5 = document.createElement('div');
+	  			  col5.className = 'col';
 
 	  			  row.appendChild(col1);
 	  			  row.appendChild(col2);
 	  			  row.appendChild(col3);
 	  			  row.appendChild(col4);
+	  			  row.appendChild(col5);
 	  			  col2.appendChild(row1);
 	  			  col2.appendChild(row2);
 	  			  row1.appendChild(row1col1);

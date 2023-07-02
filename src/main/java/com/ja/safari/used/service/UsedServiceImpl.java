@@ -1,5 +1,11 @@
 package com.ja.safari.used.service;
 
+import java.sql.Date;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -337,30 +343,31 @@ public class UsedServiceImpl {
 			ProductTownDto productTownDto = usedSqlMapper.selectProductTownById(productDto.getProduct_town_id()); 
 			ProductImgDto productImgDto = usedSqlMapper.selectProductImg(productRequestDto.getProduct_id());
 			ProductChatDto productChatDto = usedSqlMapper.selectLastChatContent(requestId);
+			// 안읽은 개수 표시
+			int unreadCount = usedSqlMapper.selectUnreadCountByRequestId(requestId, userId);
 			// 내가 거래요청한 채팅일 때 & chat내용이 null일때 
 			UserDto userDto = null;
 			String chatContent = null;
-			String chatIsRead = null;
+			String lastChatDate = null;
+			// 현재 시간 
+			LocalDate currentDate = LocalDate.now();
 			if(productRequestDto.getUser_id()==userId && usedSqlMapper.selectChatCount(requestId)==0) {
 				// 상대방 UserDto 
 				userDto = usedSqlMapper.selectUserDtoById(productDto.getUser_id());
 				chatContent = "";
-				chatIsRead = "";
+			    
 			}else if(productRequestDto.getUser_id()==userId && usedSqlMapper.selectChatCount(requestId)>0){
 				userDto = usedSqlMapper.selectUserDtoById(productDto.getUser_id());
 				chatContent = productChatDto.getContent();
-				chatIsRead = productChatDto.getRead_unread();
 			}
 			else if(productRequestDto.getUser_id()!=userId && usedSqlMapper.selectChatCount(requestId)==0) {
 			// 내상품에 대한 채팅을 받았을 때 & chat내용이 null일때 
 				userDto = usedSqlMapper.selectUserDtoById(productRequestDto.getUser_id());
 				chatContent = "";
-				chatIsRead = "";
 		    }    
 			else {
 				userDto = usedSqlMapper.selectUserDtoById(productRequestDto.getUser_id());
 				chatContent = productChatDto.getContent();
-				chatIsRead = productChatDto.getRead_unread();
 			}
 			
 			map.put("productRequestDto", productRequestDto);
@@ -369,7 +376,7 @@ public class UsedServiceImpl {
 			map.put("productImgDto", productImgDto);
 			map.put("productTownDto", productTownDto);
 			map.put("chatContent", chatContent);
-			map.put("chatIsRead", chatIsRead);
+			map.put("unreadCount", unreadCount);
 			list.add(map);
 		}
 		return list;

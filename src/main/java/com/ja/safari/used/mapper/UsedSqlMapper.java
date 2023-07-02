@@ -110,6 +110,8 @@ public interface UsedSqlMapper {
 	public int selectChatCount(Integer requestId);
 	// 채팅창 읽음여부 업데이트 
 	public void updateIsRead(@Param("requestId")Integer requestId, @Param("receiverId")Integer receiverId);
+	// 채팅목록과 userId에 따른 안읽음 개수 
+	public int selectUnreadCountByRequestId(@Param("requestId")Integer requestId, @Param("receiverId")Integer receiverId);
 	
 	
 }
