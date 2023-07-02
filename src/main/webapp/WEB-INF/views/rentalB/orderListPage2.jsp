@@ -72,11 +72,11 @@
 					</div>
 					
 					<div class="col-2">
-						<select name="searchType" class="form-select">
-							<option value="전체" selected >선택</option>
+						<select id="orderStatus" name="searchType" class="form-select">
+							<option value="전체" selected >전체</option>
 							<option value="주문">주문</option>
 							<option value="대여">대여</option>
-							<option value="취소">취소</option>
+							<!-- <option value="취소">취소</option> -->
 							<option value="반납">반납</option>
 							<option value="정산">정산</option>
 						</select>
@@ -87,7 +87,7 @@
 					</div>
 					
 					<div class="col-2">
-						<select name="searchType" class="form-select">
+						<select id="product" name="searchType" class="form-select">
 							<option value="0" selected >선택</option>
 							<c:forEach var="prd" items="${productList}"> 
 								<option value="${prd.id}" >${prd.title}</option>
@@ -111,17 +111,20 @@
 					<div class="col" style="font-size: 15px;">
 						<div class="row py-2 border-bottom  border-2 mb-4 text-center">
 							<div class="col-1 fw-bold text-body-tertiary">#</div>
+							<div class="col fw-bold text-body-tertiary">사진</div>
 							<div class="col-2 fw-bold text-body-tertiary">상품</div>
 							<div class="col fw-bold text-body-tertiary">연락처</div>
 							<div class="col fw-bold text-body-tertiary">대여시작</div>
-							<div class="col fw-bold text-body-tertiary">주소</div>
+							<div class="col-2 fw-bold text-body-tertiary">주소</div>
 							
 							<div class="col fw-bold text-body-tertiary">가격</div>
 							<div class="col fw-bold text-body-tertiary">상태</div>
 						</div>
 						
-						<c:forEach var="map" items="${list}" >
-						
+					
+						<div id="listContainer">
+						<%-- <c:forEach var="map" items="${list}" >
+					
 							<div class="row py-2 mt-0 mb-2 text-center ">
 								<div class="col-1 my-auto">${map.order.id }</div>
 								<div class="col-2 my-auto">${map.product.title }</div>
@@ -153,8 +156,8 @@
 							<div class="row text-center ">
 								<hr class="border">
 							</div>
-						</c:forEach>
-						
+						</c:forEach> --%>
+						</div>
 						
 						
 						
@@ -170,11 +173,176 @@
 	
 	
 	
+	<!-- 하단 공백 -->
+	<div class="row mt-5 mb-5">
+		<div class="col"> </div>
+	</div>
+	<div class="row mt-5 mb-5">
+		<div class="col"> </div>
+	</div>
+	<div class="row mt-5 mb-5">
+		<div class="col"> </div>
+	</div>
+	
+	
+	
+	
 	
 	<!-- 푸터 섹션 -->
 	<jsp:include page="../common/footer.jsp"></jsp:include>
 	<!-- 푸터 섹션 -->
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+
+
+<script >
+
+
+
+
+function reloadList() {
+	
+	const orderStatus = document.getElementById("orderStatus").value;
+	const productId = document.getElementById("product").value;
+	const listContainer = document.getElementById("listContainer");
+	
+	console.log(productId);
+	
+	const xhr = new XMLHttpRequest();
+
+	xhr.onreadystatechange = function() {
+		if(xhr.readyState == 4 && xhr.status == 200){
+			const response = JSON.parse(xhr.responseText);
+			
+			listContainer.innerHTML = ""; 
+			
+			if (response.list.length === 0) return;
+			
+			response.list.forEach(function(map){
+				
+				// Create outer div element with classes
+				const rowDiv1 = document.createElement('div');
+				rowDiv1.classList.add('row', 'py-2', 'mt-0', 'mb-2', 'text-center');
+
+				// Create inner div elements with classes
+				const col1Div = document.createElement('div');
+				col1Div.classList.add('col-1', 'my-auto');
+				col1Div.textContent = map.order.id;
+
+				const colImgDiv = document.createElement('div');
+				colImgDiv.classList.add('col', 'my-auto');
+				const imgElement = document.createElement('img');
+				imgElement.classList.add('img-fluid', 'px-2');
+				imgElement.src = "/safariImg/"+map.product.main_img_link;
+				imgElement.style.width = '80px';
+				colImgDiv.appendChild(imgElement);
+
+				const col2Div = document.createElement('div');
+				col2Div.classList.add('col-2', 'my-auto');
+				col2Div.textContent = map.product.title;
+
+				const col3Div = document.createElement('div');
+				col3Div.classList.add('col', 'my-auto');
+				col3Div.textContent = map.user.phone;
+
+				const col4Div = document.createElement('div');
+				col4Div.classList.add('col', 'my-auto');
+				col4Div.textContent = new Intl.DateTimeFormat('en-US', { month: '2-digit', day: '2-digit', year: 'numeric' }).format(map.order.start_date);
+
+				const col5Div = document.createElement('div');
+				col5Div.classList.add('col-2', 'my-auto');
+				col5Div.textContent = map.order.address;
+
+				const col6Div = document.createElement('div');
+				col6Div.classList.add('col', 'my-auto');
+				col6Div.textContent = new Intl.NumberFormat('en-US').format(map.order.price) + ' 원 / 월';
+
+				const col7Div = document.createElement('div');
+				col7Div.classList.add('col', 'my-auto');
+
+				const statusButton = document.createElement('button');
+				statusButton.classList.add('btn_ordered', 'fw-bold');
+				statusButton.textContent = map.status;
+
+				// Add appropriate class based on map.status value
+				if (map.status === '주문완료') {
+				  statusButton.classList.remove('btn_ordered');
+				  statusButton.classList.add('btn_ordered');
+				} else if (map.status === '대여중') {
+				  statusButton.classList.remove('btn_ordered');
+				  statusButton.classList.add('btn_canceled');
+				} else {
+				  statusButton.classList.remove('btn_ordered');
+				  statusButton.classList.add('btn_delivered');
+				}
+
+				col7Div.appendChild(statusButton);
+
+				// Append inner div elements to the outer div element
+				rowDiv1.appendChild(col1Div);
+				rowDiv1.appendChild(colImgDiv);
+				rowDiv1.appendChild(col2Div);
+				rowDiv1.appendChild(col3Div);
+				rowDiv1.appendChild(col4Div);
+				rowDiv1.appendChild(col5Div);
+				rowDiv1.appendChild(col6Div);
+				rowDiv1.appendChild(col7Div);
+
+				// Create hr element
+				const hrElement = document.createElement('hr');
+				hrElement.classList.add('border');
+
+				// Create another row div element
+				const rowDiv2 = document.createElement('div');
+				rowDiv2.classList.add('row', 'text-center');
+
+				// Append hr element to the second row div
+				rowDiv2.appendChild(hrElement);
+
+				// Append both row divs to a container element in the DOM
+				listContainer.appendChild(rowDiv1);
+				listContainer.appendChild(rowDiv2);
+
+				
+			});
+			
+			
+		}
+	}
+
+	// get 방식 
+	xhr.open("get", "./getOrderListByOrderStatusAndProduct?orderStatus="+orderStatus+"&productId="+productId);
+	xhr.send();
+	
+}
+
+
+
+
+//Get the select elements
+const orderStatusSelect = document.getElementById('orderStatus');
+const productSelect = document.getElementById('product');
+
+// Add event listener for orderStatusSelect
+orderStatusSelect.addEventListener('change', reloadList);
+
+// Add event listener for productSelect
+productSelect.addEventListener('change', reloadList);
+
+
+
+
+
+// 페이지 로드 
+window.addEventListener("DOMContentLoaded",function(){
+	reloadList();
+	
+});
+
+</script>
+
+
+
+
 </body>	
 </html>

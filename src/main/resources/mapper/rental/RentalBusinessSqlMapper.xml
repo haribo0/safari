@@ -166,12 +166,42 @@
 		WHERE main_category_id = #{main_category_id} 
 	</select>
 	
+	<!-- 주문 리스트 최근 3개 가져오기 -->
+	<select id="getThreeOrdersByUserId" resultType="com.ja.safari.dto.RentalOrderDto">
+	
+		<![CDATA[
+			SELECT t2.* FROM (
+				SELECT t1.*, rownum rn FROM (
+					SELECT ot.*
+					FROM rental_item_table it, rental_order_table ot
+					WHERE it.id = ot.item_id 
+					and it.business_id = #{userId}
+					ORDER BY ot.id DESC
+				) t1
+			) t2 
+			WHERE t2.rn<=3
+	  	]]>
+
+	</select>
+	
 	<!-- 주문 리스트 가져오기 -->
 	<select id="getOrderListByUserId" resultType="com.ja.safari.dto.RentalOrderDto">
 		SELECT ot.* 
 		FROM rental_item_table it, rental_order_table ot
 		WHERE it.id = ot.item_id 
 		and it.business_id = #{userId}
+		ORDER BY ot.id DESC
+	</select>
+	
+	<!-- 상품별 주문 리스트 가져오기 -->
+	<select id="getOrderListByUserIdAndProductId" resultType="com.ja.safari.dto.RentalOrderDto">
+		SELECT ot.* 
+		FROM rental_item_table it, rental_order_table ot
+		WHERE it.id = ot.item_id 
+		and it.business_id = #{userId}
+		<if test="productId != null and productId != 0 ">
+		and it.id = #{productId}
+		</if>
 		ORDER BY ot.id DESC
 	</select>
 	

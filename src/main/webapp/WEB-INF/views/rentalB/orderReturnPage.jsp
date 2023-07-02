@@ -50,19 +50,25 @@
 				
 				
 				<div class="row mt-4 mb-3 fw-medium">
-					<div class="col-1 text-center">
+					<div class="col text-center">
 						#
 					</div> 
+					<div class="col-1 text-center">
+						사진
+					</div>
 					<div class="col-3 text-center">
 						상품
 					</div>
-					<div class="col-4 text-center">
+					<div class="col-2 text-center">
+						연락처
+					</div>
+					<div class="col-2 text-center">
 						주소
 					</div>
-					<div class="col-2 text-center">
+					<div class="col text-center">
 						반납신청
 					</div>
-					<div class="col-2 text-center">
+					<div class="col text-center">
 						상태
 					</div>
 				</div>
@@ -87,19 +93,25 @@
 
 				
 				<div class="row mt-4 mb-3 fw-medium">
-					<div class="col-1 text-center">
+					<div class="col text-center">
 						#
+					</div>
+					<div class="col text-center">
+						사진
 					</div>
 					<div class="col-3 text-center">
 						상품
 					</div>
-					<div class="col-4 text-center">
+					<div class="col-2 text-center">
+						연락처
+					</div>
+					<div class="col-2 text-center">
 						주소
 					</div>
-					<div class="col-2 text-center">
+					<div class="col text-center">
 						반납신청
 					</div>
-					<div class="col-2 text-center">
+					<div class="col text-center">
 						상태
 					</div>
 				</div>
@@ -276,10 +288,19 @@ function getItemToBeReturnedList() {
 			response.list.forEach(function(data){
 				
 				const col1 = document.createElement("div");
-				col1.classList.add("col-1");
+				col1.classList.add("col");
 				col1.classList.add("text-center","my-auto");
 				col1.innerText = data.orderDto.id;
 				listContainer.appendChild(col1);
+				
+				const colImgDiv = document.createElement('div');
+				colImgDiv.classList.add('col-1', 'my-auto');
+				const imgElement = document.createElement('img');
+				imgElement.classList.add('img-fluid', 'px-2');
+				imgElement.src = "/safariImg/"+data.productDto.main_img_link;
+				imgElement.style.width = '70px';
+				colImgDiv.appendChild(imgElement);
+				listContainer.appendChild(colImgDiv);
 				
 				const col2 = document.createElement("div");
 				col2.classList.add("col-3");
@@ -287,14 +308,20 @@ function getItemToBeReturnedList() {
 				col2.innerText = data.productDto.title;
 				listContainer.appendChild(col2);
 				
+				const colContact = document.createElement("div");
+				colContact.classList.add("col-2");
+				colContact.classList.add("text-center","my-auto");
+				colContact.innerText = data.userDto.phone;
+				listContainer.appendChild(colContact);
+				
 				const col3 = document.createElement("div");
-				col3.classList.add("col-4");
+				col3.classList.add("col-2");
 				col3.classList.add("text-center","my-auto");
 				col3.innerText = data.orderDto.address;
 				listContainer.appendChild(col3);
 				
 				const col4 = document.createElement("div");
-				col4.classList.add("col-2");
+				col4.classList.add("col");
 				col4.classList.add("text-center","my-auto");
 				const regDate = new Date(data.returnDto.reg_date);
 			    const formattedRegDate = regDate.toLocaleDateString('en-US', { month: '2-digit', day: '2-digit', year: 'numeric' });
@@ -302,7 +329,7 @@ function getItemToBeReturnedList() {
 				listContainer.appendChild(col4);
 				
 				const col5 = document.createElement("div");
-				col5.classList.add("col-2");
+				col5.classList.add("col");
 				col5.classList.add("text-center","my-auto");
 					const btn1 = document.createElement("div");
 					btn1.classList.add("col");
@@ -354,10 +381,19 @@ function getItemReturnedList() {
 			response.list.forEach(function(data){
 				
 				const col1 = document.createElement("div");
-				col1.classList.add("col-1");
+				col1.classList.add("col");
 				col1.classList.add("text-center","my-auto");
 				col1.innerText = data.orderDto.id;
 				listContainer.appendChild(col1);
+				
+				const colImgDiv = document.createElement('div');
+				colImgDiv.classList.add('col-1', 'my-auto');
+				const imgElement = document.createElement('img');
+				imgElement.classList.add('img-fluid', 'px-2');
+				imgElement.src = "/safariImg/"+data.productDto.main_img_link;
+				imgElement.style.width = '70px';
+				colImgDiv.appendChild(imgElement);
+				listContainer.appendChild(colImgDiv);
 				
 				const col2 = document.createElement("div");
 				col2.classList.add("col-3");
@@ -365,14 +401,20 @@ function getItemReturnedList() {
 				col2.innerText = data.productDto.title;
 				listContainer.appendChild(col2);
 				
+				const colContact = document.createElement("div");
+				colContact.classList.add("col-2");
+				colContact.classList.add("text-center","my-auto");
+				colContact.innerText = data.userDto.phone;
+				listContainer.appendChild(colContact);
+				
 				const col3 = document.createElement("div");
-				col3.classList.add("col-4");
+				col3.classList.add("col-2");
 				col3.classList.add("text-center","my-auto");
 				col3.innerText = data.orderDto.address;
 				listContainer.appendChild(col3);
 				
 				const col4 = document.createElement("div");
-				col4.classList.add("col-2");
+				col4.classList.add("col");
 				col4.classList.add("text-center","my-auto");
 				const regDate = new Date(data.returnDto.reg_date);
 			    const formattedRegDate = regDate.toLocaleDateString('en-US', { month: '2-digit', day: '2-digit', year: 'numeric' });
@@ -380,7 +422,7 @@ function getItemReturnedList() {
 				listContainer.appendChild(col4);
 				
 				const col5 = document.createElement("div");
-				col5.classList.add("col-2");
+				col5.classList.add("col");
 				col5.classList.add("text-center","my-auto");
 					const btn1 = document.createElement("div");
 					btn1.classList.add("col");

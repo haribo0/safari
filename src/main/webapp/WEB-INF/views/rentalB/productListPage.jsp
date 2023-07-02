@@ -76,7 +76,8 @@
 						<div class="row mt-3 text-center fw-bold">
 						      <div class="col-1">#</div>
 						      <div class="col-2">광고</div>
-						      <div class="col-4">제품</div>
+						      <div class="col-1">이미지</div>
+						      <div class="col-3">제품</div>
 						      <div class="col-1">수량</div>
 						      <div class="col-2">가격</div>
 						      <div class="col-1">수정</div>
@@ -86,8 +87,8 @@
 					    <c:forEach items="${list }" var="map" varStatus="idx">
 						    <div class="row mt-4 text-center">
 						      
-						      <div class="col-1">${map.product.id}</div>
-						      <div class="col-2">
+						      <div class="col-1 my-auto">${map.product.id}</div>
+						      <div class="col-2 my-auto">
 						      	<c:choose>
 						      		<c:when test="${map.ads}">
 						      			<div class="btn btn-outline-secondary btn-sm btn-disalbed" data-index="${idx}" data-product-id="${map.product.id}"  data-bs-toggle="collapse" role="button" >
@@ -104,9 +105,12 @@
 						      
 						      
 						      </div>
-						      <div class="col-4" id="prdTitle${map.product.id}">${map.product.title}</div>
-						      <div class="col-1">${map.product.quantity}</div>
-						      <div class="col-2">
+						      <div class="col-1 my-auto">
+						          <img class="img-fluid px-2" src="/safariImg/${map.product.main_img_link}">
+						      </div>
+						      <div class="col-3 my-auto" id="prdTitle${map.product.id}">${map.product.title}</div>
+						      <div class="col-1 my-auto">${map.product.quantity}</div>
+						      <div class="col-2 my-auto">
 						      	<div class="dropdown d-grid">
 								  <a class="btn btn-secondary dropdown-toggle custom-dropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
 								    
@@ -128,12 +132,12 @@
 								</div>
 						      
 						      </div>
-						      <div class="col-1">
+						      <div class="col-1 my-auto">
 						      	<a href="./productEditPage?id=${map.product.id}" class="text-body-tertiary text-decoration-none">
 						      	 &nbsp; <i class="bi bi-pencil-square "></i> 
 						     	</a>
 						     </div>
-						      <div class="col-1">
+						      <div class="col-1 my-auto">
 						      	<a href="./productDeleteProcess?id=${map.product.id}" class="text-body-tertiary text-decoration-none">
 						      	 &nbsp; <i class="bi bi-trash3 "></i>
 						       	</a>
@@ -153,6 +157,15 @@
 		</div>
 	</div>
 	
+	
+	<!-- 하단 공백 -->
+	<div class="row mt-5 mb-5">
+		<div class="col"> </div>
+	</div>
+	<div class="row mt-5 mb-5">
+		<div class="col"> </div>
+	</div>
+
 	
 	
 	

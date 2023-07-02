@@ -17,8 +17,8 @@
 </div>
     
 <div class="row">
-	<div class="col me-5 py-3"><a href="./mainPage" class="btn"><img class="img-fluid" width="150px" max-width="150px" src="/safari/resources/img/logo0.png"></a></div>
-	<div class="col-2"></div>
+	<div class="col py-3 "><a href="./mainPage" class="btn"><img class="img-fluid" width="150px" max-width="150px" src="/safari/resources/img/logo0.png"></a></div>
+	<div class="col-5"></div>
 </div>
 
 <!-- 2023-07-01 시욱수정 -->    
@@ -48,7 +48,7 @@
 			</ul>
 		</div>
 	  <li class="list-group-item border border-0 pt-2 pb-0 bg-dark"><a class="btn fs-5 fw-medium text text-white" href="./orderDeliveryPage"> <span style="font-size: 20px;"><i class="bi bi-truck"></i></span> &nbsp;배송</a></li>
-	  <li class="list-group-item border border-0 pt-2 pb-0 bg-dark"><a class="btn fs-5 fw-medium text text-white" href="./orderReturnPage"> <span style="font-size: 18px;"><i class="bi bi-arrow-left-square"></i></span> &nbsp;반품</a></li>
+	  <li class="list-group-item border border-0 pt-2 pb-0 bg-dark"><a class="btn fs-5 fw-medium text text-white" href="./orderReturnPage"> <span style="font-size: 18px;"><i class="bi bi-arrow-left-square"></i></span> &nbsp;반납</a></li>
 	  <li class="list-group-item border border-0 pt-2 pb-0 bg-dark"><a class="btn fs-5 fw-medium text text-white" href="./orderReviewPage"> <span style="font-size: 18px;"><i class="bi bi-card-text"></i></span> &nbsp;리뷰</a></li>
 	  	
 		
