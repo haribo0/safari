@@ -62,53 +62,88 @@ select option[value=""][disabled] {
 	<div class="container my-5 py-4">
 		<div class="row">
 			<form action="./rentalOrderProcess" method="post">
-				<h2 class="mb-4">대여 주문 확인서</h2>
+				<h3 class="mb-4 bg-light p-3 text-center">대여 주문 확인서</h3>
 				
-				<div>
-					<img alt="" src="/file/${data.rentalItemDto.main_img_link}" style="width: 80px;">
+				<div class="row pt-3">
+					<img alt="" src="/safariImg/${data.rentalItemDto.main_img_link}" class="rounded" style="width: 160px;">
 				</div>
 				
-				<div class="d-flex mt-3">
-					<p class="me-5">시작일: </p> <input type="date" class="form-control ms-3" id="calendar_start" name="start_date" style="height: 40px; width: 32%;" required/>
-				</div>
-				
-				<div class="d-flex mt-3">
-					<p class="me-5">대여기간: </p>
-					<div class="slidecontainer">
-					  <input type="range" value="6" class="slider optionPeriod" id="myRange">
-					  <p><span id="monthly"></span>개월</p>
+				<div class="row mt-4">
+					<div class="col-2">
+						<p class="me-5 fw-bold">시작일: </p>
+					</div>
+					<div class="col">
+						<input type="date" class="form-control" id="calendar_start" name="start_date" style="height: 40px; width: 32%;" required/>
 					</div>
 				</div>
 				
-				<div class="d-flex mt-3">
-					<p class="me-5">종료일: </p> <p id="return_box"></p>
-				</div>
-				
-				<div class="d-flex mt-3">
-					<p class="me-5">배송지: </p> 
-					<div class="list_addr_box">
+				<div class="row mt-4">
+					<div class="col-2">
+						<p class="me-5 fw-bold">대여기간: </p>
+					</div>
+					<div class="col">
+						<div class="slidecontainer">
+						  <input type="range" value="6" class="slider optionPeriod" id="myRange">
+						  <p><span id="monthly"></span>개월</p>
+						</div>
+					</div>
 					
+				</div>
+				
+				<div class="row mt-4">
+					<div class="col-2">
+						<p class="me-5 fw-bold">종료일: </p>
 					</div>
-					<div>
-						<p> 
-							<input type="text"  id="usr_address" name="prd_address" placeholder="주소입력" class="form-control ms-3" style="width: 400px;"/> <div onclick="searchAddr()" class="btn btn-secondary mt-2 ms-3">주소찾기</div>
-						</p>
-						<p class="btn btn-dark ms-2" onclick="addMyAddr()">추가</p>
+					<div class="col">
+						<p id="return_box"></p>					
 					</div>
 				</div>
 				
-				<div class="mt-3">
-					<p class="fs-4"><span id="desc_price">할인가격</span>원 / <small>월</small></p>
-					<p class="mt-2 fs-4">기본가격: ${data.rentalItemDto.price } 원 </p>
-					<p class="mt-2 fs-4">보증금:  ${data.rentalItemDto.deposit } 원</p>
+				<div class="row mt-4">
+					<div class="col-2">
+						<p class="me-5 fw-bold">배송지: </p>
+					</div>
+					<div class="col">
+						<div class="list_addr_box">
+						
+						</div>
+					</div>
 				</div>
 				
-				<input type="hidden" value="${data.rentalItemDto.deposit }" name="deposit">
-				<input type="hidden" value="" name="end_date" id="hiddin_date">
-				<input type="hidden" value="${data.rentalItemDto.price }" name="original_price">
-				<input type="hidden" value="${data.rentalItemDto.id }" name="item_id">
-				<input type="hidden" value="" name="price" id="hidden_price">
-				<button class="btn btn-success w-25 mt-5">주문신청</button>
+				<div class="row mt-3">
+					<div class="col-2">
+					</div>
+					<div class="col-6 ps-4 mt-2">
+						<div class="row">
+							<div class="row">
+								<input type="text"  id="usr_address" name="prd_address" placeholder="주소입력" class="form-control"/>							
+							</div>
+							<div class="row mt-2">
+								<div class="col d-flex justify-content-between px-0">
+								 	<span onclick="searchAddr()" class="btn btn-outline-secondary mt-2">주소찾기</span>
+									<span class="btn btn-dark mt-2" onclick="addMyAddr()">추가</span>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				
+				<div class="row mt-5 py-3">
+					<p class="fs-5 text-end"><span id="desc_price"></span>원 / <small>월</small></p>					
+				
+					<p class="fs-5 text-end">기본가격: <span class="fw-bold"><fmt:formatNumber value="${data.rentalItemDto.price }" pattern="#,##0" /></span>원 </p>					
+				
+					<p class="fs-5 text-end">보증금: <span class="fw-bold"><fmt:formatNumber value="${data.rentalItemDto.deposit }" pattern="#,##0" /></span>원</p>					
+					
+					<input type="hidden" value="${data.rentalItemDto.deposit }" name="deposit">
+					<input type="hidden" value="" name="end_date" id="hiddin_date">
+					<input type="hidden" value="${data.rentalItemDto.price }" name="original_price">
+					<input type="hidden" value="${data.rentalItemDto.id }" name="item_id">
+					<input type="hidden" value="" name="price" id="hidden_price">
+					<div class="row justify-content-end">
+						<button class="btn btn-success mt-5 w-25 pe-0">주문신청</button>					
+					</div>
+				</div>
 			</form>
 		</div>
 	</div>
@@ -357,12 +392,18 @@ select option[value=""][disabled] {
 					input.setAttribute('name', 'address')
 					input.setAttribute('id', 'addr'+ i)
 					input.setAttribute('value', val.address)
+					input.classList.add('me-2')
 					
 					label.setAttribute('for', 'addr'+ i)
 					label.innerText = val.address
 					
 					p.appendChild(input)
 					p.appendChild(label)
+					
+					p.classList.add('border')
+					p.classList.add('p-2')
+					p.classList.add('w-75')
+					p.classList.add('rounded')
 					
 					listAddrBox.appendChild(p)
 					

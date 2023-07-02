@@ -52,24 +52,24 @@ function countdownFromEndDate(endDate) {
 	  // 현재 시간
 	  var current = new Date();
 
-	  // 경매 종료일
-	  var end = new Date(endDate);
-
 	  // 차이 계산 (밀리초 단위)
-	  var difference = end.getTime() - current.getTime();
+	  var difference = endDate.getTime() - current.getTime();
 
 	  // 차이를 일, 시간, 분, 초로 변환
 	  var days = Math.floor(difference / (1000 * 60 * 60 * 24));
 	  difference -= days * 1000 * 60 * 60 * 24;
+	  
 	  var hours = Math.floor(difference / (1000 * 60 * 60));
 	  difference -= hours * 1000 * 60 * 60;
+	  
 	  var minutes = Math.floor(difference / (1000 * 60));
 	  difference -= minutes * 1000 * 60;
+	  
 	  var seconds = Math.floor(difference / 1000);
 
 	  // 결과 반환
 	  return {
-	    days: days,
+	    days: days > 0 ? days : "",
 	    hours: hours,
 	    minutes: minutes,
 	    seconds: seconds
@@ -81,19 +81,20 @@ function countdownFromStartDate(startDate) {
   // 현재 시간
   var current = new Date();
 
-  // 경매 시작일
-  var start = new Date(startDate);
-
   // 차이 계산 (밀리초 단위)
-  var difference = start.getTime() - current.getTime();
+  var difference = startDate.getTime() - current.getTime();
+
 
   // 차이를 일, 시간, 분, 초로 변환
   var days = Math.floor(difference / (1000 * 60 * 60 * 24));
   difference -= days * 1000 * 60 * 60 * 24;
+  
   var hours = Math.floor(difference / (1000 * 60 * 60));
   difference -= hours * 1000 * 60 * 60;
+  
   var minutes = Math.floor(difference / (1000 * 60));
   difference -= minutes * 1000 * 60;
+  
   var seconds = Math.floor(difference / 1000);
 
   // 결과 반환
@@ -381,7 +382,7 @@ function reloadAuctionList(mainCategoryId, subCategoryId) {
 	                  day: '2-digit',
 	                  hour: '2-digit',
 	                  minute: '2-digit',
-	                  second: '2-digit',
+	                  //second: '2-digit',
 	                  hour12: true
 	                });	        
 	                
@@ -404,7 +405,7 @@ function reloadAuctionList(mainCategoryId, subCategoryId) {
 	                  day: '2-digit',
 	                  hour: '2-digit',
 	                  minute: '2-digit',
-	                  second: '2-digit',
+	                  //second: '2-digit',
 	                  hour12: true
 	                });	        
 	                
@@ -610,7 +611,7 @@ window.addEventListener("DOMContentLoaded", function(){
     //사실상 시작 시점...
     getSessionId();
     getProductMainCategoriesForMenu();
-    //setInterval(reloadAuctionList, 1000);
+    
     
     reloadAuctionList(mainCategoryId, subCategoryId);
    
@@ -784,8 +785,8 @@ window.addEventListener("DOMContentLoaded", function(){
 	        	<div class="col"></div>
 	        	<div class="col-4 text-center d-grid">
 	      
-	                <button class="btn  btn-primary btn-block btn-dark text-center  me-5"
-	                onclick="return registerAuctionProduct()">등록</button>
+	                <button class="btn btn-primary btn-block btn-dark text-center me-5"
+	                	onclick="return registerAuctionProduct()">등록</button>
 	           </div>    
 	        </div>
     

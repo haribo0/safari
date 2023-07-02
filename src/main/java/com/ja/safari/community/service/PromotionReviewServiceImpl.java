@@ -8,7 +8,9 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.ja.safari.community.mapper.PromotionReviewCommentMapper;
 import com.ja.safari.community.mapper.PromotionReviewMapper;
+import com.ja.safari.dto.PromotionReviewCommentDto;
 import com.ja.safari.dto.PromotionReviewDto;
 import com.ja.safari.dto.PromotionReviewImgDto;
 import com.ja.safari.dto.PromotionReviewLikeDto;
@@ -22,9 +24,11 @@ public class PromotionReviewServiceImpl {
 	private PromotionReviewMapper promotionReviewMapper;
 	@Autowired
 	private UserSqlMapper userSqlMapper;
+	@Autowired
+	private PromotionReviewCommentMapper promotionReviewCommentMapper;
 	
 	// 프로모션 리뷰 게시글 목록 리스트 
-	public List<Map<String, Object>> getPromotionReviewList(int page, String promoReview_searchType, String promoReview_searchWord){
+	public List<Map<String, Object>> getPromotionReviewList(int page, String promoReview_searchType, String promoReview_searchWord, PromotionReviewCommentDto promotionReviewCommentDto){
 		
 		List<Map<String, Object>> list = new ArrayList<Map<String,Object>>();
 		
@@ -37,10 +41,13 @@ public class PromotionReviewServiceImpl {
 		
 		List<PromotionReviewImgDto> promotionReviewImgList = promotionReviewMapper.selectByPromoReviewImgId(promotionReviewDto.getId());
 
+		int countPromotionReviewComment = promotionReviewCommentMapper.countPromotionReviewComment(promotionReviewCommentDto);
+		
 			map.put("promotionReviewDto", promotionReviewDto);
 			map.put("userDto", userDto);
 			map.put("promotionReviewImgList", promotionReviewImgList);		
-			// map.put("count", 카운트에 해당하는 쿼리);
+			// 맵에 댓글카운트 담아야함
+			map.put("countPromotionReviewComment", countPromotionReviewComment);
 			
 			
 			list.add(map);

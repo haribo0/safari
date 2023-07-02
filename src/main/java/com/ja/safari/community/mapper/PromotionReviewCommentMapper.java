@@ -9,4 +9,7 @@ public interface PromotionReviewCommentMapper {
 	public void insertPromotionReviewComment (PromotionReviewCommentDto promotionReviewCommentDto);
 	
 	public List<PromotionReviewCommentDto> selectPromotionReviewCommentAll(Integer promotion_review_id);
+	
+	// 프로모션 글 목록 리스트에 댓글 카운트
+	public int countPromotionReviewComment(PromotionReviewCommentDto promotionReviewCommentDto);
 }
