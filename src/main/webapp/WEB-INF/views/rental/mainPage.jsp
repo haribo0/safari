@@ -64,16 +64,16 @@
  				<c:forEach items="${rentalItemList}" var="map">
 					<div class="col-3" style="cursor: pointer;">
 						<div class="card border border-0" style="width: 14rem;">
-							<a href="./productDescPage?id=${map.rentalItemDto.id}" class="text-decoration-none d-inline-block">
+							<a href="${pageContext.request.contextPath}/rental/productDescPage?id=${map.rentalItemDto.id}" class="text-decoration-none d-inline-block">
 							  <img src="/safariImg/${map.rentalItemDto.main_img_link}" class="card-img-top object-fit-cover" alt="..." style="min-height: 260px;" >
 							</a>
 						  <div class="card-body ps-0">
 						  	<div class="d-flex justify-content-between">
-						    	<p class="text-dark"><a href="./productDescPage?id=${map.rentalItemDto.id}" class="text-decoration-none d-inline-block text-dark">${map.rentalItemDto.title}</a></p>
-						  		<p><span class="fw-bold" id="totalLikeCount"></span><i id="heartBox" onclick="toggleLike(${map.rentalItemDto.id})" class="text-danger bi bi-heart heart_box" data-item-id="${map.rentalItemDto.id}"></i></p>
+						    	<p class="text-dark mb-0"><a href="${pageContext.request.contextPath}/rental/productDescPage?id=${map.rentalItemDto.id}" class="text-decoration-none d-inline-block text-dark">${map.rentalItemDto.title}</a></p>
+						  		<p class="mb-0" style="position: relative; bottom: 260px;"><span class="fw-bold" id="totalLikeCount"></span><i id="heartBox" onclick="toggleLike(${map.rentalItemDto.id})" class="text-danger bi bi-heart heart_box" data-item-id="${map.rentalItemDto.id}" style="font-size: 18px;"></i></p>
 						  	</div>
-						    <p style="min-height: 48px;"><a href="./productDescPage?id=${map.rentalItemDto.id}" class="text-decoration-none d-inline-block text-body-secondary">${map.rentalItemDto.item_description}</a></p>
-						    <p><b class="text-dark"><a href="./productDescPage?id=${map.rentalItemDto.id}" class="text-decoration-none d-inline-block text-dark"><fmt:formatNumber value="${map.rentalItemDto.price}" pattern="#,##0" /> 원 / 월</a></b></p>
+						    <p class="mb-1"><a href="${pageContext.request.contextPath}/rental/productDescPage?id=${map.rentalItemDto.id}" class="w-100 text-decoration-none d-inline-block text-body-secondary" style="overflow:hidden; text-overflow:ellipsis; white-space:nowrap; font-size: 15px;">${map.rentalItemDto.item_description}</a></p>
+						    <p><b class="text-dark"><a href="${pageContext.request.contextPath}/rental/productDescPage?id=${map.rentalItemDto.id}" class="text-decoration-none d-inline-block text-dark"><fmt:formatNumber value="${map.rentalItemDto.price}" pattern="#,##0" /> 원 </a></b><span style="font-size: 13px;">/ 월</span></p>
 						  </div>
 						 </div>
 					</div>
@@ -107,7 +107,7 @@ function getSessionId(){
 		}
 	}
 	
-	xhr.open("get", "../user/getMyId", false);
+	xhr.open("get", "${pageContext.request.contextPath}/user/getMyId", false);
 	xhr.send();		
 }
 
@@ -131,7 +131,7 @@ function getSessionId(){
 		}
 	}
 	
-	xhr.open("get", "./toggleRentalItemLike?item_id=" + val);
+	xhr.open("get", "${pageContext.request.contextPath}/rental/toggleRentalItemLike?item_id=" + val);
 	xhr.send();
 	
 }
@@ -166,7 +166,7 @@ function getSessionId(){
 			}
 		}
 		
-		xhr.open("get", "./isLiked?item_id="+val);
+		xhr.open("get", "${pageContext.request.contextPath}/rental/isLiked?item_id="+val);
 		xhr.send();
 	}
 
