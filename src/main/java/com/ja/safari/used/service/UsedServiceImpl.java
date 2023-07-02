@@ -385,5 +385,10 @@ public class UsedServiceImpl {
 		return usedSqlMapper.selectProductChatByRequestId(requestId);
 	}
 
+	// 채팅창 읽음여부 업데이트 
+	public void updateIsRead(Integer requestId, Integer receiverId) {
+		usedSqlMapper.updateIsRead(requestId, receiverId);
+	}
+	
 	
 }

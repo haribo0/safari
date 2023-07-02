@@ -2,6 +2,8 @@ package com.ja.safari.rental.mapper;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.ja.safari.dto.RentalBusinessDto;
 import com.ja.safari.dto.RentalMainCategoryDto;
 import com.ja.safari.dto.RentalOrderDto;
@@ -34,7 +36,7 @@ public interface RentalSqlMapper {
 	public List<RentalSubCategoryDto> selectSubCategoryList(int mainCategoryId);
 
 	// 상품리스트 가져오기
-	public List<RentalItemDto> selectRentalItemListAll();
+	public List<RentalItemDto> selectRentalItemListAll(@Param("sub_category_id") Integer sub_category_id, @Param("main_category_id") Integer main_category_id);
 
 	// 상품 하나 가져오기
 	public RentalItemDto selectById(int id);

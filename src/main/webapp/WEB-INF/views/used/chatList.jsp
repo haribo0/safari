@@ -264,15 +264,15 @@
 		requestId2=requestId;
 		receiverId2=receiverId;
 		
-		
 		console.log("requestId"+requestId);
 		console.log("receiverId"+receiverId);
 		const modalTitleBox = document.getElementById("modalTitle");
 		modalTitleBox.innerText = userNickname2;
 		
-		reloadChatList(requestId);
 		// 열 때
 		myModal.show();
+		// 채팅방 리로딩 
+		reloadChatList(requestId);	
 		
 		// 전송버튼 
  		const sendBox = document.getElementById("sendContent");
@@ -337,11 +337,14 @@
 	}
 	
 
-// 채팅 목록 리로딩 
+// 채팅 내용 리스트 리로딩 
 function reloadChatList(requestId) {
 	// chatlisBox 
     const getChatbox = document.getElementById("getChatList");
     
+	// 채팅 읽음 표시 update 
+	updateIsRead(requestId);
+	
     const xhr = new XMLHttpRequest();
 	
 	xhr.onreadystatechange = function(){
@@ -372,26 +375,26 @@ function reloadChatList(requestId) {
 				  }
 				
 				  const row1 = document.createElement('div');
-				  row1.classList.add('row', 'mt-3');
+				  row1.classList.add('row', 'mt-1');
 				  
 				  if(mySessionId!=data.receiver_id){
 					  const col1 = document.createElement('div');
 					  col1.classList.add('col', 'd-flex', 'flex-column', 'justify-content-end');
 					  const col1row1 = document.createElement('div');
 					  col1row1.classList.add('row', 'justify-content-end', 'mx-1');
+					 
+					  if(data.read_unread == 'N'){
+						  col1row1.innerText = '1';
+					  }else{
+						  col1row1.innerText = ' ';
+					  }
+					  
 					  const col1row2 = document.createElement('div');
 					  col1row2.classList.add('row', 'justify-content-end', 'mx-1', 'chatTime');
 					  const regDate = new Date(data.reg_date);
 					  const formattedDate = regDate.toLocaleTimeString('ko-KR', { hour: 'numeric', minute: '2-digit' });
 					  col1row2.innerText = formattedDate;
 					  
-					  
-					  
-					  if(data.read_unread == 'N'){
-						  col1row1.innerText = '1';
-					  }else{
-						  col1row1.innerText = ' ';
-					  }
 					  
 					  const col2 = document.createElement('div');
 					  col2.classList.add('col-7', 'me-3', 'myContent');
@@ -419,12 +422,17 @@ function reloadChatList(requestId) {
 					  const col4 = document.createElement('div');
 					  col4.classList.add('col', 'd-flex', 'flex-column', 'justify-content-end');
 					  const col4row1 = document.createElement('div');
-					  col4row1.classList.add('row', 'justify-content-start', 'm-1');
+					  col4row1.classList.add('row', 'justify-content-start', 'mx-1');
 					  const col4row2 = document.createElement('div');
-					  col4row2.classList.add('row');
+					  col4row2.classList.add('row', 'justify-content-start', 'mx-1', 'chatTime');
+					  const regDate = new Date(data.reg_date);
+					  const formattedDate = regDate.toLocaleTimeString('ko-KR', { hour: 'numeric', minute: '2-digit' });
+					  col4row2.innerText = formattedDate;
 					  
 					  if(data.read_unread == 'N'){
 						  col4row1.innerText = '1';
+					  }else{
+						  col4row1.innerText = ' ';
 					  }
 					  
 					  row1.appendChild(colIcon);
@@ -432,7 +440,6 @@ function reloadChatList(requestId) {
 					  row1.appendChild(col4);
 					  col4.appendChild(col4row1);
 					  col4.appendChild(col4row2);
-					  
 					  
 					  getChatbox.appendChild(row1);
 				  }
@@ -445,6 +452,22 @@ function reloadChatList(requestId) {
 	//get
 	xhr.open("get", "./reloadChatList?requestId=" + requestId);
 	xhr.send();
+}
+
+// 읽음여부 업데이트 
+function updateIsRead(requestId) {
+	
+	const xhr = new XMLHttpRequest();
+	
+	xhr.onreadystatechange = function(){
+        if(xhr.readyState == 4 && xhr.status == 200){
+            const response = JSON.parse(xhr.responseText);
+        }
+    }
+    //get
+	xhr.open("get", "./updateIsRead?requestId="+requestId);
+	xhr.send();
+    
 }
 
 //modal 닫을 때
