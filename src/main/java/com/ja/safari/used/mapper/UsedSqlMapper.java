@@ -108,6 +108,8 @@ public interface UsedSqlMapper {
 	public ProductChatDto selectLastChatContent(Integer requestId);
 	// 채팅 내용 있는지 개수 확인 
 	public int selectChatCount(Integer requestId);
+	// 채팅창 읽음여부 업데이트 
+	public void updateIsRead(@Param("requestId")Integer requestId, @Param("receiverId")Integer receiverId);
 	
 	
 }

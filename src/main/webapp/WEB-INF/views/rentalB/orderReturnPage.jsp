@@ -196,10 +196,10 @@
 					        	<div class="col" id="inputBox"> 
 					        		<div class="row mt-1">
 							        	<div class="col-4"> 
-							        		<input class="form-control" type="number" name="charge">
+							        		<input class="form-control charge" type="number" name="charge">
 							        	</div>
 							        	<div class="col-6"> 
-							        		<input class="form-control" type="text" name="reason">
+							        		<input class="form-control reason" type="text" name="reason">
 							        	</div>
 							        	<div class="col-2 d-grid"> 
 							        		<div class="btn btn-outline-dark" onclick="appendInputs()">+</div>
@@ -227,8 +227,8 @@
 			        
 			      </div>
 			      <div class="modal-footer">
-			        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-			        <button type="button" class="btn btn-primary">Save changes</button>
+			        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+			        <button type="button" class="btn btn-primary" onclick="getInputData()">정산 확인</button>
 			      </div>
 			    </div>
 			  </div>
@@ -247,6 +247,9 @@
 
 
 <script >
+
+
+let returnId = null;
 
 
 // 수취확인 전 
@@ -315,7 +318,6 @@ function getItemToBeReturnedList() {
 				listBox.appendChild(listContainer);
 
 				
-			    
 			});
 			
 			
@@ -334,7 +336,6 @@ function getItemToBeReturnedList() {
 // 수추확인 후 - 정산 처리  
 function getItemReturnedList() {
 	
-	
 	const listBox = document.getElementById("listBox2");
 	listBox.innerHTML = "";
 	
@@ -346,7 +347,6 @@ function getItemReturnedList() {
 			
 			const listContainer = document.createElement("div");
 			listContainer.className = 'row mt-3 mb-4';
-			
 			
 			response.list.forEach(function(data){
 				
@@ -437,13 +437,14 @@ function changeReturnShippingStatus(e) {
 
 
 
-
+// 모달에 정보 넣어서 띄워주기 
 function check(e) {
 	
 	const checkModal = bootstrap.Modal.getOrCreateInstance('#checkModal');
 	checkModal.show();
 	
-	const returnId = e.getAttribute("data-return-id");
+	
+	returnId = e.getAttribute("data-return-id");
 	const productNameBox = document.getElementById("productName");
 	const depositBox = document.getElementById("deposit");
 	
@@ -485,7 +486,7 @@ function appendInputs(){
 	  col4.className = 'col-4';
 	  // input 요소 생성
 	  const chargeInput = document.createElement('input');
-	  chargeInput.className = 'form-control';
+	  chargeInput.className = 'form-control charge';
 	  chargeInput.type = 'number';
 	  chargeInput.name = 'charge';
 
@@ -494,7 +495,7 @@ function appendInputs(){
 	  col6.className = 'col-6';
 	  // input 요소 생성
 	  const reasonInput = document.createElement('input');
-	  reasonInput.className = 'form-control';
+	  reasonInput.className = 'form-control reason';
 	  reasonInput.type = 'text';
 	  reasonInput.name = 'reason';
 
@@ -518,67 +519,52 @@ function appendInputs(){
 	  // 기존 요소에 새로운 row 추가
 	  inputBox.appendChild(newRow);
 
-
 }
 
-/* 
-function appendInputs(){
-	
-	const listBox = document.getElementById("inputBox");
-	
-	// inputBox 요소를 선택합니다.
-	const inputBoxElement = document.getElementById('inputBox');
-	const buttonElement = inputBoxElement.querySelector('.btn');
-	// 버튼 요소를 부모 요소에서 제거합니다.
-	buttonElement.remove();
-	
 
-	// 첫 번째 <div> 요소 생성
-	const divElement1 = document.createElement('div');
-	divElement1.classList.add('col-4');
 
-	// 첫 번째 <input> 요소 생성
-	const inputElement1 = document.createElement('input');
-	inputElement1.classList.add('form-control');
-	inputElement1.setAttribute('type', 'number');
-	inputElement1.setAttribute('name', 'charge');
-	// 첫 번째 <input> 요소를 <div> 요소에 추가
-	divElement1.appendChild(inputElement1);
-	// 부모 요소에 첫 번째 <div> 요소 추가
-	listBox.appendChild(divElement1);
-
-	// 두 번째 <div> 요소 생성
-	const divElement2 = document.createElement('div');
-	divElement2.classList.add('col-6');
-	// 두 번째 <input> 요소 생성
-	const inputElement2 = document.createElement('input');
-	inputElement2.classList.add('form-control');
-	inputElement2.setAttribute('type', 'text');
-	inputElement2.setAttribute('name', 'reason');
-	// 두 번째 <input> 요소를 <div> 요소에 추가
-	divElement2.appendChild(inputElement2);
-	// 부모 요소에 두 번째 <div> 요소 추가
-	listBox.appendChild(divElement2);
+function getInputData() {
+	
+	// Get all the input elements with class names 'charge' and 'reason'
+	const chargeInputs = document.getElementsByClassName('charge');
+	const reasonInputs = document.getElementsByClassName('reason');
+	
+	let chargeValue = [];
+	let reasonValue = [];
+		
+	// Loop through the input elements and retrieve their values
+	for (let i = 0; i < chargeInputs.length; i++) {
+		if(chargeInputs[i].value==null && reasonInputs[i].value==null) continue;
+		if (chargeInputs[i].value && !reasonInputs[i].value || !chargeInputs[i].value && reasonInputs[i].value) {
+			chargeInputs[i].focus();
+			
+			return;
+		}
+		chargeValue.push(chargeInputs[i].value);
+		reasonValue.push(reasonInputs[i].value);
+	}
+	
+	
 	
 
-	// 세 번째 <div> 요소 생성
-	const divElement3 = document.createElement('div');
-	divElement3.classList.add('col-2');
-	const newButtonElement = document.createElement('div');
-	newButtonElement.className = 'btn btn-outline-dark';
-	newButtonElement.textContent = '+';
-	newButtonElement.addEventListener('click', appendInputs);
-	divElement3.appendChild(newButtonElement);
-	// 부모 요소에 새로운 버튼을 추가합니다.
-	listBox.appendChild(divElement3);
+	const xhr = new XMLHttpRequest();
+
+	xhr.onreadystatechange = function() {
+		if(xhr.readyState == 4 && xhr.status == 200){
+			const response = JSON.parse(xhr.responseText);
+			
+		}
+	}
 
 
-} */
-
-
-
-
-
+	// post 방식 
+	xhr.open("post", "url");
+	xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+	xhr.send("returnId="+returnId+"&chargeValue="+chargeValue+"&reasonValue="+reasonValue);
+	
+	
+	
+}
 
 
 

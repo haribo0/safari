@@ -1,5 +1,7 @@
 package com.ja.safari.cs.controller;
 
+import java.time.DayOfWeek;
+import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -12,7 +14,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.ja.safari.cs.service.CsServiceImpl;
 import com.ja.safari.dto.CsEmpDto;
-import com.ja.safari.dto.RentalBusinessDto;
 
 @RestController
 @RequestMapping("/cs/*")
@@ -34,8 +35,6 @@ public class CsRestController {
 			map.put("reason", "login required");
 			return map;
 		}
-		
-		List<Map<String, Object>> list = csService.getEmployeeList();
 		
 		map.put("result", "success");
 		map.put("list", csService.getEmployeeList());
@@ -85,6 +84,12 @@ public class CsRestController {
 		System.out.println(startTime);
 		System.out.println(endTime);
 		System.out.println(empId);
+		
+        LocalDate today = LocalDate.now();
+        DayOfWeek dayOfWeek = today.getDayOfWeek();
+        // The value of dayOfWeek will be in the enum DayOfWeek (MONDAY, TUESDAY, etc.)
+        System.out.println("Today's day (using LocalDate): " + dayOfWeek);
+		
 		
 		map.put("result", "success");
 		

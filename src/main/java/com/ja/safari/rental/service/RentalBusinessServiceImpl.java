@@ -22,6 +22,7 @@ import com.ja.safari.dto.RentalOrderDto;
 import com.ja.safari.dto.RentalPeriodDiscDto;
 import com.ja.safari.dto.RentalReviewDto;
 import com.ja.safari.dto.RentalSubCategoryDto;
+import com.ja.safari.dto.RentalSurchargeBillDto;
 import com.ja.safari.rental.mapper.RentalBusinessSqlMapper;
 import com.ja.safari.user.mapper.UserSqlMapper;
 
@@ -438,7 +439,16 @@ public class RentalBusinessServiceImpl {
 		
 	}
 	
-	
+	// 반품 후 정산 
+	public void returnAfterCharge(Integer returnId, Integer[] chargeValue, String[] reasonValue) {
+		// 할 일 
+		// 1. 먼저 반품 정산서 인서트 후 pk 가지고 정산사유/비용 인서트 
+		
+		for(int i=0;i<chargeValue.length;i++) {
+			
+		}
+		
+	}
 	
 	
 	
@@ -463,5 +473,6 @@ public class RentalBusinessServiceImpl {
 	public List<Map<String, Object>> getRevenueByDay(Integer businessId) {
 		return rentalSqlMapper.getRevenueByDay(businessId);
 	}
+
 
 }

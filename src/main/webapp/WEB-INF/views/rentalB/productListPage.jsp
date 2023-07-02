@@ -598,9 +598,9 @@ function processPayment(orderId) {
 	  const quantity = 1;
 	  const total_amount = selectedPrice;
 	  const tax_free_amount = selectedPrice;
-	  const approval_url = "http://localhost:8181/safari/rental/paymentProcess";
-	  const cancel_url = "http://localhost:8181/safari/rental/productListPage";
-	  const fail_url = "http://localhost:8181/safari/rental/productListPage";
+	  const approval_url = "http://localhost:8181/safari/rentalBusiness/paymentProcess";
+	  const cancel_url = "http://localhost:8181/safari/rentalBusiness/productListPage";
+	  const fail_url = "http://localhost:8181/safari/rentalBusiness/productListPage";
 	  
 	  
 	  // Make an AJAX request to the server to initiate the payment using KakaoPay API
