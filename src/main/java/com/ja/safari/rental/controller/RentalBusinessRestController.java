@@ -252,7 +252,7 @@ public class RentalBusinessRestController {
 		return map;
 	}
 	
-	// 상품 리스트 
+	// 상품 리스트 가져오기  
 	@RequestMapping("getProductList")
 	public  Map<String, Object> getProductList(HttpSession session) {
 		
@@ -270,7 +270,7 @@ public class RentalBusinessRestController {
 		return map;
 	}
 	
-	// 상품 리스트 
+	// 반품 아이디로 상품 주문 가져오기 
 	@RequestMapping("getProductAndOrderByReturnId")
 	public  Map<String, Object> getProductDtoByOrderId(HttpSession session, Integer returnId) {
 		
@@ -285,6 +285,23 @@ public class RentalBusinessRestController {
 		map.put("result", "success");
 		map.put("product", rentalService.getProductDtoByReturnId(returnId));
 		map.put("order", rentalService.getOrderDtoByReturnId(returnId));
+		
+		return map;
+	}
+	
+	// 정산 정보 저장 
+	@RequestMapping("returnAfterCharge")
+	public  Map<String, Object> returnAfterCharge(HttpSession session, Integer returnId, Integer[] chargeValue, String[] reasonValue) {
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		RentalBusinessDto businessDto = (RentalBusinessDto) session.getAttribute("businessUser");
+		if(businessDto == null) {
+			map.put("result", "fail");
+			map.put("reason", "login required");
+			return map;
+		}
+		map.put("result", "success");
 		
 		return map;
 	}
@@ -371,7 +388,6 @@ public class RentalBusinessRestController {
 		map.put("orderId", rentalService.getRentalAdsPk());
 		System.out.println( map.get("orderId"));
 		
-		
 		return map;
 	}
 	
@@ -420,7 +436,7 @@ public class RentalBusinessRestController {
 		return map;
 	}
 	
-	// 카카오페이 결제 ready 정보 보내주기 
+	// 카카오페이 결제 후 정보 저장  
 	@RequestMapping("saveOrderAndPaymentInfo")
 	public  Map<String, Object> saveOrderAndPaymentInfo(HttpSession session, KaKaoPayApproveDto kakoApproveDto) {
 		
