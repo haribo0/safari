@@ -9,7 +9,7 @@
 <nav class="navbar navbar-expand navbar-dark bg-dark">
   <div class="container-fluid">
     <a href="./mainPage" class="navbar-brand">
-      <img class="img-fluid my-2 ms-4 me-3" width="74px" src="/safari/resources/img/logopng1.png">
+      <img class="img-fluid my-2 ms-4 me-3" width="74px" src="/safari/resources/img/logo0.png">
     </a>
     
     <a class="navbar-brand" href="./mainPage">고객관리서비스</a>
@@ -83,6 +83,6 @@
 </nav>
 
 
-<div class="row mt-5 mb-5">
+<div class="row  mb-5">
 <div class="col"> </div>
 </div>

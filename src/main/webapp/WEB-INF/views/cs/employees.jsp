@@ -28,7 +28,7 @@
 <div class="container-fluid">
 	<div class="row mt-2">
 		<div class="col"></div>
-		<div class="col-8">
+		<div class="col-10">
 			<h4>직원 관리</h4>
 			<div class="row">
 				<div class="col text-end d-grid"></div>

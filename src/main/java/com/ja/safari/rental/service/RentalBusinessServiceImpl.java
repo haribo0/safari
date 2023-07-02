@@ -169,6 +169,7 @@ public class RentalBusinessServiceImpl {
 			Map<String, Object> map = new HashMap<String, Object>();
 			
 			map.put("order", rentalOrderDto);
+			map.put("user", userSqlMapper.selectUserDtoById(rentalOrderDto.getUser_id()));
 			map.put("product", rentalSqlMapper.selectRentalItemDto(rentalOrderDto.getItem_id()));
 			
 			
@@ -179,11 +180,11 @@ public class RentalBusinessServiceImpl {
 				if(rentalCancelDto.getIs_item_returned().equals("Y")) {
 					if(rentalSqlMapper.getOrderCancelBillByCancelId(rentalCancelDto.getId())!=null) {
 						if(rentalSqlMapper.getOrderCancelBillByCancelId(rentalCancelDto.getId()).getIs_completed().equals("Y")) {
-							status = "중도반납완료";
+							status = "반납완료";
 						} 
-					} else status = "중도반납확인";
+					} else status = "반납확인";
 				} else {
-					status = "중도반납신청";
+					status = "반납신청";
 				}
 				
 			} else if (rentalItemReturnDto!=null) {
@@ -198,9 +199,9 @@ public class RentalBusinessServiceImpl {
 				}
 			} else {
 				// 종료일이 오늘 보다 작으면 
-				if(rentalOrderDto.getEnd_date().compareTo(currentDate) < 0 ) status = "연체중";
+//				if(rentalOrderDto.getEnd_date().compareTo(currentDate) < 0 ) status = "연체중";
 				// 시작일 이후면
-				else if(rentalOrderDto.getStart_date().compareTo(currentDate) < 0 ) status = "대여중";
+				if(rentalOrderDto.getStart_date().compareTo(currentDate) < 0 ) status = "대여중";
 				// 다 아니면 
 				else status = "주문완료";
 			}
@@ -443,6 +444,8 @@ public class RentalBusinessServiceImpl {
 	public void returnAfterCharge(Integer returnId, Integer[] chargeValue, String[] reasonValue) {
 		// 할 일 
 		// 1. 먼저 반품 정산서 인서트 후 pk 가지고 정산사유/비용 인서트 
+		
+		
 		
 		for(int i=0;i<chargeValue.length;i++) {
 			

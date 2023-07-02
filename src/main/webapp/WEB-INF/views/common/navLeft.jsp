@@ -6,7 +6,7 @@
     
 <!-- <div class=""> -->
 
-<div class="row bg-dark">
+<div class="row mt-4 bg-dark">
 	<div class="col bg-dark">
 		<div class="row bg-dark">
 			<div class="col bg-dark"></div>
@@ -17,7 +17,7 @@
 </div>
     
 <div class="row">
-	<div class="col me-5"><a href="./mainPage" class="btn"><img class="img-fluid" max-width="300px" src="/safari/resources/img/logo2.png"></a></div>
+	<div class="col me-5 py-3"><a href="./mainPage" class="btn"><img class="img-fluid" width="150px" max-width="150px" src="/safari/resources/img/logo0.png"></a></div>
 	<div class="col-2"></div>
 </div>
 
@@ -94,7 +94,7 @@
 		
 		
 		
-		<div class="row mt-4">
+		<div class="row ms-2 mt-4">
 			<div class="col ms-3">		        
 		           <c:if test="${!empty businessUser}">
 		           		<a href="./myInfoPage" class="text-black text-decoration-none fs-5">
@@ -106,7 +106,7 @@
 			</div>
 		</div>
 		
-		<div class="row mt-3">
+		<div class="row ms-2 mt-3">
 			<div class="col ms-3">
 		        
 		           <c:choose>

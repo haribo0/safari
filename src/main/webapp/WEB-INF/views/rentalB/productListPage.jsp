@@ -36,11 +36,11 @@
 	<!-- 헤더 섹션 -->
 
 	<div class="container-fluid main_box">
-		<div class="row ms-5">
+		<div class="row">
 		
 		
 			<div class="col-2" style=""></div>
-			<div class="col-2" style="position: fixed;">
+			<div class="col-2  bg-dark h-100" style="position: fixed;">
 				<div class="list-group list-group-flush">
 					
 					<!-- 왼쪽 카테고리 리스트 -->
@@ -56,11 +56,11 @@
 			</div>
 			
 			
-			<div class="col">
+			<div class="col ms-4 mt-5">
 		    	
-		    	<h4 class="row mt-3 fw-regular">상품 관리</h4>
+		    	<h4 class="ps-4  mt-3 mb-4 fw-regular">상품 관리</h4>
 
-				<div class="row mt-1">
+				<div class="row mt-5 ms-4">
 					<div class="col">
 						
 					</div>

@@ -17,11 +17,11 @@
 	<!-- 헤더 섹션 -->
 
 	<div class="container-fluid main_box">
-		<div class="row ms-5">
+		<div class="row">
 		
 		
 			<div class="col-2" style=""></div>
-			<div class="col-2" style="position: fixed;">
+			<div class="col-2 bg-dark h-100" style="position: fixed;">
 			<div class="list-group list-group-flush">
 					
 					<!-- 왼쪽 카테고리 리스트 -->
@@ -37,11 +37,14 @@
 			</div>
 			
 			
-			<div class="col  container me-5" id="listContainer">
 			
-    			<h4 class="row mt-3 mb-4 fw-regular">반품 관리</h4>
+			
+			
+			<div class="col mt-5 container ms-4" id="listContainer">
+			
+    			<h4 class="ps-4 mt-3 mb-4 fw-regular">반품 관리</h4>
 
-				<div class="row mt-3 mb-2 fw-medium">
+				<div class="row mt-5 ms-4 fw-medium">
 					반품 수취 확인
 				</div>
 				
@@ -64,7 +67,7 @@
 					</div>
 				</div>
 				
-				<hr class="border border-black border-1 opacity-100">
+				<hr class="border ms-2 border-black border-1 opacity-100">
 
 				
 				
@@ -78,7 +81,7 @@
 				</div>
 					
 
-				<div class="row mt-5 mb-2 fw-medium">
+				<div class="row ms-4 mt-5 mb-2 fw-medium">
 					반품 정산 
 				</div>
 
@@ -101,7 +104,7 @@
 					</div>
 				</div>
 				
-				<hr class="border border-black border-1 opacity-100">
+				<hr class="border ms-2 border-black border-1 opacity-100">
 
 				
 				

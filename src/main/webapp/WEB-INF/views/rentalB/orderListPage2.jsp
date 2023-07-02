@@ -40,11 +40,11 @@
 	
 	
 	<div class="container-fluid">
-		<div class="row ms-5">
+		<div class="row">
 		
 		
 			<div class="col-2" style=""></div>
-			<div class="col-2" style="position: fixed;">
+			<div class="col-2 bg-dark h-100" style="position: fixed;">
 				<div class="list-group list-group-flush">
 					
 					<!-- 왼쪽 카테고리 리스트 -->
@@ -59,10 +59,12 @@
 			
 			</div>
 			
-			<div class="col ">
-			    <h4 class="row mt-3 mb-4 fw-regular">주문 관리</h4>
+
+
+			<div class="col ms-4 mt-5">
+			    <h4 class="ps-4  mt-3 mb-4 fw-regular">주문 관리</h4>
 				
-				<div class="row mt-3 mb-2">
+				<div class="row mt-5 ms-4">
 					<!-- <form action="#" method="GET" class="d-flex" role="search"> -->
 					
 					<div class="col-1 me-1 text-end col-form-label">
@@ -71,14 +73,12 @@
 					
 					<div class="col-2">
 						<select name="searchType" class="form-select">
-							<option value="" selected >선택</option>
-							<option value="주문완료">주문완료</option>
-							<option value="대여중">대여중</option>
-							<option value="취소중">취소신청</option>
-							<option value="취소완료">취소완료</option>
-							<option value="반납완료">회수완료</option>
-							<option value="반납중">반납신청</option>
-							<option value="정산완료">정산완료</option>
+							<option value="전체" selected >선택</option>
+							<option value="주문">주문</option>
+							<option value="대여">대여</option>
+							<option value="취소">취소</option>
+							<option value="반납">반납</option>
+							<option value="정산">정산</option>
 						</select>
 					</div>
 					
@@ -88,7 +88,10 @@
 					
 					<div class="col-2">
 						<select name="searchType" class="form-select">
-							<option value="" selected >선택</option>
+							<option value="0" selected >선택</option>
+							<c:forEach var="prd" items="${productList}"> 
+								<option value="${prd.id}" >${prd.title}</option>
+							</c:forEach>
 							
 						</select>
 					</div>
@@ -104,41 +107,43 @@
 				
 				
 				
-				<div class="row mt-4">
+				<div class="row ms-4 mt-4">
 					<div class="col" style="font-size: 15px;">
 						<div class="row py-2 border-bottom  border-2 mb-4 text-center">
 							<div class="col-1 fw-bold text-body-tertiary">#</div>
-							<div class="col-3 fw-bold text-body-tertiary">상품</div>
-							<div class="col-2 fw-bold text-body-tertiary">대여시작</div>
-							<div class="col-2 fw-bold text-body-tertiary">주소</div>
+							<div class="col-2 fw-bold text-body-tertiary">상품</div>
+							<div class="col fw-bold text-body-tertiary">연락처</div>
+							<div class="col fw-bold text-body-tertiary">대여시작</div>
+							<div class="col fw-bold text-body-tertiary">주소</div>
 							
-							<div class="col-2 fw-bold text-body-tertiary">가격</div>
-							<div class="col-2 fw-bold text-body-tertiary">상태</div>
+							<div class="col fw-bold text-body-tertiary">가격</div>
+							<div class="col fw-bold text-body-tertiary">상태</div>
 						</div>
 						
 						<c:forEach var="map" items="${list}" >
 						
-							<div class="row py-2  mt-2 mb-1 text-center ">
-								<div class="col-1">${map.order.id }</div>
-								<div class="col-3">${map.product.title }</div>
-								<div class="col-2">
+							<div class="row py-2 mt-0 mb-2 text-center ">
+								<div class="col-1 my-auto">${map.order.id }</div>
+								<div class="col-2 my-auto">${map.product.title }</div>
+								<div class="col my-auto">${map.user.phone }</div>
+								<div class="col my-auto">
 									<fmt:formatDate value="${map.order.start_date}" pattern="MM/dd/yyyy" />
 								</div>
-								<div class="col-2">${map.order.address }</div>
+								<div class="col my-auto">${map.order.address }</div>
 								
-								<div class="col-2">
+								<div class="col my-auto">
 									<fmt:formatNumber value="${map.order.price}" pattern="#,###" /> <span>원 / 월</span>
 								</div> 
 								
 								<c:choose>
 									<c:when test="${ map.status  == '주문완료' }">
-										<div class="col-2 "><button class="btn_ordered fw-bold">${map.status}</button></div>
+										<div class="col my-auto"><button class="btn_ordered fw-bold">${map.status}</button></div>
 									</c:when>
 									<c:when test="${map.status  == '대여중' }">
-										<div class="col-2 "><button class="btn_canceled fw-bold">${map.status}</button></div>
+										<div class="col my-auto"><button class="btn_canceled fw-bold">${map.status}</button></div>
 									</c:when>
 									<c:otherwise>
-										<div class="col-2 "><button class="btn_delivered fw-bold">${map.status}</button></div>
+										<div class="col my-auto"><button class="btn_delivered fw-bold">${map.status}</button></div>
 									</c:otherwise>
 								</c:choose>
 								
