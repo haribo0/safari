@@ -68,7 +68,7 @@
 						
 					</div>
 					
-					<div class="col-3 px-3">
+					<div class="col-3 px-4">
 						<div class="card px-3" >
 						  <div class="card-body">
 						    <h5 class="fs-6 fw-medium"> 고객 성별 비율 </h5>

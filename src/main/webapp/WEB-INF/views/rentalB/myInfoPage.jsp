@@ -21,11 +21,11 @@
 	<!-- 헤더 섹션 -->
 
 	<div class="container-fluid main_box">
-		<div class="row ms-5">
+		<div class="row">
 		
 		
 			<div class="col-2" style=""></div>
-			<div class="col-2" style="position: fixed;">
+			<div class="col-2 bg-dark h-100" style="position: fixed;">
 				<div class="list-group list-group-flush">
 					
 					<!-- 왼쪽 카테고리 리스트 -->
@@ -41,11 +41,13 @@
 			</div>
 			
 			
-			<div class="col container ">
 			
-    			<h4 class="row mt-3 mb-4 fw-regular">내 정보</h4>
+							
+			<div class="col mt-5 container ms-4">
+			
+    			<h4 class="ps-4 mt-3 mb-4 fw-regular">내 정보</h4>
 
-				<div class="row">
+				<div class="row mt-5 ms-4">
 					
 				    <div class="col"></div>
 				    <div class="col-2 d-grid ">
@@ -57,7 +59,7 @@
 				<hr class="border">
 				
 				
-				<div class="row mt-2 mb-3 fw-medium">
+				<div class="row ms-4 mt-2 mb-3 fw-medium">
 					
 					<div class="col ms-3">
 						<div class="row fw-light">
@@ -98,7 +100,7 @@
 				</div>
 				
 				
-				<div class="row mt-5 mb-3 fw-medium">
+				<div class="row ms-4 mt-5 mb-3 fw-medium">
 				
 					<div class="col ms-3">
 						<div class="row fw-light">
@@ -146,7 +148,7 @@
 					
 				</div>
 				
-				<div class="row mt-5 mb-3 fw-medium">
+				<div class="row ms-4 mt-5 mb-3 fw-medium">
 					
 					
 				</div>
@@ -157,7 +159,7 @@
 				<hr class="border">
 				
 			
-				<div class="row mt-5 mb-2">
+				<div class="row ms-4 mt-5 mb-2">
 					
 					<div id="map" style="width:500px;height:400px;"></div>
 				    

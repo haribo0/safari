@@ -11,6 +11,35 @@
 	<div class="col-2"></div>
 </div>
 
+
+<div class="row mt-4">
+	<div class="col ms-3">		        
+           <c:if test="${!empty businessUser}">
+           		<a href="./myInfoPage" class="text-black text-decoration-none fs-5">
+           			<div class="fs-6">반갑습니다,</div>
+           			<div> ${businessUser.business_name} 님  </div>
+           			
+           		</a>
+           </c:if>			
+	</div>
+</div>
+
+<div class="row mt-3">
+	<div class="col ms-3">
+        
+           <c:choose>
+          		<c:when test="${!empty businessUser}">
+          			<a href="${pageContext.request.contextPath}/rentalBusiness/businessLogoutProcess" class="text-secondary mt-2 text-opacity-50 text-decoration-none">로그아웃</a>
+          		</c:when>
+          		<c:otherwise>
+       			<a href="${pageContext.request.contextPath}/rentalBusiness/businessLoginPage" class="btn btn-dark me-2">로그인</a>
+          		</c:otherwise>
+          	</c:choose>
+          
+	
+	</div>
+</div>
+
     
 <div class="listContainer mt-3">
 	<ul class="list-group">
@@ -84,33 +113,7 @@
 		
 		
 		
-		<div class="row mt-4">
-			<div class="col ms-3">		        
-		           <c:if test="${!empty businessUser}">
-		           		<a href="./myInfoPage" class="text-black text-decoration-none fs-5">
-		           			<div class="fs-6">반갑습니다,</div>
-		           			<div> ${businessUser.business_name} 님  </div>
-		           			
-		           		</a>
-		           </c:if>			
-			</div>
-		</div>
 		
-		<div class="row mt-3">
-			<div class="col ms-3">
-		        
-		           <c:choose>
-	           		<c:when test="${!empty businessUser}">
-	           			<a href="${pageContext.request.contextPath}/rentalBusiness/businessLogoutProcess" class="text-secondary mt-2 text-opacity-50 text-decoration-none">로그아웃</a>
-	           		</c:when>
-	           		<c:otherwise>
-	        			<a href="${pageContext.request.contextPath}/rentalBusiness/businessLoginPage" class="btn btn-dark me-2">로그인</a>
-	           		</c:otherwise>
-	           	</c:choose>
-		          
-			
-			</div>
-		</div>
 		
 
 	

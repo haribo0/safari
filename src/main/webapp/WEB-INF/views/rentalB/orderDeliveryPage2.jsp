@@ -17,10 +17,10 @@
 	<!-- 헤더 섹션 -->
 
 	<div class="container-fluid main_box">
-		<div class="row ms-5">
+		<div class="row">
 		
 			<div class="col-2" style=""></div>
-			<div class="col-2" style="position: fixed;">
+			<div class="col-2 bg-dark h-100" style="position: fixed;">
 				<div class="list-group list-group-flush">
 					
 					<!-- 왼쪽 카테고리 리스트 -->
@@ -36,16 +36,22 @@
 			</div>
 			
 			
-			<div class="col container" id="listContainer">
 			
-    			<h4 class="row mt-3 mb-4 fw-regular">배송 관리</h4>
+			
+							
 
-				<div class="row mt-3 mb-2 fw-medium">
+
+			
+			<div class="col ms-4 mt-5 container" id="listContainer">
+			
+    			<h4 class="ps-4  mt-3 mb-4 fw-regular">배송 관리</h4>
+
+				<div class="row mt-5 ms-4 row mb-2 fw-bold">
 					배송 전
 				</div>
 				
 				
-				<div class="row mt-4 mb-3 fw-medium">
+				<div class="row mt-3 mb-1 fw-medium">
 					<div class="col text-center">
 						#
 					</div>
@@ -66,7 +72,7 @@
 				
 				<div class="row">
 					<div class="col">
-						<hr class="border border-black border-1 opacity-100">
+						<hr class="border ms-4 border-black border-1 opacity-100">
 					</div>
 				</div>
 
@@ -82,12 +88,12 @@
 				</div>
 					
 
-				<div class="row mt-5 mb-2 fw-medium">
+				<div class="row ms-4 mt-5 mb-2 fw-bold">
 					배송 완료
 				</div>
 
 				
-				<div class="row mt-4 mb-3 fw-medium">
+				<div class="row  mt-3 mb-2 fw-medium">
 					<div class="col text-center">
 						#
 					</div>
@@ -105,7 +111,7 @@
 					</div>
 				</div>
 				
-				<hr class="border border-black border-1 opacity-100">
+				<hr class="border ms-4 border-black border-1 opacity-100">
 
 				
 				

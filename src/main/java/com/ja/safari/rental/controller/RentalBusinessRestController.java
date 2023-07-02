@@ -301,6 +301,8 @@ public class RentalBusinessRestController {
 			map.put("reason", "login required");
 			return map;
 		}
+		
+		rentalService.returnAfterCharge(returnId, chargeValue, reasonValue);
 		map.put("result", "success");
 		
 		return map;

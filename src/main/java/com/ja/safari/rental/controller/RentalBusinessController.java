@@ -143,6 +143,7 @@ public class RentalBusinessController {
 		if(businessDto == null) return "redirect:./loginPage"; 		
 		
 		model.addAttribute("list", rentalService.getRentalOrderAndProductListByUserId(businessDto.getId()));
+		model.addAttribute("productList", rentalService.getProductListByUserId(businessDto.getId()));
 		
 		
 		return "rentalB/orderListPage2";
