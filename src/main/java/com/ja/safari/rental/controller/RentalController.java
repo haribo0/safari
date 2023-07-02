@@ -16,6 +16,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.ja.safari.dto.RentalBusinessDto;
@@ -43,9 +44,11 @@ public class RentalController {
 	
 	// 대여 메인 페이지
 	@RequestMapping("mainPage")
-	public String main(Model model) {
+	public String main(Model model, Integer sub_category_id, Integer main_category_id) {
+		System.out.println("sub_category_id:: " + sub_category_id);
+		
 		List<Map<String, Object>> categoryList = rentalService.getCategoryList();
-		List<Map<String, Object>> rentalItemList = rentalService.getRentalItemList();
+		List<Map<String, Object>> rentalItemList = rentalService.getRentalItemList(sub_category_id, main_category_id);
 		
 		model.addAttribute("categoryList", categoryList);
 		model.addAttribute("rentalItemList", rentalItemList);

@@ -55,7 +55,19 @@
 	
 	<!-- 렌탈 상품 리스트 -->
 	<select id="selectRentalItemListAll" resultType="com.ja.safari.dto.RentalItemDto">
-		SELECT * FROM rental_item_table
+		SELECT * FROM rental_item_table a
+		
+		<if test="sub_category_id > 0">
+		WHERE sub_category_id = #{sub_category_id}
+		</if>
+		
+		<if test="main_category_id>0">
+		JOIN rental_sub_category_table b ON
+		a.sub_category_id = b.id
+		JOIN rental_main_category_table c ON
+		b.main_category_id = c.id
+		WHERE c.id = #{main_category_id}
+		</if>
 	</select>
 
 	<!-- 상품 하나 가져오기 -->
