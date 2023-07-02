@@ -12,6 +12,7 @@ import java.util.UUID;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
@@ -266,6 +267,25 @@ public class RentalBusinessRestController {
 		}
 		map.put("result", "success");
 		map.put("list", rentalService.getProductListByUserId(businessDto.getId()));
+		
+		return map;
+	}
+	
+	// 주문 관리 페이지    
+	@RequestMapping("getOrderListByOrderStatusAndProduct")
+	public Map<String, Object> orderListPage2(HttpSession session, String orderStatus, Integer productId) {
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		RentalBusinessDto businessDto = (RentalBusinessDto) session.getAttribute("businessUser");
+		if(businessDto == null) {
+			map.put("result", "fail");
+			map.put("reason", "login required");
+			return map;
+		}	
+		
+		map.put("result", "success");
+		map.put("list", rentalService.getRentalOrderAndProductListByUserIdFilterByStatusAndProduct(businessDto.getId(), orderStatus, productId));
 		
 		return map;
 	}
@@ -615,7 +635,42 @@ public class RentalBusinessRestController {
 		
 		return map;
 	}
+
+	// 최근 주문 가져오기
+	@RequestMapping("getRecentOrderList")
+	public  Map<String, Object> getRecentOrderList(HttpSession session) {
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		RentalBusinessDto businessDto = (RentalBusinessDto) session.getAttribute("businessUser");
+		if(businessDto == null) {
+			map.put("result", "fail");
+			map.put("reason", "login required");
+			return map;
+		}
+		map.put("result", "success");
+		map.put("list", rentalService.getRecentOrdersByUserId(businessDto.getId()));
+		
+		return map;
+	}
 	
+	
+	// 최근 반납 가져오기
+//	@RequestMapping("getRecentReturnList")
+//	public  Map<String, Object> getRecentReturnList(HttpSession session) {
+//		
+//		Map<String, Object> map = new HashMap<String, Object>();
+//		
+//		RentalBusinessDto businessDto = (RentalBusinessDto) session.getAttribute("businessUser");
+//		if(businessDto == null) {
+//			map.put("result", "fail");
+//			map.put("reason", "login required");
+//			return map;
+//		}
+//		map.put("result", "success");
+//		
+//		return map;
+//	}
 	
 	
 	

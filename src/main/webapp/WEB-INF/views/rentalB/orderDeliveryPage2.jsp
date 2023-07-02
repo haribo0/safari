@@ -55,10 +55,16 @@
 					<div class="col text-center">
 						#
 					</div>
-					<div class="col text-center">
+					<div class="col-1 text-center">
+						사진
+					</div>
+					<div class="col-3 text-center">
 						상품
 					</div>
-					<div class="col-4 text-center">
+					<div class="col text-center">
+						연락처
+					</div>
+					<div class="col-3 text-center">
 						주소
 					</div>
 					<div class="col text-center">
@@ -97,10 +103,16 @@
 					<div class="col text-center">
 						#
 					</div>
-					<div class="col text-center">
+					<div class="col-1 text-center">
+						사진
+					</div>
+					<div class="col-3 text-center">
 						상품
 					</div>
-					<div class="col-4 text-center">
+					<div class="col text-center">
+						연락처
+					</div>
+					<div class="col-3 text-center">
 						주소
 					</div>
 					<div class="col text-center">
@@ -178,25 +190,41 @@ function getProductListToBeShippedList() {
 			response.list.forEach(function(data){
 				
 				const col1 = document.createElement("div");
-				col1.classList.add("col-2");
+				col1.classList.add("col");
 				col1.classList.add("text-center", "my-auto");
 				col1.innerText = data.order.id;
 				listContainer.appendChild(col1);
 				
+				const colImgDiv = document.createElement('div');
+				colImgDiv.classList.add('col-1', 'my-auto');
+				const imgElement = document.createElement('img');
+				imgElement.classList.add('img-fluid', 'px-2');
+				imgElement.src = "/safariImg/"+ data.product.main_img_link;
+				imgElement.style.width = '70px';
+				colImgDiv.appendChild(imgElement);
+				listContainer.appendChild(colImgDiv);
+
+				
 				const col2 = document.createElement("div");
-				col2.classList.add("col-2");
+				col2.classList.add("col-3");
 				col2.classList.add("text-center","my-auto");
 				col2.innerText = data.product.title;
 				listContainer.appendChild(col2);
 				
+				const colContact = document.createElement("div");
+				colContact.classList.add("col");
+				colContact.classList.add("text-center","my-auto");
+				colContact.innerText = data.user.phone;
+				listContainer.appendChild(colContact);
+				
 				const col3 = document.createElement("div");
-				col3.classList.add("col-4");
+				col3.classList.add("col-3");
 				col3.classList.add("text-center","my-auto");
 				col3.innerText = data.order.address;
 				listContainer.appendChild(col3);
 				
 				const col4 = document.createElement("div");
-				col4.classList.add("col-2");
+				col4.classList.add("col");
 				col4.classList.add("text-center","my-auto");
 				const startDate = new Date(data.order.start_date);
 			    const formattedStartDate = startDate.toLocaleDateString('en-US', { month: '2-digit', day: '2-digit', year: 'numeric' });
@@ -204,7 +232,7 @@ function getProductListToBeShippedList() {
 				listContainer.appendChild(col4);
 				
 				const col5 = document.createElement("div");
-				col5.classList.add("col-2");
+				col5.classList.add("col");
 				col5.classList.add("text-center","my-auto");
 					const btn1 = document.createElement("div");
 					btn1.classList.add("col");
@@ -260,30 +288,49 @@ function getShippedOrderList() {
 			response.list.forEach(function(data){
 				
 				const col1 = document.createElement("div");
-				col1.classList.add("col-2");
-				col1.classList.add("text-center","my-auto");
+				col1.classList.add("col");
+				col1.classList.add("text-center", "my-auto");
 				col1.innerText = data.order.id;
 				listContainer.appendChild(col1);
 				
+				const colImgDiv = document.createElement('div');
+				colImgDiv.classList.add('col-1', 'my-auto');
+				const imgElement = document.createElement('img');
+				imgElement.classList.add('img-fluid', 'px-2');
+				imgElement.src = "/safariImg/"+ data.product.main_img_link;
+				imgElement.style.width = '70px';
+				colImgDiv.appendChild(imgElement);
+				listContainer.appendChild(colImgDiv);
+
+				
 				const col2 = document.createElement("div");
-				col2.classList.add("col-2", "text-center","my-auto");
+				col2.classList.add("col-3");
+				col2.classList.add("text-center","my-auto");
 				col2.innerText = data.product.title;
 				listContainer.appendChild(col2);
 				
+				const colContact = document.createElement("div");
+				colContact.classList.add("col");
+				colContact.classList.add("text-center","my-auto");
+				colContact.innerText = data.user.phone;
+				listContainer.appendChild(colContact);
+				
 				const col3 = document.createElement("div");
-				col3.classList.add("col-4", "text-center","my-auto");
+				col3.classList.add("col-3");
+				col3.classList.add("text-center","my-auto");
 				col3.innerText = data.order.address;
 				listContainer.appendChild(col3);
 				
 				const col4 = document.createElement("div");
-				col4.classList.add("col-2", "text-center","my-auto");
+				col4.classList.add("col");
+				col4.classList.add("text-center","my-auto");
 				const startDate = new Date(data.order.start_date);
 			    const formattedStartDate = startDate.toLocaleDateString('en-US', { month: '2-digit', day: '2-digit', year: 'numeric' });
 				col4.innerText = formattedStartDate;
 				listContainer.appendChild(col4);
 				
 				const col5 = document.createElement("div");
-				col5.classList.add("col-2", "text-center","my-auto");
+				col5.classList.add("col", "text-center","my-auto");
 					const btn1 = document.createElement("div");
 					btn1.classList.add("col");
 					btn1.className = 'btn btn-outline-dark disabled';

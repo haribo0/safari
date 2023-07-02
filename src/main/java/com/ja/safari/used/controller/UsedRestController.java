@@ -204,7 +204,7 @@ public class UsedRestController {
 		Map<String, Object> map = new HashMap<>();
 		UserDto sessionUser = (UserDto)session.getAttribute("sessionUser");
 		if(sessionUser == null) {
-			map.put("result", "fail");
+			map.put("result", "fchatListAjaxail");
 			map.put("reason", "로그인되어있지않습니다.");
 			return map;
 		}else {

@@ -159,7 +159,22 @@ public class RentalBusinessServiceImpl {
 		rentalSqlMapper.updateBusinessInfo(rentalBusinessDto);
 		
 	}
+	
+	// 계정 id로 최근 주문 3 가져오기
+	public List<Map<String, Object>> getRecentOrdersByUserId(int id) {
+		
+		List<Map<String, Object>> list = new ArrayList<Map<String,Object>>();
+		for(RentalOrderDto rentalOrderDto : rentalSqlMapper.getThreeOrdersByUserId(id)) {
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("order", rentalOrderDto);
+			map.put("user", userSqlMapper.selectUserDtoById(rentalOrderDto.getUser_id()));
+			map.put("product", rentalSqlMapper.selectRentalItemDto(rentalOrderDto.getItem_id()));
+			list.add(map);
+		}
+		return list;
+	}
 
+	
 	// 계정 id로 주문 리스트 가져오기
 	public List<Map<String, Object>> getRentalOrderAndProductListByUserId(int id) {
 		List<Map<String, Object>> list = new ArrayList<Map<String,Object>>();
@@ -215,6 +230,67 @@ public class RentalBusinessServiceImpl {
 		return list;
 	}
 	
+	// 계정 id로 주문 리스트 가져오기 - 상품별 상태별 
+	public List<Map<String, Object>> getRentalOrderAndProductListByUserIdFilterByStatusAndProduct(Integer userId, 
+			String orderStatus, Integer productId) {
+		
+		List<Map<String, Object>> list = new ArrayList<Map<String,Object>>();
+		Date currentDate = new Date();
+		for(RentalOrderDto rentalOrderDto : rentalSqlMapper.getOrderListByUserIdAndProductId(userId, productId)) {
+			String status = "";
+			Map<String, Object> map = new HashMap<String, Object>();
+			
+			map.put("order", rentalOrderDto);
+			map.put("user", userSqlMapper.selectUserDtoById(rentalOrderDto.getUser_id()));
+			map.put("product", rentalSqlMapper.selectRentalItemDto(rentalOrderDto.getItem_id()));
+			
+			
+			RentalCancelDto rentalCancelDto = rentalSqlMapper.getOrderCancelByOrderId(rentalOrderDto.getId());
+			RentalItemReturnDto rentalItemReturnDto = rentalSqlMapper.getItemReturnDtoByOrderId(rentalOrderDto.getId());
+			
+			if(rentalCancelDto!=null) {
+				if(rentalCancelDto.getIs_item_returned().equals("Y")) {
+					if(rentalSqlMapper.getOrderCancelBillByCancelId(rentalCancelDto.getId())!=null) {
+						if(rentalSqlMapper.getOrderCancelBillByCancelId(rentalCancelDto.getId()).getIs_completed().equals("Y")) {
+							status = "반납완료";
+						} 
+					} else status = "반납확인";
+				} else {
+					status = "반납신청";
+				}
+				
+			} else if (rentalItemReturnDto!=null) {
+				if(rentalSqlMapper.getSurchargeBillDtoByReturnId(rentalItemReturnDto.getId())!=null) {
+					if(rentalSqlMapper.getSurchargeBillDtoByReturnId(rentalItemReturnDto.getId()).getIs_completed().equals("Y")) {
+						status = "정산완료";
+					}
+				} else if (rentalItemReturnDto.getIs_item_returned().equals("Y")) {
+					status = "회수완료";
+				} else {
+					status = "반납신청";
+				}
+			} else {
+				if(rentalOrderDto.getStart_date().compareTo(currentDate) < 0 ) status = "대여중";
+				else status = "주문완료";
+			}
+			
+			map.put("status", status);
+			
+			
+			
+//			주문 대여 취소 반납 정산 
+			if(orderStatus.equals("주문") && status.equals("주문완료")) {list.add(map);}
+			else if(orderStatus.equals("대여") && status.equals("대여중")) list.add(map);
+			else if(orderStatus.equals("반납") && status.contains("회수")) list.add(map);
+			else if(orderStatus.equals("반납") && status.contains("반납")) list.add(map);
+			else if(orderStatus.equals("정산") && status.equals("정산완료")) list.add(map);
+			
+			if(orderStatus.equals("전체")) list.add(map);
+		}
+		
+		return list;
+	}
+	
 	
 	// 판매자 아이디로 배송처리할 주문 가져오기 
 	public List<Map<String, Object>> getOrderAndProductListToBeShippedByUserId(int id) {
@@ -225,6 +301,7 @@ public class RentalBusinessServiceImpl {
 						
 			map.put("order", rentalOrderDto);
 			map.put("product", rentalSqlMapper.selectRentalItemDto(rentalOrderDto.getItem_id()));
+			map.put("user", userSqlMapper.selectUserDtoById(rentalOrderDto.getUser_id()));
 						
 			list.add(map);
 		}
@@ -242,7 +319,8 @@ public class RentalBusinessServiceImpl {
 			
 			map.put("order", rentalOrderDto);
 			map.put("product", rentalSqlMapper.selectRentalItemDto(rentalOrderDto.getItem_id()));
-			
+			map.put("user", userSqlMapper.selectUserDtoById(rentalOrderDto.getUser_id()));
+
 			list.add(map);
 		}
 		
@@ -263,6 +341,7 @@ public class RentalBusinessServiceImpl {
 			
 			map.put("returnDto", rentalItemReturnDto);
 			map.put("orderDto", rentalOrderDto);
+			map.put("userDto", userSqlMapper.selectUserDtoById(rentalOrderDto.getUser_id()));
 			map.put("productDto", rentalSqlMapper.selectRentalItemDto(rentalOrderDto.getItem_id()));
 			
 			list.add(map);
@@ -284,6 +363,7 @@ public class RentalBusinessServiceImpl {
 			
 			map.put("returnDto", rentalItemReturnDto);
 			map.put("orderDto", rentalOrderDto);
+			map.put("userDto", userSqlMapper.selectUserDtoById(rentalOrderDto.getUser_id()));
 			map.put("productDto", rentalSqlMapper.selectRentalItemDto(rentalOrderDto.getItem_id()));
 			
 			list.add(map);
@@ -452,6 +532,12 @@ public class RentalBusinessServiceImpl {
 		}
 		
 	}
+	
+	
+	
+	
+	
+	
 	
 	
 	

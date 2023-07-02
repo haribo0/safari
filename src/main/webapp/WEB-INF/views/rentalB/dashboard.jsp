@@ -11,6 +11,13 @@
 <jsp:include page="../common/meta.jsp"></jsp:include>
 <!-- 메타 섹션 -->
 
+<style type="text/css">
+.font-smaller {
+	font-size: 13px;
+}
+
+</style>
+
 <!-- chart.js cdn -->
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
@@ -48,7 +55,7 @@
 					<div class="col">
 						<div class="card" >
 						  <div class="card-body">
-						    <h5 class="fs-6 fw-medium"> 월별 주문 </h5>
+						    <h5 class="fs-5 ms-2 fw-bold"> 월별 주문 </h5>
 						    <hr class="border">
 						    <canvas id="barChart"></canvas>
 						  </div>
@@ -60,7 +67,7 @@
 					<div class="col">
 						<div class="card" >
 						  <div class="card-body">
-						    <h5 class="fs-6 fw-medium"> 월간 매출액 </h5>
+						    <h5 class="fs-5 ms-2 fw-bold"> 월간 매출액 </h5>
 						    <hr class="border">
 						    <canvas id="lineChart"></canvas>
 						  </div>
@@ -71,7 +78,7 @@
 					<div class="col-3 px-4">
 						<div class="card px-3" >
 						  <div class="card-body">
-						    <h5 class="fs-6 fw-medium"> 고객 성별 비율 </h5>
+						    <h5 class="fs-5 ps-0 fw-bold">고객 성별 비율 </h5>
 						    <hr class="border">
 						    <canvas id="pieChart"></canvas>
 						  </div>
@@ -86,16 +93,30 @@
 				
 					<div class="col-2">
 						<div class="card" >
-						  <div class="card-body">
-						    <h5 class="fs-6 fw-medium"> 최근 주문 </h5>
+						  <div class="card-body ms-2">
+						    <h5 class="fs-5  fw-bold"> 최근 </h5>
 						    <hr class="border">
-						    <div class="fw-light fs-5 text-dark mt-2">
-						    	5 건 
-						    	<span class="fw-light fs-6 text-secondary"> &nbsp; / 일주일</span>
+						    <div class="fw-bolder fs-6 text-dark mt-2">
+						    	주문
 						    </div>
-						    <div class="fw-light fs-5 text-dark mt-2">
+						    <div class="fw-light fs-5 text-dark mt-1">
+						    	5 건 
+						    	<span class="fw-light font-smaller text-secondary"> &nbsp; / 일주일</span>
+						    </div>
+						    <div class="fw-light fs-5 text-dark mt-1">
 						    	24 건 
-						    	<span class="fw-light fs-6 text-secondary"> &nbsp; / 한달</span>
+						    	<span class="fw-light font-smaller text-secondary"> &nbsp; / 한달</span>
+						    </div>
+						    <div class="fw-bolder fs-6 text-dark mt-3">
+						    	매출
+						    </div>
+						    <div class="fw-light fs-5 text-dark mt-1">
+						    	129,000 원 
+						    	<span class="fw-light font-smaller text-secondary"> &nbsp; / 일주일</span>
+						    </div>
+						    <div class="fw-light fs-5 text-dark mt-1">
+						    	1,322,600 원
+						    	<span class="fw-light font-smaller text-secondary"> &nbsp; / 한달</span>
 						    </div>
 						  </div>
 						</div>
@@ -105,14 +126,26 @@
 					<div class="col">
 						<div class="card" >
 						  <div class="card-body">
-						    <h5 class="fs-6 fw-medium"> 주문 </h5>
+						  	<div class="row">
+						    	<h5 class="fs-5 col ms-2 fw-bold"> 주문 </h5>
+						    	<div class="text-end col text-end fw-lighht fs-6 text-secondary">+ 더보기</div>
+						    </div>
 						    <hr class="border">
-						    
-						    <div class="text-end fw-lighht fs-6 text-secondary">+ 더보기</div>
-						    <hr class="border border-dark">
+						    <!-- <hr class="border border-dark"> -->
 						    
 						    <div class="orderListContainer">
-						    
+						    	<div class="row ms-2 mt-3">
+						    		<div class="col-9">로엠소파 1인용</div>
+						    		<div class="col">07/02/2023</div>
+						    	</div>
+						    	<div class="row ms-2 mt-3">
+						    		<div class="col-9">트롬 오브제컬렉션 워시타워 세탁기 25kg + 건조기 21kg WL21EGZU</div>
+						    		<div class="col">06/30/2023</div>
+						    	</div>
+								<div class="row ms-2 mt-3">
+						    		<div class="col-9">드롱기 오텐티카 전자동 커피머신 ETAM29.510.SB</div>
+						    		<div class="col">06/27/2023</div>
+						    	</div>	
 						    
 						    </div>
 						    
@@ -124,16 +157,26 @@
 					<div class="col">
 						<div class="card" >
 						  <div class="card-body">
-						    <h5 class="fs-6 fw-medium"> 반품 </h5>
+						  	<div class="row">
+						   	 <h5 class="fs-5 col ms-2 fw-bold"> 반품 </h5>
+						    	<div class="text-end col text-end fw-lighht fs-6 text-secondary">+ 더보기</div>
+						    </div>
 						    <hr class="border">
-						    
-						    <div class="text-end fw-lighht fs-6 text-secondary">+ 더보기</div>
-						    <hr class="border border-dark">
+						    <!-- <hr class="border border-dark"> -->
 						    
 						    <div class="returnListContainer">
-						    
-						    
-						    </div>
+						    	<div class="row ms-2 mt-3">
+						    		<div class="col-9">스탠바이미 TV 27인치 27ART10AKP</div>
+						    		<div class="col">06/30/2023</div>
+						    	</div>
+								<div class="row ms-2 mt-3">
+						    		<div class="col-9">드롱기 오텐티카 전자동 커피머신 ETAM29.510.SB</div>
+						    		<div class="col">06/27/2023</div>
+						    	</div>						    
+						    	<div class="row ms-2 mt-3">
+						    		<div class="col-9">트롬 오브제컬렉션 워시타워 세탁기 25kg + 건조기 21kg WL21EGZU</div>
+						    		<div class="col">06/23/2023</div>	
+						    	</div>
 						    
 						  </div>
 						</div>
@@ -329,6 +372,15 @@ function makeLineChart(d, l) {
 
 
 
+
+function getRecentOrderList() {
+	
+	const orderListContainer = document.getElementById('orderListContainer');
+
+	
+	
+	
+}
 
 
 

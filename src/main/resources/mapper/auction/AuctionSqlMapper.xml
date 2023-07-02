@@ -150,6 +150,11 @@
 	<select id="getAuctionProductSubCategory" resultType="com.ja.safari.dto.ProductSubCategoryDto">
 		SELECT * FROM product_sub_category WHERE id = #{id}
 	</select>
+	
+	<!--  경매 종료 시간 실시간으로 받아오기 -->
+	<select id="getAuctionEndTimeInRealTime" resultType="com.ja.safari.dto.AuctionItemDto">
+		SELECT end_date FROM auction_item WHERE id = #{auctionItemId}
+	</select>
 
 
 	<!-- 입찰하기 -->
@@ -162,6 +167,14 @@
 			SYSDATE
 		)
 	</insert>
+	
+
+	<!-- 입찰하기 직전 내가 입찰할 수 있는 금액인지 확인 (동시성) -->
+	<select id="checkBidAttemptYn" resultType="int">
+	       SELECT NVL(MAX(bid_price), 0)
+        		  FROM auction_item_bid_request 
+       			  WHERE auction_item_id = #{auctionItemId}
+	</select>
 	
 	<!-- 입찰하기 버튼 갱신하기 위해 경매 상태 확인 -->
 	<select id="getStatusForRenewInputBidBox" resultType="com.ja.safari.dto.AuctionItemDto">
@@ -196,6 +209,41 @@
 	
 	</select>	
 	
+	<!-- 한 경매의 입찰 순위 3위까지 출력 -->
+	<select id="getAuctionTop3BidPrice" resultType="com.ja.safari.dto.AuctionBidDto">
+		SELECT ROWNUM rm, br.* 
+		    FROM (
+		    	SELECT *
+				    FROM auction_item_bid_request 
+				    WHERE auction_item_id = #{auctionItemId}
+				    ORDER BY bid_price DESC) br
+			<![CDATA[		    
+		    WHERE ROWNUM <= 3
+		    ]]>
+	</select>
+	
+	<!-- 현 시간 각 경매의 최고 입찰자가 누구인지 회원pk로 출력하기 -->
+	<select id="checkNowMaxBiderByAuctionItemId" resultType="int">
+			SELECT user_buyer_id 
+			   FROM (
+				   	SELECT * 
+				    FROM auction_item_bid_request 
+				    WHERE auction_item_id = #{auctionItemId}
+				    ORDER BY bid_price DESC
+			    )
+		     <![CDATA[	
+		   	  WHERE ROWNUM <= 1
+		     ]]>
+	
+	</select>
+	
+	<!-- 종료 시간이 1분 미만일 때 입찰하였을 경우, 경매 종료 시간 1분 늘리기 -->
+	<update id="renewEndTimeAuctionItem">
+	UPDATE auction_item
+		SET end_date = end_date + INTERVAL '30' SECOND   <!--INTERVAL '1' MINUTE-->
+		WHERE id = #{auctionItemId}
+	</update>
+	
 	
 	<!-- 경매 현재 가격 계속 업데이트 -->
 	<select id="getCurrentBidPriceByAuctionItem" resultType="int">
@@ -212,6 +260,15 @@
 		  AND bid_price >= 
 		      (SELECT max_price FROM auction_item WHERE id = #{auctionItemId})		
 	</select>
+	
+	<!-- 즉시 낙찰 시 경매 종료로 날짜 상태 업데이트 -->
+	<update id="renewImmediateSuccessfulBidEndDate">
+		UPDATE auction_item
+			SET end_date = SYSDATE  
+			WHERE id = #{auctionItemId}
+	</update>	
+		
+	
 	
 	<!--  회원의 입찰 기록 조회 -->
 	<select id="getBidHistoryByUser" resultType="com.ja.safari.dto.AuctionBidDto">
@@ -262,6 +319,7 @@
 			WHERE id = #{id}
 	</update>
 	
+
 	
 	<!-- 경매 찜하기 클릭 -->
 	<insert id="likeAuctionProduct">

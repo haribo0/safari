@@ -122,18 +122,19 @@ public class RentalBusinessController {
 		return "rentalB/productEditPage";
 	}
 	
-	// 주문 관리 페이지    
-	@RequestMapping("orderListPage")
-	public String orderListPage(HttpSession session, Model model) {
-		
-		RentalBusinessDto businessDto = (RentalBusinessDto) session.getAttribute("businessUser");
-		if(businessDto == null) return "redirect:./loginPage"; 		
-		
-		model.addAttribute("list", rentalService.getRentalOrderAndProductListByUserId(businessDto.getId()));
-		
-		
-		return "rentalB/orderListPage";
-	}
+//	// 주문 관리 페이지    
+//	@RequestMapping("orderListPage")
+//	public String orderListPage(HttpSession session, Model model) {
+//		
+//		RentalBusinessDto businessDto = (RentalBusinessDto) session.getAttribute("businessUser");
+//		if(businessDto == null) return "redirect:./loginPage"; 		
+//		
+//		model.addAttribute("list", rentalService.getRentalOrderAndProductListByUserId(businessDto.getId()));
+//		
+//		
+//		return "rentalB/orderListPage";
+//	}
+	
 	
 	// 주문 관리 페이지    
 	@RequestMapping("orderListPage2")
@@ -148,6 +149,7 @@ public class RentalBusinessController {
 		
 		return "rentalB/orderListPage2";
 	}
+	
 	
 	// 배송 관리 페이지    
 	@RequestMapping("orderDeliveryPage")

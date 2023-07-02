@@ -66,14 +66,26 @@ public interface AuctionSqlMapper {
 	// 경매 물품 상세페이지 (이미지)
 	public List<AuctionItemImgDto> getAuctionProductImages(int auctionItemId);
 	
+	// 경매 종료 시간 실시간으로 받아오기
+	public AuctionItemDto getAuctionEndTimeInRealTime(int auctionItemId);
+	
 	// 물품의 소규모 카테고리 조회
 	public ProductSubCategoryDto getAuctionProductSubCategory(int id);
 	
 	// 입찰하기
 	public void submitBidRequest(AuctionBidDto auctionBidDto);
 	
+	// 입찰하기 직전 내가 입찰할 수 있는 금액인지 확인
+	public int checkBidAttemptYn(int auctionItemId);
+	
 	// 입찰 정보 조회
 	public AuctionBidDto getBidInfo(int id);
+	
+	// 현 시간 각 경매의 최고 입찰자가 누구인지 회원pk로 출력하기
+	public Integer checkNowMaxBiderByAuctionItemId(int auctionItemId);
+	
+	// 종료 시간이 1분 미만일 때 입찰하였을 경우, 경매 종료 시간 1분 늘리기
+	public void renewEndTimeAuctionItem(int auctionItemId);
 	
 	// 입찰하기 버튼 갱신하기 위해 경매 상태 확인
 	public AuctionItemDto getStatusForRenewInputBidBox(int id);
@@ -94,11 +106,17 @@ public interface AuctionSqlMapper {
 	// 즉시 낙찰 시 경매 종료로 상태 업데이트
 	public void renewImmediateSuccessfulBid(int id);
 	
+	// 즉시 낙찰 시 날짜 상태 업데이트
+	public void renewImmediateSuccessfulBidEndDate(int id);
+	
 	// 한 경매의 입찰 리스트 출력
 	public List<AuctionBidDto> getBidList(int auctionItemId);
 	
 	// 한 경매의 입찰 횟수 조회
 	public int getBidCount(int auctionItemId);
+	
+	// 한 경매의 입찰 순위 3위까지 출력
+	public List<AuctionBidDto> getAuctionTop3BidPrice(int auctionItemId);
 	
 	// 경매 현재가 계속 업데이트
 	public Integer getCurrentBidPriceByAuctionItem(int auctionItemId);
