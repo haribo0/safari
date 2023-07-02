@@ -1,6 +1,15 @@
 package com.ja.safari.rental.controller;
 
+import java.io.BufferedReader;
+import java.io.DataOutputStream;
 import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -188,6 +197,43 @@ public class RentalController {
 		
 		params.setUser_id(sessionUser.getId());
 		rentalService.OrderRental(params);
+		
+		try {
+			URL kakaoAddress = new URL("https://kapi.kakao.com/v1/payment/ready");
+			try {
+				HttpURLConnection serverConn = (HttpURLConnection) kakaoAddress.openConnection();
+				serverConn.setRequestMethod("POST");
+				serverConn.setRequestProperty("Authorization", "KakaoAK 3b571b6edfbddf7b9912075b7f7c4172");
+				serverConn.setRequestProperty("Content-type", "application/x-www-form-urlencoded;charset=utf-8");
+				serverConn.setDoOutput(true);
+				String parameter = "cid=TC0ONETIME&partner_order_id=partner_order_id&partner_user_id=partner_user_id&item_name=초코파이&quantity=1&total_amount=2200&vat_amount=200&tax_free_amount=0&approval_url=https://developers.kakao.com/success&fail_url=https://developers.kakao.com/fail&cancel_url=https://developers.kakao.com/cancel";
+				OutputStream sender = serverConn.getOutputStream();
+				DataOutputStream giver = new DataOutputStream(sender);
+				giver.writeBytes(parameter);
+				giver.close();
+				
+				int resultKakao = serverConn.getResponseCode();
+				
+				InputStream taker;
+				if(resultKakao == 200) {
+					taker = serverConn.getInputStream();
+				} else {
+					taker = serverConn.getErrorStream();
+				}
+				
+				InputStreamReader reader = new InputStreamReader(taker);
+				BufferedReader bfrd = new BufferedReader(reader);
+				
+				return bfrd.readLine();
+				
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		} catch (MalformedURLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	
 		return "redirect:./mainPage";
 	}
@@ -223,7 +269,7 @@ public class RentalController {
 				}
 			
 	
-			String rootFolder = "C:\\uploadFiles";
+			String rootFolder = "C:/uploadFiles";
 	
 			// 날짜별 폴더 생성 로직 
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
