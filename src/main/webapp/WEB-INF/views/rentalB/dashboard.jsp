@@ -133,19 +133,8 @@
 						    <hr class="border">
 						    <!-- <hr class="border border-dark"> -->
 						    
-						    <div class="orderListContainer">
-						    	<div class="row ms-2 mt-3">
-						    		<div class="col-9">로엠소파 1인용</div>
-						    		<div class="col">07/02/2023</div>
-						    	</div>
-						    	<div class="row ms-2 mt-3">
-						    		<div class="col-9">트롬 오브제컬렉션 워시타워 세탁기 25kg + 건조기 21kg WL21EGZU</div>
-						    		<div class="col">06/30/2023</div>
-						    	</div>
-								<div class="row ms-2 mt-3">
-						    		<div class="col-9">드롱기 오텐티카 전자동 커피머신 ETAM29.510.SB</div>
-						    		<div class="col">06/27/2023</div>
-						    	</div>	
+						    <div id="orderListContainer">
+						    	
 						    
 						    </div>
 						    
@@ -377,8 +366,81 @@ function getRecentOrderList() {
 	
 	const orderListContainer = document.getElementById('orderListContainer');
 
+	const xhr = new XMLHttpRequest();
+
+	xhr.onreadystatechange = function() {
+		if(xhr.readyState == 4 && xhr.status == 200){
+			const response = JSON.parse(xhr.responseText);
+			
+			orderListContainer.innerHTML = "";
+			response.list.forEach(function(map){
+				// Create outer div element with classes
+				const rowDiv = document.createElement('div');
+				rowDiv.classList.add('row', 'ms-2', 'mt-3');
+
+				// Create inner div elements with classes
+				const col1Div = document.createElement('div');
+				col1Div.classList.add('col-9');
+				col1Div.textContent = map.product.title;
+
+				const col2Div = document.createElement('div');
+				col2Div.classList.add('col');
+				col2Div.textContent = new Intl.DateTimeFormat('en-US', { month: '2-digit', day: '2-digit', year: 'numeric' }).format(map.order.start_date);
+
+				// Append inner div elements to the outer div element
+				rowDiv.appendChild(col1Div);
+				rowDiv.appendChild(col2Div);
+				orderListContainer.appendChild(rowDiv);
+
+			});
+			
+		}
+	}
+
+	// get 방식 
+	xhr.open("get", "./getRecentOrderList");
+	xhr.send();
 	
+}
+
+function getRecentReturnList() {
 	
+	const returnListContainer = document.getElementById('returnListContainer');
+
+	const xhr = new XMLHttpRequest();
+
+	xhr.onreadystatechange = function() {
+		if(xhr.readyState == 4 && xhr.status == 200){
+			const response = JSON.parse(xhr.responseText);
+			
+			orderListContainer.innerHTML = "";
+			response.list.forEach(function(map){
+				// Create outer div element with classes
+				const rowDiv = document.createElement('div');
+				rowDiv.classList.add('row', 'ms-2', 'mt-3');
+
+				// Create inner div elements with classes
+				const col1Div = document.createElement('div');
+				col1Div.classList.add('col-9');
+				col1Div.textContent = map.product.title;
+
+				const col2Div = document.createElement('div');
+				col2Div.classList.add('col');
+				col2Div.textContent = new Intl.DateTimeFormat('en-US', { month: '2-digit', day: '2-digit', year: 'numeric' }).format(map.returnDto.reg_date);
+
+				// Append inner div elements to the outer div element
+				rowDiv.appendChild(col1Div);
+				rowDiv.appendChild(col2Div);
+				returnListContainer.appendChild(rowDiv);
+
+			});
+			
+		}
+	}
+
+	// get 방식 
+	xhr.open("get", "./getRecentReturnList");
+	xhr.send();
 	
 }
 
@@ -394,7 +456,8 @@ function getRecentOrderList() {
 
 window.addEventListener("DOMContentLoaded",function(){
 	getDataForChart();
-
+	getRecentOrderList();
+	getRecentReturnList();
 
 });
 

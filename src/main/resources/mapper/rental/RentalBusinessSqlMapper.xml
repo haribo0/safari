@@ -166,8 +166,27 @@
 		WHERE main_category_id = #{main_category_id} 
 	</select>
 	
-	<!-- 주문 리스트 최근 3개 가져오기 -->
-	<select id="getThreeOrdersByUserId" resultType="com.ja.safari.dto.RentalOrderDto">
+	<!-- 반품 리스트 최근 5개 가져오기 -->
+	<select id="getRecentReturnListByUserId" resultType="com.ja.safari.dto.RentalItemReturnDto">
+	
+		<![CDATA[
+			SELECT t2.* FROM (
+				SELECT t1.*, rownum rn FROM (
+					SELECT rirt.*
+					FROM RENTAL_ITEM_RETURN_TABLE rirt, rental_item_table it, rental_order_table ot
+					WHERE rirt.rental_order_id = ot.id
+					AND it.id = ot.item_id 
+					AND it.business_id = #{userId}
+					ORDER BY ot.id DESC
+				) t1
+			) t2 
+			WHERE t2.rn<=5
+	  	]]>
+
+	</select>
+	
+	<!-- 주문 리스트 최근 5개 가져오기 -->
+	<select id="getRecentOrderListByUserId" resultType="com.ja.safari.dto.RentalOrderDto">
 	
 		<![CDATA[
 			SELECT t2.* FROM (
@@ -179,7 +198,7 @@
 					ORDER BY ot.id DESC
 				) t1
 			) t2 
-			WHERE t2.rn<=3
+			WHERE t2.rn<=5
 	  	]]>
 
 	</select>
