@@ -11,6 +11,13 @@
 <jsp:include page="../common/meta.jsp"></jsp:include>
 <!-- 메타 섹션 -->
 
+<style type="text/css">
+.font-smaller {
+	font-size: 13px;
+}
+
+</style>
+
 <!-- chart.js cdn -->
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
@@ -20,10 +27,11 @@
 	<jsp:include page="../common/headerB.jsp"></jsp:include>
 	<!-- 헤더 섹션 -->
 
-	<div class="container main_box">
-		<div class="row">
+	<div class="container-fluid main_box  ">
+		<div class="row"> <!-- 2023-07-01 시욱수정 -->
 		
-			<div class="col-2">
+			<div class="col-2" style=""></div>
+			<div class="col-2 bg-dark h-100" style="position: fixed;"> <!-- 2023-07-01 시욱수정 -->
 				<div class="list-group list-group-flush">
 				
 					<!-- 왼쪽 카테고리 리스트 -->
@@ -38,16 +46,16 @@
 			</div>
 			
 			
-			<div class="col ms-3">
+			<div class="col mt-5"> <!-- 2023-07-01 시욱수정 -->
 							
-				<h4 class="row mt-3 mb-4 fw-regular">대시보드 </h4>
+				<h4 class="ps-4 ms-4 mt-3 mb-4 fw-regular">대시보드 </h4> <!-- 2023-07-01 시욱수정 -->
 
 
-				<div class="row mt-5">
+				<div class="row mt-5 ms-4"> <!-- 2023-07-01 시욱수정 -->
 					<div class="col">
 						<div class="card" >
 						  <div class="card-body">
-						    <h5 class="fs-6 fw-medium"> 월별 주문 </h5>
+						    <h5 class="fs-5 ms-2 fw-bold"> 월별 주문 </h5>
 						    <hr class="border">
 						    <canvas id="barChart"></canvas>
 						  </div>
@@ -59,7 +67,7 @@
 					<div class="col">
 						<div class="card" >
 						  <div class="card-body">
-						    <h5 class="fs-6 fw-medium"> 월간 매출액 </h5>
+						    <h5 class="fs-5 ms-2 fw-bold"> 월간 매출액 </h5>
 						    <hr class="border">
 						    <canvas id="lineChart"></canvas>
 						  </div>
@@ -67,10 +75,10 @@
 						
 					</div>
 					
-					<div class="col-3 px-3">
+					<div class="col-3 px-4">
 						<div class="card px-3" >
 						  <div class="card-body">
-						    <h5 class="fs-6 fw-medium"> 고객 성별 비율 </h5>
+						    <h5 class="fs-5 ps-0 fw-bold">고객 성별 비율 </h5>
 						    <hr class="border">
 						    <canvas id="pieChart"></canvas>
 						  </div>
@@ -81,20 +89,34 @@
 					
 				</div>
 				
-				<div class="row mt-5">
+				<div class="row mt-5 ms-4"> <!-- 2023-07-01 시욱수정 -->
 				
 					<div class="col-2">
 						<div class="card" >
-						  <div class="card-body">
-						    <h5 class="fs-6 fw-medium"> 최근 주문 </h5>
+						  <div class="card-body ms-2">
+						    <h5 class="fs-5  fw-bold"> 최근 </h5>
 						    <hr class="border">
-						    <div class="fw-light fs-4 text-dark mt-2">
-						    	5 건 
-						    	<span class="fw-light fs-6 text-secondary"> &nbsp; / 일주일</span>
+						    <div class="fw-bolder fs-6 text-dark mt-2">
+						    	주문
 						    </div>
-						    <div class="fw-light fs-4 text-dark mt-2">
+						    <div class="fw-light fs-5 text-dark mt-1">
+						    	5 건 
+						    	<span class="fw-light font-smaller text-secondary"> &nbsp; / 일주일</span>
+						    </div>
+						    <div class="fw-light fs-5 text-dark mt-1">
 						    	24 건 
-						    	<span class="fw-light fs-6 text-secondary"> &nbsp; / 한달</span>
+						    	<span class="fw-light font-smaller text-secondary"> &nbsp; / 한달</span>
+						    </div>
+						    <div class="fw-bolder fs-6 text-dark mt-3">
+						    	매출
+						    </div>
+						    <div class="fw-light fs-5 text-dark mt-1">
+						    	129,000 원 
+						    	<span class="fw-light font-smaller text-secondary"> &nbsp; / 일주일</span>
+						    </div>
+						    <div class="fw-light fs-5 text-dark mt-1">
+						    	1,322,600 원
+						    	<span class="fw-light font-smaller text-secondary"> &nbsp; / 한달</span>
 						    </div>
 						  </div>
 						</div>
@@ -104,14 +126,26 @@
 					<div class="col">
 						<div class="card" >
 						  <div class="card-body">
-						    <h5 class="fs-6 fw-medium"> 주문 </h5>
+						  	<div class="row">
+						    	<h5 class="fs-5 col ms-2 fw-bold"> 주문 </h5>
+						    	<div class="text-end col text-end fw-lighht fs-6 text-secondary">+ 더보기</div>
+						    </div>
 						    <hr class="border">
-						    
-						    <div class="text-end fw-lighht fs-6 text-secondary">+ 더보기</div>
-						    <hr class="border border-dark">
+						    <!-- <hr class="border border-dark"> -->
 						    
 						    <div class="orderListContainer">
-						    
+						    	<div class="row ms-2 mt-3">
+						    		<div class="col-9">로엠소파 1인용</div>
+						    		<div class="col">07/02/2023</div>
+						    	</div>
+						    	<div class="row ms-2 mt-3">
+						    		<div class="col-9">트롬 오브제컬렉션 워시타워 세탁기 25kg + 건조기 21kg WL21EGZU</div>
+						    		<div class="col">06/30/2023</div>
+						    	</div>
+								<div class="row ms-2 mt-3">
+						    		<div class="col-9">드롱기 오텐티카 전자동 커피머신 ETAM29.510.SB</div>
+						    		<div class="col">06/27/2023</div>
+						    	</div>	
 						    
 						    </div>
 						    
@@ -123,16 +157,26 @@
 					<div class="col">
 						<div class="card" >
 						  <div class="card-body">
-						    <h5 class="fs-6 fw-medium"> 반품 </h5>
+						  	<div class="row">
+						   	 <h5 class="fs-5 col ms-2 fw-bold"> 반품 </h5>
+						    	<div class="text-end col text-end fw-lighht fs-6 text-secondary">+ 더보기</div>
+						    </div>
 						    <hr class="border">
-						    
-						    <div class="text-end fw-lighht fs-6 text-secondary">+ 더보기</div>
-						    <hr class="border border-dark">
+						    <!-- <hr class="border border-dark"> -->
 						    
 						    <div class="returnListContainer">
-						    
-						    
-						    </div>
+						    	<div class="row ms-2 mt-3">
+						    		<div class="col-9">스탠바이미 TV 27인치 27ART10AKP</div>
+						    		<div class="col">06/30/2023</div>
+						    	</div>
+								<div class="row ms-2 mt-3">
+						    		<div class="col-9">드롱기 오텐티카 전자동 커피머신 ETAM29.510.SB</div>
+						    		<div class="col">06/27/2023</div>
+						    	</div>						    
+						    	<div class="row ms-2 mt-3">
+						    		<div class="col-9">트롬 오브제컬렉션 워시타워 세탁기 25kg + 건조기 21kg WL21EGZU</div>
+						    		<div class="col">06/23/2023</div>	
+						    	</div>
 						    
 						  </div>
 						</div>
@@ -153,8 +197,8 @@
 			</div>
 			
 			
-			
-		
+			<!-- 빈공간  -->
+			 <div class="col-1"> &nbsp; </div>
 		
 		</div>
 	</div>
@@ -185,7 +229,8 @@ function getDataForChart() {
 			let barLabels = [];
 			let	barData = [];
 			response.saleList.forEach(function(data){
-				barLabels.push(data.MONTH);
+				// 너무 길면 자르기
+				barLabels.push(data.TITLE.length > 10 ? data.TITLE.substring(0, 7)+".." : data.TITLE);
 				barData.push(data.SALES);
 			});
 			makeBarChart(barData,barLabels);
@@ -224,7 +269,7 @@ function makeBarChart(d, l) {
 	   data: {
 	     labels: l,
 	     datasets: [{
-	       label: '월별 주문',
+	       label: '상품별 주문',
 	       data: d,
 	       borderWidth: 1,
 	       backgroundColor: [
@@ -245,7 +290,14 @@ function makeBarChart(d, l) {
 	       y: {
 	         beginAtZero: true
 	       }
+	   
+	   
 	     }
+	   
+	   
+	   
+	   
+	   
 	   }
 	 });
 }
@@ -320,6 +372,15 @@ function makeLineChart(d, l) {
 
 
 
+
+function getRecentOrderList() {
+	
+	const orderListContainer = document.getElementById('orderListContainer');
+
+	
+	
+	
+}
 
 
 

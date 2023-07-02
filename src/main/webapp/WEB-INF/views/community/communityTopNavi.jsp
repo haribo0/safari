@@ -22,9 +22,9 @@
 		      <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">살까말까</a></li>
 		      <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">골라줘요</a></li>
 		      <li class="nav-item"><a href="/safari/community/help/mainPage" class="nav-link px-2 text-body-secondary">해주세요</a></li>
-		      <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">궁금해요</a></li>
+		      <li class="nav-item"><a href="/safari/community/question/mainPage" class="nav-link px-2 text-body-secondary">궁금해요</a></li>
 		      <li class="nav-item"><a href="/safari/community/recruit/mainPage" class="nav-link px-2 text-body-secondary">구인구직</a></li>
-		      <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">써봤어요</a></li>
+		      <li class="nav-item"><a href="/safari/community/promotion/promotionReviewMainPage" class="nav-link px-2 text-body-secondary">써봤어요</a></li>
 		    </ul>
 	</div>
 

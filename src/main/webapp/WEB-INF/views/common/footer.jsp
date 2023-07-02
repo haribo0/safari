@@ -5,7 +5,7 @@
 
 <div class="container-fluid border-bottom mb-5">
 </div>
-<div class="container">  
+<div class="container footer">  
 	<footer class="py-4 my-5 text-center">
 		<h1><a href="#" class="btn mb-3">LOGO(사파리)</a></h1>
 	    <ul class="nav justify-content-center pb-3 mb-3">

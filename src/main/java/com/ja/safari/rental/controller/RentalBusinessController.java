@@ -122,18 +122,19 @@ public class RentalBusinessController {
 		return "rentalB/productEditPage";
 	}
 	
-	// 주문 관리 페이지    
-	@RequestMapping("orderListPage")
-	public String orderListPage(HttpSession session, Model model) {
-		
-		RentalBusinessDto businessDto = (RentalBusinessDto) session.getAttribute("businessUser");
-		if(businessDto == null) return "redirect:./loginPage"; 		
-		
-		model.addAttribute("list", rentalService.getRentalOrderAndProductListByUserId(businessDto.getId()));
-		
-		
-		return "rentalB/orderListPage";
-	}
+//	// 주문 관리 페이지    
+//	@RequestMapping("orderListPage")
+//	public String orderListPage(HttpSession session, Model model) {
+//		
+//		RentalBusinessDto businessDto = (RentalBusinessDto) session.getAttribute("businessUser");
+//		if(businessDto == null) return "redirect:./loginPage"; 		
+//		
+//		model.addAttribute("list", rentalService.getRentalOrderAndProductListByUserId(businessDto.getId()));
+//		
+//		
+//		return "rentalB/orderListPage";
+//	}
+	
 	
 	// 주문 관리 페이지    
 	@RequestMapping("orderListPage2")
@@ -143,10 +144,12 @@ public class RentalBusinessController {
 		if(businessDto == null) return "redirect:./loginPage"; 		
 		
 		model.addAttribute("list", rentalService.getRentalOrderAndProductListByUserId(businessDto.getId()));
+		model.addAttribute("productList", rentalService.getProductListByUserId(businessDto.getId()));
 		
 		
 		return "rentalB/orderListPage2";
 	}
+	
 	
 	// 배송 관리 페이지    
 	@RequestMapping("orderDeliveryPage")
@@ -263,10 +266,6 @@ public class RentalBusinessController {
 	public String businessRegisterProcess(HttpSession session, RentalBusinessDto rentalBusinessDto, String addressDetail,
 			MultipartFile regImg) {
 		
-		RentalBusinessDto businessUser = (RentalBusinessDto)session.getAttribute("businessUser");
-		if(businessUser==null) {
-			return "redirect:./loginPage";
-		}
 		
 		// 파일 저장 로직 
 		if(regImg != null) {
@@ -305,6 +304,7 @@ public class RentalBusinessController {
 		rentalBusinessDto.setBusiness_address(address);
 		
 		rentalService.registerBusiness(rentalBusinessDto);
+		
 		
 		return "redirect:./mainPage";
 	}

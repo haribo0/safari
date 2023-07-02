@@ -45,18 +45,34 @@
 			</div>
 			
 			
-			<hr>
+			<hr> <%-- --%>
 			
 			<div class="container">
 				<div class="row">
 					<div class="col">
-					${map.helpDto.content }
-					<c:forEach items="${map.helpImgDtoList}" var="helpImgDto">
-						<img src="/uploadFiles/${helpImgDto.help_img_link}">
-					</c:forEach>
+						
+						<%-- 이미지 영역 --%>
+							<div class="row">
+								<div class="col">
+									${map.helpDto.content }
+								</div>
+							</div>
+						<%-- 이미지 영역 --%>
+						
+						<%-- 글 내용 영역 --%>
+						<c:forEach items="${map.helpImgDtoList}" var="helpImgDto">
+							<div class="row mt-2">
+								<div class="col">
+									<img src="/uploadFiles/${helpImgDto.help_img_link}"
+										style="width: 960px;">
+								</div>
+							</div>						
+						</c:forEach>
+						<%-- 글 내용 영역 --%>
+					
 					</div>
 				</div>
-			</div>
+			</div> 
 			
 			
 			<div class="row mt-5 text-center">
@@ -72,10 +88,10 @@
 			<div class="row mt-5 text-center">
 			<div class="col">		
 			<c:if test="${sessionUser.id == map.userDto.id }">
-				<input type="button" class="btn btn-primary" onclick="window.open('/safari/community/help/updateContentPage/${map.helpDto.id}')" value="수정" />
-				<input type="button" class="btn btn-primary" onclick="window.open('/safari/community/help/deleteContentProcess/${map.helpDto.id}')"  value="삭제" />
+				<input type="button" class="btn btn-primary" onclick="location.href='/safari/community/help/updateContentPage/${map.helpDto.id}'" value="수정" />
+				<input type="button" class="btn btn-primary" onclick="location.href='/safari/community/help/deleteContentProcess/${map.helpDto.id}'"  value="삭제" />
 			</c:if>
-				<input type="button" class="btn btn-primary" onclick="window.open('/safari/community/help/mainPage')" value="목록으로">
+				<input type="button" class="btn btn-primary" onclick="location.href='/safari/community/help/mainPage'" value="목록으로">
 			</div>
 			</div>
 			<%-- 댓글 작성 글자 --%>
@@ -104,19 +120,21 @@
 			</form>	
 			
 			<%-- 댓글 작성 박스 --%>
+			<div class="row mb-2">
+				<div class="col"></div>
+			</div>
+			
 			
 			<%--댓글 조회 --%>
-			
-			
 			<div class="row">
 			<div class="col">
-			<br><c:forEach items="${helpCommentsList}" var="helpCommentDto">
+			<c:forEach items="${helpCommentsList}" var="helpCommentDto">
 			
 			<form action="/safari/community/help/deleteCommentProcess/${helpCommentDto.helpCommentDto.id}" method="post">
 				
 				<div class="row" style="margin-top: 10px;">
 				<div class="col">
-				<span class="fw-bold" style="font-size: 15px">${helpCommentDto.userDto.nickname } </span>
+				<span class="fw-bold" style="font-size: 15px">${helpCommentDto.userDto.nickname } </span>&nbsp;
 				<input type="hidden" value="${helpCommentDto.helpCommentDto.id}" name="id">
 				<input type="hidden" value="${map.helpDto.id}" name="boardId">
 				<span class="badge rounded-pill text-bg-secondary mb-2 text-center">${helpCommentDto.helpCommentDto.status}</span>

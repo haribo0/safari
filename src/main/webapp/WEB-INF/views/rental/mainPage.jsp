@@ -29,14 +29,14 @@
 		<div class="row">
 			<div class="col-2 mt-4">
 				<ul class="list-group">
-				  <li class="list-group-item border border-0 py-2"><a class="btn fs-5 text fw-bold py-1" href="#">전체보기</a></li>
+				  <li class="list-group-item border border-0 py-2"><a href="${pageContext.request.contextPath}/rental/mainPage" class="btn fs-5 text fw-bold py-1" href="#">전체보기</a></li>
 				  <c:forEach items="${categoryList}" var="map" varStatus="status">
 <%-- 					  <li class="list-group-item border border-0 py-2"><a class="btn fs-5 text fw-bold py-1" data-bs-toggle="collapse" href="#collapse${status.index}">${map.categoryItem.main_category_name}</a></li>			   --%>
-					  <li class="list-group-item border border-0 py-2"><a class="btn fs-5 text fw-bold py-1" >${map.categoryItem.main_category_name}</a></li>			  
+					  <li class="list-group-item border border-0 py-2"><a href="${pageContext.request.contextPath}/rental/mainPage/?main_category_id=${map.categoryItem.id}" class="btn fs-5 text fw-bold py-1" >${map.categoryItem.main_category_name}</a></li>			  
 	  				  	<div class="" id="">
 							<ul class="list-group ms-4">
 								<c:forEach items="${map.subTitleList}" var="subTitle">
-										<li class="list-group-item border-0"><a href="#" class="btn py-0 text-body-secondary">${subTitle.sub_category_name}</a></li>																		
+										<li class="list-group-item border-0"><a href="${pageContext.request.contextPath}/rental/mainPage/?sub_category_id=${subTitle.id}" class="btn py-0 text-body-secondary">${subTitle.sub_category_name}</a></li>																		
 								</c:forEach>
 							</ul>
 						</div>
@@ -45,33 +45,35 @@
 			</div>
 			
 			<div class="col px-4">
-				<div class="d-flex justify-content-end">
-					<div class="btn-group">
-					  <button type="button" class="btn btn-secondary dropdown-toggle py-1" data-bs-toggle="dropdown" data-bs-display="static" aria-expanded="false">
-					    정렬
-					  </button>
-					  <ul class="dropdown-menu dropdown-menu-lg-end">
-					    <li><a class="dropdown-item" href="#">찜</a></li>
-					    <li><a class="dropdown-item" href="#">리뷰</a></li>
-					    <li><a class="dropdown-item" href="#">구매</a></li>
-					  </ul>
+				<div class="row justify-content-end">
+					<div class="col-1">
+						<div class="btn-group">
+						  <button type="button" class="btn btn-secondary dropdown-toggle py-1" data-bs-toggle="dropdown" data-bs-display="static" aria-expanded="false">
+						    정렬
+						  </button>
+						  <ul class="dropdown-menu dropdown-menu-lg-end">
+						    <li><a class="dropdown-item" href="#">찜</a></li>
+						    <li><a class="dropdown-item" href="#">리뷰</a></li>
+						    <li><a class="dropdown-item" href="#">구매</a></li>
+						  </ul>
+						 </div>
 					 </div>
 				</div>
 				
-			<div class="d-flex flex-wrap justify-content-between pt-2">
+			<div class="row flex-wrap pt-2">
  				<c:forEach items="${rentalItemList}" var="map">
-					<div class="mb-5" style="cursor: pointer;">
+					<div class="col-3" style="cursor: pointer;">
 						<div class="card border border-0" style="width: 14rem;">
-							<a href="./productDescPage?id=${map.rentalItemDto.id}" class="text-decoration-none d-inline-block">
-							  <img src="/safariImg/${map.rentalItemDto.main_img_link}" class="card-img-top rounded-3 object-fit-cover" alt="..." style="min-height: 260px;" >
+							<a href="${pageContext.request.contextPath}/rental/productDescPage?id=${map.rentalItemDto.id}" class="text-decoration-none d-inline-block">
+							  <img src="/safariImg/${map.rentalItemDto.main_img_link}" class="card-img-top object-fit-cover" alt="..." style="min-height: 260px;" >
 							</a>
 						  <div class="card-body ps-0">
 						  	<div class="d-flex justify-content-between">
-						    	<p class="text-dark"><a href="./productDescPage?id=${map.rentalItemDto.id}" class="text-decoration-none d-inline-block text-dark">${map.rentalItemDto.title}</a></p>
-						  		<p><span class="fw-bold" id="totalLikeCount"></span><i id="heartBox" onclick="toggleLike(${map.rentalItemDto.id})" class="text-danger bi bi-heart heart_box" data-item-id="${map.rentalItemDto.id}"></i></p>
+						    	<p class="text-dark mb-0"><a href="${pageContext.request.contextPath}/rental/productDescPage?id=${map.rentalItemDto.id}" class="text-decoration-none d-inline-block text-dark">${map.rentalItemDto.title}</a></p>
+						  		<p class="mb-0" style="position: relative; bottom: 260px;"><span class="fw-bold" id="totalLikeCount"></span><i id="heartBox" onclick="toggleLike(${map.rentalItemDto.id})" class="text-danger bi bi-heart heart_box" data-item-id="${map.rentalItemDto.id}" style="font-size: 18px;"></i></p>
 						  	</div>
-						    <p style="min-height: 48px;"><a href="./productDescPage?id=${map.rentalItemDto.id}" class="text-decoration-none d-inline-block text-body-secondary">${map.rentalItemDto.item_description}</a></p>
-						    <p><b class="text-dark"><a href="./productDescPage?id=${map.rentalItemDto.id}" class="text-decoration-none d-inline-block text-dark">${map.rentalItemDto.price}원 / 월</a></b></p>
+						    <p class="mb-1"><a href="${pageContext.request.contextPath}/rental/productDescPage?id=${map.rentalItemDto.id}" class="w-100 text-decoration-none d-inline-block text-body-secondary" style="overflow:hidden; text-overflow:ellipsis; white-space:nowrap; font-size: 15px;">${map.rentalItemDto.item_description}</a></p>
+						    <p><b class="text-dark"><a href="${pageContext.request.contextPath}/rental/productDescPage?id=${map.rentalItemDto.id}" class="text-decoration-none d-inline-block text-dark"><fmt:formatNumber value="${map.rentalItemDto.price}" pattern="#,##0" /> 원 </a></b><span style="font-size: 13px;">/ 월</span></p>
 						  </div>
 						 </div>
 					</div>
@@ -90,7 +92,7 @@
 <script>
 
 // 로그인된 세션 초기화
-/* let mySessionId = null;
+let mySessionId = null;
 
 // 세션가져오기
 function getSessionId(){
@@ -105,7 +107,7 @@ function getSessionId(){
 		}
 	}
 	
-	xhr.open("get", "../user/getMyId", false);
+	xhr.open("get", "${pageContext.request.contextPath}/user/getMyId", false);
 	xhr.send();		
 }
 
@@ -129,7 +131,7 @@ function getSessionId(){
 		}
 	}
 	
-	xhr.open("get", "./toggleRentalItemLike?item_id=" + val);
+	xhr.open("get", "${pageContext.request.contextPath}/rental/toggleRentalItemLike?item_id=" + val);
 	xhr.send();
 	
 }
@@ -164,7 +166,7 @@ function getSessionId(){
 			}
 		}
 		
-		xhr.open("get", "./isLiked?item_id="+val);
+		xhr.open("get", "${pageContext.request.contextPath}/rental/isLiked?item_id="+val);
 		xhr.send();
 	}
 
@@ -176,7 +178,7 @@ window.addEventListener("DOMContentLoaded", function(){
 		let id = heartBox[j].dataset.itemId
 		refreshMyHeart(id)
 	}
-}); */
+});
 </script>
 
 </body>	

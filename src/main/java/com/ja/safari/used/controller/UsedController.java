@@ -170,6 +170,15 @@ public class UsedController {
 			
 			int productId = usedService.createProductPk();
 			productDto.setId(productId);
+			System.out.println(productDto.getId());
+			System.out.println(productDto.getUser_id());
+			System.out.println(productDto.getTitle());
+			System.out.println(productDto.getContent());
+			System.out.println(productDto.getLocation());
+			System.out.println(productDto.getPrice());
+			System.out.println(productDto.getProduct_sub_category());
+			System.out.println(productDto.getProduct_town_id());
+			
 			usedService.insertProduct(productDto);
 			
 			if(images != null) {
@@ -255,19 +264,19 @@ public class UsedController {
 			productRequestDto.setProduct_id(productId);
 			productRequestDto.setUser_id(sessionUser.getId());
 			usedService.insertProductRequest(productRequestDto);
-			return "redirect:./productDetail?productId="+productId;
+			return "redirect:./chatList";
 		}
 	}
 	
-	// 거래 요청 취소
-	@RequestMapping("productRequestCancel")
-	public String productRequestCancel(HttpSession session, int productId) {
+	// 채팅방 이미 있는 사람 
+	@RequestMapping("productRequestAlready")
+	public String productRequestAlready(HttpSession session, int productId) {
 		UserDto sessionUser = (UserDto)session.getAttribute("sessionUser");
 		if(sessionUser==null) {
 			return "redirect:../user/loginPage";
 		}else {
-			usedService.deleteProductRequestByUser(productId, sessionUser.getId());
-			return "redirect:./productDetail?productId="+productId;
+//			usedService.deleteProductRequestByUser(productId, sessionUser.getId());
+			return "redirect:./chatList";
 		}
 	}
 	
@@ -309,12 +318,12 @@ public class UsedController {
 	
 	// 채팅창 리스트 보여주기 
 	@RequestMapping("chatList")
-	public String chatList(HttpSession session, Model model) {
+	public String chatList(HttpSession session) {
 		UserDto sessionUser = (UserDto)session.getAttribute("sessionUser");
 		if(sessionUser==null) {
 			return "redirect:../user/loginPage";
 		}else {
-			model.addAttribute("list", usedService.selectProductRequestAllByUserId(sessionUser.getId()));
+//			model.addAttribute("list", usedService.selectProductRequestAllByUserId(sessionUser.getId()));
 			return "used/chatList";
 		}
 	}

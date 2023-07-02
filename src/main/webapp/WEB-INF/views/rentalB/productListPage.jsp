@@ -35,10 +35,12 @@
 	<jsp:include page="../common/headerB.jsp"></jsp:include>
 	<!-- 헤더 섹션 -->
 
-	<div class="container main_box">
+	<div class="container-fluid main_box">
 		<div class="row">
 		
-			<div class="col-2">
+		
+			<div class="col-2" style=""></div>
+			<div class="col-2  bg-dark h-100" style="position: fixed;">
 				<div class="list-group list-group-flush">
 					
 					<!-- 왼쪽 카테고리 리스트 -->
@@ -54,11 +56,11 @@
 			</div>
 			
 			
-			<div class="col ms-3">
+			<div class="col ms-4 mt-5">
 		    	
-		    	<h4 class="row mt-3 fw-regular">상품 관리</h4>
+		    	<h4 class="ps-4  mt-3 mb-4 fw-regular">상품 관리</h4>
 
-				<div class="row mt-1">
+				<div class="row mt-5 ms-4">
 					<div class="col">
 						
 					</div>
@@ -74,7 +76,8 @@
 						<div class="row mt-3 text-center fw-bold">
 						      <div class="col-1">#</div>
 						      <div class="col-2">광고</div>
-						      <div class="col-4">제품</div>
+						      <div class="col-1">이미지</div>
+						      <div class="col-3">제품</div>
 						      <div class="col-1">수량</div>
 						      <div class="col-2">가격</div>
 						      <div class="col-1">수정</div>
@@ -84,8 +87,8 @@
 					    <c:forEach items="${list }" var="map" varStatus="idx">
 						    <div class="row mt-4 text-center">
 						      
-						      <div class="col-1">${map.product.id}</div>
-						      <div class="col-2">
+						      <div class="col-1 my-auto">${map.product.id}</div>
+						      <div class="col-2 my-auto">
 						      	<c:choose>
 						      		<c:when test="${map.ads}">
 						      			<div class="btn btn-outline-secondary btn-sm btn-disalbed" data-index="${idx}" data-product-id="${map.product.id}"  data-bs-toggle="collapse" role="button" >
@@ -102,9 +105,12 @@
 						      
 						      
 						      </div>
-						      <div class="col-4" id="prdTitle${map.product.id}">${map.product.title}</div>
-						      <div class="col-1">${map.product.quantity}</div>
-						      <div class="col-2">
+						      <div class="col-1 my-auto">
+						          <img class="img-fluid px-2" src="/safariImg/${map.product.main_img_link}">
+						      </div>
+						      <div class="col-3 my-auto" id="prdTitle${map.product.id}">${map.product.title}</div>
+						      <div class="col-1 my-auto">${map.product.quantity}</div>
+						      <div class="col-2 my-auto">
 						      	<div class="dropdown d-grid">
 								  <a class="btn btn-secondary dropdown-toggle custom-dropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
 								    
@@ -113,23 +119,25 @@
 						  			
 								  </a>
 									
-								  <ul class="dropdown-menu ps-2 pe-2">
+								  <ul class="dropdown-menu px-3">
 								  	<c:forEach items="${map.discountedPriceList}" var="dto">
-								  		<li class="f-sm2 text-center">
+								  		<li class="f-sm2 text-center mt-1">
+								  			
 								  			<fmt:formatNumber value="${dto.discounted_price}" pattern="#,###" var="formattedPrice2" />
 								  			${formattedPrice2} 원 / ${dto.rental_period}개월
+								  			
 								  		</li>
 								  	</c:forEach>
 								  </ul>
 								</div>
 						      
 						      </div>
-						      <div class="col-1">
+						      <div class="col-1 my-auto">
 						      	<a href="./productEditPage?id=${map.product.id}" class="text-body-tertiary text-decoration-none">
 						      	 &nbsp; <i class="bi bi-pencil-square "></i> 
 						     	</a>
 						     </div>
-						      <div class="col-1">
+						      <div class="col-1 my-auto">
 						      	<a href="./productDeleteProcess?id=${map.product.id}" class="text-body-tertiary text-decoration-none">
 						      	 &nbsp; <i class="bi bi-trash3 "></i>
 						       	</a>
@@ -145,10 +153,19 @@
 			
 			
 		
-		
+		<div class="col-1"></div>
 		</div>
 	</div>
 	
+	
+	<!-- 하단 공백 -->
+	<div class="row mt-5 mb-5">
+		<div class="col"> </div>
+	</div>
+	<div class="row mt-5 mb-5">
+		<div class="col"> </div>
+	</div>
+
 	
 	
 	
@@ -594,9 +611,9 @@ function processPayment(orderId) {
 	  const quantity = 1;
 	  const total_amount = selectedPrice;
 	  const tax_free_amount = selectedPrice;
-	  const approval_url = "http://localhost:8181/safari/rental/paymentProcess";
-	  const cancel_url = "http://localhost:8181/safari/rental/productListPage";
-	  const fail_url = "http://localhost:8181/safari/rental/productListPage";
+	  const approval_url = "http://localhost:8181/safari/rentalBusiness/paymentProcess";
+	  const cancel_url = "http://localhost:8181/safari/rentalBusiness/productListPage";
+	  const fail_url = "http://localhost:8181/safari/rentalBusiness/productListPage";
 	  
 	  
 	  // Make an AJAX request to the server to initiate the payment using KakaoPay API

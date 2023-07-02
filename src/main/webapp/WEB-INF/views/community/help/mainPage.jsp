@@ -17,19 +17,18 @@
 	<jsp:include page="../../common/header.jsp"></jsp:include>
 	<!-- 헤더 섹션 -->
 	
-	<div class="container text-center mt-2">
-	<h2 class="text-center fw-bold fs-3"> 해주세요 게시판 </h2>
-	</div>
 	
-	<!-- 메뉴바 -->
-	<div class="container main_box">
-		<ul class="nav justify-content-center pb-3 mb-3">
-	      <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">공동구매</a></li>
-	      <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">살까말까</a></li>
-	      <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">골라줘요</a></li>
-	      <li class="nav-item"><a href="../community/help/mainPage" class="nav-link px-2 text-body-secondary">해주세요</a></li>
-	      <li class="nav-item"><a href="../community/question/mainPage" class="nav-link px-2 text-body-secondary">궁금해요</a></li>
-	    </ul>
+	
+	 <!-- 커뮤니티 메뉴바 -->
+      <div class="row">
+         <div class="col">
+            <jsp:include page="../../community/communityTopNavi.jsp"></jsp:include>
+         </div>
+      </div>
+      <!-- 커뮤니티 메뉴바 -->
+      
+      <div class="container text-center mt-2">
+	<h2 class="text-center fw-bold fs-3"> 해주세요 게시판 </h2>
 	</div>
 
    <%--게시판 시작 --%>
@@ -57,8 +56,13 @@
 				<tr>
 				  <td><a class="text-black text-decoration-none" href="/safari/community/help/readContentPage/${map.helpDto.id}">${map.helpDto.id}</a></td>
 				  <td>
-				  	<span class="badge text-bg-secondary">${map.helpDto.points}</span><a class="text-black text-decoration-none" href="/safari/community/help/readContentPage/${map.helpDto.id}">${map.helpDto.title}</a>
+				  	<c:if test="${map.helpDto.points>=1}">
+				  	<span class="badge text-bg-secondary">${map.helpDto.points}</span>
+				  	</c:if>
+				  	<a class="text-black text-decoration-none" href="/safari/community/help/readContentPage/${map.helpDto.id}">${map.helpDto.title}</a>
+				  	<c:if test="${map.helpCommentCount>=1}">
 				  	<span style="font-size: 15px; color: red;">[${map.helpCommentCount}]</span>
+				  	</c:if>
 				  	<c:if test="${map.helpImgCount>=1}">
 				  	<i class="bi bi-image"></i>
 				  	</c:if>
@@ -85,8 +89,8 @@
 	<%--글쓰기 버튼 끝 --%>	
 	
 	
-	<div class="row"><%--페이지 버튼 --%>
-			<div class="col-6 mx-auto">
+		<div class="row"><%--페이지 버튼 --%>
+			<div class="col-5 mx-auto">
 				<nav aria-label="Page navigation example">
 				  <ul class="pagination mb-0">
 				   <li class="page-item"><a class="page-link" href="#">&lt;</a></li>   
@@ -109,8 +113,8 @@
 
 
 <%--오른쪽 시작--%>
-	<div class="col-3">
-	</div>
+	<%--<div class="col-3">
+	</div> --%>
 	<%--오른쪽 끝--%>
 </div>
 </div>	

@@ -189,14 +189,15 @@
     	<div class="row mt-5">
     		<c:if test="${sessionUser.getId() != map.productDto.user_id }">
     		<div class="col-3">
-    		<c:choose>
-    			<c:when test="${result==false }">
-    			<a href="./productRequest?productId=${map.productDto.id }" type="button" class="btn btn-outline-success btn-sm">채팅하기</a>
-    			</c:when>
-    			 <c:otherwise>
-    			<a href="./productRequestCancel?productId=${map.productDto.id }" type="button" class="btn btn-outline-success btn-sm">거래요청취소</a>
-    			</c:otherwise>
-    		</c:choose>
+    			<c:if test="${result==false && completeCount == 0 }">
+    				<a href="./productRequest?productId=${map.productDto.id }" type="button" class="btn btn-outline-success btn-sm">채팅하기</a>
+    			</c:if >
+    			 <c:if test="${result==true && completeCount == 0 }">
+    				<a href="./productRequestAlready?productId=${map.productDto.id }" type="button" class="btn btn-outline-success btn-sm">채팅하기</a>
+    			</c:if>
+    			 <c:if test="${completeCount > 0}">
+    			 	<button type="button" class="btn btn-outline-secondary btn-sm" disabled>채팅하기</button>
+    			 </c:if>
     		</div>
     		</c:if>
     		<div class="col-2">

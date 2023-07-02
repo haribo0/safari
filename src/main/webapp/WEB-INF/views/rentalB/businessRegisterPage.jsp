@@ -260,7 +260,8 @@ phoneBox.addEventListener("blur", function() {
 /* 중복 체크 통과해야지 회원 가입 가능  */
 
 registerButton.addEventListener("click", function(event) {
-	
+		console.log(idChecked);
+		console.log(pwConfirmChecked);
 	  if (!idChecked) {
 	    event.preventDefault();
 	    alert("아이디 중복확인을 해주세요");

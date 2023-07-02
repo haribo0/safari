@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
+import org.springframework.jmx.export.naming.IdentityNamingStrategy;
 
 import com.ja.safari.dto.KaKaoPayApproveDto;
 import com.ja.safari.dto.RentalAdsOrderDto;
@@ -78,8 +79,14 @@ public interface RentalBusinessSqlMapper {
 	// 사업자 계정 정보 수정 
 	public void updateBusinessInfo(RentalBusinessDto rentalBusinessDto);
 	
+	// 판매자 id로 주문 리스트 가져오기 최근 3개 
+	public List<RentalOrderDto> getThreeOrdersByUserId(int userId);
+	
 	// 판매자 id로 주문 리스트 가져오기 
 	public List<RentalOrderDto> getOrderListByUserId(int userId);
+	
+	// 상품 id로 주문 리스트 가져오기 
+	public List<RentalOrderDto> getOrderListByUserIdAndProductId(@Param("userId") int userId, @Param("productId") int productId);
 	
 	// 판매자 id로 배송처리할 주문 리스트 가져오기 
 	public List<RentalOrderDto> getOrderListToBeShippedByUserId(int userId);
@@ -144,6 +151,9 @@ public interface RentalBusinessSqlMapper {
 	//  반품 번호로 주문 찾아오기
 	public RentalOrderDto getOrderDtoByReturnId(Integer returnId);
 	
+	// 정산 pk 찾아오기
+	public Integer getA(Integer returnId);
+	
 	// 주문 배송 완료 처리 
 	public void changeShippingStatus(int orderId);
 
@@ -158,13 +168,16 @@ public interface RentalBusinessSqlMapper {
 	
 	
 	// 월별 주문수 
-	public List<Map<String, Object>> getSalesByMonth();
+	public List<Map<String, Object>> getSalesByMonth(Integer businessId);
+	
+	// 상품별 주문수 
+	public List<Map<String, Object>> getSalesByProduct(Integer businessId);
 	
 	// 고객 성별 비율
-	public List<Map<String, Object>> getSalesByGender();
+	public List<Map<String, Object>> getSalesByGender(Integer businessId);
 	
 	// 월별 매출 
-	public List<Map<String, Object>> getRevenueByDay();
+	public List<Map<String, Object>> getRevenueByDay(Integer businessId);
 
 
 

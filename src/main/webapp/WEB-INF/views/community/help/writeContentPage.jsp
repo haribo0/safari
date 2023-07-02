@@ -1,4 +1,3 @@
-<%--템플릿 시작 --%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -25,45 +24,56 @@
 	<div class="col-3"></div>
 	<%--왼쪽 끝 --%>
 	
-	<div class="col text-center">
 	
 	
+	
+	<%--가운데 시작 --%>
+	<div class="col ">
+		<div class="container">	
 	
 	<!-- 만약 파일 보내는 경우 - enctype="multipart/form-data" 꼭 변경해야 함, 무조건 post방식-->
-
-<form action="/safari/community/help/writeContentProcess" method="post" enctype="multipart/form-data">
-
-<%--글쓰기 폼 시작 --%>
-<div class="container">
-	<table class="table table-hover">
-	 <tbody>
-	  <tr>
-	  	<td><input type="hidden" name="user_id" value="${sessionUser.id}"></td>
-	  </tr>
-	  <tr>
-		<td><input type="text" class="form-control" placeholder="제목을 입력해주세요" name="title" maxlength="40"></td>
-	  </tr>
-	  <tr>
-	  	<td>작성자: ${sessionUser.nickname}</td>
-	  </tr>
-	  <tr>
-	  	<td><textarea type="text" class="form-control" placeholder="내용을 입력해주세요" name="content" maxlength="3000" style="height:400px;"></textarea></td>
-	  </tr>
-	  <tr> 
-	  	<td><input type="text" class="form-control" placeholder="포인트"  name="points" maxlength="10"></td>
-	  </tr>
-	  <tr> 
-	  	<td><input type="text" class="form-control" placeholder="위치"  name="location" maxlength="10"></td>
-	  </tr>
-	</tbody>
-	</table>
-	<input name="helpBoardFiles" type="file" onchange="readURLContent(this)" id="helpBoardFiles" multiple accept="image/*">
-</div>
-<%--글쓰기 폼 끝 --%>
-	<button>등록하기</button>
-</form>
-
+	<%--글쓰기 폼 시작 --%>
+	<form action="/safari/community/help/writeContentProcess" method="post" enctype="multipart/form-data">
+		
+		<div class="row">
+			<div class="col">
+				<table class="table table-hover">
+				 <tbody>
+				  <tr>
+				  	<td><input type="hidden" name="user_id" value="${sessionUser.id}"></td>
+				  </tr>
+				  <tr>
+					<td><input type="text" class="form-control" placeholder="제목을 입력해주세요" name="title" maxlength="40"></td>
+				  </tr>
+				  <tr>
+				  	<td>작성자: ${sessionUser.nickname}</td>
+				  </tr>
+				  <tr>
+				  	<td><textarea type="text" class="form-control" placeholder="내용을 입력해주세요" name="content" maxlength="3000" style="height:400px;"></textarea></td>
+				  </tr>
+				  <tr> 
+				  	<td><input type="text" class="form-control" placeholder="포인트"  name="points" maxlength="10"></td>
+				  </tr>
+				  <tr> 
+				  	<td><input type="text" class="form-control" placeholder="위치"  name="location" maxlength="10"></td>
+				  </tr>
+				</tbody>
+				</table>
+				<input name="helpBoardFiles" type="file" onchange="readURLContent(this)" id="helpBoardFiles" multiple accept="image/*">
+				</div>
+			</div>
+			
+			<div class="row">
+			<div class="col text-center">
+				<br>
+				<button>등록하기</button>
+			</div>
+			</div>
+			</form>
+			<%--글쓰기 폼 끝 --%>
+		</div>
 	</div>
+	<%--가운데 끝 --%>
 	
 	<%--오른쪽 시작--%>
 	<div class="col-3">

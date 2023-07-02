@@ -40,6 +40,8 @@ public class PromotionReviewServiceImpl {
 			map.put("promotionReviewDto", promotionReviewDto);
 			map.put("userDto", userDto);
 			map.put("promotionReviewImgList", promotionReviewImgList);		
+			// map.put("count", 카운트에 해당하는 쿼리);
+			
 			
 			list.add(map);
 			
@@ -93,7 +95,11 @@ public class PromotionReviewServiceImpl {
 		map.put("userDto", userDto);
 		map.put("promotionReviewDto", promotionReviewDto);
 		map.put("promotionReviewImgDtoList", promotionReviewImgDtoList);
+
 		
+		// map 안에 map 넣기 예시
+		// Map<String, Object> mapRental = new HashMap<>();
+		// map.put("mapRental", mapRental);
 		
 		return map;
 	}
@@ -136,26 +142,25 @@ public class PromotionReviewServiceImpl {
 	}
 
 	// 프로모션 리뷰 게시물 공감
-	public void togglePromotionReviewLike(PromotionReviewLikeDto promotionReviewLikeDto) {
+	public void toggleLikePromotionReview(PromotionReviewLikeDto promotionReviewLikeDto) {
 		
-		if (promotionReviewMapper.countPromoReviewMyLike(promotionReviewLikeDto) > 0) {
+		if (promotionReviewMapper.countPromotionReviewMyLike(promotionReviewLikeDto) > 0) {
 				promotionReviewMapper.deletePromotionReviewLike(promotionReviewLikeDto);
 		} else {
-				promotionReviewMapper.insertPromotionReviewLike(promotionReviewLikeDto);
+				promotionReviewMapper.plusPromotionReviewLike(promotionReviewLikeDto);
 			
 		}
 	}
 	
-	
-	// 공감 total count
+	// 공감 했는지 안했는지
 	public boolean promoReviewIsLiked(PromotionReviewLikeDto promotionReviewLikeDto) {
 		
-		return promotionReviewMapper.countPromoReviewMyLike(promotionReviewLikeDto) > 0;
+		return promotionReviewMapper.countPromotionReviewMyLike(promotionReviewLikeDto) > 0;
 			
 	}
 	
-	// 
-	public int getTotalPromoReviewLikeCount(int reviewId) {
-		return promotionReviewMapper.countLikeByUserId(reviewId);
+	// 공감 total 
+	public int getTotalPromoReviewLike(int reviewId) {
+		return promotionReviewMapper.countLikeByPromotionReviewId(reviewId);
 	}
 }

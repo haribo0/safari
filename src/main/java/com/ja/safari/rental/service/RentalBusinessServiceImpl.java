@@ -22,6 +22,7 @@ import com.ja.safari.dto.RentalOrderDto;
 import com.ja.safari.dto.RentalPeriodDiscDto;
 import com.ja.safari.dto.RentalReviewDto;
 import com.ja.safari.dto.RentalSubCategoryDto;
+import com.ja.safari.dto.RentalSurchargeBillDto;
 import com.ja.safari.rental.mapper.RentalBusinessSqlMapper;
 import com.ja.safari.user.mapper.UserSqlMapper;
 
@@ -158,7 +159,22 @@ public class RentalBusinessServiceImpl {
 		rentalSqlMapper.updateBusinessInfo(rentalBusinessDto);
 		
 	}
+	
+	// 계정 id로 최근 주문 3 가져오기
+	public List<Map<String, Object>> getRecentOrdersByUserId(int id) {
+		
+		List<Map<String, Object>> list = new ArrayList<Map<String,Object>>();
+		for(RentalOrderDto rentalOrderDto : rentalSqlMapper.getThreeOrdersByUserId(id)) {
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("order", rentalOrderDto);
+			map.put("user", userSqlMapper.selectUserDtoById(rentalOrderDto.getUser_id()));
+			map.put("product", rentalSqlMapper.selectRentalItemDto(rentalOrderDto.getItem_id()));
+			list.add(map);
+		}
+		return list;
+	}
 
+	
 	// 계정 id로 주문 리스트 가져오기
 	public List<Map<String, Object>> getRentalOrderAndProductListByUserId(int id) {
 		List<Map<String, Object>> list = new ArrayList<Map<String,Object>>();
@@ -168,6 +184,7 @@ public class RentalBusinessServiceImpl {
 			Map<String, Object> map = new HashMap<String, Object>();
 			
 			map.put("order", rentalOrderDto);
+			map.put("user", userSqlMapper.selectUserDtoById(rentalOrderDto.getUser_id()));
 			map.put("product", rentalSqlMapper.selectRentalItemDto(rentalOrderDto.getItem_id()));
 			
 			
@@ -178,11 +195,11 @@ public class RentalBusinessServiceImpl {
 				if(rentalCancelDto.getIs_item_returned().equals("Y")) {
 					if(rentalSqlMapper.getOrderCancelBillByCancelId(rentalCancelDto.getId())!=null) {
 						if(rentalSqlMapper.getOrderCancelBillByCancelId(rentalCancelDto.getId()).getIs_completed().equals("Y")) {
-							status = "중도반납완료";
+							status = "반납완료";
 						} 
-					} else status = "중도반납확인";
+					} else status = "반납확인";
 				} else {
-					status = "중도반납신청";
+					status = "반납신청";
 				}
 				
 			} else if (rentalItemReturnDto!=null) {
@@ -197,9 +214,9 @@ public class RentalBusinessServiceImpl {
 				}
 			} else {
 				// 종료일이 오늘 보다 작으면 
-				if(rentalOrderDto.getEnd_date().compareTo(currentDate) < 0 ) status = "연체중";
+//				if(rentalOrderDto.getEnd_date().compareTo(currentDate) < 0 ) status = "연체중";
 				// 시작일 이후면
-				else if(rentalOrderDto.getStart_date().compareTo(currentDate) < 0 ) status = "대여중";
+				if(rentalOrderDto.getStart_date().compareTo(currentDate) < 0 ) status = "대여중";
 				// 다 아니면 
 				else status = "주문완료";
 			}
@@ -208,6 +225,67 @@ public class RentalBusinessServiceImpl {
 			map.put("status", status);
 			
 			list.add(map);
+		}
+		
+		return list;
+	}
+	
+	// 계정 id로 주문 리스트 가져오기 - 상품별 상태별 
+	public List<Map<String, Object>> getRentalOrderAndProductListByUserIdFilterByStatusAndProduct(Integer userId, 
+			String orderStatus, Integer productId) {
+		
+		List<Map<String, Object>> list = new ArrayList<Map<String,Object>>();
+		Date currentDate = new Date();
+		for(RentalOrderDto rentalOrderDto : rentalSqlMapper.getOrderListByUserIdAndProductId(userId, productId)) {
+			String status = "";
+			Map<String, Object> map = new HashMap<String, Object>();
+			
+			map.put("order", rentalOrderDto);
+			map.put("user", userSqlMapper.selectUserDtoById(rentalOrderDto.getUser_id()));
+			map.put("product", rentalSqlMapper.selectRentalItemDto(rentalOrderDto.getItem_id()));
+			
+			
+			RentalCancelDto rentalCancelDto = rentalSqlMapper.getOrderCancelByOrderId(rentalOrderDto.getId());
+			RentalItemReturnDto rentalItemReturnDto = rentalSqlMapper.getItemReturnDtoByOrderId(rentalOrderDto.getId());
+			
+			if(rentalCancelDto!=null) {
+				if(rentalCancelDto.getIs_item_returned().equals("Y")) {
+					if(rentalSqlMapper.getOrderCancelBillByCancelId(rentalCancelDto.getId())!=null) {
+						if(rentalSqlMapper.getOrderCancelBillByCancelId(rentalCancelDto.getId()).getIs_completed().equals("Y")) {
+							status = "반납완료";
+						} 
+					} else status = "반납확인";
+				} else {
+					status = "반납신청";
+				}
+				
+			} else if (rentalItemReturnDto!=null) {
+				if(rentalSqlMapper.getSurchargeBillDtoByReturnId(rentalItemReturnDto.getId())!=null) {
+					if(rentalSqlMapper.getSurchargeBillDtoByReturnId(rentalItemReturnDto.getId()).getIs_completed().equals("Y")) {
+						status = "정산완료";
+					}
+				} else if (rentalItemReturnDto.getIs_item_returned().equals("Y")) {
+					status = "회수완료";
+				} else {
+					status = "반납신청";
+				}
+			} else {
+				if(rentalOrderDto.getStart_date().compareTo(currentDate) < 0 ) status = "대여중";
+				else status = "주문완료";
+			}
+			
+			map.put("status", status);
+			
+			
+			
+//			주문 대여 취소 반납 정산 
+			if(orderStatus.equals("주문") && status.equals("주문완료")) {list.add(map);}
+			else if(orderStatus.equals("대여") && status.equals("대여중")) list.add(map);
+			else if(orderStatus.equals("반납") && status.contains("회수")) list.add(map);
+			else if(orderStatus.equals("반납") && status.contains("반납")) list.add(map);
+			else if(orderStatus.equals("정산") && status.equals("정산완료")) list.add(map);
+			
+			if(orderStatus.equals("전체")) list.add(map);
 		}
 		
 		return list;
@@ -223,6 +301,7 @@ public class RentalBusinessServiceImpl {
 						
 			map.put("order", rentalOrderDto);
 			map.put("product", rentalSqlMapper.selectRentalItemDto(rentalOrderDto.getItem_id()));
+			map.put("user", userSqlMapper.selectUserDtoById(rentalOrderDto.getUser_id()));
 						
 			list.add(map);
 		}
@@ -240,7 +319,8 @@ public class RentalBusinessServiceImpl {
 			
 			map.put("order", rentalOrderDto);
 			map.put("product", rentalSqlMapper.selectRentalItemDto(rentalOrderDto.getItem_id()));
-			
+			map.put("user", userSqlMapper.selectUserDtoById(rentalOrderDto.getUser_id()));
+
 			list.add(map);
 		}
 		
@@ -261,6 +341,7 @@ public class RentalBusinessServiceImpl {
 			
 			map.put("returnDto", rentalItemReturnDto);
 			map.put("orderDto", rentalOrderDto);
+			map.put("userDto", userSqlMapper.selectUserDtoById(rentalOrderDto.getUser_id()));
 			map.put("productDto", rentalSqlMapper.selectRentalItemDto(rentalOrderDto.getItem_id()));
 			
 			list.add(map);
@@ -282,6 +363,7 @@ public class RentalBusinessServiceImpl {
 			
 			map.put("returnDto", rentalItemReturnDto);
 			map.put("orderDto", rentalOrderDto);
+			map.put("userDto", userSqlMapper.selectUserDtoById(rentalOrderDto.getUser_id()));
 			map.put("productDto", rentalSqlMapper.selectRentalItemDto(rentalOrderDto.getItem_id()));
 			
 			list.add(map);
@@ -438,6 +520,23 @@ public class RentalBusinessServiceImpl {
 		
 	}
 	
+	// 반품 후 정산 
+	public void returnAfterCharge(Integer returnId, Integer[] chargeValue, String[] reasonValue) {
+		// 할 일 
+		// 1. 먼저 반품 정산서 인서트 후 pk 가지고 정산사유/비용 인서트 
+		
+		
+		
+		for(int i=0;i<chargeValue.length;i++) {
+			
+		}
+		
+	}
+	
+	
+	
+	
+	
 	
 	
 	
@@ -445,18 +544,24 @@ public class RentalBusinessServiceImpl {
 
 	
 	// 월별 판매량 
-	public List<Map<String, Object>> getSalesByMonth() {
-		return rentalSqlMapper.getSalesByMonth();
+	public List<Map<String, Object>> getSalesByMonth(Integer businessId) {
+		return rentalSqlMapper.getSalesByMonth(businessId);
+	}
+	
+	// 상품별 판매량 
+	public List<Map<String, Object>> getSalesByProduct(Integer businessId) {
+		return rentalSqlMapper.getSalesByProduct(businessId);
 	}
 	
 	// 구매자 성별 비율 
-	public List<Map<String, Object>> getSalesByGender() {
-		return rentalSqlMapper.getSalesByGender();
+	public List<Map<String, Object>> getSalesByGender(Integer businessId) {
+		return rentalSqlMapper.getSalesByGender(businessId);
 	}
 	
 	// 월별 매출
-	public List<Map<String, Object>> getRevenueByDay() {
-		return rentalSqlMapper.getRevenueByDay();
+	public List<Map<String, Object>> getRevenueByDay(Integer businessId) {
+		return rentalSqlMapper.getRevenueByDay(businessId);
 	}
+
 
 }

@@ -117,7 +117,7 @@
 	WHERE id = #{id}	
 </update>
 
-<insert id="insertPromotionReviewLike">
+<insert id="plusPromotionReviewLike">
 	INSERT INTO promotion_review_like VALUES (
 		promotion_review_like_seq.NEXTVAL,
 		#{review_id},

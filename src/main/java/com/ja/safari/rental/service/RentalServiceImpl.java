@@ -49,10 +49,13 @@ public class RentalServiceImpl {
 	}
 	
 	// 상품 리스트 가져오기
-	public List<Map<String, Object>> getRentalItemList() {
+	public List<Map<String, Object>> getRentalItemList(Integer sub_category_id, Integer main_category_id ) {
 		List<Map<String, Object>> list = new ArrayList<Map<String,Object>>();
 		
-		List<RentalItemDto> rentalItemDtoList = rentalSqlMapper.selectRentalItemListAll();
+		if(main_category_id == null) main_category_id = 0;
+		if(sub_category_id==null) sub_category_id=0;
+		
+		List<RentalItemDto> rentalItemDtoList = rentalSqlMapper.selectRentalItemListAll(sub_category_id, main_category_id);
 		
 		for(RentalItemDto item : rentalItemDtoList) {
 			Map<String, Object> map = new HashMap<String, Object>();
