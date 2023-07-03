@@ -46,7 +46,102 @@
 
 </style>
 <script>
+// 좋아요 토글
+	const promotionReviewId = new URLSearchParams(location.search).get("id");
+	
 
+	let mySessionId = null;
+
+	function getSessionId(){
+		const xhr = new XMLHttpRequest();
+		
+		xhr.onreadystatechange = function(){
+			if(xhr.readyState == 4 && xhr.status == 200){
+				const response = JSON.parse(xhr.responseText);
+				
+				if(response.result == "success"){
+					mySessionId = response.id;
+				}
+			}
+		}
+	
+		xhr.open("get", "../../user/getMyId", false);
+		xhr.send();
+	}
+
+	
+	function refreshTotalLikeCount(){
+		const xhr = new XMLHttpRequest();
+		
+		xhr.onreadystatechange = function(){
+			if(xhr.readyState == 4 && xhr.status == 200){
+				const response = JSON.parse(xhr.responseText);
+			
+				const totalLikeCountBox = document.getElementById("totalPromoReviewLikeCount");
+				totalLikeCountBox.innerText = response.count;
+			}
+		}
+		
+
+		
+		xhr.open("get", "./getTotalPromoReviewLikeCount?reviewId=" + promotionReviewId);
+		xhr.send();
+	}
+	
+	
+	function togglePromotionReviewLike(){
+		if(mySessionId == null){
+			if(confirm("로그인을 하셔야 이용가능합니다. 로그인 하시겠습니까?")){
+				location.href = "../../user/loginPage";				
+			}
+			
+			return;
+		}	
+		
+		const xhr = new XMLHttpRequest();
+		
+		xhr.onreadystatechange = function(){
+			if(xhr.readyState == 4 && xhr.status == 200){
+				const response = JSON.parse(xhr.responseText);
+				
+				refreshTotalLikeCount();
+				refreshMyHeart();
+			}
+		}
+		
+		xhr.open("get", "./togglePromotionReviewLike?review_id=" + promotionReviewId);
+		xhr.send();		
+	}
+	
+
+	function refreshMyHeart(){
+		
+		if(mySessionId == null) return;	
+		
+		const xhr = new XMLHttpRequest();
+		
+		xhr.onreadystatechange = function(){
+			if(xhr.readyState == 4 && xhr.status == 200){
+				const response = JSON.parse(xhr.responseText);
+				// js 렌더링... 작업..
+				const heartBox = document.getElementById("heartBox");
+				
+				if(response.isLiked){
+					heartBox.classList.remove("bi-heart");
+					heartBox.classList.add("bi-heart-fill");
+				}else{
+					heartBox.classList.remove("bi-heart-fill");
+					heartBox.classList.add("bi-heart");
+				}
+			}
+		}
+		
+		//get
+		xhr.open("get", "./promoReviewIsLiked?review_id=" + promotionReviewId);
+		xhr.send();
+		
+	}
+	
 	
 
 // uri 복사
@@ -64,6 +159,13 @@ function clip(){
 }
 
 
+
+window.addEventListener("DOMContentLoaded", function(){
+	
+	getSessionId();
+	refreshTotalLikeCount();
+	refreshMyHeart();
+});
 </script>
 
 <body>
@@ -228,7 +330,7 @@ function clip(){
 						<div class = "col"></div>
 						<div class = "col-1 d-flex justify-content-center align-items-center">
 						<!--  공감하트버튼 -->
-							<i id = "heartBox" onclick="togglePromotionReviewLike()" class="text-danger bi bi-heart fs-4"></i><span id = "totalPromoReviewLikeCount">3</span>
+							<i id = "heartBox" onclick="togglePromotionReviewLike()" class="text-danger bi bi-heart fs-4"></i><span id = "totalPromoReviewLikeCount"> 3 </span>
 						</div>
 						
 						<div class = "col-1 p-0 d-flex align-items-center ">
@@ -284,7 +386,7 @@ function clip(){
 					<div class = "row mt-5">
 						<div class = "col">
 							<div class = "row">
-								<div class = "col fw-semibold fst-italic fs-5">댓글()</div>
+								<div class = "col fw-semibold fst-italic fs-5">댓글</div>
 							</div>
 							<div class = "row mt-5">
 								<div class = "col fw-semibold">

@@ -51,7 +51,7 @@ public class RestPromotionReviewController {
 		params.setUser_id(sessionUser.getId());
 		
 		map.put("result", "success");
-		map.put("data", promoReviewService.promoReviewIsLiked(params));
+		map.put("isLiked", promoReviewService.promoReviewIsLiked(params));
 		
 		return map;
 	}
@@ -70,24 +70,4 @@ public class RestPromotionReviewController {
 		return map;
 	}
 	
-	// 로그인 되어있는지 안되어있는지(공감하트)
-	@RequestMapping("promotion/getMyId")
-	public Map<String, Object> getMyId(HttpSession session){
-		Map<String, Object> map = new HashMap<>();
-		
-		UserDto sessionUser = (UserDto) session.getAttribute("sessionUser");
-
-		if (sessionUser == null) {
-			
-			map.put("result", "fail");
-			map.put("reason", "로그인되어있지 않습니다.");
-			return map;
-			
-		} else {
-			map.put("result", "success");
-			map.put("userId", sessionUser.getId());
-		}
-		
-		return map;
-	}
 }

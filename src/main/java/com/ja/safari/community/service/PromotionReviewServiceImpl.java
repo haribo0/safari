@@ -35,13 +35,13 @@ public class PromotionReviewServiceImpl {
 		List<PromotionReviewDto> promotionReviewList = promotionReviewMapper.selectPromotionReviewAll(page, promoReview_searchType, promoReview_searchWord);
 		
 		for(PromotionReviewDto promotionReviewDto : promotionReviewList) {
-			Map<String, Object> map = new HashMap<>();
-			
-		UserDto userDto = userSqlMapper.selectUserDtoById(promotionReviewDto.getUser_id());
-		
+			Map<String, Object> map = new HashMap<>();	
+		UserDto userDto = userSqlMapper.selectUserDtoById(promotionReviewDto.getUser_id());	
 		List<PromotionReviewImgDto> promotionReviewImgList = promotionReviewMapper.selectByPromoReviewImgId(promotionReviewDto.getId());
-
-		int countPromotionReviewComment = promotionReviewCommentMapper.countPromotionReviewComment(promotionReviewCommentDto);
+		
+		
+		int countPromotionReviewComment = promotionReviewCommentMapper.countPromotionReviewComment(promotionReviewDto.getId());
+		
 		
 			map.put("promotionReviewDto", promotionReviewDto);
 			map.put("userDto", userDto);
@@ -160,8 +160,7 @@ public class PromotionReviewServiceImpl {
 	}
 	
 	// 공감 했는지 안했는지
-	public boolean promoReviewIsLiked(PromotionReviewLikeDto promotionReviewLikeDto) {
-		
+	public boolean promoReviewIsLiked(PromotionReviewLikeDto promotionReviewLikeDto) {	
 		return promotionReviewMapper.countPromotionReviewMyLike(promotionReviewLikeDto) > 0;
 			
 	}

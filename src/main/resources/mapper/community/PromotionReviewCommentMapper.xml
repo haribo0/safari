@@ -24,10 +24,10 @@
 </select>
 
 
-<select id="countPromotionReviewComment">
+<select id="countPromotionReviewComment" resultType="int">
 	SELECT count(*)
 	FROM promotion_review_comment
-	WHERE promotion_review_id = ${promotion_review_id}
+	WHERE promotion_review_id = #{promotion_review_id}
 </select>
 
 

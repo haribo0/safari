@@ -10,6 +10,6 @@ public interface PromotionReviewCommentMapper {
 	
 	public List<PromotionReviewCommentDto> selectPromotionReviewCommentAll(Integer promotion_review_id);
 	
-	// 프로모션 글 목록 리스트에 댓글 카운트
-	public int countPromotionReviewComment(PromotionReviewCommentDto promotionReviewCommentDto);
+	// 프로모션 글 목록 리스트에 댓글 갯수
+	public int countPromotionReviewComment(int promotion_review_id);
 }
