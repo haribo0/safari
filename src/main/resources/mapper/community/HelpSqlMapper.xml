@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ja.safari.community.mapper.HelpSqlMapper">
+
+	<select id="createPk" resultType="int">
+		select help_table_seq.nextval from dual
+	</select>
+	
+	<select id="selectUserByUserId" resultType="com.ja.safari.dto.UserDto">
+	select * from user_table where id=#{id}
+	</select>
+	
+	<select id="getHelpCommentById" resultType="com.ja.safari.dto.HelpCommentDto">
+	select * from help_comment_table where id=#{id}
+	</select>
+	
+	<insert id="registerHelpBoard">
+	insert into help_table values(
+    #{id},
+    #{user_id},
+    #{title},
+    #{content},
+    0,
+    #{points},
+    '진행중',
+    #{location},
+    sysdate
+	)
+	</insert>
+	
+	<select id="getHelpBoard" resultType="com.ja.safari.dto.HelpDto">
+		select * from help_table where id=#{id}
+	</select>
+	
+	<select id="selectAllHelpBoards" resultType="com.ja.safari.dto.HelpDto">
+		select ht2.* from(
+    		select ht1.*, rownum rnum from(
+        		select ht.* from help_table ht
+        		order by id desc
+        	) ht1
+     	)ht2
+     	<![CDATA[ 
+		where ht2.rnum >= ((#{helpPage}-1)*10)+1 and ht2.rnum <= #{helpPage}*10
+		]]>
+	</select>
+	
+	 <select id="getHelpBoardCount" resultType="int">
+		select count(*) from help_table
+	</select>
+	
+	
+	
+	<update id="updateHelpBoard">
+	update help_table
+		set 
+	  		title= #{title} , content= #{content} , points= #{points} , location=#{location} 
+		where 
+	  		id=#{id}
+	</update>
+	
+    
+  <delete id="deleteHelpBoard">
+  	delete from help_table where id=#{id}
+  </delete>
+  
+  <update id="increaseHelpReadCount">
+  	update help_table
+	set views = views + 1
+	where id = #{id}
+  </update>
+  
+  <!-- 해주세요 게시물 댓글 insert -->
+  <insert id="registerHelpComment">
+  insert into help_comment_table values(
+    HELP_COMMENT_TABLE_SEQ.nextval,
+    #{user_id},
+    #{help_id},
+    #{content},
+    '채택 대기중',
+    sysdate
+    )
+  </insert>
+  
+  <!-- 해주세요 게시글 댓글 리스트 조회 -->
+  <select id="selectAllHelpComments" resultType="com.ja.safari.dto.HelpCommentDto">
+  select * from help_comment_table where help_id=#{help_id} order by id desc
+  </select>
+  
+  
+    
+  <delete id="deleteHelpComment">
+  delete from help_comment_table where id=#{id}
+  </delete>
+  
+  <!--해주세요 게시물 이미지 insert  --> 
+  <insert id="insertHelpBoardImage">
+	insert into help_img_table values(
+	    help_img_table_seq.nextval,
+	    #{help_id},
+	    #{help_img_link},
+	    #{help_original_filename}
+    )
+  </insert>
+  
+  <select id="selectHelpBoardImageByHelpId" resultType="com.ja.safari.dto.HelpImgDto">
+  	select * from help_img_table
+	where help_id = #{helpId}
+  </select>
+	
+	<!-- 해주세요 좋아요 insert -->
+	<insert id="insertHelpLike">
+	insert into help_like_table values(
+	    help_like_table_seq.nextval,
+	    #{user_id},
+	    #{help_id},
+	    sysdate
+	)
+	</insert>
+	
+	<!-- 해주세요 좋아요수 count -->
+	<select id="getHelpLikeCountByBoardId" resultType="int">
+	select count(*) from help_like_table where help_id = #{help_id}
+	</select>
+
+	
+	<!-- 해주세요 댓글수 보드에 출력 -->
+	<select id="selectAllHelpCommentCountByBoardId" resultType="int">
+	select count(*) from help_comment_table where help_id=#{help_id}
+	</select>
+
+	<!-- 해주세요 좋아요 수 보드에 출력 -->
+	<select id="selectAllHelpLikeCountByBoardId" resultType="int">
+	select count(*) from help_like_table where help_id=#{help_id}
+	</select>
+
+	<!-- 해주세요 이미지 보드에 출력 -->
+	<select id="selectAllHelpImgByBoardId" resultType="int">
+	select count(*) from help_img_table where help_id=#{help_id}
+	</select>
+	
+	<!-- 해주세요 베스트 게시물 --><!-- 쿼리 쉽게 변경 -->
+	<select id="selectBestHelpBoard" resultType="com.ja.safari.dto.HelpDto">
+	select t1.* from(
+	select ht.*,(select count(*) from help_like_table hlt where hlt.help_id = ht.id)+ ht.views as helplikeAndViewCount
+	from help_table ht 
+	order by (select count(*) from help_like_table hlt where hlt.help_id = ht.id)*10 + ht.views*0.5 desc
+	)t1
+	<![CDATA[
+	where rownum <=3
+	]]> 
+	</select>
+	
+	
+	<!-- 해주세요 좋아요 입력/취소 -->
+	 <select id="checkHelpLike" resultType="int">
+		select count(*) 
+		from help_like_table 
+		where help_id=#{help_id} and user_id=#{user_id}
+	</select>
+	
+	<delete id="removeHelpLike">
+		delete from help_like_table 
+		where help_id=#{help_id} and user_id=#{user_id}
+	</delete>
+	
+	<!-- 해주세요 게시물 미션완료(채택) insert -->
+	<insert id="acceptHelpComment">
+	INSERT INTO help_comment_complete_table VALUES(
+        help_comment_complete_seq.nextval,
+        #{help_comment_id},
+        SYSDATE
+        )
+	</insert>
+	
+	<!-- 해주세요 게시물 댓글 채택완료 update -->
+	<update id="completeHelpComment">
+	update help_comment_table
+    	set status='채택 완료'
+        	where id=#{id}
+	</update>
+	
+	<!-- 해주세요 게시물 채택 상태 변경 -->
+	<update id="changeCompleteHelp">
+	update help_table
+		set status='채택 완료'
+			where id=#{id}
+	</update>
+	
+	
+	
+	
+	
+	
+</mapper>
