@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>사파리 | 구인구직 메인</title>
+<title>사파리 | 구인구직 메인11111</title>
 
 <!-- 메타 섹션 -->
 <jsp:include page="../../common/meta.jsp"></jsp:include>
