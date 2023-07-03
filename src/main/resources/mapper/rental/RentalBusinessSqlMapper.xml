@@ -166,12 +166,61 @@
 		WHERE main_category_id = #{main_category_id} 
 	</select>
 	
+	<!-- 반품 리스트 최근 5개 가져오기 -->
+	<select id="getRecentReturnListByUserId" resultType="com.ja.safari.dto.RentalItemReturnDto">
+	
+		<![CDATA[
+			SELECT t2.* FROM (
+				SELECT t1.*, rownum rn FROM (
+					SELECT rirt.*
+					FROM RENTAL_ITEM_RETURN_TABLE rirt, rental_item_table it, rental_order_table ot
+					WHERE rirt.rental_order_id = ot.id
+					AND it.id = ot.item_id 
+					AND it.business_id = #{userId}
+					ORDER BY ot.id DESC
+				) t1
+			) t2 
+			WHERE t2.rn<=5
+	  	]]>
+
+	</select>
+	
+	<!-- 주문 리스트 최근 5개 가져오기 -->
+	<select id="getRecentOrderListByUserId" resultType="com.ja.safari.dto.RentalOrderDto">
+	
+		<![CDATA[
+			SELECT t2.* FROM (
+				SELECT t1.*, rownum rn FROM (
+					SELECT ot.*
+					FROM rental_item_table it, rental_order_table ot
+					WHERE it.id = ot.item_id 
+					and it.business_id = #{userId}
+					ORDER BY ot.id DESC
+				) t1
+			) t2 
+			WHERE t2.rn<=5
+	  	]]>
+
+	</select>
+	
 	<!-- 주문 리스트 가져오기 -->
 	<select id="getOrderListByUserId" resultType="com.ja.safari.dto.RentalOrderDto">
 		SELECT ot.* 
 		FROM rental_item_table it, rental_order_table ot
 		WHERE it.id = ot.item_id 
 		and it.business_id = #{userId}
+		ORDER BY ot.id DESC
+	</select>
+	
+	<!-- 상품별 주문 리스트 가져오기 -->
+	<select id="getOrderListByUserIdAndProductId" resultType="com.ja.safari.dto.RentalOrderDto">
+		SELECT ot.* 
+		FROM rental_item_table it, rental_order_table ot
+		WHERE it.id = ot.item_id 
+		and it.business_id = #{userId}
+		<if test="productId != null and productId != 0 ">
+		and it.id = #{productId}
+		</if>
 		ORDER BY ot.id DESC
 	</select>
 	
@@ -449,6 +498,7 @@
 		    SELECT to_char(ot.reg_date, 'MM') AS MONTH, count(*) AS SALES
 		    FROM rental_order_table ot, rental_item_table it
 		    WHERE ot.item_id = it.id
+		    AND it.BUSINESS_ID = #{businessId}
 		    GROUP BY to_char(ot.reg_date, 'MM')
 		    ORDER BY to_char(ot.reg_date, 'MM')
 	  	]]>
@@ -462,6 +512,7 @@
 			SELECT it.TITLE , count(*) AS SALES
 			FROM rental_order_table ot, rental_item_table it
 			WHERE ot.item_id = it.id 
+			AND it.BUSINESS_ID = #{businessId}
 			GROUP BY it.TITLE
 	  	]]>
 	
@@ -474,6 +525,7 @@
 		    SELECT to_char(ot.reg_date, 'MM') AS MONTH, count(*) AS SALES
 		    FROM rental_order_table ot, rental_item_table it
 		    WHERE ot.item_id = it.id
+		    AND it.BUSINESS_ID = #{businessId}
 		    GROUP BY to_char(ot.reg_date, 'MM')
 		    ORDER BY to_char(ot.reg_date, 'MM')
 	  	]]>
@@ -484,8 +536,10 @@
 	<!-- 성별 비율 -->
 	<select id="getSalesByGender" resultType="map">
 
-		SELECT ut.gender, count(*) as SALES FROM rental_order_table ot, user_table ut
+		SELECT ut.gender, count(*) as SALES FROM rental_order_table ot, user_table ut, RENTAL_ITEM_TABLE rit 
 		WHERE ot.user_id = ut.id
+		AND ot.ITEM_ID  = rit.ID 
+		AND rit.BUSINESS_ID = #{businessId}
 		GROUP BY ut.gender
 		ORDER BY ut.gender
 
@@ -499,6 +553,7 @@
 		<![CDATA[
 			SELECT to_char(ot.reg_date, 'MM') as MONTH, sum(ot.price) as REVENUE from rental_order_table ot, rental_item_table it
 			WHERE ot.item_id = it.id
+			AND it.BUSINESS_ID = #{businessId}
 			GROUP BY to_char(ot.reg_date, 'MM')
 			ORDER BY to_char(ot.reg_date, 'MM')
 	  	]]>

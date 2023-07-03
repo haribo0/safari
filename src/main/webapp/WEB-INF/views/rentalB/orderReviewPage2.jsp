@@ -46,9 +46,11 @@
 	<!-- 헤더 섹션 -->
 
 	<div class="container-fluid main_box">
-		<div class="row ms-5">
+		<div class="row">
 		
-			<div class="col-2 ">
+		
+			<div class="col-2" style=""></div>
+			<div class="col-2  bg-dark h-100" style="position: fixed;">
 				<div class="list-group list-group-flush">
 					
 					<!-- 왼쪽 카테고리 리스트 -->
@@ -65,15 +67,11 @@
 			
 			
 			
+			<div class="col container mt-5 me-5">
 			
-			
-			
-			
-			<div class="col container  me-5">
-			
-    			<h4 class="row mt-3 mb-0 fw-regular">리뷰 관리</h4>
+    			<h4 class="ps-4 ms-4 mt-3 mb-4 fw-regular">리뷰 관리</h4>
 
-				<div class="row  mb-2">
+				<div class="row mt-5 ms-4">
 					
 					
 					<!-- 상품 리스트 COLUMN  -->
@@ -83,7 +81,7 @@
 						
 						
 						
-						<div class="row mt-4">
+						<div class="row mt-1">
 								
 							<hr class="border border-black opacity-25">
 								
@@ -109,7 +107,7 @@
 						
 						<div class="row mt-1">
 							<div class="col " id="productList">
-								<div class="row pt-2">
+								<div class="row ms-1 pt-2">
 									<div class="col pb-2" onclick="getReviewsByProductAndStatus(0,-1)" style="cursor:pointer;">상품 전체</div>
 								</div>
 								<hr class="border">
@@ -129,7 +127,7 @@
 					
 					<div class="col ms-4 px-3">
 						
-						<div class="row mt-4">
+						<div class="row mt-1">
 								
 							<hr class="border border-black opacity-25">
 								
@@ -225,7 +223,7 @@ function getProductList() {
 				
 				
 				const row = document.createElement("div");
-				row.className = "row mt-2";
+				row.className = "row ms-1 mt-2";
 				const col = document.createElement("div");
 				col.className = "col mb-2";
 				col.innerText = data.title;
@@ -286,7 +284,7 @@ function getReviewsByProductAndStatus(productId, status) {
 		statusNum = status;
 	} */
 	
-	console.log(productIdNum);
+	/* console.log(productIdNum); */
 	
 	
 

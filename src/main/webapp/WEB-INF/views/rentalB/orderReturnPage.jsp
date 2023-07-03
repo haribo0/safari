@@ -17,10 +17,12 @@
 	<!-- 헤더 섹션 -->
 
 	<div class="container-fluid main_box">
-		<div class="row ms-5">
+		<div class="row">
 		
-			<div class="col-2 ">
-				<div class="list-group list-group-flush">
+		
+			<div class="col-2" style=""></div>
+			<div class="col-2 bg-dark h-100" style="position: fixed;">
+			<div class="list-group list-group-flush">
 					
 					<!-- 왼쪽 카테고리 리스트 -->
 					<jsp:include page="../common/navLeft.jsp"></jsp:include>
@@ -35,34 +37,43 @@
 			</div>
 			
 			
-			<div class="col  container me-5" id="listContainer">
 			
-    			<h4 class="row mt-3 mb-4 fw-regular">반품 관리</h4>
+			
+			
+			<div class="col mt-5 container ms-4" id="listContainer">
+			
+    			<h4 class="ps-4 mt-3 mb-4 fw-regular">반품 관리</h4>
 
-				<div class="row mt-3 mb-2 fw-medium">
+				<div class="row mt-5 ms-4 fw-medium">
 					반품 수취 확인
 				</div>
 				
 				
 				<div class="row mt-4 mb-3 fw-medium">
-					<div class="col-1 text-center">
+					<div class="col text-center">
 						#
 					</div> 
+					<div class="col-1 text-center">
+						사진
+					</div>
 					<div class="col-3 text-center">
 						상품
 					</div>
-					<div class="col-4 text-center">
+					<div class="col-2 text-center">
+						연락처
+					</div>
+					<div class="col-2 text-center">
 						주소
 					</div>
-					<div class="col-2 text-center">
+					<div class="col text-center">
 						반납신청
 					</div>
-					<div class="col-2 text-center">
+					<div class="col text-center">
 						상태
 					</div>
 				</div>
 				
-				<hr class="border border-black border-1 opacity-100">
+				<hr class="border ms-2 border-black border-1 opacity-100">
 
 				
 				
@@ -76,30 +87,36 @@
 				</div>
 					
 
-				<div class="row mt-5 mb-2 fw-medium">
+				<div class="row ms-4 mt-5 mb-2 fw-medium">
 					반품 정산 
 				</div>
 
 				
 				<div class="row mt-4 mb-3 fw-medium">
-					<div class="col-1 text-center">
+					<div class="col text-center">
 						#
+					</div>
+					<div class="col text-center">
+						사진
 					</div>
 					<div class="col-3 text-center">
 						상품
 					</div>
-					<div class="col-4 text-center">
+					<div class="col-2 text-center">
+						연락처
+					</div>
+					<div class="col-2 text-center">
 						주소
 					</div>
-					<div class="col-2 text-center">
+					<div class="col text-center">
 						반납신청
 					</div>
-					<div class="col-2 text-center">
+					<div class="col text-center">
 						상태
 					</div>
 				</div>
 				
-				<hr class="border border-black border-1 opacity-100">
+				<hr class="border ms-2 border-black border-1 opacity-100">
 
 				
 				
@@ -119,11 +136,17 @@
 				
 				
 				
-				
+				<div class="col-1 "></div>
 			
 			</div>
 			
-			<!-- Modal -->
+			
+		
+			
+		</div>
+	
+	
+	<!-- Modal -->
 			<div class="modal fade" id="checkModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 			  <div class="modal-dialog">
 			    <div class="modal-content">
@@ -188,10 +211,10 @@
 					        	<div class="col" id="inputBox"> 
 					        		<div class="row mt-1">
 							        	<div class="col-4"> 
-							        		<input class="form-control" type="number" name="charge">
+							        		<input class="form-control charge" type="number" name="charge">
 							        	</div>
 							        	<div class="col-6"> 
-							        		<input class="form-control" type="text" name="reason">
+							        		<input class="form-control reason" type="text" name="reason">
 							        	</div>
 							        	<div class="col-2 d-grid"> 
 							        		<div class="btn btn-outline-dark" onclick="appendInputs()">+</div>
@@ -219,17 +242,12 @@
 			        
 			      </div>
 			      <div class="modal-footer">
-			        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-			        <button type="button" class="btn btn-primary">Save changes</button>
+			        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+			        <button type="button" class="btn btn-primary" onclick="getInputData()">정산 확인</button>
 			      </div>
 			    </div>
 			  </div>
 			</div>
-		
-		
-		</div>
-	</div>
-	
 	
 	
 	
@@ -244,6 +262,9 @@
 
 
 <script >
+
+
+let returnId = null;
 
 
 // 수취확인 전 
@@ -267,41 +288,56 @@ function getItemToBeReturnedList() {
 			response.list.forEach(function(data){
 				
 				const col1 = document.createElement("div");
-				col1.classList.add("col-1");
-				col1.classList.add("text-center");
+				col1.classList.add("col");
+				col1.classList.add("text-center","my-auto");
 				col1.innerText = data.orderDto.id;
 				listContainer.appendChild(col1);
 				
+				const colImgDiv = document.createElement('div');
+				colImgDiv.classList.add('col-1', 'my-auto');
+				const imgElement = document.createElement('img');
+				imgElement.classList.add('img-fluid', 'px-2');
+				imgElement.src = "/safariImg/"+data.productDto.main_img_link;
+				imgElement.style.width = '70px';
+				colImgDiv.appendChild(imgElement);
+				listContainer.appendChild(colImgDiv);
+				
 				const col2 = document.createElement("div");
 				col2.classList.add("col-3");
-				col2.classList.add("text-center");
+				col2.classList.add("text-center","my-auto");
 				col2.innerText = data.productDto.title;
 				listContainer.appendChild(col2);
 				
+				const colContact = document.createElement("div");
+				colContact.classList.add("col-2");
+				colContact.classList.add("text-center","my-auto");
+				colContact.innerText = data.userDto.phone;
+				listContainer.appendChild(colContact);
+				
 				const col3 = document.createElement("div");
-				col3.classList.add("col-4");
-				col3.classList.add("text-center");
+				col3.classList.add("col-2");
+				col3.classList.add("text-center","my-auto");
 				col3.innerText = data.orderDto.address;
 				listContainer.appendChild(col3);
 				
 				const col4 = document.createElement("div");
-				col4.classList.add("col-2");
-				col4.classList.add("text-center");
+				col4.classList.add("col");
+				col4.classList.add("text-center","my-auto");
 				const regDate = new Date(data.returnDto.reg_date);
 			    const formattedRegDate = regDate.toLocaleDateString('en-US', { month: '2-digit', day: '2-digit', year: 'numeric' });
 				col4.innerText = formattedRegDate;
 				listContainer.appendChild(col4);
 				
 				const col5 = document.createElement("div");
-				col5.classList.add("col-2");
-				col5.classList.add("text-center");
+				col5.classList.add("col");
+				col5.classList.add("text-center","my-auto");
 					const btn1 = document.createElement("div");
 					btn1.classList.add("col");
 					btn1.className = 'btn btn-dark';
 					btn1.innerText = "수취확인";
 					btn1.setAttribute('data-order-id', data.orderDto.id);
 					btn1.setAttribute('data-return-id', data.returnDto.id);
-					btn1.setAttribute('onclick', changeReturnShippingStatus);
+					btn1.setAttribute('onclick', "changeReturnShippingStatus(this)");
 					col5.appendChild(btn1);
 				listContainer.appendChild(col5);
 				
@@ -312,7 +348,6 @@ function getItemToBeReturnedList() {
 				listBox.appendChild(listContainer);
 
 				
-			    
 			});
 			
 			
@@ -331,7 +366,6 @@ function getItemToBeReturnedList() {
 // 수추확인 후 - 정산 처리  
 function getItemReturnedList() {
 	
-	
 	const listBox = document.getElementById("listBox2");
 	listBox.innerHTML = "";
 	
@@ -344,39 +378,52 @@ function getItemReturnedList() {
 			const listContainer = document.createElement("div");
 			listContainer.className = 'row mt-3 mb-4';
 			
-			
 			response.list.forEach(function(data){
 				
 				const col1 = document.createElement("div");
-				col1.classList.add("col-1");
-				col1.classList.add("text-center");
-				col1.classList.add("text-center");
+				col1.classList.add("col");
+				col1.classList.add("text-center","my-auto");
 				col1.innerText = data.orderDto.id;
 				listContainer.appendChild(col1);
 				
+				const colImgDiv = document.createElement('div');
+				colImgDiv.classList.add('col-1', 'my-auto');
+				const imgElement = document.createElement('img');
+				imgElement.classList.add('img-fluid', 'px-2');
+				imgElement.src = "/safariImg/"+data.productDto.main_img_link;
+				imgElement.style.width = '70px';
+				colImgDiv.appendChild(imgElement);
+				listContainer.appendChild(colImgDiv);
+				
 				const col2 = document.createElement("div");
 				col2.classList.add("col-3");
-				col2.classList.add("text-center");
+				col2.classList.add("text-center","my-auto");
 				col2.innerText = data.productDto.title;
 				listContainer.appendChild(col2);
 				
+				const colContact = document.createElement("div");
+				colContact.classList.add("col-2");
+				colContact.classList.add("text-center","my-auto");
+				colContact.innerText = data.userDto.phone;
+				listContainer.appendChild(colContact);
+				
 				const col3 = document.createElement("div");
-				col3.classList.add("col-4");
-				col3.classList.add("text-center");
+				col3.classList.add("col-2");
+				col3.classList.add("text-center","my-auto");
 				col3.innerText = data.orderDto.address;
 				listContainer.appendChild(col3);
 				
 				const col4 = document.createElement("div");
-				col4.classList.add("col-2");
-				col4.classList.add("text-center");
+				col4.classList.add("col");
+				col4.classList.add("text-center","my-auto");
 				const regDate = new Date(data.returnDto.reg_date);
 			    const formattedRegDate = regDate.toLocaleDateString('en-US', { month: '2-digit', day: '2-digit', year: 'numeric' });
 				col4.innerText = formattedRegDate;
 				listContainer.appendChild(col4);
 				
 				const col5 = document.createElement("div");
-				col5.classList.add("col-2");
-				col5.classList.add("text-center");
+				col5.classList.add("col");
+				col5.classList.add("text-center","my-auto");
 					const btn1 = document.createElement("div");
 					btn1.classList.add("col");
 					btn1.className = 'btn btn-outline-dark';
@@ -435,13 +482,14 @@ function changeReturnShippingStatus(e) {
 
 
 
-
+// 모달에 정보 넣어서 띄워주기 
 function check(e) {
 	
 	const checkModal = bootstrap.Modal.getOrCreateInstance('#checkModal');
 	checkModal.show();
 	
-	const returnId = e.getAttribute("data-return-id");
+	
+	returnId = e.getAttribute("data-return-id");
 	const productNameBox = document.getElementById("productName");
 	const depositBox = document.getElementById("deposit");
 	
@@ -483,7 +531,7 @@ function appendInputs(){
 	  col4.className = 'col-4';
 	  // input 요소 생성
 	  const chargeInput = document.createElement('input');
-	  chargeInput.className = 'form-control';
+	  chargeInput.className = 'form-control charge';
 	  chargeInput.type = 'number';
 	  chargeInput.name = 'charge';
 
@@ -492,7 +540,7 @@ function appendInputs(){
 	  col6.className = 'col-6';
 	  // input 요소 생성
 	  const reasonInput = document.createElement('input');
-	  reasonInput.className = 'form-control';
+	  reasonInput.className = 'form-control reason';
 	  reasonInput.type = 'text';
 	  reasonInput.name = 'reason';
 
@@ -516,67 +564,52 @@ function appendInputs(){
 	  // 기존 요소에 새로운 row 추가
 	  inputBox.appendChild(newRow);
 
-
 }
 
-/* 
-function appendInputs(){
-	
-	const listBox = document.getElementById("inputBox");
-	
-	// inputBox 요소를 선택합니다.
-	const inputBoxElement = document.getElementById('inputBox');
-	const buttonElement = inputBoxElement.querySelector('.btn');
-	// 버튼 요소를 부모 요소에서 제거합니다.
-	buttonElement.remove();
-	
 
-	// 첫 번째 <div> 요소 생성
-	const divElement1 = document.createElement('div');
-	divElement1.classList.add('col-4');
 
-	// 첫 번째 <input> 요소 생성
-	const inputElement1 = document.createElement('input');
-	inputElement1.classList.add('form-control');
-	inputElement1.setAttribute('type', 'number');
-	inputElement1.setAttribute('name', 'charge');
-	// 첫 번째 <input> 요소를 <div> 요소에 추가
-	divElement1.appendChild(inputElement1);
-	// 부모 요소에 첫 번째 <div> 요소 추가
-	listBox.appendChild(divElement1);
-
-	// 두 번째 <div> 요소 생성
-	const divElement2 = document.createElement('div');
-	divElement2.classList.add('col-6');
-	// 두 번째 <input> 요소 생성
-	const inputElement2 = document.createElement('input');
-	inputElement2.classList.add('form-control');
-	inputElement2.setAttribute('type', 'text');
-	inputElement2.setAttribute('name', 'reason');
-	// 두 번째 <input> 요소를 <div> 요소에 추가
-	divElement2.appendChild(inputElement2);
-	// 부모 요소에 두 번째 <div> 요소 추가
-	listBox.appendChild(divElement2);
+function getInputData() {
+	
+	// Get all the input elements with class names 'charge' and 'reason'
+	const chargeInputs = document.getElementsByClassName('charge');
+	const reasonInputs = document.getElementsByClassName('reason');
+	
+	let chargeValue = [];
+	let reasonValue = [];
+		
+	// Loop through the input elements and retrieve their values
+	for (let i = 0; i < chargeInputs.length; i++) {
+		if(chargeInputs[i].value==null && reasonInputs[i].value==null) continue;
+		if (chargeInputs[i].value && !reasonInputs[i].value || !chargeInputs[i].value && reasonInputs[i].value) {
+			chargeInputs[i].focus();
+			
+			return;
+		}
+		chargeValue.push(chargeInputs[i].value);
+		reasonValue.push(reasonInputs[i].value);
+	}
+	
+	
 	
 
-	// 세 번째 <div> 요소 생성
-	const divElement3 = document.createElement('div');
-	divElement3.classList.add('col-2');
-	const newButtonElement = document.createElement('div');
-	newButtonElement.className = 'btn btn-outline-dark';
-	newButtonElement.textContent = '+';
-	newButtonElement.addEventListener('click', appendInputs);
-	divElement3.appendChild(newButtonElement);
-	// 부모 요소에 새로운 버튼을 추가합니다.
-	listBox.appendChild(divElement3);
+	const xhr = new XMLHttpRequest();
+
+	xhr.onreadystatechange = function() {
+		if(xhr.readyState == 4 && xhr.status == 200){
+			const response = JSON.parse(xhr.responseText);
+			
+		}
+	}
 
 
-} */
-
-
-
-
-
+	// post 방식 
+	xhr.open("post", "url");
+	xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+	xhr.send("returnId="+returnId+"&chargeValue="+chargeValue+"&reasonValue="+reasonValue);
+	
+	
+	
+}
 
 
 

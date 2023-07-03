@@ -8,7 +8,9 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.ja.safari.community.mapper.PromotionReviewCommentMapper;
 import com.ja.safari.community.mapper.PromotionReviewMapper;
+import com.ja.safari.dto.PromotionReviewCommentDto;
 import com.ja.safari.dto.PromotionReviewDto;
 import com.ja.safari.dto.PromotionReviewImgDto;
 import com.ja.safari.dto.PromotionReviewLikeDto;
@@ -22,24 +24,31 @@ public class PromotionReviewServiceImpl {
 	private PromotionReviewMapper promotionReviewMapper;
 	@Autowired
 	private UserSqlMapper userSqlMapper;
+	@Autowired
+	private PromotionReviewCommentMapper promotionReviewCommentMapper;
 	
 	// 프로모션 리뷰 게시글 목록 리스트 
-	public List<Map<String, Object>> getPromotionReviewList(int page, String promoReview_searchType, String promoReview_searchWord){
+	public List<Map<String, Object>> getPromotionReviewList(int page, String promoReview_searchType, String promoReview_searchWord, PromotionReviewCommentDto promotionReviewCommentDto){
 		
 		List<Map<String, Object>> list = new ArrayList<Map<String,Object>>();
 		
 		List<PromotionReviewDto> promotionReviewList = promotionReviewMapper.selectPromotionReviewAll(page, promoReview_searchType, promoReview_searchWord);
 		
 		for(PromotionReviewDto promotionReviewDto : promotionReviewList) {
-			Map<String, Object> map = new HashMap<>();
-			
-		UserDto userDto = userSqlMapper.selectUserDtoById(promotionReviewDto.getUser_id());
-		
+			Map<String, Object> map = new HashMap<>();	
+		UserDto userDto = userSqlMapper.selectUserDtoById(promotionReviewDto.getUser_id());	
 		List<PromotionReviewImgDto> promotionReviewImgList = promotionReviewMapper.selectByPromoReviewImgId(promotionReviewDto.getId());
-
+		
+		
+		int countPromotionReviewComment = promotionReviewCommentMapper.countPromotionReviewComment(promotionReviewDto.getId());
+		
+		
 			map.put("promotionReviewDto", promotionReviewDto);
 			map.put("userDto", userDto);
 			map.put("promotionReviewImgList", promotionReviewImgList);		
+			// 맵에 댓글카운트 담아야함
+			map.put("countPromotionReviewComment", countPromotionReviewComment);
+			
 			
 			list.add(map);
 			
@@ -93,7 +102,11 @@ public class PromotionReviewServiceImpl {
 		map.put("userDto", userDto);
 		map.put("promotionReviewDto", promotionReviewDto);
 		map.put("promotionReviewImgDtoList", promotionReviewImgDtoList);
+
 		
+		// map 안에 map 넣기 예시
+		// Map<String, Object> mapRental = new HashMap<>();
+		// map.put("mapRental", mapRental);
 		
 		return map;
 	}
@@ -136,26 +149,24 @@ public class PromotionReviewServiceImpl {
 	}
 
 	// 프로모션 리뷰 게시물 공감
-	public void togglePromotionReviewLike(PromotionReviewLikeDto promotionReviewLikeDto) {
+	public void toggleLikePromotionReview(PromotionReviewLikeDto promotionReviewLikeDto) {
 		
-		if (promotionReviewMapper.countPromoReviewMyLike(promotionReviewLikeDto) > 0) {
+		if (promotionReviewMapper.countPromotionReviewMyLike(promotionReviewLikeDto) > 0) {
 				promotionReviewMapper.deletePromotionReviewLike(promotionReviewLikeDto);
 		} else {
-				promotionReviewMapper.insertPromotionReviewLike(promotionReviewLikeDto);
+				promotionReviewMapper.plusPromotionReviewLike(promotionReviewLikeDto);
 			
 		}
 	}
 	
-	
-	// 공감 total count
-	public boolean promoReviewIsLiked(PromotionReviewLikeDto promotionReviewLikeDto) {
-		
-		return promotionReviewMapper.countPromoReviewMyLike(promotionReviewLikeDto) > 0;
+	// 공감 했는지 안했는지
+	public boolean promoReviewIsLiked(PromotionReviewLikeDto promotionReviewLikeDto) {	
+		return promotionReviewMapper.countPromotionReviewMyLike(promotionReviewLikeDto) > 0;
 			
 	}
 	
-	// 
-	public int getTotalPromoReviewLikeCount(int reviewId) {
-		return promotionReviewMapper.countLikeByUserId(reviewId);
+	// 공감 total 
+	public int getTotalPromoReviewLike(int reviewId) {
+		return promotionReviewMapper.countLikeByPromotionReviewId(reviewId);
 	}
 }

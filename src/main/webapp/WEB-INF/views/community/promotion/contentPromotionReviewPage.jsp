@@ -46,6 +46,104 @@
 
 </style>
 <script>
+// 좋아요 토글
+	const promotionReviewId = new URLSearchParams(location.search).get("id");
+	
+
+	let mySessionId = null;
+
+	function getSessionId(){
+		const xhr = new XMLHttpRequest();
+		
+		xhr.onreadystatechange = function(){
+			if(xhr.readyState == 4 && xhr.status == 200){
+				const response = JSON.parse(xhr.responseText);
+				
+				if(response.result == "success"){
+					mySessionId = response.id;
+				}
+			}
+		}
+	
+		xhr.open("get", "../../user/getMyId", false);
+		xhr.send();
+	}
+
+	
+	function refreshTotalLikeCount(){
+		const xhr = new XMLHttpRequest();
+		
+		xhr.onreadystatechange = function(){
+			if(xhr.readyState == 4 && xhr.status == 200){
+				const response = JSON.parse(xhr.responseText);
+			
+				const totalLikeCountBox = document.getElementById("totalPromoReviewLikeCount");
+				totalLikeCountBox.innerText = response.count;
+			}
+		}
+		
+
+		
+		xhr.open("get", "./getTotalPromoReviewLikeCount?reviewId=" + promotionReviewId);
+		xhr.send();
+	}
+	
+	
+	function togglePromotionReviewLike(){
+		if(mySessionId == null){
+			if(confirm("로그인을 하셔야 이용가능합니다. 로그인 하시겠습니까?")){
+				location.href = "../../user/loginPage";				
+			}
+			
+			return;
+		}	
+		
+		const xhr = new XMLHttpRequest();
+		
+		xhr.onreadystatechange = function(){
+			if(xhr.readyState == 4 && xhr.status == 200){
+				const response = JSON.parse(xhr.responseText);
+				
+				refreshTotalLikeCount();
+				refreshMyHeart();
+			}
+		}
+		
+		xhr.open("get", "./togglePromotionReviewLike?review_id=" + promotionReviewId);
+		xhr.send();		
+	}
+	
+
+	function refreshMyHeart(){
+		
+		if(mySessionId == null) return;	
+		
+		const xhr = new XMLHttpRequest();
+		
+		xhr.onreadystatechange = function(){
+			if(xhr.readyState == 4 && xhr.status == 200){
+				const response = JSON.parse(xhr.responseText);
+				// js 렌더링... 작업..
+				const heartBox = document.getElementById("heartBox");
+				
+				if(response.isLiked){
+					heartBox.classList.remove("bi-heart");
+					heartBox.classList.add("bi-heart-fill");
+				}else{
+					heartBox.classList.remove("bi-heart-fill");
+					heartBox.classList.add("bi-heart");
+				}
+			}
+		}
+		
+		//get
+		xhr.open("get", "./promoReviewIsLiked?review_id=" + promotionReviewId);
+		xhr.send();
+		
+	}
+	
+	
+
 // uri 복사
 function clip(){
 
@@ -60,6 +158,14 @@ function clip(){
 	alert("URL이 복사되었습니다.")
 }
 
+
+
+window.addEventListener("DOMContentLoaded", function(){
+	
+	getSessionId();
+	refreshTotalLikeCount();
+	refreshMyHeart();
+});
 </script>
 
 <body>
@@ -77,7 +183,7 @@ function clip(){
 	</div>
 	
 
-	<div class="container main_box">
+<div class="container main_box">
 	<!--  뒤로가기 버튼 -->
 	<div class = "row mt-3">
 		<div class = "col-1">
@@ -105,7 +211,7 @@ function clip(){
 	</div>
 	
 	<div class = "row">
-		<!--  사진 첨부(게시물 등록자가 올린것들?) -->
+	<!--  사진 첨부(게시물 등록자가 올린것들?) -->
 		<div class = "col"> 
 		
 
@@ -135,7 +241,6 @@ function clip(){
 					    <span class="visually-hidden">Next</span>
 					 </button>
 				</div>
-			
 			</div>
 			<div class = "row">
 				<div class = "col">
@@ -165,13 +270,16 @@ function clip(){
 				</div>
 			</div>
 			
-			
-		</div>
+		</div> <!--  col 1번 -->
+	
+		
+		<!--  중간 바 -->
 		<div class = "col-1">
 			<div class="d-flex" style="height: 450px;">
 				  <div class="vr"></div>
 			</div>
-		</div>
+		</div> <!--  col 2번 -->
+		
 		<!--  게시물 내용 -->
 		<div class = "col-7 scroll-container"> 
 			
@@ -200,7 +308,9 @@ function clip(){
 					<div class = "row mt-3">
 						<div class = "col-2">
 							<div class="d-flex align-items-center">
-							<img src="${data.userDto.profile_img_link }" class="rounded-circle" style="width: 50px; height: 50px;" alt="프로필사진">				
+							<img src="${data.userDto.profile_img_link }"
+								class="rounded-circle" style="width: 50px; height: 50px;"
+								alt="프로필사진">				
 							
 										
 							</div>
@@ -219,12 +329,12 @@ function clip(){
 						</div>
 						<div class = "col"></div>
 						<div class = "col-1 d-flex justify-content-center align-items-center">
-							<!--  공감하트버튼 -->
-							<button class="btn bi bi-heart fs-4" type="button" aria-expanded="false">
-							</button>
+						<!--  공감하트버튼 -->
+							<i id = "heartBox" onclick="togglePromotionReviewLike()" class="text-danger bi bi-heart fs-4"></i><span id = "totalPromoReviewLikeCount"> 3 </span>
 						</div>
+						
 						<div class = "col-1 p-0 d-flex align-items-center ">
-							<!--  공유버튼 -->
+						<!--  공유버튼 -->
 							<a href="" onclick="clip(); return false;" style="text-decoration: none; color: inherit;">
 								<span class = "bi bi-share-fill fs-4"></span>
 							</a>
@@ -238,6 +348,7 @@ function clip(){
 							<hr class="my-4" style="border-color: gray;">
 						</div>
 					</div>
+					
 						<!--  본문 내용 -->
 					<div class = "row mt-5">
 						<div class = "col">
@@ -264,42 +375,118 @@ function clip(){
 					
 					--%>
 					
+					<!--  본문과 댓글 사이 -->
+					<div class = "row mt-5">
+						<div class = "col">
+							<hr class="my-4" style="border-color: gray;">
+						</div>
+					</div>
+					
 					<!--  댓글 작성 -->	
 					<div class = "row mt-5">
 						<div class = "col">
 							<div class = "row">
-								<div class = "col fw-semibold fs-6">댓글</div>
+								<div class = "col fw-semibold fst-italic fs-5">댓글</div>
 							</div>
 							<div class = "row mt-5">
-								<div class = "col">
+								<div class = "col fw-semibold">
 									<c:if test="${!empty sessionUser}">
-									<form action="promotion/writePromotionReivewCommentProcess" method="post">
-										${data.userDto.nickname } 
+									<form action="./writePromotionReivewCommentProcess" method="post">
+									<div class = "row">
+										<div class = "col">
+										${data.userDto.nickname }
+										</div>
+									</div>
+									<div class = "row mt-3">
+										<div class = "col">
 										<input class = "form-control" type = "text" name = "promotion_review_comment" placeholder="댓글 작성하기">
-										<input type = "hidden" name = "promotion_review__id"  value = "${data.promotionReviewDto.id }" ><br>
+										<input type = "hidden" name = "promotion_review_id"  value = "${data.promotionReviewDto.id }" >
+										</div>
+									</div>
+									<div class = "row mt-2">
+										<div class = "col-2">
+											<input type = "checkbox" name = "private_comment" id = "privateCommentCheckBox">
+											<label for="privateCommentCheckbox">비밀글</label>
+										</div>
+										<div class = "col-8"></div>
+										<div class = "col">
 										<button class = "btn btn-dark">작성 완료</button>
+										</div>
+									</div>
 									</form>
 									</c:if>
+									</div>
 								</div>
 							</div>
 						</div>
 					</div>
+	
+								
+					<!--  댓글 구현 -->
+					<div class = "row mt-5">
+						<div class = "col">
+							<c:forEach items = "${promoCommentDtoList}" var = "mapPromoComment">
+							<div class = "row mt-1">
+								<div class = "col-1">
+									<i class="bi bi-person-square fs-1"></i>
+								</div>
+								<div class = "col">
+									<div class = "row">
+									
+										<div class = "col">
+											<div class = "row">
+												<div class = "col fw-semibold fs-6">
+													${mapPromoComment.userDto.nickname}
+												</div>
+												<div class = "col-1"></div>
+												<div class = "col text-end ms-1">
+												<fmt:formatDate value="${mapPromoComment.promotionReviewCommentDto.reg_date}" pattern = "yyyy-MM-dd HH-mm-ss"/>	
+												</div>
+											</div>
+											<div class ="row mt-2">
+					 							<div class = "col mb-5">
+					 							<%-- 비밀글 처리
+					 							<c:if test="${mapPromoComment.promotionReviewCommentDto.private_comment == 1}">
+					 								<c:choose>
+					 									<c:when test="${mapPromoComment.userDto.id &&  }">
+					 										
+					 									</c:when>
+					 									<c:otherwise>
+					 										
+					 									</c:otherwise>
+					 								</c:choose>
+					 							</c:if>
+					 							 --%>
+					 							
+					 							
+					 								${mapPromoComment.promotionReviewCommentDto.promotion_review_comment }
+					 							</div>
+					 						</div>
+										</div>
+										
+									</div>
+								</div>
+							</div>
+							</c:forEach>
+						</div>
+					</div>
 					
-				</div>
-			</div>
+					
+					
+					
+				</div> <!--  col -->
 			
-			
+			</div> <!--  row -->
 			
 
-		</div>
+		</div> <!--  col 3번 -->
 			
 			
 			
 			
 			
-	</div>
+	</div> <!--  사진첨부 위  -->
 		
-	</div>
 	
 
 

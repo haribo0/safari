@@ -93,13 +93,36 @@ input[id="tab03"]:checked ~ .con3 {
 
 .noticeBox {
 	width: 100%;
-	height: 56px;
-	background-color: #f0ebe9;
+	height: 300px;
+
 }
+
+
+.myContent {
+  background-color: rgba(75, 137, 220, 0.25);  /* 배경색 */
+  color: #000000; /* 글자색 */
+  padding: 10px; /* 여백 */
+  border-radius: 10px; /* 테두리의 굴곡 정도 */
+  text-align: end; /* 내용을 오른쪽 정렬 */
+  width: auto;
+}
+
+.otherContent {
+  background-color: #EAEAEA; /* 배경색 */
+  color: #000000; /* 글자색 */
+  padding: 10px; /* 여백 */
+  border-radius: 10px; /* 테두리의 굴곡 정도 */
+  text-align: start; /* 내용을 왼쪽 정렬 */
+  width: auto;
+}
+
+
+
 
 
 .seller-bubble {
 	position: relative;
+	width:auto;
 	background: #cafc03;
 	border-radius: .4em;
 	/*height: 30px;*/
@@ -108,10 +131,12 @@ input[id="tab03"]:checked ~ .con3 {
 	align-items: center;
 	  padding: 10px;
     white-space: pre-wrap; /* 텍스트 줄바꿈을 위한 설정 */
+    width:auto;
 }
 
 .seller-bubble:after {
 	content: '';
+	width:auto;
 	position: absolute;
 	left: 0;
 	top: 50%;
@@ -123,6 +148,7 @@ input[id="tab03"]:checked ~ .con3 {
 	border-top: 0;
 	margin-top: -4.5px;
 	margin-left: -9px;
+	
 }
 
 
@@ -132,12 +158,12 @@ input[id="tab03"]:checked ~ .con3 {
 	position: relative;
 	background: #d7edef;
 	border-radius: .4em;
-	/*height: 30px;*/
 	text-align: middle;
-	display: flex;
+	display: inline-flex;
 	align-items: center;
 	  padding: 10px;
-    white-space: pre-wrap; /* 텍스트 줄바꿈을 위한 설정 */
+    white-space: pre-wrap; 
+
 }
 
 .speech-bubble:after {
@@ -153,6 +179,7 @@ input[id="tab03"]:checked ~ .con3 {
 	border-top: 0;
 	margin-top: -4.5px;
 	margin-left: -9px;
+	width:auto;
 }
 
 
@@ -161,12 +188,15 @@ input[id="tab03"]:checked ~ .con3 {
 	position: relative;
 	background: #f5f542;
 	border-radius: .4em;
-	/*height: 30px;*/
 	text-align: middle;
-	display: flex;
+	/*display: flex;*/
+	display: inline-flex;
+	width: auto;
 	align-items: center;
 	padding: 10px;
-    white-space: pre-wrap; /* 텍스트 줄바꿈을 위한 설정 */
+    white-space: pre-wrap; 
+    width:auto;
+
 }
 
 
@@ -184,7 +214,12 @@ input[id="tab03"]:checked ~ .con3 {
 	border-top: 0;
 	margin-top: -4.5px;
 	margin-right:  -9px;
+	width:auto;
 }
+
+
+
+
 
 
 /* 카운트 다운 */

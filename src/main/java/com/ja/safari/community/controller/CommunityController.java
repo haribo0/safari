@@ -21,12 +21,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.ja.safari.community.service.CommunityServiceImpl;
+import com.ja.safari.community.service.PromotionReviewCommentServiceImpl;
 import com.ja.safari.community.service.PromotionReviewServiceImpl;
 import com.ja.safari.dto.HelpCommentCompleteDto;
 import com.ja.safari.dto.HelpCommentDto;
 import com.ja.safari.dto.HelpDto;
 import com.ja.safari.dto.HelpImgDto;
 import com.ja.safari.dto.HelpLikeDto;
+import com.ja.safari.dto.PromotionReviewCommentDto;
 import com.ja.safari.dto.PromotionReviewDto;
 import com.ja.safari.dto.PromotionReviewImgDto;
 import com.ja.safari.dto.QuestionDto;
@@ -47,6 +49,9 @@ public class CommunityController {
 	@Autowired
 	private PromotionReviewServiceImpl promotionReviewService;
 
+	@Autowired
+	private PromotionReviewCommentServiceImpl promotionReviewCommentService;
+	
 	// 커뮤니티 메인 페이지
 	@RequestMapping("mainPage")
 	public String main() {
@@ -446,11 +451,92 @@ public class CommunityController {
 				SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
 				String today = sdf.format(new Date());
 
-				File targetFolder = new File(rootFolder + today); // C:/uploadFolder/2023/05/23
+		// 커뮤니티 프로모션 메인 페이지
+		@RequestMapping("promotion/promotionReviewMainPage")
+		public String promotionReviewMainPage(Model model, @RequestParam(value = "page", defaultValue = "1") int page,
+				String promoReview_searchType,
+				String promoReview_searchWord,
+				PromotionReviewCommentDto promotionReviewCommentDto
+				) {
+		
+			List<Map<String, Object>> promoReviewList = promotionReviewService.getPromotionReviewList(page, promoReview_searchType, promoReview_searchWord, promotionReviewCommentDto);		
+			
+			model.addAttribute("promoReviewList", promoReviewList);
+			
+			return "/community/promotion/promotionReviewMainPage";
+		}
+		
+		// 커뮤니티 프로모션 게시글 작성페이지
+		@RequestMapping("promotion/writePromotionReviewPage")
+		public String writePromotionReviewPage() {
+			
+			return "/community/promotion/writePromotionReviewPage";
+		}
+		
+		// 커뮤니티 게시글 작성해서 버튼 process
+		@RequestMapping("promotion/writePromotionReviewProcess")
+		public String writePromotionReviewProcess(HttpSession session, PromotionReviewDto params, MultipartFile [] promoFiles) {
+			
 
 				if (!targetFolder.exists()) {
 					targetFolder.mkdirs();
 				}
+			}
+			
+			// 데이터 저장 로직
+			
+			UserDto sessionUser = (UserDto)session.getAttribute("sessionUser");
+			
+			int userId = sessionUser.getId();
+			params.setUser_id(userId);
+			
+			promotionReviewService.writePromotionReview(params, promotionReviewImgDtoList);
+			
+				
+			return "redirect:/community/promotion/contentPromotionReviewPage?id="+params.getId();
+		}
+		
+		// 커뮤니티 프로모션 게시글 세부 페이지
+		@RequestMapping("promotion/contentPromotionReviewPage")
+		public String contentPromotionReviewPage(Model model, Integer id) {
+			
+			promotionReviewService.increaseViewCount(id);
+			
+			Map<String, Object> map = promotionReviewService.getPromotionReview(id);
+			List<Map<String, Object>> promoCommentDtoList = promotionReviewCommentService.getpromotionReviewCommentDtoList(id);
+			
+			// html escape(enter키)
+			PromotionReviewDto promotionReviewDto = (PromotionReviewDto)map.get("promotionReviewDto");
+			String promotionReviewContent = promotionReviewDto.getPromotion_review_content();
+			
+			promotionReviewContent = StringEscapeUtils.escapeHtml4(promotionReviewContent);
+			promotionReviewContent = promotionReviewContent.replaceAll("\n", "<br>");
+			promotionReviewDto.setPromotion_review_content(promotionReviewContent);
+			
+			
+			model.addAttribute("data", map);
+			model.addAttribute("promoCommentDtoList", promoCommentDtoList);
+			
+			return "/community/promotion/contentPromotionReviewPage";
+		}
+		
+		// 프로모션 게시글 수정 페이지
+		@RequestMapping("promotion/updatePromotionReviewPage")
+		public String updatePromotionReviewPage(Model model, int id) {
+			
+			Map<String, Object> map = promotionReviewService.getPromotionReview(id);
+			
+			model.addAttribute("data", map);
+			
+			
+			return "/community/promotion/updatePromotionReviewPage";
+		}
+		
+		// 프로모션 게시글 수정 프로세스
+		@RequestMapping("promotion/updatePromotionReviewProcess")
+		public String updatePromotionReviewProcess(HttpSession session, PromotionReviewDto params, 
+												   MultipartFile [] promoFiles) {
+			
 
 				// 저장 파일명 만들기. 핵심은 파일명 충돌 방지 = 랜덤 + 시간.
 				String fileName = UUID.randomUUID().toString();
@@ -468,307 +554,112 @@ public class CommunityController {
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
-
-				RecruitImgLinkDto recruitImgLinkDto = new RecruitImgLinkDto();
-				recruitImgLinkDto.setImg_name(originalFileName);
-				recruitImgLinkDto.setImg_link(saveFileName);
-
-				recruitImgLinkDtoList.add(recruitImgLinkDto);
 			}
+			
+			// 데이터 저장 로직
+			
+			UserDto sessionUser = (UserDto)session.getAttribute("sessionUser");
+			
+			int userId = sessionUser.getId();
+			params.setUser_id(userId);
+			
+			promotionReviewService.updatePromotionReview(params, promotionReviewImgDtoList);
+			
+			
+			
+			
+			return "redirect:/community/promotion/contentPromotionReviewPage?id="+params.getId();
 		}
-
-		// 데이터 저장 로직
-
-		UserDto sessionUser = (UserDto) session.getAttribute("sessionUser");
-
-		int user_id = sessionUser.getId();
-		recruitDto.setUser_id(user_id);
-
-		communityService.registerRecruitBoard(recruitDto, recruitImgLinkDtoList);
-
-		return "redirect:./mainPage";
-	}
-
-	// 구인구직 게시판 상세보기 //이미지 추가 //좋아요 추가.
-	@RequestMapping("recruit/readContentPage/{id}")
-	public String recruitReadContentPage(@PathVariable int id, Model model) {
-
-		Map<String, Object> map = communityService.getRecruitBoard(id);
-
-		System.out.println(map);
-		System.out.println(map.get("recruitImgLinkDtoList").toString());
-
-		model.addAttribute("map", map);
-
-		// 게시물 좋아요 count
-		int RecruitBoardLikeCount = communityService.countLikeByRecruitBoardId(id);
-		model.addAttribute("RecruitBoardLikeCount", RecruitBoardLikeCount);
-
-		return "/community/recruit/readContentPage";
-	}
-
-	// 구인구직 좋아요 insert
-	@RequestMapping("recruit/insertRecruitLikeProcess/{id}")
-	public String insertRecruitLikeProcess(HttpSession session, RecruitLikeDto recruitLikeDto, @PathVariable int id) {
-
-		UserDto sessionUser = (UserDto) session.getAttribute("sessionUser");
-
-		recruitLikeDto.setUser_id(sessionUser.getId());
-		recruitLikeDto.setRecruit_id(id);
-
-		communityService.insertRecruitLike(recruitLikeDto);
-
-		return "redirect:/community/recruit/readContentPage/" + id;
-	}
-
-	////////////
-	// 써봤어요 //
-	///////////
-
-	// 커뮤니티 프로모션 메인 페이지
-	@RequestMapping("promotion/promotionReviewMainPage")
-	public String promotionReviewMainPage(Model model, @RequestParam(value = "page", defaultValue = "1") int page,
-			String promoReview_searchType, String promoReview_searchWord) {
-
-		List<Map<String, Object>> promoReviewList = promotionReviewService.getPromotionReviewList(page,
-				promoReview_searchType, promoReview_searchWord);
-
-		model.addAttribute("promoReviewList", promoReviewList);
-
-		return "/community/promotion/promotionReviewMainPage";
-	}
-
-	// 커뮤니티 프로모션 게시글 작성페이지
-	@RequestMapping("promotion/writePromotionReviewPage")
-	public String writePromotionReviewPage() {
-
-		return "/community/promotion/writePromotionReviewPage";
-	}
-
-	// 커뮤니티 게시글 작성해서 버튼 process
-	@RequestMapping("promotion/writePromotionReviewProcess")
-	public String writePromotionReviewProcess(HttpSession session, PromotionReviewDto params,
-			MultipartFile[] promoFiles) {
-
-		List<PromotionReviewImgDto> promotionReviewImgDtoList = new ArrayList<>();
-
-		// 파일 저장 로직
-		if (promoFiles != null) {
-
-			for (MultipartFile multipartFile : promoFiles) {
-
-				if (multipartFile.isEmpty()) {
-					continue;
-				}
-
-				System.out.println("파일명 : " + multipartFile.getOriginalFilename());
-
-				String rootFolder = "C:/uploadPromoFiles/";
-
-				// 날짜별 폴더 생성 로직
-				SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
-				String today = sdf.format(new Date());
-
-				File targetFolder = new File(rootFolder + today); // C:/uploadFolder/2023/05/23
-
-				if (!targetFolder.exists()) {
-					targetFolder.mkdirs();
-				}
-
-				// 저장 파일명 만들기
-				String fileName = UUID.randomUUID().toString();
-				fileName += "_" + System.currentTimeMillis();
-
-				// 확장자 추출
-				String originalFileName = multipartFile.getOriginalFilename();
-
-				String ext = originalFileName.substring(originalFileName.lastIndexOf("."));
-
-				String saveFileName = today + "/" + fileName + ext;
-
-				try {
-					multipartFile.transferTo(new File(rootFolder + saveFileName));
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-
-				PromotionReviewImgDto promotionReviewImgDto = new PromotionReviewImgDto();
-				promotionReviewImgDto.setRental_review_img(saveFileName);
-
-				promotionReviewImgDtoList.add(promotionReviewImgDto);
+		
+		// 프로모션 게시글 삭제
+		@RequestMapping("promotion/deletePromotionReviewProcess")
+		public String deletePromotionReviewProcess(int id) {
+			
+			promotionReviewService.deletePromotionReview(id);
+			
+			return "redirect:/community/promotion/promotionReviewMainPage";
+		}
+		
+		
+		
+		
+		
+		// 프로모션 리뷰 전체(모든) 페이지
+		@RequestMapping("promotion/allPromotionReviewPage")
+		public String allPromotionReviewPage(Model model,
+					@RequestParam(value = "page", defaultValue = "1") int page,
+					String promoReview_searchType,
+					String promoReview_searchWord,
+					PromotionReviewCommentDto promotionReviewCommentDto
+					) {
+			
+			
+			
+			List<Map<String, Object>> promoReviewList = promotionReviewService.getPromotionReviewList(page, promoReview_searchType, promoReview_searchWord, promotionReviewCommentDto);
+			int promotionReviewCount = promotionReviewService.getPromotionReviewCount(promoReview_searchType, promoReview_searchWord);
+			
+			
+			
+			int totalPage = (int)Math.ceil(promotionReviewCount/10.0);
+			
+			int startPage = ((page-1)/5)*5 + 1;
+			int endPage = ((page-1)/5+1)*5;
+			
+			if(endPage > totalPage) {
+				endPage = totalPage;
 			}
-		}
-
-		// 데이터 저장 로직
-
-		UserDto sessionUser = (UserDto) session.getAttribute("sessionUser");
-
-		int userId = sessionUser.getId();
-		params.setUser_id(userId);
-
-		promotionReviewService.writePromotionReview(params, promotionReviewImgDtoList);
-
-		return "redirect:/community/promotion/contentPromotionReviewPage?id=" + params.getId();
-	}
-
-	// 커뮤니티 프로모션 게시글 세부 페이지
-	@RequestMapping("promotion/contentPromotionReviewPage")
-	public String contentPromotionReviewPage(Model model, int id) {
-
-		promotionReviewService.increaseViewCount(id);
-
-		Map<String, Object> map = promotionReviewService.getPromotionReview(id);
-
-		// html escape(enter키)
-		PromotionReviewDto promotionReviewDto = (PromotionReviewDto) map.get("promotionReviewDto");
-		String promotionReviewContent = promotionReviewDto.getPromotion_review_content();
-
-		promotionReviewContent = StringEscapeUtils.escapeHtml4(promotionReviewContent);
-		promotionReviewContent = promotionReviewContent.replaceAll("\n", "<br>");
-		promotionReviewDto.setPromotion_review_content(promotionReviewContent);
-
-		model.addAttribute("data", map);
-
-		return "/community/promotion/contentPromotionReviewPage";
-	}
-
-	// 프로모션 게시글 수정 페이지
-	@RequestMapping("promotion/updatePromotionReviewPage")
-	public String updatePromotionReviewPage(Model model, int id) {
-
-		Map<String, Object> map = promotionReviewService.getPromotionReview(id);
-
-		model.addAttribute("data", map);
-
-		return "/community/promotion/updatePromotionReviewPage";
-	}
-
-	// 프로모션 게시글 수정 프로세스
-	@RequestMapping("promotion/updatePromotionReviewProcess")
-	public String updatePromotionReviewProcess(HttpSession session, PromotionReviewDto params,
-			MultipartFile[] promoFiles) {
-
-		System.out.println("controller : " + params.getId());
-
-		// 이미지 삭제
-		promotionReviewService.deletePromotionReviewImg(params.getId());
-
-		// 파일
-		List<PromotionReviewImgDto> promotionReviewImgDtoList = new ArrayList<>();
-
-		// 파일 저장 로직
-		if (promoFiles != null) {
-
-			for (MultipartFile multipartFile : promoFiles) {
-
-				if (multipartFile.isEmpty()) {
-					continue;
-				}
-
-				System.out.println("파일명 : " + multipartFile.getOriginalFilename());
-
-				String rootFolder = "C:/uploadPromoFiles/";
-
-				// 날짜별 폴더 생성 로직
-				SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
-				String today = sdf.format(new Date());
-
-				File targetFolder = new File(rootFolder + today);
-
-				if (!targetFolder.exists()) {
-					targetFolder.mkdirs();
-				}
-
-				// 저장 파일명 만들기
-				String fileName = UUID.randomUUID().toString();
-				fileName += "_" + System.currentTimeMillis();
-
-				// 확장자 추출
-				String originalFileName = multipartFile.getOriginalFilename();
-
-				String ext = originalFileName.substring(originalFileName.lastIndexOf("."));
-
-				String saveFileName = today + "/" + fileName + ext;
-
-				try {
-					multipartFile.transferTo(new File(rootFolder + saveFileName));
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-
-				System.out.println("controller 수정 : 3");
-
-				PromotionReviewImgDto promotionReviewImgDto = new PromotionReviewImgDto();
-				promotionReviewImgDto.setRental_review_img(saveFileName);
-
-				System.out.println("controller 수정 : 4");
-
-				promotionReviewImgDtoList.add(promotionReviewImgDto);
+			
+			model.addAttribute("promoReviewList", promoReviewList);
+			model.addAttribute("totalPage", totalPage);
+			model.addAttribute("currentPageNum", page);
+			model.addAttribute("startPage", startPage);
+			model.addAttribute("endPage", endPage);
+			
+			String promoReview_searchQueryString = "";
+			if(promoReview_searchType != null && promoReview_searchWord != null) {
+				promoReview_searchQueryString += "&promoReview_searchType=" + promoReview_searchType;
+				promoReview_searchQueryString += "&promoReview_searchWord=" + promoReview_searchWord;
 			}
+			
+			model.addAttribute("promoReview_searchQueryString", promoReview_searchQueryString);
+			
+			return "/community/promotion/allPromotionReviewPage";
 		}
-
-		// 데이터 저장 로직
-
-		UserDto sessionUser = (UserDto) session.getAttribute("sessionUser");
-
-		int userId = sessionUser.getId();
-		params.setUser_id(userId);
-
-		promotionReviewService.updatePromotionReview(params, promotionReviewImgDtoList);
-
-		return "redirect:/community/promotion/contentPromotionReviewPage?id=" + params.getId();
-	}
-
-	// 프로모션 게시글 삭제
-	@RequestMapping("promotion/deletePromotionReviewProcess")
-	public String deletePromotionReviewProcess(int id) {
-
-		promotionReviewService.deletePromotionReview(id);
-
-		return "redirect:/community/promotion/promotionReviewMainPage";
-	}
-
-	// 프로모션 리뷰 전체(모든) 페이지
-	@RequestMapping("promotion/allPromotionReviewPage")
-	public String allPromotionReviewPage(Model model, @RequestParam(value = "page", defaultValue = "1") int page,
-			String promoReview_searchType, String promoReview_searchWord) {
-
-		List<Map<String, Object>> promoReviewList = promotionReviewService.getPromotionReviewList(page,
-				promoReview_searchType, promoReview_searchWord);
-		int promotionReviewCount = promotionReviewService.getPromotionReviewCount(promoReview_searchType,
-				promoReview_searchWord);
-		int totalPage = (int) Math.ceil(promotionReviewCount / 10.0);
-
-		int startPage = ((page - 1) / 5) * 5 + 1;
-		int endPage = ((page - 1) / 5 + 1) * 5;
-
-		if (endPage > totalPage) {
-			endPage = totalPage;
+		
+		
+		// 댓글 버튼 process
+		@RequestMapping("promotion/writePromotionReivewCommentProcess")
+		public String writePromotionReivewCommentProcess(HttpSession session, PromotionReviewCommentDto params) {
+			
+			UserDto sessionUser = (UserDto) session.getAttribute("sessionUser");
+			
+			int userId = sessionUser.getId();	
+			params.setUser_id(userId);
+			
+			System.out.println(params.getPromotion_review_id());
+			System.out.println(params.getUser_id());
+			
+			
+			promotionReviewCommentService.writePromotionReivewComment(params);
+			
+			return "redirect:/community/promotion/contentPromotionReviewPage?id=" + params.getPromotion_review_id();
 		}
-
-		model.addAttribute("promoReviewList", promoReviewList);
-		model.addAttribute("totalPage", totalPage);
-		model.addAttribute("currentPageNum", page);
-		model.addAttribute("startPage", startPage);
-		model.addAttribute("endPage", endPage);
-
-		String promoReview_searchQueryString = "";
-		if (promoReview_searchType != null && promoReview_searchWord != null) {
-			promoReview_searchQueryString += "&promoReview_searchType=" + promoReview_searchType;
-			promoReview_searchQueryString += "&promoReview_searchWord=" + promoReview_searchWord;
+		
+		
+		
+		
+		
+		// 리워드 적립 페이지(거쳐가는 페이지)(이거 머리 안돌아가서 이상할걸 다시 수정하길)
+		@RequestMapping("promotion/rewardPromotionReviewPage")
+		public String rewardPromotionReviewPage() {
+			
+			
+			
+			return "redirect:/community/promotion/contentPromotionReviewPage";
 		}
-
-		model.addAttribute("promoReview_searchQueryString", promoReview_searchQueryString);
-
-		return "/community/promotion/allPromotionReviewPage";
-	}
-
-	// 리워드 적립 페이지(거쳐가는 페이지)(이거 머리 안돌아가서 이상할걸 다시 수정하길)
-	@RequestMapping("promotion/rewardPromotionReviewPage")
-	public String rewardPromotionReviewPage() {
-
-		return "redirect:/community/promotion/contentPromotionReviewPage";
-	}
+		
+		
+		
 
 }
 

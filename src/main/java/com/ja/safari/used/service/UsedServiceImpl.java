@@ -1,5 +1,11 @@
 package com.ja.safari.used.service;
 
+import java.sql.Date;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -326,27 +332,59 @@ public class UsedServiceImpl {
 		return usedSqlMapper.countProductRequestByProductId(productId);
 	}
 	
-	// 사용자가 거래요청한 것과 거래요청 받은 것의 리스트 (상품Dto, 회원Dto, 요청Dto) 
+	// 사용자가 거래요청한 것과 거래요청 받은 것의 리스트 (상품Dto, 회원Dto, 요청Dto, 동네Dto) 
 	public List<Map<String, Object>> selectProductRequestAllByUserId(Integer userId) {
 		List<Map<String, Object>> list = new ArrayList<Map<String,Object>>();
 		List<ProductRequestDto> productRequestDtoList = usedSqlMapper.selectProductRequestAllByUserId(userId);
 		for(ProductRequestDto productRequestDto:productRequestDtoList) {
 			Map<String, Object> map = new HashMap<>();
+			Integer requestId = productRequestDto.getId();
 			ProductDto productDto = usedSqlMapper.selectProductById(productRequestDto.getProduct_id());
+			ProductTownDto productTownDto = usedSqlMapper.selectProductTownById(productDto.getProduct_town_id()); 
 			ProductImgDto productImgDto = usedSqlMapper.selectProductImg(productRequestDto.getProduct_id());
-			// 내가 거래요청한 채팅일 때
+			ProductChatDto productChatDto = usedSqlMapper.selectLastChatContent(requestId);
+			// 안읽은 개수 표시
+			int unreadCount = usedSqlMapper.selectUnreadCountByRequestId(requestId, userId);
+			// 내가 거래요청한 채팅일 때 & chat내용이 null일때 
 			UserDto userDto = null;
-			if(productRequestDto.getUser_id()==userId) {
+			String chatContent = null;
+			String lastChatDate = null;
+
+			if(productRequestDto.getUser_id()==userId && usedSqlMapper.selectChatCount(requestId)==0) {
 				// 상대방 UserDto 
 				userDto = usedSqlMapper.selectUserDtoById(productDto.getUser_id());
-			}// 내상품에 대한 채팅을 받았을 때 
+				chatContent = "";
+				lastChatDate = "";
+			    
+			}else if(productRequestDto.getUser_id()==userId && usedSqlMapper.selectChatCount(requestId)>0){
+				userDto = usedSqlMapper.selectUserDtoById(productDto.getUser_id());
+				chatContent = productChatDto.getContent();
+				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+				String formattedDateTime = sdf.format(productChatDto.getReg_date());
+				lastChatDate = formattedDateTime;
+			}
+			else if(productRequestDto.getUser_id()!=userId && usedSqlMapper.selectChatCount(requestId)==0) {
+			// 내상품에 대한 채팅을 받았을 때 & chat내용이 null일때 
+				userDto = usedSqlMapper.selectUserDtoById(productRequestDto.getUser_id());
+				chatContent = "";
+				lastChatDate = "";
+		    }    
 			else {
 				userDto = usedSqlMapper.selectUserDtoById(productRequestDto.getUser_id());
+				chatContent = productChatDto.getContent();
+				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+				String formattedDateTime = sdf.format(productChatDto.getReg_date());
+				lastChatDate = formattedDateTime;
 			}
+			
 			map.put("productRequestDto", productRequestDto);
 			map.put("productDto", productDto);
 			map.put("userDto", userDto);
 			map.put("productImgDto", productImgDto);
+			map.put("productTownDto", productTownDto);
+			map.put("chatContent", chatContent);
+			map.put("unreadCount", unreadCount);
+			map.put("lastChatDate", lastChatDate);
 			list.add(map);
 		}
 		return list;
@@ -362,5 +400,10 @@ public class UsedServiceImpl {
 		return usedSqlMapper.selectProductChatByRequestId(requestId);
 	}
 
+	// 채팅창 읽음여부 업데이트 
+	public void updateIsRead(Integer requestId, Integer receiverId) {
+		usedSqlMapper.updateIsRead(requestId, receiverId);
+	}
+	
 	
 }

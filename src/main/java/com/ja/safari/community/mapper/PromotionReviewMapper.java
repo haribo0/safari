@@ -51,16 +51,14 @@ public interface PromotionReviewMapper {
 	public void increaseViewCount(int id);
 	
 	// 프로모션 게시글 좋아요 +
-	public void insertPromotionReviewLike(PromotionReviewLikeDto promotionReviewLikeDto);
+	public void plusPromotionReviewLike(PromotionReviewLikeDto promotionReviewLikeDto);
 	
 	// 프로모션 게시글 좋아요 -
 	public void deletePromotionReviewLike(PromotionReviewLikeDto promotionReviewLikeDto);
 	
 	// 프로모션 게시글 좋아요 카운트
-	public int countPromoReviewMyLike(PromotionReviewLikeDto promotionReviewLikeDto);
-	public int countLikeByUserId(int userId);
-	
-	
+	public int countPromotionReviewMyLike(PromotionReviewLikeDto promotionReviewLikeDto);
+	public int countLikeByPromotionReviewId(int reviewId);
 	
 	
 	

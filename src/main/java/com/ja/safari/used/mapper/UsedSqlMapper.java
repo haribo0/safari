@@ -2,6 +2,8 @@ package com.ja.safari.used.mapper;
 
 import java.util.List;
 
+import javax.mail.search.IntegerComparisonTerm;
+
 import org.apache.ibatis.annotations.Param;
 
 import com.ja.safari.dto.ProductChatDto;
@@ -102,7 +104,14 @@ public interface UsedSqlMapper {
 	public void insertProductChat(ProductChatDto productChatDto);
 	// 채팅방 순서대로 불러내기 
 	public List<ProductChatDto> selectProductChatByRequestId(Integer requestId);
-	
+	// 채팅방 마지막 내용 불러오기 
+	public ProductChatDto selectLastChatContent(Integer requestId);
+	// 채팅 내용 있는지 개수 확인 
+	public int selectChatCount(Integer requestId);
+	// 채팅창 읽음여부 업데이트 
+	public void updateIsRead(@Param("requestId")Integer requestId, @Param("receiverId")Integer receiverId);
+	// 채팅목록과 userId에 따른 안읽음 개수 
+	public int selectUnreadCountByRequestId(@Param("requestId")Integer requestId, @Param("receiverId")Integer receiverId);
 	
 	
 }

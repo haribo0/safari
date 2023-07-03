@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -21,10 +22,10 @@
 		<form action="./writePromotionReviewProcess" method = "post" enctype = "multipart/form-data">
 			
 			<div class = "row mt-5">
-				<div class = "col fs-6 text-center text-secondary">커뮤니티</div>
+				<div class = "col fs-6 text-center text-secondary">써봤어요</div>
 			</div>
 			<div class = "row mt-2">
-				<div class = "col fw-semibold fs-3 text-center">어쩌고저쩌고 글쓰기</div>
+				<div class = "col fw-semibold fs-3 text-center">게시글 작성 </div>
 			</div>
 			<div class = "row mt-5">
 				<div class = "col fw-semibold">제목</div>

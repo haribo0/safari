@@ -192,12 +192,27 @@ public class UsedRestController {
 			return map;
 		}else {
 			map.put("sessionId", sessionUser.getId());
+			map.put("chatList", usedService.selectProductChatByRequestId(requestId));
+			map.put("result", "success");
+			return map;
 		}
-		map.put("chatList", usedService.selectProductChatByRequestId(requestId));
-		map.put("result", "success");
-		return map;
 	}
 	
+	// 채팅Content 읽음여부 update 
+	@RequestMapping("updateIsRead")
+	public Map<String, Object> updateIsRead(Integer requestId, HttpSession session){
+		Map<String, Object> map = new HashMap<>();
+		UserDto sessionUser = (UserDto)session.getAttribute("sessionUser");
+		if(sessionUser == null) {
+			map.put("result", "fchatListAjaxail");
+			map.put("reason", "로그인되어있지않습니다.");
+			return map;
+		}else {
+			usedService.updateIsRead(requestId, sessionUser.getId());
+			map.put("result", "success");
+			return map;
+		}
+	}
 	
 	
 	

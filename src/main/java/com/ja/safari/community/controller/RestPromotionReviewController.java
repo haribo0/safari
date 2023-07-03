@@ -21,9 +21,13 @@ public class RestPromotionReviewController {
 	private PromotionReviewServiceImpl promoReviewService;
 	
 	@RequestMapping("promotion/togglePromotionReviewLike")
-	public Map<String, Object> togglePromotionReviewLike(PromotionReviewLikeDto params){
-		
+	public Map<String, Object> togglePromotionReviewLike(HttpSession session, PromotionReviewLikeDto params){
 		Map<String, Object> map = new HashMap<>();
+		
+		UserDto sessionUser = (UserDto) session.getAttribute("sessionUser");
+		params.setUser_id(sessionUser.getId());		
+		
+		promoReviewService.toggleLikePromotionReview(params);
 		
 		map.put("result", "success");
 		
@@ -31,7 +35,7 @@ public class RestPromotionReviewController {
 	}
 	
 	@RequestMapping("promotion/promoReviewIsLiked")
-	public Map<String, Object> promoReviewIsLiked(HttpSession session, PromotionReviewLikeDto params) {
+	public Map<String, Object> getPromoReviewIsLiked(HttpSession session, PromotionReviewLikeDto params) {
 		
 		Map<String, Object> map = new HashMap<>();
 		
@@ -47,7 +51,7 @@ public class RestPromotionReviewController {
 		params.setUser_id(sessionUser.getId());
 		
 		map.put("result", "success");
-		map.put("data", promoReviewService.promoReviewIsLiked(params));
+		map.put("isLiked", promoReviewService.promoReviewIsLiked(params));
 		
 		return map;
 	}
@@ -60,29 +64,10 @@ public class RestPromotionReviewController {
 		Map<String, Object> map = new HashMap<>();
 		
 		map.put("result", "success");
-		map.put("count", promoReviewService.getTotalPromoReviewLikeCount(reviewId));
+		map.put("count", promoReviewService.getTotalPromoReviewLike(reviewId));
 		
 		
 		return map;
 	}
 	
-	// 로그인 되어있는지 안되어있는지(공감하트)
-	@RequestMapping("promotion/getMyId")
-	public Map<String, Object> getMyId(HttpSession session){
-		Map<String, Object> map = new HashMap<>();
-		
-		UserDto sessionUser = (UserDto) session.getAttribute("sessionUser");
-
-		if (sessionUser == null) {
-			
-			map.put("result", "fail");
-			map.put("reason", "로그인되어있지 않습니다.");
-			return map;
-		} else {
-			map.put("result", "success");
-			map.put("userId", sessionUser.getId());
-		}
-		
-		return map;
-	}
 }

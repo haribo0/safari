@@ -9,7 +9,42 @@
 <!-- 메타 섹션 -->
 <jsp:include page="../common/meta.jsp"></jsp:include>
 <!-- 메타 섹션 -->
+<style>
+.myContent {
+  background-color: rgba(75, 137, 220, 0.25);  /* 배경색 */
+  color: #000000; /* 글자색 */
+  padding: 10px; /* 여백 */
+  border-radius: 10px; /* 테두리의 굴곡 정도 */
+  text-align: end; /* 내용을 오른쪽 정렬 */
+  width: auto;
+  max-width: 320px;
+}
 
+.otherContent {
+  background-color: #EAEAEA; /* 배경색 */
+  color: #000000; /* 글자색 */
+  padding: 10px; /* 여백 */
+  border-radius: 10px; /* 테두리의 굴곡 정도 */
+  text-align: start; /* 내용을 왼쪽 정렬 */
+  width: auto;
+  max-width: 320px;
+}
+
+.unreadCount{
+	padding :2px;
+	width: 15px;
+	background: red;
+	color: white;
+	border-radius: 10px;
+	font-size: 12px;
+	font-weight: bold;
+}
+
+.chatTime {
+    font-size: 12px;
+}
+
+</style>
 </head>
 <body>
 	<!-- 헤더 섹션 -->
@@ -87,11 +122,27 @@
 		<%-- <c:forEach items="${list }" var="map">
 		 		<div class="row align-items-center" onclick="modalOn(${map.productRequestDto.id},${map.userDto.id })">
 		 			<div class="col-1 pe-0"><i class="bi bi-person-circle fs-3"></i></div>
-		 			<div class="col-1 w-0 ms-0">${map.userDto.nickname }</div>
+		 			<div class="col-5 w-0 ms-0">
+			 			<div class="row">
+			 				<div class="col">
+			 				${map.userDto.nickname }
+			 				</div>
+			 				<div class="col-1 text-secondary">
+			 				${map.productTownDto.product_town_name}
+			 				</div>
+			 				<div class="col text-secondary">
+			 				${map.productRequestDto.reg_date }
+			 				</div>
+			 			</div>
+			 			<div class="row">
+			 				${map.productChatDto.content }
+			 			</div>
+		 			</div>
 		 			<div class="col-1"><img alt="사진" src="/safarifile/${map.productImgDto.product_img_link}" width="50" height="50"></div>
-		 			<div class="col ms-0 p-0">${map.productDto.title }</div>
-		 			<div class="col-2">${map.productRequestDto.reg_date }</div>
-		 			<div class="col-5"></div>
+		 			<div class="col-1">
+		 				${map.unreadCount}
+		 			</div>
+		 			<div class="col"></div>
 		 		</div>
 		 </c:forEach> --%>
 	</div>
@@ -102,14 +153,15 @@
 	<!-- 푸터 섹션 -->
 	
 		<!-- 채팅창 모달 -->
-	<div class="modal" id="chatModal" tabindex="-1">
+	<div class="modal" id="chatModal" tabindex="-1" onclick="reloadChatRoomList()">
 	  <div class="modal-dialog">
 	    <div class="modal-content">
-	      <div class="modal-header">
-	        <h5 class="modal-title">채팅</h5>
+	      <div class="modal-header position-relative">
+ 	        <div class="modal-title position-absolute top-50 start-50 translate-middle fw-bold fs-3" id="modalTitle"></div>
 	        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 	      </div>
 	      <div class="modal-header">
+	      	<p class="row" style="clear: both;">사진</p>
 	      	<div class="row">
 	      		<div class="col btn btn-outline-secondary text-dark me-3 ms-2">예약하기</div>
 	      		<div class="col btn btn-outline-secondary text-dark me-3">약속잡기</div>
@@ -117,7 +169,7 @@
 	      	</div>
 	      </div>
 	      <div class="modal-body" style="height: 400px">
-			<div class="chat-container overflow-y-scroll" style="height:380px;" id="getChatList">
+			<div class="chat-container overflow-y-scroll overflow-x-hidden" style="height:380px;" id="getChatList">
 			</div>
 	      </div>
 	      <div class="modal-footer justify-content-start">
@@ -142,7 +194,7 @@
 		const chatRoomListStartBox = document.getElementById("chatRoomListStart");
 		
 		const xhr = new XMLHttpRequest();
-				
+		
 	    xhr.onreadystatechange = function(){
 	        if(xhr.readyState == 4 && xhr.status == 200){
 	            const response = JSON.parse(xhr.responseText);
@@ -151,53 +203,115 @@
 	  			  const row = document.createElement('div');
 	  			  console.log("data.productRequestDto.id",data.productRequestDto.id)
 	  			  console.log("data.userDto.id",data.userDto.id)
+	  			  console.log("data.content",data.chatContent)
 	  			  row.className = 'row align-items-center';
-	  			  row.setAttribute("onclick", "modalOn("+data.productRequestDto.id + "," + data.userDto.id + ")");
+	  			  row.setAttribute("onclick", "modalOn("+data.productRequestDto.id + "," + data.userDto.id + "," + "'" + data.userDto.nickname + "'" + ")");
 
 	  			  const col1 = document.createElement('div');
 	  			  col1.className = 'col-1 pe-0';
 	  			  const col1Icon = document.createElement('i');
-	  			  col1Icon.className = 'bi bi-person-circle fs-3';
+	  			  col1Icon.className = 'bi bi-person-circle fs-1';
 	  			  col1.appendChild(col1Icon);
 
 	  			  const col2 = document.createElement('div');
-	  			  col2.className = 'col-1 w-0 ms-0';
-	  			  col2.textContent = data.userDto.nickname;
-
+	  			  col2.className = 'col-3 w-0 ms-0';
+	  			  
+	  			  const row1 = document.createElement('div');
+	  			  row1.className = 'row align-items-center';
+	  			  
+	  			  const row1col1 = document.createElement('div');
+	  			  row1col1.className = 'col-1 p-0 fw-bold fs-4';
+	  			  row1col1.textContent = data.userDto.nickname;
+	  			
+	  			  const row1col2 = document.createElement('div');
+	  			  row1col2.className = 'col-3 text-secondary';
+	  			  row1col2.textContent = data.productTownDto.product_town_name;
+	  			  
+	  			  const row1col3 = document.createElement('div');
+	  			  row1col3.className = 'col text-secondary';
+	  			  if(data.lastChatDate == ""){
+	  				const regDate = data.productRequestDto.reg_date;
+		  			const formattedDate = new Date(regDate).toLocaleDateString('ko-KR', { month: 'short', day: '2-digit' });
+		  			row1col3.textContent = formattedDate;
+	  			  }else{
+	  				const currentDate = new Date();
+		  			const chatDate = new Date(Date.parse(data.lastChatDate));
+		  			const yesterday = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate() - 1);
+		  			  // 오늘 날짜인 경우
+		  			  if (currentDate.toDateString() === chatDate.toDateString()) {
+		  				 const hours = chatDate.getHours();
+		  				  const minutes = chatDate.getMinutes();
+		  				  const period = hours < 12 ? '오전' : '오후';
+		  				  const formattedHours = hours % 12 || 12;
+		  				  const formattedMinutes = String(minutes).padStart(2, '0');
+		  				  row1col3.textContent = period + " "+  formattedHours+":"+formattedMinutes;
+		  			  }
+	
+		  			  // 어제 날짜인 경우
+		  			  else if (yesterday === chatDate.toDateString()) {
+		  				row1col3.textContent = '어제';
+		  			  }
+	
+		  			  // 그 외의 경우
+		  			  else{
+		  				 const month = chatDate.getMonth() + 1;
+						  const day = chatDate.getDate();
+						  row1col3.textContent = month+"월 "+ day+"일";  
+		  			  }
+	  				  
+	  				  
+	  				 /* row1col3.textContent = data.lastChatDate; */
+	  			  }
+	  			  
+	  			  
+	  			  const row2 = document.createElement('div');
+	  			  row2.className = 'row';
+	  			  if(data.chatContent==null || data.chatContent===''){
+	  				row2.textContent = ' ';
+	  				row2.className = 'mt-3'
+	  			  }else{
+	  				row2.textContent = data.chatContent;
+	  			  }
+	  			  
+	  			  
 	  			  const col3 = document.createElement('div');
 	  			  col3.className = 'col-1';
 	  			  const col3Img = document.createElement('img');
 	  			  col3Img.alt = '사진';
 	  			  col3Img.src = '/safarifile/' + data.productImgDto.product_img_link;
-	  			  col3Img.width = '50';
-	  			  col3Img.height = '50';
+	  			  col3Img.width = '60';
+	  			  col3Img.height = '60';
 	  			  col3.appendChild(col3Img);
 
 	  			  const col4 = document.createElement('div');
-	  			  col4.className = 'col ms-0 p-0';
-	  			  col4.textContent = data.productDto.title;
-
+	  			  if(data.unreadCount == 0){
+	  				col4.innerText = '';
+	  				col4.className = 'col-1';
+	  			  }else{
+	  				col4.className ='col-1 unreadCount text-center';
+	  				col4.innerText = data.unreadCount;
+	  			  }
+	  			  
+	  			  
+	  			  
 	  			  const col5 = document.createElement('div');
-	  			  col5.className = 'col-2';
-		  		  const regDate = new Date(data.productRequestDto.reg_date);
-		  		  const formattedDate = regDate.getFullYear() + '-' + ('0' + (regDate.getMonth() + 1)).slice(-2) + '-' + ('0' + regDate.getDate()).slice(-2);
-		  		  col5.textContent = formattedDate;
-
-	  			  const col6 = document.createElement('div');
-	  			  col6.className = 'col-5';
+	  			  col5.className = 'col';
 
 	  			  row.appendChild(col1);
 	  			  row.appendChild(col2);
 	  			  row.appendChild(col3);
 	  			  row.appendChild(col4);
 	  			  row.appendChild(col5);
-	  			  row.appendChild(col6);
+	  			  col2.appendChild(row1);
+	  			  col2.appendChild(row2);
+	  			  row1.appendChild(row1col1);
+	  			  row1.appendChild(row1col2);
+	  			  row1.appendChild(row1col3);
 
-	  			  chatRoomListStart.appendChild(row);
+	  			  chatRoomListStartBox.appendChild(row);
 	  		      }
 	        }
 	    }
-		
 		
 	    //post
 		xhr.open("get", "./chatListAjax");
@@ -206,19 +320,21 @@
 	
 	let intervalHandler = null;
 	// 모달 열기 
-	function  modalOn(requestId, receiverId) {
+	function  modalOn(requestId, receiverId, userNickname) {
+		const userNickname2 = userNickname;
 		const myModal = bootstrap.Modal.getOrCreateInstance('#chatModal');
 		requestId2=requestId;
 		receiverId2=receiverId;
 		
 		console.log("requestId"+requestId);
 		console.log("receiverId"+receiverId);
-		
-		reloadChatList(requestId);
+		const modalTitleBox = document.getElementById("modalTitle");
+		modalTitleBox.innerText = userNickname2;
 		
 		// 열 때
 		myModal.show();
-		
+		// 채팅방 리로딩 
+		reloadChatList(requestId);	
 		
 		// 전송버튼 
  		const sendBox = document.getElementById("sendContent");
@@ -229,7 +345,7 @@
 		// 전송버튼 누르면 해당 메소드 불러오기 
 		sendBox.setAttribute("onclick", "insertContent("+requestId+","+receiverId+")")
 		
-		
+		// 3초마다 채팅 업로드 
 		if(intervalHandler != null){
 			clearInterval(intervalHandler);
 			intervalHandler = null;
@@ -238,7 +354,6 @@
 		intervalHandler = setInterval(() => {
 			reloadChatList(requestId);
 		}, 3000);
-		
 		
 		
 	}
@@ -284,35 +399,73 @@
 	}
 	
 
-// 채팅 목록 리로딩 
+// 채팅 내용 리스트 리로딩 
 function reloadChatList(requestId) {
 	// chatlisBox 
     const getChatbox = document.getElementById("getChatList");
     
+	// 채팅 읽음 표시 update 
+	updateIsRead(requestId);
+	
     const xhr = new XMLHttpRequest();
 	
 	xhr.onreadystatechange = function(){
 		if(xhr.readyState == 4 && xhr.status == 200){
 			const response = JSON.parse(xhr.responseText);
 			mySessionId = response.sessionId;
-
+			
 		    getChatbox.innerHTML = ""; //초기화 얘만 innerHTML 허용... 
-			
-			
+			let yearMonthDay = null;
+		    
 			// 채팅 내용 반복문 돌리기 
 			for(data of response.chatList){
+				// 시간 몇월
+				  const regDate = new Date(data.reg_date);  
+				  const year = regDate.getFullYear();
+				  const month = regDate.getMonth() + 1;
+				  const day = regDate.getDate();
+				  const formattedDateHappen = year + '년 ' + month + '월 ' + day + '일';
+				  console.log(yearMonthDay);
+				  console.log(formattedDateHappen);
+				  
+				  if(yearMonthDay != formattedDateHappen){
+					  const yearMonthDayRow = document.createElement('div');
+					  yearMonthDayRow.classList.add('row', 'justify-content-center', 'mt-4');
+					  yearMonthDayRow.innerText = formattedDateHappen;
+					  getChatbox.appendChild(yearMonthDayRow);
+					  yearMonthDay = formattedDateHappen;
+				  }
+				
 				  const row1 = document.createElement('div');
-				  row1.classList.add('row', 'mt-3');
+				  row1.classList.add('row', 'mt-1');
 				  
 				  if(mySessionId!=data.receiver_id){
 					  const col1 = document.createElement('div');
-					  col1.classList.add('col');
+					  col1.classList.add('col', 'd-flex', 'flex-column', 'justify-content-end');
+					  const col1row1 = document.createElement('div');
+					  col1row1.classList.add('row', 'justify-content-end', 'mx-1');
+					 
+					  if(data.read_unread == 'N'){
+						  col1row1.innerText = '1';
+					  }else{
+						  col1row1.innerText = ' ';
+					  }
+					  
+					  const col1row2 = document.createElement('div');
+					  col1row2.classList.add('row', 'justify-content-end', 'mx-1', 'chatTime');
+					  const regDate = new Date(data.reg_date);
+					  const formattedDate = regDate.toLocaleTimeString('ko-KR', { hour: 'numeric', minute: '2-digit' });
+					  col1row2.innerText = formattedDate;
+					  
+					  
 					  const col2 = document.createElement('div');
-					  col2.classList.add('col-8', 'me-2', 'text-end');
+					  col2.classList.add('col-7', 'me-3', 'myContent');
 					  col2.innerText = data.content;
 					  
 					  row1.appendChild(col1);
 					  row1.appendChild(col2);
+					  col1.appendChild(col1row1);
+					  col1.appendChild(col1row2);
 					  
 					  getChatbox.appendChild(row1);
 				  }else {
@@ -325,18 +478,32 @@ function reloadChatList(requestId) {
 					  colIcon.appendChild(icon);
 					  
 					  const col3 = document.createElement('div');
-					  col3.classList.add('col-8', 'ms-2', 'text-left');
+					  col3.classList.add('col-7', 'ms-2', 'text-left', 'otherContent');
 					  col3.innerText = data.content;
 					  
 					  const col4 = document.createElement('div');
-					  col4.classList.add('col');
+					  col4.classList.add('col', 'd-flex', 'flex-column', 'justify-content-end');
+					  const col4row1 = document.createElement('div');
+					  col4row1.classList.add('row', 'justify-content-start', 'mx-1');
+					  const col4row2 = document.createElement('div');
+					  col4row2.classList.add('row', 'justify-content-start', 'mx-1', 'chatTime');
+					  const regDate = new Date(data.reg_date);
+					  const formattedDate = regDate.toLocaleTimeString('ko-KR', { hour: 'numeric', minute: '2-digit' });
+					  col4row2.innerText = formattedDate;
+					  
+					  if(data.read_unread == 'N'){
+						  col4row1.innerText = '1';
+					  }else{
+						  col4row1.innerText = ' ';
+					  }
 					  
 					  row1.appendChild(colIcon);
 					  row1.appendChild(col3);
 					  row1.appendChild(col4);
+					  col4.appendChild(col4row1);
+					  col4.appendChild(col4row2);
 					  
 					  getChatbox.appendChild(row1);
-					
 				  }
 			}
 			// 채팅 화면 마지막으로 맞추기 
@@ -347,6 +514,22 @@ function reloadChatList(requestId) {
 	//get
 	xhr.open("get", "./reloadChatList?requestId=" + requestId);
 	xhr.send();
+}
+
+// 읽음여부 업데이트 
+function updateIsRead(requestId) {
+	
+	const xhr = new XMLHttpRequest();
+	
+	xhr.onreadystatechange = function(){
+        if(xhr.readyState == 4 && xhr.status == 200){
+            const response = JSON.parse(xhr.responseText);
+        }
+    }
+    //get
+	xhr.open("get", "./updateIsRead?requestId="+requestId);
+	xhr.send();
+    
 }
 
 //modal 닫을 때
