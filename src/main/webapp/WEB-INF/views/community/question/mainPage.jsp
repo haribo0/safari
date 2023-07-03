@@ -10,8 +10,6 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
 </head>
 <body>
-
-	1111
 	<!-- 헤더 섹션 -->
 	<jsp:include page="../../common/header.jsp"></jsp:include>
 	<!-- 헤더 섹션 -->
@@ -42,34 +40,33 @@
 				<th>제목</th>
 				<th>작성자</th>
 				<th>조회수</th>
-				<th>좋아요</th>
 				<th>등록일</th>
 			  </tr>
 			</thead>
 			<tbody>
-			<c:forEach items="${helpBoardList}" var="map">
+			<c:forEach items="${questionBoardList}" var="map">
 
 				<tr>
-				  <td><a class="text-black text-decoration-none" href="/safari/community/help/readContentPage/${map.helpDto.id}">${map.helpDto.id}</a></td>
-				  <td>
-				  	<c:if test="${map.helpDto.points>=1}">
-				  	<span class="badge text-bg-secondary">${map.helpDto.points}</span>
+				  <td><a class="text-black text-decoration-none" href="/safari/community/question/questionReadContentPage/${map.questionDto.id}">${map.questionDto.id}</a></td>
+					<td>
+				  	<c:if test="${map.questionDto.points>=1}">
+				  	<span class="badge text-bg-secondary">${map.questionDto.points}</span>
 				  	</c:if>
-				  	<a class="text-black text-decoration-none" href="/safari/community/help/readContentPage/${map.helpDto.id}">${map.helpDto.title}</a>
-				  	<c:if test="${map.helpCommentCount>=1}">
+				  	<a class="text-black text-decoration-none" href="/safari/community/question/questionReadContentPage/${map.questionDto.id}">${map.questionDto.title}</a>
+				  	</td>
+				 <%--  	<c:if test="${map.helpCommentCount>=1}">
 				  	<span style="font-size: 15px; color: red;">[${map.helpCommentCount}]</span>
 				  	</c:if>
 				  	<c:if test="${map.helpImgCount>=1}">
 				  	<i class="bi bi-image"></i>
-				  	</c:if>
-				  	
-				  </td>
+				  	</c:if>--%>
+				  
+				  
 				  	
 				  
 				  <td>${map.userDto.nickname}</td>
-				  <td>${map.helpDto.views}</td>
-				  <td>${map.helpLikeCount}</td>
-				  <td><fmt:formatDate value="${map.helpDto.reg_date}" pattern="yyyy.MM.dd"/></td>
+				  <td>${map.questionDto.views}</td>
+				  <td><fmt:formatDate value="${map.questionDto.reg_date}" pattern="yyyy.MM.dd"/></td>
 				</tr>
 			</c:forEach>
 			</tbody>
@@ -84,7 +81,9 @@
 	</div>
 	</div>
 	<%--글쓰기 버튼 끝 --%>	
-	
+	</div>
+	</div>
+	</div>
 
 	
 	<!-- 푸터 섹션 -->

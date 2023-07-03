@@ -2,11 +2,14 @@ package com.ja.safari.community.mapper;
 
 import java.util.List;
 
+import com.ja.safari.dto.HelpCommentCompleteDto;
 import com.ja.safari.dto.HelpCommentDto;
 import com.ja.safari.dto.HelpDto;
 import com.ja.safari.dto.HelpImgDto;
 import com.ja.safari.dto.HelpLikeDto;
 import com.ja.safari.dto.QuestionDto;
+import com.ja.safari.dto.QuestionLikeDto;
+import com.ja.safari.dto.QuestionReplyDto;
 import com.ja.safari.dto.RecruitDto;
 import com.ja.safari.dto.RecruitImgLinkDto;
 import com.ja.safari.dto.RecruitLikeDto;
@@ -17,13 +20,15 @@ public interface CommunitySqlMapper {
 
 	
 	/////////////
-	// 구인구직  //
+	// 해주세요  //
 	/////////////
 	
 	// 해주세요 pk 
 	public int createPk();
 	
 	public UserDto selectUserByUserId(int id);
+	
+	public HelpCommentDto getHelpCommentById(int id);
 	
 	//해주세요 게시글 등록
 	public void registerHelpBoard(HelpDto helpDto);
@@ -78,13 +83,51 @@ public interface CommunitySqlMapper {
 	//해주세요 베스트 게시글 출력
 	public List<HelpDto> selectBestHelpBoard();
 	
+	//해주세요 채택 insert
+	public void acceptHelpComment(HelpCommentCompleteDto helpCommentCompleteDto);
 	
+	// 해주세요 채택 완료 update
+	public void completeHelpComment(HelpCommentDto helpCommentDto);
+	
+	//해주세요 채택상태 변경
+	public void changeCompleteHelp(HelpDto helpDto);
 	
 	//궁금해요 게시물 등록 
 	public void registerQuestionBoard(QuestionDto questionDto);
 	
 	//궁금해요 게시물 조회
 	public QuestionDto getQuestionBoardByBoardId(int id);
+	
+	//궁금해요 게시물 전체 리스트 조회
+	public List<QuestionDto> selectAllQuestionBoards();
+	
+	//궁금해요 게시물 수정
+	public void updateQuestionBoard(QuestionDto questionDto);
+	
+	//궁금해요 게시물 삭제
+	public void deleteQuestionBoardByBoardId(int id);
+	
+	//궁금해요 게시물 답변 등록
+	public void registerQuestionReply(QuestionReplyDto questionReplyDto);
+	
+	//궁금해요 게시물 답변 조회
+	public List<QuestionReplyDto> selectAllQuestionReplyByBoardId(int question_id);
+	
+	//궁금해요 게시물 조회수 증가
+	public void increaseQuestionReadCount(int id);
+	
+	//궁금해요 게시물 좋아요 insert
+	public void insertQuestionLike(QuestionLikeDto questionLikeDto);
+	
+	public int getQuestionLikeCountByBoardId(int question_id);
+		
+	
+	//궁금해요 게시물 좋아요 입력/취소
+	public int checkQuestionLike(QuestionLikeDto questionLikeDto);
+	
+	public void removeQuestionLike(QuestionLikeDto questionLikeDto);
+	
+	
 	
 //	public List<HelpDto> registerHelpBoardselectAll();
 	

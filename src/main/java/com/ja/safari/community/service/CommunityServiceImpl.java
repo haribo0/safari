@@ -9,11 +9,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ja.safari.community.mapper.CommunitySqlMapper;
+import com.ja.safari.dto.HelpCommentCompleteDto;
 import com.ja.safari.dto.HelpCommentDto;
 import com.ja.safari.dto.HelpDto;
 import com.ja.safari.dto.HelpImgDto;
 import com.ja.safari.dto.HelpLikeDto;
 import com.ja.safari.dto.QuestionDto;
+import com.ja.safari.dto.QuestionLikeDto;
+import com.ja.safari.dto.QuestionReplyDto;
 import com.ja.safari.dto.RecruitDto;
 import com.ja.safari.dto.RecruitImgLinkDto;
 import com.ja.safari.dto.RecruitLikeDto;
@@ -43,6 +46,13 @@ public class CommunityServiceImpl {
 		
 		
 	}
+	
+	//댓글 아이디 조회
+	public HelpCommentDto getHelpCommentById(int id) {
+		
+		return communitySqlMapper.getHelpCommentById(id);
+	}
+	
 	
 	//해주세요 메인페이지 리스트 조회 
 	public List<Map<String, Object>> selectAllHelpBoards(int helpPageNum){
@@ -237,6 +247,27 @@ public class CommunityServiceImpl {
 		return HelpBoardLikeCount;
 	}
 	
+	//업로더가 게시물 채택 눌렀을 때
+	//public void realCompleteHelp()
+	
+
+	//해주세요 미션완료(채택) insert
+	public void acceptHelpComment(HelpCommentCompleteDto helpCommentCompleteDto) {
+		communitySqlMapper.acceptHelpComment(helpCommentCompleteDto);
+	}
+	
+	//해주세요 미션완료(채택) update
+	public void completeHelpComment(HelpCommentDto helpCommentDto) {
+		communitySqlMapper.completeHelpComment(helpCommentDto);
+	}
+	
+	//해주세요 채택상태 변경
+	public void changeCompleteHelp(HelpDto helpDto) {
+		communitySqlMapper.changeCompleteHelp(helpDto);
+	}
+	
+	////////////////////////////////////////////////////////////////
+	
 	//궁금해요 게시물 등록 
 	public void registerQuestionBoard(QuestionDto questionDto) {
 		communitySqlMapper.registerQuestionBoard(questionDto);
@@ -252,17 +283,100 @@ public class CommunityServiceImpl {
 		UserDto userDto = userSqlMapper.selectUserDtoById(questionDto.getUser_id());
 		
 		map.put("userDto", userDto);
-		map.put("questionDto", userDto);
+		map.put("questionDto", questionDto);
 		
 		return map;
+		
+	}
+	
+	//궁금해요 게시물 조회수 증가
+	public void increaseQuestionReadCount(int id) {
+		communitySqlMapper.increaseQuestionReadCount(id);
+	}
+	
+	//궁금해요 게시물 전체 조회
+	public List<Map<String, Object>> getQuestionBoardList(){
+		
+		List<Map<String, Object>> questionBoardList = new ArrayList<>();
+		
+		List<QuestionDto> questionDtoList = communitySqlMapper.selectAllQuestionBoards();
+		
+		for(QuestionDto questionDto : questionDtoList) {
+			
+			Map<String, Object> map = new HashMap<>();
+			
+			UserDto userDto = userSqlMapper.selectUserDtoById(questionDto.getUser_id());
+			
+			map.put("userDto", userDto);
+			map.put("questionDto", questionDto);
+			
+			questionBoardList.add(map);
+		}
+		
+		return questionBoardList;
+	}
+	
+	//궁금해요 게시물 수정
+	public void updateQuestionBoard(QuestionDto questionDto) {
+		communitySqlMapper.updateQuestionBoard(questionDto);
+	}
+	
+	//궁금해요 게시물 삭제
+	public void deleteQuestionBoardByBoardId(int id) {
+		communitySqlMapper.deleteQuestionBoardByBoardId(id);
+	}
+	
+	//궁금해요 게시물 답변 등록
+	public void registerQuestionReply(QuestionReplyDto questionReplyDto) {
+		communitySqlMapper.registerQuestionReply(questionReplyDto);
 	}
 
+	//궁금해요 게시물 답변 조회
+	public List<Map<String, Object>> getQuestionReplyBoardList(int question_id){
+	
+	List<Map<String, Object>> questionReplyBoardList = new ArrayList<>();
+	
+	List<QuestionReplyDto> questionReplyDtoList = communitySqlMapper.selectAllQuestionReplyByBoardId(question_id);
+	
+	for(QuestionReplyDto questionReplyDto: questionReplyDtoList) {
+		
+		Map<String, Object> map = new HashMap<>();
+		
+		UserDto userDto = userSqlMapper.selectUserDtoById(questionReplyDto.getUser_id());
+		
+		map.put("userDto", userDto);
+		map.put("questionReplyDto", questionReplyDto);
+		
+		questionReplyBoardList.add(map);
+		
+	}
+	
+		return questionReplyBoardList;
+	}
+	
+	//궁금해요 게시물 좋아요 insert
+	public void insertQuestionLike(QuestionLikeDto questionLikeDto) {
+		communitySqlMapper.insertQuestionLike(questionLikeDto);
+	}
+	
+	public int getQuestionLikeCountByBoardId(int question_id) {
+		int QuestionBoardLikeCount = communitySqlMapper.getQuestionLikeCountByBoardId(question_id);
+		return QuestionBoardLikeCount;
+	}
 	/*
 	 * public int getHelpLikeCountByBoardId(int help_id) { int boardLikeCount =
 	 * communitySqlMapper.getHelpLikeCountByBoardId(help_id); return boardLikeCount;
 	 * }
 	 */
-	 
+	
+	//궁금해요 게시물 좋아요 입력/취소
+	public int checkQuestionLike(QuestionLikeDto questionLikeDto) {
+		return communitySqlMapper.checkQuestionLike(questionLikeDto);
+	}
+	
+	public void removeQuestionLike(QuestionLikeDto questionLikeDto) {
+		communitySqlMapper.removeQuestionLike(questionLikeDto);
+	}
 	
 
 	

@@ -55,20 +55,20 @@
 
 				<tr>
 				  <td><a class="text-black text-decoration-none" href="/safari/community/help/readContentPage/${map.helpDto.id}">${map.helpDto.id}</a></td>
-				  <td>
+				  <td style="text-align: left;">
 				  	<c:if test="${map.helpDto.points>=1}">
 				  	<span class="badge text-bg-secondary">${map.helpDto.points}</span>
 				  	</c:if>
-				  	<a class="text-black text-decoration-none" href="/safari/community/help/readContentPage/${map.helpDto.id}">${map.helpDto.title}</a>
+				  	<div style="display: inline-block;">
+				  	<a class="text-black text-decoration-none" href="/safari/community/help/readContentPage/${map.helpDto.id}" >${map.helpDto.title}</a>
 				  	<c:if test="${map.helpCommentCount>=1}">
 				  	<span style="font-size: 15px; color: red;">[${map.helpCommentCount}]</span>
 				  	</c:if>
 				  	<c:if test="${map.helpImgCount>=1}">
 				  	<i class="bi bi-image"></i>
 				  	</c:if>
-				  	
+				  	</div>
 				  </td>
-				  	
 				  
 				  <td>${map.userDto.nickname}</td>
 				  <td>${map.helpDto.views}</td>

@@ -12,6 +12,10 @@
 	select * from user_table where id=#{id}
 	</select>
 	
+	<select id="getHelpCommentById" resultType="com.ja.safari.dto.HelpCommentDto">
+	select * from help_comment_table where id=#{id}
+	</select>
+	
 	<insert id="registerHelpBoard">
 	insert into help_table values(
     #{id},
@@ -26,7 +30,9 @@
 	)
 	</insert>
 	
-	
+	<select id="getHelpBoard" resultType="com.ja.safari.dto.HelpDto">
+		select * from help_table where id=#{id}
+	</select>
 	
 	<select id="selectAllHelpBoards" resultType="com.ja.safari.dto.HelpDto">
 		select ht2.* from(
@@ -44,9 +50,7 @@
 		select count(*) from help_table
 	</select>
 	
-	<select id="getHelpBoard" resultType="com.ja.safari.dto.HelpDto">
-		select * from help_table where id=#{id}
-	</select>
+	
 	
 	<update id="updateHelpBoard">
 	update help_table
@@ -115,7 +119,7 @@
 	)
 	</insert>
 	
-	<!-- 해주세요 -->
+	<!-- 해주세요 좋아요수 count -->
 	<select id="getHelpLikeCountByBoardId" resultType="int">
 	select count(*) from help_like_table where help_id = #{help_id}
 	</select>
@@ -161,6 +165,28 @@
 		where help_id=#{help_id} and user_id=#{user_id}
 	</delete>
 	
+	<!-- 해주세요 게시물 미션완료(채택) insert -->
+	<insert id="acceptHelpComment">
+	INSERT INTO help_comment_complete_table VALUES(
+        help_comment_complete_seq.nextval,
+        #{help_comment_id},
+        SYSDATE
+        )
+	</insert>
+	
+	<!-- 해주세요 게시물 댓글 채택완료 update -->
+	<update id="completeHelpComment">
+	update help_comment_table
+    	set status='채택 완료'
+        	where id=#{id}
+	</update>
+	
+	<!-- 해주세요 게시물 채택 상태 변경 -->
+	<update id="changeCompleteHelp">
+	update help_table
+		set status='채택 완료'
+			where id=#{id}
+	</update>
 	<!--              궁금해요                   -->
 	
 	<!-- 궁금해요 게시물 insert -->
@@ -178,11 +204,77 @@
 	)
 	</insert>
 	
-	<!-- 궁금해요 게시물 select -->
+	<!-- 궁금해요 게시물 상세보기 select -->
 	<select id="getQuestionBoardByBoardId" resultType="com.ja.safari.dto.QuestionDto" >
 	select * from question_table where id=#{id}
 	</select>
 	
+	<!-- 궁금해요 게시물 전체 select -->
+	<select id="selectAllQuestionBoards" resultType="com.ja.safari.dto.QuestionDto" >
+	select * from question_table order by id desc
+	</select>
+	
+	<!-- 궁금해요 게시물 update -->
+	<update id="updateQuestionBoard">
+	update question_table
+	set question_category_id=#{question_category_id}, title= #{title} , content=#{content}  , points= #{points}
+	where id=#{id}
+	</update>
+	<!-- 궁금해요 게시물 delete -->
+	<delete id="deleteQuestionBoardByBoardId">
+	delete from question_table where id=#{id}
+	</delete>
+	
+	<!-- 궁금해요 게시물 조회수 증가 update  -->
+	<update id="increaseQuestionReadCount">
+	update question_table
+	set views = views + 1
+	where id = #{id}
+	</update>
+	
+	<!-- 궁금해요 게시물 답변 insert -->
+	<insert id="registerQuestionReply">
+	insert into question_reply_table values(
+    question_reply_table_seq.nextval,
+    #{user_id},
+    #{question_id},
+    #{content},
+    'N',
+    sysdate
+	)
+	</insert>
+	
+	<!-- 궁금해요 게시물 답변 select -->
+	<select id="selectAllQuestionReplyByBoardId" resultType="int">
+	select * from question_reply_table where question_id=#{question_id}
+	</select>
+	
+	<!-- 궁금해요 게시물 좋아요 insert -->
+	<insert id="insertQuestionLike">
+	insert into question_like_table values(
+    question_like_table_seq.nextval,
+    #{user_id},
+    #{question_id},
+    sysdate
+    )
+    </insert>
+	
+	<!-- 궁금해요 좋아요 수 count -->
+	<select id="getQuestionLikeCountByBoardId" resultType="int">
+	select count(*) from question_like_table where question_id=#{id}	
+	</select>
+	
+	<!-- 궁금해요 게시물 좋아요 입력/취소 -->
+	<select id="checkQuestionLike" resultType="int">
+	select count(*)
+	from question_like_table
+	where question_id=#{question_id} and user_id=#{user_id}
+	</select>
+	
+	<delete id="removeQuestionLike">
+	delete from question_like_table
+	where question_id=#{question_id} and user_id=#{user_id}
+	</delete>
 	
 	<!-- 구인구직  -->
 	
