@@ -16,6 +16,13 @@
       overflow: hidden;
       text-overflow: ellipsis;
       max-width: 300px; /* 원하는 최대 길이로 조정 */
+    }
+    
+          
+ .comment-count {
+        font-size: 14px;
+        color: darkgray;
+    }
 </style>
 
 <body>
@@ -184,7 +191,12 @@
 									 		 </div>
 									 	<div class = "col">
 									  <div class="card-body">
-									    <h5 class="card-title fs-5 mt-1 fw-semibold">${map.promotionReviewDto.promotion_review_title }</h5>
+									    <h5 class="card-title fs-5 mt-1 fw-semibold">
+									    <a href="./contentPromotionReviewPage?id=${map.promotionReviewDto.id }" style="text-decoration: none; color: inherit;">
+									    ${map.promotionReviewDto.promotion_review_title }
+									    </a>
+									     <span class="comment-count">[${map.countPromotionReviewComment}]</span>
+									    </h5>
 									    <div class="d-flex align-items-center">
 						                    <img src="${data.userDto.profile_img_link}" class="rounded-circle" style="width: 25px; height: 25px;" alt="프로필사진">
 						                    <p class="card-text fs-6 mt-2 ms-2">${map.userDto.nickname}</p>
@@ -239,7 +251,12 @@
 									 		 </div>
 									 	<div class = "col">
 									  <div class="card-body">
-									    <h5 class="card-title fs-5 mt-1 fw-semibold">${map.promotionReviewDto.promotion_review_title }</h5>
+									    <h5 class="card-title fs-5 mt-1 fw-semibold">
+									    <a href="./contentPromotionReviewPage?id=${map.promotionReviewDto.id }" style="text-decoration: none; color: inherit;">
+									    ${map.promotionReviewDto.promotion_review_title }
+									    </a>
+									    <span class="comment-count">[${map.countPromotionReviewComment}]</span>
+									    </h5>
 									    <div class="d-flex align-items-center">
 						                    <img src="${data.userDto.profile_img_link}" class="rounded-circle" style="width: 25px; height: 25px;" alt="프로필사진">
 						                    <p class="card-text fs-6 mt-2 ms-2">${map.userDto.nickname}</p>

@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>사파리 | 구인구직 메인</title>
+<title>사파리 | 골라줘요 메인</title>
 
 <!-- 메타 섹션 -->
 <jsp:include page="../../common/meta.jsp"></jsp:include>
@@ -51,34 +51,30 @@
 			<div class="col-9">
 				<div class="align-items-center justify-content-center justify-content-lg-center"> 
 					
-					<%-- recruitBoardList --%>
+					<%-- pickBoardList --%>
 					<div class="row"  style="text-align:center">
 						<div class="col">
 							<table class="table table-hover">
 								<thead>
 									<tr>
 										<th>글번호</th>
-										<th>기업명(작성자)</th>
-										<th>공고제목</th>
-										<th>근무지역</th>
-										<th>급여</th>
+										<th>작성자</th>
+										<th>제목</th>
 										<th>조회수</th>
 										<th>등록일</th>
 									</tr>	
 								</thead>
 								<tbody>
-								<c:forEach items="${recruitBoardList}" var="recruitDto">							
+								<c:forEach items="${pickBoardList}" var="pickDto">							
 									<tr class="align-middle">
-										<td><a class="text-black text-decoration-none" href="/safari/community/recruit/readContentPage/${recruitDto.recruitDto.id}" >
-										${recruitDto.recruitDto.id}
+										<td><a class="text-black text-decoration-none" href="/safari/community/pick/readContentPage/${pickDto.pickDto.id}" >
+										${pickDto.pickDto.id}
 										</a></td>
-										<td>${recruitDto.userDto.nickname}</td>
-										<td><a class="text-black text-decoration-none" href="/safari/community/recruit/readContentPage/${recruitDto.recruitDto.id}">
-										${recruitDto.recruitDto.title}</a></td>
-										<td>${recruitDto.recruitDto.location}</td>
-										<td>${recruitDto.recruitDto.salary}</td>
-										<td>${recruitDto.recruitDto.views}</td>
-										<td><fmt:formatDate value="${recruitDto.recruitDto.reg_date}" pattern="yyyy.MM.dd"/></td>
+										<td>${pickDto.userDto.nickname}</td>
+										<td><a class="text-black text-decoration-none" href="/safari/community/pick/readContentPage/${pickDto.pickDto.id}">
+										${pickDto.pickDto.title}</a></td>
+										<td>${pickDto.pickDto.views}</td>
+										<td><fmt:formatDate value="${pickDto.pickDto.reg_date}" pattern="yyyy.MM.dd"/></td>
 									</tr>
 								</c:forEach>	
 								</tbody>
@@ -88,7 +84,7 @@
 							<div class="row">
 								<div class="col text-end pe-5">
 									<c:if test="${!empty sessionUser }">
-										<a href="/safari/community/recruit/writeContentPage" class="btn btn-default px-2 text-body-secondary">글쓰기</a>
+										<a href="/safari/community/pick/writeContentPage" class="btn btn-default px-2 text-body-secondary">글쓰기</a>
 									</c:if>
 								</div>
 							</div>
@@ -96,7 +92,7 @@
 							
 						</div>	
 					</div>	
-					<%-- recruitBoardList --%>
+					<%-- pickBoardList --%>
 						
 				</div>	
 			</div>

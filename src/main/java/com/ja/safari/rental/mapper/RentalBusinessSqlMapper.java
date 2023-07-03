@@ -79,8 +79,11 @@ public interface RentalBusinessSqlMapper {
 	// 사업자 계정 정보 수정 
 	public void updateBusinessInfo(RentalBusinessDto rentalBusinessDto);
 	
-	// 판매자 id로 주문 리스트 가져오기 최근 3개 
-	public List<RentalOrderDto> getThreeOrdersByUserId(int userId);
+	// 판매자 id로 최근 주문 5개 리스트 가져오기 
+	public List<RentalItemReturnDto> getRecentReturnListByUserId(int userId);
+	
+	// 판매자 id로 최근 주문 5개 리스트 가져오기 
+	public List<RentalOrderDto> getRecentOrderListByUserId(int userId);
 	
 	// 판매자 id로 주문 리스트 가져오기 
 	public List<RentalOrderDto> getOrderListByUserId(int userId);

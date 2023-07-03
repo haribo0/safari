@@ -39,15 +39,15 @@
 				  <tr>
 				  	<td><input type="hidden" name="user_id" value="${sessionUser.id}"></td>
 				  </tr>
+				   <tr>
+				  	<td><input type="number" class="form-control" placeholder="카테고리"  name="question_category_id" maxlength="10"></td>
+				  </tr>
 				  <tr>
 					<td><input type="text" class="form-control" placeholder="제목을 입력해주세요" name="title" maxlength="40"></td>
 				  </tr>
 				  <tr>
 				  	<td>작성자: ${sessionUser.nickname}</td>
-				  </tr>
-				  <tr>
-				  	<td><input type="number" class="form-control" placeholder="카테고리"  name="question_category_id" maxlength="10"></td>
-				  </tr>
+				  </tr> 
 				  <tr>
 				  	<td><textarea type="text" class="form-control" placeholder="내용을 입력해주세요" name="content" maxlength="3000" style="height:400px;"></textarea></td>
 				  </tr>

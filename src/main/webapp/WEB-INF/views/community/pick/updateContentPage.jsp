@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>사파리 | 커뮤니티메인</title>
+<title>사파리 | 골라줘요 수정페이지</title>
 
 <!-- 메타 섹션 -->
 <jsp:include page="../../common/meta.jsp"></jsp:include>
@@ -33,55 +33,43 @@
 		<!-- 커뮤니티 컨테이너 -->
 		<div class="container main_box">
 			<div class="row">
-			
 			<!-- 왼쪽 -->
+			
 			<div class="col-3">
 				왼쪽
 			</div>
+		
 			<!-- 왼쪽 -->
 			
 			<!-- 가운데 -->
+			
 				<div class="col-6">
 					<div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-center">
 						
-						<%-- getRecruitBoard --%>
+						<%-- getPickBoard --%>
 						<div class="row">
 							<div class="col">
-								<form action="/safari/community/recruit/recruitWriteContentProcess" method="post" enctype="multipart/form-data">
-									<input type="hidden" name="user_id" value="${sessionUser.id}">
+								<form action="/safari/community/pick/updateContentProcess" method="post" >
+									<%-- <input type="hidden" name="user_id" value="${sessionUser.id}"> --%>
+									제목: <input type="text" name="title" value="${map.pickDto.title}"><br>
 									작성자: ${sessionUser.nickname }<br>
-									제목: <input type="text" name="title"><br>
+									
 									내용: <br>
-									<textarea rows="10" cols="60" name="content"></textarea>
-									<br>
-									직업(숫자): <input type="text" name="position_category_id">
-									<br>
-									연락처: <input type="text" name="phone">
-									<br>
-									이메일: <input type="text" name="email">
-									<br>
-									급여: <input type="text" name="salary">
-									<br>
-									위치: <input type="text" name="location">
-									<br>
-									모집인원: <input type="text" name="opening">
-									<br>
-									성별: <input type="text" name="gender">
-									<br>
-									나이제한: <input type="text" name="age_limit">
-									<br>
-									<input name="recruitFiles" type="file" multiple accept="image/*">
+									<textarea rows="10" cols="60" name="content" >${map.pickDto.content}</textarea>
+									<input type="hidden" name="id" value="${map.pickDto.id}">
+									
+									
 									<%-- 글쓰기 버튼 --%>
 									<div class="col text-end ms-auto d-grid justify-content-lg-end">
-										<button class="nav-link px-2 text-body-secondary">글쓰기</button>
+										<button class="nav-link px-2 text-body-secondary">수정</button>
 									</div>
-									<%-- 글쓰기 버튼 --%>
-									
-								</form>	
+									<%--글쓰기 버튼 --%>
+								
+								</form>
 							</div>	
-						</div>	
-						<%-- getRecruitBoard --%>
-			
+						</div>
+						<%-- getPickBoard --%>
+						
 					</div>	
 				</div>	
 			<!-- 가운데 -->

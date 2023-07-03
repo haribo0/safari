@@ -160,11 +160,28 @@ public class RentalBusinessServiceImpl {
 		
 	}
 	
-	// 계정 id로 최근 주문 3 가져오기
+	// 계정 id로 최근 주문 5 가져오기
+	public List<Map<String, Object>> getRecentReturnListByUserId(int id) {
+		
+		List<Map<String, Object>> list = new ArrayList<Map<String,Object>>();
+		for(RentalItemReturnDto rentalItemReturnDto : rentalSqlMapper.getRecentReturnListByUserId(id)) {
+			Map<String, Object> map = new HashMap<String, Object>();
+			
+			map.put("returnDto", rentalItemReturnDto);
+			RentalOrderDto rentalOrderDto = rentalSqlMapper.getOrderDtoById(rentalItemReturnDto.getRental_order_id());
+			map.put("order", rentalOrderDto);
+			map.put("user", userSqlMapper.selectUserDtoById(rentalOrderDto.getUser_id()));
+			map.put("product", rentalSqlMapper.selectRentalItemDto(rentalOrderDto.getItem_id()));
+			list.add(map);
+		}
+		return list;
+	}
+	
+	// 계정 id로 최근 주문 5 가져오기
 	public List<Map<String, Object>> getRecentOrdersByUserId(int id) {
 		
 		List<Map<String, Object>> list = new ArrayList<Map<String,Object>>();
-		for(RentalOrderDto rentalOrderDto : rentalSqlMapper.getThreeOrdersByUserId(id)) {
+		for(RentalOrderDto rentalOrderDto : rentalSqlMapper.getRecentOrderListByUserId(id)) {
 			Map<String, Object> map = new HashMap<String, Object>();
 			map.put("order", rentalOrderDto);
 			map.put("user", userSqlMapper.selectUserDtoById(rentalOrderDto.getUser_id()));
@@ -221,7 +238,6 @@ public class RentalBusinessServiceImpl {
 				else status = "주문완료";
 			}
 			
-
 			map.put("status", status);
 			
 			list.add(map);

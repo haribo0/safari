@@ -26,9 +26,9 @@ public class UserRestController {
 	// 사용자 로그인 확인
 	@RequestMapping("getMyId")
 	public Map<String, Object> getMyId(HttpSession session) {
-		Map<String, Object> map = new HashMap<String, Object>();
+		Map<String, Object> map = new HashMap<>();
 
-		UserDto sessionUser = (UserDto) session.getAttribute("sessionUser");
+		UserDto sessionUser = (UserDto)session.getAttribute("sessionUser");
 
 		if (sessionUser == null) {
 			map.put("result", "fail");
@@ -46,7 +46,7 @@ public class UserRestController {
 	public Map<String, Object> addUserAddress(HttpSession session, UserAddressDto params) {
 		Map<String, Object> map = new HashMap<String, Object>();
 
-		UserDto sessionUser = (UserDto) session.getAttribute("sessionUser");
+		UserDto sessionUser = (UserDto)session.getAttribute("sessionUser");
 		params.setUser_id(sessionUser.getId());
 		userService.addUserAddress(params);
 

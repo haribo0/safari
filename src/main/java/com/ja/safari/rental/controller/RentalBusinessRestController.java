@@ -654,6 +654,24 @@ public class RentalBusinessRestController {
 		return map;
 	}
 	
+	// 최근 반납 가져오기
+	@RequestMapping("getRecentReturnList")
+	public  Map<String, Object> getRecentReturnList(HttpSession session) {
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		RentalBusinessDto businessDto = (RentalBusinessDto) session.getAttribute("businessUser");
+		if(businessDto == null) {
+			map.put("result", "fail");
+			map.put("reason", "login required");
+			return map;
+		}
+		map.put("result", "success");
+		map.put("list", rentalService.getRecentReturnListByUserId(businessDto.getId()));
+		
+		return map;
+	}
+	
 	
 	// 최근 반납 가져오기
 //	@RequestMapping("getRecentReturnList")
