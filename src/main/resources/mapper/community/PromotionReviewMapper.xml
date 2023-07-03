@@ -144,5 +144,13 @@
 </select>
 
 
+<select id="orderByPromotionReviewLikes" resultType="int">
+	SELECT pro_like.review_id, count(pro_like.review_id) AS review_like_count
+	FROM promotion_review_like pro_like
+	INNER JOIN promotion_review pro_review ON pro_review.id = pro_like.review_id
+	GROUP BY pro_like.review_id
+	ORDER BY review_like_count DESC
+</select>
+
 
 </mapper>

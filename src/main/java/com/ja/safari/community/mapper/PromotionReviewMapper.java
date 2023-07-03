@@ -60,6 +60,8 @@ public interface PromotionReviewMapper {
 	public int countPromotionReviewMyLike(PromotionReviewLikeDto promotionReviewLikeDto);
 	public int countLikeByPromotionReviewId(int reviewId);
 	
+	// 프로모션 게시물 공감순
+	public int orderByPromotionReviewLikes(int review_id);
 	
 	
 	
