@@ -14,11 +14,5 @@ public class CommunityController {
 	      return "community/mainPage";
 	   }
 
-	// 커뮤니티 메인 페이지
-	@RequestMapping("mainPage")
-	public String main() {
-		
-		return "community/mainPage";
-	}
 
 }
