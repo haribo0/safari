@@ -8,32 +8,37 @@
 		select help_table_seq.nextval from dual
 	</select>
 	
+	
 	<select id="selectUserByUserId" resultType="com.ja.safari.dto.UserDto">
 	select * from user_table where id=#{id}
 	</select>
 	
+	<!-- 게시물 댓글  -->
 	<select id="getHelpCommentById" resultType="com.ja.safari.dto.HelpCommentDto">
 	select * from help_comment_table where id=#{id}
 	</select>
 	
+	<!-- 해주세요 게시물 등록  -->
 	<insert id="registerHelpBoard">
 	insert into help_table values(
-    #{id},
-    #{user_id},
-    #{title},
-    #{content},
-    0,
-    #{points},
-    '진행중',
-    #{location},
-    sysdate
+	    #{id},
+	    #{user_id},
+	    #{title},
+	    #{content},
+	    0,
+	    #{points},
+	    '진행중',
+	    #{location},
+	    sysdate
 	)
 	</insert>
 	
+	<!-- 해주세요 게시물 상세보기 -->
 	<select id="getHelpBoard" resultType="com.ja.safari.dto.HelpDto">
 		select * from help_table where id=#{id}
 	</select>
 	
+	<!-- 해주세요 게시물 select -->
 	<select id="selectAllHelpBoards" resultType="com.ja.safari.dto.HelpDto">
 		select ht2.* from(
     		select ht1.*, rownum rnum from(
@@ -46,12 +51,12 @@
 		]]>
 	</select>
 	
+	<!-- 해주세요 게시물 개수  -->
 	 <select id="getHelpBoardCount" resultType="int">
 		select count(*) from help_table
 	</select>
 	
-	
-	
+	<!-- 해주세요 게시물 수정 -->
 	<update id="updateHelpBoard">
 	update help_table
 		set 
@@ -60,27 +65,28 @@
 	  		id=#{id}
 	</update>
 	
-    
+   <!-- 해주세요 게시물 삭제 -->
   <delete id="deleteHelpBoard">
   	delete from help_table where id=#{id}
   </delete>
   
+   <!-- 해주세요 게시물 조회수 증가 -->
   <update id="increaseHelpReadCount">
   	update help_table
-	set views = views + 1
-	where id = #{id}
+		set views = views + 1
+		where id = #{id}
   </update>
   
   <!-- 해주세요 게시물 댓글 insert -->
   <insert id="registerHelpComment">
   insert into help_comment_table values(
-    HELP_COMMENT_TABLE_SEQ.nextval,
-    #{user_id},
-    #{help_id},
-    #{content},
-    '채택 대기중',
-    sysdate
-    )
+	    HELP_COMMENT_TABLE_SEQ.nextval,
+	    #{user_id},
+	    #{help_id},
+	    #{content},
+	    '채택 대기중',
+	    sysdate
+	    )
   </insert>
   
   <!-- 해주세요 게시글 댓글 리스트 조회 -->
@@ -89,12 +95,12 @@
   </select>
   
   
-    
+   <!-- 해주세요 게시글 댓글 삭제 -->
   <delete id="deleteHelpComment">
   delete from help_comment_table where id=#{id}
   </delete>
   
-  <!--해주세요 게시물 이미지 insert  --> 
+  <!--해주세요 게시물 이미지 등록  --> 
   <insert id="insertHelpBoardImage">
 	insert into help_img_table values(
 	    help_img_table_seq.nextval,
@@ -104,12 +110,13 @@
     )
   </insert>
   
+  <!--해주세요 게시물 이미지 조회  --> 
   <select id="selectHelpBoardImageByHelpId" resultType="com.ja.safari.dto.HelpImgDto">
   	select * from help_img_table
 	where help_id = #{helpId}
   </select>
 	
-	<!-- 해주세요 좋아요 insert -->
+	<!-- 해주세요 좋아요 등록 -->
 	<insert id="insertHelpLike">
 	insert into help_like_table values(
 	    help_like_table_seq.nextval,

@@ -81,14 +81,18 @@
 				  <!--  onclick='location.href="/safari/community/help/insertHelpLikeProcess/${map.helpDto.id}"'-->
 					<div class="row">
 						<div class="col text-center" style="text-align: center;">
-							<c:if test="${HelpBoardLikeCount==0}">
-							<a class="bi bi-heart text-danger" style="font-size: 48px;" href="/safari/community/help/insertHelpLikeProcess/${map.helpDto.id}"></a>
-							${HelpBoardLikeCount}
-							</c:if>
-							<c:if test="${HelpBoardLikeCount>=1}">
-							<a class="bi bi-heart-fill text-danger" style="font-size: 48px;" href="/safari/community/help/insertHelpLikeProcess/${map.helpDto.id}"></a>
-							${HelpBoardLikeCount}
-							</c:if>
+						<!-- 고친다 -->
+							<c:choose>
+							    <c:when test="${HelpBoardLikeCount >= 1}">
+							        <a class="bi bi-heart-fill text-danger" style="font-size: 48px;" href="/safari/community/help/insertHelpLikeProcess/${map.helpDto.id}"></a>
+							        ${HelpBoardLikeCount}
+							    </c:when>
+							    <c:otherwise>
+							        <a class="bi bi-heart text-danger" style="font-size: 48px;" href="/safari/community/help/insertHelpLikeProcess/${map.helpDto.id}"></a>
+							        ${HelpBoardLikeCount}
+							    </c:otherwise>
+							</c:choose>
+							
 						</div>
 					</div>
 					
@@ -138,49 +142,112 @@
 
 			<div class="row">
 			<div class="col">
-			<c:forEach items="${helpCommentsList}" var="helpCommentDto">
-			
-			<form action="/safari/community/help/deleteCommentProcess/${helpCommentDto.helpCommentDto.id}" method="post">
-				
-				<div class="row" style="margin-top: 10px;">
-				<div class="col">
-				<span class="fw-bold" style="font-size: 15px">${helpCommentDto.userDto.nickname } </span>&nbsp;
-				<input type="hidden" value="${helpCommentDto.helpCommentDto.id}" name="id">
-				<input type="hidden" value="${map.helpDto.id}" name="boardId">
-				<span class="badge rounded-pill text-bg-secondary mb-2 text-center">${helpCommentDto.helpCommentDto.status}</span>
-				</div>
-				</div>
-				
-				<div class="row">
-				<div class="col">
-				<input type="text" style="border: none; outline:none;" value="${helpCommentDto.helpCommentDto.content }"><br>
-				</div>
-				<div class="col-2">
-				<c:if test="${sessionUser.id == map.userDto.id }">
-				<input type="button" class="btn btn-secondary" onclick='location.href="/safari/community/help/acceptHelpCommentProcess?help_comment_id=${helpCommentDto.helpCommentDto.id}"' style="font-size: 12px;" value="채택하기"/>
-				<button class="btn btn-secondary" style="font-size: 15px; order: 1;">채택</button>
-				</c:if>
-				</div>
-				</div>
-				
-				<div class="row">
-				<div class="col">
-				<span style="font-size:13px"><fmt:formatDate value="${helpCommentDto.helpCommentDto.reg_date}" pattern="yyyy.MM.dd HH:mm" /></span>
-				<c:if test="${sessionUser.id == helpCommentDto.userDto.id }">
-				<button class="btn btn-light"><i class="bi bi-trash3"></i></button>
-				</c:if>
-				</div>
-				</div>
-				
-				<div class="row no-gutters">
-				<div class="col">
+			<c:forEach items="${helpCommentsList}" var="helpComment">
+
+
+	          <!-- 댓글 공간-->
+	            <div class="row">
+	                <div class="col border border-1 rounded-3">
+	                        
+	                    <!-- 댓글 내용-->
+	                        <div class="row mt-2">
+	                            <div class="col fw-bold">
+	                                ${helpComment.userDto.nickname } <span class="text-secondary ms-2" style="font-size: 0.9rem; font-weight: normal;">
+	                                <fmt:formatDate value="${helpComment.helpCommentDto.reg_date}" pattern="yyyy.MM.dd a hh:mm"/> 
+	                                </span>
+	                                
+	                                  <c:if test="${sessionUser.id == helpComment.userDto.id }">
+	                                   <span class="ms-2">
+	                                       <input type="button" class="btn btn-sm btn-primary" value="수정" style="background-color: transparent; border: none; color: inherit;">
+	                                        <input type="button" class="btn btn-sm btn-primary" value="삭제" style="background-color: transparent; border: none; color: inherit;">
+	                                       </span> </c:if>
+	                                
+	                            </div>
+	                            <div class="col text-end">
+	                                  <div class="row">
+	                                    <div class="col">
+	                                    	<!-- 동적으로 바껴야 하는 부분 -->
+	                                    	<c:choose>
+	                                    		
+	                                    		<c:when test="${(map.userDto.id == sessionUser.id) && map.helpDto.status == '진행중'}">
+	                                    			<c:choose>
+	                                    				<c:when test="${(map.userDto.id != helpComment.helpCommentDto.user_id) && helpComment.helpCommentDto.status=='채택 대기중' }">
+	                                    					 <input type="button" class="btn mt-4 btn-primary btn-sm" onclick='location.href="/safari/community/help/acceptHelpCommentProcess?help_comment_id=${helpComment.helpCommentDto.id}"' value="채택하기">
+	                                    				</c:when>
+	                                    				<c:when test="${map.userDto.id == helpComment.helpCommentDto.user_id }">
+	                                    				
+	                                    				</c:when>	                                    				
+	                                    			</c:choose>
+	                                    		</c:when>
+	                                    		
+	                                    		<c:when test="${(map.userDto.id == sessionUser.id) && map.helpDto.status == '채택 완료' }">
+	                                    			<c:choose>
+	                                    				<c:when test="${(map.userDto.id != helpComment.helpCommentDto.user_id) && helpComment.helpCommentDto.status == '채택 완료'}">
+	                                    					<button type="button" class="btn mt-3 btn-success btn-sm" style="background-color: transparent; border: none; padding: 0;">
+	                                    						<i class="bi bi-check-circle" style="font-size: 1.5rem; color: #28a745;"></i>
+	                                    					</button>	                                    			
+	                                    				</c:when>
+	                                    				
+	                                    				<c:when test="${(map.userDto.id != helpComment.helpCommentDto.user_id) && helpComment.helpCommentDto.status == '채택 대기중' }">
+	                                    				</c:when>
+	                                    				
+	                                    				<c:when test="${map.userDto.id == helpComment.helpCommentDto.user_id}">
+	                                    				</c:when>
+	                                    				
+	                                    			
+	                                    			</c:choose>
+	                                    		</c:when>
+	                                    		
+	                                    		
+	                                    		<c:when test="${(map.userDto.id != sessionUser.id) && map.helpDto.status == '진행중'}">
+	                                    		
+	                                    		</c:when>
+	                                    		
+	                                    		<c:when test="${(map.userDto.id != sessionUser.id) && map.helpDto.status == '채택 완료'}">
+	                                    			<c:choose>
+	                                    				<c:when test="${helpComment.helpCommentDto.status == '채택 완료'}">
+	                                    					<button type="button" class="btn mt-3 btn-success btn-sm" style="background-color: transparent; border: none; padding: 0;">
+	                                    						<i class="bi bi-check-circle" style="font-size: 1.5rem; color: #28a745;"></i>
+	                                    					</button>	                                    			 
+	                                    				</c:when>
+	                                    				<c:when test="${helpComment.helpCommentDto.status == '채택 대기중'}">
+	                                    				</c:when>
+	                                    			</c:choose>
+	                                    		</c:when>
+	                                    	
+	                                    	</c:choose>
+	                                    	
+	                                        
+	                                        <!-- 동적으로 바껴야 하는 부분 -->
+	                                    </div>
+	                                </div>
+	                                                           
+	                            </div>                            
+	                        </div>
+	
+	                        <div class="row mt-2">
+	                            <div class="col" style="margin-top: -5px;" >
+	                               ${helpComment.helpCommentDto.content}
+	                            </div>
+	                            <div class="col text-end">
+	                                <div class="row">
+	
+	                                    <div class="col">
+	                                        <!-- 동적으로 바껴야 하는 부분 -->
+	                                      
+	                                        <!-- 동적으로 바껴야 하는 부분 -->
+	                                    </div>
+	                                </div>
+	
+	                            </div>
+	                        </div>
+	                     <!-- 댓글 내용-->
+	                </div>
+	            </div>
+	            <!-- 댓글 공간-->    
 					
-				</div>
-				</div>
-				<hr style="margin-top: 5px; margin-bottom: 5px;">
 				
-				
-			</form>		
+		
 			</c:forEach>
 			</div>
 			</div> 
@@ -287,7 +354,7 @@
 	<jsp:include page="../../common/footer.jsp"></jsp:include>
 	<!-- 푸터 섹션 -->
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+
 </body>	
 </html>	
 

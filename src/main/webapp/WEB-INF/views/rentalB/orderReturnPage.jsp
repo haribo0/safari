@@ -10,6 +10,15 @@
 <!-- 메타 섹션 -->
 <jsp:include page="../common/meta.jsp"></jsp:include>
 <!-- 메타 섹션 -->
+
+<style type="text/css">
+
+.returnTab{
+	color: #F68942;
+}
+
+</style>
+
 </head>
 <body>
 	<!-- 헤더 섹션 -->
@@ -613,9 +622,18 @@ function getInputData() {
 
 
 
+function changeTextColor() {
+	
+	const tab = document.getElementsByClassName('returnTab')[0];
+	tab.classList.remove("text-white");
+	
+}
+
+
 window.addEventListener("DOMContentLoaded",function(){
 	getItemToBeReturnedList();
 	getItemReturnedList();
+	changeTextColor();
 	
 	// setInterval(reloadCommentList, 3000);	// 3초마다 실행
 });

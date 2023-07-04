@@ -28,7 +28,10 @@ public interface QuestionSqlMapper {
 		public void registerQuestionReply(QuestionReplyDto questionReplyDto);
 		
 		//궁금해요 게시물 답변 조회
-		public List<QuestionReplyDto> selectAllQuestionReplyByBoardId(int question_id);
+		public List<QuestionReplyDto> selectAllQuestionReplyByBoardId(int id);
+		
+		//궁금해요 게시물 답변 삭제
+		public void deleteQuestionReply(int id);
 		
 		//궁금해요 게시물 조회수 증가
 		public void increaseQuestionReadCount(int id);

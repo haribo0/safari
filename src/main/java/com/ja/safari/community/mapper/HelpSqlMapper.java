@@ -10,7 +10,9 @@ import com.ja.safari.dto.HelpLikeDto;
 
 public interface HelpSqlMapper {
 
-public HelpCommentDto getHelpCommentById(int id);
+	public int createPk();
+	
+	public HelpCommentDto getHelpCommentById(int id);
 	
 	//해주세요 게시글 등록
 	public void registerHelpBoard(HelpDto helpDto);
@@ -25,8 +27,10 @@ public HelpCommentDto getHelpCommentById(int id);
 	//해주세요 게시글 수정
 	public void updateHelpBoard(HelpDto helpDto);
 	
+	//해주세요 게시글 삭제
 	public void deleteHelpBoard(int id);
 	
+	//해주세요 게시글 조회수 증가 
 	public void increaseHelpReadCount(int id);
 
 	//해주세요 이미지 등록
@@ -44,6 +48,7 @@ public HelpCommentDto getHelpCommentById(int id);
 	
 	//해주세요 게시물 좋아요
 	public void insertHelpLike(HelpLikeDto helpLikeDto);
+	
 	
 	public int getHelpLikeCountByBoardId(int help_id);
 	
@@ -66,11 +71,11 @@ public HelpCommentDto getHelpCommentById(int id);
 	public List<HelpDto> selectBestHelpBoard();
 	
 	//해주세요 채택 insert
-	public void acceptHelpComment(HelpCommentCompleteDto helpCommentCompleteDto);
+	public void acceptHelpComment(int id);
 	
-	// 해주세요 채택 완료 update
-	public void completeHelpComment(HelpCommentDto helpCommentDto);
+	// 해주세요 댓글 채택 완료 update
+	public void completeHelpComment(int id);
 	
 	//해주세요 채택상태 변경
-	public void changeCompleteHelp(HelpDto helpDto);
+	public void changeCompleteHelp(int id);
 }

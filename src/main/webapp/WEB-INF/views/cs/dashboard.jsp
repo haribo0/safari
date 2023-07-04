@@ -76,6 +76,18 @@
   .fc-scrollgrid-sync-table tr td { 
   	overflow: hidden;
   }
+  /* 
+  .event-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+
+.event-block {
+  border-radius: 4px;
+  padding: 5px;
+  margin-bottom: 2px;
+} */
   
  
 </style>
@@ -97,7 +109,7 @@
 	<div class="row ">
 		<div class="col"></div>
 		
-		<div class="col-8">
+		<div class="col-9">
 			
 			
 			<div id='wrap'>
@@ -153,7 +165,7 @@ var pastelColors = [
 	'rgba(234, 208, 255, 1)',   // Lavender
 	'rgba(207, 240, 246, 1)'    // Pale Blue
 ]; */
-
+/* 
 var pastelColors = [
 	'rgba(255, 217, 222, 1)',   // Pale Pink
 	'rgba(255, 239, 222, 1)',   // Peach
@@ -165,13 +177,41 @@ var pastelColors = [
 	'rgba(207, 240, 246, 1)'    // Pale Blue
 
 ];
+ */
 
-/* var pastelColors = [
-	'rgba(255, 217, 222, 1)',   // Pale Pink
-	
-
+/*  
+ // green 
+ var pastelColors = [
+	'#235D3A',
+	'#397D54',
+	'#73C088',
+	'#ABEDB7',
+	'#C8EAD1',
+];
+ */
+ 
+/* 
+ // purple violet  
+ var pastelColors = [
+	'#EADFF2',
+	'#DCCBED',
+	'#FEE6EB',
+	'#FCB7D0'
 ]; */
 
+ // purple violet  
+ var pastelColors = [
+	'#F6DFF9',
+	'#E0D5F1',
+	//'#D9C4E9',
+	'#FEE6EB',
+	'#FFD4E4'
+	//'#FDB8CF'
+];
+
+
+
+ 
 
 let employees = [];
 
@@ -331,13 +371,18 @@ document.addEventListener('DOMContentLoaded', function() {
 		 eventTimeElement.classList.add('event-time','col-4','fs-smaller');
 		 eventTimeElement.innerText = eventTime.toLocaleTimeString([], { hour: '2-digit'});
 		 eventTimeElement.innerText += " - " + eventEndTime.toLocaleTimeString([], { hour: '2-digit'});
-		 
+
+		  var eventDot = document.createElement('div');
+		  eventDot.classList.add('event-dot'); // Apply custom CSS class for the event dot
+		  eventDot.style.backgroundColor = eventBlock.style.backgroundColor; // Set the dot color to match the event block's background color
+
+
 		 eventBlock.appendChild(eventTitleElement);
 		 eventBlock.appendChild(eventTimeElement);
 		 
 		 eventBlock.style.backgroundColor = arg.event.color; // Set the background color based on the assigned color
 		 
-		 return { domNodes: [eventBlock] };
+		  return { domNodes: [eventBlock, eventDot] };
     }
   });
   

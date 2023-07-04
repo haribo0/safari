@@ -15,6 +15,9 @@
   font-size: 0.8rem; /* Adjust the size as per your preference */
 }
 
+.reviewTab{
+	color: #F68942;
+}
 
 .review-reply {
   background-color: #f5f5f5;
@@ -67,21 +70,21 @@
 			
 			
 			
-			<div class="col container mt-5 me-5">
+			<div class="col container mt-5  me-5">
 			
-    			<h4 class="ps-4 ms-4 mt-3 mb-4 fw-regular">리뷰 관리</h4>
+    			<h4 class="ps-4 ms-4 mt-3 mb-4 sticky-top fw-regular">리뷰 관리</h4>
 
 				<div class="row mt-5 ms-4">
-					
 					
 					<!-- 상품 리스트 COLUMN  -->
 				
 					<div class="col-3">
 						
-						
-						
-						
-						<div class="row mt-1">
+						<div class="row sticky-top">
+							<div class="col">
+							
+							
+								<div class="row mt-1">
 								
 							<hr class="border border-black opacity-25">
 								
@@ -118,6 +121,23 @@
 								
 							</div>
 						</div>
+							
+							
+							
+							
+							
+							</div>
+						
+						
+						
+						
+						
+						
+						
+						</div>
+						
+						
+						
 						
 					</div>
 					
@@ -158,7 +178,7 @@
 						
 						<!-- <hr class="border"> -->
 						
-						<div class="row mt-1 pt-3 h-75 overflow-y-scroll">
+						<div class="row mt-1 pt-3 ">
 							<div class="col d-grid" id="reviewBox">
 								
 								
@@ -685,10 +705,18 @@ function getAllReviewList() {
 
 
 
+function changeTextColor() {
+	
+	const tab = document.getElementsByClassName('reviewTab')[0];
+	tab.classList.remove("text-white");
+	
+}
+
 
 
 
 window.addEventListener("DOMContentLoaded",function(){
+	changeTextColor();
 	getProductList();
 	getReviewsByProductAndStatus(-1,-1);
 

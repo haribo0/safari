@@ -17,7 +17,7 @@
 	 <!-- 커뮤니티 메뉴바 -->
       <div class="row">
          <div class="col">
-            <jsp:include page="../../community/communityTopNavi.jsp"></jsp:include>
+            <jsp:include page="../communityTopNavi.jsp"></jsp:include>
          </div>
       </div>
       <!-- 커뮤니티 메뉴바 -->
@@ -48,7 +48,7 @@
 
 				<tr>
 				  <td><a class="text-black text-decoration-none" href="/safari/community/question/questionReadContentPage/${map.questionDto.id}">${map.questionDto.id}</a></td>
-					<td>
+					<td style="text-align: left;">
 				  	<c:if test="${map.questionDto.points>=1}">
 				  	<span class="badge text-bg-secondary">${map.questionDto.points}</span>
 				  	</c:if>
@@ -77,10 +77,11 @@
      <%--글쓰기 버튼 시작 --%>
 	<div class="row">
 	<div class="col text-end">
-		<a href="./questionWriteContentPage">글쓰기</a>
+		<span><a href="./questionWriteContentPage"><i class="bi bi-pencil-square fas fa-2x fa-icon"></i></a></span>
 	</div>
 	</div>
 	<%--글쓰기 버튼 끝 --%>	
+	
 	</div>
 	</div>
 	</div>

@@ -11,23 +11,27 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.ja.safari.community.service.CommunityServiceImpl;
+//import com.ja.safari.community.service.CommunityServiceImpl;
 import com.ja.safari.community.service.PickServiceImpl;
 import com.ja.safari.dto.PickCommentDto;
 import com.ja.safari.dto.PickDto;
 import com.ja.safari.dto.PickLikeDto;
 import com.ja.safari.dto.UserDto;
+import com.ja.safari.user.service.UserServiceImpl;
 
 
 @Controller
 @RequestMapping("/community/*")
 public class PickController {
 	
-	@Autowired
-	private CommunityServiceImpl communityService;
+	//@Autowired
+	//private CommunityServiceImpl communityService;
 	
 	@Autowired
 	private PickServiceImpl pickService;
+	
+	@Autowired
+	private UserServiceImpl userService;
 
 
 	
@@ -84,7 +88,7 @@ public class PickController {
 			//댓글 
 			List<Map<String, Object>> pickCommentsList = pickService.getPickcommentList(id);
 			model.addAttribute("pickCommentsList", pickCommentsList);
-			
+
 			//게시물 좋아요 count
 			int PickBoardLikeCount = pickService.countLikeByPickBoardId(id);
 			model.addAttribute("PickBoardLikeCount", PickBoardLikeCount);
@@ -132,7 +136,8 @@ public class PickController {
 				
 				return "redirect:/user/loginPage"; 
 			} else {
-			
+				pickCommentDto.setUser_id(sessionUser.getId());
+				System.out.println(sessionUser.getId());//유저 확인용 test sysout.
 				pickService.registerPickComment(pickCommentDto);
 			}
 			

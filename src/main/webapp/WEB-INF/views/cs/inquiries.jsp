@@ -29,44 +29,97 @@
 	<div class="row mt-0">
 		<div class="col"></div>
 		<div class="col-10">
-			<!-- <h4>직원 관리</h4> -->
-			<h5 class="fw-bolder">직원 관리</h5>
-			
-			<div class="row">
-				<div class="col text-end d-grid"></div>
-				<div class="col-2 text-end ">
+			<div class="row mt-0">
+				<div class="col d-grid">
+					<h5 class="fw-bolder">1대1문의</h5>
+				</div>
+				<div class="col text-end"> 완료되지 않은 문의 : 13건 </div>
+				<!-- <div class="col-2  ">
 					<div class="btn btn-sm btn-dark px-4 py-1" onclick="openModal()">직원 추가</div>
+				</div> -->
+			</div>
+			
+			
+			
+			<div class="row text-center py-2">
+				<div class="col-3">
+					<div class="row mt-3 mb-3 text-center py-2 ">
+						<div class="col fw-bolder">문의글 목록</div>
+					</div>
+					<div class="row mt-3 mb-3 text-center m-0 p-0 ">
+						<hr>
+					</div>
+					
+					<div class="row" id="inquiryListBox">
+				
+						
+						
+						<div class="col" id="">
+							<div class="row mt-1">
+								<div class="col pb-1" onclick="" style="cursor:pointer;">상세보기</div>
+							</div>
+							
+							<hr class="border">
+							
+							<!-- 상품 리스트 들어갈 곳 -->
+							<div class="" id="inquiryDetail"></div>
+							
+							
+						</div>
+						
+					</div>
+					
+				</div>
+				
+				<div class="col">
+					<div class="row mt-3 mb-3 text-center py-2 fw-bolder">
+						<div class="col">
+							<!-- <div class="btn btn-sm btn-outline-dark rounded-5 me-2" id="all" onclick="">전체보기</div>
+							<div class="btn btn-sm btn-outline-dark rounded-5 me-2" id="unanswered" onclick="">답변하지 않은 후기</div>
+							<div class="btn btn-sm btn-outline-dark rounded-5 me-2" id="answered" onclick="">답변한 후기</div> -->
+							문의 상세보기 
+						</div>
+					</div>
+					<div class="row mt-3 mb-3 text-center m-0 p-0 ">
+						<hr>
+					</div>
+					
+					<!-- 글 상세보기 -->
+					<div class="row mt-3 mb-3 overflow-y-scroll h-75 py-2">
+						<div class="col">
+						
+						<div class="row mt-1 pt-3 h-75 ">
+							<div class="col d-grid" id="postDetailBox">
+								
+								
+								
+								
+									
+								
+							
+								
+							</div>
+						</div>
+						
+						
+						
+						
+						
+						
+						
+						</div>
+					</div>
+					
+					
+				</div>
+				<div class="row" id="inquiryListBox">
+						
 				</div>
 			</div>
 			
-			<!-- <div class="row mt-3 mb-3 text-center bg-secondary-subtle py-2 fw-bolder">
-				<div class="col-1">#</div>
-				<div class="col">이름</div>
-				<div class="col">소속</div>
-				<div class="col">직급</div>
-				<div class="col">근무일</div>
-				<div class="col">출근</div>
-				<div class="col">퇴근</div>
-				<div class="col">근무상태</div>
-			</div> -->
-			
-			
-			<div class="row mt-3 mb-3 text-center bg-secondary-subtle py-2 fw-bolder">
-				<div class="col-1">#</div>
-				<div class="col">직급</div>
-				<div class="col">이름</div>
-				<div class="col">닉네임</div>
-				<div class="col">소속</div>
-				<div class="col-3">근무일</div>
-				<div class="col">출근</div>
-				<div class="col">퇴근</div>
-				<div class="col">근무상태</div>
-			</div>
 			
 			
 			
-			
-			<div id="listBox"></div>
 			
 			
 		</div>

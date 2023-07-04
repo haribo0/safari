@@ -17,6 +17,12 @@
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
 
 <style type="text/css">
+
+	
+  .orderTab{
+	color: #F68942;
+}
+
 .btn_search{padding:9px 18px; background: #e6edfe; border:none; color: #789efd; border-radius:8px; font-size: 14px;}
 .btn_delivered{padding:4px 12px; background: #f9e2e5; border:none; color: #dd7c7e; border-radius:8px; font-size: 14px;}
 .btn_canceled{padding:4px 12px; background: #e6edfe; border:none; color: #789efd; border-radius:8px; font-size: 14px;}
@@ -332,10 +338,18 @@ productSelect.addEventListener('change', reloadList);
 
 
 
+function changeTextColor() {
+	
+	const tab = document.getElementsByClassName('orderTab')[0];
+	tab.classList.remove("text-white");
+	
+}
+
 
 // 페이지 로드 
 window.addEventListener("DOMContentLoaded",function(){
 	reloadList();
+	changeTextColor();
 	
 });
 

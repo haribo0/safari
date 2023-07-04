@@ -64,6 +64,10 @@ public class QuestionController {
 			Map<String, Object> map = questionService.getQuestionBoardByBoardId(id);
 
 			model.addAttribute("map", map);
+			
+			List<Map<String, Object>> questionReplyBoardList = questionService.getQuestionReplyBoardList(id);
+			
+			model.addAttribute("questionReplyBoardList", questionReplyBoardList);
 
 			int QuestionBoardLikeCount = questionService.getQuestionLikeCountByBoardId(id);
 
@@ -86,7 +90,7 @@ public class QuestionController {
 		@RequestMapping("question/updateQuestionContentProcess")
 		public String updateQuestionContentProcess(QuestionDto questionDto) {
 			questionService.updateQuestionBoard(questionDto);
-			System.out.println(questionDto.getId());
+			//System.out.println(questionDto.getId());
 
 			return "redirect:/community/question/questionReadContentPage/"+ questionDto.getId();
 		}
@@ -110,11 +114,11 @@ public class QuestionController {
 
 		}
 		
-		//답변 작성 페이지
-			 @RequestMapping("question/replyQuestionContentPage/{id}") 
-			 public String replyQuestionContentPage(@PathVariable int id, Model model) { 
+		//궁금해요 답변 작성 페이지
+		 @RequestMapping("question/replyQuestionContentPage/{id}") 
+			public String replyQuestionContentPage(@PathVariable int id, Model model) { 
 				 
-		     model.addAttribute("board", questionService.getQuestionBoardByBoardId(id));
+		    model.addAttribute("board", questionService.getQuestionBoardByBoardId(id));
 			 
 			
 //			 List<Map<String,Object>> questionReplyBoardList = communityService.getQuestionReplyBoardList(id);
@@ -124,7 +128,16 @@ public class QuestionController {
 			 return "/community/question/replyQuestionContentPage";
 			 }
 
-
+		//궁금해요 답변 삭제
+		@RequestMapping("question/deleteQuestionReplyProcess/{id}")
+		public String deleteQuestionReplyProcess(@PathVariable int id, int questionboardId) {
+			
+			questionService.deleteQuestionReply(id);
+			
+			return "redirect:/community/question/questionReadContentPage/"+ questionboardId;
+		}
+		
+		
 		//궁금해요 좋아요 insert
 		@RequestMapping("question/insertQuestionLikeProcess/{id}")
 		public String insertQuestionLikeProcess(HttpSession session, QuestionLikeDto questionLikeDto,
