@@ -15,7 +15,9 @@
 .font-smaller {
 	font-size: 13px;
 }
-
+.dashboard{
+	color: #F68942;
+}
 </style>
 
 <!-- chart.js cdn -->
@@ -128,7 +130,7 @@
 						  <div class="card-body">
 						  	<div class="row">
 						    	<h5 class="fs-5 col ms-2 fw-bold"> 주문 </h5>
-						    	<div class="text-end col text-end fw-lighht fs-6 text-secondary">
+						    	<div class="text-end col text-end fw-lighht fs-6 text-secondary me-2">
 						    		<a href="./orderListPage2" class="text-secondary text-decoration-none">
 						    		+ 더보기
 						    		</a>
@@ -152,7 +154,7 @@
 						  <div class="card-body">
 						  	<div class="row">
 						   	 	<h5 class="fs-5 col ms-2 fw-bold"> 반품 </h5>
-					    		<div class="text-end col text-end fw-lighht fs-6 text-secondary">
+					    		<div class="text-end col text-end fw-lighht fs-6 text-secondary me-2">
 						    		<a href="./orderReturnPage" class="text-secondary text-decoration-none">
 						    		+ 더보기
 						    		</a>
@@ -161,8 +163,8 @@
 						    <hr class="border">
 						    <!-- <hr class="border border-dark"> -->
 						    
-						    <div class="returnListContainer">
-						    	<div class="row ms-2 mt-3">
+						    <div class="returnListContainer" id="returnListContainer">
+						    	<!-- <div class="row ms-2 mt-3">
 						    		<div class="col-9">스탠바이미 TV 27인치 27ART10AKP</div>
 						    		<div class="col">06/30/2023</div>
 						    	</div>
@@ -173,7 +175,7 @@
 						    	<div class="row ms-2 mt-3">
 						    		<div class="col-9">트롬 오브제컬렉션 워시타워 세탁기 25kg + 건조기 21kg WL21EGZU</div>
 						    		<div class="col">06/23/2023</div>	
-						    	</div>
+						    	</div> -->
 						    
 						  </div>
 						</div>
@@ -368,11 +370,11 @@ function makeLineChart(d, l) {
 }
 
 
+const orderListContainer = document.getElementById('orderListContainer');
 
 
 function getRecentOrderList() {
 	
-	const orderListContainer = document.getElementById('orderListContainer');
 
 	const xhr = new XMLHttpRequest();
 
@@ -381,6 +383,7 @@ function getRecentOrderList() {
 			const response = JSON.parse(xhr.responseText);
 			
 			orderListContainer.innerHTML = "";
+			
 			response.list.forEach(function(map){
 				// Create outer div element with classes
 				const rowDiv = document.createElement('div');
@@ -388,16 +391,22 @@ function getRecentOrderList() {
 
 				// Create inner div elements with classes
 				const col1Div = document.createElement('div');
-				col1Div.classList.add('col-9');
+				col1Div.classList.add('col');
 				col1Div.textContent = map.product.title;
 
+				// Create inner div elements with classes
 				const col2Div = document.createElement('div');
 				col2Div.classList.add('col');
-				col2Div.textContent = new Intl.DateTimeFormat('en-US', { month: '2-digit', day: '2-digit', year: 'numeric' }).format(map.order.start_date);
+				col2Div.textContent = map.order.address;
+
+				const col3Div = document.createElement('div');
+				col3Div.classList.add('col-3','text-end','me-2');
+				col3Div.textContent = new Intl.DateTimeFormat('en-US', { month: '2-digit', day: '2-digit', year: 'numeric' }).format(map.order.start_date);
 
 				// Append inner div elements to the outer div element
 				rowDiv.appendChild(col1Div);
 				rowDiv.appendChild(col2Div);
+				rowDiv.appendChild(col3Div);
 				orderListContainer.appendChild(rowDiv);
 
 			});
@@ -411,9 +420,13 @@ function getRecentOrderList() {
 	
 }
 
+
+
+
+
 function getRecentReturnList() {
 	
-	const returnListContainer = document.getElementById('returnListContainer');
+const returnListContainer = document.getElementById('returnListContainer');
 
 	const xhr = new XMLHttpRequest();
 
@@ -421,7 +434,7 @@ function getRecentReturnList() {
 		if(xhr.readyState == 4 && xhr.status == 200){
 			const response = JSON.parse(xhr.responseText);
 			
-			orderListContainer.innerHTML = "";
+			returnListContainer.innerHTML = "";
 			response.list.forEach(function(map){
 				// Create outer div element with classes
 				const rowDiv = document.createElement('div');
@@ -429,16 +442,23 @@ function getRecentReturnList() {
 
 				// Create inner div elements with classes
 				const col1Div = document.createElement('div');
-				col1Div.classList.add('col-9');
+				col1Div.classList.add('col');
 				col1Div.textContent = map.product.title;
 
+				// Create inner div elements with classes
 				const col2Div = document.createElement('div');
 				col2Div.classList.add('col');
-				col2Div.textContent = new Intl.DateTimeFormat('en-US', { month: '2-digit', day: '2-digit', year: 'numeric' }).format(map.returnDto.reg_date);
+				col2Div.textContent = map.order.address;
+				console.log(map.order.address);
+
+				const col3Div = document.createElement('div');
+				col3Div.classList.add('col-3','text-end','me-2');
+				col3Div.textContent = new Intl.DateTimeFormat('en-US', { month: '2-digit', day: '2-digit', year: 'numeric' }).format(map.returnDto.reg_date);
 
 				// Append inner div elements to the outer div element
 				rowDiv.appendChild(col1Div);
 				rowDiv.appendChild(col2Div);
+				rowDiv.appendChild(col3Div);
 				returnListContainer.appendChild(rowDiv);
 
 			});
@@ -453,7 +473,12 @@ function getRecentReturnList() {
 }
 
 
-
+function changeTextColor() {
+	
+	const tab = document.getElementsByClassName('dashboard')[0];
+	tab.classList.remove("text-white");
+	
+}
 
 
 
@@ -466,6 +491,7 @@ window.addEventListener("DOMContentLoaded",function(){
 	getDataForChart();
 	getRecentOrderList();
 	getRecentReturnList();
+	changeTextColor();
 
 });
 

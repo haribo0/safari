@@ -65,6 +65,20 @@ public class UserController {
 	}
 	
 	
+	// 1대1문의 | 마이페이지 - cs 
+	@RequestMapping("myPageInquiries")
+	public String myPageInquiries(HttpSession session, Model model) {
+		
+		UserDto sessionUser = (UserDto)session.getAttribute("sessionUser");
+		
+		List<Map<String, Object>> rentalOrderDtoList = userService.getRentalOrderedList(sessionUser.getId());
+		
+		model.addAttribute("rentalOrderDtoList",rentalOrderDtoList);
+		
+		return "user/myPageQna";
+	}
+	
+	
 	
 	
 	

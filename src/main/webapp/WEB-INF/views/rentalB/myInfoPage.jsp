@@ -12,7 +12,13 @@
 <jsp:include page="../common/meta.jsp"></jsp:include>
 <!-- 카카오맵 -->
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=1e9b83aad808555fe4c49e65c538d60c&libraries=services"></script>
+<style type="text/css">
 
+.myInfo{
+	color: #F68942;
+}
+
+</style>
 <!-- 메타 섹션 -->
 </head>
 <body>
@@ -673,6 +679,20 @@ function updateUserInfo() {
   xhr.open("POST", "./productRegisterProcess");
   xhr.send(formData);
 }
+
+
+function changeTextColor() {
+	
+	const tab = document.getElementsByClassName('myInfo')[0];
+	tab.classList.remove("text-white");
+	
+}
+
+
+window.addEventListener("DOMContentLoaded",function(){
+	changeTextColor();
+
+});
 
 
 

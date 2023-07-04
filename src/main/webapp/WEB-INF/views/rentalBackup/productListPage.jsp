@@ -65,7 +65,7 @@
 		    	
 		    	<h4 class="ps-4  mt-3 mb-4 fw-regular">상품 관리</h4>
 
-				<div class="row ms-4">
+				<div class="row mt-5 ms-4">
 					<div class="col">
 						
 					</div>
@@ -75,10 +75,10 @@
 				</div>
 					
 					
-				<div class="row mt-4 ">
+				<div class="row mt-4">
 					<div class="col">
 					
-						<div class="row bg-light py-3 text-center sticky-top fw-bold">
+						<div class="row mt-3 text-center fw-bold">
 						      <div class="col-1">#</div>
 						      <div class="col-2">광고</div>
 						      <div class="col-1">이미지</div>
@@ -88,7 +88,7 @@
 						      <div class="col-1">수정</div>
 						      <div class="col-1">삭제</div>
 						</div>
-						<!-- <hr class="border border-black"> -->
+						<hr class="border border-black">
 						
 						
 						<div id="listContainer">
@@ -885,11 +885,11 @@ function getListUpdated() {
 				
 				  // Outer row div
 				  const cardDiv = document.createElement('div');
-				  cardDiv.classList.add('card', 'mt-3', 'mb-3' , 'shadow-sm');
+				  cardDiv.classList.add('card', 'mt-3', 'mb-3');
 				
 				  // Outer row div
 				  const rowDiv = document.createElement('div');
-				  rowDiv.classList.add('row', 'py-3', 'text-center');
+				  rowDiv.classList.add('row', 'text-center');
 
 				  // col-1
 				  const col1Div = document.createElement('div');

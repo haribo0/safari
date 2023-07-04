@@ -85,6 +85,16 @@ public class CsController {
 	}
 	
 	
+	@RequestMapping("inquiries") 
+	public String inquiries(HttpSession session){
+		
+		CsEmpDto empUser = (CsEmpDto) session.getAttribute("empUser");
+		if(empUser==null) return "redirect:./loginPage";
+		
+		return "cs/inquiries";
+	}
+	
+	
 	
 	
 	
