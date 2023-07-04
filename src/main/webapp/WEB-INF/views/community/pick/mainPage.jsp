@@ -58,8 +58,8 @@
 								<thead>
 									<tr>
 										<th>글번호</th>
-										<th>작성자</th>
 										<th>제목</th>
+										<th>작성자</th>
 										<th>조회수</th>
 										<th>등록일</th>
 									</tr>	
@@ -70,9 +70,9 @@
 										<td><a class="text-black text-decoration-none" href="/safari/community/pick/readContentPage/${pickDto.pickDto.id}" >
 										${pickDto.pickDto.id}
 										</a></td>
-										<td>${pickDto.userDto.nickname}</td>
 										<td><a class="text-black text-decoration-none" href="/safari/community/pick/readContentPage/${pickDto.pickDto.id}">
 										${pickDto.pickDto.title}</a></td>
+										<td>${pickDto.userDto.nickname}</td>
 										<td>${pickDto.pickDto.views}</td>
 										<td><fmt:formatDate value="${pickDto.pickDto.reg_date}" pattern="yyyy.MM.dd"/></td>
 									</tr>

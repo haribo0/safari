@@ -50,11 +50,13 @@
 					<div class="row">
 						<div class="col" style="width:990px;"> 
 						
-						<div class="row">
+						<%-- headline --%>	
+						<div class="row">	
 							<div class="col" > 
 							<%-- <div style="display: inline-flex;"> --%>
 								<strong>(프로필사진) ${map.userDto.nickname }</strong>
 								</div>
+							
 								
 							<div class="col">
 								<div style="display: flex; justify-content: flex-end;">  
@@ -64,32 +66,33 @@
 								</c:if><br></div>
 							</div>
 						</div>
+						<%-- headline --%>			
+						
+						<%-- content --%>
+						<div style="color: grey; font-size: 12px; font-family: 'Noto Sans', sans-serif;">(프로필사진) <fmt:formatDate value="${map.pickDto.reg_date}" pattern="yyyy.MM.dd"/></div>
+						<br><div style="font-size: 24px; font-family: 'Noto Sans', sans-serif;"><strong>${map.pickDto.title }</strong></div><br>
+						내용: ${map.pickDto.content }<br>
+						<%-- content --%>
+
+						<%-- 좋아요 --%>
+						<br>
+						<div style="text-align: center; font-size: 18px;">
+						 <button onclick='location.href="/safari/community/pick/insertPickLikeProcess/${map.pickDto.id}"' style="background: none; border: none; padding: 0;">
+							<i id="likeIcon" class="bi-heart${PickBoardLikeCount > 0 ? "-fill" : ""}" style="color: red;"></i>
+ 							 </button>
+						<span style="color: grey;">${PickBoardLikeCount}</span>
+						</div>
+						<%-- 좋아요 --%>
+						
+						<%-- 목록으로 버튼 --%>
+						<div class="row">
+							<div class="col text-end ms-auto d-grid">
+								<a href="/safari/community/pick/mainPage" class="nav-link px-2 text-body-secondary"> 목록으로 </a>
 								
-								<div style="color: grey; font-size: 12px; font-family: 'Noto Sans', sans-serif;">(프로필사진) <fmt:formatDate value="${map.pickDto.reg_date}" pattern="yyyy.MM.dd"/></div>
-								<br><div style="font-size: 24px; font-family: 'Noto Sans', sans-serif;"><strong>${map.pickDto.title }</strong></div><br>
-								내용: ${map.pickDto.content }<br>
-							
-								
-								
-								<%-- 좋아요 --%>
-								<br>
-								<div style="text-align: center; font-size: 18px;">
-								 <button onclick='location.href="/safari/community/pick/insertPickLikeProcess/${map.pickDto.id}"' style="background: none; border: none; padding: 0;">
-									<i id="likeIcon" class="bi-heart${PickBoardLikeCount > 0 ? "-fill" : ""}" style="color: red;"></i>
-	  							 </button>
-								<span style="color: grey;">${PickBoardLikeCount}</span>
-								</div>
-								<%-- 좋아요 --%>
-								
-								<%-- 목록으로 버튼 --%>
-								<div class="row">
-									<div class="col text-end ms-auto d-grid">
-										<a href="/safari/community/pick/mainPage" class="nav-link px-2 text-body-secondary"> 목록으로 </a>
-										
-									</div>
-								</div>
-								<%-- 목록으로 버튼 --%>
-							
+							</div>
+						</div>
+						<%-- 목록으로 버튼 --%>
+					
 								<%-- 댓글작성 --%>
 								<div class="row">
 								<div class="col">
