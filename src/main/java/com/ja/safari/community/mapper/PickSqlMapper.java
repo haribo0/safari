@@ -39,7 +39,7 @@ public interface PickSqlMapper {
 	public void registerPickComment(PickCommentDto pickCommentDto);
 	
 	//골라줘요 게시물 ID로 조회
-	public List<PickCommentDto> selectByPickcommentId(int id);
+	public List<PickCommentDto> selectByPickcommentId(Integer id);
 	
 	//골라줘요 댓글 삭제
 	public void deleteByPickcommentId(int id);

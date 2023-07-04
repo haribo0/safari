@@ -1,19 +1,11 @@
 package com.ja.safari.used.service;
 
-import java.sql.Date;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.sql.rowset.JoinRowSet;
-
-import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -404,6 +396,52 @@ public class UsedServiceImpl {
 	public void updateIsRead(Integer requestId, Integer receiverId) {
 		usedSqlMapper.updateIsRead(requestId, receiverId);
 	}
+	
+	// pkId로 productRequestDto select
+	public ProductRequestDto selectProductRequestById(Integer id) {
+		return usedSqlMapper.selectProductRequestById(id);
+	}
+	
+	// 채팅창 header 내 필요한 정보 
+	public Map<String, Object> selectProductInformation(Integer productId){
+		Map<String, Object> map = new HashMap<String, Object>();
+		ProductImgDto productImgDto = usedSqlMapper.selectProductImg(productId);
+		ProductDto productDto = usedSqlMapper.selectProductById(productId);
+		String status = null;
+		if(usedSqlMapper.countProductRequestComplete(productId)>0) {
+			status = "거래완료";
+		}else if(usedSqlMapper.countProductRequestReservation(productId)>0) {
+			status = "예약중";
+		}else {
+			status = "판매중";
+		}
+		
+		
+		map.put("productImgDto", productImgDto);
+		map.put("productDto", productDto);
+		map.put("status", status);
+		
+		return map;
+		
+	}
+	
+	// 판매자일때 요청자, 상품 아이디에 따른 productRequestDto 가져오기
+	public ProductRequestDto selectProductRequestByProductIdAndRequestId(Integer productId,Integer requesterId){
+		return usedSqlMapper.selectProductRequestByProductIdAndRequestId(productId, requesterId);
+	}
+	
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 }
