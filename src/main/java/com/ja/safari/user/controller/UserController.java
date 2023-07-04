@@ -48,8 +48,13 @@ public class UserController {
 		
 		return "/main/loginPage";
 	}
-
-
+	
+	// 주소관리|마이페이지
+	@RequestMapping("myAddressPage")
+	public String myAddressPage() {
+		
+		return "user/myAddressPage";
+	}
 	
 	// 대여|마이페이지
 	@RequestMapping("myOrderListPage")
@@ -64,7 +69,12 @@ public class UserController {
 		return "/main/myOrderListPage";
 	}
 	
-	
+	// 대여|코인페이지
+	@RequestMapping("myCoinPage")
+	public String myCoinPage () {
+		
+		return "/user/myCoinPage";
+	}
 	
 	
 	
