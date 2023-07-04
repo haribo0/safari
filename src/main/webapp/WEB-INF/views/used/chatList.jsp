@@ -44,6 +44,15 @@
     font-size: 12px;
 }
 
+#modalHeader {
+    display: block;
+}
+
+#statusButton{
+	font-size: 14px;
+}
+
+
 </style>
 </head>
 <body>
@@ -160,13 +169,25 @@
  	        <div class="modal-title position-absolute top-50 start-50 translate-middle fw-bold fs-3" id="modalTitle"></div>
 	        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 	      </div>
-	      <div class="modal-header">
-	      	<p class="row" style="clear: both;">사진</p>
-	      	<div class="row">
-	      		<div class="col btn btn-outline-secondary text-dark me-3 ms-2">예약하기</div>
-	      		<div class="col btn btn-outline-secondary text-dark me-3">약속잡기</div>
-	      		<div class="col btn btn-outline-secondary text-dark">송금하기</div>
-	      	</div>
+	      <div class="modal-header ms-2" id="modalHeader">
+		     <div class="my-custom-header-wrapper" id="modalHeaderWrapper">
+		      	<!-- 
+		      	<div class="row">
+		      		<div class="col-2"><img alt="" src=""></div>
+		      		<div class="col">
+		      			<div class="row">
+		      				<div class="col-4">상품이름</div>
+		      				<div class="col">판매중</div>
+		      			</div>
+		      			<div class="row">0,000원</div>
+		      		</div>
+		      	</div> -->
+		      	<!-- <div class="row mt-2">
+		      		<div class="col-2 btn btn-outline-secondary text-dark me-3 ms-2 btn-sm p-1"><i class="bi bi-calendar2-plus-fill"></i><span class="fw-bold"> 약속잡기</span></div>
+		      		<div class="col-2 btn btn-outline-secondary text-dark btn-sm p-1"><i class="bi bi-coin"></i><span class="fw-bold"> 송금하기</span></div>
+		      		<div class="col"></div>
+		      	</div> -->
+		      </div>
 	      </div>
 	      <div class="modal-body" style="height: 400px">
 			<div class="chat-container overflow-y-scroll overflow-x-hidden" style="height:380px;" id="getChatList">
@@ -176,14 +197,12 @@
 	      		<textarea id="chatContent" placeholder="메시지 보내기" rows="1" cols="20" class="form-control" style="width: 80%;"></textarea>
 	      	
 			    <button class="send-button btn btn-primary ms-3 px-3" id="sendContent">전송</button>
-	       		
 	      </div>
 	    </div>
 	  </div>
 	</div>
 	<!-- 채팅창 모달 -->
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
 <script>
 	let mySessionId = null;
 	let requestId2 = null;
@@ -201,9 +220,9 @@
 	            chatRoomListStartBox.innerHTML = "";
 	            for(data of response.chatRoomList){
 	  			  const row = document.createElement('div');
-	  			  console.log("data.productRequestDto.id",data.productRequestDto.id)
+	  			  /* console.log("data.productRequestDto.id",data.productRequestDto.id)
 	  			  console.log("data.userDto.id",data.userDto.id)
-	  			  console.log("data.content",data.chatContent)
+	  			  console.log("data.content",data.chatContent) */
 	  			  row.className = 'row align-items-center';
 	  			  row.setAttribute("onclick", "modalOn("+data.productRequestDto.id + "," + data.userDto.id + "," + "'" + data.userDto.nickname + "'" + ")");
 
@@ -248,7 +267,7 @@
 		  			  }
 	
 		  			  // 어제 날짜인 경우
-		  			  else if (yesterday === chatDate.toDateString()) {
+		  			  else if (yesterday.toDateString() === chatDate.toDateString()) {
 		  				row1col3.textContent = '어제';
 		  			  }
 	
@@ -326,10 +345,21 @@
 		requestId2=requestId;
 		receiverId2=receiverId;
 		
-		console.log("requestId"+requestId);
-		console.log("receiverId"+receiverId);
+		/* console.log("requestId"+requestId);
+		console.log("receiverId"+receiverId); */
 		const modalTitleBox = document.getElementById("modalTitle");
 		modalTitleBox.innerText = userNickname2;
+		
+		// 상품 정보 및 예약, 결제 상태 
+		getProductInformation(requestId);
+		
+		
+		const modalHeaderBox = document.getElementById("modalHeader");
+		
+		const row1 = document.createElement('div');
+		row1.classList.add('row');
+		const row1col1 = document.createElement('div');
+		row1col1.classList.add('col-1');
 		
 		// 열 때
 		myModal.show();
@@ -357,6 +387,368 @@
 		
 		
 	}
+	
+/* <div class="modal-header" id="modalHeader">
+    <div class="my-custom-header-wrapper" id="modalHeaderWrapper">
+    	<div class="row">
+    		<div class="col-2"><img></div>
+    		<div class="col">
+    			<div class="row">
+    				<div class="col-4">상품이름</div>
+    				<div class="col">판매중</div>
+    			</div>
+    			<div class="row">0,000원</div>
+    		</div>
+    	</div>
+    	<div class="row mt-2">
+    		<div class="col-2 btn btn-outline-secondary text-dark me-3 ms-2 btn-sm p-1"><i class="bi bi-check-circle-fill"></i><span class="fw-bold"> 예약하기</span></div>
+    		<div class="col-2 btn btn-outline-secondary text-dark btn-sm p-1"><i class="bi bi-coin"></i><span class="fw-bold"> 송금하기</span></div>
+    		<div class="col-2 btn btn-outline-secondary text-dark me-3 btn-sm p-1"><i class="bi bi-calendar2-plus-fill"></i><span class="fw-bold"> 거래완료</span></div>
+    		<div class="col"></div>
+    	</div>
+    </div>
+</div> */
+	
+	
+	// 상품 정보 모달 열기 전 불러오기 
+	function getProductInformation(requestId) {
+		const modalHeaderWrapperBox = document.getElementById('modalHeaderWrapper');
+		modalHeaderWrapperBox.innerHTML = "";
+		
+		const xhr = new XMLHttpRequest();
+		
+		xhr.onreadystatechange = function(){
+	        if(xhr.readyState == 4 && xhr.status == 200){
+	            const response = JSON.parse(xhr.responseText);
+	            const row1 = document.createElement('div');
+	            row1.classList.add('row');
+	            row1col1 = document.createElement('div');
+	            row1col1.classList.add('col-2');
+	            row1col1Img = document.createElement('img');
+	            row1col1Img.setAttribute('id', 'aTagImg');
+	            row1col1Img.alt = '사진';
+	            row1col1Img.src = '/safarifile/' + response.map.productImgDto.product_img_link;
+	            row1col1Img.height = '65';
+	            row1col1Img.width = '65';
+	            row1col2 = document.createElement('div');
+	            row1col2.classList.add('col');
+	            row1col2row1 = document.createElement('div');
+	            row1col2row1.classList.add('row');
+	            row1col2row1col1 = document.createElement('div');
+	            row1col2row1col1.classList.add('col', 'ms-1');
+	            row1col2row1col1.innerText = response.map.productDto.title;
+	            row1col2row1col1.setAttribute('id', 'aTagrow1col2row1col1');
+	            row1col2row1col2 = document.createElement('span');
+	            row1col2row1col2.classList.add('btn', 'py-0', 'btn-outline-success', 'btn-sm', 'ms-2');
+ 	            row1col2row1col2.disabled = true;
+	            row1col2row1col2.setAttribute('id', 'statusButton');
+	            row1col2row1col2.innerText = response.map.status;
+	            
+	            
+	            row1col2row2 = document.createElement('div');
+	            row1col2row2.classList.add('row', 'ms-1', 'fw-bolder');
+	            row1col2row2.innerText = response.map.productDto.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',') + '원';
+	            
+	            /* button */
+	            /*예약버튼 */ 
+	            
+	            const row2 = document.createElement('div');
+	            row2.classList.add('row', 'mt-2');
+	            /* row2col1 = document.createElement('div');
+	            row2col1.classList.add('col-2', 'btn', 'btn-outline-secondary', 'text-dark', 'me-3', 'ms-2', 'btn-sm', 'p-1');
+				row2col1Icon = document.createElement('i');
+				row2col1Icon.classList.add('bi', 'bi-check-circle-fill');
+				const row2col1Span = document.createElement('span');
+				row2col1Span.classList.add('fw-bold');
+				row2col1Span.innerText = ' 예약하기';
+	            
+	            const row2col2 = document.createElement('div');
+	            row2col2.classList.add('col-2', 'btn', 'btn-outline-secondary', 'text-dark', 'me-3', 'ms-2', 'btn-sm', 'p-1');
+	            const row2col2Icon = document.createElement('i');
+	            row2col2Icon.classList.add('bi', 'bi-check-circle-fill');
+	            const row2col2Span = document.createElement('span');
+	            row2col2Span.classList.add('fw-bold');
+	            row2col2Span.innerText = ' 송금하기';
+
+	            const row2col3 = document.createElement('div');
+	            row2col3.classList.add('col-2', 'btn', 'btn-outline-secondary', 'text-dark', 'btn-sm', 'p-1');
+	            const row2col3Icon = document.createElement('i');
+	            row2col3Icon.classList.add('bi', 'bi-coin');
+	            const row2col3Span = document.createElement('span');
+	            row2col3Span.classList.add('fw-bold');
+	            row2col3Span.innerText = ' 거래완료';
+
+
+	            const row2col4 = document.createElement('div');
+	            row2col4.classList.add('col'); */
+	            
+	            /* row2.appendChild(row2col1);
+	            row2.appendChild(row2col2);
+	            row2.appendChild(row2col3);
+	            row2.appendChild(row2col4);
+	            
+	            row2col1.appendChild(row2col1Icon);
+	            row2col1.appendChild(row2col1Span);
+
+	            row2col2.appendChild(row2col2Icon);
+	            row2col2.appendChild(row2col2Icon);
+
+	            row2col3.appendChild(row2col3Icon);
+	            row2col3.appendChild(row2col3Icon); */
+
+					            
+	            // 예약, 완료, 예약취소, 리뷰 버튼 
+	            // 판매자일때
+	            console.log("response.map.productDto.user_id"+response.map.productDto.user_id);
+	            console.log("response.map.sessionId"+response.sessionId);
+	            console.log("response.map.productRequestDto.status"+response.productRequestDto.status);
+	            console.log("response.map.reservationCount"+response.reservationCount);
+	            console.log("response.map.completeCount"+response.completeCount);
+	            
+	            if(response.map.productDto.user_id == response.sessionId){
+	            	if(response.productRequestDto.status == '거래요청' && response.reservationCount == 0 && response.completeCount == 0){
+	    	            row2col1 = document.createElement('div');
+	    	            row2col1.classList.add('col-2', 'btn', 'btn-outline-secondary', 'text-dark', 'me-3', 'ms-2', 'btn-sm', 'p-1');
+	    				row2col1Icon = document.createElement('i');
+	    				row2col1Icon.classList.add('bi', 'bi-calendar-check-fill');
+	    				const row2col1Span = document.createElement('span');
+	    				row2col1Span.classList.add('fw-bold');
+	    				row2col1Span.innerText = ' 예약하기';
+	    				const row2col2 = document.createElement('div');
+	    	            row2col2.classList.add('col-2', 'btn', 'btn-outline-secondary', 'text-dark', 'me-3', 'btn-sm', 'p-1');
+	    	            const row2col2Icon = document.createElement('i');
+	    	            row2col2Icon.classList.add('bi', 'bi-coin');
+	    	            const row2col2Span = document.createElement('span');
+	    	            row2col2Span.classList.add('fw-bold');
+	    	            row2col2Span.innerText = ' 송금하기';
+
+	    	            const row2col3 = document.createElement('div');
+	    	            row2col3.classList.add('col-2', 'btn', 'btn-outline-secondary', 'text-dark', 'btn-sm', 'p-1');
+	    	            const row2col3Icon = document.createElement('i');
+	    	            row2col3Icon.classList.add('bi', 'bi-check-circle-fill');
+	    	            const row2col3Span = document.createElement('span');
+	    	            row2col3Span.classList.add('fw-bold');
+	    	            row2col3Span.innerText = ' 거래완료';
+	    	            
+	    	            const row2col4 = document.createElement('div');
+	    	            row2col4.classList.add('col');
+	    	            
+	    	            row2.appendChild(row2col1);
+	    	            row2.appendChild(row2col2);
+	    	            row2.appendChild(row2col3);
+	    	            row2.appendChild(row2col4);
+	    	            
+	    	            row2col1.appendChild(row2col1Icon);
+	    	            row2col1.appendChild(row2col1Span);
+
+	    	            row2col2.appendChild(row2col2Icon);
+	    	            row2col2.appendChild(row2col2Span);
+
+	    	            row2col3.appendChild(row2col3Icon);
+	    	            row2col3.appendChild(row2col3Span);
+	            	}else if(response.productRequestDto.status == '예약중'){
+	            		row2col1 = document.createElement('div');
+	    	            row2col1.classList.add('col-2', 'btn', 'btn-outline-secondary', 'text-dark', 'me-3', 'ms-2', 'btn-sm', 'p-1');
+	    				row2col1Icon = document.createElement('i');
+	    				row2col1Icon.classList.add('bi', 'bi-calendar-check-fill');
+	    				const row2col1Span = document.createElement('span');
+	    				row2col1Span.classList.add('fw-bold');
+	    				row2col1Span.innerText = ' 예약취소';
+	    				const row2col2 = document.createElement('div');
+	    	            row2col2.classList.add('col-2', 'btn', 'btn-outline-secondary', 'text-dark', 'me-3', 'btn-sm', 'p-1');
+	    	            const row2col2Icon = document.createElement('i');
+	    	            row2col2Icon.classList.add('bi', 'bi-coin');
+	    	            const row2col2Span = document.createElement('span');
+	    	            row2col2Span.classList.add('fw-bold');
+	    	            row2col2Span.innerText = ' 송금하기';
+
+	    	            const row2col3 = document.createElement('div');
+	    	            row2col3.classList.add('col-2', 'btn', 'btn-outline-secondary', 'text-dark', 'btn-sm', 'p-1');
+	    	            const row2col3Icon = document.createElement('i');
+	    	            row2col3Icon.classList.add('bi', 'bi-check-circle-fill');
+	    	            const row2col3Span = document.createElement('span');
+	    	            row2col3Span.classList.add('fw-bold');
+	    	            row2col3Span.innerText = ' 거래완료';
+	    	            
+	    	            const row2col4 = document.createElement('div');
+	    	            row2col4.classList.add('col');
+	    	            
+	    	            row2.appendChild(row2col1);
+	    	            row2.appendChild(row2col2);
+	    	            row2.appendChild(row2col3);
+	    	            row2.appendChild(row2col4);
+	    	            
+	    	            row2col1.appendChild(row2col1Icon);
+	    	            row2col1.appendChild(row2col1Span);
+
+	    	            row2col2.appendChild(row2col2Icon);
+	    	            row2col2.appendChild(row2col2Span);
+
+	    	            row2col3.appendChild(row2col3Icon);
+	    	            row2col3.appendChild(row2col3Span);
+	    	            
+	            	}else if(response.productRequestDto.status == '거래완료'){
+	            		row2col1 = document.createElement('div');
+	    	            row2col1.classList.add('col-2', 'btn', 'btn-outline-secondary', 'text-dark', 'me-3', 'ms-2', 'btn-sm', 'p-1');
+	    				row2col1Icon = document.createElement('i');
+	    				row2col1Icon.classList.add('bi', 'bi-chat-dots-fill');
+	    				const row2col1Span = document.createElement('span');
+	    				row2col1Span.classList.add('fw-bold');
+	    				row2col1Span.innerText = ' 리뷰쓰기';
+	    	            
+	    	            const row2col4 = document.createElement('div');
+	    	            row2col4.classList.add('col');
+	    	            
+	    	            row2.appendChild(row2col1);
+	    	            row2.appendChild(row2col4);
+	    	            
+	    	            row2col1.appendChild(row2col1Icon);
+	    	            row2col1.appendChild(row2col1Span);
+	    	            
+	    	            row2.appendChild(row2col1);
+	    	            row2.appendChild(row2col4);
+	            	}
+	            	// 거래요청한 사람인 경우 : 소비자 
+	            }else{
+	            	if(response.productRequestDto.status == '거래요청' && response.reservationCount == 0 && response.completeCount == 0){
+	    	            row2col1 = document.createElement('div');
+	    	            row2col1.classList.add('col-2', 'btn', 'btn-outline-secondary', 'text-dark', 'me-3', 'ms-2', 'btn-sm', 'p-1');
+	    				row2col1Icon = document.createElement('i');
+	    				row2col1Icon.classList.add('bi', 'bi-coin');
+	    				const row2col1Span = document.createElement('span');
+	    				row2col1Span.classList.add('fw-bold');
+	    				row2col1Span.innerText = ' 송금하기';
+	    	            const row2col4 = document.createElement('div');
+	    	            row2col4.classList.add('col');
+	    	            
+	    	            row2.appendChild(row2col1);
+	    	            row2.appendChild(row2col4);
+	    	            
+	    	            row2col1.appendChild(row2col1Icon);
+	    	            row2col1.appendChild(row2col1Span);
+
+	            	}else if(response.productRequestDto.status == '예약중'){
+	            		row2col1 = document.createElement('div');
+	    	            row2col1.classList.add('col-2', 'btn', 'btn-outline-secondary', 'text-dark', 'me-3', 'ms-2', 'btn-sm', 'p-1');
+	    				row2col1Icon = document.createElement('i');
+	    				row2col1Icon.classList.add('bi', 'bi-coin');
+	    				const row2col1Span = document.createElement('span');
+	    				row2col1Span.classList.add('fw-bold');
+	    				row2col1Span.innerText = ' 송금하기';
+	    	            const row2col4 = document.createElement('div');
+	    	            row2col4.classList.add('col');
+	    	            
+	    	            row2.appendChild(row2col1);
+	    	            row2.appendChild(row2col4);
+	    	            
+	    	            row2col1.appendChild(row2col1Icon);
+	    	            row2col1.appendChild(row2col1Span);
+	    	            
+	            	}else if(response.productRequestDto.status == '거래완료'){
+	            		row2col1 = document.createElement('div');
+	    	            row2col1.classList.add('col-2', 'btn', 'btn-outline-secondary', 'text-dark', 'me-3', 'ms-2', 'btn-sm', 'p-1');
+	    				row2col1Icon = document.createElement('i');
+	    				row2col1Icon.classList.add('bi', 'bi-chat-dots-fill');
+	    				const row2col1Span = document.createElement('span');
+	    				row2col1Span.classList.add('fw-bold');
+	    				row2col1Span.innerText = ' 리뷰쓰기';
+	    	            
+	    	            const row2col4 = document.createElement('div');
+	    	            row2col4.classList.add('col');
+	    	            
+	    	            row2.appendChild(row2col1);
+	    	            row2.appendChild(row2col4);
+	    	            
+	    	            row2col1.appendChild(row2col1Icon);
+	    	            row2col1.appendChild(row2col1Span);
+	    	            
+	    	            row2.appendChild(row2col1);
+	    	            row2.appendChild(row2col4);
+	            	}
+	            }
+	            
+	            
+	            
+	            /* <c:if test="${sessionUser.getId() == map.productDto.user_id }">
+			 	<div class="row mt-1 mb-2">
+					<div class="col-1"></div>
+					<c:if test="${response.map.productRequestDto.status == '거래요청' && response.map.reservationCount == 0 && response.map.completeCount == 0 }">
+						<div class="col-1 text-center">
+							<a href="./productRequestStatusReservation?productId=${response.map.productRequestDto.product_id }&userId=${response.map.productRequestDto.user_id}" class="btn btn-dark btn-sm">예약하기</a>
+						</div>
+						<div class="col-1 text-center">
+							<a href="./productRequestStatusComplete?productId=${response.map.productRequestDto.product_id }&userId=${response.map.productRequestDto.user_id}" class="btn btn-dark btn-sm">거래완료</a>
+						</div>
+					</c:if>
+					<c:if test="${response.map.productRequestDto.status == '예약중' }">
+						<div class="col-1 text-center">
+							<a href="./productRequestStatusCancel?productId=${response.map.productRequestDto.product_id }&userId=${response.map.productRequestDto.user_id}" type="button" class="btn btn-dark btn-sm">예약취소</a>
+						</div>
+						<div class="col-1 text-center">
+							<a href="./productRequestStatusComplete?productId=${response.map.productRequestDto.product_id }&userId=${response.map.productRequestDto.user_id}" type="button" class="btn btn-dark btn-sm">거래완료</a>
+						</div>
+					</c:if>
+					<c:if test="${response.map.productRequestDto.status == '거래완료'}">
+						<div class="col-1 text-center">
+						</div>
+						<div class="col-1 text-center">
+							<button type="button" class="btn btn-danger btn-sm">리뷰 쓰기</button>
+						</div>
+					</c:if>
+					<c:if test="${response.map.productRequestDto.status == '거래요청' && response.map.reservationCount != 0}">
+						<div class="col-1 text-center">
+						</div>
+						<div class="col-1 text-center">
+						</div>
+					</c:if>
+					<c:if test="${response.map.productRequestDto.status != '거래완료' && response.map.completeCount != 0}">
+						<div class="col-1 text-center">
+						</div>
+						<div class="col-1 text-center">
+						</div>
+					</c:if>
+			 	</div>
+				</c:if> 
+	             */
+	            /* 상품정보 */
+	            
+	            row1.appendChild(row1col1);
+	            row1col1.appendChild(row1col1Img);
+	            row1.appendChild(row1col2);
+	            row1col2.appendChild(row1col2row1);
+	            row1col2row1.appendChild(row1col2row1col1);
+	            row1col2row1col1.appendChild(row1col2row1col2);
+	            row1col2.appendChild(row1col2row2);
+	            
+	            
+	            modalHeaderWrapperBox.appendChild(row1);
+	            modalHeaderWrapperBox.appendChild(row2);
+	            
+	            const aTagImg = document.getElementById('aTagImg');
+	            const aTagrow1col2row1col1 = document.getElementById('aTagrow1col2row1col1');
+	            
+	            aTagImg.addEventListener('click', function() {
+	                // href로 이동할 페이지 URL
+	                const url = './productDetail?productId='+response.map.productDto.id;
+
+	                // 페이지 이동
+	                window.location.href = url;
+	            });
+	            aTagrow1col2row1col1.addEventListener('click', function() {
+	                // href로 이동할 페이지 URL
+	                const url = './productDetail?productId='+response.map.productDto.id;
+
+	                // 페이지 이동
+	                window.location.href = url;
+	            });
+	            
+	        }
+	    }
+	    //get
+		xhr.open("get", "./getProductInformation?requestId="+requestId);
+		xhr.send();
+	}
+	
 	
 	// Textarea에서 Enter 칠 때도 전송되기(단, shirt+enter 안되게)
 	function keyUpEvent(e) {
@@ -425,12 +817,12 @@ function reloadChatList(requestId) {
 				  const month = regDate.getMonth() + 1;
 				  const day = regDate.getDate();
 				  const formattedDateHappen = year + '년 ' + month + '월 ' + day + '일';
-				  console.log(yearMonthDay);
+				  /* console.log(yearMonthDay);
 				  console.log(formattedDateHappen);
-				  
+				   */
 				  if(yearMonthDay != formattedDateHappen){
 					  const yearMonthDayRow = document.createElement('div');
-					  yearMonthDayRow.classList.add('row', 'justify-content-center', 'mt-4');
+					  yearMonthDayRow.classList.add('row', 'justify-content-center', 'mt-4', 'mb-4');
 					  yearMonthDayRow.innerText = formattedDateHappen;
 					  getChatbox.appendChild(yearMonthDayRow);
 					  yearMonthDay = formattedDateHappen;

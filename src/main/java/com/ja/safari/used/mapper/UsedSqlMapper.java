@@ -112,6 +112,10 @@ public interface UsedSqlMapper {
 	public void updateIsRead(@Param("requestId")Integer requestId, @Param("receiverId")Integer receiverId);
 	// 채팅목록과 userId에 따른 안읽음 개수 
 	public int selectUnreadCountByRequestId(@Param("requestId")Integer requestId, @Param("receiverId")Integer receiverId);
+	// request pk Id로 requestDto select
+	public ProductRequestDto selectProductRequestById(Integer id);
+	// 판매자일때 요청자에 따른 productRequestDto 가져오기
+	public ProductRequestDto selectProductRequestByProductIdAndRequestId(@Param("productId")Integer productId, @Param("requesterId")Integer requesterId);
 	
 	
 }
