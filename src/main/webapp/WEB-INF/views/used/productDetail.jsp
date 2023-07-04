@@ -231,7 +231,7 @@
 		<div class="col-1"></div>
 	</div>
 	
-	<c:if test="${sessionUser.getId() == map.productDto.user_id }">
+	<%-- <c:if test="${sessionUser.getId() == map.productDto.user_id }">
 	<div class="row mb-4">
 		<div class="col-1"></div>
 		<div class="col mt-5 mb-2" style="border-top: 2px solid black;"></div>
@@ -296,6 +296,48 @@
 		<div class="col-2"></div>
  	</div>
  	</c:forEach>
+	</c:if> --%>
+	<c:if test="${sessionUser.getId() == map.productDto.user_id }">
+ 	<c:forEach items="${productRequestList}" var="map">
+ 	<div class="row mt-1 mb-2">
+		<div class="col-1"></div>
+		<c:if test="${map.productRequestDto.status == '거래요청' && reservationCount == 0 && completeCount == 0 }">
+			<div class="col-1 text-center">
+				<a href="./productRequestStatusReservation?productId=${map.productRequestDto.product_id }&userId=${map.productRequestDto.user_id}" type="button" class="btn btn-dark btn-sm">예약하기</a>
+			</div>
+			<div class="col-1 text-center">
+				<a href="./productRequestStatusComplete?productId=${map.productRequestDto.product_id }&userId=${map.productRequestDto.user_id}" type="button" class="btn btn-dark btn-sm">거래완료</a>
+			</div>
+		</c:if>
+		<c:if test="${map.productRequestDto.status == '예약중' }">
+			<div class="col-1 text-center">
+				<a href="./productRequestStatusCancel?productId=${map.productRequestDto.product_id }&userId=${map.productRequestDto.user_id}" type="button" class="btn btn-dark btn-sm">예약취소</a>
+			</div>
+			<div class="col-1 text-center">
+				<a href="./productRequestStatusComplete?productId=${map.productRequestDto.product_id }&userId=${map.productRequestDto.user_id}" type="button" class="btn btn-dark btn-sm">거래완료</a>
+			</div>
+		</c:if>
+		<c:if test="${map.productRequestDto.status == '거래완료'}">
+			<div class="col-1 text-center">
+			</div>
+			<div class="col-1 text-center">
+				<button type="button" class="btn btn-danger btn-sm">리뷰 쓰기</button>
+			</div>
+		</c:if>
+		<c:if test="${map.productRequestDto.status == '거래요청' && reservationCount != 0}">
+			<div class="col-1 text-center">
+			</div>
+			<div class="col-1 text-center">
+			</div>
+		</c:if>
+		<c:if test="${map.productRequestDto.status != '거래완료' && completeCount != 0}">
+			<div class="col-1 text-center">
+			</div>
+			<div class="col-1 text-center">
+			</div>
+		</c:if>
+ 	</div>
+ 	</c:forEach>
 	</c:if>
 </div>
 
@@ -303,6 +345,5 @@
 	<jsp:include page="../common/footer.jsp"></jsp:include>
 	<!-- 푸터 섹션 -->
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
 </body>	
 </html>

@@ -204,7 +204,7 @@ public class UsedRestController {
 		Map<String, Object> map = new HashMap<>();
 		UserDto sessionUser = (UserDto)session.getAttribute("sessionUser");
 		if(sessionUser == null) {
-			map.put("result", "fchatListAjaxail");
+			map.put("result", "fail");
 			map.put("reason", "로그인되어있지않습니다.");
 			return map;
 		}else {
@@ -214,6 +214,29 @@ public class UsedRestController {
 		}
 	}
 	
+	// 채팅창 모달 내 상품 정보 및 상태 
+	@RequestMapping("getProductInformation")
+	public Map<String, Object> getProductInformation(Integer requestId, HttpSession session){
+		Map<String, Object> map = new HashMap<>();
+		UserDto sessionUser = (UserDto)session.getAttribute("sessionUser");
+		if(sessionUser == null) {
+			map.put("result", "fail");
+			map.put("reason", "로그인되어있지않습니다.");
+			return map;
+		}else {
+			Integer productId = usedService.selectProductRequestById(requestId).getProduct_id();
+			Integer requesterId = usedService.selectProductRequestById(requestId).getUser_id();
+			map.put("map", usedService.selectProductInformation(productId));
+			// 예약, 예약취소, 거래완료, 리뷰쓰기, 송금하기 
+			map.put("sessionId", sessionUser.getId());
+			map.put("reservationCount", usedService.countProductRequestReservation(productId));
+		    map.put("completeCount", usedService.countProductRequestComplete(productId));
+		    map.put("requestCount", usedService.countProductRequestByProductId(productId));
+			map.put("productRequestDto", usedService.selectProductRequestByProductIdAndRequestId(productId, requesterId));
+			map.put("result", "success");
+			return map;
+		}
+	}
 	
 	
 	
