@@ -8,7 +8,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.ja.safari.community.mapper.CommunitySqlMapper;
+//import com.ja.safari.community.mapper.CommunitySqlMapper;
 import com.ja.safari.community.mapper.PickSqlMapper;
 import com.ja.safari.dto.PickCommentDto;
 import com.ja.safari.dto.PickDto;
@@ -19,8 +19,8 @@ import com.ja.safari.user.mapper.UserSqlMapper;
 @Service
 public class PickServiceImpl {
 	
-	@Autowired
-	private CommunitySqlMapper communitySqlMapper;
+	//@Autowired
+	//private CommunitySqlMapper communitySqlMapper;
 	@Autowired
 	private UserSqlMapper userSqlMapper;
 	@Autowired
@@ -117,23 +117,22 @@ public class PickServiceImpl {
 	
 	
 	//골라줘요 게시물 ID로 조회하기 //매개변수의 id는 게시물 아이디
-	public List<Map<String, Object>> getPickcommentList(int id) {
-		
+	public List<Map<String, Object>> getPickcommentList(Integer pick_id) {
+
 		List<Map<String, Object>> pickCommentsList = new ArrayList<>();
 		
-		List<PickCommentDto> pickCommentDtoList = pickSqlMapper.selectByPickcommentId(id);
+		List<PickCommentDto> pickCommentDtoList = pickSqlMapper.selectByPickcommentId(pick_id);
 		
 		for(PickCommentDto pickCommentDto : pickCommentDtoList) {
-			
+
 			Map<String, Object> map = new HashMap<>();
-			
-			UserDto userDto = userSqlMapper.selectUserDtoById(pickCommentDto.getUser_id()); //
-			
-			System.out.println(userDto);
+
+			int userId = pickCommentDto.getUser_id();
+			UserDto userDto = userSqlMapper.selectUserDtoById(userId); 
+
 			map.put("userDto", userDto);
 			map.put("pickCommentDto", pickCommentDto);
-			
-			
+
 			pickCommentsList.add(map);
 		}
 		

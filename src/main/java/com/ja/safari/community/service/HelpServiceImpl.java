@@ -227,7 +227,7 @@ public class HelpServiceImpl {
 			Map<String, Object> map = new HashMap<>();
 			
 			UserDto userDto = userSqlMapper.selectUserDtoById(helpCommentDto.getUser_id());
-			
+			System.out.println(userDto);
 			map.put("userDto", userDto);
 			map.put("helpCommentDto",helpCommentDto);
 			
