@@ -39,11 +39,11 @@ public class CsScheduleDto {
 		this.emp_id = emp_id;
 	}
 
-	public String getDay() {
+	public String getWeekday() {
 		return weekday;
 	}
 
-	public void setDay(String weekday) {
+	public void setWeekday(String weekday) {
 		this.weekday = weekday;
 	}
 

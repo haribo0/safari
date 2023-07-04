@@ -16,13 +16,13 @@
 
 </div>
     
-<div class="row">
+<div class="row ms-4">
 	<div class="col py-3 "><a href="./mainPage" class="btn"><img class="img-fluid" width="150px" max-width="150px" src="/safari/resources/img/logo0.png"></a></div>
 	<div class="col-5"></div>
 </div>
 
 <!-- 2023-07-01 시욱수정 -->    
-<div class="listContainer mt-3">
+<div class="listContainer mt-3 ms-4">
 	<ul class="list-group">
 	  <li class="list-group-item border border-0  pt-2 pb-0 bg-dark"><a class="btn fs-5 fw-medium text text-white py-1" href="./mainPage"> <span style="font-size: 20px;">  <i class="bi bi-speedometer2"></i></span> &nbsp;대시보드</a></li>
 
@@ -94,7 +94,7 @@
 		
 		
 		
-		<div class="row ms-2 mt-4">
+		<div class="row ms-4 mt-4">
 			<div class="col ms-3">		        
 		           <c:if test="${!empty businessUser}">
 		           		<a href="./myInfoPage" class="text-black text-decoration-none fs-5">
@@ -106,7 +106,7 @@
 			</div>
 		</div>
 		
-		<div class="row ms-2 mt-3">
+		<div class="row ms-4 mt-3">
 			<div class="col ms-3">
 		        
 		           <c:choose>

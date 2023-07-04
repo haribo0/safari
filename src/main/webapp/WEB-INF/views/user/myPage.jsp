@@ -10,9 +10,14 @@
 <!-- 메타 섹션 -->
 <jsp:include page="../common/meta.jsp"></jsp:include>
 <!-- 메타 섹션 -->
-
+<style>
+.btn-qna{position: fixed; bottom: 80px; right: 70px; background-color: #ffbe00; width: 68px; height: 68px; border-radius: 50%;}
+</style>
 </head>
 <body>
+
+<div class="btn-qna">
+</div>
 	<!-- 헤더 섹션 -->
 	<jsp:include page="../common/header.jsp"></jsp:include>
 	<!-- 헤더 섹션 -->
@@ -26,6 +31,8 @@
 		  	<div class="" id="">
 				<ul class="list-group ms-4">
 					<li class="list-group-item border-0"><a href="#" class="btn py-0 text-body-secondary">회원정보수정</a></li>
+					<li class="list-group-item border-0"><a href="../user/myCoinPage" class="btn py-0 text-body-secondary">코인관리</a></li>
+					<li class="list-group-item border-0"><a href="#" class="btn py-0 text-body-secondary">배송지관리</a></li>
 					<li class="list-group-item border-0"><a href="#" class="btn py-0 text-body-secondary">배송지관리</a></li>
 					<li class="list-group-item border-0"><a href="#" class="btn py-0 text-body-secondary">찜</a></li>
 					<li class="list-group-item border-0"><a href="#" class="btn py-0 text-body-secondary">1:1문의</a></li>
@@ -84,19 +91,18 @@
 		<div class="container mt-4 ps-0">
 			<h3 class="fs-3">회원정보수정</h3>
 			
-			<div class="d-flex mt-3">
+			<div class="row mt-3">
 				<p class="me-5">${sessionUser.nickname }님의 배송 주소 리스트: </p>
 				<ul class="list-group list_addr_box">
 				</ul>
 			</div>
-			<div class="d-flex mt-3">
+			<div class="row mt-3">
 				<p class="me-5">배송지추가: </p> 
 				<p> 
 					<input type="text"  id="usr_address" name="prd_address" placeholder="주소입력" class="form-control ms-3" style="width: 400px;"/> <button onclick="searchAddr()" class="btn btn-secondary mt-2 ms-3">주소찾기</button>
 				</p>
 				<p><button class="btn btn-dark ms-2" onclick="addMyAddr()">추가</button></p>
 			</div>
-			
 		</div>
 		
 	</div>
