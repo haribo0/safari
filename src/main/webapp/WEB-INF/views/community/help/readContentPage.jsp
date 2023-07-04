@@ -81,6 +81,7 @@
 				  <!--  onclick='location.href="/safari/community/help/insertHelpLikeProcess/${map.helpDto.id}"'-->
 					<div class="row">
 						<div class="col text-center" style="text-align: center;">
+						<!-- 고친다 -->
 							<c:if test="${HelpBoardLikeCount==0}">
 							<a class="bi bi-heart text-danger" style="font-size: 48px;" href="/safari/community/help/insertHelpLikeProcess/${map.helpDto.id}"></a>
 							${HelpBoardLikeCount}

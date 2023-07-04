@@ -128,7 +128,11 @@
 						  <div class="card-body">
 						  	<div class="row">
 						    	<h5 class="fs-5 col ms-2 fw-bold"> 주문 </h5>
-						    	<div class="text-end col text-end fw-lighht fs-6 text-secondary">+ 더보기</div>
+						    	<div class="text-end col text-end fw-lighht fs-6 text-secondary">
+						    		<a href="./orderListPage2" class="text-secondary text-decoration-none">
+						    		+ 더보기
+						    		</a>
+						    	</div>
 						    </div>
 						    <hr class="border">
 						    <!-- <hr class="border border-dark"> -->
@@ -147,8 +151,12 @@
 						<div class="card" >
 						  <div class="card-body">
 						  	<div class="row">
-						   	 <h5 class="fs-5 col ms-2 fw-bold"> 반품 </h5>
-						    	<div class="text-end col text-end fw-lighht fs-6 text-secondary">+ 더보기</div>
+						   	 	<h5 class="fs-5 col ms-2 fw-bold"> 반품 </h5>
+					    		<div class="text-end col text-end fw-lighht fs-6 text-secondary">
+						    		<a href="./orderReturnPage" class="text-secondary text-decoration-none">
+						    		+ 더보기
+						    		</a>
+						    	</div>
 						    </div>
 						    <hr class="border">
 						    <!-- <hr class="border border-dark"> -->

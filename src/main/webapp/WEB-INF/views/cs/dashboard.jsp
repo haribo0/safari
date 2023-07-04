@@ -68,6 +68,16 @@
     max-width: 1100px;
     margin: 0 auto;
   } */
+  
+  .fs-smaller {
+  	font-size: 12px;
+  }
+  
+  .fc-scrollgrid-sync-table tr td { 
+  	overflow: hidden;
+  }
+  
+ 
 </style>
 
 </head>
@@ -85,9 +95,9 @@
 
 <div class="container-fluid">
 	<div class="row ">
-		<div class="col-3"></div>
+		<div class="col"></div>
 		
-		<div class="col-6">
+		<div class="col-8">
 			
 			
 			<div id='wrap'>
@@ -114,6 +124,326 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
 <script>
 
+
+
+/* var transparentColors = [
+  'rgba(255, 179, 186, 0.5)', // Pale Pink
+  'rgba(255, 223, 186, 0.5)', // Peach
+  'rgba(255, 255, 186, 0.5)', // Pale Yellow
+  'rgba(190, 228, 255, 0.5)', // Sky Blue
+  'rgba(195, 228, 186, 0.5)', // Mint Green
+  'rgba(255, 216, 232, 0.5)', // Pale Lavender
+  'rgba(240, 230, 140, 0.5)', // Khaki
+  'rgba(255, 193, 204, 0.5)', // Pale Rose
+  'rgba(209, 178, 255, 0.5)', // Lavender
+  'rgba(179, 229, 252, 0.5)'  // Pale Blue
+];
+ */
+
+/* 
+var pastelColors = [
+	'rgba(255, 217, 222, 1)',   // Pale Pink
+	'rgba(255, 239, 222, 1)',   // Peach
+	'rgba(255, 255, 219, 1)',   // Pale Yellow
+	'rgba(223, 241, 255, 1)',   // Sky Blue
+	'rgba(223, 241, 209, 1)',   // Mint Green
+	'rgba(255, 234, 242, 1)',   // Pale Lavender
+	'rgba(247, 235, 196, 1)',   // Khaki
+	'rgba(255, 218, 224, 1)',   // Pale Rose
+	'rgba(234, 208, 255, 1)',   // Lavender
+	'rgba(207, 240, 246, 1)'    // Pale Blue
+]; */
+
+var pastelColors = [
+	'rgba(255, 217, 222, 1)',   // Pale Pink
+	'rgba(255, 239, 222, 1)',   // Peach
+	'rgba(255, 255, 219, 1)',   // Pale Yellow
+	'rgba(223, 241, 255, 1)',   // Sky Blue
+	'rgba(223, 241, 209, 1)',   // Mint Green
+	'rgba(255, 218, 224, 1)',   // Pale Rose
+	'rgba(255, 234, 242, 1)',   // Pale Lavender
+	'rgba(207, 240, 246, 1)'    // Pale Blue
+
+];
+
+/* var pastelColors = [
+	'rgba(255, 217, 222, 1)',   // Pale Pink
+	
+
+]; */
+
+
+let employees = [];
+
+function getEmployeeListForCalendarColor() {
+
+	const xhr = new XMLHttpRequest();
+
+	xhr.onreadystatechange = function() {
+		if(xhr.readyState == 4 && xhr.status == 200){
+			const response = JSON.parse(xhr.responseText);
+			
+			nameBlocks = {};
+			index = 0;
+			response.list.forEach(function(map){
+				console.log(map.empDto.name);
+				// blocks = document.querySelectorAll(`.\${map.empDto.name}`);
+				blocks = document.getElementsByClassName(map.empDto.name);
+				
+				
+				for(let i=0;i<blocks.length;i++){
+					// console.log(blocks[i]);
+					blocks[i].style.backgroundColor = pastelColors[index++];
+				}
+				
+				/* nameBlocks[map.empDto.name] = blocks */
+				/* blocks.forEach(function(block){
+					block.backgroundColor = pastelColors[index++];
+				}); */
+			});
+			response.list.forEach(function(map){
+				employees.push(map.empDto.name);
+			});
+			
+			
+		}
+	}
+
+	// get 방식 
+	xhr.open("get", "./getEmployeeList");
+	xhr.send();
+
+}
+
+
+
+
+
+
+
+function formatDate(date) {
+	var formattedDate = new Date(date);
+	
+	var year = formattedDate.getFullYear();
+	var month = String(formattedDate.getMonth() + 1).padStart(2, '0');
+	var day = String(formattedDate.getDate()).padStart(2, '0');
+	
+	return year + '-' + month + '-' + day;
+}
+
+
+let colorCount = 0;
+
+document.addEventListener('DOMContentLoaded', function() {
+	
+	
+	getEmployeeListForCalendarColor();
+	
+	
+  var calendarEl = document.getElementById('calendar');
+  var calendar = new FullCalendar.Calendar(calendarEl, {
+    // Other FullCalendar options...
+    
+    headerToolbar: {
+      left: 'prev,next today',
+      center: 'title',
+      right: 'listWeek,dayGridMonth,timeGridWeek,timeGridDay'
+    },
+    
+    initialView: 'listWeek', // 초기 뷰 설정 (월간 보기)
+    
+    views: {
+      /* timeGridWeek: {
+        type: 'timeGrid',
+        duration: { days: 31 } // 주간 보기 설정
+      }, */
+      timeGridWeek: {
+        type: 'timeGrid',
+        duration: { days: 7 } // 주간 보기 설정
+      },
+      timeGridDay: {
+        type: 'timeGrid',
+        duration: { days: 1 } // 일간 보기 설정
+      }
+    },
+    
+    events: function(info, successCallback, failureCallback) {
+      var start = info.startStr; // Start date of the visible range
+      var end = info.endStr; // End date of the visible range
+      var startDateString = formatDate(start);
+      var endDateString = formatDate(end);
+      
+      var xhr = new XMLHttpRequest();
+      
+      xhr.onload = function() {
+        if (xhr.status === 200) {
+          var data = JSON.parse(xhr.responseText);
+          var events = data.list;
+          
+          // Assign color to each event based on person
+          events.forEach(function(event, index) {
+            event.color = pastelColors[index % pastelColors.length];
+          });
+          
+          successCallback(events); // Pass the event array to FullCalendar
+        } else {
+          failureCallback(xhr.statusText); // Handle the error
+        }
+      };
+      
+      xhr.open('GET', './getCalendarData?start=' + startDateString + '&end=' + endDateString);
+      xhr.send();
+    },
+    
+    // Event handler for when the calendar's view is changed (e.g., navigating to a different month)
+    datesSet: function(info) {
+      var start = info.startStr; // Start date of the visible range
+      var end = info.endStr; // End date of the visible range
+      
+      // Refetch the events for the updated visible range
+      calendar.refetchEvents();
+    },
+
+	eventContent: function(arg) {
+	
+		 // Customize the event rendering here
+		 var eventTitle = arg.event.title;
+		 var eventTime = arg.event.start;
+		 var eventEndTime = arg.event.end;
+		 
+		 var eventBlock = document.createElement('div');
+		 // eventBlock.classList.add('event-block'); // Apply custom CSS class for the event block
+		 /* for (var i = 0; i < employees.length; i++) {
+		  if(eventTitle===employees[i]) eventBlock.style.backgroundColor =  pastelColors[i]; // Apply custom CSS class for the event block
+		} */
+		 eventBlock.style.backgroundColor =  pastelColors[colorCount++ % pastelColors.length]; // Apply custom CSS class for the event block
+		 eventBlock.className = eventTitle;
+		 eventBlock.classList.add('row');
+		
+		 //eventBlock.style.margin = '.1px 0px !important'
+		 eventBlock.style.color =  "#333"; // Apply custom CSS class for the event block
+		 
+		 var eventTitleElement = document.createElement('div');
+		 eventTitleElement.classList.add('event-title','col-4','fs-smaller');
+		 eventTitleElement.innerText = eventTitle;
+		 
+		 var eventTimeElement = document.createElement('div');
+		 eventTimeElement.classList.add('event-time','col-4','fs-smaller');
+		 eventTimeElement.innerText = eventTime.toLocaleTimeString([], { hour: '2-digit'});
+		 eventTimeElement.innerText += " - " + eventEndTime.toLocaleTimeString([], { hour: '2-digit'});
+		 
+		 eventBlock.appendChild(eventTitleElement);
+		 eventBlock.appendChild(eventTimeElement);
+		 
+		 eventBlock.style.backgroundColor = arg.event.color; // Set the background color based on the assigned color
+		 
+		 return { domNodes: [eventBlock] };
+    }
+  });
+  
+  calendar.render();
+});
+
+
+
+
+
+/* function formatDate(date) {
+	var formattedDate = new Date(date);
+	
+	var year = formattedDate.getFullYear();
+	var month = String(formattedDate.getMonth() + 1).padStart(2, '0');
+	var day = String(formattedDate.getDate()).padStart(2, '0');
+	
+	return year + '-' + month + '-' + day;
+}
+
+
+document.addEventListener('DOMContentLoaded', function() {
+  	var calendarEl = document.getElementById('calendar');
+ 	var calendar = new FullCalendar.Calendar(calendarEl, {
+    // Other FullCalendar options...
+
+    events: function(info, successCallback, failureCallback) {
+      var start = info.startStr; // Start date of the visible range
+      var end = info.endStr; // End date of the visible range
+      var startDateString = formatDate(start);
+      var endDateString = formatDate(end);
+      
+      var xhr = new XMLHttpRequest();
+      
+      xhr.onload = function() {
+        if (xhr.status === 200) {
+          var data = JSON.parse(xhr.responseText);
+          var events = data.list;
+          successCallback(events); // Pass the event array to FullCalendar
+        } else {
+          failureCallback(xhr.statusText); // Handle the error
+        }
+      };
+      
+      xhr.open('GET', './getCalendarData?start=' + startDateString + '&end=' + endDateString);
+      xhr.send();
+    },
+    
+    // Event handler for when the calendar's view is changed (e.g., navigating to a different month)
+    datesSet: function(info) {
+      var start = info.startStr; // Start date of the visible range
+      var end = info.endStr; // End date of the visible range
+      
+      // Refetch the events for the updated visible range
+      calendar.refetchEvents();
+    }
+  });
+
+  calendar.render();
+}); */
+
+
+
+
+
+
+
+
+
+
+/* 
+
+
+document.addEventListener('DOMContentLoaded', function() {
+  
+  // calendar element 취득
+  var calendarEl = document.getElementById('calendar');
+  // full-calendar 생성하기
+  var calendar = new FullCalendar.Calendar(calendarEl, {
+    // 해더에 표시할 툴바
+    headerToolbar: {
+      left: 'prev,next today',
+      center: 'title',
+      right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
+    },
+    initialDate: '2021-07-15', // 초기 날짜 설정 (설정하지 않으면 오늘 날짜가 보인다.)
+    //locale: 'ko', // 한국어 설정
+    editable: true, // 수정 가능
+    droppable: true, // 드래그 가능
+    drop: function(arg) { // 드래그 엔 드롭 성공시
+      // 드래그 박스에서 아이템을 삭제한다.
+      arg.draggedEl.parentNode.removeChild(arg.draggedEl);
+    }
+  });
+  // 캘린더 랜더링
+  calendar.render();
+});
+
+    
+     */
+    
+    
+    
+    
+    
+    
 /* 
   	 document.addEventListener('DOMContentLoaded', function() {
      const calendarEl = document.getElementById('calendar');
@@ -143,34 +473,10 @@
      calendar.render();
    }); 
     */
-
-	   document.addEventListener('DOMContentLoaded', function() {
-	     
-	     // calendar element 취득
-	     var calendarEl = document.getElementById('calendar');
-	     // full-calendar 생성하기
-	     var calendar = new FullCalendar.Calendar(calendarEl, {
-	       // 해더에 표시할 툴바
-	       headerToolbar: {
-	         left: 'prev,next today',
-	         center: 'title',
-	         right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
-	       },
-	       initialDate: '2021-07-15', // 초기 날짜 설정 (설정하지 않으면 오늘 날짜가 보인다.)
-	       //locale: 'ko', // 한국어 설정
-	       editable: true, // 수정 가능
-	       droppable: true, // 드래그 가능
-	       drop: function(arg) { // 드래그 엔 드롭 성공시
-	         // 드래그 박스에서 아이템을 삭제한다.
-	         arg.draggedEl.parentNode.removeChild(arg.draggedEl);
-	       }
-	     });
-	     // 캘린더 랜더링
-	     calendar.render();
-	   });
-
     
-    document.addEventListener('DOMContentLoaded', function() {
+    
+    
+   /*  document.addEventListener('DOMContentLoaded', function() {
     	  var calendarEl = document.getElementById('calendar');
     	  var calendar = new FullCalendar.Calendar(calendarEl, {
     	    // FullCalendar 설정과 옵션
@@ -193,34 +499,8 @@
 
     	  calendar.render();
     	});
-
+ */
    
-    /* document.addEventListener('DOMContentLoaded', function() {
-    	  var calendarEl = document.getElementById('calendar');
-    	  var calendar = new FullCalendar.Calendar(calendarEl, {
-    	    // FullCalendar 설정과 옵션
-    	    // ...
-    	    events: function(info, successCallback, failureCallback) {
-    	      var xhr = new XMLHttpRequest();
-    	      xhr.open('GET', '/api/events', true);
-    	      xhr.onload = function() {
-    	        if (xhr.status >= 200 && xhr.status < 400) {
-    	          var data = JSON.parse(xhr.responseText);
-    	          var events = data.events;
-    	          successCallback(events); // FullCalendar에 이벤트 배열 전달
-    	        } else {
-    	          failureCallback(xhr.statusText); // 에러 처리
-    	        }
-    	      };
-    	      xhr.onerror = function() {
-    	        failureCallback(xhr.statusText); // 에러 처리
-    	      };
-    	      xhr.send();
-    	    }
-    	  });
-
-    	  calendar.render();
-    	}); */
 
     
     

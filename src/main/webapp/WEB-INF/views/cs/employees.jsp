@@ -51,9 +51,10 @@
 			
 			<div class="row mt-3 mb-3 text-center bg-secondary-subtle py-2 fw-bolder">
 				<div class="col-1">#</div>
-				<div class="col">이름</div>
-				<div class="col">소속</div>
 				<div class="col">직급</div>
+				<div class="col">이름</div>
+				<div class="col">닉네임</div>
+				<div class="col">소속</div>
 				<div class="col-3">근무일</div>
 				<div class="col">출근</div>
 				<div class="col">퇴근</div>
@@ -190,6 +191,8 @@
 	
 }
  
+ 
+ 
 
 // 직원 등록 
 function registerEmployee() {
@@ -223,7 +226,7 @@ function registerEmployee() {
 	  if (xhr.readyState == 4 && xhr.status == 200) {
 	    const response = JSON.parse(xhr.responseText);
 	    // 응답 처리
-	    // getEmployeeList();
+	    getEmployeeList();
 	    modal.hide();
 	    
 	  }
@@ -261,23 +264,29 @@ function getEmployeeList() {
 				col1Div.textContent = map.empDto.id;
 				rowDiv.appendChild(col1Div);
 
+				// 직급 열 생성
+				const col4Div = document.createElement('div');
+				col4Div.classList.add('col');
+				col4Div.textContent = map.empDto.job_position;
+				rowDiv.appendChild(col4Div);
+				
 				// 이름 열 생성
 				const col2Div = document.createElement('div');
 				col2Div.classList.add('col');
 				col2Div.textContent = map.empDto.name;
 				rowDiv.appendChild(col2Div);
 
+				// 닉네임 열 생성
+				const colNickDiv = document.createElement('div');
+				colNickDiv.classList.add('col');
+				colNickDiv.textContent = map.empDto.nickname;
+				rowDiv.appendChild(colNickDiv);
+
 				// 소속 열 생성
 				const col3Div = document.createElement('div');
 				col3Div.classList.add('col');
 				col3Div.textContent = map.empDto.department;
 				rowDiv.appendChild(col3Div);
-
-				// 직급 열 생성
-				const col4Div = document.createElement('div');
-				col4Div.classList.add('col');
-				col4Div.textContent = map.empDto.job_position;
-				rowDiv.appendChild(col4Div);
 
 				// 근무일 열 생성
 				const col5Div = document.createElement('div');
@@ -295,6 +304,16 @@ function getEmployeeList() {
 				  checkbox.value = daysOfWeek[i];
 				  checkbox.id = 'checkbox-'+map.empDto.id+"-"+i;
 				  
+				  // 근무날인지 체크 
+				  map.scheduleList.forEach(function(schedule){
+					  // console.log("schedule.weekday"+schedule.weekday);
+					  if (schedule.weekday==daysOfWeek[i]) {
+						  // console.log("schedule.weekday"+schedule.weekday);
+						  // console.log("daysOfWeek"+daysOfWeek[i]);
+	                      checkbox.checked = true; // Set the checkbox as checked
+	                  }
+				  });
+                  
 				  const label = document.createElement('label');
 				  label.textContent = daysOfWeek[i];
 				  label.className = 'pe-2';
@@ -317,12 +336,20 @@ function getEmployeeList() {
 				select1.id = 'start_time-'+map.empDto.id;
 				select1.name = 'start_time';
 				for (let hour = 09; hour <= 18; hour++) {
-					  let option = document.createElement('option');
-					  let time = ('0' + hour).slice(-2) + ':00';
-					  option.value = hour;
-					  option.textContent = time;
-					  select1.appendChild(option);
-					}
+				    let option = document.createElement('option');
+				    let time = ('0' + hour).slice(-2) + ':00';
+				    option.value = hour;
+				    option.textContent = time;
+				    if(map.scheduleList.length>0) {
+				    	// 데이터에서 출근 시간 불러와서 같으면 selected 
+					    if (hour == map.scheduleList[0].start_time) {
+					        option.selected = true; // Set the option as selected
+					    }
+				    }
+				    select1.appendChild(option);
+				  
+				}
+				
 				select1.addEventListener('change',changeDataForSchedule);
 				col6Div.appendChild(select1);
 				rowDiv.appendChild(col6Div);
@@ -334,11 +361,17 @@ function getEmployeeList() {
 				select.className = 'endTime';
 				select.name = 'end_time';
 				for (let hour = 12; hour <= 22; hour++) {
-				  let option = document.createElement('option');
-				  let time = ('0' + hour).slice(-2) + ':00';
-				  option.value = hour;
-				  option.textContent = time;
-				  select.appendChild(option);
+				    let option = document.createElement('option');
+				    let time = ('0' + hour).slice(-2) + ':00';
+				    option.value = hour;
+				    option.textContent = time;
+				    if(map.scheduleList.length>0) {
+				    	// 데이터에서 퇴근 시간 불러와서 같으면 selected 				    
+					    if (hour == map.scheduleList[0].end_time) {
+					        option.selected = true; // Set the option as selected
+					    }
+				    }
+				    select.appendChild(option);
 				}
 				select.addEventListener('change',changeDataForSchedule);
 				col7Div.appendChild(select);
@@ -398,6 +431,9 @@ function changeDataForSchedule(e) {
 	xhr.onreadystatechange = function() {
 		if(xhr.readyState == 4 && xhr.status == 200){
 			const response = JSON.parse(xhr.responseText);
+			
+			// 리프레시 
+			getEmployeeList();
 			
 		}
 	}

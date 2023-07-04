@@ -89,13 +89,18 @@ public class QuestionServiceImpl {
 	public void registerQuestionReply(QuestionReplyDto questionReplyDto) {
 		questionSqlMapper.registerQuestionReply(questionReplyDto);
 	}
+	
+	//궁금해요 게시물 답변 삭제
+	public void deleteQuestionReply(int id) {
+		questionSqlMapper.deleteQuestionReply(id);
+	}
 
 	//궁금해요 게시물 답변 조회
-	public List<Map<String, Object>> getQuestionReplyBoardList(int question_id){
+	public List<Map<String, Object>> getQuestionReplyBoardList(int id){
 	
 	List<Map<String, Object>> questionReplyBoardList = new ArrayList<>();
 	
-	List<QuestionReplyDto> questionReplyDtoList = questionSqlMapper.selectAllQuestionReplyByBoardId(question_id);
+	List<QuestionReplyDto> questionReplyDtoList = questionSqlMapper.selectAllQuestionReplyByBoardId(id);
 	
 	for(QuestionReplyDto questionReplyDto: questionReplyDtoList) {
 		

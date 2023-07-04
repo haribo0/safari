@@ -69,9 +69,14 @@
 	</insert>
 	
 	<!-- 궁금해요 게시물 답변 select -->
-	<select id="selectAllQuestionReplyByBoardId" resultType="int">
-	select * from question_reply_table where question_id=#{question_id}
+	<select id="selectAllQuestionReplyByBoardId" resultType="com.ja.safari.dto.QuestionReplyDto">
+	select * from question_reply_table where question_id=#{question_id} order by id desc
 	</select>
+	
+	<!-- 궁금해요 게시물 답변 delete -->
+	<delete id="deleteQuestionReply">
+  	delete from question_reply_table where id=#{id}
+  	</delete>
 	
 	<!-- 궁금해요 게시물 좋아요 insert -->
 	<insert id="insertQuestionLike">

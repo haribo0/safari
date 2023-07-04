@@ -134,6 +134,27 @@ public class RentalBusinessRestController {
 		return map;
 	}
 	
+	// 상품 관리 페이지   
+	@RequestMapping("getProductListPage")
+	public Map<String, Object> getProductListPage(HttpSession session) {
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		RentalBusinessDto businessDto = (RentalBusinessDto) session.getAttribute("businessUser");
+		if(businessDto == null) {
+			map.put("result", "fail");
+			map.put("reason", "login required");
+			return map;
+		}	
+		
+		map.put("result", "success");
+		map.put("list", rentalService.getProductAndPriceListByUserId(businessDto.getId()));
+		map.put("user", businessDto);
+		
+		return map;
+	}
+	
+	
 	
 	
 	// 배송 처리 리스트 
