@@ -12,6 +12,13 @@
 		AND password = #{password}
 	</select>
 
+	<!-- 아이디로 직원 찾기 -->
+	<select id="getEmpDtoById" resultType="com.ja.safari.dto.CsEmpDto">
+		SELECT * FROM cs_emp
+		WHERE id = #{id}
+		ORDER BY id
+	</select>
+
 
 	<!-- 직원 등록 -->
 	<insert id="registerEmployee" >
@@ -28,6 +35,24 @@
 		)
 	</insert>
 	
+	<!-- 직원 출근 -->
+	<insert id="insertTimeInByEmpId" >
+		INSERT INTO cs_attendance_log VALUES(
+			cs_attendance_log_seq.nextval,
+			#{empId},
+			SYSDATE,
+			NULL
+		)
+	</insert>
+	
+	<!-- 직원 퇴근 -->
+	<insert id="updateTimeOutByLogId" >
+		UPDATE cs_attendance_log 
+		SET
+			time_out = SYSDATE
+		WHERE id = #{id}
+	</insert>
+	
 	<!-- 직원 리스트 -->
 	<select id="getEmployeeList" resultType="com.ja.safari.dto.CsEmpDto">
 		SELECT * FROM cs_emp
@@ -35,7 +60,7 @@
 	</select>
 	
 	<!-- 직원 근무 상태 -->
-	<select id="getAttendanceLogByEmpId" resultType="com.ja.safari.dto.CsAttendanceLogDto">
+	<select id="getRecentAttendanceLogDtos" resultType="com.ja.safari.dto.CsAttendanceLogDto">
 		<!-- SELECT * FROM CS_ATTENDANCE_LOG 
 		WHERE id = (SELECT max(id) FROM (
 			SELECT * FROM cs_attendance_log
@@ -50,6 +75,38 @@
 		) t2
 		WHERE t2.rm = 1
 	</select>
+	
+	<!-- 기존 스케줄 지우기  -->
+	<delete id="deleteScheduleByEmpId">
+		DELETE FROM cs_schedule
+		WHERE emp_id = #{empId}
+	</delete>
+	
+	<!-- 새 스케줄 기록 -->
+	<insert id="insertScheduleByEmpId">
+		INSERT INTO cs_schedule VALUES(
+			cs_schedule_seq.nextval,
+			#{emp_id},
+			#{weekday},
+			#{start_time},
+			#{end_time}
+		)
+	</insert>
+	
+	<!-- 스케줄 가져오기 -->
+	<select id="getScheduleByEmpId" resultType="com.ja.safari.dto.CsScheduleDto">
+		SELECT * FROM cs_schedule
+		WHERE emp_id = #{empId}
+	</select>
+	
+	<!-- 스케줄 가져오기 -->
+	<select id="getScheduleList" resultType="com.ja.safari.dto.CsScheduleDto">
+		SELECT * FROM cs_schedule
+	</select>
+	
+	
+	
+	
 	
 	
 	

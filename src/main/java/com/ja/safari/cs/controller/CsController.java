@@ -4,6 +4,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.ja.safari.cs.service.CsServiceImpl;
@@ -22,12 +23,17 @@ public class CsController {
 	 */
 	
 	@RequestMapping("mainPage") 
-	public String mainPage(HttpSession session){
+	public String mainPage(HttpSession session, Model model){
 		
 		CsEmpDto empUser = (CsEmpDto) session.getAttribute("empUser");
 		if(empUser == null) return "redirect:./loginPage"; 	
 		
+		// 팀장 
 		if(empUser.getMaster() > 0) return "redirect:./dashboard";
+		
+		// 사원 
+//		model.addAttribute("lastAttendance", csService.getLastAttendanceLogByEmpId(empUser.getId()));
+		model.addAttribute("workState", csService.getWorkStateByEmpId(empUser.getId()));
 		
 		return "cs/mainPage";
 	}
@@ -51,6 +57,15 @@ public class CsController {
 		if(empUser==null) return "redirect:./loginPage";
 		
 		return "cs/dashboard";
+	}
+	
+	@RequestMapping("dashboardFetch") 
+	public String dashboardFetch(HttpSession session){
+		
+		CsEmpDto empUser = (CsEmpDto) session.getAttribute("empUser");
+		if(empUser==null) return "redirect:./loginPage";
+		
+		return "cs/dashboardFetch";
 	}
 	
 	@RequestMapping("testPage") 

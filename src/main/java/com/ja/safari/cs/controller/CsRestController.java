@@ -1,9 +1,10 @@
 package com.ja.safari.cs.controller;
 
+import java.text.SimpleDateFormat;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
@@ -41,6 +42,68 @@ public class CsRestController {
 		
 		return map;
 	}
+	
+	
+	// 직원 출근
+	@RequestMapping("startWorking")
+	public  Map<String, Object> startWorking(HttpSession session) {
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		CsEmpDto empUser = (CsEmpDto) session.getAttribute("empUser");
+		if(empUser == null) {
+			map.put("result", "fail");
+			map.put("reason", "login required");
+			return map;
+		}
+		
+		csService.startWorking(empUser.getId());
+		
+		map.put("result", "success");
+		
+		return map;
+	}
+	
+	// 직원 퇴근 
+	@RequestMapping("stopWorking")
+	public  Map<String, Object> stopWorking(HttpSession session) {
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		CsEmpDto empUser = (CsEmpDto) session.getAttribute("empUser");
+		if(empUser == null) {
+			map.put("result", "fail");
+			map.put("reason", "login required");
+			return map;
+		}
+		
+		csService.stopWorking(empUser.getId());
+		
+		map.put("result", "success");
+		
+		return map;
+	}
+	
+	
+	// 직원 근무 상태
+	@RequestMapping("getWorkStateByEmpId")
+	public  Map<String, Object> getWorkStateByEmpId(HttpSession session) {
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		CsEmpDto empUser = (CsEmpDto) session.getAttribute("empUser");
+		if(empUser == null) {
+			map.put("result", "fail");
+			map.put("reason", "login required");
+			return map;
+		}
+		
+		map.put("result", "success");
+		map.put("workState", csService.getWorkStateByEmpId(empUser.getId()));
+		
+		return map;
+	}
+	
 	
 	// 직원 등록 프로세스 
 	@RequestMapping("registerEmployeeProcess")
@@ -85,13 +148,77 @@ public class CsRestController {
 		System.out.println(endTime);
 		System.out.println(empId);
 		
+		csService.changeSchedule(days, startTime, endTime, empId);
+		
         LocalDate today = LocalDate.now();
         DayOfWeek dayOfWeek = today.getDayOfWeek();
         // The value of dayOfWeek will be in the enum DayOfWeek (MONDAY, TUESDAY, etc.)
         System.out.println("Today's day (using LocalDate): " + dayOfWeek);
+        System.out.println("Today's day in int: " + dayOfWeek.getValue());
 		
 		
 		map.put("result", "success");
+		
+		return map;
+	}
+	
+	// 스케줄 가져오기 - 구현 전 
+	@RequestMapping("getSchedule")
+	public  Map<String, Object> getSchedule(HttpSession session) {
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		CsEmpDto empUser = (CsEmpDto) session.getAttribute("empUser");
+		if(empUser == null) {
+			map.put("result", "fail");
+			map.put("reason", "login required");
+			return map;
+		}
+		
+		
+		
+		map.put("result", "success");
+		
+		return map;
+	}
+	
+	
+	// 캘린더에 표시할 스케줄 가져오기 
+	@RequestMapping("getCalendarData")
+	public  Map<String, Object> getCalendarData(HttpSession session,String start, String end) {
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		CsEmpDto empUser = (CsEmpDto) session.getAttribute("empUser");
+		if(empUser == null) {
+			map.put("result", "fail");
+			map.put("reason", "login required");
+			return map;
+		}
+		
+		
+		
+		SimpleDateFormat dateTimeFormat = new SimpleDateFormat("yyyy-MM-dd");
+		try {
+		    Date startDate = dateTimeFormat.parse(start);
+		    Date endDate = dateTimeFormat.parse(end);
+		    
+			map.put("result", "success");
+//			for(CsEventDto eventDto : csService.getCalendarData(startDate, endDate));
+			
+			map.put("list", csService.getCalendarData(startDate, endDate));
+//			for(CsEventDto eventDto : csService.getCalendarData(startDate, endDate)) {
+//				System.out.println(eventDto.getTitle());
+//				System.out.println(eventDto.getStart());
+//				System.out.println(eventDto.getEnd());
+//			}
+			
+			return map;
+
+		} catch (Exception e) {
+		    e.printStackTrace();
+		}
+		
 		
 		return map;
 	}

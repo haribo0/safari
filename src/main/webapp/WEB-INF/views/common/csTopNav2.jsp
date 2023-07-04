@@ -53,6 +53,14 @@
 	    <a class="nav-link" href="#"><i class="bi bi-bell"></i></a>
 	  </li>
 	  
+	  
+	  <c:if test="${!empty empUser && true}">
+		  <li class="nav-item me-1">
+		    <a class="nav-link" href="#"></i></a>
+		  </li>
+	  </c:if>
+	  
+	  
 	  <li class="nav-item me-4">
 	    <c:if test="${!empty empUser}">
 	      <div class="nav-item dropdown">

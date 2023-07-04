@@ -84,6 +84,9 @@
 						      <div class="col-1">삭제</div>
 						</div>
 						<hr class="border border-black">
+						
+						
+						<div id="listContainer">
 					    <c:forEach items="${list }" var="map" varStatus="idx">
 						    <div class="row mt-4 text-center">
 						      
@@ -144,6 +147,7 @@
 						      </div>
 						</div>    
 						</c:forEach>
+						</div>
 
 					
 					</div>
@@ -531,7 +535,7 @@ function checkOutModal(e) {
 	const myModal = bootstrap.Modal.getOrCreateInstance('#adsModal');
 	
 	const nameModal = document.getElementById("productName");
-	const productId = e.getAttribute("data-product-id");
+	const productId = e.currentTarget.getAttribute("data-product-id");
 	const productIdBox = document.getElementById("selectedProductId");
 	productIdBox.innerText = productId;
 	console.log(productId);
@@ -553,7 +557,16 @@ function openNewWindow(url) {
 	  const windowFeatures = "width=600,height=600,resizable=yes,scrollbars=yes";
 
 	  // Open a new window with the specified URL and features
-	  window.open(url, "_blank", windowFeatures);
+	  const childWindow = window.open(url, "_blank", windowFeatures);
+	  
+	  // Add an event listener to the child window's unload event
+	  childWindow.addEventListener("unload", function() {
+	      getListUpdated();
+	  });
+		  
+	  
+	  // Return the child window object
+	  return childWindow;
 }
 
 
@@ -599,9 +612,9 @@ function processPayment(orderId) {
 	  const userId = document.getElementById("userId").value;	  
 	  
 	  
-	  console.log(selectedPrice);
+	  /* console.log(selectedPrice);
 	  console.log(userId);
-	  console.log(orderId);
+	  console.log(orderId); */
 	  
 	  const cid = "TC0ONETIME";
 	  const partner_order_id = orderId;
@@ -845,9 +858,175 @@ function getSubCategory() {
 
 
 
+
+
+
+
+function getListUpdated() {
+	
+	const listContainer = document.getElementById("listContainer");
+
+	const xhr = new XMLHttpRequest();
+
+	xhr.onreadystatechange = function() {
+		if(xhr.readyState == 4 && xhr.status == 200){
+			const response = JSON.parse(xhr.responseText);
+			
+			listContainer.innerHTML = "";
+			
+			
+			let idx=0;
+			response.list.forEach(function(map){
+				
+				  // Outer row div
+				  const rowDiv = document.createElement('div');
+				  rowDiv.classList.add('row', 'mt-4', 'text-center');
+
+				  // col-1
+				  const col1Div = document.createElement('div');
+				  col1Div.classList.add('col-1', 'my-auto');
+				  col1Div.textContent = map.product.id;
+				  rowDiv.appendChild(col1Div);
+
+				  // col-2
+				  const col2Div = document.createElement('div');
+				  col2Div.classList.add('col-2', 'my-auto');
+
+				  
+				  const chooseElement = document.createElement('div');
+				  chooseElement.classList.add('btn', 'btn-light', 'px-3');
+				  chooseElement.dataset.index = idx++;
+				  chooseElement.dataset.productId = map.product.id;
+				  chooseElement.dataset.bsToggle = 'collapse';
+				  chooseElement.role = 'button';
+				  chooseElement.addEventListener('click', checkOutModal);
+				  // onclick="checkOutModal(this)"
+				  
+				  col2Div.appendChild(chooseElement);
+				  
+				  if (map.ads) {
+				    chooseElement.classList.replace('btn-light', 'btn-outline-secondary');
+				    chooseElement.classList.add('btn-disalbed');
+				    chooseElement.innerHTML =  '<i class="bi bi-badge-ad"></i> 광고중';
+				  } else {
+				    chooseElement.classList.replace('px-3', 'px-4');
+				    chooseElement.innerHTML =  '<i class="bi bi-badge-ad"></i> 추가';
+
+				  }
+				  
+				  rowDiv.appendChild(col2Div);
+
+				  // col-1 (image)
+				  const col1ImgDiv = document.createElement('div');
+				  col1ImgDiv.classList.add('col-1', 'my-auto');
+
+				  const imgElement = document.createElement('img');
+				  imgElement.classList.add('img-fluid', 'px-2');
+				  imgElement.src = `/safariImg/\${map.product.main_img_link}`;
+
+				  col1ImgDiv.appendChild(imgElement);
+				  rowDiv.appendChild(col1ImgDiv);
+
+				  // col-3 (title)
+				  const col3Div = document.createElement('div');
+				  col3Div.classList.add('col-3', 'my-auto');
+				  col3Div.id = `prdTitle\${map.product.id}`;
+				  col3Div.textContent = map.product.title;
+				  rowDiv.appendChild(col3Div);
+
+				  // col-1 (quantity)
+				  const col1QuantityDiv = document.createElement('div');
+				  col1QuantityDiv.classList.add('col-1', 'my-auto');
+				  col1QuantityDiv.textContent = map.product.quantity;
+				  rowDiv.appendChild(col1QuantityDiv);
+
+				  // col-2 (dropdown)
+				  const col2DropdownDiv = document.createElement('div');
+				  col2DropdownDiv.classList.add('col-2', 'my-auto');
+
+				  const dropdownDiv = document.createElement('div');
+				  dropdownDiv.classList.add('dropdown', 'd-grid');
+
+				  const dropdownToggleAnchor = document.createElement('a');
+				  dropdownToggleAnchor.classList.add('btn', 'btn-secondary', 'dropdown-toggle', 'custom-dropdown');
+				  dropdownToggleAnchor.href = '#';
+				  dropdownToggleAnchor.role = 'button';
+				  dropdownToggleAnchor.dataset.bsToggle = 'dropdown';
+				  dropdownToggleAnchor.setAttribute('aria-expanded', 'false');
+
+				  const formattedPrice = new Intl.NumberFormat().format(map.product.price);
+				  dropdownToggleAnchor.textContent = `\${formattedPrice} 원`;
+
+				  const dropdownMenuUl = document.createElement('ul');
+				  dropdownMenuUl.classList.add('dropdown-menu', 'px-3');
+
+				  map.discountedPriceList.forEach(dto => {
+				    const listItem = document.createElement('li');
+				    listItem.classList.add('f-sm2', 'text-center', 'mt-1');
+				    
+				    const formattedPrice2 = new Intl.NumberFormat().format(dto.discounted_price);
+				    listItem.textContent = `\${formattedPrice2} 원 / \${dto.rental_period}개월`;
+				    
+				    dropdownMenuUl.appendChild(listItem);
+				  });
+
+				  dropdownDiv.appendChild(dropdownToggleAnchor);
+				  dropdownDiv.appendChild(dropdownMenuUl);
+				  col2DropdownDiv.appendChild(dropdownDiv);
+				  rowDiv.appendChild(col2DropdownDiv);
+
+				  // col-1 (edit)
+				  const col1EditDiv = document.createElement('div');
+				  col1EditDiv.classList.add('col-1', 'my-auto');
+
+				  const editLink = document.createElement('a');
+				  editLink.classList.add('text-body-tertiary', 'text-decoration-none');
+				  editLink.href = `./productEditPage?id=\${map.product.id}`;
+				  editLink.innerHTML = '&nbsp;<i class="bi bi-pencil-square"></i>';
+
+				  col1EditDiv.appendChild(editLink);
+				  rowDiv.appendChild(col1EditDiv);
+
+				  // col-1 (delete)
+				  const col1DeleteDiv = document.createElement('div');
+				  col1DeleteDiv.classList.add('col-1', 'my-auto');
+
+				  const deleteLink = document.createElement('a');
+				  deleteLink.classList.add('text-body-tertiary', 'text-decoration-none');
+				  deleteLink.href = `./productDeleteProcess?id=\${map.product.id}`;
+				  deleteLink.innerHTML = '&nbsp;<i class="bi bi-trash3"></i>';
+
+				  col1DeleteDiv.appendChild(deleteLink);
+				  rowDiv.appendChild(col1DeleteDiv);
+
+				  // Append the row to the parent element
+				  listContainer.appendChild(rowDiv);
+				
+				
+				
+				
+				
+				
+				
+			});
+			
+			
+		}
+	}
+
+	// get 방식 
+	xhr.open("get", "getProductListPage");
+	xhr.send();
+
+}
+
+
+
+
+
 window.addEventListener("DOMContentLoaded",function(){
 	getMainCategory();
-	
+	getListUpdated();
 	
 	
 });
