@@ -247,21 +247,29 @@ public class HelpServiceImpl {
 	}
 	
 	//업로더가 게시물 채택 눌렀을 때
-	//public void realCompleteHelp()
+	/*public void realCompleteHelp(HelpCommentCompleteDto helpCommentCompleteDto, HelpCommentDto helpCommentDto, HelpDto helpDto ) {
+		helpSqlMapper.acceptHelpComment(helpCommentCompleteDto);
+		helpSqlMapper.completeHelpComment(helpCommentDto);
+		helpSqlMapper.changeCompleteHelp(helpDto);
+	}*/
+	
+	
+	
+	
 	
 
 	//해주세요 미션완료(채택) insert
-	public void acceptHelpComment(HelpCommentCompleteDto helpCommentCompleteDto) {
-		helpSqlMapper.acceptHelpComment(helpCommentCompleteDto);
+	public void acceptHelpComment(int id) {
+		helpSqlMapper.acceptHelpComment(id);
 	}
 	
 	//해주세요 미션완료(채택) update
-	public void completeHelpComment(HelpCommentDto helpCommentDto) {
-		helpSqlMapper.completeHelpComment(helpCommentDto);
+	public void completeHelpComment(int id) {
+		helpSqlMapper.completeHelpComment(id);
 	}
 	
 	//해주세요 채택상태 변경
-	public void changeCompleteHelp(HelpDto helpDto) {
-		helpSqlMapper.changeCompleteHelp(helpDto);
+	public void changeCompleteHelp(int id) {
+		helpSqlMapper.changeCompleteHelp(id);
 	}
 }

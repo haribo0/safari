@@ -238,24 +238,32 @@ public class HelpController {
 	@RequestMapping("help/acceptHelpCommentProcess") // id : helpCommentDto.id
 	public String acceptHelpCommentProcess(int help_comment_id, HelpCommentCompleteDto helpCommentCompleteDto) {
 
+		// 해주세요 미션완료 테이블 
 		helpCommentCompleteDto.setHelp_comment_id(help_comment_id);
 
 		// 매개변수에서 받아온 댓글 pk로 게시물 댓글 테이블에 있는 게시물 pk를 조회하기 위해서 사용
 		HelpCommentDto helpCommentDto = helpService.getHelpCommentById(help_comment_id);
 
-		helpService.acceptHelpComment(helpCommentCompleteDto);
+		// 데이터 insert
+		helpService.acceptHelpComment(help_comment_id);
+		
+		// 댓글 상태 변경
+		helpService.completeHelpComment(help_comment_id);
 
+		helpService.changeCompleteHelp(helpCommentDto.getHelp_id());
+		
+		
 		return "redirect:/community/help/readContentPage/" + helpCommentDto.getHelp_id();
 	}
 
 	// 해주세요 미션완료 update //잘 모르겠음
-	@RequestMapping("help/completeHelpCommentProcess")
+	/*@RequestMapping("help/completeHelpCommentProcess")
 	public String completeHelpCommentProcess(int id, int help_comment_id, HelpCommentDto helpCommentDto,
 			HelpCommentCompleteDto helpCommentCompleteDto) {
 
 		helpService.completeHelpComment(helpCommentDto);
 
 		return "redirect:/community/help/readContentPage/" + id;
-	}
+	}*/
 
 }
