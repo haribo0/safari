@@ -25,8 +25,10 @@ public HelpCommentDto getHelpCommentById(int id);
 	//해주세요 게시글 수정
 	public void updateHelpBoard(HelpDto helpDto);
 	
+	//해주세요 게시글 삭제
 	public void deleteHelpBoard(int id);
 	
+	//해주세요 게시글 조회수 증가 
 	public void increaseHelpReadCount(int id);
 
 	//해주세요 이미지 등록
