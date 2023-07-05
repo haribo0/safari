@@ -36,13 +36,121 @@
 		<jsp:include page="../common/myPageNav.jsp"></jsp:include>
 		<!-- 마이페이지 nav-->
 			
+			
+			
+		<!-- Body -->
 		<div class="col ms-4">
 			<div class="row" style="border-bottom: 2px solid #222; height: 48px;">
 				<div class="col p-0">
-					<h5>마이페이지</h5>						
+					<h5>1대1 문의</h5>						
+				</div>
+				<div class="col text-end">
+					<a href="./myInquiryPostPage" class="btn btn-dark btn-sm px-5">문의 작성</a>
 				</div>
 			</div>
+			
+			<!-- <div class="row mt-4">
+				
+			</div> -->
+			
+			<!-- 테이블 헤더 -->
+			<div class="row mt-5 py-3 text-center fw-bolder border-bottom border-top">
+				<div class="col-1">
+					#			
+				</div>
+				<div class="col-2">
+					카테고리	
+				</div>
+				<div class="col-7">
+					제목			
+				</div>
+				<div class="col-2">
+					작성일				
+				</div>
+			</div>
+			
+			<!-- <hr class="m-0 p-0"> -->
+
+			
+			<div class="inquiryListContainer">
+			
+				<div class="row  py-3 text-center border-bottom">
+					<div class="col-1">
+						3
+					</div>
+					<div class="col-2">
+						커뮤니티 
+					</div>
+					<div class="col-7">
+						커뮤니티 유저 신고 
+					</div>
+					<div class="col-2">
+						07/13/2023			
+					</div>
+				</div>
+				<!-- <hr class="m-0 p-0"> -->
+				
+				<div class="row  py-3 text-center border-bottom">
+					<div class="col-1">
+						2	
+					</div>
+					<div class="col-2">
+						대여
+					</div>
+					<div class="col-7">
+						대여 기간 전 취소 관련 비용 지불 이슈 
+					</div>
+					<div class="col-2">
+						06/10/2023				
+					</div>
+				</div>
+				<!-- <hr class="m-0 p-0"> -->
+				
+				<div class="row py-3 text-center bg-light  border-bottom">
+					<div class="col-1 text-end">
+						<i class="bi bi-arrow-return-right"></i>
+					</div>
+					<div class="col-2">
+						대여
+					</div>
+					<div class="col-7">
+						대여 기간 전 취소 관련 비용 지불 이슈 
+					</div>
+					<div class="col-2">
+						06/10/2023				
+					</div>
+				</div>
+				<!-- <hr class="m-0 p-0"> -->
+				
+				<div class="row  py-3 text-center  border-bottom">
+					<div class="col-1">
+						1			
+					</div>
+					<div class="col-2">
+						중고	
+					</div>
+					<div class="col-7">
+						중고 거래 유저 신고
+					</div>
+					<div class="col-2">
+						03/10/2023			
+					</div>
+				</div>
+				<!-- <hr class="m-0 p-0"> -->
+				
+				
+			</div>
+			
+			
+			
+			
+			
+			
+			
+			
 		</div>
+		<!-- Body -->
+		
 		</div>
 	</div>
 		

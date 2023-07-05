@@ -53,6 +53,7 @@
 			select * from rental_order_table WHERE user_id = #{id}
 		</select>
 		
+
 				
 		<!-- 아래서부터 09 코드 -->
 		<!-- 회원 pk로 회원 정보 조회 -->

@@ -19,6 +19,7 @@ import com.ja.safari.cs.mapper.CsSqlMapper;
 import com.ja.safari.dto.CsAttendanceLogDto;
 import com.ja.safari.dto.CsEmpDto;
 import com.ja.safari.dto.CsEventDto;
+import com.ja.safari.dto.CsQnaDto;
 import com.ja.safari.dto.CsScheduleDto;
 
 @Service
@@ -194,6 +195,14 @@ public class CsServiceImpl {
 		
 	}
 	
+	// 직원에게 배정 후 
+	public void postInquiry(CsQnaDto inquiry) {
+		
+		// 출근했고 가장 일 적은 직원 가져오기 
+
+		
+		
+	}
 	
 	
 }

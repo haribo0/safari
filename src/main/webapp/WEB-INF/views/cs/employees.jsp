@@ -145,14 +145,14 @@
 				        
 				        
 				
-				        <div class="form-group row mt-4">
+				        <!-- <div class="form-group row mt-4">
 				            
 				            <div class="col-6">
 				            <div class="mb-1"><label for="mainImg" class=" col-form-label fw-medium">프로필사진?</label></div>
 				                <input type="file" class="form-control-file" id="mainImg" name="mainImg" accept="images/*">
 				            </div>
 				            
-				        </div>
+				        </div> -->
 				
 				        <div class="form-group row mt-4">
 				            
@@ -337,7 +337,7 @@ function getEmployeeList() {
 				select1.className = 'startTime';
 				select1.id = 'start_time-'+map.empDto.id;
 				select1.name = 'start_time';
-				for (let hour = 09; hour <= 18; hour++) {
+				for (let hour = 00; hour <= 24; hour++) {
 				    let option = document.createElement('option');
 				    let time = ('0' + hour).slice(-2) + ':00';
 				    option.value = hour;
@@ -349,7 +349,6 @@ function getEmployeeList() {
 					    }
 				    }
 				    select1.appendChild(option);
-				  
 				}
 				
 				select1.addEventListener('change',changeDataForSchedule);
@@ -362,7 +361,7 @@ function getEmployeeList() {
 				const select = document.createElement('select');
 				select.className = 'endTime';
 				select.name = 'end_time';
-				for (let hour = 12; hour <= 22; hour++) {
+				for (let hour = 00; hour <= 24; hour++) {
 				    let option = document.createElement('option');
 				    let time = ('0' + hour).slice(-2) + ':00';
 				    option.value = hour;

@@ -104,6 +104,22 @@
 		SELECT * FROM cs_schedule
 	</select>
 	
+	<!-- 1대1 문의 저장  -->
+	<!-- <insert id="postInquiry">
+		INSERT INTO cs_qna VALUES(
+			cs_qna_seq.nextval,
+			#{user_id},
+			#{category_id},
+			#{emp_id},
+			#{qna_title},
+			#{qna_content},
+			SYSDATE,
+			NULL,
+			NULL
+		);
+	</insert> -->
+	
+	
 	
 	
 	

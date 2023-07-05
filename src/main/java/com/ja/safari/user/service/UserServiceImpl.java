@@ -8,6 +8,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.ja.safari.dto.CsQnaDto;
 import com.ja.safari.dto.RentalItemDto;
 import com.ja.safari.dto.RentalOrderDto;
 import com.ja.safari.dto.UserAddressDto;
@@ -72,6 +73,11 @@ public class UserServiceImpl {
 	// 영인 
 	public UserDto selectUserDtoById(int id) {
 		return userSqlMapper.selectUserDtoById(id);
+	}
+
+	public void postInquiry(CsQnaDto inquiry) {
+		userSqlMapper.postInquiry(inquiry);
+		
 	}
 
 	

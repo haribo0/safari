@@ -7,9 +7,11 @@ import java.util.Map;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ja.safari.dto.CsQnaDto;
 import com.ja.safari.dto.UserAddressDto;
 import com.ja.safari.dto.UserDto;
 import com.ja.safari.user.service.UserServiceImpl;
@@ -65,6 +67,26 @@ public class UserRestController {
 		  map.put("addressList",userAddressDtoList);
 	  
 	  
+		  return map; 
+	  }
+	  
+	  // 1대1문의 포스트 - RequestBody
+	  @RequestMapping("postInquiry") 
+	  public Map<String, Object> postInquiry(HttpSession session, @RequestBody CsQnaDto inquiry) {
+		  
+		  Map<String, Object> map = new HashMap<String, Object>();
+		  UserDto sessionUser = (UserDto)session.getAttribute("sessionUser");
+		  if (sessionUser == null) {
+			  map.put("result", "fail");
+			  map.put("reason", "로그인이 되어 있지 않습니다.");
+			  return map;
+		  }
+		  
+		  map.put("result", "success"); 
+		  inquiry.setEmp_id(sessionUser.getId());
+		  //userService.postInquiry(inquiry);
+		  
+		  
 		  return map; 
 	  }
 	 
