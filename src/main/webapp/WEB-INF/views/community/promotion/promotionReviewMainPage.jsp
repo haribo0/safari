@@ -108,6 +108,7 @@
 			<div class = "col">
 				<div class = "row mb-2">			
 					<!--  1위 -->
+					
 					<div class = "col mb-3">
 						<div class="card border border-0" style="width: 18rem; height: 350px;">
 							<a href="./contentPromotionReviewPage?id=${map.promotionReviewDto.id }"> <%-- 여기에 사진 누르면 들어가는 구매창 링크 --%> 	
@@ -121,6 +122,8 @@
 						  </div>
 						</div>
 					</div>
+					
+					
 					
 					<!--  2위 -->
 					<div class = "col mb-3">
@@ -239,12 +242,12 @@
 						<div class="mt-3">
 						<div class = "reviewlist container border border-1" style="border-radius: 10px;">
 						<div class = "row mt-4">			
-							<c:forEach items="${promoReviewList}" var="map" varStatus="status" begin="0" end="4">
+							<c:forEach items="${orderByLikePromoReviewList}" var="map" varStatus="status" begin="0" end="4">
 								<div class = "col mb-3">
 									<div class="card border border-0" style="width:30rem; height: 150px;">
 									<div class = "row">
 										<div class = "col-4">
-										<a href="./contentPromotionReviewPage?id=${map.promotionReviewDto.id }"> <%-- 여기에 사진 누르면 들어가는 구매창 링크 --%> 	
+										<a href="./contentPromotionReviewPage?id=${map.promotionReviewDto.id }"> 	
 									  <img src="/uploadPromoFiles/${map.promotionReviewImgList[0].rental_review_img }"
 									  	   class="card-img-top" alt="실험용1" height="150" width="100" >
 									  </a>

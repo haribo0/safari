@@ -46,13 +46,20 @@ public class PromotionReviewController {
 	public String promotionReviewMainPage(Model model, @RequestParam(value = "page", defaultValue = "1") int page,
 			String promoReview_searchType,
 			String promoReview_searchWord,
-			PromotionReviewCommentDto promotionReviewCommentDto
+			PromotionReviewCommentDto promotionReviewCommentDto,
+			Integer review_id,
+			PromotionReviewDto params
 			) {
 	
 		List<Map<String, Object>> promoReviewList = promotionReviewService.getPromotionReviewList(page, promoReview_searchType, promoReview_searchWord, promotionReviewCommentDto);		
+	
+		List<Map<String, Object>> orderByLikePromoReviewList = promotionReviewService.orderByPromotionReviewLikes(); 
+		
 		
 		model.addAttribute("promoReviewList", promoReviewList);
+		model.addAttribute("orderByLikePromoReviewList", orderByLikePromoReviewList);
 		
+			
 		return "/community/promotion/promotionReviewMainPage";
 	}
 	
@@ -219,14 +226,10 @@ public class PromotionReviewController {
 					multipartFile.transferTo(new File(rootFolder + saveFileName));
 				}catch(Exception e) {
 					e.printStackTrace();
-				}
-				
-				System.out.println("controller 수정 : 3");
+				}				
 				
 				PromotionReviewImgDto promotionReviewImgDto = new PromotionReviewImgDto();
-				promotionReviewImgDto.setRental_review_img(saveFileName);
-				
-				System.out.println("controller 수정 : 4");
+				promotionReviewImgDto.setRental_review_img(saveFileName);			
 				
 				promotionReviewImgDtoList.add(promotionReviewImgDto);
 			}
