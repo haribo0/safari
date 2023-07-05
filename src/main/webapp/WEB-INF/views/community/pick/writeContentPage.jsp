@@ -56,16 +56,12 @@
 							   
 							<%-- headline --%>
 							<div class="row">
-								<div class="col d-grid">
-									<br><br>(프사)
-								</div> 
+								
 								<div class="col-10">
-									<strong style="font-size: 36px;">글쓰기 페이지<br></strong>
-									${sessionUser.nickname }
-									
+									<strong style="font-size: 24px;">글쓰기 페이지<br></strong>
 								</div>
 								
-								<div class="col d-grid">
+								<div class="col d-grid justify-content-end mr-2">
 									<button class="nav-link px-2 text-body-secondary"><i class="bi bi-pencil-square"></i></button>
 								</div>
 							</div><hr>
@@ -77,16 +73,19 @@
 								
 									<input type="hidden" name="user_id" value="${sessionUser.id}">
 									
-									<div class="form-control" style="font-size: 24px; font-family: 'Noto Sans', sans-serif; box-shadow: none;"><strong><input type="text" name="title" placeholder="제목을 입력해주세요." style="width: 100%; border: none; outline: none;"></strong></div><br>
 									
-									<div class="form-control" style="font-family: 'Noto Sans', sans-serif; box-shadow: none;"><textarea rows="10" cols="40" name="content"  style="width: 100%; border: none; outline: none;" placeholder="내용을 입력해주세요.">
-							
-									</textarea></div>
-			  
-									<!-- <div class="col text-end ms-auto d-grid justify-content-lg-end">
-	<input type="text" class="form-control border-0 bg-transparent" value="${pickCommentDto.pickCommentDto.content}" style="box-shadow: none; caret-color: transparent; flex-grow: 1; margin-right: -5px;">
-									</div>	 -->
-						
+									 <div class="form-group">
+									     <div class="form-control" style="font-size: ; font-family: 'Noto Sans', sans-serif; box-shadow: none;">
+									        <strong><input type="text" name="title" placeholder="제목을 입력해주세요." style="width: 100%; border: none; outline: none;"></strong>
+									     </div>
+								     </div>
+								    
+								    <div class="form-group">
+								      <div class="form-control mt-2 mb-2" style="font-size: ; font-family: 'Noto Sans', sans-serif; box-shadow: none;">
+								        <textarea rows="10" name="content" placeholder="내용을 입력해주세요." style="width: 100%; border: none; outline: none; padding: 0;"></textarea>
+								      </div>
+								    </div>
+									
 								</div>	
 							</div>
 							<%-- write content --%>
