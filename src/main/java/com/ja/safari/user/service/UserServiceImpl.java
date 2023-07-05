@@ -75,10 +75,7 @@ public class UserServiceImpl {
 		return userSqlMapper.selectUserDtoById(id);
 	}
 
-	public void postInquiry(CsQnaDto inquiry) {
-		userSqlMapper.postInquiry(inquiry);
-		
-	}
+	
 
 	
 	

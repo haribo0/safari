@@ -221,7 +221,9 @@ function registerEmployee() {
 	for (let i = 0; i < itemImgs.length; i++) {
 	  formData.append('itemImgs', itemImgs[i]);
 	} */
-
+	
+	
+	
 
 
 	xhr.onreadystatechange = function() {
@@ -229,7 +231,15 @@ function registerEmployee() {
 	    const response = JSON.parse(xhr.responseText);
 	    // 응답 처리
 	    getEmployeeList();
+	    // input 비워주기 
+		document.getElementById('username').value = "";
+		document.getElementById('password').value = "";
+		document.getElementById('name').value = "";
+		document.getElementById('job_position').value = "";
+		document.getElementById('nickname').value = "";
+
 	    modal.hide();
+	    
 	    
 	  }
 	}
@@ -334,6 +344,7 @@ function getEmployeeList() {
 				const col6Div = document.createElement('div');
 				col6Div.classList.add('col');
 				const select1 = document.createElement('select');
+				select1.classList.add('col');
 				select1.className = 'startTime';
 				select1.id = 'start_time-'+map.empDto.id;
 				select1.name = 'start_time';

@@ -11,6 +11,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.annotations.Select;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -197,10 +198,11 @@ public class CsServiceImpl {
 	
 	// 직원에게 배정 후 
 	public void postInquiry(CsQnaDto inquiry) {
-		
 		// 출근했고 가장 일 적은 직원 가져오기 
-
-		
+		CsEmpDto empDto = csSqlMapper.getEmployeeWithLeastWorkload();
+		inquiry.setEmp_id(empDto.getId());
+		// 1대1 문의 저장 
+		csSqlMapper.insertQnaPost(inquiry);
 		
 	}
 	

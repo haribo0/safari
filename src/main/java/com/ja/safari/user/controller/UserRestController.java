@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ja.safari.cs.service.CsServiceImpl;
 import com.ja.safari.dto.CsQnaDto;
 import com.ja.safari.dto.UserAddressDto;
 import com.ja.safari.dto.UserDto;
@@ -24,6 +25,9 @@ public class UserRestController {
 
 	@Autowired
 	private UserServiceImpl userService;
+	
+	@Autowired
+	private CsServiceImpl csServiceImpl;
 
 	// 사용자 로그인 확인
 	@RequestMapping("getMyId")
@@ -84,11 +88,15 @@ public class UserRestController {
 		  
 		  map.put("result", "success"); 
 		  inquiry.setEmp_id(sessionUser.getId());
-		  //userService.postInquiry(inquiry);
-		  
+		  // 담당 직원 배정 및 1대1문의 저장 
+		  csServiceImpl.postInquiry(inquiry);
 		  
 		  return map; 
 	  }
+	  
+	  
+	  
+	  
 	 
 
 }
