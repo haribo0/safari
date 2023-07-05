@@ -297,7 +297,7 @@
  	</div>
  	</c:forEach>
 	</c:if> --%>
-	<c:if test="${sessionUser.getId() == map.productDto.user_id }">
+	<%-- <c:if test="${sessionUser.getId() == map.productDto.user_id }">
  	<c:forEach items="${productRequestList}" var="map">
  	<div class="row mt-1 mb-2">
 		<div class="col-1"></div>
@@ -338,7 +338,7 @@
 		</c:if>
  	</div>
  	</c:forEach>
-	</c:if>
+	</c:if> --%>
 </div>
 
 	<!-- 푸터 섹션 -->

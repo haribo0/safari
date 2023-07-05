@@ -238,6 +238,62 @@ public class UsedRestController {
 		}
 	}
 	
+	// 거래 예약중으로 상태 변경
+	@RequestMapping("productRequestStatusReservation")
+	public Map<String, Object> productRequestReservation(HttpSession session, Integer requestId) {
+		Map<String, Object> map = new HashMap<>();
+		UserDto sessionUser = (UserDto)session.getAttribute("sessionUser");
+		if(sessionUser == null) {
+			map.put("result", "fail");
+			map.put("reason", "로그인되어있지않습니다.");
+			return map;
+		}else {
+			Integer productId = usedService.selectProductRequestById(requestId).getProduct_id();
+			Integer userId = usedService.selectProductRequestById(requestId).getUser_id();
+			
+			usedService.updateProductRequestStatusReservate(productId, userId);
+			map.put("result", "success");
+			return map;
+		}
+	}
+	
+	// 거래 예약취소 - 거래요청으로 변경
+	@RequestMapping("productRequestStatusCancel")
+	public Map<String, Object> productRequestCancel(HttpSession session, Integer requestId) {
+		Map<String, Object> map = new HashMap<>();
+		UserDto sessionUser = (UserDto)session.getAttribute("sessionUser");
+		if(sessionUser == null) {
+			map.put("result", "fail");
+			map.put("reason", "로그인되어있지않습니다.");
+			return map;
+		}else {
+			Integer productId = usedService.selectProductRequestById(requestId).getProduct_id();
+			Integer userId = usedService.selectProductRequestById(requestId).getUser_id();
+			
+			usedService.updateProductRequestStatusCancel(productId, userId);
+			map.put("result", "success");
+			return map;
+		}
+	}
+	
+	// 거래완료- 거래완료로 상태 변경 
+	@RequestMapping("productRequestStatusComplete")
+	public Map<String, Object> productRequestStatusComplete(HttpSession session, Integer requestId) {
+		Map<String, Object> map = new HashMap<>();
+		UserDto sessionUser = (UserDto)session.getAttribute("sessionUser");
+		if(sessionUser == null) {
+			map.put("result", "fail");
+			map.put("reason", "로그인되어있지않습니다.");
+			return map;
+		}else {
+			Integer productId = usedService.selectProductRequestById(requestId).getProduct_id();
+			Integer userId = usedService.selectProductRequestById(requestId).getUser_id();
+			
+			usedService.updateProductRequestStatusComplete(productId, userId);
+			map.put("result", "success");
+			return map;
+		}
+	}
 	
 	
 	

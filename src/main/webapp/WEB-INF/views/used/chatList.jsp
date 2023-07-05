@@ -278,18 +278,17 @@
 						  row1col3.textContent = month+"월 "+ day+"일";  
 		  			  }
 	  				  
-	  				  
-	  				 /* row1col3.textContent = data.lastChatDate; */
 	  			  }
 	  			  
 	  			  
 	  			  const row2 = document.createElement('div');
-	  			  row2.className = 'row';
 	  			  if(data.chatContent==null || data.chatContent===''){
 	  				row2.textContent = ' ';
 	  				row2.className = 'mt-3'
 	  			  }else{
+	  				row2.className = 'row text-truncate d-inline-block';
 	  				row2.textContent = data.chatContent;
+	  				row2.style.maxWidth = '200px';
 	  			  }
 	  			  
 	  			  
@@ -373,7 +372,7 @@
 		textareaBox.addEventListener("keyup", keyUpEvent);
 		
 		// 전송버튼 누르면 해당 메소드 불러오기 
-		sendBox.setAttribute("onclick", "insertContent("+requestId+","+receiverId+")")
+		sendBox.setAttribute("onclick", "insertContent("+requestId+","+receiverId+")");
 		
 		// 3초마다 채팅 업로드 
 		if(intervalHandler != null){
@@ -454,47 +453,6 @@
 	            
 	            const row2 = document.createElement('div');
 	            row2.classList.add('row', 'mt-2');
-	            /* row2col1 = document.createElement('div');
-	            row2col1.classList.add('col-2', 'btn', 'btn-outline-secondary', 'text-dark', 'me-3', 'ms-2', 'btn-sm', 'p-1');
-				row2col1Icon = document.createElement('i');
-				row2col1Icon.classList.add('bi', 'bi-check-circle-fill');
-				const row2col1Span = document.createElement('span');
-				row2col1Span.classList.add('fw-bold');
-				row2col1Span.innerText = ' 예약하기';
-	            
-	            const row2col2 = document.createElement('div');
-	            row2col2.classList.add('col-2', 'btn', 'btn-outline-secondary', 'text-dark', 'me-3', 'ms-2', 'btn-sm', 'p-1');
-	            const row2col2Icon = document.createElement('i');
-	            row2col2Icon.classList.add('bi', 'bi-check-circle-fill');
-	            const row2col2Span = document.createElement('span');
-	            row2col2Span.classList.add('fw-bold');
-	            row2col2Span.innerText = ' 송금하기';
-
-	            const row2col3 = document.createElement('div');
-	            row2col3.classList.add('col-2', 'btn', 'btn-outline-secondary', 'text-dark', 'btn-sm', 'p-1');
-	            const row2col3Icon = document.createElement('i');
-	            row2col3Icon.classList.add('bi', 'bi-coin');
-	            const row2col3Span = document.createElement('span');
-	            row2col3Span.classList.add('fw-bold');
-	            row2col3Span.innerText = ' 거래완료';
-
-
-	            const row2col4 = document.createElement('div');
-	            row2col4.classList.add('col'); */
-	            
-	            /* row2.appendChild(row2col1);
-	            row2.appendChild(row2col2);
-	            row2.appendChild(row2col3);
-	            row2.appendChild(row2col4);
-	            
-	            row2col1.appendChild(row2col1Icon);
-	            row2col1.appendChild(row2col1Span);
-
-	            row2col2.appendChild(row2col2Icon);
-	            row2col2.appendChild(row2col2Icon);
-
-	            row2col3.appendChild(row2col3Icon);
-	            row2col3.appendChild(row2col3Icon); */
 
 					            
 	            // 예약, 완료, 예약취소, 리뷰 버튼 
@@ -514,13 +472,18 @@
 	    				const row2col1Span = document.createElement('span');
 	    				row2col1Span.classList.add('fw-bold');
 	    				row2col1Span.innerText = ' 예약하기';
+	    				// 예약하기 버튼 누르면 해당 메소드 불러오기 
+	    				row2col1Span.setAttribute("onclick", "productRequestStatusReservation("+requestId+")");
+	    				
 	    				const row2col2 = document.createElement('div');
 	    	            row2col2.classList.add('col-2', 'btn', 'btn-outline-secondary', 'text-dark', 'me-3', 'btn-sm', 'p-1');
 	    	            const row2col2Icon = document.createElement('i');
 	    	            row2col2Icon.classList.add('bi', 'bi-coin');
 	    	            const row2col2Span = document.createElement('span');
 	    	            row2col2Span.classList.add('fw-bold');
-	    	            row2col2Span.innerText = ' 송금하기';
+	    	            row2col2Span.innerText = ' 송금요청';
+	    	            //송금하기  버튼 누르면 해당 메소드 불러오기 
+	    				/* row2col1Span.setAttribute("onclick", "productRequestStatusReservation("+requestId+")"); */
 
 	    	            const row2col3 = document.createElement('div');
 	    	            row2col3.classList.add('col-2', 'btn', 'btn-outline-secondary', 'text-dark', 'btn-sm', 'p-1');
@@ -529,6 +492,8 @@
 	    	            const row2col3Span = document.createElement('span');
 	    	            row2col3Span.classList.add('fw-bold');
 	    	            row2col3Span.innerText = ' 거래완료';
+	    	            // 거래완료 버튼 누르면 해당 메소드 불러오기 
+	    				row2col3Span.setAttribute("onclick", "productRequestStatusComplete("+requestId+")");
 	    	            
 	    	            const row2col4 = document.createElement('div');
 	    	            row2col4.classList.add('col');
@@ -554,13 +519,18 @@
 	    				const row2col1Span = document.createElement('span');
 	    				row2col1Span.classList.add('fw-bold');
 	    				row2col1Span.innerText = ' 예약취소';
+	    				// 예약취소 버튼 누르면 해당 메소드 불러오기 
+	    				row2col1Span.setAttribute("onclick", "productRequestStatusCancel("+requestId+")");
+	    				
 	    				const row2col2 = document.createElement('div');
 	    	            row2col2.classList.add('col-2', 'btn', 'btn-outline-secondary', 'text-dark', 'me-3', 'btn-sm', 'p-1');
 	    	            const row2col2Icon = document.createElement('i');
 	    	            row2col2Icon.classList.add('bi', 'bi-coin');
 	    	            const row2col2Span = document.createElement('span');
 	    	            row2col2Span.classList.add('fw-bold');
-	    	            row2col2Span.innerText = ' 송금하기';
+	    	            row2col2Span.innerText = ' 송금요청';
+	    	         // 송금하기 버튼 누르면 해당 메소드 불러오기 
+	    				/* row2col3Span.setAttribute("onclick", "productRequestStatusComplete("+requestId+")"); */
 
 	    	            const row2col3 = document.createElement('div');
 	    	            row2col3.classList.add('col-2', 'btn', 'btn-outline-secondary', 'text-dark', 'btn-sm', 'p-1');
@@ -569,6 +539,8 @@
 	    	            const row2col3Span = document.createElement('span');
 	    	            row2col3Span.classList.add('fw-bold');
 	    	            row2col3Span.innerText = ' 거래완료';
+	    	         // 거래완료 버튼 누르면 해당 메소드 불러오기 
+	    				row2col3Span.setAttribute("onclick", "productRequestStatusComplete("+requestId+")");
 	    	            
 	    	            const row2col4 = document.createElement('div');
 	    	            row2col4.classList.add('col');
@@ -921,8 +893,56 @@ function updateIsRead(requestId) {
     //get
 	xhr.open("get", "./updateIsRead?requestId="+requestId);
 	xhr.send();
-    
 }
+
+//예약중으로 상태 업데이트 
+function productRequestStatusReservation(requestId) {
+	
+	const xhr = new XMLHttpRequest();
+	
+	xhr.onreadystatechange = function(){
+        if(xhr.readyState == 4 && xhr.status == 200){
+            const response = JSON.parse(xhr.responseText);
+            getProductInformation(requestId);
+        }
+    }
+    //get
+	xhr.open("get", "./productRequestStatusReservation?requestId="+requestId);
+	xhr.send();
+}
+
+//예약취소해서 거래요청으로 상태 업데이트 
+function productRequestStatusCancel(requestId) {
+	
+	const xhr = new XMLHttpRequest();
+	
+	xhr.onreadystatechange = function(){
+        if(xhr.readyState == 4 && xhr.status == 200){
+            const response = JSON.parse(xhr.responseText);
+            getProductInformation(requestId);
+        }
+    }
+    //get
+	xhr.open("get", "./productRequestStatusCancel?requestId="+requestId);
+	xhr.send();
+}
+
+//거래완료로 상태 업데이트 
+function productRequestStatusComplete(requestId) {
+	
+	const xhr = new XMLHttpRequest();
+	
+	xhr.onreadystatechange = function(){
+        if(xhr.readyState == 4 && xhr.status == 200){
+            const response = JSON.parse(xhr.responseText);
+            getProductInformation(requestId);
+        }
+    }
+    //get
+	xhr.open("get", "./productRequestStatusComplete?requestId="+requestId);
+	xhr.send();
+}
+
 
 //modal 닫을 때
 function modalHide(e) {

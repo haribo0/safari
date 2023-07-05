@@ -280,41 +280,41 @@ public class UsedController {
 		}
 	}
 	
-	// 거래 예약중으로 상태 변경
-	@RequestMapping("productRequestStatusReservation")
-	public String productRequestReservation(HttpSession session, int productId, int userId) {
-		UserDto sessionUser = (UserDto)session.getAttribute("sessionUser");
-		if(sessionUser==null) {
-			return "redirect:../user/loginPage";
-		}else {
-			usedService.updateProductRequestStatusReservate(productId, userId);
-			return "redirect:./productDetail?productId="+productId;
-		}
-	}
-	
-	// 거래 취소-  거래요청으로 변경
-	@RequestMapping("productRequestStatusCancel")
-	public String productRequestCancel(HttpSession session, int productId, int userId) {
-		UserDto sessionUser = (UserDto)session.getAttribute("sessionUser");
-		if(sessionUser==null) {
-			return "redirect:../user/loginPage";
-		}else {
-			usedService.updateProductRequestStatusCancel(productId, userId);
-			return "redirect:./productDetail?productId="+productId;
-		}
-	}
-	
-	// 거래완료- 거래완료로 상태 변경 
-	@RequestMapping("productRequestStatusComplete")
-	public String productRequestStatusComplete(HttpSession session, int productId, int userId) {
-		UserDto sessionUser = (UserDto)session.getAttribute("sessionUser");
-		if(sessionUser==null) {
-			return "redirect:../user/loginPage";
-		}else {
-			usedService.updateProductRequestStatusComplete(productId, userId);
-			return "redirect:./productDetail?productId="+productId;
-		}
-	}
+//	// 거래 예약중으로 상태 변경
+//	@RequestMapping("productRequestStatusReservation")
+//	public String productRequestReservation(HttpSession session, int productId, int userId) {
+//		UserDto sessionUser = (UserDto)session.getAttribute("sessionUser");
+//		if(sessionUser==null) {
+//			return "redirect:../user/loginPage";
+//		}else {
+//			usedService.updateProductRequestStatusReservate(productId, userId);
+//			return "redirect:./productDetail?productId="+productId;
+//		}
+//	}
+//	
+//	// 거래 예약- 거래요청으로 변경
+//	@RequestMapping("productRequestStatusCancel")
+//	public String productRequestCancel(HttpSession session, int productId, int userId) {
+//		UserDto sessionUser = (UserDto)session.getAttribute("sessionUser");
+//		if(sessionUser==null) {
+//			return "redirect:../user/loginPage";
+//		}else {
+//			usedService.updateProductRequestStatusCancel(productId, userId);
+//			return "redirect:./productDetail?productId="+productId;
+//		}
+//	}
+//	
+//	// 거래완료- 거래완료로 상태 변경 
+//	@RequestMapping("productRequestStatusComplete")
+//	public String productRequestStatusComplete(HttpSession session, int productId, int userId) {
+//		UserDto sessionUser = (UserDto)session.getAttribute("sessionUser");
+//		if(sessionUser==null) {
+//			return "redirect:../user/loginPage";
+//		}else {
+//			usedService.updateProductRequestStatusComplete(productId, userId);
+//			return "redirect:./productDetail?productId="+productId;
+//		}
+//	}
 	
 	// 채팅창 리스트 보여주기 
 	@RequestMapping("chatList")
