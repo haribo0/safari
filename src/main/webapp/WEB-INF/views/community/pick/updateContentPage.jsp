@@ -33,54 +33,92 @@
 		<!-- 커뮤니티 컨테이너 -->
 		<div class="container main_box">
 			<div class="row">
-			<!-- 왼쪽 -->
 			
-			<div class="col-3">
+			<!-- 왼쪽 -->
+			<div class="col" style="background-color:lightgrey;">
 				왼쪽
 			</div>
-		
 			<!-- 왼쪽 -->
 			
 			<!-- 가운데 -->
-			
-				<div class="col-6">
-					<div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-center">
+			<div class="col">
+				<div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-center">
+					
+					<%-- getPickBoard --%>
+					<div class="row">
+						<div class="col" style="width:990px; margin: 0 auto;">
 						
-						<%-- getPickBoard --%>
-						<div class="row">
-							<div class="col">
-								<form action="/safari/community/pick/updateContentProcess" method="post" >
-									<%-- <input type="hidden" name="user_id" value="${sessionUser.id}"> --%>
-									제목: <input type="text" name="title" value="${map.pickDto.title}"><br>
-									작성자: ${sessionUser.nickname }<br>
-									
-									내용: <br>
-									<textarea rows="10" cols="60" name="content" >${map.pickDto.content}</textarea>
-									<input type="hidden" name="id" value="${map.pickDto.id}">
-									
-									
-									<%-- 글쓰기 버튼 --%>
-									<div class="col text-end ms-auto d-grid justify-content-lg-end">
-										<button class="nav-link px-2 text-body-secondary">수정</button>
-									</div>
-									<%--글쓰기 버튼 --%>
+						
+						<%-- write from--%>
+						<form action="/safari/community/pick/updateContentProcess" method="post">
+							   
+							<%-- headline --%>
+							<div class="row">
 								
-								</form>
-							</div>	
-						</div>
-						<%-- getPickBoard --%>
+								<div class="col-10">
+									<strong style="font-size: 24px;">글쓰기 페이지<br></strong>
+								</div>
+								
+								<div class="col d-grid justify-content-end mr-2">
+									<button class="nav-link px-2 text-body-secondary"><i class="bi bi-pencil-square"></i></button>
+								</div>
+							</div><hr>
+							<%-- headline --%>
+								
+							<%-- write content --%>
+							<div class="row">
+								<div class="col d-grid">
+								
+									<input type="hidden" name="user_id" value="${sessionUser.id}">
+									
+									
+									 <div class="form-group">
+									     <div class="form-control" style="font-size: ; font-family: 'Noto Sans', sans-serif; box-shadow: none;">
+									        <strong><input type="text" name="title" value="${map.pickDto.title}" style="width: 100%; border: none; outline: none;"></strong>
+									     </div>
+								     </div>
+								    
+								    <div class="form-group">
+								      <div class="form-control justify-content-end mt-2 mb-2" style="font-size: ; font-family: 'Noto Sans', sans-serif; box-shadow: none;">
+								        <textarea rows="10" name="content"  style="width: 100%; border: none; outline: none; padding: 0;">${map.pickDto.content.trim()}</textarea>
+								        <input type="hidden" name="id" value="${map.pickDto.id}">
+								      </div>
+								    </div>
+									
+								</div>	
+							</div>
+							<%-- write content --%>
+							
+							</form>
+							<%-- write from--%>	
 						
-					</div>	
+						<%-- write from
+							<form action="/safari/community/pick/updateContentProcess" method="post" >
+								제목: <input type="text" name="title" value="${map.pickDto.title}"><br>
+								작성자: ${sessionUser.nickname }<br>
+								
+								내용: <br>
+								<textarea rows="10" cols="60" name="content" >${map.pickDto.content}</textarea>
+								<input type="hidden" name="id" value="${map.pickDto.id}">
+								
+								
+								
+							
+							</form>--%>
+						</div>	
+					</div>
+					<%-- getPickBoard --%>
+					
 				</div>	
+			</div>	
 			<!-- 가운데 -->
 			
 			<!-- 오른쪽 -->
-			
-			<div class="col-3">
+			<div class="col" style="background-color:lightgrey;">
 				오른쪽
 			</div>
-			
 			<!-- 오른쪽 -->
+			
 			</div>
 		</div>
 		<!-- 커뮤니티 컨테이너 -->
