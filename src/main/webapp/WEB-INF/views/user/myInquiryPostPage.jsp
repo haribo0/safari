@@ -61,7 +61,7 @@
 					<label class="col-form-label" for="category_id">카테고리</label>
 				</div>
 				<div class="col-2">
-					<select class="form-select" name="category_id" aria-label="Default select example">
+					<select class="form-select" id="categoryId" name="category_id" aria-label="Default select example">
 					  <option selected>카테고리 선택</option>
 					  <option value="1">중고</option>
 					  <option value="2">대여</option>
@@ -75,21 +75,21 @@
 					<label class="col-form-label" for="qna_title">문의 제목</label>
 				</div>
 				<div class="col-7">
-					<input type="text" class="form-control" id="qna_title" name="title">
+					<input type="text" class="form-control" id="qnaTitle" name="title">
 				</div>
 				
 			</div>
 			<div class="row py-3 text-center fw-bolder">
 				<div class="col-1">
-					<label class="col-form-label" for="content">문의 내용</label>
+					<label class="col-form-label" for="qnaContent">문의 내용</label>
 				</div>
 				<div class="col">
-					<textarea class="form-control" id="exampleFormControlTextarea1" rows="8"></textarea>
+					<textarea class="form-control" id="qnaContent" name="qna_content" rows="8"></textarea>
 				</div>
 			</div>
 			<div class="row py-3 text-center fw-bolder">
 				<div class="col text-end">
-					<div class="btn btn-dark">작성완료</div>
+					<div class="btn btn-dark" onclick="submitForm()">작성완료</div>
 				</div>
 			</div>
 			
@@ -119,31 +119,34 @@
 <script>
 
 
-function submitForm (){
+function submitForm(){
 	
-	const categoryId = document.getElementById("category_id").value;
-	const title = document.getElementById("qna_title").value.trim();
-	const content = document.getElementById("qna_content").value.trim();
+	console.log("before");
+	
+	const categoryId = document.getElementById("categoryId").value;
+	const title = document.getElementById("qnaTitle").value.trim();
+	const content = document.getElementById("qnaContent").value.trim();
 	
 	if( categoryId<1 || categoryId > 4) {
-		document.getElementById("category_id").focus();
+		document.getElementById("categoryId").focus();
 		return;
 	}
 	if(!title || title.length<2) {
-		document.getElementById("qna_title").focus();
+		document.getElementById("qnaTitle").focus();
 		return;
 	}
 	if(!content || content.length<10) {
-		document.getElementById("qna_content").focus();
+		document.getElementById("qnaContent").focus();
 		return;
 	}
 	
 	inquiry = {
 			"category_id" : categoryId,
 			"qna_title" : title,
-			"qna_content" : qna_content
+			"qna_content" : content
 	};
 	
+	console.log("after");
 	
 	const xhr = new XMLHttpRequest();
 	
@@ -156,7 +159,7 @@ function submitForm (){
 	}
 	
 	xhr.open("post", "./postInquiry");
-	xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+	xhr.setRequestHeader("Content-type", "application/json");
 	xhr.send(JSON.stringify(inquiry));
 }
 

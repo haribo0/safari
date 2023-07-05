@@ -47,7 +47,7 @@ public interface CsSqlMapper {
 	public CsEmpDto getEmployeeWithLeastWorkload();
 	
 	// 1대1문의 포스트 
-	public CsEmpDto insertQnaPost(CsQnaDto csQnaDto);
+	public void insertQnaPost(CsQnaDto csQnaDto);
 
 	
 	

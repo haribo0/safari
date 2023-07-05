@@ -159,26 +159,27 @@ public class CsServiceImpl {
 	}
 
 	public String getWorkStateByEmpId(int empId) {
-		
+		// 근무 날인지 확인 
 		Calendar calendar = Calendar.getInstance();
         int dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
         int hourOfDay = calendar.get(Calendar.HOUR_OF_DAY);
         
         String workState = "휴무";
         
+        // 근무 스케줄 가져오기 (요일별) 
 		for(CsScheduleDto scheduleDto : csSqlMapper.getScheduleByEmpId(empId)) {
 			// 해당일에 근무 일 경우 
 			if(getWeekdayAsInteger(scheduleDto.getWeekday()) == dayOfWeek) {
-				// 근무시간 전후 체크
+				// 근무 시작 시간 전후 체크
 				List<CsAttendanceLogDto> attList = csSqlMapper.getRecentAttendanceLogDtos(empId);
 				// 근무 기록 없거나 마지막 기록에 퇴근 시간이 있으면
 				if(attList.size()==0 || attList.get(0).getTime_out()!=null) {
-					workState = (hourOfDay < scheduleDto.getStart_time() ? "출근전" : "퇴근");
+					workState = (hourOfDay < scheduleDto.getEnd_time() ? "출근전" : "퇴근");
 				} else {
 					workState = "근무";
 				}
-				
-			}
+			} 
+			
 		}
 		
 		return workState;
@@ -196,10 +197,11 @@ public class CsServiceImpl {
 		
 	}
 	
-	// 직원에게 배정 후 
+	// 1대1문의 - 가장 일 적은 직원 배정 후 데이터 저장 
 	public void postInquiry(CsQnaDto inquiry) {
 		// 출근했고 가장 일 적은 직원 가져오기 
 		CsEmpDto empDto = csSqlMapper.getEmployeeWithLeastWorkload();
+		System.out.println(empDto.getId());
 		inquiry.setEmp_id(empDto.getId());
 		// 1대1 문의 저장 
 		csSqlMapper.insertQnaPost(inquiry);
