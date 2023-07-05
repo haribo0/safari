@@ -885,7 +885,7 @@ function getListUpdated() {
 				
 				  // Outer row div
 				  const cardDiv = document.createElement('div');
-				  cardDiv.classList.add('card', 'mt-3', 'mb-3' , 'shadow-sm');
+				  cardDiv.classList.add('card', 'mt-3', 'mb-3' );
 				
 				  // Outer row div
 				  const rowDiv = document.createElement('div');
