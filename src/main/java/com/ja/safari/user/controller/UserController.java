@@ -77,8 +77,8 @@ public class UserController {
 	}
 	
 	// 1대1문의 | 마이페이지 - cs 
-	@RequestMapping("myPageInquiries")
-	public String myPageInquiries(HttpSession session, Model model) {
+	@RequestMapping("myInquiryPage")
+	public String myInquiryPage(HttpSession session, Model model) {
 		
 		UserDto sessionUser = (UserDto)session.getAttribute("sessionUser");
 		
@@ -86,7 +86,7 @@ public class UserController {
 		
 		model.addAttribute("rentalOrderDtoList",rentalOrderDtoList);
 		
-		return "user/myPageQna";
+		return "user/myInquiryPage";
 	}
 	
 	
