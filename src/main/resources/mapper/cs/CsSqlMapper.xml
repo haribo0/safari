@@ -236,6 +236,7 @@
 	  <!-- CsEmpDto (empId만)-->
 	  <association property="empDto" javaType="com.ja.safari.dto.CsEmpDto">
 	    <result property="id" column="emp_id"  />
+	    <result property="nickname" column="emp_nickname"  />
 	  </association>
 	</resultMap>
 	
@@ -243,7 +244,7 @@
 		SELECT q.id AS qna_id, q.qna_title, q.qna_content, q.reg_date, q.qna_reply, q.reply_date,
 		       u.id AS user_id, u.email, u.pw, u.nickname, u.phone, u.gender, u.birth, u.profile_img_link, u.reg_date AS user_reg_date,
 		       c.id AS category_id, c.category,
-		       e.id AS emp_id
+		       e.id AS emp_id, e.nickname AS emp_nickname
 		FROM CS_QNA q
 		LEFT JOIN USER_TABLE u ON q.user_id = u.id
 		LEFT JOIN cs_category c ON q.category_id = c.id

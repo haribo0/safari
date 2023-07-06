@@ -44,28 +44,16 @@
 				<div class="col p-0">
 					<h5>1대1 문의</h5>						
 				</div>
-				<div class="col text-end">
-					<a href="./myInquiryPostPage" class="btn btn-dark btn-sm px-5">문의 작성</a>
-				</div>
+				
 			</div>
 			
-			<!-- <div class="row mt-4">
-				
-			</div> -->
 			
 			<!-- 테이블 헤더 -->
-			<div class="row mt-5 py-3 text-center fw-bolder border-bottom border-top">
-				<div class="col-1">
-					#			
-				</div>
-				<div class="col-2">
-					카테고리	
-				</div>
-				<div class="col-7">
-					제목			
-				</div>
-				<div class="col-2">
-					작성일				
+			<div class="row py-4 text-center border-bottom ">
+				<div class="col-auto">
+					<a href="./myInquiryPage" class="text-dark text-decoration-none">
+						<i class="bi bi-chevron-left"></i> 목록으로
+					</a>
 				</div>
 			</div>
 			
@@ -85,13 +73,15 @@
 									
 									<div class="row">
 										<div class="col fs-5 my-2 fw-medium" >
-											대여 주문 했는데 배송 날짜를 조정하고 싶어요.
+											${qna.qna_title}
 										</div>
 									</div>
 									<div class="row ">
 										<div class="col text-secondary" style="font-size: 14px" >
-											<span class="me-3">닉네임</span>
-											<span class="">10시간 전</span>
+											<span class="me-3">${qna.userDto.nickname}</span>
+											<span class="">
+												<fmt:formatDate value="${qna.reg_date}" pattern="yyyy-MM-dd" />
+											</span>
 										</div>
 									</div>
 								</div>
@@ -101,35 +91,34 @@
 							
 							<div class="row py-5 border-bottom">
 								<div class="col" >
-									대여 주문 했는데 배송 날짜를 조정하고 싶어요.
-									아직 배송 전인데 가능할까요? 
+									${qna.qna_content}
 								</div>
 							</div>
 							
 							
-							<div class="row py-5 border-bottom">
+							<!-- <div class="row py-5 border-bottom">
 								<div class="col" >
 									이 사람의 최근 주문 리스트
 								</div>
-							</div>
+							</div> -->
 							
 							
-							<div class="row pt-4">
-								<div class="col fs-5 ms-1" >
-									답변 작성
+							<c:if test="${!empty qna.qna_reply}">
+								<div class="row pt-4 mb-2">
+									<div class="col-auto ms-1" >
+										답변완료
+									</div>
+									<div class="col" >
+										${qna.empDto.nickname}
+									</div>
 								</div>
-							</div>
-							<div class="row py-2">
-								<div class="col" >
-									<textarea class="form-control txtInput" rows="5" id="qnaReply" name="qna_reply" placeholder="답글을 입력해주세요" ></textarea>
+								<div class="row bg-light mx-2 py-4 px-3 rounded">
+									<div class="col "  >
+										${qna.qna_reply}
+									</div>
 								</div>
-							</div>
-							<div class="row pt-2 pb-5 border-bottom">
-								<div class="col text-end" >
-									<div class="btn btn-dark" onclick="saveQnaReply(qnaId)">작성 완료</div>
-								</div>
-							</div>
-							
+								
+							</c:if>
 							
 						
 						
