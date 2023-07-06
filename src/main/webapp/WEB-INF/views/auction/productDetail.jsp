@@ -864,7 +864,7 @@ function showAuctionInfo() {
             
             const titleCol =  document.createElement("div");
             titleCol.classList.add("col");
-            titleCol.classList.add("fs-4", "fw-bold");
+            titleCol.classList.add("fs-5", "fw-bold");
             // 경매 물품명 텍스트
             titleCol.innerText = item.auctionDto.title;
             
@@ -1154,18 +1154,29 @@ function showInputBidBox() {
 // 판매자일 경우 입찰 버튼 막기
 function forbidInputBidBox() {
 	
+	 const currentStatusBox = document.getElementById("currentStatus");
 	 const inputBidBox = document.getElementById("bidPrice");
 	 const button = document.getElementById("inputBidButton");
 	 
  
    	  if(!button.classList.contains("disabled") && inputBidBox.placeholder != "판매자는 입찰하실 수 없습니다." ) {
    		  
+   		 currentStatusBox.innerHTML = ""; 
    		 inputBidBox.innerHTML = "";
    		 button.innerHTML = "";
    		 
    		 button.classList.add("disabled");  
    		 inputBidBox.placeholder = "판매자는 입찰하실 수 없습니다."
-   		 inputBidBox.setAttribute("readonly", "readonly"); 	
+   		 inputBidBox.setAttribute("readonly", "readonly"); 
+   		 
+   	     const statusText = document.createElement("span");
+         statusText.innerText = "판매자 상태 화면입니다.";
+         
+    	 currentStatusBox.style.backgroundColor = "#E2E3E5";
+
+   		 
+   		 currentStatusBox.appendChild(statusText);
+   		 
    	  }
 
 }
@@ -1305,15 +1316,31 @@ function renewInputBidBoxIng() {
 // 경매 준비중일 때, 입찰 버튼 준비중 
 function renewInputBidBoxBefore() {
 
+	 const currentStatusBox = document.getElementById("currentStatus");
 	 const inputBidBox = document.getElementById("bidPrice");
 	 const button = document.getElementById("inputBidButton");
 	 
 	 if (inputBidBox.placeholder != "경매 준비중입니다." || !button.classList.contains('disabled')) {
       	
+		currentStatusBox.innerHTML = ""; 
+		 
 		button.classList.add("disabled");  
 
       	inputBidBox.placeholder = "경매 준비중입니다.";
    	    inputBidBox.setAttribute("readonly", "readonly");
+   	    
+   	    
+   	   const statusText = document.createElement("span");
+       statusText.innerText = "경매 준비중입니다";
+
+ 
+
+       currentStatusBox.style.backgroundColor = "#E2E3E5";
+
+ 		 
+ 	   currentStatusBox.appendChild(statusText);	      	    
+   	    
+   	    
        	
 	 }   
 }
@@ -1828,31 +1855,6 @@ function bidRequest() {
 }
 
 
-// 즉시 낙찰 상태 확인 후 업데이트
-/*function checkImmediateBid() {
-	
-	
-	const xhr = new XMLHttpRequest();
-    xhr.onreadystatechange = function () {
-        if(xhr.readyState == 4 && xhr.status == 200){
-            const response = JSON.parse(xhr.responseText);	
-				if (response.auctionItemStatus.auction_status == '종료') {
-					immeDiateSuccess = "ImmediateBidSuccess";
-		
-				} else {
-					console.log("checkImmediateBid(): 즉시 낙찰이 아닙니다")
-					return;
-					
-				}
-	}
-        
-   }
-    xhr.open("get", "/safari/auction/getAuctionStatusByAuctionItemId/" + auctionItemId); 
-    xhr.send();	
-	
-}*/
-
-
 // 즉시 낙찰 및 경매 종료 db 업데이트
 function renewSuccessfulImmediateBid(auctionItemId) {
 	const xhr = new XMLHttpRequest();
@@ -2037,18 +2039,21 @@ function updateBidRanking(top3BidList) {
     
     const rankImage = document.createElement("img");
     const rankUserText = document.createElement("span");
-    rankUserText.classList.add("fw-bold", "fs-5");
+    rankUserText.classList.add("fw-bold", "fs-5", "ms-3");
     const rankPriceText = document.createElement("span");
     rankPriceText.classList.add("fs-5");
 
     // 순위에 따라 이미지 설정
     if (i == 0) {
       rankImage.src = "/safari/resources/img/auction/gold.png";
+      rankImage.style.maxWidth = "50px;"
       rankPriceText.classList.add("fw-bold", "text-danger");
     } else if (i == 1) {
       rankImage.src = "/safari/resources/img/auction/silver.png";
+      rankImage.style.maxWidth = "50px;"
     } else if (i == 2) {
       rankImage.src = "/safari/resources/img/auction/bronze.png";
+      rankImage.style.maxWidth = "50px;"
     }
 
     
@@ -2406,9 +2411,9 @@ function reloadChatList() {
                    col2.classList.add("speech-bubble");
                    
                    col2.classList.add("ms-2");
-                   col2.style.display = "flex";    // flex 속성 적용
-                   col2.style.flexGrow = "1";      // flex-grow 속성 적용
-                   col2.style.fontSize = "14px";
+                   //col2.style.display = "flex";    // flex 속성 적용
+                  // col2.style.flexGrow = "1";      // flex-grow 속성 적용
+                   //col2.style.fontSize = "14px";
   
                    col2.innerText = data.chatDto.content;
 
@@ -2420,7 +2425,7 @@ function reloadChatList() {
                    const col3 = document.createElement("div");
                    col3.classList.add("col");
                    col3.style.fontSize = "12px";
-                   col3.style.color = "#929693";
+                   //col3.style.color = "#929693";
                    col3.innerText = formatDateTime(data.chatDto.reg_date);
                    
                    
@@ -2488,7 +2493,7 @@ function reloadChatList() {
                    const col4 = document.createElement("div");
                    col4.classList.add("col");
                    col4.style.fontSize = "12px";
-                   col4.style.color = "#929693";
+                   //col4.style.color = "#929693";
                    col4.innerText = formatDateTime(data.chatDto.reg_date);
                    
                    
