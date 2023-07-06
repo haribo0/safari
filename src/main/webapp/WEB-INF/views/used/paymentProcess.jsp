@@ -32,31 +32,14 @@
 </head>
 <body>
 	<!-- 헤더 섹션 -->
-	<jsp:include page="../common/headerB.jsp"></jsp:include>
+	<jsp:include page="../common/header.jsp"></jsp:include>
 	<!-- 헤더 섹션 -->
 
 	<div class="container main_box">
 		<div class="row">
-		
-			<div class="col-2">
-				<div class="list-group list-group-flush">
-					
-					<!-- 왼쪽 카테고리 리스트 -->
-					<jsp:include page="../common/navLeft.jsp"></jsp:include>
-					<!-- 왼쪽 카테고리 리스트 -->
-					
-				</div>
-				
-				<div class="row mt-5 mb-5">
-					<div class="col"> </div>
-				</div>
-			
-			</div>
-			
-			
 			<div class="col ms-5">
 		    	
-		    	<!-- <h4 class="row mt-3 mb-4 fw-regular">결제 완료</h4>
+		    	<!--  <h4 class="row mt-3 mb-4 fw-regular">결제 완료</h4>
 
 				<div class="row mt-4">
 					<div class="col">
@@ -103,12 +86,9 @@
 
 					
 					</div>
-				</div> -->
+				</div>  -->
 			
 			</div>
-			
-			
-		
 		
 		</div>
 	</div>
@@ -194,6 +174,9 @@ function getKakaoPayReadyInfo() {
 			const partner_order_id = response.readyInfo.partner_order_id;
 			const partner_user_id = response.readyInfo.partner_user_id;
 			const pg_token = response.readyInfo.pg_token;
+			const item_name = response.readyInfo.item_name;
+			const item_code = response.readyInfo.item_code;
+			const amount = 1;
 			
 			console.log(cid);
 			console.log(tid);
@@ -201,7 +184,7 @@ function getKakaoPayReadyInfo() {
 			console.log(partner_user_id);
 			console.log(pg_token);
 			
-			getApproveData(cid,tid,partner_order_id,partner_user_id,pg_token);
+			getApproveData(cid,tid,partner_order_id,partner_user_id,pg_token,item_name,item_code,amount);
 			
 			
 		}
@@ -218,7 +201,7 @@ function getKakaoPayReadyInfo() {
 
 
 
-function getApproveData(cid,tid,partner_order_id,partner_user_id,pg_token) {
+function getApproveData(cid,tid,partner_order_id,partner_user_id,pg_token, item_name, item_code, amount) {
 	
 	/* console.log(cid);
 	console.log(tid);
@@ -248,7 +231,7 @@ function getApproveData(cid,tid,partner_order_id,partner_user_id,pg_token) {
 			console.log(response.created_at);
 			console.log(response.approved_at); */
 			
-			savePaymentData(cid,tid,partner_order_id,partner_user_id,pg_token, response.item_name, response.item_code, response.amount.total, response.payment_method_type)
+			savePaymentData(cid,tid,partner_order_id,partner_user_id,pg_token, item_name, item_code, amount, response.payment_method_type)
 			
 			
 		}
@@ -273,7 +256,7 @@ function savePaymentData(cid,tid,partner_order_id,partner_user_id,pg_token,item_
 			
 			console.log("savePaymentData::"+response.result);
 			
-			closeAndRedirect(partner_order_id);
+			location.href = "http://localhost:8080/safari/used/paymentSucceeded?orderId="+partner_order_id;
 			
 		}
 	}
@@ -288,16 +271,18 @@ function savePaymentData(cid,tid,partner_order_id,partner_user_id,pg_token,item_
 
 
 
-
-function closeAndRedirect(partner_order_id) {
+/* function closeAndRedirect(partner_order_id) {
 	
-	// 새로 열린 창 닫기
-	window.close();
+	function closeAndRedirect(partner_order_id) {
+		
+		
+		// 기존 창으로 리디렉션
+		location.href = "http://localhost:8080/safari/used/paymentSucceeded?orderId="+partner_order_id;
+		
+	}
 	
-	// 기존 창으로 리디렉션
-	window.location.href = "http://localhost:8181/safari/rental/paymentSucceeded?orderId="+partner_order_id;
 	
-}
+} */
 
 
 

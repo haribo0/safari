@@ -349,8 +349,8 @@ public class UsedRestController {
 		
 		Map<String, Object> map = new HashMap<String, Object>();
 		
-		RentalBusinessDto businessDto = (RentalBusinessDto) session.getAttribute("businessUser");
-		if(businessDto == null) {
+		UserDto sessionUser = (UserDto) session.getAttribute("sessionUser");
+		if(sessionUser == null) {
 			map.put("result", "fail");
 			map.put("reason", "login required");
 			return map;

@@ -54,12 +54,27 @@
 		</select>
 		
 
-				
 		<!-- 아래서부터 09 코드 -->
 		<!-- 회원 pk로 회원 정보 조회 -->
 		<select id="getUserInfoById" resultType="com.ja.safari.dto.UserDto">
 			SELECT * FROM user_table WHERE id = #{id}
 		</select>
+		
+		<!-- 회원 코인 insert -->
+		<insert id="insertUserCoin">
+			INSERT INTO coin_table values(
+			coin_table_seq.nextval,
+			#{user_id},
+			#{coin_transaction},
+			#{transaction_operand},
+			#{transaction_detail},
+			SYSDATE
+			)
+		</insert>
+		
+		
+		
+		
 		
 
 </mapper>

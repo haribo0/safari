@@ -119,6 +119,6 @@ public interface UsedSqlMapper {
 	// 카카오페이  결제 insert 
 	public void insertUsedPayment(UsedKaKaoPayApproveDto usedKakaoPayApproveDto);
 	// 결제 select 
-	public UsedKaKaoPayApproveDto getUsedPaymentByReqeustId(Integer orderId);
+	public UsedKaKaoPayApproveDto getUsedPaymentByOrderId(Integer orderId);
 	
 }

@@ -814,7 +814,7 @@ function reloadChatList(requestId) {
 				  const row1 = document.createElement('div');
 				  row1.classList.add('row', 'mt-1');
 				  
-				  if(mySessionId!=data.receiver_id){
+				  if(mySessionId!=data.receiver_id && data.receiver_id != 0){
 					  const col1 = document.createElement('div');
 					  col1.classList.add('col', 'd-flex', 'flex-column', 'justify-content-end');
 					  const col1row1 = document.createElement('div');
@@ -843,7 +843,7 @@ function reloadChatList(requestId) {
 					  col1.appendChild(col1row2);
 					  
 					  getChatbox.appendChild(row1);
-				  }else {
+				  }else if(mySessionId==data.receiver_id && data.receiver_id != 0) {
 					  const colIcon = document.createElement('div');
 					  colIcon.classList.add('col-1', 'ms-2', 'text-left');
 
@@ -877,6 +877,16 @@ function reloadChatList(requestId) {
 					  row1.appendChild(col4);
 					  col4.appendChild(col4row1);
 					  col4.appendChild(col4row2);
+					  
+					  getChatbox.appendChild(row1);
+				  }
+				  // 송금 받았을 때 
+				  else{
+					  const col3 = document.createElement('div');
+					  col3.classList.add('col','text-center','fw-bold');
+					  col3.innerText = data.content;
+					  
+					  row1.appendChild(col3);
 					  
 					  getChatbox.appendChild(row1);
 				  }

@@ -336,7 +336,7 @@ public class UsedController {
 	public String paymentFailed(HttpSession session) {
 		
 		UserDto userDto = (UserDto) session.getAttribute("sessionUser");
-		if(userDto == null) return "redirect:./loginPage"; 		
+		if(userDto == null) return "redirect:../user/loginPage"; 		
 		
 		return "used/paymentFailed";
 	}
@@ -346,7 +346,7 @@ public class UsedController {
 	public String paymentProcess(HttpSession session, String pg_token) {
 		
 		UserDto userDto = (UserDto) session.getAttribute("sessionUser");
-		if(userDto == null) return "redirect:./loginPage";	
+		if(userDto == null) return "redirect:../user/loginPage";	
 		
 		System.out.println(pg_token);
 		UsedKaKaoPayApproveDto usedKakaoPagApproveDto = (UsedKaKaoPayApproveDto) session.getAttribute("usedKakaoPay");
@@ -361,7 +361,7 @@ public class UsedController {
 	public String paymentSucceeded(HttpSession session, Model model, Integer orderId) {
 		
 		UserDto userDto = (UserDto) session.getAttribute("sessionUser");
-		if(userDto == null) return "redirect:./loginPage"; 		
+		if(userDto == null) return "redirect:../user/loginPage"; 		
 		
 		session.removeAttribute("usedKakaoPay");
 		
