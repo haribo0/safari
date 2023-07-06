@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.ja.safari.auction.service.AuctionServiceImpl;
+import com.ja.safari.dto.CsEmpDto;
 import com.ja.safari.dto.UserDto;
 import com.ja.safari.user.service.UserServiceImpl;
 
@@ -117,7 +118,16 @@ public class UserController {
 		return "user/myInquiryPostPage";
 	}
 	
-	
+
+	@RequestMapping("myInquiryDetail") 
+	public String myInquiryDetail(HttpSession session, Integer id){
+		
+		CsEmpDto empUser = (CsEmpDto) session.getAttribute("empUser");
+		if(empUser==null) return "redirect:./loginPage";
+		
+		
+		return "user/myInquiryDetail";
+	}
 	
 	
 	

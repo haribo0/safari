@@ -96,16 +96,6 @@ public class CsController {
 	}
 	
 	
-	@RequestMapping("myInquiryDetail") 
-	public String myInquiryDetail(HttpSession session, Integer id){
-		
-		CsEmpDto empUser = (CsEmpDto) session.getAttribute("empUser");
-		if(empUser==null) return "redirect:./loginPage";
-		
-		
-		
-		return "cs/myInquiryDetail";
-	}
 	
 	
 	
