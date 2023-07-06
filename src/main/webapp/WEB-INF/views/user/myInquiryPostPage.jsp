@@ -66,7 +66,8 @@
 					  <option value="1">중고</option>
 					  <option value="2">대여</option>
 					  <option value="3">경매</option>
-					  <option value="4">기타</option>
+					  <option value="4">커뮤니티</option>
+					  <option value="5">기타</option>
 					</select>
 				</div>
 			</div>

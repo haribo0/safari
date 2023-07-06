@@ -63,7 +63,7 @@
 			
 			<div class="col ms-4 mt-5">
 		    	
-		    	<h4 class="ps-4  mt-3 mb-4 fw-regular">상품 관리</h4>
+		    	<h4 class="ps-4  mt-3 fw-regular">상품 관리</h4>
 
 				<div class="row ms-4">
 					<div class="col">
@@ -889,7 +889,7 @@ function getListUpdated() {
 				
 				  // Outer row div
 				  const rowDiv = document.createElement('div');
-				  rowDiv.classList.add('row', 'py-3', 'text-center');
+				  rowDiv.classList.add('row', 'py-2', 'text-center');
 
 				  // col-1
 				  const col1Div = document.createElement('div');
@@ -903,7 +903,7 @@ function getListUpdated() {
 
 				  
 				  const chooseElement = document.createElement('div');
-				  chooseElement.classList.add('btn', 'btn-dark', 'px-3');
+				  chooseElement.classList.add('btn', 'btn-sm', 'btn-dark');
 				  chooseElement.dataset.index = idx++;
 				  chooseElement.dataset.productId = map.product.id;
 				  chooseElement.dataset.bsToggle = 'collapse';
@@ -915,10 +915,10 @@ function getListUpdated() {
 				  
 				  if (map.ads) {
 				    chooseElement.classList.replace('btn-dark', 'btn-outline-secondary');
-				    chooseElement.classList.add('btn-disalbed');
+				    chooseElement.classList.add('btn-disalbed', 'px-2');
 				    chooseElement.innerHTML =  '<i class="bi bi-badge-ad"></i> 광고중';
 				  } else {
-				    chooseElement.classList.replace('px-3', 'px-4');
+				    chooseElement.classList.add('px-3');
 				    chooseElement.innerHTML =  '<i class="bi bi-badge-ad"></i> 추가';
 
 				  }

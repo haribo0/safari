@@ -151,6 +151,108 @@
 	</insert>
 	
 	
+	<!-- 문의 카테고리 가져오기 -->
+	<select id="getCategoryById" resultType="com.ja.safari.dto.CsCategoryDto">
+		SELECT * FROM cs_category
+		WHERE id = #{id}
+	</select>
+	
+	<!-- 회원 | 1대1문의 가져오기 -->
+	<select id="getInquiryListByUserId" resultType="com.ja.safari.dto.CsQnaDto">
+		SELECT * FROM cs_qna
+		WHERE user_id = #{userId}
+		ORDER BY id DESC
+	</select>
+	
+	<!-- 직원 | 1대1문의 가져오기 -->
+	<select id="getInquiryListByEmpId" resultType="com.ja.safari.dto.CsQnaDto">
+		SELECT * FROM cs_qna
+		WHERE emp_id = #{empId}
+		AND qna_reply IS NULL
+		ORDER BY id
+	</select>
+	
+	<!-- id로 | 1대1문의 가져오기 -->
+	<select id="getQnaDtoById" resultType="com.ja.safari.dto.CsQnaDto">
+		SELECT * FROM cs_qna
+		WHERE id = #{id}
+	</select>
+	
+	<!-- 직원 | 미처리 답변 개수 -->
+	<select id="getUnansweredInquiryCount" resultType="int">
+		SELECT COUNT(*) FROM cs_qna
+		WHERE emp_id = #{empId}
+		AND qna_reply IS NULL
+	</select>
+	
+	<!-- 1대1문의 답변저장 -->
+	<update id="saveQnaReply" >
+		UPDATE cs_qna
+		SET 
+			qna_reply = #{qna_reply},
+			reply_date = SYSDATE
+		WHERE id = #{id}
+	</update>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<!-- id로 | 1대1문의/유저/직원/카테고리 조인 후 가져오기 | ResultMap -->
+	<resultMap id="combinedResultMap" type="com.ja.safari.dto.CsQnaCombinedDto">
+	  <result property="id" column="qna_id"  />
+	  <result property="qna_title" column="qna_title"  />
+	  <result property="qna_content" column="qna_content"  />
+	  <result property="reg_date" column="reg_date"  />
+	  <result property="qna_reply" column="qna_reply" />
+	  <result property="reply_date" column="reply_date"  />
+	  <!-- UserDto -->
+	  <association property="userDto" javaType="com.ja.safari.dto.UserDto">
+	    <result property="id" column="user_id"  />
+	    <result property="email" column="email"  />
+	    <result property="pw" column="pw"  />
+	    <result property="nickname" column="nickname"  />
+	    <result property="phone" column="phone" />
+	    <result property="gender" column="gender"  />
+	    <result property="birth" column="birth"  />
+	    <result property="profile_img_link" column="profile_img_link"  />
+	    <result property="reg_date" column="user_reg_date"  />
+	  </association>
+	  <!--CsCategoryDto -->
+	  <association property="categoryDto" javaType="com.ja.safari.dto.CsCategoryDto">
+	    <result property="id" column="category_id" />
+	    <result property="category" column="category"  />
+	  </association>
+	  <!-- CsEmpDto (empId만)-->
+	  <association property="empDto" javaType="com.ja.safari.dto.CsEmpDto">
+	    <result property="id" column="emp_id"  />
+	  </association>
+	</resultMap>
+	
+	<select id="getQnaCombinedDtoById" parameterType="java.lang.Integer"  resultMap="combinedResultMap">
+		SELECT q.id AS qna_id, q.qna_title, q.qna_content, q.reg_date, q.qna_reply, q.reply_date,
+		       u.id AS user_id, u.email, u.pw, u.nickname, u.phone, u.gender, u.birth, u.profile_img_link, u.reg_date AS user_reg_date,
+		       c.id AS category_id, c.category,
+		       e.id AS emp_id
+		FROM CS_QNA q
+		LEFT JOIN USER_TABLE u ON q.user_id = u.id
+		LEFT JOIN cs_category c ON q.category_id = c.id
+		LEFT JOIN cs_emp e ON q.emp_id = e.id
+		WHERE q.id = #{id, jdbcType=INTEGER}
+	</select>
+	<!-- id로 | 1대1문의/유저/직원/카테고리 조인 후 가져오기 | ResultMap -->
+	
+	
 	
 	
 	
