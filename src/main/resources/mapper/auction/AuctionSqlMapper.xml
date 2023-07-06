@@ -388,6 +388,99 @@
 	<delete id="deleteAllChat">
 		DELETE FROM auction_item_chatroom WHERE auction_item_id = #{id}
 	</delete>
+	
+	<!-- 마이페이지 - 내가 입찰한 기록 조회 -->
+	<select id="getMyBidList" resultType="com.ja.safari.dto.AuctionItemDto">
+		SELECT at.id, title, start_price,
+		       max_price, bid_price,
+		       start_date, end_date, 
+		       auction_status,
+		       auction_item_img_link
+		   FROM
+		        auction_item at 
+		    	JOIN auction_item_bid_request bt ON at.id = bt.auction_item_id
+		        JOIN (
+		              SELECT auction_item_id,
+		              MIN(auction_item_img_link) AS auction_item_img_link
+		              FROM auction_item_img
+		              GROUP BY auction_item_id
+		             ) ati ON at.id = ati.auction_item_id
+		        WHERE bt.user_buyer_id = #{userBuyerId}
+		        AND bid_price IN (
+		        SELECT MAX(bid_price) 
+		            FROM auction_item_bid_request bt
+		            WHERE user_buyer_id = #{userBuyerId}
+		            GROUP BY auction_item_id)
+	</select>
+	
+	
+	<!-- 경매 마이페이지 - 낙찰 기록 조회 -->
+	<select id="getMySueecssfulBidList" resultType="com.ja.safari.dto.AuctionBidDto">
+		SELECT bt.id, bt.auction_item_id, main_category_name, sub_category_name, title, bid_price, 
+	      	   bt.reg_date, at.end_date, ati.auction_item_img_link
+		  FROM 
+		      auction_item_bid_request bt
+			  JOIN auction_item at ON bt.auction_item_id = at.id
+			  JOIN product_sub_category psc ON at.auction_sub_category_id = psc.id
+			  JOIN product_main_category pmc ON psc.product_main_category_id = pmc.id
+			  JOIN (
+				    SELECT auction_item_id, MIN(auction_item_img_link) AS auction_item_img_link
+				    FROM auction_item_img
+				    GROUP BY auction_item_id
+			  	) ati ON at.id = ati.auction_item_id
+			  WHERE bt.user_buyer_id = #{userBuyerId}
+			  AND at.auction_status = '종료'
+			  AND bid_price IN (
+				    SELECT MAX(bid_price)
+				    FROM auction_item_bid_request
+				    GROUP BY auction_item_id
+			  )
+	</select>
+	
+	<!-- 경매 마이페이지 - 찜 목록 조회 -->
+	<select id="getMyAuctionWishList" resultType="com.ja.safari.dto.AuctionItemDto">
+		 SELECT at.id, title, 
+		        main_category_name, sub_category_name,
+		        auction_item_img_link
+		        FROM
+		        auction_item at 
+		        JOIN auction_item_like atl ON at.id = atl.auction_item_id
+		        JOIN product_sub_category psc ON at.auction_sub_category_id = psc.id
+		        JOIN product_main_category pmc ON psc.product_main_category_id = pmc.id
+		        JOIN (
+		            SELECT auction_item_id,
+		            MIN(auction_item_img_link) AS auction_item_img_link
+		            FROM auction_item_img
+		            GROUP BY auction_item_id
+		         ) ati ON at.id = ati.auction_item_id
+		        WHERE user_buyer_id = #{userBuyerId}
+		        AND at.auction_status IN ('진행중','준비중')
+	</select>
+	
+	
+	<!-- 경매 낙찰 건에 대한 카카오페이 결제 정보 저장 -->
+	<insert id="saveAuctionKakaoPayInfo">
+		INSERT INTO auction_kakao_payment VALUES(
+			auction_kakao_payment_seq.nextval,
+			#{partner_order_id},
+			#{cid},
+			#{tid},
+			#{partner_user_id},
+			#{pg_token},
+			#{item_name},
+			#{amount},
+			#{payment_method_type},
+			SYSDATE)
+	</insert>
+	
+	<!-- 경매 낙찰 건에 대한 카카오페이 결제 정보 조회 -->
+	<select id="getAuctionKakaoPayInfo" resultType="com.ja.safari.dto.AuctionKakaoPayApproveDto">
+		SELECT *
+			FROM auction_kakao_payment
+			WHERE partner_order_id = #{id}
+	</select>
+	
+	
 
 
 </mapper>

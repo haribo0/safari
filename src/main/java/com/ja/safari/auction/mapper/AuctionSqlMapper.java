@@ -7,6 +7,7 @@ import com.ja.safari.dto.AuctionItemChatroomDto;
 import com.ja.safari.dto.AuctionItemDto;
 import com.ja.safari.dto.AuctionItemImgDto;
 import com.ja.safari.dto.AuctionItemLikeDto;
+import com.ja.safari.dto.AuctionKakaoPayApproveDto;
 import com.ja.safari.dto.ProductMainCategoryDto;
 import com.ja.safari.dto.ProductSubCategoryDto;
 
@@ -160,4 +161,20 @@ public interface AuctionSqlMapper {
 	
 	// 경매 채팅방에 있는 채팅을 모두 삭제 (임시, 사용하면 안되는데 테스트용)
 	public void deleteAllChat(int id);
+	
+	// 마이페이지 - 내가 입찰한 기록 조회
+	public List<AuctionItemDto> getMyBidList(int userBuyerId);
+	
+	// 마이페이지 - 낙찰 기록 조회
+	public List<AuctionBidDto> getMySueecssfulBidList(int userBuyerId);
+	
+	// 마이페이지 - 찜 목록 조회
+	public List<AuctionItemDto> getMyAuctionWishList(int userBuyerId);
+	
+	// 경매 낙찰 건에 대한 카카오페이 결제 정보 저장
+	public void saveAuctionKakaoPayInfo(AuctionKakaoPayApproveDto auctionKakaoPayApproveDto);
+	
+	// 경매 낙찰 건에 대한 카카오페이 결제 정보 조회 
+	public AuctionKakaoPayApproveDto getAuctionKakaoPayInfo(int id);
+	
 }

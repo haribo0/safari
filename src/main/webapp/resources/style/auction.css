@@ -19,8 +19,8 @@ a {
 	border: 0.5px solid #edebe6;
 }
 
-.mainPageAuctionImg {
-	height: 120px;
+.mainPageAucionImg {
+	height: 120px;s
 }
 
 .detailPageAuctionImg {
@@ -98,7 +98,7 @@ input[id="tab03"]:checked ~ .con3 {
 }
 
 
-.myContent {
+.my-speech-bubble  {
   background-color: rgba(75, 137, 220, 0.25);  /* 배경색 */
   color: #000000; /* 글자색 */
   padding: 10px; /* 여백 */
@@ -107,7 +107,7 @@ input[id="tab03"]:checked ~ .con3 {
   width: auto;
 }
 
-.otherContent {
+.speech-bubble {
   background-color: #EAEAEA; /* 배경색 */
   color: #000000; /* 글자색 */
   padding: 10px; /* 여백 */
@@ -120,17 +120,18 @@ input[id="tab03"]:checked ~ .con3 {
 
 
 
-.seller-bubble {
+
+/*.seller-bubble {
 	position: relative;
 	width:auto;
 	background: #cafc03;
 	border-radius: .4em;
-	/*height: 30px;*/
+	height: 30px;
 	text-align: middle;
 	display: flex;
 	align-items: center;
 	  padding: 10px;
-    white-space: pre-wrap; /* 텍스트 줄바꿈을 위한 설정 */
+    white-space: pre-wrap; /
     width:auto;
 }
 
@@ -149,19 +150,19 @@ input[id="tab03"]:checked ~ .con3 {
 	margin-top: -4.5px;
 	margin-left: -9px;
 	
-}
+}*/
 
 
 
-
+/*
 .speech-bubble {
 	position: relative;
-	background: #d7edef;
+	background: #EAEAEA; 
 	border-radius: .4em;
 	text-align: middle;
 	display: inline-flex;
 	align-items: center;
-	  padding: 10px;
+	padding: 10px;
     white-space: pre-wrap; 
 
 }
@@ -174,7 +175,7 @@ input[id="tab03"]:checked ~ .con3 {
 	width: 0;
 	height: 0;
 	border: 9px solid transparent;
-	border-right-color: #d7edef;
+	border-right-color: #EAEAEA; 
 	border-left: 0;
 	border-top: 0;
 	margin-top: -4.5px;
@@ -186,10 +187,10 @@ input[id="tab03"]:checked ~ .con3 {
 
 .my-speech-bubble {
 	position: relative;
-	background: #f5f542;
+	background: rgba(75, 137, 220, 0.25);
 	border-radius: .4em;
 	text-align: middle;
-	/*display: flex;*/
+	display: flex;
 	display: inline-flex;
 	width: auto;
 	align-items: center;
@@ -209,7 +210,7 @@ input[id="tab03"]:checked ~ .con3 {
 	width: 0;
 	height: 0;
 	border: 15px solid transparent;
-	border-left-color: #f5f542;
+	border-left-color: rgba(75, 137, 220, 0.25);
 	border-right: 0;
 	border-top: 0;
 	margin-top: -4.5px;
@@ -217,7 +218,7 @@ input[id="tab03"]:checked ~ .con3 {
 	width:auto;
 }
 
-
+*/
 
 
 
