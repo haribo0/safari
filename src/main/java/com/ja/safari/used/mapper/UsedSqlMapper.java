@@ -2,7 +2,6 @@ package com.ja.safari.used.mapper;
 
 import java.util.List;
 
-import javax.mail.search.IntegerComparisonTerm;
 
 import org.apache.ibatis.annotations.Param;
 
@@ -15,6 +14,7 @@ import com.ja.safari.dto.ProductMainCategoryDto;
 import com.ja.safari.dto.ProductRequestDto;
 import com.ja.safari.dto.ProductSubCategoryDto;
 import com.ja.safari.dto.ProductTownDto;
+import com.ja.safari.dto.UsedKaKaoPayApproveDto;
 import com.ja.safari.dto.UserDto;
 
 public interface UsedSqlMapper {
@@ -116,6 +116,9 @@ public interface UsedSqlMapper {
 	public ProductRequestDto selectProductRequestById(Integer id);
 	// 판매자일때 요청자에 따른 productRequestDto 가져오기
 	public ProductRequestDto selectProductRequestByProductIdAndRequestId(@Param("productId")Integer productId, @Param("requesterId")Integer requesterId);
-	
+	// 카카오페이  결제 insert 
+	public void insertUsedPayment(UsedKaKaoPayApproveDto usedKakaoPayApproveDto);
+	// 결제 select 
+	public UsedKaKaoPayApproveDto getUsedPaymentByReqeustId(Integer orderId);
 	
 }

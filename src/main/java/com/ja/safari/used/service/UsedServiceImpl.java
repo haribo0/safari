@@ -18,6 +18,7 @@ import com.ja.safari.dto.ProductMainCategoryDto;
 import com.ja.safari.dto.ProductRequestDto;
 import com.ja.safari.dto.ProductSubCategoryDto;
 import com.ja.safari.dto.ProductTownDto;
+import com.ja.safari.dto.UsedKaKaoPayApproveDto;
 import com.ja.safari.dto.UserDto;
 import com.ja.safari.used.mapper.UsedSqlMapper;
 
@@ -430,7 +431,21 @@ public class UsedServiceImpl {
 		return usedSqlMapper.selectProductRequestByProductIdAndRequestId(productId, requesterId);
 	}
 	
-
+	// 카카오페이  결제 저장 
+	public void saveOrderAndPaymentInfo(UsedKaKaoPayApproveDto usedKaKaoPayApproveDto) {
+		
+		usedSqlMapper.insertUsedPayment(usedKaKaoPayApproveDto);
+	}
+	
+	// 광고 주문/결제 정보 가져오기  
+	public Map<String, Object> getOrderAndPaymentInfo(Integer orderId) {
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		map.put("payment", usedSqlMapper.getUsedPaymentByReqeustId(orderId));
+		
+		return map;
+	}
 	
 	
 	
