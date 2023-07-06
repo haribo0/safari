@@ -10,9 +10,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ja.safari.dto.KaKaoPayApproveDto;
 import com.ja.safari.dto.ProductChatDto;
 import com.ja.safari.dto.ProductDto;
 import com.ja.safari.dto.ProductLikeDto;
+import com.ja.safari.dto.RentalBusinessDto;
+import com.ja.safari.dto.UsedKaKaoPayApproveDto;
 import com.ja.safari.dto.UserDto;
 import com.ja.safari.used.service.UsedServiceImpl;
 
@@ -238,9 +241,125 @@ public class UsedRestController {
 		}
 	}
 	
+	// 거래 예약중으로 상태 변경
+	@RequestMapping("productRequestStatusReservation")
+	public Map<String, Object> productRequestReservation(HttpSession session, Integer requestId) {
+		Map<String, Object> map = new HashMap<>();
+		UserDto sessionUser = (UserDto)session.getAttribute("sessionUser");
+		if(sessionUser == null) {
+			map.put("result", "fail");
+			map.put("reason", "로그인되어있지않습니다.");
+			return map;
+		}else {
+			Integer productId = usedService.selectProductRequestById(requestId).getProduct_id();
+			Integer userId = usedService.selectProductRequestById(requestId).getUser_id();
+			
+			usedService.updateProductRequestStatusReservate(productId, userId);
+			map.put("result", "success");
+			return map;
+		}
+	}
+	
+	// 거래 예약취소 - 거래요청으로 변경
+	@RequestMapping("productRequestStatusCancel")
+	public Map<String, Object> productRequestCancel(HttpSession session, Integer requestId) {
+		Map<String, Object> map = new HashMap<>();
+		UserDto sessionUser = (UserDto)session.getAttribute("sessionUser");
+		if(sessionUser == null) {
+			map.put("result", "fail");
+			map.put("reason", "로그인되어있지않습니다.");
+			return map;
+		}else {
+			Integer productId = usedService.selectProductRequestById(requestId).getProduct_id();
+			Integer userId = usedService.selectProductRequestById(requestId).getUser_id();
+			
+			usedService.updateProductRequestStatusCancel(productId, userId);
+			map.put("result", "success");
+			return map;
+		}
+	}
+	
+	// 거래완료- 거래완료로 상태 변경 
+	@RequestMapping("productRequestStatusComplete")
+	public Map<String, Object> productRequestStatusComplete(HttpSession session, Integer requestId) {
+		Map<String, Object> map = new HashMap<>();
+		UserDto sessionUser = (UserDto)session.getAttribute("sessionUser");
+		if(sessionUser == null) {
+			map.put("result", "fail");
+			map.put("reason", "로그인되어있지않습니다.");
+			return map;
+		}else {
+			Integer productId = usedService.selectProductRequestById(requestId).getProduct_id();
+			Integer userId = usedService.selectProductRequestById(requestId).getUser_id();
+			
+			usedService.updateProductRequestStatusComplete(productId, userId);
+			map.put("result", "success");
+			return map;
+		}
+	}
 	
 	
+	// 카카오페이 결제 ready 정보를 세션에 저장 
+	@RequestMapping("saveTidToSession")
+	public  Map<String, Object> saveTidToSession(HttpSession session, UsedKaKaoPayApproveDto usedkakaoPayApproveDto) {
+			
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		UserDto sessionUser = (UserDto)session.getAttribute("sessionUser");
+		if(sessionUser == null) {
+			map.put("result", "fail");
+			map.put("reason", "login required");
+			return map;
+		}
+		
+		session.setAttribute("usedKakaoPay", usedkakaoPayApproveDto);
+		
+		map.put("result", "success");
+		
+		
+		return map;
+	}
 	
+
+	// 카카오페이 결제 ready 정보 보내주기 
+	@RequestMapping("getKakaoPayReadyInfo")
+	public  Map<String, Object> getKakaoPayReadyInfo(HttpSession session) {
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		UserDto sessionUser = (UserDto)session.getAttribute("sessionUser");
+		if(sessionUser == null) {
+			map.put("result", "fail");
+			map.put("reason", "login required");
+			return map;
+		}
+		
+		UsedKaKaoPayApproveDto usedkakaoPayApproveDto = (UsedKaKaoPayApproveDto) session.getAttribute("usedKakaoPay");
+
+		map.put("result", "success");
+		map.put("readyInfo", usedkakaoPayApproveDto);
+		
+		
+		return map;
+	}
+	
+	// 카카오페이 결제 후 정보 저장  
+	@RequestMapping("saveOrderAndPaymentInfo")
+	public  Map<String, Object> saveOrderAndPaymentInfo(HttpSession session, UsedKaKaoPayApproveDto usedKakaoApproveDto) {
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		RentalBusinessDto businessDto = (RentalBusinessDto) session.getAttribute("businessUser");
+		if(businessDto == null) {
+			map.put("result", "fail");
+			map.put("reason", "login required");
+			return map;
+		}
+		
+	    usedService.saveOrderAndPaymentInfo(usedKakaoApproveDto);
+		
+		return map;
+	}
 	
 	
 	

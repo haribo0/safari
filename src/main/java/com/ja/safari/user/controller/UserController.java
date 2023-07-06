@@ -39,6 +39,7 @@ public class UserController {
 	@RequestMapping("joinPage")
 	public String joinPage() {
 		
+		
 		return "/main/joinPage";
 	}
 	
@@ -48,20 +49,72 @@ public class UserController {
 		
 		return "/main/loginPage";
 	}
-
-
+	
+	// 주소관리|마이페이지
+	@RequestMapping("myAddressPage")
+	public String myAddressPage(HttpSession session) {
+		
+		UserDto sessionUser = (UserDto)session.getAttribute("sessionUser");
+		if(sessionUser==null) {
+			return "redirect:../user/loginPage";
+		}
+		
+		return "user/myAddressPage";
+	}
 	
 	// 대여|마이페이지
 	@RequestMapping("myOrderListPage")
 	public String myOrderListPage(HttpSession session, Model model) {
 		
 		UserDto sessionUser = (UserDto)session.getAttribute("sessionUser");
+		if(sessionUser==null) {
+			return "redirect:../user/loginPage";
+		}
 		
 		List<Map<String, Object>> rentalOrderDtoList = userService.getRentalOrderedList(sessionUser.getId());
 		
 		model.addAttribute("rentalOrderDtoList",rentalOrderDtoList);
 		
 		return "/main/myOrderListPage";
+	}
+	
+	// 대여|코인페이지
+	@RequestMapping("myCoinPage")
+	public String myCoinPage () {
+		
+		return "/user/myCoinPage";
+	}
+	
+	// 1대1문의 | 마이페이지
+	@RequestMapping("myInquiryPage")
+	public String myInquiryPage(HttpSession session, Model model) {
+		
+		UserDto sessionUser = (UserDto)session.getAttribute("sessionUser");
+		if(sessionUser==null) {
+			return "redirect:../user/loginPage";
+		}
+		
+		List<Map<String, Object>> rentalOrderDtoList = userService.getRentalOrderedList(sessionUser.getId());
+		
+		model.addAttribute("rentalOrderDtoList",rentalOrderDtoList);
+		
+		return "user/myInquiryPage";
+	}
+	
+	// 1대1문의 | 마이페이지 - cs 
+	@RequestMapping("myInquiryPostPage")
+	public String myInquiryPostPage(HttpSession session, Model model) {
+		
+		UserDto sessionUser = (UserDto)session.getAttribute("sessionUser");
+		if(sessionUser==null) {
+			return "redirect:../user/loginPage";
+		}
+		
+		List<Map<String, Object>> rentalOrderDtoList = userService.getRentalOrderedList(sessionUser.getId());
+		
+		model.addAttribute("rentalOrderDtoList",rentalOrderDtoList);
+		
+		return "user/myInquiryPostPage";
 	}
 	
 	

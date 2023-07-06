@@ -16,6 +16,7 @@ import com.ja.safari.dto.PromotionReviewImgDto;
 import com.ja.safari.dto.PromotionReviewLikeDto;
 import com.ja.safari.dto.UserDto;
 import com.ja.safari.user.mapper.UserSqlMapper;
+import com.ja.safari.user.service.UserServiceImpl;
 
 @Service
 public class PromotionReviewServiceImpl {
@@ -46,7 +47,6 @@ public class PromotionReviewServiceImpl {
 			map.put("promotionReviewDto", promotionReviewDto);
 			map.put("userDto", userDto);
 			map.put("promotionReviewImgList", promotionReviewImgList);		
-			// 맵에 댓글카운트 담아야함
 			map.put("countPromotionReviewComment", countPromotionReviewComment);
 			
 			
@@ -95,7 +95,7 @@ public class PromotionReviewServiceImpl {
 		// List 나오는지 확인용 출력(상세페이지로 넘어갈 때)
 		for(PromotionReviewImgDto p : promotionReviewImgDtoList) {
 			
-			System.out.println(p.getRental_review_img());
+			System.out.println(p.getPromotion_review_id());
 		}
 		
 		
@@ -159,7 +159,7 @@ public class PromotionReviewServiceImpl {
 		}
 	}
 	
-	// 공감 했는지 안했는지
+	// 공감버튼 on/off
 	public boolean promoReviewIsLiked(PromotionReviewLikeDto promotionReviewLikeDto) {	
 		return promotionReviewMapper.countPromotionReviewMyLike(promotionReviewLikeDto) > 0;
 			
@@ -169,4 +169,46 @@ public class PromotionReviewServiceImpl {
 	public int getTotalPromoReviewLike(int reviewId) {
 		return promotionReviewMapper.countLikeByPromotionReviewId(reviewId);
 	}
+	
+	// 공감 많은 순으로 정렬
+	public List<Map<String, Object>> orderByPromotionReviewLikes() {
+		
+		List<PromotionReviewLikeDto> orderByPromotionReviewLikesList = promotionReviewMapper.orderByPromotionReviewLikes();
+		
+		//System.out.println("공감 있는 리스트 " + orderByPromotionReviewLikesList);
+		
+		List<Map<String, Object>> orderByPromoReviewLikesList = new ArrayList<>();
+			
+		
+		for(PromotionReviewLikeDto promotionReviewLikeDto : orderByPromotionReviewLikesList) {
+									
+			Map<String, Object> map = new HashMap<>();
+			
+			// 내용, 제목, 
+			PromotionReviewDto promotionReviewDto = 
+					promotionReviewMapper.selectByPromoReviewId(promotionReviewLikeDto.getReview_id());
+			
+			// 회원 pk, 닉네임
+			UserDto userDto = userSqlMapper.selectUserDtoById(promotionReviewDto.getUser_id());
+			
+				
+			List<PromotionReviewImgDto> promotionReviewImgList = promotionReviewMapper.selectByPromoReviewImgId(promotionReviewDto.getId());
+			
+			// 댓글 수
+			int countPromotionReviewComment = promotionReviewCommentMapper.countPromotionReviewComment(promotionReviewDto.getId());
+		
+			map.put("userDto", userDto);
+			map.put("promotionReviewDto", promotionReviewDto);
+			map.put("promotionReviewLikeDto", promotionReviewLikeDto);
+			map.put("promotionReviewImgList", promotionReviewImgList);
+			map.put("countPromotionReviewComment", countPromotionReviewComment);
+			
+			
+			orderByPromoReviewLikesList.add(map);
+			
+		}
+		
+		return orderByPromoReviewLikesList;
+	}
+
 }

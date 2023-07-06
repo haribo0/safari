@@ -13,6 +13,7 @@
 <!-- 메타 섹션 -->
 
 </head>
+
 <body>
 		<!-- 헤더 섹션 -->
 		<div class="row">
@@ -35,50 +36,79 @@
 			<div class="row">
 			
 			<!-- 왼쪽 -->
-			<div class="col-3">
+			<div class="col" style="background-color:lightgrey;" >
 				왼쪽
 			</div>
 			<!-- 왼쪽 -->
 			
 			<!-- 가운데 -->
-				<div class="col-6">
-					<div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-center">
-						
-						<%-- getPickBoard --%>
-						<div class="row">
-							<div class="col">
-								<form action="/safari/community/pick/writeContentProcess" method="post">
-									<input type="hidden" name="user_id" value="${sessionUser.id}">
-									작성자: ${sessionUser.nickname }<br>
-									제목: <input type="text" name="title"><br>
-									내용: <br>
-									<textarea rows="10" cols="60" name="content"></textarea>
-									
-									
-									<%-- 글쓰기 버튼 --%>
-									<div class="col text-end ms-auto d-grid justify-content-lg-end">
-										<button class="nav-link px-2 text-body-secondary">글쓰기</button>
-									</div>
-									<%-- 글쓰기 버튼 --%>
-									
-								</form>	
-							</div>	
-						</div>	
-						<%-- getPickBoard --%>
+			<div class="col">
+				<div class="d-flex align-items-center justify-content-center" style="width: 990px; margin: 0 auto;">
+				
 			
-					</div>	
+				
+					<%-- getPickBoard --%>
+					<div class="row">
+						<div class="col" style="width: 990px; margin: 0 auto;"> 
+						
+						<%-- write from--%>
+						<form action="/safari/community/pick/writeContentProcess" method="post">
+							   
+							<%-- headline --%>
+							<div class="row">
+								
+								<div class="col-10">
+									<strong style="font-size: 24px;">글쓰기 페이지<br></strong>
+								</div>
+								
+								<div class="col d-grid justify-content-end mr-2">
+									<button class="nav-link px-2 text-body-secondary"><i class="bi bi-pencil-square"></i></button>
+								</div>
+							</div><hr>
+							<%-- headline --%>
+								
+							<%-- write content --%>
+							<div class="row">
+								<div class="col d-grid">
+								
+									<input type="hidden" name="user_id" value="${sessionUser.id}">
+									
+									
+									 <div class="form-group">
+									     <div class="form-control" style="font-size: ; font-family: 'Noto Sans', sans-serif; box-shadow: none;">
+									        <strong><input type="text" name="title" placeholder="제목을 입력해주세요." style="width: 100%; border: none; outline: none;"></strong>
+									     </div>
+								     </div>
+								    
+								    <div class="form-group">
+								      <div class="form-control mt-2 mb-2" style="font-size: ; font-family: 'Noto Sans', sans-serif; box-shadow: none;">
+								        <textarea rows="10" name="content" placeholder="내용을 입력해주세요." style="width: 100%; border: none; outline: none; padding: 0;"></textarea>
+								      </div>
+								    </div>
+									
+								</div>	
+							</div>
+							<%-- write content --%>
+							
+							</form>
+							<%-- write from--%>	
+							
+						</div>
+					</div>
+					<%-- getPickBoard --%>
+		
 				</div>	
+			</div>	
 			<!-- 가운데 -->
 			
 			<!-- 오른쪽 -->
-			
-			<div class="col-3">
+			<div class="col" style="background-color:lightgrey;">
 				오른쪽
 			</div>
-			
 			<!-- 오른쪽 -->
 			</div>
-		</div>
+			</div>
+		
 		<!-- 커뮤니티 컨테이너 -->
 	
 	

@@ -78,7 +78,7 @@
 						<input type="button" class="btn btn-primary" onclick='location.href="/safari/community/question/deleteQuestionContentProcess/${map.questionDto.id}"' value="삭제"/>
 					</c:if>
 						<input type="button" class="btn btn-primary" onclick='location.href="/safari/community/question/mainPage"' value="목록으로"/>
-					<c:if test="${sessionUser!=null && sessionUser.id == map.userDto.id }">
+					<c:if test="${sessionUser!=null}">
 						<input type="button" class="btn btn-primary" onclick='location.href="/safari/community/question/replyQuestionContentPage/${map.questionDto.id}"' value="답변하기"/>
 					</c:if>
 					</div>

@@ -11,13 +11,17 @@
 <jsp:include page="../common/meta.jsp"></jsp:include>
 <!-- 메타 섹션 -->
 <style>
-.btn-qna{position: fixed; bottom: 80px; right: 70px; background-color: #ffbe00; width: 68px; height: 68px; border-radius: 50%;}
+.btn-qna{position: fixed; bottom: 80px; right: 70px; background-color: #f5f5f5; width: 68px; height: 68px; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 3rem; cursor: pointer;}
+.coin-box{position: relative;}
+.coin-box::before {content: ''; width:1px; height: 60%; background: #5e5e5e; display:block; position: absolute; top: 50%; transform:translateY(-50%); left: 0px;}
 </style>
 </head>
 <body>
 
-<div class="btn-qna">
+<div class="btn-qna shadow-lg">
+<i class="bi bi-question-circle"></i>
 </div>
+
 	<!-- 헤더 섹션 -->
 	<jsp:include page="../common/header.jsp"></jsp:include>
 	<!-- 헤더 섹션 -->
@@ -107,12 +111,31 @@
 		
 	</div>
 </div>
+
+	<!-- 마이페이지 상단 블럭 -->
+	<jsp:include page="../common/myPageTop.jsp"></jsp:include>
+	<!-- 마이페이지 상단 블럭 -->
 	
+	<div class="container d-flex mt-5 px-0">
+		<div class="row w-100">
+		<!-- 마이페이지 nav-->
+		<jsp:include page="../common/myPageNav.jsp"></jsp:include>
+		<!-- 마이페이지 nav-->
+			
+		<div class="col ms-4">
+			<div class="row" style="border-bottom: 2px solid #222; height: 48px;">
+				<div class="col p-0">
+					<h5>마이페이지</h5>						
+				</div>
+			</div>
+		</div>
+		</div>
+	</div>
+		
 	<!-- 푸터 섹션 -->
 	<jsp:include page="../common/footer.jsp"></jsp:include>
 	<!-- 푸터 섹션 -->
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>
 // 로그인된 세션 초기화

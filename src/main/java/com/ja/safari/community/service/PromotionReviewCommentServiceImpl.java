@@ -37,6 +37,7 @@ public class PromotionReviewCommentServiceImpl {
 				
 			UserDto userDto = userSqlMapper.selectUserDtoById(userId);
 			
+			
 			map.put("userDto", userDto);
 			map.put("promotionReviewCommentDto", promotionReviewCommentDto);
 						

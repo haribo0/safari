@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.ja.safari.dto.CsAttendanceLogDto;
 import com.ja.safari.dto.CsEmpDto;
+import com.ja.safari.dto.CsQnaDto;
 import com.ja.safari.dto.CsScheduleDto;
 
 public interface CsSqlMapper {
@@ -41,6 +42,13 @@ public interface CsSqlMapper {
 
 	// 퇴근 
 	public void updateTimeOutByLogId(int empId);
+	
+	// 현재 출근했고 일 적은 직원 가져오기
+	public CsEmpDto getEmployeeWithLeastWorkload();
+	
+	// 1대1문의 포스트 
+	public void insertQnaPost(CsQnaDto csQnaDto);
+
 	
 	
 	

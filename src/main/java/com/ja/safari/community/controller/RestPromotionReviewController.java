@@ -66,7 +66,7 @@ public class RestPromotionReviewController {
 		map.put("result", "success");
 		map.put("count", promoReviewService.getTotalPromoReviewLike(reviewId));
 		
-		
+			 
 		return map;
 	}
 	

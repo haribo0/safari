@@ -3,9 +3,11 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-<div class="container-fluid bg-body-secondary d-flex justify-content-center align-items-center py-3">
-	지금 가입하여 혜택을 누려보세요! <a class="btn btn-outline-dark py-1 mx-4" href="${pageContext.request.contextPath}/user/joinPage">가입하기</a>
-</div>
+<c:if test="${empty sessionUser}">
+	<div class="container-fluid bg-body-secondary d-flex justify-content-center align-items-center py-3">
+		지금 가입하여 혜택을 누려보세요! <a class="btn btn-outline-dark py-1 mx-4" href="${pageContext.request.contextPath}/user/joinPage">가입하기</a>
+	</div>
+</c:if>
 
 <div class="container">
 	<header class="p-3">

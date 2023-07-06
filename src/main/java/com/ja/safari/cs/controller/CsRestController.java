@@ -125,6 +125,7 @@ public class CsRestController {
 		return map;
 	}
 	
+	
 	@RequestMapping("changeSchedule")
 	public  Map<String, Object> changeSchedule(HttpSession session, String[] days, Integer startTime, Integer endTime, Integer empId) {
 		
@@ -174,8 +175,6 @@ public class CsRestController {
 			map.put("reason", "login required");
 			return map;
 		}
-		
-		
 		
 		map.put("result", "success");
 		

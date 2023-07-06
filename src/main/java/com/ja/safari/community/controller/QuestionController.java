@@ -90,7 +90,7 @@ public class QuestionController {
 		@RequestMapping("question/updateQuestionContentProcess")
 		public String updateQuestionContentProcess(QuestionDto questionDto) {
 			questionService.updateQuestionBoard(questionDto);
-			System.out.println(questionDto.getId());
+			//System.out.println(questionDto.getId());
 
 			return "redirect:/community/question/questionReadContentPage/"+ questionDto.getId();
 		}

@@ -63,87 +63,36 @@
 	<!-- 헤더 섹션 -->
 	<jsp:include page="../common/header.jsp"></jsp:include>
 	<!-- 헤더 섹션 -->
+	
+	<!-- 마이페이지 상단 블럭 -->
+	<jsp:include page="../common/myPageTop.jsp"></jsp:include>
+	<!-- 마이페이지 상단 블럭 -->
 
-<div class="container d-flex mt-5">
-	<div style="width: 24%;">
-		<h2 class="fw-bold">마이페이지</h2>
+	<div class="container d-flex mt-5 px-0">
+		<div class="row w-100">
+		<!-- 마이페이지 leftnav -->
+		<jsp:include page="../common/myPageNav.jsp"></jsp:include>
+		<!-- 마이페이지 leftnav -->
 		
-		<ul class="list-group mt-4">
-		<li class="list-group-item border border-0 pb-0"><a class="btn fs-5 text fw-bold py-1" href="#">회원정보</a></li>
-		  	<div class="" id="">
-				<ul class="list-group ms-4">
-					<li class="list-group-item border-0"><a href="#" class="btn py-0 text-body-secondary">회원정보수정</a></li>
-					<li class="list-group-item border-0"><a href="#" class="btn py-0 text-body-secondary">배송지관리</a></li>
-					<li class="list-group-item border-0"><a href="#" class="btn py-0 text-body-secondary">찜</a></li>
-					<li class="list-group-item border-0"><a href="#" class="btn py-0 text-body-secondary">리뷰관리</a></li>
-					<li class="list-group-item border-0"><a href="#" class="btn py-0 text-body-secondary">쪽지(?)</a></li>
-				</ul>
+		<div class="col ms-4">
+			<div class="row" style="border-bottom: 2px solid #222; height: 48px;">
+				<div class="col p-0">
+					<h5>대여 주문 리스트</h5>						
+				</div>
 			</div>
 			
-		
-		  <li class="list-group-item border border-0 pb-0"><a class="btn fs-5 text fw-bold py-1" href="#collapse1">중고</a></li>
-		  	<div class="" id="">
-				<ul class="list-group ms-4">
-					<li class="list-group-item border-0"><a href="#" class="btn py-0 text-body-secondary">리스트제목</a></li>
-					<li class="list-group-item border-0"><a href="#" class="btn py-0 text-body-secondary">리스트제목</a></li>
-					<li class="list-group-item border-0"><a href="#" class="btn py-0 text-body-secondary">리스트제목</a></li>
-					<li class="list-group-item border-0"><a href="#" class="btn py-0 text-body-secondary">리스트제목</a></li>
-				</ul>
-			</div>
-			
-		  <li class="list-group-item border border-0 pb-0"><a class="btn fs-5 text fw-bold py-1" href="#">대여</a></li>
-		  	<div class="" id="">
-				<ul class="list-group ms-4">
-					<li class="list-group-item border-0"><a href="./myOrderList" class="btn py-0 text-body-secondary">오더리스트</a></li>
-					<li class="list-group-item border-0"><a href="#" class="btn py-0 text-body-secondary">1:1문의</a></li>
-					<li class="list-group-item border-0"><a href="#" class="btn py-0 text-body-secondary">리스트제목</a></li>
-					<li class="list-group-item border-0"><a href="#" class="btn py-0 text-body-secondary">리스트제목</a></li>
-					<li class="list-group-item border-0"><a href="#" class="btn py-0 text-body-secondary">리스트제목</a></li>
-				</ul>
-			</div>
-			
-		  <li class="list-group-item border border-0 pb-0"><a class="btn fs-5 text fw-bold py-1" href="#" >경매</a></li>
-		  	<div class="" id="">
-				<ul class="list-group ms-4">
-					<li class="list-group-item border-0"><a href="#" class="btn py-0 text-body-secondary">리스트제목</a></li>
-					<li class="list-group-item border-0"><a href="#" class="btn py-0 text-body-secondary">리스트제목</a></li>
-					<li class="list-group-item border-0"><a href="#" class="btn py-0 text-body-secondary">리스트제목</a></li>
-					<li class="list-group-item border-0"><a href="#" class="btn py-0 text-body-secondary">리스트제목</a></li>
-				</ul>
-			</div>
-			
-		  <li class="list-group-item border border-0 pb-0"><a class="btn fs-5 text fw-bold py-1" href="#" >커뮤니티</a></li>
-		  	<div class="" id="">
-				<ul class="list-group ms-4">
-					<li class="list-group-item border-0"><a href="#" class="btn py-0 text-body-secondary">리스트제목</a></li>
-					<li class="list-group-item border-0"><a href="#" class="btn py-0 text-body-secondary">리스트제목</a></li>
-					<li class="list-group-item border-0"><a href="#" class="btn py-0 text-body-secondary">리스트제목</a></li>
-					<li class="list-group-item border-0"><a href="#" class="btn py-0 text-body-secondary">리스트제목</a></li>
-				</ul>
-			</div>
-		</ul>
-	</div>
-		
-	<div class="pt-2 w-100">
-		<p>자유롭게 코딩쓰(제목 들어가도 갠춘을듯)<p>
-		<div class="w-100 border-bottom">
-		</div>
-		
-		<div class="container mt-4 ps-0">
-			<h3 class="fs-3">대여 주문 리스트</h3>
-			
-			<div class="d-flex mt-3">
-				
+			<div class="row">
 				<p class="me-5">${sessionUser.nickname }님이 대여한 리스트: </p>
 				<ul class="list-group myOrderedList d-flex flex-column-reverse">
 				<c:forEach items="${rentalOrderDtoList}" var="data">
-					<li class="list-group-item">
+					<li class="list-group-item py-3">
 						<div class="d-flex justify-content-between">
 							<div>
-								<h4>${data.product.title }</h4>
-								<p>시작날: <fmt:formatDate pattern="yyyy-MM-dd" value="${data.orderedItem.start_date }" /> || 반납예정일: <fmt:formatDate pattern="yyyy-MM-dd" value="${data.orderedItem.end_date }" /></p>
+								<h5>${data.product.title }</h5>
+								<p>시작일: <fmt:formatDate pattern="yyyy-MM-dd" value="${data.orderedItem.start_date }" /></p>
+								<p>반납예정일: <fmt:formatDate pattern="yyyy-MM-dd" value="${data.orderedItem.end_date }" /></p>
 								<p>배송지:${data.orderedItem.address} </p>
-								<p>배송여부: ${data.orderedItem.is_shipped}</p>
+								<p class="mb-0">배송여부: ${data.orderedItem.is_shipped}</p>
 							</div>
 							
 							<div class="d-flex flex-column">
@@ -157,17 +106,14 @@
 				</c:forEach>
 				</ul>
 			</div>
-			
 		</div>
-		
+		</div>
 	</div>
-</div>
 	
 	<!-- 푸터 섹션 -->
 	<jsp:include page="../common/footer.jsp"></jsp:include>
 	<!-- 푸터 섹션 -->
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
 
 <script>
 	//로그인된 세션 초기화

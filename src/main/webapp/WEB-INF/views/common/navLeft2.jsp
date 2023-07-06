@@ -43,10 +43,10 @@
     
 <div class="listContainer mt-3">
 	<ul class="list-group">
-	  <li class="list-group-item border border-0  pt-2 pb-0"><a class="btn fs-5 fw-medium text  py-1" href="./mainPage"> <span style="font-size: 20px;">  <i class="bi bi-speedometer2"></i></span> &nbsp;대시보드</a></li>
+	  <li class="list-group-item border border-0   pt-2 pb-0"><a class="btn fs-5 dashboard fw-medium text py-1" href="./mainPage"> <span style="font-size: 20px;">  <i class="bi bi-speedometer2"></i></span> &nbsp;대시보드</a></li>
 
 		
-	  <li class="list-group-item border border-0  pt-2 pb-0"><a class="btn fs-5 fw-medium text  py-1" href="./productListPage"> <span style="font-size: 18px;"> <i class="bi bi-box"></i> </span>&nbsp;상품</a></li>
+	  <li class="list-group-item border border-0 product pt-2 pb-0"><a class="btn fs-5 productTab fw-medium text  py-1" href="./productListPage"> <span style="font-size: 18px;"> <i class="bi bi-box"></i> </span>&nbsp;상품</a></li>
 	  	<!-- <div class="" id="">
 			<ul class="list-group ms-2">
 				<li class="list-group-item border-0"><a href="./productRegisterPage" class="btn py-0 text-body-secondary">상품 등록</a></li>
@@ -54,7 +54,7 @@
 			</ul>
 		</div> -->
 		
-	  <li class="list-group-item border border-0 pt-2 pb-0"><a class="btn fs-5 fw-medium text " href="./orderListPage2"> <span style="font-size: 19px;"><i class="bi bi-clipboard"></i></span> &nbsp;주문</a></li>
+	  <li class="list-group-item border border-0 order pt-2 pb-0"><a class="btn fs-5 fw-medium text " href="./orderListPage2"> <span style="font-size: 19px;"><i class="bi bi-clipboard"></i></span> &nbsp;주문</a></li>
 	  	<div class="" id="">
 			<ul class="list-group ms-2">
 				<!-- <li class="list-group-item border-0"><a href="./orderListPage" class="btn py-0 text-body-secondary">주문 관리</a></li> -->
@@ -66,14 +66,14 @@
 				<!-- <li class="list-group-item border-0"><a href="#" class="btn py-0 text-body-secondary">1:1 문의</a></li> -->
 			</ul>
 		</div>
-	  <li class="list-group-item border border-0 pt-2 pb-0"><a class="btn fs-5 fw-medium text " href="./orderDeliveryPage"> <span style="font-size: 20px;"><i class="bi bi-truck"></i></span> &nbsp;배송</a></li>
-	  <li class="list-group-item border border-0 pt-2 pb-0"><a class="btn fs-5 fw-medium text " href="./orderReturnPage"> <span style="font-size: 18px;"><i class="bi bi-arrow-left-square"></i></span> &nbsp;반품</a></li>
-	  <li class="list-group-item border border-0 pt-2 pb-0"><a class="btn fs-5 fw-medium text " href="./orderReviewPage"> <span style="font-size: 18px;"><i class="bi bi-card-text"></i></span> &nbsp;리뷰</a></li>
+	  <li class="list-group-item border border-0 delivery pt-2 pb-0"><a class="btn fs-5 fw-medium text " href="./orderDeliveryPage"> <span style="font-size: 20px;"><i class="bi bi-truck"></i></span> &nbsp;배송</a></li>
+	  <li class="list-group-item border border-0 return pt-2 pb-0"><a class="btn fs-5 fw-medium text " href="./orderReturnPage"> <span style="font-size: 18px;"><i class="bi bi-arrow-left-square"></i></span> &nbsp;반품</a></li>
+	  <li class="list-group-item border border-0 review pt-2 pb-0"><a class="btn fs-5 fw-medium text " href="./orderReviewPage"> <span style="font-size: 18px;"><i class="bi bi-card-text"></i></span> &nbsp;리뷰</a></li>
 	  	
 		
 	
 						  
-	  <li class="list-group-item border border-0  pt-2 pb-0"><a class="btn fs-5 fw-medium text  py-1" href="./myInfoPage"> <span style="font-size: 22px; line-"><i class="bi bi-person"></i></span>&nbsp;계정</a></li>
+	  <li class="list-group-item border account border-0  pt-2 pb-0"><a class="btn fs-5 fw-medium text  py-1" href="./myInfoPage"> <span style="font-size: 22px; line-"><i class="bi bi-person"></i></span>&nbsp;계정</a></li>
 	  	<!-- <div class="" id="">
 			<ul class="list-group ms-2">
 				<li class="list-group-item border-0"><a href="./myInfoPage" class="btn py-0 text-body-secondary">내 정보</a></li>

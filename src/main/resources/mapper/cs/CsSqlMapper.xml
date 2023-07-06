@@ -104,6 +104,53 @@
 		SELECT * FROM cs_schedule
 	</select>
 	
+	<!-- 출근한 직원 중 가장 일이 적은 직원 가져오기 -->
+	<select id="getEmployeeWithLeastWorkload" resultType="com.ja.safari.dto.CsEmpDto">
+		
+		<![CDATA[
+			SELECT * FROM (
+				SELECT e.*, rownum rn
+				FROM cs_emp e
+				LEFT JOIN cs_attendance_log al ON e.id = al.emp_id
+				LEFT JOIN (
+				    SELECT emp_id, COUNT(*) AS unanswered_qnas
+				    FROM cs_qna
+				    WHERE qna_reply IS NULL
+				    GROUP BY emp_id
+				) q ON e.id = q.emp_id
+				LEFT JOIN (
+				    SELECT emp_id, COUNT(*) AS open_live_chats
+				    FROM cs_live_chat
+				    WHERE end_date IS NULL
+				    GROUP BY emp_id
+				) lc ON e.id = lc.emp_id
+				WHERE al.time_out IS NULL
+				AND al.time_in IS NOT NULL
+				AND al.time_in > (SYSDATE-2)
+				ORDER BY open_live_chats, unanswered_qnas, e.id
+			) t1
+			WHERE t1.rn=1
+		]]>
+		
+	</select>
+	
+	
+	<!-- 1대1 문의 저장  -->
+	<insert id="insertQnaPost">
+		INSERT INTO cs_qna VALUES(
+			cs_qna_seq.nextval,
+			#{user_id},
+			#{category_id},
+			#{emp_id},
+			#{qna_title},
+			#{qna_content},
+			SYSDATE,
+			NULL,
+			NULL
+		)
+	</insert>
+	
+	
 	
 	
 	

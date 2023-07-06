@@ -18,9 +18,12 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.ja.safari.dto.KaKaoPayApproveDto;
 import com.ja.safari.dto.ProductDto;
 import com.ja.safari.dto.ProductImgDto;
 import com.ja.safari.dto.ProductRequestDto;
+import com.ja.safari.dto.RentalBusinessDto;
+import com.ja.safari.dto.UsedKaKaoPayApproveDto;
 import com.ja.safari.dto.UserDto;
 import com.ja.safari.used.service.UsedServiceImpl;
 
@@ -280,41 +283,41 @@ public class UsedController {
 		}
 	}
 	
-	// 거래 예약중으로 상태 변경
-	@RequestMapping("productRequestStatusReservation")
-	public String productRequestReservation(HttpSession session, int productId, int userId) {
-		UserDto sessionUser = (UserDto)session.getAttribute("sessionUser");
-		if(sessionUser==null) {
-			return "redirect:../user/loginPage";
-		}else {
-			usedService.updateProductRequestStatusReservate(productId, userId);
-			return "redirect:./productDetail?productId="+productId;
-		}
-	}
-	
-	// 거래 취소-  거래요청으로 변경
-	@RequestMapping("productRequestStatusCancel")
-	public String productRequestCancel(HttpSession session, int productId, int userId) {
-		UserDto sessionUser = (UserDto)session.getAttribute("sessionUser");
-		if(sessionUser==null) {
-			return "redirect:../user/loginPage";
-		}else {
-			usedService.updateProductRequestStatusCancel(productId, userId);
-			return "redirect:./productDetail?productId="+productId;
-		}
-	}
-	
-	// 거래완료- 거래완료로 상태 변경 
-	@RequestMapping("productRequestStatusComplete")
-	public String productRequestStatusComplete(HttpSession session, int productId, int userId) {
-		UserDto sessionUser = (UserDto)session.getAttribute("sessionUser");
-		if(sessionUser==null) {
-			return "redirect:../user/loginPage";
-		}else {
-			usedService.updateProductRequestStatusComplete(productId, userId);
-			return "redirect:./productDetail?productId="+productId;
-		}
-	}
+//	// 거래 예약중으로 상태 변경
+//	@RequestMapping("productRequestStatusReservation")
+//	public String productRequestReservation(HttpSession session, int productId, int userId) {
+//		UserDto sessionUser = (UserDto)session.getAttribute("sessionUser");
+//		if(sessionUser==null) {
+//			return "redirect:../user/loginPage";
+//		}else {
+//			usedService.updateProductRequestStatusReservate(productId, userId);
+//			return "redirect:./productDetail?productId="+productId;
+//		}
+//	}
+//	
+//	// 거래 예약- 거래요청으로 변경
+//	@RequestMapping("productRequestStatusCancel")
+//	public String productRequestCancel(HttpSession session, int productId, int userId) {
+//		UserDto sessionUser = (UserDto)session.getAttribute("sessionUser");
+//		if(sessionUser==null) {
+//			return "redirect:../user/loginPage";
+//		}else {
+//			usedService.updateProductRequestStatusCancel(productId, userId);
+//			return "redirect:./productDetail?productId="+productId;
+//		}
+//	}
+//	
+//	// 거래완료- 거래완료로 상태 변경 
+//	@RequestMapping("productRequestStatusComplete")
+//	public String productRequestStatusComplete(HttpSession session, int productId, int userId) {
+//		UserDto sessionUser = (UserDto)session.getAttribute("sessionUser");
+//		if(sessionUser==null) {
+//			return "redirect:../user/loginPage";
+//		}else {
+//			usedService.updateProductRequestStatusComplete(productId, userId);
+//			return "redirect:./productDetail?productId="+productId;
+//		}
+//	}
 	
 	// 채팅창 리스트 보여주기 
 	@RequestMapping("chatList")
@@ -327,6 +330,60 @@ public class UsedController {
 			return "used/chatList";
 		}
 	}
+	
+	// 결제 실패 
+	@RequestMapping("paymentFailed")
+	public String paymentFailed(HttpSession session) {
+		
+		UserDto userDto = (UserDto) session.getAttribute("sessionUser");
+		if(userDto == null) return "redirect:./loginPage"; 		
+		
+		return "used/paymentFailed";
+	}
+	
+	// 결제 중 
+	@RequestMapping("paymentProcess")
+	public String paymentProcess(HttpSession session, String pg_token) {
+		
+		UserDto userDto = (UserDto) session.getAttribute("sessionUser");
+		if(userDto == null) return "redirect:./loginPage";	
+		
+		System.out.println(pg_token);
+		UsedKaKaoPayApproveDto usedKakaoPagApproveDto = (UsedKaKaoPayApproveDto) session.getAttribute("usedKakaoPay");
+		usedKakaoPagApproveDto.setPg_token(pg_token);
+		session.setAttribute("usedKakaoPay", usedKakaoPagApproveDto);
+		
+		return "used/paymentProcess";
+	}
+		
+	// 결제 성공     
+	@RequestMapping("paymentSucceeded")
+	public String paymentSucceeded(HttpSession session, Model model, Integer orderId) {
+		
+		UserDto userDto = (UserDto) session.getAttribute("sessionUser");
+		if(userDto == null) return "redirect:./loginPage"; 		
+		
+		session.removeAttribute("usedKakaoPay");
+		
+		model.addAttribute("map", usedService.getOrderAndPaymentInfo(orderId));
+		
+		return "used/paymentSucceeded";
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	
