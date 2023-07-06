@@ -526,7 +526,7 @@ function closeModal() {
 	
 function openModal(modalId) {
 	currentModal = document.getElementById(modalId);
-	console.log(currentModal);
+	// console.log(currentModal);
   //const modalElement = document.getElementById();
   const myModal = bootstrap.Modal.getOrCreateInstance(currentModal);
   myModal.show();
@@ -565,9 +565,7 @@ function openNewWindow(url) {
 	  const childWindow = window.open(url, "_blank", windowFeatures);
 	  
 	  // Add an event listener to the child window's unload event
-	  childWindow.addEventListener("unload", function() {
-	      getListUpdated();
-	  });
+	  childWindow.addEventListener("unload", getListUpdated);
 		  
 	  
 	  // Return the child window object
@@ -584,7 +582,7 @@ function processKakaoPay() {
 			const response = JSON.parse(xhr.responseText);
 			
 			const orderId = response.orderId;
-			console.log(response.orderId);
+			//console.log(response.orderId);
 
 			processPayment(orderId);
 			
@@ -657,11 +655,11 @@ function processPayment(orderId) {
 	        
 	       	const tid = response.tid;
 	       	
-	       	console.log("processPayment");
+	       /* 	console.log("processPayment");
 	       	console.log(cid);
 	       	console.log(tid);
 	       	console.log(partner_user_id);
-	       	console.log(partner_order_id);
+	       	console.log(partner_order_id); */
 	       	
 	        saveTidToSession(cid, partner_order_id, partner_user_id, tid, item_name, item_code,response.next_redirect_pc_url);
 	        
@@ -697,7 +695,7 @@ function saveTidToSession(cid,partner_order_id,partner_user_id,tid, item_name, i
     xhr.onreadystatechange = function() {
         if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
             
-        	openNewWindow(next_redirect_pc_url);
+        	const childWindow = openNewWindow(next_redirect_pc_url);
         	
         	
         }

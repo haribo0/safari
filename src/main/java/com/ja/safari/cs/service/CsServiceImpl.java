@@ -243,12 +243,21 @@ public class CsServiceImpl {
 		return csSqlMapper.getUnansweredInquiryCount(empId);
 	}
 
-	// 문의 상세 가져오기 
+	// 1대1 문의 상세 가져오기 
 	public CsQnaCombinedDto getQnaCombinedDtoById(int id) {
 		
-		return csSqlMapper.getQnaCombinedDtoById(id);
+		CsQnaCombinedDto csQnaCombinedDto = csSqlMapper.getQnaCombinedDtoById(id);
+		String content = csQnaCombinedDto.getQna_content().replaceAll("\n", "<br>");
+		csQnaCombinedDto.setQna_content(content);
+		if(csQnaCombinedDto.getQna_reply()!=null) {
+			String reply = csQnaCombinedDto.getQna_reply().replaceAll("\n", "<br>");
+			csQnaCombinedDto.setQna_reply(reply);
+		}
+		
+		return csQnaCombinedDto;
 	}
 
+	// 1대1 문의 답변 저장 
 	public void saveQnaReply(CsQnaDto qnaDto) {
 		csSqlMapper.saveQnaReply(qnaDto);
 		
