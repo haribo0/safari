@@ -51,7 +51,7 @@
 			<div class="col-9">
 				<div class="align-items-center justify-content-center justify-content-lg-center"> 
 					
-					<%-- pickBoardList --%>
+					<%-- pickBoardList --%> 
 					<div class="row"  style="text-align:center">
 						<div class="col">
 							<table class="table table-hover">

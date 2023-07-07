@@ -121,4 +121,19 @@
 	</select>
 	
 	
+	<!-- 골라줘요 옵션 -->
+	<!-- 골라줘요 게시물에 옵션 insert -->
+	<insert id="registerPickOption">
+		insert into pick_option_table values(
+		    PICK_OPTION_TABLE_SEQ.nextval,
+		    #{pick_id}, 
+		    #{product_id}
+		)
+	</insert>
+	
+	<!-- productDto 받아오기 : 없어도 될 듯???-->
+	<select id="selectproductDtoByproductId" resultType="com.ja.safari.dto.ProductDto">
+		select * from product where id=#{id}
+	</select>
+	
 </mapper>

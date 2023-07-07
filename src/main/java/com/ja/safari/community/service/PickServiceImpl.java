@@ -13,6 +13,7 @@ import com.ja.safari.community.mapper.PickSqlMapper;
 import com.ja.safari.dto.PickCommentDto;
 import com.ja.safari.dto.PickDto;
 import com.ja.safari.dto.PickLikeDto;
+import com.ja.safari.dto.PickOptionDto;
 import com.ja.safari.dto.UserDto;
 import com.ja.safari.user.mapper.UserSqlMapper;
 
@@ -116,7 +117,7 @@ public class PickServiceImpl {
 	
 	
 	
-	//골라줘요 게시물 ID로 조회하기 //매개변수의 id는 게시물 아이디
+	//골라줘요 게시물 ID로 조회하기 //매개변수의 id는 게시물 아이디 //댓글 추가. 
 	public List<Map<String, Object>> getPickcommentList(Integer pick_id) {
 
 		List<Map<String, Object>> pickCommentsList = new ArrayList<>();
@@ -173,6 +174,12 @@ public class PickServiceImpl {
 		int HelpBoardLikeCount = pickSqlMapper.countLikeByPickBoardId(pick_id);
 		
 		return HelpBoardLikeCount;
+	}
+	
+	//골라줘요 게시물 옵션 insert
+	public void registerPickOption(PickOptionDto pickOptionDto) {
+		
+		pickSqlMapper.registerPickOption(pickOptionDto);
 	}
 }
 

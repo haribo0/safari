@@ -5,6 +5,7 @@ import java.util.List;
 import com.ja.safari.dto.PickCommentDto;
 import com.ja.safari.dto.PickDto;
 import com.ja.safari.dto.PickLikeDto;
+import com.ja.safari.dto.PickOptionDto;
 
 public interface PickSqlMapper {
 	
@@ -61,5 +62,8 @@ public interface PickSqlMapper {
 
 	//골라줘요 게시물 댓글 count
 	public int countPickCommentByBoardId(int pick_id);
+	
+	//골라줘요 게시물에 옵션 insert
+	public void registerPickOption(PickOptionDto pickOptionDto);
 
 }
