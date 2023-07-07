@@ -72,7 +72,7 @@
 			<!-- <hr class="m-0 p-0"> -->
 
 			
-			<div class="inquiryListContainer">
+			<div id="inquiryListContainer">
 			
 				<div class="row  py-3 text-center border-bottom">
 					<div class="col-1">
@@ -160,100 +160,117 @@
 
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>
-// 로그인된 세션 초기화
-let mySessionId = null;
-// 세션가져오기
-function getSessionId(){
-	const xhr = new XMLHttpRequest();
+
+
+// 문의 리스트 불러오기 
+function getInquiryList() {
 	
-	xhr.onreadystatechange = function(){
-		if(xhr.readyState == 4 && xhr.status == 200){
-			const response = JSON.parse(xhr.responseText);
-			if(response.result == "success"){
-				mySessionId = response.id; 
-			}
-		}
-	}
+	const listContainer = document.getElementById("inquiryListContainer");
 	
-	xhr.open("get", "../user/getMyId", false);
-	xhr.send();		
-}
-
-//카카오 주소 api
-function searchAddr() {
-    new daum.Postcode({
-        oncomplete: function(data) {
-        	
-            var roadAddr = data.roadAddress; // 도로명 주소 변수
-            var extraRoadAddr = ''; // 참고 항목 변수
-
-            // 법정동명이 있을 경우 추가한다. (법정리는 제외)
-            // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
-            if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
-                extraRoadAddr += data.bname;
-            }
-            // 건물명이 있고, 공동주택일 경우 추가한다.
-            if(data.buildingName !== '' && data.apartment === 'Y'){
-               extraRoadAddr += (extraRoadAddr !== '' ? ', ' + data.buildingName : data.buildingName);
-            }
-            // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
-            if(extraRoadAddr !== ''){
-                extraRoadAddr = ' (' + extraRoadAddr + ')';
-            }
-            
-            document.getElementById("usr_address").value =  data.zonecode+roadAddr+data.jibunAddress;
-        }
-    }).open();
-}
-
-function addMyAddr() {
-	let inputAddr = document.querySelector("#usr_address")
-	let usrAddress = inputAddr.value
 	const xhr = new XMLHttpRequest();
 	
 	xhr.onreadystatechange = function(){
 		if(xhr.readyState == 4 && xhr.status == 200){
 			const response = JSON.parse(xhr.responseText);
 			
-			// refreshMyAddress
-			getMyaddressList()
-			console.log(response.result)
-			usrAddress = ''
+			listContainer.innerHTML = "";
+			response.list.forEach(function(map){
+				
+				// Create the main container div
+				const row1Div = document.createElement('div');
+				row1Div.classList.add('row', 'py-3', 'text-center', 'border-bottom');
+
+				// Create the col-1 div
+				const col1Div = document.createElement('div');
+				col1Div.classList.add('col-1');
+				col1Div.textContent = map.qna.id;
+
+				// Create the col-2 div
+				const col2Div = document.createElement('div');
+				col2Div.classList.add('col-2');
+				col2Div.textContent = map.category.category;
+
+				// Create the col3Div div
+				const col3Div = document.createElement('div');
+				col3Div.classList.add('col-7');
+				const link1 = document.createElement('a');
+				link1.className = 'text-black text-decoration-none';
+				link1.setAttribute('href', './myInquiryDetail?id='+map.qna.id);
+				link1.textContent = map.qna.qna_title;
+				col3Div.appendChild(link1);
+
+				// Create the col4Div div
+				const col4Div = document.createElement('div');
+				col4Div.classList.add('col-2');
+				const regDate = new Date(map.qna.reg_date);
+			    const formattedRegDate = regDate.toLocaleDateString('en-US', { month: '2-digit', day: '2-digit', year: 'numeric' });
+			    col4Div.textContent = formattedRegDate;
+
+				// Append the inner divs to the main container div
+				row1Div.appendChild(col1Div);
+				row1Div.appendChild(col2Div);
+				row1Div.appendChild(col3Div);
+				row1Div.appendChild(col4Div);
+				listContainer.appendChild(row1Div);
+				
+				if(map.qna.qna_reply!=null) {
+					// Create the main container div
+					const rowDiv = document.createElement('div');
+					rowDiv.classList.add('row', 'py-3', 'text-center', 'bg-light', 'border-bottom');
+					
+					// Create the col-1 div
+					const col1Div1 = document.createElement('div');
+					col1Div1.classList.add('col-1', 'text-end');
+					// Create the arrow icon element
+					const arrowIcon = document.createElement('i');
+					arrowIcon.classList.add('bi', 'bi-arrow-return-right');
+					col1Div1.appendChild(arrowIcon);
+
+					// Create the col-2 div
+					const col2Div1 = document.createElement('div');
+					col2Div1.classList.add('col-2');
+					col2Div1.textContent = '답변완료';
+
+					// Create the col3Div div
+					const col3Div1 = document.createElement('div');
+					col3Div1.classList.add('col-7');
+					const link = document.createElement('a');
+					link.className = 'text-black text-decoration-none';
+					link.setAttribute('href', './myInquiryDetail?id='+map.qna.id);
+					link.textContent = map.qna.qna_title;
+					col3Div1.appendChild(link);
+
+					// Create the col4Div div
+					const col4Div1 = document.createElement('div');
+					col4Div1.classList.add('col-2');
+					const regDate = new Date(map.qna.reply_date);
+				    const formattedRegDate = regDate.toLocaleDateString('en-US', { month: '2-digit', day: '2-digit', year: 'numeric' });
+				    col4Div1.textContent = formattedRegDate;
+
+					// Append the inner divs to the main container div
+					rowDiv.appendChild(col1Div1);
+					rowDiv.appendChild(col2Div1);
+					rowDiv.appendChild(col3Div1);
+					rowDiv.appendChild(col4Div1);
+					listContainer.appendChild(rowDiv);
+				}
+
+				
+			});
+			
 		}
 	}
 	
-	xhr.open("get", "./addUserAddress?address=" + usrAddress);
+	xhr.open("get", "./getInquiryList");
 	xhr.send();	
 }
 
-// 주소 리스트 불러오기
-	function getMyaddressList() {
-		let inputAddr = document.querySelector("#usr_address")
-		let listAddrBox = document.querySelector('.list_addr_box')
-		const item = document.querySelector('.list-group-item')
-		const xhr = new XMLHttpRequest();
-		
-		xhr.onreadystatechange = function(){
-			if(xhr.readyState == 4 && xhr.status == 200){
-				const response = JSON.parse(xhr.responseText);
-				inputAddr.value = ''
-				listAddrBox.textContent=''
-				for(data of response.addressList) {
-					let li = document.createElement('li')
-					li.classList.add("list-group-item")
-					li.innerText = data.address
-					listAddrBox.appendChild(li)
-				}
-			}
-		}
-		
-		xhr.open("get", "./getUserAddress");
-		xhr.send();	
-	}
+
+
+
 
 window.addEventListener("DOMContentLoaded", function(){
-	getSessionId()
-	getMyaddressList()
+	getInquiryList();
 	
 });
 </script>

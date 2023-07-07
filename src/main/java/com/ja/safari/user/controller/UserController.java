@@ -11,6 +11,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.ja.safari.auction.service.AuctionServiceImpl;
+import com.ja.safari.cs.service.CsServiceImpl;
+import com.ja.safari.dto.CsEmpDto;
 import com.ja.safari.dto.UserDto;
 import com.ja.safari.user.service.UserServiceImpl;
 
@@ -23,6 +25,9 @@ public class UserController {
 	
 	@Autowired
 	private AuctionServiceImpl auctionService;
+	
+	@Autowired
+	private CsServiceImpl csService;
 	
 
 	/*
@@ -117,7 +122,19 @@ public class UserController {
 		return "user/myInquiryPostPage";
 	}
 	
-	
+	// 1대1문의 상세보기 
+	@RequestMapping("myInquiryDetail") 
+	public String myInquiryDetail(HttpSession session, Model model, Integer id){
+		
+		UserDto sessionUser = (UserDto)session.getAttribute("sessionUser");
+		if(sessionUser==null) {
+			return "redirect:../user/loginPage";
+		}
+		
+		model.addAttribute("qna", csService.getQnaCombinedDtoById(id));
+		
+		return "user/myInquiryDetail";
+	}
 	
 	
 	

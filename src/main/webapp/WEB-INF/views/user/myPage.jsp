@@ -11,21 +11,33 @@
 <jsp:include page="../common/meta.jsp"></jsp:include>
 <!-- 메타 섹션 -->
 <style>
-.btn-qna{position: fixed; bottom: 80px; right: 70px; background-color: #f5f5f5; width: 68px; height: 68px; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 3rem; cursor: pointer;}
-.coin-box{position: relative;}
-.coin-box::before {content: ''; width:1px; height: 60%; background: #5e5e5e; display:block; position: absolute; top: 50%; transform:translateY(-50%); left: 0px;}
+	.btn-qna{position: fixed; bottom: 80px; right: 70px; border-radius: 60px;}
+	.btn-circle{width: 48px; height: 48px; border-radius: 50%; display: flex; flex-direction:column; justify-content: center; align-items: center; font-size: 2rem; cursor: pointer;}
+	.btn-circle i{color: #5e5e5e; font-size: 24px;}
+	.btn-tit{font-size:13px;}
+	
+	.coin-box{position: relative;}
+	.coin-box::before {content: ''; width:1px; height: 60%; background: #5e5e5e; display:block; position: absolute; top: 50%; transform:translateY(-50%); left: 0px;}
 </style>
 </head>
 <body>
 
-<div class="btn-qna shadow-lg">
-<i class="bi bi-question-circle"></i>
-</div>
-
+	<div class="btn-qna shadow-lg bg-white px-3 pt-4 pb-3">
+		<div class="btn-circle">
+			<i class="bi bi-chat-dots"></i>
+			<p class="btn-tit">중고채팅</p>
+		</div>
+		
+		<div class="btn-circle mt-4">
+			<i class="bi bi-question-circle"></i>
+			<p class="btn-tit">1대1문의</p>
+		</div>
+	</div>
+	
 	<!-- 헤더 섹션 -->
 	<jsp:include page="../common/header.jsp"></jsp:include>
 	<!-- 헤더 섹션 -->
-	
+
 	<!-- 마이페이지 상단 블럭 -->
 	<jsp:include page="../common/myPageTop.jsp"></jsp:include>
 	<!-- 마이페이지 상단 블럭 -->

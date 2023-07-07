@@ -23,6 +23,7 @@ import com.ja.safari.dto.AuctionItemChatroomDto;
 import com.ja.safari.dto.AuctionItemDto;
 import com.ja.safari.dto.AuctionItemImgDto;
 import com.ja.safari.dto.AuctionItemLikeDto;
+import com.ja.safari.dto.AuctionKakaoPayApproveDto;
 import com.ja.safari.dto.UserDto;
 import com.ja.safari.user.service.UserServiceImpl;
 
@@ -596,16 +597,85 @@ public class RestAuctionController {
 		return map;
 	}
 	
-	/* 경매 채팅방에서 내 채팅 삭제
-	@RequestMapping("removeMessageInAuctionChatroom/{id}")
-	public Map<String, Object> removeMessageInAuctionChatroom(@PathVariable int id) {
+	
+	// 카카오페이 결제 준비 정보를 세션에 저장하기
+	@RequestMapping("saveAuctionTidToSession")
+	public Map<String, Object> saveAuctionTidToSession(HttpSession session, AuctionKakaoPayApproveDto auctionKakaoPayApproveDto) {
 		
-		Map<String, Object> map = new HashMap<>();
+		Map<String, Object> map = new HashMap<String, Object>();
 		
-		auctionService.removeMessageInAuctionChatroom(id);
+		UserDto userDto = (UserDto) session.getAttribute("sessionUser");
+		if(userDto == null) {
+			map.put("result", "fail");
+			map.put("reason", "login required");
+			return map;
+		}
+		
+		System.out.println("restcontroller 결제 준비 정보 세션에 저장하는 dto : " + auctionKakaoPayApproveDto);
+		session.setAttribute("auctionkakaoPay", auctionKakaoPayApproveDto);
+		
+		
+		
+		map.put("result", "success");
+
+		return map;		
+		
+	}
+	
+	// 카카오페이 결제 ready 정보 보내주기 
+	@RequestMapping("getAuctionKakaoPayReadyInfo")
+	public  Map<String, Object> getAuctionKakaoPayReadyInfo(HttpSession session) {
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		UserDto userDto = (UserDto) session.getAttribute("sessionUser");
+		if(userDto == null) {
+			map.put("result", "fail");
+			map.put("reason", "login required");
+			return map;
+		}
+		
+		AuctionKakaoPayApproveDto  auctionkakaoPayApproveDto = 
+						(AuctionKakaoPayApproveDto) session.getAttribute("auctionkakaoPay");
+
+		map.put("result", "success");
+		map.put("auctionReadyInfo", auctionkakaoPayApproveDto);	
+		
+		return map;
+	}
+
+	// 카카오페이 결제 후 정보 저장
+	@RequestMapping("saveAuctionPaymentInfo")
+	public  Map<String, Object> saveAuctionPaymentInfo(HttpSession session, AuctionKakaoPayApproveDto auctionKakaoPayApproveDto) {
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		UserDto userDto = (UserDto) session.getAttribute("sessionUser");
+		if(userDto == null) {
+			map.put("result", "fail");
+			map.put("reason", "login required");
+			return map;
+		}
+		
+		System.out.println(auctionKakaoPayApproveDto.getId());
+		System.out.println(auctionKakaoPayApproveDto.getPartner_order_id());
+		System.out.println(auctionKakaoPayApproveDto.getCid());
+		
+		System.out.println(auctionKakaoPayApproveDto.getTid());
+		System.out.println(auctionKakaoPayApproveDto.getPartner_user_id());
+		System.out.println(auctionKakaoPayApproveDto.getPg_token());
+		System.out.println(auctionKakaoPayApproveDto.getItem_name());
+		System.out.println(auctionKakaoPayApproveDto.getAmount());
+		System.out.println(auctionKakaoPayApproveDto.getPayment_method_type());
+		
+		auctionService.saveAuctionKakaoPayInfo(auctionKakaoPayApproveDto);
 		
 		map.put("result", "success");
 		
 		return map;
-	}*/
+	}
+	
+	
+	
+	
 }

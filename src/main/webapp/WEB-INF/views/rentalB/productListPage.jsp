@@ -63,7 +63,7 @@
 			
 			<div class="col ms-4 mt-5">
 		    	
-		    	<h4 class="ps-4  mt-3 mb-4 fw-regular">상품 관리</h4>
+		    	<h4 class="ps-4  mt-3 fw-regular">상품 관리</h4>
 
 				<div class="row ms-4">
 					<div class="col">
@@ -80,7 +80,8 @@
 					
 						<div class="row bg-light py-3 text-center sticky-top fw-bold">
 						      <div class="col-1">#</div>
-						      <div class="col-2">광고</div>
+						      <div class="col">광고</div>
+						      <div class="col">광고종료</div>
 						      <div class="col-1">이미지</div>
 						      <div class="col-3">제품</div>
 						      <div class="col-1">수량</div>
@@ -526,7 +527,7 @@ function closeModal() {
 	
 function openModal(modalId) {
 	currentModal = document.getElementById(modalId);
-	console.log(currentModal);
+	// console.log(currentModal);
   //const modalElement = document.getElementById();
   const myModal = bootstrap.Modal.getOrCreateInstance(currentModal);
   myModal.show();
@@ -565,9 +566,7 @@ function openNewWindow(url) {
 	  const childWindow = window.open(url, "_blank", windowFeatures);
 	  
 	  // Add an event listener to the child window's unload event
-	  childWindow.addEventListener("unload", function() {
-	      getListUpdated();
-	  });
+	  childWindow.addEventListener("unload", getListUpdated);
 		  
 	  
 	  // Return the child window object
@@ -584,7 +583,7 @@ function processKakaoPay() {
 			const response = JSON.parse(xhr.responseText);
 			
 			const orderId = response.orderId;
-			console.log(response.orderId);
+			//console.log(response.orderId);
 
 			processPayment(orderId);
 			
@@ -657,11 +656,11 @@ function processPayment(orderId) {
 	        
 	       	const tid = response.tid;
 	       	
-	       	console.log("processPayment");
+	       /* 	console.log("processPayment");
 	       	console.log(cid);
 	       	console.log(tid);
 	       	console.log(partner_user_id);
-	       	console.log(partner_order_id);
+	       	console.log(partner_order_id); */
 	       	
 	        saveTidToSession(cid, partner_order_id, partner_user_id, tid, item_name, item_code,response.next_redirect_pc_url);
 	        
@@ -697,7 +696,7 @@ function saveTidToSession(cid,partner_order_id,partner_user_id,tid, item_name, i
     xhr.onreadystatechange = function() {
         if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
             
-        	openNewWindow(next_redirect_pc_url);
+        	const childWindow = openNewWindow(next_redirect_pc_url);
         	
         	
         }
@@ -889,7 +888,7 @@ function getListUpdated() {
 				
 				  // Outer row div
 				  const rowDiv = document.createElement('div');
-				  rowDiv.classList.add('row', 'py-3', 'text-center');
+				  rowDiv.classList.add('row', 'py-2', 'text-center');
 
 				  // col-1
 				  const col1Div = document.createElement('div');
@@ -899,31 +898,44 @@ function getListUpdated() {
 
 				  // col-2
 				  const col2Div = document.createElement('div');
-				  col2Div.classList.add('col-2', 'my-auto');
+				  col2Div.classList.add('col', 'my-auto');
 
 				  
 				  const chooseElement = document.createElement('div');
-				  chooseElement.classList.add('btn', 'btn-dark', 'px-3');
+				  chooseElement.classList.add('btn', 'btn-sm', 'btn-dark');
 				  chooseElement.dataset.index = idx++;
 				  chooseElement.dataset.productId = map.product.id;
 				  chooseElement.dataset.bsToggle = 'collapse';
 				  chooseElement.role = 'button';
-				  chooseElement.addEventListener('click', checkOutModal);
 				  // onclick="checkOutModal(this)"
 				  
 				  col2Div.appendChild(chooseElement);
 				  
 				  if (map.ads) {
 				    chooseElement.classList.replace('btn-dark', 'btn-outline-secondary');
-				    chooseElement.classList.add('btn-disalbed');
+				    chooseElement.classList.add('btn-disalbed', 'px-2');
 				    chooseElement.innerHTML =  '<i class="bi bi-badge-ad"></i> 광고중';
 				  } else {
-				    chooseElement.classList.replace('px-3', 'px-4');
+				    chooseElement.classList.add('px-3');
+					chooseElement.addEventListener('click', checkOutModal);
 				    chooseElement.innerHTML =  '<i class="bi bi-badge-ad"></i> 추가';
-
 				  }
-				  
 				  rowDiv.appendChild(col2Div);
+				  
+				  
+				  // col-3 (ads dates)
+				  const adsDiv = document.createElement('div');
+				  adsDiv.classList.add('col', 'my-auto', 'text-secondary');
+				  adsDiv.style.fontSize = '14px';
+				  // col3Div.id = `prdTitle\${map.product.id}`;
+				  // col3Div.textContent = map.adsDto.endDate;
+				  if (map.ads) {
+					  const startDate = new Date(map.adsDto.end_date);
+				      const formattedStartDate = startDate.toLocaleDateString('en-US', { month: '2-digit', day: '2-digit', year: 'numeric' });
+				      adsDiv.innerText = formattedStartDate;
+				  }
+				  rowDiv.appendChild(adsDiv);
+				  
 
 				  // col-1 (image)
 				  const col1ImgDiv = document.createElement('div');
