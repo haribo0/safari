@@ -22,11 +22,14 @@
 		<form action="./writePromotionReviewProcess" method = "post" enctype = "multipart/form-data">
 			
 			<div class = "row mt-5">
-				<div class = "col fs-6 text-center text-secondary">써봤어요</div>
+				<div class = "col fs-6 text-center text-secondary">리워드 리뷰</div>
 			</div>
 			<div class = "row mt-2">
 				<div class = "col fw-semibold fs-3 text-center">게시글 작성 </div>
 			</div>
+			
+			<hr class="my-1 mt-3" style="border-color: gray;">
+			
 			<div class = "row mt-5">
 				<div class = "col fw-semibold">제목</div>
 				<div class = "col">
@@ -54,6 +57,21 @@
 					<input class = "form-control" type = "file" name = "promoFiles" accept="image/*" multiple>
 				</div>
 			</div>
+			
+			<!--  대분류 카테고리 (대여 카테고리를 가져와서 리워드 카테고리에 입력) -->
+			<div class = "row mt-3">
+				<div class = "col">
+					
+				</div>
+			</div>
+			
+			<!--  소분류 카테고리 -->
+			<div class = "row mt-3">
+				<div class = "col">
+					
+				</div>
+			</div>
+			<!--  리워드 제품 끌어오기  -->
 			<div class = "row mt-5">
 				<div class = "col fw-semibold">프로모션 제품 등록 </div>
 				<div class = "col">
@@ -91,9 +109,5 @@
 	<!-- 푸터 섹션 -->
 		</div>
 	</div>
-	<script
-		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
-		integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
-		crossorigin="anonymous"></script>
 </body>
 </html>

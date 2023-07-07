@@ -14,7 +14,9 @@ import com.ja.safari.dto.PromotionReviewCommentDto;
 import com.ja.safari.dto.PromotionReviewDto;
 import com.ja.safari.dto.PromotionReviewImgDto;
 import com.ja.safari.dto.PromotionReviewLikeDto;
+import com.ja.safari.dto.RentalMainCategoryDto;
 import com.ja.safari.dto.UserDto;
+import com.ja.safari.rental.mapper.RentalSqlMapper;
 import com.ja.safari.user.mapper.UserSqlMapper;
 
 @Service
@@ -26,6 +28,9 @@ public class PromotionReviewServiceImpl {
 	private UserSqlMapper userSqlMapper;
 	@Autowired
 	private PromotionReviewCommentMapper promotionReviewCommentMapper;
+	@Autowired
+	private RentalSqlMapper rentalSqlMapper;
+	
 	
 	// 프로모션 리뷰 게시글 목록 리스트 
 	public List<Map<String, Object>> getPromotionReviewList(int page, String promoReview_searchType, String promoReview_searchWord,
@@ -83,6 +88,8 @@ public class PromotionReviewServiceImpl {
 	public void writePromotionReview (PromotionReviewDto promotionReviewDto, List<PromotionReviewImgDto> promotionReviewImgDtoList) {
 		
 		int promotionReviewId = promotionReviewMapper.createPK();
+		
+
 		
 		promotionReviewDto.setId(promotionReviewId);
 		promotionReviewMapper.insertPromotionReview(promotionReviewDto);
