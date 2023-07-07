@@ -97,6 +97,25 @@ public class UserRestController {
 		  return map; 
 	  }
 	  
+	  // 1대1문의 리스트 가져오기 
+	  @RequestMapping("getInquiryList") 
+	  public Map<String, Object> getInquiryList(HttpSession session) {
+		  
+		  Map<String, Object> map = new HashMap<String, Object>();
+		  UserDto sessionUser = (UserDto)session.getAttribute("sessionUser");
+		  if (sessionUser == null) {
+			  map.put("result", "fail");
+			  map.put("reason", "로그인이 되어 있지 않습니다.");
+			  return map;
+		  }
+		  
+		  map.put("result", "success"); 
+		  map.put("list",  csServiceImpl.getInquiryListByUserId(sessionUser.getId())); 
+		  
+		  
+		  return map; 
+	  }
+	  
 	  
 	  
 	  

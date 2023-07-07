@@ -29,6 +29,7 @@
 .btn_ordered{padding:4px 12px; background: #dff5ea; border:none; color: #6db590; border-radius:8px; font-size: 14px;}
 .c_pointer{cursor: poniter;}
 .c-options {width:150px; padding: 10px 0; }
+
 </style>
 </head>
 <body>
@@ -36,13 +37,6 @@
 	<jsp:include page="../common/headerB.jsp"></jsp:include>
 	<!-- 헤더 섹션 -->
 	
-	<!-- <div class="container-fluid d-flex align-items-center justify-content-between p-3 px-5 mb-3 bg-light">
-		<div class="container">
-			<div class="row px-4">
-				<p class="mb-0 text-body-secondary"><span class="mx-2" style="font-size: 15px;">대여</span> &gt; <span class="mx-2" style="font-size: 15px;">생활가전</span> &gt;<span class="mx-2" style="font-size: 15px;">커피머신</span> </p>
-			</div>
-		</div>
-	</div> -->
 	
 	
 	<div class="container-fluid">
@@ -115,7 +109,7 @@
 				
 				<div class="row ms-4 mt-4">
 					<div class="col" style="font-size: 15px;">
-						<div class="row py-2 border-bottom  border-2 mb-4 text-center">
+						<div class="row py-3 border-bottom  border-2 text-center">
 							<div class="col-1 fw-bold text-body-tertiary">#</div>
 							<div class="col fw-bold text-body-tertiary">사진</div>
 							<div class="col-2 fw-bold text-body-tertiary">상품</div>
@@ -228,7 +222,7 @@ function reloadList() {
 				
 				// Create outer div element with classes
 				const rowDiv1 = document.createElement('div');
-				rowDiv1.classList.add('row', 'py-2', 'mt-0', 'mb-2', 'text-center');
+				rowDiv1.classList.add('row', 'py-3', 'border-bottom', 'text-center');
 
 				// Create inner div elements with classes
 				const col1Div = document.createElement('div');
@@ -295,19 +289,19 @@ function reloadList() {
 				rowDiv1.appendChild(col7Div);
 
 				// Create hr element
-				const hrElement = document.createElement('hr');
-				hrElement.classList.add('border');
+				// const hrElement = document.createElement('hr');
+				// hrElement.classList.add('border');
 
 				// Create another row div element
-				const rowDiv2 = document.createElement('div');
-				rowDiv2.classList.add('row', 'text-center');
+				// const rowDiv2 = document.createElement('div');
+				// rowDiv2.classList.add('row', 'text-center');
 
 				// Append hr element to the second row div
-				rowDiv2.appendChild(hrElement);
+				// rowDiv2.appendChild(hrElement);
 
 				// Append both row divs to a container element in the DOM
 				listContainer.appendChild(rowDiv1);
-				listContainer.appendChild(rowDiv2);
+				// listContainer.appendChild(rowDiv2);
 
 				
 			});

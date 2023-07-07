@@ -11,106 +11,32 @@
 <jsp:include page="../common/meta.jsp"></jsp:include>
 <!-- 메타 섹션 -->
 <style>
-.btn-qna{position: fixed; bottom: 80px; right: 70px; background-color: #f5f5f5; width: 68px; height: 68px; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 3rem; cursor: pointer;}
-.coin-box{position: relative;}
-.coin-box::before {content: ''; width:1px; height: 60%; background: #5e5e5e; display:block; position: absolute; top: 50%; transform:translateY(-50%); left: 0px;}
+	.btn-qna{position: fixed; bottom: 80px; right: 70px; border-radius: 60px;}
+	.btn-circle{width: 48px; height: 48px; border-radius: 50%; display: flex; flex-direction:column; justify-content: center; align-items: center; font-size: 2rem; cursor: pointer;}
+	.btn-circle i{color: #5e5e5e; font-size: 24px;}
+	.btn-tit{font-size:13px;}
+	
+	.coin-box{position: relative;}
+	.coin-box::before {content: ''; width:1px; height: 60%; background: #5e5e5e; display:block; position: absolute; top: 50%; transform:translateY(-50%); left: 0px;}
 </style>
 </head>
 <body>
 
-<div class="btn-qna shadow-lg">
-<i class="bi bi-question-circle"></i>
-</div>
-
+	<div class="btn-qna shadow-lg bg-white px-3 pt-4 pb-3">
+		<div class="btn-circle">
+			<i class="bi bi-chat-dots"></i>
+			<p class="btn-tit">중고채팅</p>
+		</div>
+		
+		<div class="btn-circle mt-4">
+			<i class="bi bi-question-circle"></i>
+			<p class="btn-tit">1대1문의</p>
+		</div>
+	</div>
+	
 	<!-- 헤더 섹션 -->
 	<jsp:include page="../common/header.jsp"></jsp:include>
 	<!-- 헤더 섹션 -->
-
-<div class="container d-flex mt-5">
-	<div style="width: 24%;">
-		<h2 class="fw-bold">마이페이지</h2>
-		
-		<ul class="list-group mt-4">
-		<li class="list-group-item border border-0 pb-0"><a class="btn fs-5 text fw-bold py-1" href="#">회원정보</a></li>
-		  	<div class="" id="">
-				<ul class="list-group ms-4">
-					<li class="list-group-item border-0"><a href="#" class="btn py-0 text-body-secondary">회원정보수정</a></li>
-					<li class="list-group-item border-0"><a href="../user/myCoinPage" class="btn py-0 text-body-secondary">코인관리</a></li>
-					<li class="list-group-item border-0"><a href="#" class="btn py-0 text-body-secondary">배송지관리</a></li>
-					<li class="list-group-item border-0"><a href="#" class="btn py-0 text-body-secondary">배송지관리</a></li>
-					<li class="list-group-item border-0"><a href="#" class="btn py-0 text-body-secondary">찜</a></li>
-					<li class="list-group-item border-0"><a href="#" class="btn py-0 text-body-secondary">1:1문의</a></li>
-					<li class="list-group-item border-0"><a href="#" class="btn py-0 text-body-secondary">리뷰관리</a></li>
-				</ul>
-			</div>
-			
-		
-		  <li class="list-group-item border border-0 pb-0"><a class="btn fs-5 text fw-bold py-1" href="#collapse1">중고</a></li>
-		  	<div class="" id="">
-				<ul class="list-group ms-4">
-					<li class="list-group-item border-0"><a href="../used/chatList" class="btn py-0 text-body-secondary">채팅방 목록</a></li>
-					<li class="list-group-item border-0"><a href="#" class="btn py-0 text-body-secondary">리스트제목</a></li>
-					<li class="list-group-item border-0"><a href="#" class="btn py-0 text-body-secondary">리스트제목</a></li>
-					<li class="list-group-item border-0"><a href="#" class="btn py-0 text-body-secondary">리스트제목</a></li>
-				</ul>
-			</div>
-			
-		  <li class="list-group-item border border-0 pb-0"><a class="btn fs-5 text fw-bold py-1" href="#">대여</a></li>
-		  	<div class="" id="">
-				<ul class="list-group ms-4">
-					<li class="list-group-item border-0"><a href="./myOrderListPage" class="btn py-0 text-body-secondary">오더리스트</a></li>
-					<li class="list-group-item border-0"><a href="#" class="btn py-0 text-body-secondary">리스트제목</a></li>
-					<li class="list-group-item border-0"><a href="#" class="btn py-0 text-body-secondary">리스트제목</a></li>
-					<li class="list-group-item border-0"><a href="#" class="btn py-0 text-body-secondary">리스트제목</a></li>
-				</ul>
-			</div>
-			
-		  <li class="list-group-item border border-0 pb-0"><a class="btn fs-5 text fw-bold py-1" href="#" >경매</a></li>
-		  	<div class="" id="">
-				<ul class="list-group ms-4">
-					<li class="list-group-item border-0"><a href="/safari/auction/bidList"  class="btn py-0 text-body-secondary">입찰목록</a></li>
-					<li class="list-group-item border-0"><a href="/safari/auction/successBidList" class="btn py-0 text-body-secondary">낙찰목록</a></li>
-					<li class="list-group-item border-0"><a href="/safari/auction/wishList" class="btn py-0 text-body-secondary">찜</a></li>
-					<li class="list-group-item border-0"><a href="#" class="btn py-0 text-body-secondary">리스트제목</a></li>
-				</ul>
-			</div>
-			
-		  <li class="list-group-item border border-0 pb-0"><a class="btn fs-5 text fw-bold py-1" href="#" >커뮤니티</a></li>
-		  	<div class="" id="">
-				<ul class="list-group ms-4">
-					<li class="list-group-item border-0"><a href="#" class="btn py-0 text-body-secondary">리스트제목</a></li>
-					<li class="list-group-item border-0"><a href="#" class="btn py-0 text-body-secondary">리스트제목</a></li>
-					<li class="list-group-item border-0"><a href="#" class="btn py-0 text-body-secondary">리스트제목</a></li>
-					<li class="list-group-item border-0"><a href="#" class="btn py-0 text-body-secondary">리스트제목</a></li>
-				</ul>
-			</div>
-		</ul>
-	</div>
-		
-	<div class="pt-2 w-100">
-		<p>자유롭게 코딩쓰(제목 들어가도 갠춘을듯)<p>
-		<div class="w-100 border-bottom">
-		</div>
-		
-		<div class="container mt-4 ps-0">
-			<h3 class="fs-3">회원정보수정</h3>
-			
-			<div class="row mt-3">
-				<p class="me-5">${sessionUser.nickname }님의 배송 주소 리스트: </p>
-				<ul class="list-group list_addr_box">
-				</ul>
-			</div>
-			<div class="row mt-3">
-				<p class="me-5">배송지추가: </p> 
-				<p> 
-					<input type="text"  id="usr_address" name="prd_address" placeholder="주소입력" class="form-control ms-3" style="width: 400px;"/> <button onclick="searchAddr()" class="btn btn-secondary mt-2 ms-3">주소찾기</button>
-				</p>
-				<p><button class="btn btn-dark ms-2" onclick="addMyAddr()">추가</button></p>
-			</div>
-		</div>
-		
-	</div>
-</div>
 
 	<!-- 마이페이지 상단 블럭 -->
 	<jsp:include page="../common/myPageTop.jsp"></jsp:include>

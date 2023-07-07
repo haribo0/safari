@@ -76,7 +76,7 @@
   .fc-scrollgrid-sync-table tr td { 
   	overflow: hidden;
   }
-  
+  /* 
   .event-dot {
   width: 10px;
   height: 10px;
@@ -87,7 +87,7 @@
   border-radius: 4px;
   padding: 5px;
   margin-bottom: 2px;
-}
+} */
   
  
 </style>
@@ -271,7 +271,7 @@ function formatDate(date) {
 	return year + '-' + month + '-' + day;
 }
 
-/* 
+
 let colorCount = 0;
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -297,7 +297,7 @@ document.addEventListener('DOMContentLoaded', function() {
         type: 'timeGrid',
         duration: { days: 31 } // 주간 보기 설정
       }, */
-      /*timeGridWeek: {
+      timeGridWeek: {
         type: 'timeGrid',
         duration: { days: 7 } // 주간 보기 설정
       },
@@ -356,7 +356,7 @@ document.addEventListener('DOMContentLoaded', function() {
 		 /* for (var i = 0; i < employees.length; i++) {
 		  if(eventTitle===employees[i]) eventBlock.style.backgroundColor =  pastelColors[i]; // Apply custom CSS class for the event block
 		} */
-		/* eventBlock.style.backgroundColor =  pastelColors[colorCount++ % pastelColors.length]; // Apply custom CSS class for the event block
+		 eventBlock.style.backgroundColor =  pastelColors[colorCount++ % pastelColors.length]; // Apply custom CSS class for the event block
 		 eventBlock.className = eventTitle;
 		 eventBlock.classList.add('row');
 		
@@ -389,11 +389,11 @@ document.addEventListener('DOMContentLoaded', function() {
   calendar.render();
 });
 
- */
 
 
-/* 
-function formatDate(date) {
+
+
+/* function formatDate(date) {
 	var formattedDate = new Date(date);
 	
 	var year = formattedDate.getFullYear();
@@ -401,51 +401,13 @@ function formatDate(date) {
 	var day = String(formattedDate.getDate()).padStart(2, '0');
 	
 	return year + '-' + month + '-' + day;
-} */
+}
 
 
 document.addEventListener('DOMContentLoaded', function() {
   	var calendarEl = document.getElementById('calendar');
  	var calendar = new FullCalendar.Calendar(calendarEl, {
     // Other FullCalendar options...
-    
-    headerToolbar: {
-      left: 'prev,next today',
-      center: 'title',
-      right: 'listWeek,dayGridMonth,timeGridWeek,timeGridDay'
-    },
-    
-    initialView: 'listWeek', // 초기 뷰 설정 (월간 보기)
-    
-    views: {
-      /* timeGridWeek: {
-        type: 'timeGrid',
-        duration: { days: 31 } // 주간 보기 설정
-      }, */
-      timeGridWeek: {
-        type: 'timeGrid',
-        duration: { days: 7 } // 주간 보기 설정
-      },
-      timeGridDay: {
-        type: 'timeGrid',
-        duration: { days: 1 } // 일간 보기 설정
-      }
-    },
-    
-    eventRender: function(info) {
-        var eventElement = info.el;
-        var eventTitle = info.event.title;
-        
-        // Check if the view is 'listWeek' or 'dayGridMonth'
-        if (info.view.type === 'listWeek' || info.view.type === 'dayGridMonth') {
-          // Create a div element to hold the employee name and set the background color
-          var divElement = document.createElement('div');
-          divElement.style.backgroundColor = getEmployeeColor(eventTitle);
-          divElement.textContent = eventTitle;
-          
-          // Append the div element to the event element
-          eventElement.appendChild(divElement);
-        }
 
     events: function(info, successCallback, failureCallback) {
       var start = info.startStr; // Start date of the visible range
@@ -480,7 +442,7 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 
   calendar.render();
-}); 
+}); */
 
 
 

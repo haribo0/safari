@@ -1,9 +1,5 @@
 package com.ja.safari.cs.service;
 
-import java.time.DayOfWeek;
-import java.time.LocalDate;
-import java.time.ZoneId;
-import java.time.temporal.TemporalAdjusters;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -11,23 +7,26 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.ibatis.annotations.Select;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.fasterxml.jackson.databind.ser.std.DateSerializer;
 import com.ja.safari.cs.mapper.CsSqlMapper;
 import com.ja.safari.dto.CsAttendanceLogDto;
 import com.ja.safari.dto.CsEmpDto;
 import com.ja.safari.dto.CsEventDto;
+import com.ja.safari.dto.CsQnaCombinedDto;
 import com.ja.safari.dto.CsQnaDto;
 import com.ja.safari.dto.CsScheduleDto;
+import com.ja.safari.user.mapper.UserSqlMapper;
 
 @Service
 public class CsServiceImpl {
 
 	@Autowired
 	private CsSqlMapper csSqlMapper;
+	
+	@Autowired
+	private UserSqlMapper userSqlMapper;
 	
 	
 	
@@ -168,23 +167,29 @@ public class CsServiceImpl {
         
         // 근무 스케줄 가져오기 (요일별) 
 		for(CsScheduleDto scheduleDto : csSqlMapper.getScheduleByEmpId(empId)) {
+			// 최근 출퇴근 기록 가져오기 
+			List<CsAttendanceLogDto> attList = csSqlMapper.getRecentAttendanceLogDtos(empId);
+			
 			// 해당일에 근무 일 경우 
 			if(getWeekdayAsInteger(scheduleDto.getWeekday()) == dayOfWeek) {
-				// 근무 시작 시간 전후 체크
-				List<CsAttendanceLogDto> attList = csSqlMapper.getRecentAttendanceLogDtos(empId);
 				// 근무 기록 없거나 마지막 기록에 퇴근 시간이 있으면
 				if(attList.size()==0 || attList.get(0).getTime_out()!=null) {
 					workState = (hourOfDay < scheduleDto.getEnd_time() ? "출근전" : "퇴근");
 				} else {
 					workState = "근무";
 				}
-			} 
-			
+			} else {
+				if(attList.get(0).getTime_out()==null) {
+					workState = "근무";
+				}
+			}
 		}
 		
 		return workState;
 	}
 
+	
+	
 	public void startWorking(int empId) {
 		
 		csSqlMapper.insertTimeInByEmpId(empId);
@@ -207,6 +212,64 @@ public class CsServiceImpl {
 		csSqlMapper.insertQnaPost(inquiry);
 		
 	}
+
+	// 회원 아이디로 문의리스트 가져오기 
+	public List<Map<String, Object>> getInquiryListByUserId(int userId) {
+		
+		List<Map<String, Object>> list = new ArrayList<Map<String,Object>>();
+		
+		for(CsQnaDto csQnaDto :  csSqlMapper.getInquiryListByUserId(userId)) {
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("qna", csQnaDto);
+			map.put("category", csSqlMapper.getCategoryById(csQnaDto.getCategory_id()));
+			list.add(map);
+		}
+		
+		return list;
+	}
+	
+	// 직원 아이디로 문의리스트 가져오기 
+	public List<Map<String, Object>> getInquiryListByEmpId(int empId) {
+		
+		List<Map<String, Object>> list = new ArrayList<Map<String,Object>>();
+		
+		for(CsQnaDto csQnaDto :  csSqlMapper.getInquiryListByEmpId(empId)) {
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("qna", csQnaDto);
+			map.put("category", csSqlMapper.getCategoryById(csQnaDto.getCategory_id()));
+			list.add(map);
+		}
+		
+		return list;
+	}
+	
+	// 직원 아이디로 미답변 개수 가져오기 
+	public Integer getUnansweredInquiryCount(int empId) {
+		
+		return csSqlMapper.getUnansweredInquiryCount(empId);
+	}
+
+	// 1대1 문의 상세 가져오기 
+	public CsQnaCombinedDto getQnaCombinedDtoById(int id) {
+		
+		CsQnaCombinedDto csQnaCombinedDto = csSqlMapper.getQnaCombinedDtoById(id);
+		String content = csQnaCombinedDto.getQna_content().replaceAll("\n", "<br>");
+		csQnaCombinedDto.setQna_content(content);
+		if(csQnaCombinedDto.getQna_reply()!=null) {
+			String reply = csQnaCombinedDto.getQna_reply().replaceAll("\n", "<br>");
+			csQnaCombinedDto.setQna_reply(reply);
+		}
+		
+		return csQnaCombinedDto;
+	}
+
+	// 1대1 문의 답변 저장 
+	public void saveQnaReply(CsQnaDto qnaDto) {
+		csSqlMapper.saveQnaReply(qnaDto);
+		
+	}
+
+	
 	
 	
 }

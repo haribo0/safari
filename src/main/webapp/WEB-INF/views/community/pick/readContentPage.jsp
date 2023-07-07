@@ -52,12 +52,12 @@
 						
 						<%-- headline --%>	
 						<div class="row">	
-							<div class="col" > 
-							<%-- <div style="display: inline-flex;"> --%>
-								<strong>(프로필사진) ${map.userDto.nickname }</strong>
-								</div>
-							
-								
+							<div class="col" >
+								<div style="font-size: 24px; font-family: 'Noto Sans', sans-serif;"><strong>${map.pickDto.title }</strong></div>
+								 <strong  style="color: grey; font-size: 12px; font-family: 'Noto Sans', sans-serif;">(프로필사진) ${map.userDto.nickname }</strong>
+								 <div style="color: grey; font-size: 12px; font-family: 'Noto Sans', sans-serif;"><fmt:formatDate value="${map.pickDto.reg_date}" pattern="yyyy.MM.dd"/></div>
+							</div>
+				
 							<div class="col">
 								<div style="display: flex; justify-content: flex-end;">  
 								<c:if test="${sessionUser.id == map.userDto.id}">
@@ -69,8 +69,6 @@
 						<%-- headline --%>			
 						
 						<%-- content --%>
-						<div style="color: grey; font-size: 12px; font-family: 'Noto Sans', sans-serif;">(프로필사진) <fmt:formatDate value="${map.pickDto.reg_date}" pattern="yyyy.MM.dd"/></div>
-						<br><div style="font-size: 24px; font-family: 'Noto Sans', sans-serif;"><strong>${map.pickDto.title }</strong></div><br>
 						내용: ${map.pickDto.content }<br>
 						<%-- content --%>
 
@@ -87,8 +85,7 @@
 						<%-- 목록으로 버튼 --%>
 						<div class="row">
 							<div class="col text-end ms-auto d-grid">
-								<a href="/safari/community/pick/mainPage" class="nav-link px-2 text-body-secondary"> 목록으로 </a>
-								
+								<a href="/safari/community/pick/mainPage" class="nav-link px-2 text-body-secondary"> 목록으로 </a>  
 							</div>
 						</div>
 						<%-- 목록으로 버튼 --%>

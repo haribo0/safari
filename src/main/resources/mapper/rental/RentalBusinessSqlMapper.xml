@@ -394,7 +394,7 @@
 		AND 1=1
 		AND rbt.id = #{businessId}
 		AND RIRT.IS_ITEM_RETURNED = 'Y'
-		ORDER BY rirt.id desc
+		ORDER BY rirt.id DESC
 	</select>
 	
 	<!-- 반납 번호로 상품 찾아오기   -->
@@ -444,7 +444,7 @@
 		)
 	</insert>
 	
-	<!-- 광고 주문 저장 -->
+	<!-- 광고 결제 저장 -->
 	<insert id="insertAdsPayment">
 		INSERT INTO rental_kakao_payment_table VALUES (
 			rental_kakao_payment_table_seq.nextval,
@@ -483,6 +483,20 @@
 	  	]]>
 
 	</select>
+	
+	<!-- 상품에 대한 광고 주문 Dto 가져오기 -->
+	<select id="getAdsDtoByProductId" resultType="com.ja.safari.dto.RentalAdsOrderDto">
+		
+		<![CDATA[
+			SELECT *
+			FROM rental_ads_table
+			WHERE item_id = #{productId}
+			and end_date >= SYSDATE
+	  	]]>
+
+	</select>
+	
+	
 	
 	
 	

@@ -4,8 +4,10 @@ import java.util.List;
 
 
 import com.ja.safari.dto.CsAttendanceLogDto;
+import com.ja.safari.dto.CsCategoryDto;
 import com.ja.safari.dto.CsEmpDto;
 import com.ja.safari.dto.CsQnaDto;
+import com.ja.safari.dto.CsQnaCombinedDto;
 import com.ja.safari.dto.CsScheduleDto;
 
 public interface CsSqlMapper {
@@ -46,8 +48,29 @@ public interface CsSqlMapper {
 	// 현재 출근했고 일 적은 직원 가져오기
 	public CsEmpDto getEmployeeWithLeastWorkload();
 	
-	// 1대1문의 포스트 
+	// 1대1문의 저장  
 	public void insertQnaPost(CsQnaDto csQnaDto);
+	
+	// 카테고리 가져오기
+	public CsCategoryDto getCategoryById(int id);
+
+	// 1대1 문의 가져오기 - 유저아이디로 
+	public List<CsQnaDto> getInquiryListByUserId(int userId);
+
+	// 1대1 문의 가져오기 - 직원  
+	public List<CsQnaDto> getInquiryListByEmpId(int empId);
+	
+	// 미답변 문의 개수 가져오기 - 직원  
+	public Integer getUnansweredInquiryCount(int empId);
+	
+	// 1대1 문의 가져오기 - id로  
+	public CsQnaDto getQnaDtoById(int id);
+	
+	// 1대1 문의 CombinedDto 가져오기 - id로  
+	public CsQnaCombinedDto getQnaCombinedDtoById(Integer id);
+
+	// 1대1 문의 답변 저장 - 업데이트 
+	public void saveQnaReply(CsQnaDto qnaDto);
 
 	
 	

@@ -14,6 +14,29 @@
 
 </head>
 
+<!-- 스타일 섹션 -->
+<style></style>
+<!-- 스타일 섹션 -->
+
+<!-- 스크립트 섹션 -->
+<script>
+	const PickOptionSelect = document.getElementId('category-select');
+	
+	PickOptionSelect.addEventListner('change', function(event) {
+		
+		const selectedValue = event.target.value;
+		
+		//선택된 값 컨트롤러로 전달.
+		sendDateToController(selectedValue);
+	});
+	
+	function senDataController(value) {
+		
+		console.log('선택된 값:', value);
+	}
+</script>
+<!-- 스크립트 섹션 -->
+
 <body>
 		<!-- 헤더 섹션 -->
 		<div class="row">
@@ -79,6 +102,19 @@
 									        <strong><input type="text" name="title" placeholder="제목을 입력해주세요." style="width: 100%; border: none; outline: none;"></strong>
 									     </div>
 								     </div>
+								    
+									  <div class="form-group">
+										  <div class="form-control mt-2" style="font-size: ; font-family: 'Noto Sans', sans-serif; box-shadow: none;">
+										    <strong>
+										      <select id="category-select" name="category" style="width: 100%; border: none; outline: none;">
+										        <option value="">카테고리를 선택해주세요.</option>
+										        <option value="option1">옵션 1</option>
+										        <option value="option2">옵션 2</option>
+										        <option value="option3">옵션 3</option>
+										      </select>
+										    </strong>
+										  </div>
+									</div>
 								    
 								    <div class="form-group">
 								      <div class="form-control mt-2 mb-2" style="font-size: ; font-family: 'Noto Sans', sans-serif; box-shadow: none;">

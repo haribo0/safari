@@ -346,6 +346,7 @@ function getEmployeeList() {
 				const select1 = document.createElement('select');
 				select1.classList.add('col');
 				select1.className = 'startTime';
+				select1.setAttribute("data-emp-id", map.empDto.id);
 				select1.id = 'start_time-'+map.empDto.id;
 				select1.name = 'start_time';
 				for (let hour = 00; hour <= 24; hour++) {
@@ -372,6 +373,7 @@ function getEmployeeList() {
 				const select = document.createElement('select');
 				select.className = 'endTime';
 				select.name = 'end_time';
+				select.setAttribute("data-emp-id", map.empDto.id);
 				for (let hour = 00; hour <= 24; hour++) {
 				    let option = document.createElement('option');
 				    let time = ('0' + hour).slice(-2) + ':00';
