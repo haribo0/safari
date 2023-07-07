@@ -130,6 +130,9 @@ public interface RentalBusinessSqlMapper {
 	// 광고 주문 insert
 	public void insertAdsOrder(RentalAdsOrderDto rentalAdsOrderDto);
 	
+	// 광고 주문 DTO 가져오기 
+	public List<RentalAdsOrderDto> getAdsDtoByProductId(int productId);
+	
 	// 광고 결제 insert 
 	public void insertAdsPayment(KaKaoPayApproveDto kakaoPayApproveDto);
 	
@@ -162,6 +165,9 @@ public interface RentalBusinessSqlMapper {
 
 	// 반품 수취확인 
 	public void changeReturnShippingStatus(int returnId);
+	
+	
+	
 	
 
 

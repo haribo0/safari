@@ -80,7 +80,8 @@
 					
 						<div class="row bg-light py-3 text-center sticky-top fw-bold">
 						      <div class="col-1">#</div>
-						      <div class="col-2">광고</div>
+						      <div class="col">광고</div>
+						      <div class="col">광고종료</div>
 						      <div class="col-1">이미지</div>
 						      <div class="col-3">제품</div>
 						      <div class="col-1">수량</div>
@@ -897,7 +898,7 @@ function getListUpdated() {
 
 				  // col-2
 				  const col2Div = document.createElement('div');
-				  col2Div.classList.add('col-2', 'my-auto');
+				  col2Div.classList.add('col', 'my-auto');
 
 				  
 				  const chooseElement = document.createElement('div');
@@ -906,7 +907,6 @@ function getListUpdated() {
 				  chooseElement.dataset.productId = map.product.id;
 				  chooseElement.dataset.bsToggle = 'collapse';
 				  chooseElement.role = 'button';
-				  chooseElement.addEventListener('click', checkOutModal);
 				  // onclick="checkOutModal(this)"
 				  
 				  col2Div.appendChild(chooseElement);
@@ -917,11 +917,25 @@ function getListUpdated() {
 				    chooseElement.innerHTML =  '<i class="bi bi-badge-ad"></i> 광고중';
 				  } else {
 				    chooseElement.classList.add('px-3');
+					chooseElement.addEventListener('click', checkOutModal);
 				    chooseElement.innerHTML =  '<i class="bi bi-badge-ad"></i> 추가';
-
 				  }
-				  
 				  rowDiv.appendChild(col2Div);
+				  
+				  
+				  // col-3 (ads dates)
+				  const adsDiv = document.createElement('div');
+				  adsDiv.classList.add('col', 'my-auto', 'text-secondary');
+				  adsDiv.style.fontSize = '14px';
+				  // col3Div.id = `prdTitle\${map.product.id}`;
+				  // col3Div.textContent = map.adsDto.endDate;
+				  if (map.ads) {
+					  const startDate = new Date(map.adsDto.end_date);
+				      const formattedStartDate = startDate.toLocaleDateString('en-US', { month: '2-digit', day: '2-digit', year: 'numeric' });
+				      adsDiv.innerText = formattedStartDate;
+				  }
+				  rowDiv.appendChild(adsDiv);
+				  
 
 				  // col-1 (image)
 				  const col1ImgDiv = document.createElement('div');

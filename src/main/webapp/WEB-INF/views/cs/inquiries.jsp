@@ -360,7 +360,7 @@ function dateToTimeDifference(date) {
 	// 현재와 시간차 (밀리초)
 	const timeDifference = Date.now() - dateFromDatabase.getTime();
 	
-	// 시/분/초 구하기 (integer)
+	// 시/분/초 내림 계산  (integer)
 	const seconds = Math.floor(timeDifference / 1000);
 	const minutes = Math.floor(seconds / 60);
 	const hours = Math.floor(minutes / 60);
@@ -452,11 +452,14 @@ function getInquiryDetail(qnaId) {
 			row2.classList.add('row', 'py-5', 'border-bottom');
 				// Create the second column within the second row
 				const col2 = document.createElement('div');
-				col2.classList.add('col');
-				col2.textContent = qna.qna_content;
+				col2.classList.add('col')
+				col2.innerHTML = qna.qna_content;
+				// col2.textContent = qna.qna_content.replace('<br>','\n');
 				// Append the second column to the second row
 			row2.appendChild(col2);
 
+				
+				
 			/* Row3 */
 			// Create the third row with border-bottom
 			//const row3 = document.createElement('div');//

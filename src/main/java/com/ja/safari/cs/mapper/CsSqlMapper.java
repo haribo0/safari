@@ -48,7 +48,7 @@ public interface CsSqlMapper {
 	// 현재 출근했고 일 적은 직원 가져오기
 	public CsEmpDto getEmployeeWithLeastWorkload();
 	
-	// 1대1문의 포스트 
+	// 1대1문의 저장  
 	public void insertQnaPost(CsQnaDto csQnaDto);
 	
 	// 카테고리 가져오기
@@ -69,7 +69,7 @@ public interface CsSqlMapper {
 	// 1대1 문의 CombinedDto 가져오기 - id로  
 	public CsQnaCombinedDto getQnaCombinedDtoById(Integer id);
 
-	// 1대1 문의 답변 저장 
+	// 1대1 문의 답변 저장 - 업데이트 
 	public void saveQnaReply(CsQnaDto qnaDto);
 
 	

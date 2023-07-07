@@ -104,14 +104,7 @@
 							
 							
 							<c:if test="${!empty qna.qna_reply}">
-								<%-- <div class="row pt-4 mb-2">
-									<div class="col-auto fw-medium ms-3 me-0 pe-0" >
-										
-									</div>
-									<div class="col " >
-										<span class="text-secondary"> by 고객지원팀 ${qna.empDto.nickname} </span>
-									</div>
-								</div> --%>
+								
 								<div class="row pt-4 mb-2">
 									<div class="col-auto" >
 										<div class="row pt-4 mb-2">
@@ -119,7 +112,7 @@
 											답변 완료
 										</div>
 										<div class="col " >
-											<%-- <span class="text-secondary"> by 고객지원팀 ${qna.empDto.nickname} </span> --%>
+
 										</div>
 									</div>
 									</div>
@@ -151,8 +144,6 @@
 				
 				
 			</div>
-			
-			
 			
 			
 			

@@ -57,7 +57,7 @@ public class CsController {
 		CsEmpDto empUser = (CsEmpDto) session.getAttribute("empUser");
 		if(empUser==null) return "redirect:./loginPage";
 		
-		return "cs/dashboard";
+		return "cs/dashboard2";
 	}
 	
 	@RequestMapping("dashboardFetch") 

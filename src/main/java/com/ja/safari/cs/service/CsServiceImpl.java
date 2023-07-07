@@ -167,23 +167,29 @@ public class CsServiceImpl {
         
         // 근무 스케줄 가져오기 (요일별) 
 		for(CsScheduleDto scheduleDto : csSqlMapper.getScheduleByEmpId(empId)) {
+			// 최근 출퇴근 기록 가져오기 
+			List<CsAttendanceLogDto> attList = csSqlMapper.getRecentAttendanceLogDtos(empId);
+			
 			// 해당일에 근무 일 경우 
 			if(getWeekdayAsInteger(scheduleDto.getWeekday()) == dayOfWeek) {
-				// 근무 시작 시간 전후 체크
-				List<CsAttendanceLogDto> attList = csSqlMapper.getRecentAttendanceLogDtos(empId);
 				// 근무 기록 없거나 마지막 기록에 퇴근 시간이 있으면
 				if(attList.size()==0 || attList.get(0).getTime_out()!=null) {
 					workState = (hourOfDay < scheduleDto.getEnd_time() ? "출근전" : "퇴근");
 				} else {
 					workState = "근무";
 				}
-			} 
-			
+			} else {
+				if(attList.get(0).getTime_out()==null) {
+					workState = "근무";
+				}
+			}
 		}
 		
 		return workState;
 	}
 
+	
+	
 	public void startWorking(int empId) {
 		
 		csSqlMapper.insertTimeInByEmpId(empId);
