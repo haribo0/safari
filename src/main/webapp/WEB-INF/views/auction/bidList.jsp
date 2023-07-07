@@ -19,6 +19,18 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
+<style>
+   @keyframes blink {
+     0% { opacity: 1; }
+     50% { opacity: 0; }
+     100% { opacity: 1; }
+   }
+
+   .blink-text {
+     animation: blink 2s infinite;
+   }
+</style>
+
 </head>
 <body>
 
@@ -88,16 +100,25 @@
 	<div class="pt-2 w-100 ms-5 ">
 	
 		<div class="row">
-			<div class="col fs-5">
-				<span><img class="mb-1" src="/safari/resources/img/auction/notice.png"
-				style="max-width: 30px; max-height: 30px;"></span>
-				진행중인 경매의 현재가는 실시간으로 업데이트되고 있습니다.
+			<div class="col">
+				<span>
+					<img class="mb-1" src="/safari/resources/img/auction/notice.png"
+						style="max-width: 25px; max-height: 25px;"></span>
+						<span class="fw-bold fs-5">참고사항</span>
+			
 			</div>
-		</div>	
+		</div>
+		
+		<div class="row">
+			<div class="col">
+				진행중인 경매의 현재가는 <span class="fw-bold">실시간으로</span> 업데이트되고 있습니다.
+			</div>
+		</div>
+	
 
 		<div class="row mt-3 mb-2">
-			<div class="col fw-bold fs-4">
-				내가 입찰한 목록
+			<div class="col fw-bold fs-5">
+				내가 입찰한 경매 목록
 			</div>
 		</div>
 		
@@ -124,7 +145,10 @@
 							
 								<div class="row">
 									<div class="col-10 fw-bold fs-5">
-										<a href="/safari/auction/productDetail/${bidItem.id}">${bidItem.title}</a>
+										<a href="/safari/auction/productDetail/${bidItem.id}">
+										<span style="color: #337ab7;">${bidItem.title}</span>
+										<span id="statusLiveSpan_${bidItem.id}"></span>
+										</a>
 									</div>
 								</div>
 								
@@ -320,6 +344,15 @@ function updateAuctionCountDown(id) {
       } else if (auctionStartDate <= nowDate) {
     	  statusButton.classList.add("btn-outline-success");
           statusButton.innerText = "진행중";
+          
+          const statusLiveSpan = document.getElementById("statusLiveSpan_" + id);
+          if (statusLiveSpan.innerText != 'LIVE ●') {
+        	statusLiveSpan.classList.add("text-danger", "fw-bold", "ms-3", "fs-5", "blink-text");
+        	statusLiveSpan.innerText = "LIVE ●";
+        	  
+          }
+          
+          
       } else {
       	 statusButton.classList.add("btn-outline-primary");
       	 statusButton.innerText = "준비중";

@@ -90,15 +90,29 @@
 			<div class="col ms-4">
 			
 				<div class="row">
-					<div class="col fs-5">
-						<span><img class="mb-1" src="/safari/resources/img/auction/notice.png"
-						style="max-width: 30px; max-height: 30px;"></span>
-						진행중인 경매의 현재가는 실시간으로 업데이트되고 있습니다.
+					<div class="col">
+						<span>
+							<img class="mb-1" src="/safari/resources/img/auction/notice.png"
+								style="max-width: 25px; max-height: 25px;"></span>
+								<span class="fw-bold fs-5">참고사항</span>
+					
 					</div>
 				</div>
-			
-				<div class="row mt-3">
-					<div class="col fw-bold fs-4">
+				
+				<div class="row">
+					<div class="col">
+						찜한 경매 중에서 준비중이거나 진행중인 경매만 표시됩니다.
+					</div>
+				</div>
+				
+				<div class="row">
+					<div class="col">
+						진행중인 경매의 현재가는 <span class="fw-bold">실시간으로</span> 업데이트되고 있습니다.
+					</div>
+				</div>				
+				
+				<div class="row mt-4">
+					<div class="col fw-bold fs-5">
 					 	 관심 있는 경매 목록
 					</div>
 				</div>

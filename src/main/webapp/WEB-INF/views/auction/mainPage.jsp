@@ -14,13 +14,19 @@
 <link rel="stylesheet" href="/safari/resources/style/common.css" type="text/css">
 <link rel="stylesheet" href="/safari/resources/style/auction.css" type="text/css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
-
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
 <style>
+   @keyframes blink {
+     0% { opacity: 1; }
+     50% { opacity: 0; }
+     100% { opacity: 1; }
+   }
 
-
+   .blink-text {
+     animation: blink 1.5s infinite;
+   }
 </style>
 <script>
 let sessionId = null;
@@ -149,20 +155,22 @@ function updateAuctionCountDown(id) {
       const auctionEndDate = new Date(response.auctionItem.auctionDto.end_date); // 경매 종료일
       const auctionStartDate = new Date(response.auctionItem.auctionDto.start_date); // 경매 시작일
       
+      const nowDate = new Date();
       
       let auctionStatusBox = document.getElementById("auctionStatus_" + id);
       auctionStatusBox.innerHTML = "";
       
+
       const statusButton = document.createElement("button");
       statusButton.classList.add("btn");
       statusButton.classList.add("btn-sm");
       statusButton.classList.add("fw-bold");
       statusButton.classList.add("disabled");
-      if (auctionEndDate <= new Date() || response.auctionItem.auctionDto.auction_status == '종료') {  
+      if (auctionEndDate <= nowDate || response.auctionItem.auctionDto.auction_status == '종료') {  
     	  statusButton.classList.add("btn-outline-danger");
           statusButton.innerText = "경매 종료";
     	  
-      } else if (auctionStartDate <= new Date()) {
+      } else if (auctionStartDate <= nowDate) {
     	  statusButton.classList.add("btn-outline-success");
           statusButton.innerText = "진행중";
       } else {
@@ -178,14 +186,14 @@ function updateAuctionCountDown(id) {
       countDownTableBox.innerHTML = "";
       
 	  	// 경매가 종료된 경우
-	  	if (auctionEndDate <= new Date() || response.auctionItem.auctionDto.auction_status == '종료') {
+	  	if (auctionEndDate <= nowDate || response.auctionItem.auctionDto.auction_status == '종료') {
 	  		return;
 	  	} 
 	  	// 경매가 시작되었거나 준비중인 경우
 	  	else {
 	  		let auctionCountDown;
 	  		// 경매가 시작된 경우
-	  		if (auctionStartDate <= new Date()) {
+	  		if (auctionStartDate <= nowDate) {
 	  			auctionCountDown = countdownFromEndDate(auctionEndDate);
 	  		} else {
 	  			auctionCountDown = countdownFromStartDate(auctionStartDate);
@@ -262,16 +270,58 @@ function updateAuctionCountDown(id) {
 
  }
 
+
+// 경매 진행 상태
+let status = null;
+
+
+document.addEventListener('DOMContentLoaded', function() {
+    // 진행중인 버튼 클릭 시
+    document.getElementById('radioStatusIng').addEventListener('click', function() {
+        status = 'ing'; // 전역 변수에 'ing' 할당
+        reloadAuctionList(null, null);
+        status = null;
+    });
+
+    // 준비중인 버튼 클릭 시
+    document.getElementById('radioStatusReady').addEventListener('click', function() {
+        status = 'ready'; // 전역 변수에 'ready' 할당
+        reloadAuctionList(null, null);
+        status = null;
+    });
+});
+
 // 메인 페이지에 경매 리스트 출력
 function reloadAuctionList(mainCategoryId, subCategoryId) {
 	
+
 	   let url;
-	   if (mainCategoryId == null && subCategoryId == null) {
-	       url = "/safari/auction/getAuctionList";
-	   } else if (mainCategoryId != null) {
-	       url = "/safari/auction/getAuctionListByMainCategory?id=" + mainCategoryId;
-	   } else if (subCategoryId != null) {
-		   url = "/safari/auction/getAuctionListBySubCategory?id=" + subCategoryId;
+	   
+	   /*if (document.getElementById('radioStatusIng').checked) {
+	      status = document.getElementById('radioStatusIng').value;
+	      console.log(status);
+	   } else if (document.getElementById('radioStatusReady').checked) {
+	      status = document.getElementById('radioStatusReady').value;
+	   }*/
+	   
+	   if (status) {
+		  url = "/safari/auction/getAuctionListByStatus?status=" + status;
+	   } 
+	   
+	   else {      
+		   
+		   // 라디오 버튼 체크 해제
+		    document.getElementById('radioStatusIng').checked = false;
+		    document.getElementById('radioStatusReady').checked = false;
+		    
+		    
+		   if (mainCategoryId == null && subCategoryId == null) {
+		       url = "/safari/auction/getAuctionList";
+		   } else if (mainCategoryId != null) {
+		       url = "/safari/auction/getAuctionListByMainCategory?id=" + mainCategoryId;
+		   } else if (subCategoryId != null) {
+			   url = "/safari/auction/getAuctionListBySubCategory?id=" + subCategoryId;
+		   }
 	   }
 	
 	   const xhr = new XMLHttpRequest();
@@ -341,12 +391,32 @@ function reloadAuctionList(mainCategoryId, subCategoryId) {
 	            	
 	            	const titleCol = document.createElement("div");
 	            	titleCol.classList.add("col-10", "fw-bold", "fs-5");
+	            	titleCol.style.color = "#337ab7";
+	            	
+
 	            	
 	            	const titleLink = document.createElement("a");
 	            	titleLink.href = "/safari/auction/productDetail/" + data.auctionDto.id;
 	            	titleLink.innerText = data.auctionDto.title;
 	            	
+	            	const statusLiveSpan = document.createElement("span");
+	            	
+	            	if (data.auctionDto.auction_status == '진행중') {
+	            		if (statusLiveSpan.innerText != 'LIVE ●') {
+	            			
+		            		statusLiveSpan.classList.add("text-danger", "fw-bold", "ms-3", "fs-5", "blink-text");
+		            		statusLiveSpan.innerText = "LIVE ●";
+		            	
+		            		
+		            		titleLink.appendChild(statusLiveSpan);
+	            		}
+	            	}
+	            	
+	            
+	            	
+	            	
 	            	titleCol.appendChild(titleLink);
+	            	
 	            	titleRow.appendChild(titleCol);
 	            	// 상품 제목 끝
 	            	
@@ -362,7 +432,8 @@ function reloadAuctionList(mainCategoryId, subCategoryId) {
 	            	
 	            	
 	            	const nowSpan = document.createElement("span");
-	            	nowSpan.classList.add("text-danger", "fw-bold", "fs-5");
+	            	nowSpan.classList.add("fs-5", "text-danger");
+	            	//nowSpan.style.color = "#fc8403";
 	            	nowSpan.id = "currentPrice_" + data.auctionDto.id;
 	            	
 	            	// 현재가
@@ -486,14 +557,11 @@ function reloadAuctionList(mainCategoryId, subCategoryId) {
 	            
 	        }
 	    };
-	    xhr.open("get", url);
+	    xhr.open("get", url, true);
 	    xhr.send();
 
 	
 }
-
-
-
 
 
 
@@ -644,14 +712,88 @@ window.addEventListener("DOMContentLoaded", function(){
 
 	<div class="col-10 justify-content-center ps-5">
 	
+	
+	<div class="row fw-5 mb-3">
+		<div class="col">
+			<div class="row">
+				<div class="col-10 text-center">
+					<a href="/safari/auction/mainPage">
+						<img src="/safari/resources/img/auction/auctionsafari.png" style="width: 200px;">
+						<span class="fs-4 fw-bold text-success" style="position: relative; top: 5px; right: 8px;">경매장에 오신 것을 환영합니다 !</span>
+					</a>
+				</div>
+				<div class="col">
+					
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<div class="row">
+	
+		<div class="col">
+			<div class="row mt-2 mb-1">
+				<div class="col">
+					<span>
+					<img class="mb-1" src="/safari/resources/img/auction/notice.png"
+						style="max-width: 25px; max-height: 25px;"></span>
+						<span class="fw-bold fs-5">경매 등록 시 참고사항</span>
+				</div>
+			</div>
+			
+			<div class="row">
+				<div class="col">
+					경매를 등록하실 때 제품명을 자세히 입력해주세요.
+				</div>
+			</div>
+			<div class="row">
+				<div class="col">
+					경매종료일은 <span class="fw-bold">경매시작일로부터 한 달 이내</span>로 설정하실 수 있습니다.
+				</div>
+			</div>
+			
+		</div>
+		
+		<div class="col">
+			<div class="row mt-2 mb-1">
+				<div class="col">
+					<span>
+					<img class="mb-1" src="/safari/resources/img/auction/notice.png"
+						style="max-width: 25px; max-height: 25px;"></span>
+						<span class="fw-bold fs-5">경매 이용 시 참고사항</span>
+				</div>
+			</div>
+			
+			<div class="row">
+				<div class="col">
+					진행중인 경매의 <span class="fw-bold">현재가는 <span class="text-danger">실시간으로</span> 업데이트</span>되고 있습니다.
+				</div>
+			</div>
+		</div>
+	</div>	
 		
 		
 		<div class="row mt-2 mb-3">
-			<div class="col">
+			<div class="col mt-3">
 			
 				<input type="button" onclick= "registerProductPage()"
 				  class="btn btn-dark" value="경매 물품 등록">				  
 			</div>
+			
+			<div class="col mt-4 d-flex justify-content-center">
+				
+			 <input class="form-check-input me-2" type="radio" id="radioStatusIng" name="radioStatus" value="ing">
+			  <label class="form-check-label me-4" for="radioStatusIng">
+			    	진행중인 경매만 보기
+			  </label>
+ 		  		
+
+				<input class="form-check-input me-2" type="radio" id="radioStatusReady" name="radioStatus" value="ready">
+				  <label class="form-check-label me-2" for="radioStatusReady">
+				    	준비중인 경매만 보기
+				  </label>				
+			</div>
+			
 		</div>
 		
 		
@@ -809,6 +951,5 @@ window.addEventListener("DOMContentLoaded", function(){
 <!-- Modal -->
 	
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
 </body>	
 </html>

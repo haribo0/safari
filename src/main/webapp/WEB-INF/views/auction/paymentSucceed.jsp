@@ -72,13 +72,13 @@
 							  		<div class="fs-4 fw-medium mt-1">결제 완료</div>
 							  		
 							  		<div class="fs-6 text-start mt-5">결제 ID</div>
-							  		<div class="fs-5 fw-light text-start mt-1" id="orderId">${map.order.id}</div>
+							  		<div class="fs-5 fw-light text-start mt-1" id="orderId">${map.auctionPayment.id}</div>
 							  		
 							  		<div class="fs-6 text-start mt-4">결제 수단</div>
-							  		<div class="fs-5 fw-light text-start mt-1" id="paymentMethod">${map.payment.payment_method_type}</div>
+							  		<div class="fs-5 fw-light text-start mt-1" id="paymentMethod">${map.auctionPayment.payment_method_type}</div>
 							  		
 							  		<div class="fs-6 text-start mt-4">결제 금액</div>
-							  		<div class="fs-5 fw-light text-start mt-1" id="amount">${map.order.price}</div>
+							  		<div class="fs-5 fw-light text-start mt-1" id="amount">${map.auctionPayment.amount}</div>
 							  		
 							  		
 							  		<div class="fs-6 text-start mt-5"> </div>
@@ -87,7 +87,7 @@
 							  		<div class=" row">
 							  			<div class="  d-grid">
 <!-- 							  				<a href="./productListPage" class="btn btn-dark" >확인</a> -->
-							  				<a class="btn btn-dark" href="./productListPage" >확인</a>
+							  				<a class="btn btn-dark" href="/safari/auction/successBidList" >확인</a>
 							  			</div>
 							  		</div>
 							  		

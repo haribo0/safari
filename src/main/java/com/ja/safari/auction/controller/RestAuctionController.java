@@ -129,6 +129,17 @@ public class RestAuctionController {
 		return map;
 	}
 	
+	// 경매 메인페이지에서 상태에 따른 경매 조회 
+	@RequestMapping("getAuctionListByStatus")
+	public Map<String, Object> getAuctionListByStatus(String status) {
+		
+		Map<String, Object> map  =  new HashMap<>();
+		
+		map.put("getAuctionList", auctionService.getAuctionListByStatus(status));
+		
+		return map;
+	}
+	
 	// 경매 물품 등록
 	@RequestMapping("registerProductProcess")
 	public Map<String, Object> registerProductProcess(HttpSession session, AuctionItemDto auctionItemDto, 
@@ -598,23 +609,21 @@ public class RestAuctionController {
 	}
 	
 	
-	// 카카오페이 결제 준비 정보를 세션에 저장하기
+	// 카카오페이 결제 준비 정보를 세션에 저장하기 (o)
 	@RequestMapping("saveAuctionTidToSession")
 	public Map<String, Object> saveAuctionTidToSession(HttpSession session, AuctionKakaoPayApproveDto auctionKakaoPayApproveDto) {
 		
 		Map<String, Object> map = new HashMap<String, Object>();
 		
-		UserDto userDto = (UserDto) session.getAttribute("sessionUser");
-		if(userDto == null) {
+		UserDto sessionUser = (UserDto) session.getAttribute("sessionUser");
+		if(sessionUser == null) {
 			map.put("result", "fail");
 			map.put("reason", "login required");
 			return map;
 		}
 		
-		System.out.println("restcontroller 결제 준비 정보 세션에 저장하는 dto : " + auctionKakaoPayApproveDto);
+		//System.out.println("restcontroller 결제 준비 정보 세션에 저장하는 dto : " + auctionKakaoPayApproveDto);
 		session.setAttribute("auctionkakaoPay", auctionKakaoPayApproveDto);
-		
-		
 		
 		map.put("result", "success");
 
@@ -628,8 +637,8 @@ public class RestAuctionController {
 		
 		Map<String, Object> map = new HashMap<String, Object>();
 		
-		UserDto userDto = (UserDto) session.getAttribute("sessionUser");
-		if(userDto == null) {
+		UserDto sessionUser = (UserDto) session.getAttribute("sessionUser");
+		if(sessionUser == null) {
 			map.put("result", "fail");
 			map.put("reason", "login required");
 			return map;
@@ -656,17 +665,6 @@ public class RestAuctionController {
 			map.put("reason", "login required");
 			return map;
 		}
-		
-		System.out.println(auctionKakaoPayApproveDto.getId());
-		System.out.println(auctionKakaoPayApproveDto.getPartner_order_id());
-		System.out.println(auctionKakaoPayApproveDto.getCid());
-		
-		System.out.println(auctionKakaoPayApproveDto.getTid());
-		System.out.println(auctionKakaoPayApproveDto.getPartner_user_id());
-		System.out.println(auctionKakaoPayApproveDto.getPg_token());
-		System.out.println(auctionKakaoPayApproveDto.getItem_name());
-		System.out.println(auctionKakaoPayApproveDto.getAmount());
-		System.out.println(auctionKakaoPayApproveDto.getPayment_method_type());
 		
 		auctionService.saveAuctionKakaoPayInfo(auctionKakaoPayApproveDto);
 		

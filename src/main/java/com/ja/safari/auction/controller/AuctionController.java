@@ -113,6 +113,16 @@ public class AuctionController {
 	}
 	
 	
+	// 결제 실패 
+		@RequestMapping("paymentFailed")
+		public String paymentFailed(HttpSession session) {
+			
+			UserDto userDto = (UserDto) session.getAttribute("sessionUser");
+			if(userDto == null) return "redirect:./loginPage"; 		
+			
+			return "auction/paymentFailed";
+		}
+	
 	// 결제 중 
 		@RequestMapping("paymentProcess")
 		public String paymentProcess(HttpSession session, String pg_token) {
@@ -135,7 +145,7 @@ public class AuctionController {
 		
 		
 		// 결제 성공     
-		@RequestMapping("paymentSucceeded")
+		@RequestMapping("paymentSucceed")
 		public String paymentSucceeded(HttpSession session, Model model, Integer id) {
 			
 			UserDto userDto = (UserDto) session.getAttribute("sessionUser");
@@ -145,7 +155,7 @@ public class AuctionController {
 			
 			model.addAttribute("map", auctionService.getAuctionKakaoPayInfo(id));
 			
-			return "auction/paymentSucceeded";
+			return "auction/paymentSucceed";
 		}
 	
 	
