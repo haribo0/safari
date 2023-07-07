@@ -111,7 +111,7 @@
 		
 		<div class="row">
 			<div class="col">
-				진행중인 경매의 현재가는 <span class="fw-bold">실시간으로</span> 업데이트되고 있습니다.
+				진행중인 경매의 <span class="fw-bold">현재가는 <span class="text-danger">실시간으로</span> 업데이트</span> 되고 있습니다.
 			</div>
 		</div>
 	
@@ -146,19 +146,19 @@
 								<div class="row">
 									<div class="col-10 fw-bold fs-5">
 										<a href="/safari/auction/productDetail/${bidItem.id}">
-										<span style="color: #337ab7;">${bidItem.title}</span>
+										${bidItem.title}
 										<span id="statusLiveSpan_${bidItem.id}"></span>
 										</a>
 									</div>
 								</div>
 								
 								<div class="row mt-2">
-									<div class="col">
+									<div class="col text-secondary fw-bold"> 	
 										현재가 &nbsp;
-										<span id="currentPrice_${bidItem.id}" class="fw-bold text-danger fs-5"></span>
+										<span id="currentPrice_${bidItem.id}" class="text-danger fs-5 opacity-75"></span>
 										
 										즉시낙찰가
-										<span class="fw-bold">
+										<span>
 							 				<fmt:formatNumber value="${bidItem.max_price}" pattern="#,###"/>원
 							 			</span> 
 
@@ -174,7 +174,7 @@
 								
 								<div class="row mt-2">
 									<div class="col">
-										<span class="fw-bold" id="auctionEndDate_${bidItem.id}">경매종료일</span> 
+										<span id="auctionEndDate_${bidItem.id}">경매종료일</span> 
 									</div>
 								</div>
 								
@@ -488,7 +488,6 @@ window.addEventListener("DOMContentLoaded", function(){
 
 
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 
 	

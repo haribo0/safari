@@ -107,7 +107,7 @@
 				
 				<div class="row">
 					<div class="col">
-						진행중인 경매의 현재가는 <span class="fw-bold">실시간으로</span> 업데이트되고 있습니다.
+						진행중인 경매의 <span class="fw-bold">현재가는 <span class="text-danger">실시간으로</span> 업데이트</span> 되고 있습니다.
 					</div>
 				</div>				
 				
@@ -444,7 +444,6 @@ window.addEventListener("DOMContentLoaded", function(){
 });
  
 </script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 
 	

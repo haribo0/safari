@@ -27,6 +27,11 @@
    .blink-text {
      animation: blink 1.5s infinite;
    }
+   
+    .form-check-input:checked {
+     	border-color: black;
+        background-color: black; /* 원하는 색상으로 변경 */
+    }   
 </style>
 <script>
 let sessionId = null;
@@ -217,6 +222,11 @@ function updateAuctionCountDown(id) {
 	        const remainTimeCol = document.createElement("div");
 	        remainTimeCol.classList.add("col", "fs-5");
 		        
+	        const timeIcon = document.createElement("i");
+	        timeIcon.classList.add("bi", "bi-clock", "me-2");
+	        //timeIcon.style.position = "relative";
+	        //timeIcon.style.bottom = "3px";
+	        remainTimeCol.appendChild(timeIcon);
 		        
 		        
 	         if (auctionCountDown.days > 0) {
@@ -276,6 +286,12 @@ let status = null;
 
 
 document.addEventListener('DOMContentLoaded', function() {
+	
+    document.getElementById('radioStatus').addEventListener('click', function() {
+       	
+        reloadAuctionList(null, null);
+        
+    });	
     // 진행중인 버튼 클릭 시
     document.getElementById('radioStatusIng').addEventListener('click', function() {
         status = 'ing'; // 전역 변수에 'ing' 할당
@@ -391,7 +407,7 @@ function reloadAuctionList(mainCategoryId, subCategoryId) {
 	            	
 	            	const titleCol = document.createElement("div");
 	            	titleCol.classList.add("col-10", "fw-bold", "fs-5");
-	            	titleCol.style.color = "#337ab7";
+	            	//titleCol.style.color = "#337ab7";
 	            	
 
 	            	
@@ -427,12 +443,12 @@ function reloadAuctionList(mainCategoryId, subCategoryId) {
 	            	
 	            	
 	            	const nowCol = document.createElement("div");
-	            	nowCol.classList.add("col", "fw-bold");
+	            	nowCol.classList.add("col", "fw-bold", "text-secondary");
 	            	nowCol.innerText = "현재가 ";
 	            	
 	            	
 	            	const nowSpan = document.createElement("span");
-	            	nowSpan.classList.add("fs-5", "text-danger");
+	            	nowSpan.classList.add("fs-5", "text-danger", "opacity-75");
 	            	//nowSpan.style.color = "#fc8403";
 	            	nowSpan.id = "currentPrice_" + data.auctionDto.id;
 	            	
@@ -719,7 +735,7 @@ window.addEventListener("DOMContentLoaded", function(){
 				<div class="col-10 text-center">
 					<a href="/safari/auction/mainPage">
 						<img src="/safari/resources/img/auction/auctionsafari.png" style="width: 200px;">
-						<span class="fs-4 fw-bold text-success" style="position: relative; top: 5px; right: 8px;">경매장에 오신 것을 환영합니다 !</span>
+						<span class="fs-3 fw-bold text-success" style="position: relative; top: 7px; right: 8px;">경매장에 오신 것을 환영합니다 !</span>
 					</a>
 				</div>
 				<div class="col">
@@ -754,6 +770,10 @@ window.addEventListener("DOMContentLoaded", function(){
 			
 		</div>
 		
+		<%--<div class="col-1 border-start" style="position: relative; left: 20px;">
+		
+		</div> --%>
+		
 		<div class="col">
 			<div class="row mt-2 mb-1">
 				<div class="col">
@@ -780,7 +800,12 @@ window.addEventListener("DOMContentLoaded", function(){
 				  class="btn btn-dark" value="경매 물품 등록">				  
 			</div>
 			
-			<div class="col mt-4 d-flex justify-content-center">
+			<div class="col mt-4 d-flex justify-content-center me-5">
+			
+			 <input class="form-check-input me-2" type="radio" id="radioStatus" name="radioStatus" value="">
+			  <label class="form-check-label me-4" for="radioStatus">
+			    	전체보기
+			  </label>			
 				
 			 <input class="form-check-input me-2" type="radio" id="radioStatusIng" name="radioStatus" value="ing">
 			  <label class="form-check-label me-4" for="radioStatusIng">

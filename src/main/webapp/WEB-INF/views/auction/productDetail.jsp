@@ -150,7 +150,7 @@ input[id="tab03"]:checked ~ .con3 {
 	                	
 						<div class="row mt-5">
 							<div class="col fw-bold fs-4">
-								입찰 실시간 정보
+								입찰 실시간 현황
 							</div>
 						</div>		
 						
@@ -205,7 +205,9 @@ input[id="tab03"]:checked ~ .con3 {
                 			
 		           			<%-- 남은 시간 시작 --%>
 		           			<div class="row mt-4 mb-5">
-		           				<div class="col"></div>
+		           				<div class="col">
+		           					
+		           				</div>
 		           			</div>
 		           			
 		                	<div class="row mt-2 mb-3">
@@ -901,7 +903,7 @@ function showAuctionInfo() {
             
             const titleRow = document.createElement("div");
             titleRow.classList.add("row");
-            titleRow.classList.add("mt-2");
+            titleRow.classList.add("mt-3");
             titleRow.classList.add("ms-1");
             
             const titleCol =  document.createElement("div");
@@ -1543,6 +1545,12 @@ function updateAuctionCountDown() {
  	  
  	  countdownResult = countdownFromStartDate(startDate);
    }
+     
+     const timeIcon = document.createElement("i");
+     timeIcon.classList.add("bi", "bi-clock", "me-3", "fs-2");
+     timeIcon.style.position = "relative";
+     timeIcon.style.bottom = "3px";
+     remainTimeCol.appendChild(timeIcon);
    
 	  // 카운트다운
      // 카운트다운
@@ -1687,13 +1695,12 @@ function showAuctionStatusTitle() {
    const remainTimeCol = document.createElement("div");
    remainTimeCol.classList.add("col", "fw-bold");
    
+   
    // 타임어택 ID 부여
    remainTimeCol.id = "timeAttack";
    
-   //const timeIcon = document.createElement("span");
-   //timeIcon.id = "timeIcon";
+ 
    
-   //remainTimeCol.appendChild(timeIcon);
    //remainTimeRow.appendChild(timeIconCol);
    remainTimeRow.appendChild(remainTimeCol);   
    
@@ -1701,9 +1708,12 @@ function showAuctionStatusTitle() {
     
    const statusRow = document.createElement("div");
    statusRow.classList.add("row");
+
     
    const statusCol = document.createElement("div");
    statusCol.classList.add("col", "mt-4", "fs-3", "border", "border-1", "rounded-4", "text-center", "p-2");
+   
+   //statusCol.appendChild(timeIcon);
    // 경매 상태에 ID 부여
    statusCol.id = "statusTitle";
    
@@ -2612,10 +2622,10 @@ window.addEventListener("DOMContentLoaded", function(){
    
     refreshMyHeart();
     
-    setInterval(reloadChatList, 100);
+    //setInterval(reloadChatList, 100);
     setInterval(getCurrentPrice, 100);
  
-    //reloadChatList();
+    reloadChatList();
 
     showInputBidBox(); // 입찰 버튼 기본 설정 보여주기
 
