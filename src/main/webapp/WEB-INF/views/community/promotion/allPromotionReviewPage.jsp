@@ -82,9 +82,9 @@
 		<div class = "row mt-5">
 			<div class = "col"> <!-- 리스트 카테고리 -->
 				<ul class="list-group">
-				  <li class="list-group-item border border-0 py-2"><a class="btn fs-5 text fw-bold py-1" href="./promotionReviewMainPage">Main</a></li>
+				  <li class="list-group-item border border-0 py-2"><a class="btn fs-5 text fw-bold py-1" href="#">전체보기</a></li>
 				  <li class="list-group-item border border-0 py-2"><a class="btn fs-5 text fw-bold py-1" href="#collapse1" data-bs-toggle="collapse">가구</a></li>
-				  	<div class="collapse" id="collapse1">
+				  	<div>
 						<ul class="list-group ms-4">
 							<li class="list-group-item border-0"><a href="#" class="btn py-0 text-body-secondary">침대</a></li>
 							<li class="list-group-item border-0"><a href="#" class="btn py-0 text-body-secondary">테이블</a></li>
@@ -94,7 +94,7 @@
 					</div>
 					
 				  <li class="list-group-item border border-0 py-2"><a class="btn fs-5 text fw-bold py-1" href="#collapse2" data-bs-toggle="collapse">생활가전</a></li>
-				  	<div class="collapse" id="collapse2">
+				  	<div>
 						<ul class="list-group ms-4">
 							<li class="list-group-item border-0"><a href="#" class="btn py-0 text-body-secondary">커피머신</a></li>
 							<li class="list-group-item border-0"><a href="#" class="btn py-0 text-body-secondary">선풍기</a></li>
@@ -105,7 +105,7 @@
 					</div>
 					
 				  <li class="list-group-item border border-0 py-2"><a class="btn fs-5 text fw-bold py-1" href="#collapse3" data-bs-toggle="collapse">주방가전</a></li>
-				  	<div class="collapse" id="collapse3">
+				  	<div>
 						<ul class="list-group ms-4">
 							<li class="list-group-item border-0"><a href="#" class="btn py-0 text-body-secondary">레인지</a></li>
 							<li class="list-group-item border-0"><a href="#" class="btn py-0 text-body-secondary">밥솥</a></li>
@@ -114,14 +114,14 @@
 					</div>
 					
 				  <li class="list-group-item border border-0 py-2"><a class="btn fs-5 text fw-bold py-1" href="#collapse4" data-bs-toggle="collapse">전자기기</a></li>
-				  	<div class="collapse" id="collapse4">
+				  	<div>
 						<ul class="list-group ms-4">
 							<li class="list-group-item border-0"><a href="#" class="btn py-0 text-body-secondary">노트북</a></li>
 							<li class="list-group-item border-0"><a href="#" class="btn py-0 text-body-secondary">태블릿pc</a></li>
 							<li class="list-group-item border-0"><a href="#" class="btn py-0 text-body-secondary">프로젝터</a></li>
 							<li class="list-group-item border-0"><a href="#" class="btn py-0 text-body-secondary">스피커</a></li>
 						</ul>
-					</div>
+					</div> 
 				</ul>
 			</div>
 			<!--  리뷰 -->

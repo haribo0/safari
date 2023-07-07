@@ -48,14 +48,14 @@
 			</div>
 			
 			
-			<div class="col mt-5"> <!-- 2023-07-01 시욱수정 -->
+			<div class="col mt-5 me-5"> <!-- 2023-07-01 시욱수정 -->
 							
 				<h4 class="ps-4 ms-4 mt-3 mb-4 fw-regular">대시보드 </h4> <!-- 2023-07-01 시욱수정 -->
 
 
 				<div class="row mt-5 ms-4"> <!-- 2023-07-01 시욱수정 -->
 					<div class="col">
-						<div class="card" >
+						<div class="card shadow-sm" >
 						  <div class="card-body">
 						    <h5 class="fs-5 ms-2 fw-bold"> 월별 주문 </h5>
 						    <hr class="border">
@@ -67,7 +67,7 @@
 					</div>
 					
 					<div class="col">
-						<div class="card" >
+						<div class="card shadow-sm" >
 						  <div class="card-body">
 						    <h5 class="fs-5 ms-2 fw-bold"> 월간 매출액 </h5>
 						    <hr class="border">
@@ -77,12 +77,12 @@
 						
 					</div>
 					
-					<div class="col-3 px-4">
-						<div class="card px-3" >
+					<div class="col-3" >
+						<div class="card shadow-sm" >
 						  <div class="card-body">
-						    <h5 class="fs-5 ps-0 fw-bold">고객 성별 비율 </h5>
+						    <h5 class="fs-5 ms-2 fw-bold">고객 성별 비율 </h5>
 						    <hr class="border">
-						    <canvas id="pieChart"></canvas>
+						    <canvas id="pieChart" style="max-height: 253px"></canvas>
 						  </div>
 						</div>
 					</div>
@@ -91,10 +91,14 @@
 					
 				</div>
 				
-				<div class="row mt-5 ms-4"> <!-- 2023-07-01 시욱수정 -->
+				
+				
+				
+				
+				<div class="row mt-4 ms-4"> <!-- 2023-07-01 시욱수정 -->
 				
 					<div class="col-2">
-						<div class="card" >
+						<div class="card shadow-sm" >
 						  <div class="card-body ms-2">
 						    <h5 class="fs-5  fw-bold"> 최근 </h5>
 						    <hr class="border">
@@ -126,7 +130,7 @@
 					</div>
 					
 					<div class="col">
-						<div class="card" >
+						<div class="card shadow-sm" >
 						  <div class="card-body">
 						  	<div class="row">
 						    	<h5 class="fs-5 col ms-2 fw-bold"> 주문 </h5>
@@ -150,7 +154,7 @@
 					</div>
 					
 					<div class="col">
-						<div class="card" >
+						<div class="card shadow-sm" >
 						  <div class="card-body">
 						  	<div class="row">
 						   	 	<h5 class="fs-5 col ms-2 fw-bold"> 반품 </h5>

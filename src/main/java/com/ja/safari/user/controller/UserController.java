@@ -11,6 +11,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.ja.safari.auction.service.AuctionServiceImpl;
+import com.ja.safari.cs.service.CsServiceImpl;
+import com.ja.safari.dto.CsEmpDto;
 import com.ja.safari.dto.UserDto;
 import com.ja.safari.user.service.UserServiceImpl;
 
@@ -23,6 +25,9 @@ public class UserController {
 	
 	@Autowired
 	private AuctionServiceImpl auctionService;
+	
+	@Autowired
+	private CsServiceImpl csService;
 	
 
 	/*
@@ -39,6 +44,7 @@ public class UserController {
 	@RequestMapping("joinPage")
 	public String joinPage() {
 		
+		
 		return "/main/joinPage";
 	}
 	
@@ -51,7 +57,12 @@ public class UserController {
 	
 	// 주소관리|마이페이지
 	@RequestMapping("myAddressPage")
-	public String myAddressPage() {
+	public String myAddressPage(HttpSession session) {
+		
+		UserDto sessionUser = (UserDto)session.getAttribute("sessionUser");
+		if(sessionUser==null) {
+			return "redirect:../user/loginPage";
+		}
 		
 		return "user/myAddressPage";
 	}
@@ -61,6 +72,9 @@ public class UserController {
 	public String myOrderListPage(HttpSession session, Model model) {
 		
 		UserDto sessionUser = (UserDto)session.getAttribute("sessionUser");
+		if(sessionUser==null) {
+			return "redirect:../user/loginPage";
+		}
 		
 		List<Map<String, Object>> rentalOrderDtoList = userService.getRentalOrderedList(sessionUser.getId());
 		
@@ -76,20 +90,51 @@ public class UserController {
 		return "/user/myCoinPage";
 	}
 	
-	// 1대1문의 | 마이페이지 - cs 
-	@RequestMapping("myPageInquiries")
-	public String myPageInquiries(HttpSession session, Model model) {
+	// 1대1문의 | 마이페이지
+	@RequestMapping("myInquiryPage")
+	public String myInquiryPage(HttpSession session, Model model) {
 		
 		UserDto sessionUser = (UserDto)session.getAttribute("sessionUser");
+		if(sessionUser==null) {
+			return "redirect:../user/loginPage";
+		}
 		
 		List<Map<String, Object>> rentalOrderDtoList = userService.getRentalOrderedList(sessionUser.getId());
 		
 		model.addAttribute("rentalOrderDtoList",rentalOrderDtoList);
 		
-		return "user/myPageQna";
+		return "user/myInquiryPage";
 	}
 	
+	// 1대1문의 | 마이페이지 - cs 
+	@RequestMapping("myInquiryPostPage")
+	public String myInquiryPostPage(HttpSession session, Model model) {
+		
+		UserDto sessionUser = (UserDto)session.getAttribute("sessionUser");
+		if(sessionUser==null) {
+			return "redirect:../user/loginPage";
+		}
+		
+		List<Map<String, Object>> rentalOrderDtoList = userService.getRentalOrderedList(sessionUser.getId());
+		
+		model.addAttribute("rentalOrderDtoList",rentalOrderDtoList);
+		
+		return "user/myInquiryPostPage";
+	}
 	
+	// 1대1문의 상세보기 
+	@RequestMapping("myInquiryDetail") 
+	public String myInquiryDetail(HttpSession session, Model model, Integer id){
+		
+		UserDto sessionUser = (UserDto)session.getAttribute("sessionUser");
+		if(sessionUser==null) {
+			return "redirect:../user/loginPage";
+		}
+		
+		model.addAttribute("qna", csService.getQnaCombinedDtoById(id));
+		
+		return "user/myInquiryDetail";
+	}
 	
 	
 	

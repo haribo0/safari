@@ -37,7 +37,7 @@
 	<!-- 헤더 섹션 -->
 	<jsp:include page="../common/header.jsp"></jsp:include>
 	<!-- 헤더 섹션 -->
-	
+
 	<!-- 마이페이지 상단 블럭 -->
 	<jsp:include page="../common/myPageTop.jsp"></jsp:include>
 	<!-- 마이페이지 상단 블럭 -->

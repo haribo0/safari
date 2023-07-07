@@ -63,7 +63,7 @@
 			
 			<div class="col ms-4 mt-5">
 		    	
-		    	<h4 class="ps-4  mt-3 mb-4 fw-regular">상품 관리</h4>
+		    	<h4 class="ps-4  mt-3 fw-regular">상품 관리</h4>
 
 				<div class="row ms-4">
 					<div class="col">
@@ -526,7 +526,7 @@ function closeModal() {
 	
 function openModal(modalId) {
 	currentModal = document.getElementById(modalId);
-	console.log(currentModal);
+	// console.log(currentModal);
   //const modalElement = document.getElementById();
   const myModal = bootstrap.Modal.getOrCreateInstance(currentModal);
   myModal.show();
@@ -565,9 +565,7 @@ function openNewWindow(url) {
 	  const childWindow = window.open(url, "_blank", windowFeatures);
 	  
 	  // Add an event listener to the child window's unload event
-	  childWindow.addEventListener("unload", function() {
-	      getListUpdated();
-	  });
+	  childWindow.addEventListener("unload", getListUpdated);
 		  
 	  
 	  // Return the child window object
@@ -584,7 +582,7 @@ function processKakaoPay() {
 			const response = JSON.parse(xhr.responseText);
 			
 			const orderId = response.orderId;
-			console.log(response.orderId);
+			//console.log(response.orderId);
 
 			processPayment(orderId);
 			
@@ -657,11 +655,11 @@ function processPayment(orderId) {
 	        
 	       	const tid = response.tid;
 	       	
-	       	console.log("processPayment");
+	       /* 	console.log("processPayment");
 	       	console.log(cid);
 	       	console.log(tid);
 	       	console.log(partner_user_id);
-	       	console.log(partner_order_id);
+	       	console.log(partner_order_id); */
 	       	
 	        saveTidToSession(cid, partner_order_id, partner_user_id, tid, item_name, item_code,response.next_redirect_pc_url);
 	        
@@ -697,7 +695,7 @@ function saveTidToSession(cid,partner_order_id,partner_user_id,tid, item_name, i
     xhr.onreadystatechange = function() {
         if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
             
-        	openNewWindow(next_redirect_pc_url);
+        	const childWindow = openNewWindow(next_redirect_pc_url);
         	
         	
         }
@@ -885,11 +883,11 @@ function getListUpdated() {
 				
 				  // Outer row div
 				  const cardDiv = document.createElement('div');
-				  cardDiv.classList.add('card', 'mt-3', 'mb-3' , 'shadow-sm');
+				  cardDiv.classList.add('card', 'mt-3', 'mb-3' );
 				
 				  // Outer row div
 				  const rowDiv = document.createElement('div');
-				  rowDiv.classList.add('row', 'py-3', 'text-center');
+				  rowDiv.classList.add('row', 'py-2', 'text-center');
 
 				  // col-1
 				  const col1Div = document.createElement('div');
@@ -903,7 +901,7 @@ function getListUpdated() {
 
 				  
 				  const chooseElement = document.createElement('div');
-				  chooseElement.classList.add('btn', 'btn-dark', 'px-3');
+				  chooseElement.classList.add('btn', 'btn-sm', 'btn-dark');
 				  chooseElement.dataset.index = idx++;
 				  chooseElement.dataset.productId = map.product.id;
 				  chooseElement.dataset.bsToggle = 'collapse';
@@ -915,10 +913,10 @@ function getListUpdated() {
 				  
 				  if (map.ads) {
 				    chooseElement.classList.replace('btn-dark', 'btn-outline-secondary');
-				    chooseElement.classList.add('btn-disalbed');
+				    chooseElement.classList.add('btn-disalbed', 'px-2');
 				    chooseElement.innerHTML =  '<i class="bi bi-badge-ad"></i> 광고중';
 				  } else {
-				    chooseElement.classList.replace('px-3', 'px-4');
+				    chooseElement.classList.add('px-3');
 				    chooseElement.innerHTML =  '<i class="bi bi-badge-ad"></i> 추가';
 
 				  }

@@ -14,6 +14,7 @@ import com.ja.safari.dto.AuctionItemChatroomDto;
 import com.ja.safari.dto.AuctionItemDto;
 import com.ja.safari.dto.AuctionItemImgDto;
 import com.ja.safari.dto.AuctionItemLikeDto;
+import com.ja.safari.dto.AuctionKakaoPayApproveDto;
 import com.ja.safari.dto.ProductMainCategoryDto;
 import com.ja.safari.dto.ProductSubCategoryDto;
 import com.ja.safari.dto.UserDto;
@@ -501,6 +502,30 @@ public class AuctionServiceImpl {
 	}
 	
 	
+	 // 마이페이지 - 내가 입찰한 기록 조회
+	public List<AuctionItemDto> getMyBidList(int userBuyerId) {
+		return auctionSqlMapper.getMyBidList(userBuyerId);
+	}
+	
+	// 마이페이지 - 낙찰 기록 조회
+	public List<AuctionBidDto> getMySueecssfulBidList(int userBuyerId) {
+		return auctionSqlMapper.getMySueecssfulBidList(userBuyerId);
+	}
+	
+	// 마이페이지 - 찜 목록 조회
+	public List<AuctionItemDto> getMyAuctionWishList(int userBuyerId) {
+		return auctionSqlMapper.getMyAuctionWishList(userBuyerId);
+	}
+	
+	// 경매 카카오페이 결제 정보 저장
+	public void saveAuctionKakaoPayInfo(AuctionKakaoPayApproveDto auctionKakaoPayApproveDto) {
+		auctionSqlMapper.saveAuctionKakaoPayInfo(auctionKakaoPayApproveDto);
+	}
+	
+	// 경매 카카오페이 결제 정보 조회 (수정해야함)
+	public AuctionKakaoPayApproveDto getAuctionKakaoPayInfo(int id) {
+		return auctionSqlMapper.getAuctionKakaoPayInfo(id);
+	}
 	
 	
 }

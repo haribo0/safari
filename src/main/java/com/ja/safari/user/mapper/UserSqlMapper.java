@@ -2,8 +2,10 @@ package com.ja.safari.user.mapper;
 
 import java.util.List;
 
+import com.ja.safari.dto.CsQnaDto;
 import com.ja.safari.dto.RentalOrderDto;
 import com.ja.safari.dto.UserAddressDto;
+import com.ja.safari.dto.UserCoinDto;
 import com.ja.safari.dto.UserDto;
 
 public interface UserSqlMapper {
@@ -25,7 +27,12 @@ public interface UserSqlMapper {
 
 	//렌탈 리스트 불러오기
 	public List<RentalOrderDto> selectRentalOrderedListById(int id);
+
+	// 1대1 문의 
+	public void postInquiry(CsQnaDto inquiry);
 	
+	// user coin insert
+	public void insertUserCoin(UserCoinDto userCoinDto);
 
 		
 	

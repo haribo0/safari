@@ -19,6 +19,13 @@ public class AuctionItemDto {
 	private Date end_date;
 	private Date reg_date;
 	
+	// 조인
+	private int bid_price;
+	private String auction_item_img_link;
+	private String main_category_name;
+	private String sub_category_name;
+	
+	
 	public AuctionItemDto() {
 	}
 
@@ -126,4 +133,42 @@ public class AuctionItemDto {
 	}
 
 
+
+
+	// 조인
+	public int getBid_price() {
+		return bid_price;
+	}
+
+	public void setBid_price(int bid_price) {
+		this.bid_price = bid_price;
+	}
+
+	public String getAuction_item_img_link() {
+		return auction_item_img_link;
+	}
+
+	public void setAuction_item_img_link(String auction_item_img_link) {
+		this.auction_item_img_link = auction_item_img_link;
+	}
+
+	public String getMain_category_name() {
+		return main_category_name;
+	}
+
+	public void setMain_category_name(String main_category_name) {
+		this.main_category_name = main_category_name;
+	}
+
+	public String getSub_category_name() {
+		return sub_category_name;
+	}
+
+	public void setSub_category_name(String sub_category_name) {
+		this.sub_category_name = sub_category_name;
+	}
+	
+	
+	
+	
 }

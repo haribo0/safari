@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.ja.safari.cs.service.CsServiceImpl;
 import com.ja.safari.dto.CsEmpDto;
+import com.ja.safari.dto.CsQnaDto;
 
 @RestController
 @RequestMapping("/cs/*")
@@ -125,6 +126,68 @@ public class CsRestController {
 		return map;
 	}
 	
+	// 직원아이디로 문의 내역 가져오기 + 처리되지 않은 문의 개수 
+	@RequestMapping("getInquiryListByEmpId")
+	public  Map<String, Object> getInquiryListByEmpId(HttpSession session) {
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		CsEmpDto empUser = (CsEmpDto) session.getAttribute("empUser");
+		if(empUser == null) {
+			map.put("result", "fail");
+			map.put("reason", "login required");
+			return map;
+		}
+		
+		map.put("result", "success");
+		map.put("list", csService.getInquiryListByEmpId(empUser.getId()));
+		map.put("count", csService.getUnansweredInquiryCount(empUser.getId()));
+		
+		return map;
+	}
+	
+	// 문의 내역 1개 가져오기
+	@RequestMapping("getInquirDetailById")
+	public  Map<String, Object> getInquirDetailById(HttpSession session, Integer id) {
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		CsEmpDto empUser = (CsEmpDto) session.getAttribute("empUser");
+		if(empUser == null) {
+			map.put("result", "fail");
+			map.put("reason", "login required");
+			return map;
+		}
+		
+		
+		map.put("result", "success");
+		map.put("qna", csService.getQnaCombinedDtoById(id));
+		
+		return map;
+	}
+	
+	
+	// 문의 답글 저장 
+	@RequestMapping("saveQnaReply")
+	public  Map<String, Object> saveQnaReply(HttpSession session, CsQnaDto qnaDto) {
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		CsEmpDto empUser = (CsEmpDto) session.getAttribute("empUser");
+		if(empUser == null) {
+			map.put("result", "fail");
+			map.put("reason", "login required");
+			return map;
+		}
+		
+		csService.saveQnaReply(qnaDto);
+		
+		map.put("result", "success");
+		
+		return map;
+	}
+	
+	
 	@RequestMapping("changeSchedule")
 	public  Map<String, Object> changeSchedule(HttpSession session, String[] days, Integer startTime, Integer endTime, Integer empId) {
 		
@@ -174,8 +237,6 @@ public class CsRestController {
 			map.put("reason", "login required");
 			return map;
 		}
-		
-		
 		
 		map.put("result", "success");
 		

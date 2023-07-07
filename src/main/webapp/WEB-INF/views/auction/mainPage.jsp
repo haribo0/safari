@@ -202,40 +202,49 @@ function updateAuctionCountDown(id) {
 	  	     
 	  	     auctionTimeRow.appendChild(auctionTimeCol);
 	  	     
-		       	const remainTimeRow = document.createElement("div");
-		       	remainTimeRow.classList.add("row");
-		        remainTimeRow.classList.add("mt-2");
+	       	const remainTimeRow = document.createElement("div");
+	       	remainTimeRow.classList.add("row");
+	        remainTimeRow.classList.add("mt-2");
+	        
+	        const remainTimeCol = document.createElement("div");
+	        remainTimeCol.classList.add("col", "fs-5");
 		        
-		        const remainTimeCol = document.createElement("div");
-		        remainTimeCol.classList.add("col", "fs-5");
 		        
-		        const spanTime1 = document.createElement("span");
-		        if (auctionCountDown.days >= 1) {
-				     spanTime1.innerText = auctionCountDown.days + "일 ";
-		        } else {
-		        	spanTime1.innerText = "";
-		        }
 		        
-		       	
-		        const spanTime2 = document.createElement("span");
-		       
-		       	spanTime2.innerText = ("0" + auctionCountDown.hours).slice(-2) + ":";
-		       	
-		        const spanTime3 = document.createElement("span");
-		       	spanTime3.innerText = ("0" + auctionCountDown.minutes).slice(-2) + ":";
-		       	
-		        const spanTime4 = document.createElement("span");
-		       	spanTime4.innerText =("0" + auctionCountDown.seconds).slice(-2);
-		       	
-		       	remainTimeCol.appendChild(spanTime1);
-		       	remainTimeCol.appendChild(spanTime2);
-		       	remainTimeCol.appendChild(spanTime3);
-		       	remainTimeCol.appendChild(spanTime4);
+	         if (auctionCountDown.days > 0) {
+		            const spanTime1 = document.createElement("span");
+		            spanTime1.classList.add("fw-bold");
+		            spanTime1.innerText = auctionCountDown.days + "일 ";  
+		            remainTimeCol.appendChild(spanTime1);
+	         	}
+	        
+	         if (auctionCountDown.hours > 0) {
+	              const spanTime2 = document.createElement("span");
+	              spanTime2.classList.add("fw-bold");
+	              spanTime2.innerText = auctionCountDown.hours + "시간 ";
+	              remainTimeCol.appendChild(spanTime2);
+	            }
+	         if (auctionCountDown.minutes > 0) {
+	              const spanTime3  = document.createElement("span");
+	              spanTime3.classList.add("fw-bold");
+	              spanTime3.innerText = auctionCountDown.minutes + "분 ";
+	          	  remainTimeCol.appendChild(spanTime3);
+	            }		         
+
+		       const spanTime4 = document.createElement("span");
+		       spanTime4.classList.add("fw-bold");
+		       spanTime4.innerText = auctionCountDown.seconds + "초 ";      
+		              
+
+		       remainTimeCol.appendChild(spanTime4);
 		        
-		       	remainTimeRow.appendChild(remainTimeCol);
+		        
+		   
+		        
+		       remainTimeRow.appendChild(remainTimeCol);
 		       	
-		       	countDownTableBox.appendChild(auctionTimeRow);	
-		       	countDownTableBox.appendChild(remainTimeRow);	
+		       countDownTableBox.appendChild(auctionTimeRow);	
+		       countDownTableBox.appendChild(remainTimeRow);	
 		       	
 		       	
 		       	
@@ -296,7 +305,7 @@ function reloadAuctionList(mainCategoryId, subCategoryId) {
 	            	
 	            	// 왼쪽 화면 시작
 	            	const leftCol = document.createElement("div");
-	            	leftCol.classList.add("col-9", "ms-5", "mt-3", "mb-3");
+	            	leftCol.classList.add("col-8", "ms-5", "mt-3", "mb-3");
 	            	
 	            	const leftRow = document.createElement("div");
 	            	leftRow.classList.add("row");

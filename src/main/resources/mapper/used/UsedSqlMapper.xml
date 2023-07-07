@@ -309,6 +309,47 @@
 	SELECT  * FROM product_request WHERE product_id=#{productId} AND user_id=#{requesterId}
 </select>
 
+<insert id="saveOrderAndPaymentInfo">
+	INSERT INTO product_chat VALUES(
+	used_kakao_payment_seq.nextval,
+	#{partner_order_id},
+	#{partner_user_id},
+	#{cid},
+	#{tid},
+	#{pg_token},
+	#{item_name},
+	#{item_code},
+	#{amount},
+	#{payment_method_type},
+	SYSDATE
+)
+	
+</insert>
+
+<!-- 결제 주문 저장 -->
+<insert id="insertUsedPayment">
+	INSERT INTO used_kakao_payment VALUES (
+		used_kakao_payment_seq.nextval,
+		#{partner_order_id},
+		#{partner_user_id},
+		#{cid},
+		#{tid},
+		#{pg_token},
+		#{item_name},
+		#{item_code},
+		#{amount},
+		#{payment_method_type},
+		SYSDATE
+	)
+</insert>
+
+<!-- 결제 dto -->
+<select id="getUsedPaymentByOrderId" resultType="com.ja.safari.dto.UsedKaKaoPayApproveDto">
+	SELECT *
+	FROM used_kakao_payment
+	WHERE partner_order_id = #{orderId}
+</select>
+
 
 
 

@@ -278,18 +278,17 @@
 						  row1col3.textContent = month+"월 "+ day+"일";  
 		  			  }
 	  				  
-	  				  
-	  				 /* row1col3.textContent = data.lastChatDate; */
 	  			  }
 	  			  
 	  			  
 	  			  const row2 = document.createElement('div');
-	  			  row2.className = 'row';
 	  			  if(data.chatContent==null || data.chatContent===''){
 	  				row2.textContent = ' ';
 	  				row2.className = 'mt-3'
 	  			  }else{
+	  				row2.className = 'row text-truncate d-inline-block';
 	  				row2.textContent = data.chatContent;
+	  				row2.style.maxWidth = '200px';
 	  			  }
 	  			  
 	  			  
@@ -373,7 +372,7 @@
 		textareaBox.addEventListener("keyup", keyUpEvent);
 		
 		// 전송버튼 누르면 해당 메소드 불러오기 
-		sendBox.setAttribute("onclick", "insertContent("+requestId+","+receiverId+")")
+		sendBox.setAttribute("onclick", "insertContent("+requestId+","+receiverId+")");
 		
 		// 3초마다 채팅 업로드 
 		if(intervalHandler != null){
@@ -414,6 +413,11 @@
 	function getProductInformation(requestId) {
 		const modalHeaderWrapperBox = document.getElementById('modalHeaderWrapper');
 		modalHeaderWrapperBox.innerHTML = "";
+		let partner_order_id = null; 
+		let partner_user_id = null; 
+		let item_name = null; 
+		let item_code = null;
+		let total_amount = null;
 		
 		const xhr = new XMLHttpRequest();
 		
@@ -454,47 +458,6 @@
 	            
 	            const row2 = document.createElement('div');
 	            row2.classList.add('row', 'mt-2');
-	            /* row2col1 = document.createElement('div');
-	            row2col1.classList.add('col-2', 'btn', 'btn-outline-secondary', 'text-dark', 'me-3', 'ms-2', 'btn-sm', 'p-1');
-				row2col1Icon = document.createElement('i');
-				row2col1Icon.classList.add('bi', 'bi-check-circle-fill');
-				const row2col1Span = document.createElement('span');
-				row2col1Span.classList.add('fw-bold');
-				row2col1Span.innerText = ' 예약하기';
-	            
-	            const row2col2 = document.createElement('div');
-	            row2col2.classList.add('col-2', 'btn', 'btn-outline-secondary', 'text-dark', 'me-3', 'ms-2', 'btn-sm', 'p-1');
-	            const row2col2Icon = document.createElement('i');
-	            row2col2Icon.classList.add('bi', 'bi-check-circle-fill');
-	            const row2col2Span = document.createElement('span');
-	            row2col2Span.classList.add('fw-bold');
-	            row2col2Span.innerText = ' 송금하기';
-
-	            const row2col3 = document.createElement('div');
-	            row2col3.classList.add('col-2', 'btn', 'btn-outline-secondary', 'text-dark', 'btn-sm', 'p-1');
-	            const row2col3Icon = document.createElement('i');
-	            row2col3Icon.classList.add('bi', 'bi-coin');
-	            const row2col3Span = document.createElement('span');
-	            row2col3Span.classList.add('fw-bold');
-	            row2col3Span.innerText = ' 거래완료';
-
-
-	            const row2col4 = document.createElement('div');
-	            row2col4.classList.add('col'); */
-	            
-	            /* row2.appendChild(row2col1);
-	            row2.appendChild(row2col2);
-	            row2.appendChild(row2col3);
-	            row2.appendChild(row2col4);
-	            
-	            row2col1.appendChild(row2col1Icon);
-	            row2col1.appendChild(row2col1Span);
-
-	            row2col2.appendChild(row2col2Icon);
-	            row2col2.appendChild(row2col2Icon);
-
-	            row2col3.appendChild(row2col3Icon);
-	            row2col3.appendChild(row2col3Icon); */
 
 					            
 	            // 예약, 완료, 예약취소, 리뷰 버튼 
@@ -512,23 +475,27 @@
 	    				row2col1Icon = document.createElement('i');
 	    				row2col1Icon.classList.add('bi', 'bi-calendar-check-fill');
 	    				const row2col1Span = document.createElement('span');
-	    				row2col1Span.classList.add('fw-bold');
 	    				row2col1Span.innerText = ' 예약하기';
+	    				// 예약하기 버튼 누르면 해당 메소드 불러오기 
+	    				row2col1Span.setAttribute("onclick", "productRequestStatusReservation("+requestId+")");
+	    				
 	    				const row2col2 = document.createElement('div');
 	    	            row2col2.classList.add('col-2', 'btn', 'btn-outline-secondary', 'text-dark', 'me-3', 'btn-sm', 'p-1');
 	    	            const row2col2Icon = document.createElement('i');
 	    	            row2col2Icon.classList.add('bi', 'bi-coin');
 	    	            const row2col2Span = document.createElement('span');
-	    	            row2col2Span.classList.add('fw-bold');
-	    	            row2col2Span.innerText = ' 송금하기';
+	    	            row2col2Span.innerText = ' 송금요청';
+	    	            //송금하기  버튼 누르면 해당 메소드 불러오기 
+	    				/* row2col1Span.setAttribute("onclick", "productRequestStatusReservation("+requestId+")"); */
 
 	    	            const row2col3 = document.createElement('div');
 	    	            row2col3.classList.add('col-2', 'btn', 'btn-outline-secondary', 'text-dark', 'btn-sm', 'p-1');
 	    	            const row2col3Icon = document.createElement('i');
 	    	            row2col3Icon.classList.add('bi', 'bi-check-circle-fill');
 	    	            const row2col3Span = document.createElement('span');
-	    	            row2col3Span.classList.add('fw-bold');
 	    	            row2col3Span.innerText = ' 거래완료';
+	    	            // 거래완료 버튼 누르면 해당 메소드 불러오기 
+	    				row2col3Span.setAttribute("onclick", "productRequestStatusComplete("+requestId+")");
 	    	            
 	    	            const row2col4 = document.createElement('div');
 	    	            row2col4.classList.add('col');
@@ -552,23 +519,27 @@
 	    				row2col1Icon = document.createElement('i');
 	    				row2col1Icon.classList.add('bi', 'bi-calendar-check-fill');
 	    				const row2col1Span = document.createElement('span');
-	    				row2col1Span.classList.add('fw-bold');
 	    				row2col1Span.innerText = ' 예약취소';
+	    				// 예약취소 버튼 누르면 해당 메소드 불러오기 
+	    				row2col1Span.setAttribute("onclick", "productRequestStatusCancel("+requestId+")");
+	    				
 	    				const row2col2 = document.createElement('div');
 	    	            row2col2.classList.add('col-2', 'btn', 'btn-outline-secondary', 'text-dark', 'me-3', 'btn-sm', 'p-1');
 	    	            const row2col2Icon = document.createElement('i');
 	    	            row2col2Icon.classList.add('bi', 'bi-coin');
 	    	            const row2col2Span = document.createElement('span');
-	    	            row2col2Span.classList.add('fw-bold');
-	    	            row2col2Span.innerText = ' 송금하기';
+	    	            row2col2Span.innerText = ' 송금요청';
+	    	         // 송금하기 버튼 누르면 해당 메소드 불러오기 
+	    				/* row2col3Span.setAttribute("onclick", "productRequestStatusComplete("+requestId+")"); */
 
 	    	            const row2col3 = document.createElement('div');
 	    	            row2col3.classList.add('col-2', 'btn', 'btn-outline-secondary', 'text-dark', 'btn-sm', 'p-1');
 	    	            const row2col3Icon = document.createElement('i');
 	    	            row2col3Icon.classList.add('bi', 'bi-check-circle-fill');
 	    	            const row2col3Span = document.createElement('span');
-	    	            row2col3Span.classList.add('fw-bold');
 	    	            row2col3Span.innerText = ' 거래완료';
+	    	         // 거래완료 버튼 누르면 해당 메소드 불러오기 
+	    				row2col3Span.setAttribute("onclick", "productRequestStatusComplete("+requestId+")");
 	    	            
 	    	            const row2col4 = document.createElement('div');
 	    	            row2col4.classList.add('col');
@@ -593,7 +564,6 @@
 	    				row2col1Icon = document.createElement('i');
 	    				row2col1Icon.classList.add('bi', 'bi-chat-dots-fill');
 	    				const row2col1Span = document.createElement('span');
-	    				row2col1Span.classList.add('fw-bold');
 	    				row2col1Span.innerText = ' 리뷰쓰기';
 	    	            
 	    	            const row2col4 = document.createElement('div');
@@ -611,13 +581,20 @@
 	            	// 거래요청한 사람인 경우 : 소비자 
 	            }else{
 	            	if(response.productRequestDto.status == '거래요청' && response.reservationCount == 0 && response.completeCount == 0){
-	    	            row2col1 = document.createElement('div');
+	            		partner_order_id = response.productRequestDto.id; 
+	    				partner_user_id = response.productRequestDto.user_id; 
+	    				item_name = response.map.productDto.title; 
+	    				item_code = response.productRequestDto.product_id;
+	    				total_amount = response.map.productDto.price;
+	            		
+	            		row2col1 = document.createElement('div');
 	    	            row2col1.classList.add('col-2', 'btn', 'btn-outline-secondary', 'text-dark', 'me-3', 'ms-2', 'btn-sm', 'p-1');
 	    				row2col1Icon = document.createElement('i');
 	    				row2col1Icon.classList.add('bi', 'bi-coin');
 	    				const row2col1Span = document.createElement('span');
-	    				row2col1Span.classList.add('fw-bold');
 	    				row2col1Span.innerText = ' 송금하기';
+	    				row2col1Span.setAttribute("onclick", "processPayment("+partner_order_id+","+partner_user_id+",'"+item_name+"',"+item_code+","+total_amount+")");
+	    				
 	    	            const row2col4 = document.createElement('div');
 	    	            row2col4.classList.add('col');
 	    	            
@@ -628,13 +605,20 @@
 	    	            row2col1.appendChild(row2col1Span);
 
 	            	}else if(response.productRequestDto.status == '예약중'){
+	            		partner_order_id = response.productRequestDto.id; 
+	    				partner_user_id = response.productRequestDto.user_id; 
+	    				item_name = response.map.productDto.title; 
+	    				item_code = response.productRequestDto.product_id;
+	    				total_amount = response.map.productDto.price;
+	    				
 	            		row2col1 = document.createElement('div');
 	    	            row2col1.classList.add('col-2', 'btn', 'btn-outline-secondary', 'text-dark', 'me-3', 'ms-2', 'btn-sm', 'p-1');
 	    				row2col1Icon = document.createElement('i');
 	    				row2col1Icon.classList.add('bi', 'bi-coin');
 	    				const row2col1Span = document.createElement('span');
-	    				row2col1Span.classList.add('fw-bold');
 	    				row2col1Span.innerText = ' 송금하기';
+	    				row2col1Span.setAttribute("onclick", "processPayment("+partner_order_id+","+partner_user_id+","+item_name+","+item_code+","+total_amount+")");
+	    				
 	    	            const row2col4 = document.createElement('div');
 	    	            row2col4.classList.add('col');
 	    	            
@@ -650,7 +634,6 @@
 	    				row2col1Icon = document.createElement('i');
 	    				row2col1Icon.classList.add('bi', 'bi-chat-dots-fill');
 	    				const row2col1Span = document.createElement('span');
-	    				row2col1Span.classList.add('fw-bold');
 	    				row2col1Span.innerText = ' 리뷰쓰기';
 	    	            
 	    	            const row2col4 = document.createElement('div');
@@ -831,7 +814,7 @@ function reloadChatList(requestId) {
 				  const row1 = document.createElement('div');
 				  row1.classList.add('row', 'mt-1');
 				  
-				  if(mySessionId!=data.receiver_id){
+				  if(mySessionId!=data.receiver_id && data.receiver_id != 0){
 					  const col1 = document.createElement('div');
 					  col1.classList.add('col', 'd-flex', 'flex-column', 'justify-content-end');
 					  const col1row1 = document.createElement('div');
@@ -860,7 +843,7 @@ function reloadChatList(requestId) {
 					  col1.appendChild(col1row2);
 					  
 					  getChatbox.appendChild(row1);
-				  }else {
+				  }else if(mySessionId==data.receiver_id && data.receiver_id != 0) {
 					  const colIcon = document.createElement('div');
 					  colIcon.classList.add('col-1', 'ms-2', 'text-left');
 
@@ -897,6 +880,16 @@ function reloadChatList(requestId) {
 					  
 					  getChatbox.appendChild(row1);
 				  }
+				  // 송금 받았을 때 
+				  else{
+					  const col3 = document.createElement('div');
+					  col3.classList.add('col','text-center','fw-bold');
+					  col3.innerText = data.content;
+					  
+					  row1.appendChild(col3);
+					  
+					  getChatbox.appendChild(row1);
+				  }
 			}
 			// 채팅 화면 마지막으로 맞추기 
 			getChatbox.scrollTop = getChatbox.scrollHeight;
@@ -921,14 +914,138 @@ function updateIsRead(requestId) {
     //get
 	xhr.open("get", "./updateIsRead?requestId="+requestId);
 	xhr.send();
-    
 }
+
+//예약중으로 상태 업데이트 
+function productRequestStatusReservation(requestId) {
+	
+	const xhr = new XMLHttpRequest();
+	
+	xhr.onreadystatechange = function(){
+        if(xhr.readyState == 4 && xhr.status == 200){
+            const response = JSON.parse(xhr.responseText);
+            getProductInformation(requestId);
+        }
+    }
+    //get
+	xhr.open("get", "./productRequestStatusReservation?requestId="+requestId);
+	xhr.send();
+}
+
+//예약취소해서 거래요청으로 상태 업데이트 
+function productRequestStatusCancel(requestId) {
+	
+	const xhr = new XMLHttpRequest();
+	
+	xhr.onreadystatechange = function(){
+        if(xhr.readyState == 4 && xhr.status == 200){
+            const response = JSON.parse(xhr.responseText);
+            getProductInformation(requestId);
+        }
+    }
+    //get
+	xhr.open("get", "./productRequestStatusCancel?requestId="+requestId);
+	xhr.send();
+}
+
+//거래완료로 상태 업데이트 
+function productRequestStatusComplete(requestId) {
+	
+	const xhr = new XMLHttpRequest();
+	
+	xhr.onreadystatechange = function(){
+        if(xhr.readyState == 4 && xhr.status == 200){
+            const response = JSON.parse(xhr.responseText);
+            getProductInformation(requestId);
+        }
+    }
+    //get
+	xhr.open("get", "./productRequestStatusComplete?requestId="+requestId);
+	xhr.send();
+}
+
+//결제하기 
+function processPayment(partner_order_id, partner_user_id,item_name,item_code,total_amount) {
+	
+	/* const myModal = bootstrap.Modal.getOrCreateInstance('#adsModal');
+	myModal.hide(); */
+	
+	  const cid = "TC0ONETIME";
+	  /* const partner_order_id = partner_order_id;
+	  const partner_user_id = partner_user_id;
+	  const item_name = item_name;
+	  const item_code = item_code; */
+	  const quantity = 1;
+	  /* const total_amount = total_amount; */
+	  const tax_free_amount = total_amount;
+	  const approval_url = "http://localhost:8080/safari/used/paymentProcess";
+	  const cancel_url = "http://localhost:8080/safari/used/chatList";
+	  const fail_url = "http://localhost:8080/safari/used/paymentFailed";
+	  
+	  // Make an AJAX request to the server to initiate the payment using KakaoPay API
+	  // Replace the URL and other request parameters with your actual API endpoint and data
+	  const xhr = new XMLHttpRequest();
+	  
+	  xhr.onreadystatechange = function() {
+	    if (xhr.readyState === XMLHttpRequest.DONE) {
+	      if (xhr.status === 200) {
+	        // Payment request succeeded
+	        const response = JSON.parse(xhr.responseText);
+	        // Handle the response or redirect the user to the payment page
+	        const tid = response.tid;
+	       	
+	        saveTidToSession(cid, partner_order_id, partner_user_id, tid, item_name, item_code,response.next_redirect_pc_url);
+	        
+	        
+	      } else {
+	        // Payment request failed
+	        // Handle the error or display an error message to the user
+	      }
+	    }
+	  };
+	  
+	  xhr.open("POST", "https://kapi.kakao.com/v1/payment/ready");
+	  xhr.setRequestHeader("Authorization", "KakaoAK 3b87c3c90d2d8e263b4a8ac2422d11ba");
+	  xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded;charset=utf-8");
+	  xhr.send("cid="+cid+"&partner_order_id="+partner_order_id+"&partner_user_id="+partner_user_id+"&item_name="+item_name
+			  +"&item_code="+item_code+"&quantity="+quantity+"&total_amount="+total_amount+"&tax_free_amount="+tax_free_amount
+			  +"&approval_url="+approval_url+"&cancel_url="+cancel_url+"&fail_url="+fail_url);
+}
+
+//Save tid to session using AJAX
+function saveTidToSession(cid,partner_order_id,partner_user_id,tid, item_name, item_code, next_redirect_pc_url) {
+	
+   	console.log("saveTidToSession");
+   /* 	console.log(cid);
+   	console.log(tid);
+   	console.log(partner_user_id);
+   	console.log(partner_order_id);
+   	console.log(next_redirect_pc_url); */
+	
+    const xhr = new XMLHttpRequest();
+
+
+    xhr.onreadystatechange = function() {
+        if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
+            
+        	 /* location.href = response.next_redirect_pc_url; */
+        	 window.open(next_redirect_pc_url, "_blank");
+        	
+        }
+    };
+    
+    xhr.open("POST", "./saveTidToSession");
+    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    xhr.send("cid="+cid+"&partner_order_id="+partner_order_id+"&partner_user_id="+partner_user_id+"&tid="+tid+"&item_name="+item_name+"&item_code="+item_code);
+}
+
 
 //modal 닫을 때
 function modalHide(e) {
 	const myModal = bootstrap.Modal.getOrCreateInstance('#chatModal');
        myModal.hide();
 }
+
 	
 window.addEventListener("DOMContentLoaded", function() {
 	//사실상 시작 시점...
