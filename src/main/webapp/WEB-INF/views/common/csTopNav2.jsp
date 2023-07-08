@@ -30,7 +30,7 @@
 		</li>
 		
 		<li class="nav-item ms-3">
-		  <a class="nav-link" href="#"> 실시간 채팅</a>
+		  <a class="nav-link" href="./liveChat"> 실시간 채팅</a>
 		</li>
 		
 		<c:if test="${!empty empUser && empUser.master == 1}">

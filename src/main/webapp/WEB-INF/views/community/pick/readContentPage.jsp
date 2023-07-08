@@ -50,28 +50,51 @@
 					<div class="row">
 						<div class="col" style="width:990px;"> 
 						
-						<%-- headline --%>	
-						<div class="row">	
-							<div class="col" >
-								<div style="font-size: 24px; font-family: 'Noto Sans', sans-serif;"><strong>${map.pickDto.title }</strong></div>
-								 <strong  style="color: grey; font-size: 12px; font-family: 'Noto Sans', sans-serif;">(프로필사진) ${map.userDto.nickname }</strong>
-								 <div style="color: grey; font-size: 12px; font-family: 'Noto Sans', sans-serif;"><fmt:formatDate value="${map.pickDto.reg_date}" pattern="yyyy.MM.dd"/></div>
-							</div>
-				
-							<div class="col">
-								<div style="display: flex; justify-content: flex-end;">  
-								<c:if test="${sessionUser.id == map.userDto.id}">
-									<a href="/safari/community/pick/updateContentPage/${map.pickDto.id}" class="nav-link px-2 text-body-secondary"><i class="bi bi-pencil-square"></i></a>
-									<a href="/safari/community/pick/deleteContentProcess/${map.pickDto.id}" class="nav-link px-2 text-body-secondary"><i class="bi bi-eraser-fill"></i></a>
-								</c:if><br></div>
-							</div>
-						</div>
-						<%-- headline --%>			
+							<%-- 골라줘요 항목 foreach --%>
+									
+								<div class="align-middle ms-4 me-4 mb-4" style="text-align:start">
+								<hr>
+									
+									<div class="ms-2 me-2" style="font-size: 14px;">
+									
+									<div class="row">
+										<div class="col">
+										<span class="badge rounded-pill text-bg-dark mt-2 me-1 mb-3" style="padding: 6px 10px; font-size: 16px;">골라줘요</span> 
+										 ${map.userDto.nickname }
+										| <i class="bi bi-clock mt-2" style="font-size: 12px;"></i> <fmt:formatDate value="${map.pickDto.reg_date}" pattern="yyyy.MM.dd"/>
+										| views👀 · ${map.pickDto.views}
+										</div>
+										
+										<div class="col">
+											<div style="display: flex; justify-content: flex-end;">  
+												<c:if test="${sessionUser.id == map.userDto.id}">
+													<a href="/safari/community/pick/updateContentPage/${map.pickDto.id}" class="nav-link px-2 text-body-secondary"><i class="bi bi-pencil-square"></i></a>
+													<a href="/safari/community/pick/deleteContentProcess/${map.pickDto.id}" class="nav-link px-2 text-body-secondary"><i class="bi bi-eraser-fill"></i></a>
+												</c:if><br>
+											<%-- 여기에 책갈피(찜) 넣기 --%>
+											</div>
+										</div>
+									</div>
+									
+									<br>
+									
+									<div class="ms-2 me-2">
+										<a class="text-black text-decoration-none" href="/safari/community/pick/readContentPage/${pickDto.pickDto.id}">
+										${map.pickDto.content }</a>
+									<br>
+									</div>
+										
+										<%-- 해시태그 --%>
+										<div class="mt-3">
+											<button type="button" class="btn btn-outline-secondary rounded-pill btn-sm">#해시태그</button>
+											<button type="button" class="btn btn-outline-secondary rounded-pill btn-sm">#해시태그</button>
+											<button type="button" class="btn btn-outline-secondary rounded-pill btn-sm">#해시태그</button>	
+										</div>
+										<%-- 해시태그 --%>
+									</div>
+								</div>
+								<%-- 골라줘요 항목 foreach --%>
 						
-						<%-- content --%>
-						내용: ${map.pickDto.content }<br>
-						<%-- content --%>
-
 						<%-- 좋아요 --%>
 						<br>
 						<div style="text-align: center; font-size: 18px;">
@@ -82,9 +105,12 @@
 						</div>
 						<%-- 좋아요 --%>
 						
+						<div class="align-middle ms-4 me-4 mb-2" style="text-align:start"><hr></div>
+						
+						
 						<%-- 목록으로 버튼 --%>
 						<div class="row">
-							<div class="col text-end ms-auto d-grid">
+							<div class="col text-end d-grid align-middle ms-4 me-4 mb-4">
 								<a href="/safari/community/pick/mainPage" class="nav-link px-2 text-body-secondary"> 목록으로 </a>  
 							</div>
 						</div>
@@ -93,11 +119,12 @@
 								<%-- 댓글작성 --%>
 								<div class="row">
 								<div class="col">
-								<hr>
+								
 								</div>
 								</div>
 								<%-- 댓글작성 --%>
 								
+								<div class="align-middle ms-4 me-4 mb-4" style="text-align:start">
 								<%-- 댓글 폼 --%>
 								<form action="/safari/community/pick/writeCommentProcess/${map.pickDto.id}" method="post">
 									<%-- <input type="hidden" name="user_id" value="${sessionUser.id}">--%>
@@ -142,6 +169,7 @@
 								</div>
 								</div>
 								<%-- 댓글 조회 --%>
+								</div>
 								
 							
 								

@@ -188,6 +188,57 @@ public class CsRestController {
 	}
 	
 	
+	
+	// 직원아이디로 실시간 문의 채팅방 리스트  가져오기 + 처리되지 않은 문의 개수 
+	@RequestMapping("getLiveChatList")
+	public  Map<String, Object> getLiveChatList(HttpSession session) {
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		CsEmpDto empUser = (CsEmpDto) session.getAttribute("empUser");
+		if(empUser == null) {
+			map.put("result", "fail");
+			map.put("reason", "login required");
+			return map;
+		}
+		
+		map.put("result", "success");
+		map.put("list", csService.getCsChatResponseDtoList2ByEmpId(empUser.getId()));
+		map.put("count", csService.getUnfinishedChatCountByEmpId(empUser.getId()));
+		
+		return map;
+	}
+
+	// 직원 메세지 읽음 처리  
+	@RequestMapping("markMsgAsRead")
+	public  Map<String, Object> markMsgAsRead(HttpSession session, Integer chatId) {
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		CsEmpDto empUser = (CsEmpDto) session.getAttribute("empUser");
+		if(empUser == null) {
+			map.put("result", "fail");
+			map.put("reason", "login required");
+			return map;
+		}
+		
+		csService.markMsgAsReadByEmp(chatId);
+		
+		map.put("result", "success");
+		
+		return map;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	@RequestMapping("changeSchedule")
 	public  Map<String, Object> changeSchedule(HttpSession session, String[] days, Integer startTime, Integer endTime, Integer empId) {
 		
@@ -279,7 +330,6 @@ public class CsRestController {
 		} catch (Exception e) {
 		    e.printStackTrace();
 		}
-		
 		
 		return map;
 	}

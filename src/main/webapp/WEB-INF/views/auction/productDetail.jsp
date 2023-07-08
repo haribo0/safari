@@ -6,7 +6,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
 <link rel="stylesheet" href="/safari/resources/style/common.css" type="text/css">
 <link rel="stylesheet" href="/safari/resources/style/auction.css" type="text/css">
 <script type="text/javascript" src="/safari/resources/js/bid.js" ></script>
@@ -46,14 +46,56 @@ li {
 	background-color: #E2E3E5;
 }
 
+input[type="radio"] {
+	
+	display: none;
+}
+.tab_content {font-size:0;}
 
 
+input[type="radio"] + label {
+	display: inline-block;
+	padding: 10px;
+	background: white;
+	width: 250px;
+	border: 0.4px solid #E2E3E5;
+	color: black;
+	font-weight: bold;
+	font-size: 17px;
+	cursor: pointer; /* 마우스가 올라가면 커서를 바꾸는 속성 */
+}
+
+input[type="radio"]:checked + label { /* :checked - 체크가 되었을 때 변화되는 속성*/
+	background: #E2E3E5;
+	color: #000;
+}
+input[id="tab01"]:checked ~ .con1 {
+	display: block; /* 화면에 보이게 설정 */
+}
+input[id="tab02"]:checked ~ .con2 {
+	display: block;
+}
+input[id="tab03"]:checked ~ .con3 {
+	display: block;
+}
+.col-auto-width {
+  display: inline-block;
+  width: auto;
+}
+
+@keyframes blink {
+  0% { opacity: 1; }
+  50% { opacity: 0.3; } /* 연해진 색상을 표현하기 위해 opacity 값을 줄여줍니다 */
+  100% { opacity: 1; }
+}
 </style>
 </head>
 <body>
 	<!-- 헤더 섹션 -->
 	<jsp:include page="../common/header.jsp"></jsp:include>
 	<!-- 헤더 섹션 -->
+	
+	
 	
 	
 	<div class="row mt-4">
@@ -108,7 +150,7 @@ li {
 	                	
 						<div class="row mt-5">
 							<div class="col fw-bold fs-4">
-								입찰 실시간 정보
+								입찰 실시간 현황
 							</div>
 						</div>		
 						
@@ -163,7 +205,9 @@ li {
                 			
 		           			<%-- 남은 시간 시작 --%>
 		           			<div class="row mt-4 mb-5">
-		           				<div class="col"></div>
+		           				<div class="col">
+		           					
+		           				</div>
 		           			</div>
 		           			
 		                	<div class="row mt-2 mb-3">
@@ -859,7 +903,7 @@ function showAuctionInfo() {
             
             const titleRow = document.createElement("div");
             titleRow.classList.add("row");
-            titleRow.classList.add("mt-2");
+            titleRow.classList.add("mt-3");
             titleRow.classList.add("ms-1");
             
             const titleCol =  document.createElement("div");
@@ -1063,7 +1107,7 @@ function showAuctionInfo() {
            threeDaysBeforeStartDate.setDate(startDate.getDate() - 3);
        
            // 경매 판매자의 pk와 현재 접속한 유저의 pk가 일치할 경우 수정, 삭제 버튼 보이게 하기
-           if (sessionId == item.auctionDto.user_seller_id  && nowDate < threeDaysBeforeStartDate) {
+           if (sessionId == item.auctionDto.user_seller_id  /*&& nowDate < threeDaysBeforeStartDate*/) { 
         	   
 		      const modifyButton = document.createElement("input");
 	            modifyButton.type = "button";
@@ -1082,12 +1126,12 @@ function showAuctionInfo() {
 	
 	            productFuncInfoCol.appendChild(modifyButton);
 	            productFuncInfoCol.appendChild(deleteButton);
-	
-	     
-           } else if (nowDate >= startDate && nowDate <= endDate) {
-        	   
-           
            }
+	     
+       /*     } else if (nowDate >= startDate && nowDate <= endDate) {
+        	   
+          
+           } */
    
             
            
@@ -1190,10 +1234,13 @@ function forbidInputBidBoxByMaxBider() {
 	 const inputBidBox = document.getElementById("bidPrice");
 	 const button = document.getElementById("inputBidButton");
 	 
-	
+	 currentStatusBox.style.animation = "";
+	 
   	  if(!button.classList.contains("disabled") && inputBidBox.placeholder != "회원님은 현재 최고입찰자입니다." ) {
     		 
   		 currentStatusBox.innerHTML = "";
+  
+  		 
    		 inputBidBox.innerHTML = "";
    		 button.innerHTML = "";
    		 
@@ -1218,6 +1265,7 @@ function forbidInputBidBoxByMaxBider() {
          awardSpan.appendChild(awardIcon2);
 
          currentStatusBox.style.backgroundColor = "#fcdf03";
+         //currentStatusBox.style.animation = "blink 2s infinite";
 
    		 
    		 currentStatusBox.appendChild(awardSpan);
@@ -1302,6 +1350,7 @@ function renewInputBidBoxIng() {
        trySpan.appendChild(tryIcon2);
 
        currentStatusBox.style.backgroundColor = "#b1f054";
+       currentStatusBox.style.animation = "blink 2s infinite";
 
  		 
  	   currentStatusBox.appendChild(trySpan);	   
@@ -1496,6 +1545,12 @@ function updateAuctionCountDown() {
  	  
  	  countdownResult = countdownFromStartDate(startDate);
    }
+     
+     const timeIcon = document.createElement("i");
+     timeIcon.classList.add("bi", "bi-clock", "me-3", "fs-2");
+     timeIcon.style.position = "relative";
+     timeIcon.style.bottom = "3px";
+     remainTimeCol.appendChild(timeIcon);
    
 	  // 카운트다운
      // 카운트다운
@@ -1640,13 +1695,12 @@ function showAuctionStatusTitle() {
    const remainTimeCol = document.createElement("div");
    remainTimeCol.classList.add("col", "fw-bold");
    
+   
    // 타임어택 ID 부여
    remainTimeCol.id = "timeAttack";
    
-   //const timeIcon = document.createElement("span");
-   //timeIcon.id = "timeIcon";
+ 
    
-   //remainTimeCol.appendChild(timeIcon);
    //remainTimeRow.appendChild(timeIconCol);
    remainTimeRow.appendChild(remainTimeCol);   
    
@@ -1654,9 +1708,12 @@ function showAuctionStatusTitle() {
     
    const statusRow = document.createElement("div");
    statusRow.classList.add("row");
+
     
    const statusCol = document.createElement("div");
    statusCol.classList.add("col", "mt-4", "fs-3", "border", "border-1", "rounded-4", "text-center", "p-2");
+   
+   //statusCol.appendChild(timeIcon);
    // 경매 상태에 ID 부여
    statusCol.id = "statusTitle";
    
@@ -2357,6 +2414,8 @@ function sendMessage() {
 }
 
 
+
+
 //채팅 기록 조회
 function reloadChatList() {
 
@@ -2371,7 +2430,7 @@ function reloadChatList() {
            chatMessageBox.innerHTML = "";
            
          
-          <%--.reverse() --%>
+          
            for(data of response.chatList.reverse()) {
                // 댓글 작성자와 현재 사용자 비교
                let row = "";
@@ -2406,15 +2465,8 @@ function reloadChatList() {
    
 
                    const col2= document.createElement("div");
-                   col2.classList.add("col");
-               
-                   col2.classList.add("speech-bubble");
-                   
-                   col2.classList.add("ms-2");
-                   //col2.style.display = "flex";    // flex 속성 적용
-                  // col2.style.flexGrow = "1";      // flex-grow 속성 적용
-                   //col2.style.fontSize = "14px";
-  
+                   col2.classList.add("col", "speech-bubble", "ms-2");
+              
                    col2.innerText = data.chatDto.content;
 
                    row2.appendChild(col2);
@@ -2445,24 +2497,19 @@ function reloadChatList() {
 
                } else {
                    row = document.createElement("div");
-                   row.classList.add("row");
-                   row.classList.add("mt-2");
+                   row.classList.add("row", "mt-2");
 
                    const col = document.createElement("div");
                    col.classList.add("col");
 
                    const col1 = document.createElement("div");
-                   col1.classList.add("col");
-                   col1.classList.add("me-3");
+                   col1.classList.add("col", "me-3");
 
                    const row1 = document.createElement("div");
-                   row1.classList.add("row");
+                   row1.classList.add("row", "mb-1");
                   
-                   row1.classList.add("mb-1");
-
                    const col2 = document.createElement("div");
-                   col2.classList.add("col");
-                   col2.classList.add("fw-bold");
+                   col2.classList.add("col", "fw-bold");
                    col2.style.fontSize = "14px";
                    
                    col2.innerText = "";
@@ -2475,9 +2522,10 @@ function reloadChatList() {
 
                    const col3 = document.createElement("div");
                    col3.classList.add("col");
-                   col3.style.display = "flex";
-                   col3.style.justifyContent = "end";
-                   col3.classList.add("my-speech-bubble", "me-2");
+                   //col3.style.display = "flex";
+                   //col3.style.justifyContent = "end";
+                   col3.classList.add("my-speech-bubble", "me-2", "d-flex", "justify-content-end");
+                   //col3.style.width = "auto";
                    
                    /*col3.classList.add("text-end");*/
                    col3.innerText = data.chatDto.content;
@@ -2519,7 +2567,7 @@ function reloadChatList() {
    }
    xhr.open("get", "/safari/auction/getChatHistoryInAuctionChatroom?auctionItemId=" + auctionItemId);
    xhr.send();
-}
+} 
 
 
 //스크롤이 맨 아래에 있는지 확인하는 함수
@@ -2574,9 +2622,10 @@ window.addEventListener("DOMContentLoaded", function(){
    
     refreshMyHeart();
     
-    setInterval(reloadChatList, 100);
+    //setInterval(reloadChatList, 100);
     setInterval(getCurrentPrice, 100);
  
+    reloadChatList();
 
     showInputBidBox(); // 입찰 버튼 기본 설정 보여주기
 
@@ -2586,6 +2635,5 @@ window.addEventListener("DOMContentLoaded", function(){
 
 
 </script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
 </body>
 </html>

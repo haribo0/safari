@@ -20,6 +20,7 @@ import com.ja.safari.dto.RentalItemReturnDto;
 import com.ja.safari.dto.RentalMainCategoryDto;
 import com.ja.safari.dto.RentalOrderDto;
 import com.ja.safari.dto.RentalPeriodDiscDto;
+import com.ja.safari.dto.RentalReturnExtraCharge;
 import com.ja.safari.dto.RentalReviewDto;
 import com.ja.safari.dto.RentalSubCategoryDto;
 import com.ja.safari.dto.RentalSurchargeBillDto;
@@ -235,16 +236,12 @@ public class RentalBusinessServiceImpl {
 					status = "반납신청";
 				}
 			} else {
-				// 종료일이 오늘 보다 작으면 
-//				if(rentalOrderDto.getEnd_date().compareTo(currentDate) < 0 ) status = "연체중";
 				// 시작일 이후면
 				if(rentalOrderDto.getStart_date().compareTo(currentDate) < 0 ) status = "대여중";
 				// 다 아니면 
 				else status = "주문완료";
 			}
-			
 			map.put("status", status);
-			
 			list.add(map);
 		}
 		
@@ -296,8 +293,6 @@ public class RentalBusinessServiceImpl {
 			}
 			
 			map.put("status", status);
-			
-			
 			
 //			주문 대여 취소 반납 정산 
 			if(orderStatus.equals("주문") && status.equals("주문완료")) {list.add(map);}
@@ -395,13 +390,6 @@ public class RentalBusinessServiceImpl {
 	
 	
 	
-	
-//	// 상품 아이디와 상태로 리뷰 리스트 가져오기 
-//	public List<RentalReviewDto> getReviewListByProduct(int productId, String status) {
-//		
-//		return rentalSqlMapper.getReviewListByProductIdAndStatus(productId,status);
-//	}
-	
 	// 전체 리뷰 리스트 가져오기 
 	public List<Map<String, Object>> getAllReviews() {
 		List<Map<String, Object>> list = new ArrayList<Map<String,Object>>();
@@ -466,25 +454,6 @@ public class RentalBusinessServiceImpl {
 	
 	
 
-	
-//	// 판매자 아이디로 리뷰 리스트 가져오기 
-//	public List<Map<String, Object>> getItemAndReviewListByUserId(int userId, String status) {
-//		
-//		List<Map<String, Object>> list = new ArrayList<Map<String,Object>>();
-//		for(RentalItemDto rentalItemDto : rentalSqlMapper.getProductListByUserId(userId)) {
-//			Map<String, Object> map = new HashMap<String, Object>();
-//			
-//			map.put("product", rentalItemDto);
-//			map.put("reviewList", rentalSqlMapper.getReviewListByProductIdAndStatus(rentalItemDto.getId(),status));
-//			
-//			list.add(map);
-//		}
-//		
-//		return list;
-//	}
-	
-
-
 	// 주문 배송 완료 처리 
 	public void changeShippingStatus(int orderId) {
 		rentalSqlMapper.changeShippingStatus(orderId);
@@ -543,7 +512,7 @@ public class RentalBusinessServiceImpl {
 	
 	// 반품 후 정산 
 	public void returnAfterCharge(Integer returnId, Integer[] chargeValue, String[] reasonValue) {
-		// 할 일 
+		// TODO : 할 일 -> 각각 배열 말고 dto 리스트로 한번에 가져오기
 		// 1. 먼저 반품 정산서 인서트 후 pk 가지고 정산사유/비용 인서트 
 		
 		
@@ -554,7 +523,12 @@ public class RentalBusinessServiceImpl {
 		
 	}
 	
-	
+	// 주문 완료 프로세스 
+	public void returnComplete(List<RentalReturnExtraCharge> extraChargeList) {
+		// TODO : 1. 추가금 있으면 추가금 인서트  2. 반납/주문 완료 처리 
+		
+		
+	}
 	
 	
 	
@@ -583,6 +557,9 @@ public class RentalBusinessServiceImpl {
 	public List<Map<String, Object>> getRevenueByDay(Integer businessId) {
 		return rentalSqlMapper.getRevenueByDay(businessId);
 	}
+
+	
+	
 
 
 }

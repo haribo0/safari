@@ -108,28 +108,30 @@
 	<select id="getEmployeeWithLeastWorkload" resultType="com.ja.safari.dto.CsEmpDto">
 		
 		<![CDATA[
-			SELECT * FROM (
-				SELECT e.*, rownum rn
-				FROM cs_emp e
-				LEFT JOIN cs_attendance_log al ON e.id = al.emp_id
-				LEFT JOIN (
-				    SELECT emp_id, COUNT(*) AS unanswered_qnas
-				    FROM cs_qna
-				    WHERE qna_reply IS NULL
-				    GROUP BY emp_id
-				) q ON e.id = q.emp_id
-				LEFT JOIN (
-				    SELECT emp_id, COUNT(*) AS open_live_chats
-				    FROM cs_live_chat
-				    WHERE end_date IS NULL
-				    GROUP BY emp_id
-				) lc ON e.id = lc.emp_id
-				WHERE al.time_out IS NULL
-				AND al.time_in IS NOT NULL
-				AND al.time_in > (SYSDATE-2)
-				ORDER BY open_live_chats, unanswered_qnas, e.id
-			) t1
-			WHERE t1.rn=1
+			SELECT t2.* FROM (
+				SELECT t1.*, rownum rn FROM (
+					SELECT e.*, COALESCE(lc.open_live_chats, 0) AS open_live_chats, COALESCE(q.unanswered_qnas, 0) AS unanswered_qnas
+					FROM cs_emp e
+					LEFT JOIN cs_attendance_log al ON e.id = al.emp_id
+					LEFT JOIN (
+					    SELECT emp_id, COUNT(*) AS unanswered_qnas
+					    FROM cs_qna
+					    WHERE qna_reply IS NULL
+					    GROUP BY emp_id
+					) q ON e.id = q.emp_id
+					LEFT JOIN (
+					    SELECT emp_id, COUNT(*) AS open_live_chats
+					    FROM cs_live_chat
+					    WHERE end_date IS NULL
+					    GROUP BY emp_id
+					) lc ON e.id = lc.emp_id
+					WHERE al.time_out IS NULL
+					    AND al.time_in IS NOT NULL
+					    AND al.time_in > (SYSDATE-2)
+					ORDER BY open_live_chats, unanswered_qnas, e.id
+				) t1
+			) t2
+			WHERE t2.rn=1
 		]]>
 		
 	</select>
@@ -194,6 +196,75 @@
 		WHERE id = #{id}
 	</update>
 	
+	<!-- 직원 | 미처리 답변 개수 -->
+	<select id="getLiveChatPk" resultType="int">
+		SELECT cs_live_chat_seq.nextval FROM DUAL
+	</select>
+	
+	<!-- 실시간 문의 시작(저장)  -->
+	<insert id="insertLiveChat">
+		INSERT INTO cs_live_chat VALUES(
+			#{id},
+			#{user_id},
+			#{category_id},
+			#{emp_id},
+			SYSDATE,
+			NULL
+		)
+	</insert>
+	
+	<!-- 실시간 문의 메세지 입력(저장)  -->
+	<insert id="insertLiveChatMsg">
+		INSERT INTO cs_live_chat_msg VALUES(
+			cs_live_chat_msg_seq.nextval,
+			#{chat_id},
+			#{sender},
+			#{msg},
+			SYSDATE,
+			0
+		)
+	</insert>
+		
+	<!-- 실시간 문의 채팅방 리스트 직원 아이디로  가져오기 -->
+	<select id="getLiveChatListByEmpId" resultType="com.ja.safari.dto.CsLiveChatDto">
+		SELECT * FROM cs_live_chat
+		WHERE emp_id = #{empId}
+		ORDER BY id
+	</select>
+	
+	<!-- 실시간 문의 메세지 리스트 가져오기 -->
+	<select id="getLiveChatMsgListByChatId" resultType="com.ja.safari.dto.CsLiveChatMsgDto">
+		SELECT * FROM cs_live_chat_msg
+		WHERE chat_id = #{chatId}
+		ORDER BY id
+	</select>
+	
+	<!-- 종료되지 않은 실시간 문의 카운트 -->
+	<select id="getUnfinishedChatCountByEmpId" resultType="int">
+		SELECT COUNT(*) FROM cs_live_chat
+		WHERE emp_id = #{empId}
+		ORDER BY id
+	</select>
+	
+	<!-- 문의 메세지 읽음 처리 (직원이 읽었을 때 ) -->
+	<update id="markMsgAsReadByEmp">
+		UPDATE cs_live_chat_msg
+		SET
+			is_read = 1
+		WHERE chat_id = #{chatId}
+		AND sender = 1
+	</update>
+	
+	<!-- 문의 메세지 읽음 처리 (유저가 읽었을 때) -->
+	<update id="markMsgAsReadByUser">
+		UPDATE cs_live_chat_msg
+		SET
+			is_read = 1
+		WHERE chat_id = #{chatId}
+		AND sender = 0
+	</update>
+	
+	
 	
 	
 	
@@ -253,6 +324,151 @@
 	</select>
 	<!-- id로 | 1대1문의/유저/직원/카테고리 조인 후 가져오기 | ResultMap -->
 	
+	
+	
+	
+	<!-- 실시간 문의 조인 후 가져오기 | ResultMap -->
+	<resultMap id="csChatCombinedResultMap" type="com.ja.safari.dto.CsChatCombinedDto">
+	  <id property="id" column="id"/>
+	  <result property="reg_date" column="reg_date"/>
+	  <result property="end_date" column="end_date"/>
+		<!-- USER DTO -->
+	  <association property="userDto" javaType="com.ja.safari.dto.UserDto">
+	    <id property="id" column="user_id"/>
+	    <result property="email" column="email"/>
+	    <result property="pw" column="pw"/>
+	    <result property="nickname" column="nickname"/>
+	    <result property="phone" column="phone"/>
+	    <result property="gender" column="gender"/>
+	    <result property="birth" column="birth"/>
+	    <result property="profile_img_link" column="profile_img_link"/>
+	    <result property="reg_date" column="user_reg_date"/>
+	  </association>
+		<!-- CATEGORY DTO -->
+	  <association property="categoryDto" javaType="com.ja.safari.dto.CsCategoryDto">
+	    <id property="id" column="category_id"/>
+	    <result property="category" column="category"/>
+	  </association>
+		<!-- EMP DTO -->
+	  <association property="empDto" javaType="com.ja.safari.dto.CsEmpDto">
+	    <id property="id" column="emp_id"/>
+	    <result property="master" column="master"/>
+	    <result property="department" column="department"/>
+	    <result property="job_position" column="job_position"/>
+	    <result property="name" column="emp_name"/>
+	    <result property="nickname" column="emp_nickname"/>
+	    <result property="username" column="username"/>
+	    <result property="password" column="password"/>
+	    <result property="reg_date" column="emp_reg_date"/>
+	  </association>
+	</resultMap>
+	
+	<select id="getLiveChatCombinedListByEmpId" parameterType="java.lang.Integer"  resultMap="combinedResultMap">
+		SELECT
+		    c.id, c.reg_date, c.end_date,
+		    u.id AS user_id, u.email, u.pw, u.nickname, u.phone, u.gender, u.birth, u.profile_img_link, u.reg_date AS user_reg_date,
+		    cat.id AS category_id, cat.category,
+		    e.id AS emp_id, e.master, e.department, e.job_position, e.name AS emp_name, e.nickname AS emp_nickname,
+		    e.username, e.password, e.reg_date AS emp_reg_date
+		  FROM cs_live_chat c
+		  JOIN user_table u ON c.user_id = u.id
+		  JOIN cs_category cat ON c.category_id = cat.id
+		  JOIN cs_emp e ON c.emp_id = e.id
+		  
+		  WHERE c.emp_id = 10
+		  AND c.end_date IS NULL
+	</select>
+	<!-- 실시간 문의 조인 후 가져오기 | ResultMap -->
+	
+	
+	<!-- 직원용 -->
+	<!-- 실시간 문의 ResponseDto | ResultMap -->
+	<resultMap id="csChatResponseResultMap" type="com.ja.safari.dto.CsChatResponseDto">
+	  <id property="id" column="id" />
+	  <result property="user_id" column="user_id" />
+	  <result property="emp_id" column="emp_id" />
+	  <result property="nickname" column="nickname" />
+	  <result property="category" column="category" />
+	  <result property="reg_date" column="reg_date" />
+	  <result property="end_date" column="end_date" />
+	
+	  <collection property="chatMsg" ofType="com.ja.safari.dto.CsLiveChatMsgDto">
+	    <id property="id" column="msg_id" />
+	    <result property="chat_id" column="chat_id" />
+	    <result property="sender" column="sender" />
+	    <result property="msg" column="msg" />
+	    <result property="reg_date" column="msg_reg_date" />
+	    <result property="is_read" column="is_read" />
+	  </collection>
+	</resultMap>
+	
+	<select id="getCsChatResponseDtoListByEmpId" resultMap="csChatResponseResultMap">
+		SELECT
+		  c.id, c.user_id, c.emp_id, c.reg_date, c.end_date,
+		  u.nickname,
+		  cat.category,
+		  m.id AS msg_id, m.chat_id, m.sender, m.msg, m.reg_date AS msg_reg_date, m.is_read
+		FROM cs_live_chat c
+		JOIN user_table u ON c.user_id = u.id
+		JOIN cs_category cat ON c.category_id = cat.id
+		JOIN cs_live_chat_msg m ON c.id = m.chat_id
+		WHERE c.emp_id = #{empId}
+		AND c.end_date IS NULL
+		ORDER BY c.id, m.id
+	</select>
+	<!-- 실시간 문의 조인 후 가져오기 | ResultMap -->
+	<!-- 직원용 -->
+	
+	
+	
+	
+	
+	<!-- 직원용 -->
+	<!-- 실시간 문의 ResponseDto | ResultMap -->
+	<resultMap id="csChatResponseDtoResultMap" type="com.ja.safari.dto.CsChatResponseDto2">
+	  <id property="id" column="id" />
+	  <result property="user_id" column="user_id" />
+	  <result property="emp_id" column="emp_id" />
+	  <result property="nickname" column="nickname" />
+	  <result property="category" column="category" />
+	  <result property="reg_date" column="reg_date" />
+	  <result property="end_date" column="end_date" />
+	  <result property="unreadMsgCount" column="unread_msg_count" />
+	
+	  <collection property="chatMsg" ofType="com.ja.safari.dto.CsLiveChatMsgDto">
+	    <id property="id" column="msg_id" />
+	    <result property="chat_id" column="chat_id" />
+	    <result property="sender" column="sender" />
+	    <result property="msg" column="msg" />
+	    <result property="reg_date" column="msg_reg_date" />
+	    <result property="is_read" column="is_read" />
+	  </collection>
+	</resultMap>
+	
+	<select id="getCsChatResponseDtoList2ByEmpId" resultMap="csChatResponseDtoResultMap">
+		SELECT
+		    c.id, c.user_id, c.emp_id, c.reg_date, c.end_date,
+		    u.nickname,
+		    cat.category,
+		    m.id AS msg_id, m.chat_id, m.sender, m.msg, m.reg_date AS msg_reg_date, m.is_read,
+		    COALESCE(unread_msg_count, 0) as unread_msg_count
+		FROM cs_live_chat c
+		JOIN user_table u ON c.user_id = u.id
+		JOIN cs_category cat ON c.category_id = cat.id
+		JOIN cs_live_chat_msg m ON c.id = m.chat_id
+		LEFT JOIN ( 
+			SELECT chat_id, count(*) AS unread_msg_count
+			FROM cs_live_chat_msg
+			WHERE sender = 1 
+			AND is_read = 0
+			GROUP BY chat_id 
+		) t1 ON c.id = t1.chat_id
+		WHERE c.emp_id = #{empId}
+		    AND c.end_date IS NULL
+		ORDER BY c.id
+	</select>
+	<!-- 실시간 문의 조인 후 가져오기 | ResultMap -->
+	<!-- 직원용 -->
 	
 	
 	

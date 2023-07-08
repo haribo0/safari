@@ -220,10 +220,10 @@
 					        	<div class="col" id="inputBox"> 
 					        		<div class="row mt-1">
 							        	<div class="col-4"> 
-							        		<input class="form-control charge" type="number" name="charge">
+							        		<input class="form-control charge" placeholder="추가금" type="number" name="charge">
 							        	</div>
 							        	<div class="col-6"> 
-							        		<input class="form-control reason" type="text" name="reason">
+							        		<input class="form-control reason" placeholder="사유" type="text" name="reason">
 							        	</div>
 							        	<div class="col-2 d-grid"> 
 							        		<div class="btn btn-outline-dark" onclick="appendInputs()">+</div>
@@ -497,7 +497,7 @@ function check(e) {
 	const checkModal = bootstrap.Modal.getOrCreateInstance('#checkModal');
 	checkModal.show();
 	
-	
+	// 전역변수에 반납 아이디 저장 
 	returnId = e.getAttribute("data-return-id");
 	const productNameBox = document.getElementById("productName");
 	const depositBox = document.getElementById("deposit");
@@ -543,6 +543,7 @@ function appendInputs(){
 	  chargeInput.className = 'form-control charge';
 	  chargeInput.type = 'number';
 	  chargeInput.name = 'charge';
+	  chargeInput.placeholder = '추가금';
 
 	  // col-6 요소 생성
 	  const col6 = document.createElement('div');
@@ -552,6 +553,7 @@ function appendInputs(){
 	  reasonInput.className = 'form-control reason';
 	  reasonInput.type = 'text';
 	  reasonInput.name = 'reason';
+	  reasonInput.placeholder = '사유';
 
 	  // col-2 요소 생성
 	  const col2 = document.createElement('div');
@@ -583,6 +585,64 @@ function getInputData() {
 	const chargeInputs = document.getElementsByClassName('charge');
 	const reasonInputs = document.getElementsByClassName('reason');
 	
+	
+	extraChargeList = [];
+	
+	
+		
+	// Loop through the input elements and retrieve their values
+	for (let i = 0; i < chargeInputs.length; i++) {
+		// 둘 다 비었을 경우는 저장 안 하고 반복문 진행하기 (다음으로 넘어가기)
+		if(chargeInputs[i].value==null && reasonInputs[i].value==null) continue;
+		// 한쪽만 비었을 경우는 인풋 포커스 후 메소드 빠져나가기 
+		if (chargeInputs[i].value && !reasonInputs[i].value || !chargeInputs[i].value && reasonInputs[i].value) {
+			chargeInputs[i].focus();
+			return;
+		}
+		
+		let dto = {
+				"return_id":returnId,
+				"reason":reasonInputs[i].value,
+				"charge":chargeInputs[i].value
+		}
+		
+		extraChargeList.push(dto);
+	}
+	
+	if(extraChargeList.length==0) {
+		let dto = {
+				"return_id":returnId
+		}
+		extraChargeList.push(dto);
+	}
+
+	
+	
+	const xhr = new XMLHttpRequest();
+
+	xhr.onreadystatechange = function() {
+		if(xhr.readyState == 4 && xhr.status == 200){
+			const response = JSON.parse(xhr.responseText);
+			
+		}
+	}
+
+	// post 방식 
+	xhr.open("post", "./returnComplete");
+	xhr.setRequestHeader("Content-type", "application/json");
+	xhr.send(extraChargeList);
+}
+
+
+
+
+/* 
+function getInputData() {
+	
+	// Get all the input elements with class names 'charge' and 'reason'
+	const chargeInputs = document.getElementsByClassName('charge');
+	const reasonInputs = document.getElementsByClassName('reason');
+	
 	let chargeValue = [];
 	let reasonValue = [];
 		
@@ -598,8 +658,6 @@ function getInputData() {
 		reasonValue.push(reasonInputs[i].value);
 	}
 	
-	
-	
 
 	const xhr = new XMLHttpRequest();
 
@@ -610,15 +668,14 @@ function getInputData() {
 		}
 	}
 
-
 	// post 방식 
 	xhr.open("post", "url");
 	xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 	xhr.send("returnId="+returnId+"&chargeValue="+chargeValue+"&reasonValue="+reasonValue);
-	
-	
-	
 }
+
+ */
+
 
 
 

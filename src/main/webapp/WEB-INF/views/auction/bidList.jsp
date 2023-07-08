@@ -19,6 +19,18 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
+<style>
+   @keyframes blink {
+     0% { opacity: 1; }
+     50% { opacity: 0; }
+     100% { opacity: 1; }
+   }
+
+   .blink-text {
+     animation: blink 2s infinite;
+   }
+</style>
+
 </head>
 <body>
 
@@ -88,16 +100,25 @@
 	<div class="pt-2 w-100 ms-5 ">
 	
 		<div class="row">
-			<div class="col fs-5">
-				<span><img class="mb-1" src="/safari/resources/img/auction/notice.png"
-				style="max-width: 30px; max-height: 30px;"></span>
-				진행중인 경매의 현재가는 실시간으로 업데이트되고 있습니다.
+			<div class="col">
+				<span>
+					<img class="mb-1" src="/safari/resources/img/auction/notice.png"
+						style="max-width: 25px; max-height: 25px;"></span>
+						<span class="fw-bold fs-5">참고사항</span>
+			
 			</div>
-		</div>	
+		</div>
+		
+		<div class="row">
+			<div class="col">
+				진행중인 경매의 <span class="fw-bold">현재가는 <span class="text-danger">실시간으로</span> 업데이트</span> 되고 있습니다.
+			</div>
+		</div>
+	
 
 		<div class="row mt-3 mb-2">
-			<div class="col fw-bold fs-4">
-				내가 입찰한 목록
+			<div class="col fw-bold fs-5">
+				내가 입찰한 경매 목록
 			</div>
 		</div>
 		
@@ -124,17 +145,20 @@
 							
 								<div class="row">
 									<div class="col-10 fw-bold fs-5">
-										<a href="/safari/auction/productDetail/${bidItem.id}">${bidItem.title}</a>
+										<a href="/safari/auction/productDetail/${bidItem.id}">
+										${bidItem.title}
+										<span id="statusLiveSpan_${bidItem.id}"></span>
+										</a>
 									</div>
 								</div>
 								
 								<div class="row mt-2">
-									<div class="col">
+									<div class="col text-secondary fw-bold"> 	
 										현재가 &nbsp;
-										<span id="currentPrice_${bidItem.id}" class="fw-bold text-danger fs-5"></span>
+										<span id="currentPrice_${bidItem.id}" class="text-danger fs-5 opacity-75"></span>
 										
 										즉시낙찰가
-										<span class="fw-bold">
+										<span>
 							 				<fmt:formatNumber value="${bidItem.max_price}" pattern="#,###"/>원
 							 			</span> 
 
@@ -150,7 +174,7 @@
 								
 								<div class="row mt-2">
 									<div class="col">
-										<span class="fw-bold" id="auctionEndDate_${bidItem.id}">경매종료일</span> 
+										<span id="auctionEndDate_${bidItem.id}">경매종료일</span> 
 									</div>
 								</div>
 								
@@ -320,6 +344,15 @@ function updateAuctionCountDown(id) {
       } else if (auctionStartDate <= nowDate) {
     	  statusButton.classList.add("btn-outline-success");
           statusButton.innerText = "진행중";
+          
+          const statusLiveSpan = document.getElementById("statusLiveSpan_" + id);
+          if (statusLiveSpan.innerText != 'LIVE ●') {
+        	statusLiveSpan.classList.add("text-danger", "fw-bold", "ms-3", "fs-5", "blink-text");
+        	statusLiveSpan.innerText = "LIVE ●";
+        	  
+          }
+          
+          
       } else {
       	 statusButton.classList.add("btn-outline-primary");
       	 statusButton.innerText = "준비중";
@@ -455,7 +488,6 @@ window.addEventListener("DOMContentLoaded", function(){
 
 
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 
 	

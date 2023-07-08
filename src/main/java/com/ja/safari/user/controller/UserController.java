@@ -204,9 +204,44 @@ public class UserController {
 		
 	}
 	
+	// 세연 마이페이지 - 커뮤니티 게시글 리스트
+	@RequestMapping("myAllCommunityPostListPage")
+	public String myAllCommunityPostListPage(HttpSession session) {
+		
+		UserDto sessionUser = (UserDto)session.getAttribute("sessionUser");
+		
+		if(sessionUser==null) {
+			return "redirect:../user/loginPage";
+		}else {
+			return "user/myAllCommunityPostListPage";
+		}
+		
+	}
 	
+	// 세연 마이페이지 - 커뮤니티 좋아요 리스트
+	@RequestMapping("myCommunityLikesListPage")
+	public String myCommunityLikesListPage(HttpSession session) {
+		
+		UserDto sessionUser = (UserDto)session.getAttribute("sessionUser");
+		
+		if(sessionUser==null) {
+			return "redirect:../user/loginPage";
+		}else {
+			return "user/myCommunityLikesListPage";
+		}
 	
+	}
 	
-	
-	
+	// 세연 마이페이지 - (임시) 리워드 찜 리스트 
+	@RequestMapping("rewardLikesListPage")
+	public String rewardLikesListPage(HttpSession session) {
+		
+		UserDto sessionUser = (UserDto)session.getAttribute("sessionUser");
+		
+		if(sessionUser==null) {
+			return "redirect:../user/loginPage";
+		}else {
+			return "user/rewardLikesListPage";
+		}
+	}
 }

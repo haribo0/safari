@@ -20,6 +20,7 @@ public class AuctionBidDto {
 	@DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
 	private Date end_date;
 	private String auction_item_img_link;
+	private String payment_exists;
 	
 	public AuctionBidDto() {
 	}
@@ -92,6 +93,12 @@ public class AuctionBidDto {
 	}
 	public void setAuction_item_img_link(String auction_item_img_link) {
 		this.auction_item_img_link = auction_item_img_link;
+	}
+	public String getPayment_exists() {
+		return payment_exists;
+	}
+	public void setPayment_exists(String payment_exists) {
+		this.payment_exists = payment_exists;
 	}
 
 	

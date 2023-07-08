@@ -244,13 +244,15 @@ window.addEventListener("DOMContentLoaded", function(){
 			</div>
 			<div class = "row">
 				<div class = "col">
+					<form action="./rewardPromotionReviewPage" method="post">
 					<button class = "form-control btn btn-dark me-2">
-						<i class="bi bi-fast-forward"></i>&nbsp; 더 알아보기 &nbsp;<i class="bi bi-fast-forward"></i>
+							<i class="bi bi-fast-forward"></i>&nbsp; 더 알아보기 &nbsp;<i class="bi bi-fast-forward"></i>
 					</button>
+					</form>
 				</div>
 			</div>	
 			
-			<!--  별점 받는 내역들(댓글처럼) -->
+			<!--  별점 받는 내역들(댓글처럼) => 다른걸로 수정해야하는ㄷ ㅔ뭘로 하지 아이디어 좀.. -->
 			<div class = "row mt-5">
 				<div class = "col fs-6 fw-semibold">
 					총 공감수
@@ -330,7 +332,9 @@ window.addEventListener("DOMContentLoaded", function(){
 						<div class = "col"></div>
 						<div class = "col-1 d-flex justify-content-center align-items-center">
 						<!--  공감하트버튼 -->
-							<i id = "heartBox" onclick="togglePromotionReviewLike()" class="text-danger bi bi-heart fs-4"></i><span id = "totalPromoReviewLikeCount"> 3 </span>
+							<i id = "heartBox" onclick="togglePromotionReviewLike()" class="text-danger bi bi-heart fs-4"></i>
+							&nbsp;
+							<span id = "totalPromoReviewLikeCount"></span>
 						</div>
 						
 						<div class = "col-1 p-0 d-flex align-items-center ">
@@ -501,9 +505,5 @@ window.addEventListener("DOMContentLoaded", function(){
 	<!-- 푸터 섹션 -->
 	<jsp:include page="../../common/footer.jsp"></jsp:include>
 	<!-- 푸터 섹션 -->
-	<script
-		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
-		integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
-		crossorigin="anonymous"></script>
 </body>
 </html>

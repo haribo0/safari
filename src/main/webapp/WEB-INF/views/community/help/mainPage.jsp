@@ -10,7 +10,6 @@
 	<!-- 메타 섹션 -->
 	<jsp:include page="../../common/meta.jsp"></jsp:include>
 	<!-- 메타 섹션 -->
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
 </head>
 <body>
 	<!-- 헤더 섹션 -->
@@ -19,35 +18,40 @@
 	
 	
 	
-	 <!-- 커뮤니티 메뉴바 -->
+	  <!-- 커뮤니티 메뉴바 -->
       <div class="row">
          <div class="col">
-            <jsp:include page="../communityTopNavi.jsp"></jsp:include>
+            <jsp:include page="./communityTopNavi.jsp"></jsp:include>
          </div>
       </div>
-      <!-- 커뮤니티 메뉴바 -->
+      <!-- 커뮤니티 메뉴바 --> 
       
-      <div class="container text-center mt-2">
-	<h2 class="text-center fw-bold fs-3"> 해주세요 게시판 </h2>
-	</div>
-
    <%--게시판 시작 --%>
 	<div class = "container">
 	
    <%--helpBoardList--%>
 	<div class="row">
 	
+	 <div class="container text mt-2">
+	 
+	 <div class="col">
+	<h2 class="text ms-3 mb-3"> 해주세요 </h2>
+	
+	
+	
+	</div>
+	</div>
 	
 	<div class="col text-center">
 		<table class="table">
-			<thead>
+			<thead class="table-secondary">
 			  <tr>
-				<th>글번호</th>
+				<th>번호</th>
 				<th>제목</th>
 				<th>작성자</th>
 				<th>조회수</th>
 				<th>좋아요</th>
-				<th>등록일</th>
+				<th>작성일</th>
 			  </tr>
 			</thead>
 			<tbody>
@@ -56,16 +60,20 @@
 				<tr>
 				  <td><a class="text-black text-decoration-none" href="/safari/community/help/readContentPage/${map.helpDto.id}">${map.helpDto.id}</a></td>
 				  <td style="text-align: left;">
-				  	<c:if test="${map.helpDto.points>=1}">
-				  	<span class="badge text-bg-secondary">${map.helpDto.points}</span>
-				  	</c:if>
 				  	<div style="display: inline-block;">
 				  	<a class="text-black text-decoration-none" href="/safari/community/help/readContentPage/${map.helpDto.id}" >${map.helpDto.title}</a>
-				  	<c:if test="${map.helpCommentCount>=1}">
-				  	<span style="font-size: 15px; color: red;">[${map.helpCommentCount}]</span>
+				  	<%-- <c:if test="${map.helpCommentCount>=1}">
+				  	<span style="font-size: 14px; color: red;">[${map.helpCommentCount}]</span>
+				  	</c:if> --%>
+				  	
+				  	<c:if test="${map.helpDto.points>=1}">
+				  	<span class="badge rounded-pill text-bg-warning" style="font-size: 61%;">${map.helpDto.points}</span>
 				  	</c:if>
 				  	<c:if test="${map.helpImgCount>=1}">
 				  	<i class="bi bi-image"></i>
+				  	</c:if>
+				  	<c:if test="${map.helpCommentCount>=1}">
+				  	<span style="font-size: 12px; color: red;">[${map.helpCommentCount}]</span>
 				  	</c:if>
 				  	</div>
 				  </td>
@@ -78,16 +86,24 @@
 			</c:forEach>
 			</tbody>
 		</table>
-		<%-- <button type="button" class="btn btn-primary">글쓰기</button>--%>
+		
 		
 	<%--글쓰기 버튼 시작 --%>
 	<div class="row">
-	<div class="col text-end">
-		<span class="text-dark"><a href="./writeContentPage"><i class="bi bi-pencil-square fas fa-2x fa-icon"></i></a></span>
+	<div class="col text-end" >
+		<a href="./writeContentPage"  style="text-decoration: none; display: flex; align-items: center; justify-content: flex-end;" >
+			<i class="bi bi-pencil-square fa-icon text-dark" style="font-size: 1.5rem;"></i>
+			<span class="text-dark ms-1 me-5" style="font-size: 0.9rem; line-height: 1;">글쓰기</span>
+		</a>
 	</div>
 	</div>
 	<%--글쓰기 버튼 끝 --%>	
 	
+	<style>
+	.pagination .page-link {
+    color: black !important;
+	}
+	</style>
 	
 		<div class="row"><%--페이지 버튼 --%>
 			<div class="col-5 mx-auto">
@@ -97,7 +113,7 @@
 				   <c:forEach begin="1" end="${totalHelpPage}" var="helpIndex">
 				   		<c:choose>
 				   			<c:when test="${helpIndex == currentHelpPage}">
-				   				<li class="page-item active"><a class="page-link" href="/safari/community/help/mainPage?helpPage=${helpIndex}">${helpIndex}</a></li>
+				   				<li class="page-item"><a class="page-link" href="/safari/community/help/mainPage?helpPage=${helpIndex}"><strong>${helpIndex}</strong></a></li>
 				   			</c:when>
 				   			<c:otherwise>
 				   				<li class="page-item"><a class="page-link" href="/safari/community/help/mainPage?helpPage=${helpIndex}">${helpIndex}</a></li>
@@ -109,18 +125,16 @@
 				  </ul>
 				 </nav>
 			</div>
-	</div>
+		</div>
 
 
-<%--오른쪽 시작--%>
-	<%--<div class="col-3">
-	</div> --%>
-	<%--오른쪽 끝--%>
+
 </div>
 </div>	
+</div>
 <%--게시판 끝 --%>
 	
-	</div>
+	
 
 	
 	
@@ -129,7 +143,6 @@
 	<jsp:include page="../../common/footer.jsp"></jsp:include>
 	<!-- 푸터 섹션 -->
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
 </body>	
 </html>	
 

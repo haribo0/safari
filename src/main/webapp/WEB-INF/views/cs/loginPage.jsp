@@ -33,27 +33,70 @@
 	
 	<div class="container d-flex justify-content-center content">
 		<form action="loginProcess" method="post">
-		    <div class="row g-3 pb-5" style="max-width: 480px;">
-		        <div class="col-sm-12">
-		          <label for="uid" class="form-label">아이디</label>
-		          <input type="text" class="form-control" id="uid" placeholder="" value="" required="" name="username">
-		          <div class="invalid-feedback">
-		            아이디를 입력해주세요.
-		          </div>
+			
+		    <div class="row " >
+		        <div class="col">
 		        </div>
-		
-		        <div class="col-sm-12 mt-4">
-		          <label for="upw" class="form-label">비밀번호</label>
-		          <input type="password" class="form-control" id="upw" placeholder="" value="" required="" name="password">
-		          <div class="invalid-feedback">
-		            비밀번호를 입력해주세요.
-		          </div>
-		        </div>
+		        <div class="col-10">
 		        
-		      </div>
-		      <div class="row" style="max-width: 480px;">
-		        <button class="btn btn-secondary">로그인</button>
-		      </div>
+		        	  <div class="row my-2" >
+				        <div class="col d-grid">
+				        	
+			        	</div>
+				      </div>
+		        	  <div class="row " >
+				        <div class="col  d-grid">
+				        	<div class="row " >
+					          <div class="col fw-bold fs-4 d-grid">
+					          	  사파리
+				        	  </div>
+					        </div>
+				        	<div class="row " >
+					          <div class="col fs-5 d-grid">
+					          	  고객관리서비스
+				        	  </div>
+					        </div>
+			        	</div>
+				      </div>
+		        
+		        	 <div class="row mt-5 mb-1" >
+				        <div class="col-sm-12">
+				          <label for="uid" class="form-label">아이디</label>
+				          <input type="text" class="form-control" id="uid" placeholder="" value="" required="" name="username">
+				          <div class="invalid-feedback">
+				            아이디를 입력해주세요.
+				          </div>
+				        </div>
+				
+				        <div class="col-sm-12 mt-4">
+				          <label for="upw" class="form-label">비밀번호</label>
+				          <input type="password" class="form-control" id="upw" placeholder="" value="" required="" name="password">
+				          <div class="invalid-feedback">
+				            비밀번호를 입력해주세요.
+				          </div>
+				        </div>
+				        
+				      </div>
+				      
+				      <div class="row mt-5" >
+				        <div class="col d-grid">
+				        	<button class="btn btn-dark">로그인</button>
+			        	</div>
+				      </div>
+		        	  
+		        	  
+		        	  <div class="row my-5" >
+				        <div class="col d-grid">
+				        	
+			        	</div>
+				      </div>
+		        
+		        </div>
+		        <div class="col">
+		        </div>
+	        </div>
+		        
+		   
 		</form>		
 		
 

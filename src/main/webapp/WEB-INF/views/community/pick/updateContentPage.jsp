@@ -70,13 +70,6 @@
 								<div class="col d-grid">
 								
 									<input type="hidden" name="user_id" value="${sessionUser.id}">
-									
-									
-									 <div class="form-group">
-									     <div class="form-control" style="font-size: ; font-family: 'Noto Sans', sans-serif; box-shadow: none;">
-									        <strong><input type="text" name="title" value="${map.pickDto.title}" style="width: 100%; border: none; outline: none;"></strong>
-									     </div>
-								     </div>
 								    
 								    <div class="form-group">
 								      <div class="form-control justify-content-end mt-2 mb-2" style="font-size: ; font-family: 'Noto Sans', sans-serif; box-shadow: none;">
