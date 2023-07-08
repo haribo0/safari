@@ -20,7 +20,34 @@
 
 <!-- 스크립트 섹션 -->
 <script>
-	const PickOptionSelect = document.getElementId('category-select');
+	const boardId = new URLSearchParams(location.search).get("id");
+	
+	function ajaxTemplete(){
+		
+		const xhr = new XMLHttpRequest();
+		
+		xhr.onreadystatechange = function(){
+			if(xhr.readyState == 4 && xhr.status == 200){
+				const response = JSON.parse(xhr.responseText);
+				// js 작업..
+			}
+		}
+		
+		//get
+		xhr.open("get", "요청 url?파라메터=값");
+		xhr.send();
+		
+		//post
+		xhr.open("post", "요청 url");
+		xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded"); 
+		xhr.send("파라메터=값");
+	}
+	
+	let mySessionId = null;
+////
+
+
+	const PickOptionSelect = document.getId(PickOptionSelect);
 	
 	PickOptionSelect.addEventListner('change', function(event) {
 		
@@ -34,6 +61,9 @@
 		
 		console.log('선택된 값:', value);
 	}
+	
+	
+	
 </script>
 <!-- 스크립트 섹션 -->
 
@@ -103,18 +133,21 @@
 									     </div>
 								     </div>
 								    
+								  	 <%-- select option--%> 
 									  <div class="form-group">
 										  <div class="form-control mt-2" style="font-size: ; font-family: 'Noto Sans', sans-serif; box-shadow: none;">
 										    <strong>
-										      <select id="category-select" name="category" style="width: 100%; border: none; outline: none;">
-										        <option value="">카테고리를 선택해주세요.</option>
-										        <option value="option1">옵션 1</option>
-										        <option value="option2">옵션 2</option>
-										        <option value="option3">옵션 3</option>
+										      <label for="product_sub_category" class="col-sm-2 col-form-label fw-bold">제품 선택1</label>
+										      <select id="product_id" name="category" style="width: 100%; border: none; outline: none;">
+										        <option value="0" selected="selected">고민 중인 제품을 선택해주세요.</option>
+										        <c:forEach items="${PickOptionList}" var="PickOptionDto">
+										        	<option value="${PickOptionDto.id}" class="${PickOptionDto.product_id}">${PickOptionDto.title}</option>
+										        </c:forEach>
 										      </select>
 										    </strong>
 										  </div>
 									</div>
+									<%-- select option--%> 
 								    
 								    <div class="form-group">
 								      <div class="form-control mt-2 mb-2" style="font-size: ; font-family: 'Noto Sans', sans-serif; box-shadow: none;">
