@@ -27,32 +27,10 @@ a {
 	height: 66px;
 }
 
-/* 리뷰 */
-input[type="radio"] {
-	
-	display: none;
-}
 
 
-.tab_content {font-size:0;}
 
 
-input[type="radio"] + label {
-	display: inline-block;
-	padding: 10px;
-	background: white;
-	width: 250px;
-	border: 0.4px solid #E2E3E5;
-	color: black;
-	font-weight: bold;
-	font-size: 17px;
-	cursor: pointer; /* 마우스가 올라가면 커서를 바꾸는 속성 */
-}
-
-input[type="radio"]:checked + label { /* :checked - 체크가 되었을 때 변화되는 속성*/
-	background: #E2E3E5;
-	color: #000;
-}
 
 .conbox {
 
@@ -62,15 +40,6 @@ input[type="radio"]:checked + label { /* :checked - 체크가 되었을 때 변�
 	font-size: 16px;
 }
 
-input[id="tab01"]:checked ~ .con1 {
-	display: block; /* 화면에 보이게 설정 */
-}
-input[id="tab02"]:checked ~ .con2 {
-	display: block;
-}
-input[id="tab03"]:checked ~ .con3 {
-	display: block;
-}
 
 
 .chatBox {
@@ -104,7 +73,9 @@ input[id="tab03"]:checked ~ .con3 {
   padding: 10px; /* 여백 */
   border-radius: 10px; /* 테두리의 굴곡 정도 */
   text-align: end; /* 내용을 오른쪽 정렬 */
+    display: inline-block;
   width: auto;
+
 }
 
 .speech-bubble {
@@ -113,7 +84,9 @@ input[id="tab03"]:checked ~ .con3 {
   padding: 10px; /* 여백 */
   border-radius: 10px; /* 테두리의 굴곡 정도 */
   text-align: start; /* 내용을 왼쪽 정렬 */
+    display: inline-block;
   width: auto;
+   
 }
 
 

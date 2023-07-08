@@ -4,6 +4,10 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.ja.safari.rental.mapper.RentalSqlMapper">
+	<!-- 대여 주문 pk 가져오기  -->
+	<select id="getRentalOrderPk" resultType="int">
+		SELECT rental_order_table_seq.nextval FROM dual
+	</select>
 
 	<select id="createPk" resultType="int">
 		select rental_review_table_seq.nextval from dual
@@ -143,8 +147,10 @@
 	INSERT INTO rental_item_return_table values(
 		rental_item_return_table_seq.nextval,
    		#{rental_order_id},
-    	SYSDATE,
-    	'N'
+   		'N', <!-- 반납 수취 여부 -->
+   		'1', <!-- 기간 할인 취소 요금정산 -->
+    	'N', <!-- 정산 완료 여부 -->
+    	SYSDATE
 		)
 	</insert>
 	
@@ -210,7 +216,32 @@
 		SELECT * FROM rental_review_img_table WHERE review_id = #{id}
 	</select>
 	
+	<!-- 대여 아이템 title 가져오기 -->
+	<select id="selectItemTitleByItemId" resultType="String">
+		SELECT title FROM rental_item_table WHERE id = #{itemId}
+	</select>
 	
+	<!-- 대여 카카오 페이 준비 -->
+	<insert id="insertRentalKakaoReady">
+		INSERT INTO rental_order_kakaopay_table values(
+			rental_order_kakaopay_seq.nextval,
+			#{partner_user_id},
+			#{cid},
+			#{tid},
+			#{amount},
+			'',
+			'',
+			#{partner_order_id},
+			#{item_name},
+			#{next_redirect_pc_url},
+			SYSDATE
+		)
+	</insert>
+	
+	<!-- 대여 카카오 페이 준비된 dto 가져오기 -->
+	<select id="getRentalOrderKakaopay" resultType="com.ja.safari.dto.RentalOrderKakaopay">
+		SELECT * FROM rental_order_kakaopay_table WHERE id= #{id}
+	</select>
 	<!-- 
 	<update id="updateCustomerInfo">
 		update m_customer 

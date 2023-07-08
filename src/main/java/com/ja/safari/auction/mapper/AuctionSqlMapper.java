@@ -2,6 +2,8 @@ package com.ja.safari.auction.mapper;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.ja.safari.dto.AuctionBidDto;
 import com.ja.safari.dto.AuctionItemChatroomDto;
 import com.ja.safari.dto.AuctionItemDto;
@@ -21,6 +23,10 @@ public interface AuctionSqlMapper {
 	
 	// 경매 물품 등록 시 대규모 카테고리 선택할 때 소규모 카테고리 리스트 출력
 	public List<ProductSubCategoryDto> getProductSubCategoriesByMainCategoryId(int productMainCategoryId);
+	
+	// 경매 메인페이지에서 상태에 따른 경매 조회
+	public List<AuctionItemDto> getAuctionListByStatus(@Param("status") String status);
+	
 	
 	// 물품의 대규모 카테고리는 무엇일까요?
 	public ProductMainCategoryDto getProductMainCategory(int id);
@@ -175,6 +181,6 @@ public interface AuctionSqlMapper {
 	public void saveAuctionKakaoPayInfo(AuctionKakaoPayApproveDto auctionKakaoPayApproveDto);
 	
 	// 경매 낙찰 건에 대한 카카오페이 결제 정보 조회 
-	public AuctionKakaoPayApproveDto getAuctionKakaoPayInfo(int id);
+	public AuctionKakaoPayApproveDto getAuctionKakaoPayInfo(Integer id);
 	
 }

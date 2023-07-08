@@ -62,9 +62,12 @@ public interface PromotionReviewMapper {
 	
 	// 프로모션 게시물 공감순으로 정렬
 	public List<PromotionReviewLikeDto> orderByPromotionReviewLikes();
+
+	// 임시 유저 좋아요
+	public int checkPromotionReviewMyLike(int user_id);
 	
-	
-	
+	// 프로모션 게시글 조회수 높은 순
+	public List<PromotionReviewDto> topViewByPromoReview();
 	
 	
 	
