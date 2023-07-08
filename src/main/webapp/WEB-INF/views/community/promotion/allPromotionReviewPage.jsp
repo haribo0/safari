@@ -16,8 +16,115 @@
         color: darkgray;
     }
     
-  
+
 </style>
+<script>
+//좋아요 토글
+// const promotionReviewId = new URLSearchParams(location.search).get("id"); => id를 여러개 가져와야하기 때문에 필요X
+
+let mySessionId = null;
+
+function getSessionId(){
+	const xhr = new XMLHttpRequest();
+	
+	xhr.onreadystatechange = function(){
+		if(xhr.readyState == 4 && xhr.status == 200){
+			const response = JSON.parse(xhr.responseText);
+			
+			if(response.result == "success"){
+				mySessionId = response.id;
+			}
+		}
+	}
+
+	xhr.open("get", "../../user/getMyId", false);
+	xhr.send();
+}
+
+
+//function refreshTotalLikeCount(){
+//	const xhr = new XMLHttpRequest();
+	
+//	xhr.onreadystatechange = function(){
+	//	if(xhr.readyState == 4 && xhr.status == 200){
+	//		const response = JSON.parse(xhr.responseText);
+		
+	//		const totalLikeCountBox = document.getElementById("totalPromoReviewLikeCount");
+	//		totalLikeCountBox.innerText = response.count;
+	//	}
+//	}
+	
+
+	
+//	xhr.open("get", "./getTotalPromoReviewLikeCount?reviewId=" + promotionReviewId);
+//	xhr.send();
+// }
+
+
+function togglePromotionReviewLike(reviewId){
+	if(mySessionId == null){
+		if(confirm("로그인을 하셔야 이용가능합니다. 로그인 하시겠습니까?")){
+			location.href = "../../user/loginPage";				
+		}
+		
+		return;
+	}	
+	
+	const xhr = new XMLHttpRequest();
+	
+	xhr.onreadystatechange = function(){
+		if(xhr.readyState == 4 && xhr.status == 200){
+			const response = JSON.parse(xhr.responseText);
+			
+			//refreshTotalLikeCount();
+			refreshMyHeart(reviewId);
+		}
+	}
+	
+	xhr.open("get", "./togglePromotionReviewLike?review_id=" + reviewId);
+	xhr.send();		
+}
+
+
+function refreshMyHeart(reviewId){
+	
+	if(mySessionId == null) return;	
+	
+	const xhr = new XMLHttpRequest();
+	
+	xhr.onreadystatechange = function(){
+		if(xhr.readyState == 4 && xhr.status == 200){
+			const response = JSON.parse(xhr.responseText);
+			// js 렌더링... 작업..
+			const heartBox = document.getElementById("heartBox"+reviewId);
+			
+			if(response.isLiked){
+				heartBox.classList.remove("bi-heart");
+				heartBox.classList.add("bi-heart-fill");
+			}else{
+				heartBox.classList.remove("bi-heart-fill");
+				heartBox.classList.add("bi-heart");
+			}
+
+			
+		}
+	}
+	
+	
+	//get
+	xhr.open("get", "./promoReviewIsLiked?review_id=" + reviewId);
+	xhr.send();
+	
+}
+
+window.addEventListener("DOMContentLoaded", function(){
+	
+	getSessionId();
+	// refreshTotalLikeCount();
+	// refreshMyHeart();
+});
+</script>
+
 <body>
 <!-- 헤더 섹션 -->
 <jsp:include page="../../common/header.jsp"></jsp:include>
@@ -70,7 +177,7 @@
 			
 			<div class = "col-1">
 				<c:if test="${!empty sessionUser }">
-					<form action="writePromotionReviewPage" method = "post"> <!--  나중에 수정하도록 -->
+					<form action="writePromotionReviewPage" method = "post"> <!--  그냥 상시로 보이고 로그인안하면 로그인창으로 보내버릴까? -->
 						<button class = "form-control btn btn-dark">글쓰기</button>
 					</form>
 				</c:if>
@@ -82,9 +189,9 @@
 		<div class = "row mt-5">
 			<div class = "col"> <!-- 리스트 카테고리 -->
 				<ul class="list-group">
-				  <li class="list-group-item border border-0 py-2"><a class="btn fs-5 text fw-bold py-1" href="./promotionReviewMainPage">Main</a></li>
+				  <li class="list-group-item border border-0 py-2"><a class="btn fs-5 text fw-bold py-1" href="./promotionReviewMainPage">메인으로</a></li>
 				  <li class="list-group-item border border-0 py-2"><a class="btn fs-5 text fw-bold py-1" href="#collapse1" data-bs-toggle="collapse">가구</a></li>
-				  	<div class="collapse" id="collapse1">
+				  	<div>
 						<ul class="list-group ms-4">
 							<li class="list-group-item border-0"><a href="#" class="btn py-0 text-body-secondary">침대</a></li>
 							<li class="list-group-item border-0"><a href="#" class="btn py-0 text-body-secondary">테이블</a></li>
@@ -94,7 +201,7 @@
 					</div>
 					
 				  <li class="list-group-item border border-0 py-2"><a class="btn fs-5 text fw-bold py-1" href="#collapse2" data-bs-toggle="collapse">생활가전</a></li>
-				  	<div class="collapse" id="collapse2">
+				  	<div>
 						<ul class="list-group ms-4">
 							<li class="list-group-item border-0"><a href="#" class="btn py-0 text-body-secondary">커피머신</a></li>
 							<li class="list-group-item border-0"><a href="#" class="btn py-0 text-body-secondary">선풍기</a></li>
@@ -105,7 +212,7 @@
 					</div>
 					
 				  <li class="list-group-item border border-0 py-2"><a class="btn fs-5 text fw-bold py-1" href="#collapse3" data-bs-toggle="collapse">주방가전</a></li>
-				  	<div class="collapse" id="collapse3">
+				  	<div>
 						<ul class="list-group ms-4">
 							<li class="list-group-item border-0"><a href="#" class="btn py-0 text-body-secondary">레인지</a></li>
 							<li class="list-group-item border-0"><a href="#" class="btn py-0 text-body-secondary">밥솥</a></li>
@@ -114,18 +221,100 @@
 					</div>
 					
 				  <li class="list-group-item border border-0 py-2"><a class="btn fs-5 text fw-bold py-1" href="#collapse4" data-bs-toggle="collapse">전자기기</a></li>
-				  	<div class="collapse" id="collapse4">
+				  	<div>
 						<ul class="list-group ms-4">
 							<li class="list-group-item border-0"><a href="#" class="btn py-0 text-body-secondary">노트북</a></li>
 							<li class="list-group-item border-0"><a href="#" class="btn py-0 text-body-secondary">태블릿pc</a></li>
 							<li class="list-group-item border-0"><a href="#" class="btn py-0 text-body-secondary">프로젝터</a></li>
 							<li class="list-group-item border-0"><a href="#" class="btn py-0 text-body-secondary">스피커</a></li>
 						</ul>
-					</div>
+					</div> 
 				</ul>
 			</div>
 			<!--  리뷰 -->
 			<div class = "col-10">
+			
+				<!--  조회수 타이틀 -->
+				<div class = "row mt-3">
+					<div class = "col fs-5 fw-semibold fst-italic text-end">
+						현재 사람들이 많이 보고 있는 게시물이에요
+						<hr class="my-1 mb-2" style="border-color: gray;">
+					</div>
+				</div>
+
+				
+				<!--  조회수 높은거 4개 -->
+				<div class = "row mt-3">
+					<div class = "col">
+						<div class = "row">
+						<c:forEach items="${topViewCount}" var="map" varStatus="status" begin="0" end="3"> 
+							<div class = "col">
+							<div class="card border border-1" style="width:15rem; height: 450px; background-color: #FAFAFA;">
+								<div class = "row">
+									<div class = "col">
+										<a href="./contentPromotionReviewPage?id=${map.promotionReviewDto.id }">
+											<img src="/uploadPromoFiles/${map.promotionReviewImgList[0].rental_review_img }"
+										  	   class="card-img-top" alt="리워드게시물사진" height="200" width="200" >
+										</a>
+									</div>
+								</div>
+								<div class = "row mt-1 mx-1">
+									<div class = "col text-end">
+										<c:choose>
+								  			<c:when test="${!empty sessionUser && (map.realCheck != 0)}">
+								  				<i id = "heartBox${map.promotionReviewDto.id}" class = "text-danger bi bi-heart-fill fs-5"
+								  					onclick="togglePromotionReviewLike(${map.promotionReviewDto.id})"></i>
+								  			</c:when>
+								  			<c:otherwise>
+								  				<i id = "heartBox${map.promotionReviewDto.id }" class = "text-danger bi bi-heart fs-5"
+								  					onclick="togglePromotionReviewLike(${map.promotionReviewDto.id})"></i>
+								  			</c:otherwise>
+							  			</c:choose>	
+									</div>
+								</div>
+								<div class = "row">
+									<div class = "col text-center">
+										카테고리
+									</div>
+								</div>
+								<div class = "row">
+									<div class = "col text-center">
+										<h5 class="card-title fs-5 mt-1 fw-semibold">
+										    <a href="./contentPromotionReviewPage?id=${map.promotionReviewDto.id }" style="text-decoration: none; color: inherit;">
+										    ${map.promotionReviewDto.promotion_review_title }
+										    </a>
+									     	<span class="comment-count">[${map.countPromotionReviewComment}]</span>
+										</h5>
+									</div>
+								</div>
+								<div class = "row mt-1">
+									<div class = "col d-flex align-items-center">
+										<img src="${data.userDto.profile_img_link}" class="rounded-circle" style="width: 25px; height: 25px;" alt="프로필사진">
+										<p class="card-text fs-6 mt-2 ms-2 text-center">${map.userDto.nickname}</p>
+									</div>
+								</div>
+								<div class = "row mt-1 fs-6 text-secondary">
+									<div class = "col">
+										<p class="card-text fs-6 mt-2 text-secondary" style="display: -webkit-box; -webkit-line-clamp: 3;
+									       -webkit-box-orient: vertical; overflow: hidden;">
+									       ${map.promotionReviewDto.promotion_review_content}
+									    </p>
+									</div>
+								</div>
+								</div>
+							</div>
+						</c:forEach>	
+						</div>
+					</div>
+				</div>
+				
+				<!--  조회수 높은 순과 게시물 리스트의 선 -->
+					<div class = "row mt-3 mb-3">
+						<div class = "col">
+							<hr class="my-4" style="border-color: gray;">
+						</div>
+					</div>
+				
 				<!--  정렬 -->
 				<div class = "row">
 					<div class = "col">
@@ -143,37 +332,58 @@
 					</div> 
 				</div>
 				
+				
+				
+				
 				<!--  어쩜조아... 리뷰 게시글들 -->
 				<div class = "row mt-5">			
 				<c:forEach items="${promoReviewList}" var="map" varStatus="status">
-					<div class = "col mb-3">
+					<div class = "col mb-3 mt-1"> 
 						<div class="card border border-0" style="width:30rem; height: 150px;">
 						<div class = "row">
 							<div class = "col-4">
 							<a href="./contentPromotionReviewPage?id=${map.promotionReviewDto.id }">
 						  <img src="/uploadPromoFiles/${map.promotionReviewImgList[0].rental_review_img }"
-						  	   class="card-img-top" alt="실험용1" height="150" width="100" >
+						  	   class="card-img-top" alt="리워드게시물사진" height="150" width="100" >
 						  </a>
 						 	</div>
 						 	<div class = "col">
 						  <div class="card-body">
-						    <h5 class="card-title fs-5 mt-1 fw-semibold">
-							  	<a href="./contentPromotionReviewPage?id=${map.promotionReviewDto.id }" style="text-decoration: none; color: inherit;">
-							   		${map.promotionReviewDto.promotion_review_title } 
-							    </a>
-							    <a href="./contentPromotionReviewPage?id=${map.promotionReviewDto.id }" style="text-decoration: none; color: inherit;">
-							   <span class="comment-count">[${map.countPromotionReviewComment}]</span>
-							    </a>
-							  	
-						    </h5>
-						    
+						  
+							<div class = "row">
+							 	<div class = "col">			  		
+							  		<h5 class="card-title fs-5 mt-1 fw-semibold">
+								  	<a href="./contentPromotionReviewPage?id=${map.promotionReviewDto.id}" style="text-decoration: none; color: inherit;">
+								   		${map.promotionReviewDto.promotion_review_title} 
+								    </a>
+								    <a href="./contentPromotionReviewPage?id=${map.promotionReviewDto.id}" style="text-decoration: none; color: inherit;">
+								   		<span class="comment-count">[${map.countPromotionReviewComment}]</span>
+								    </a>	  	
+							    	</h5>
+							 	</div>
+							 	<!--  공감버튼. 내가 누른 하트 유무-->
+							  	<div class = "col-1 text-end">
+							  		<c:choose>
+							  			<c:when test="${!empty sessionUser && (map.realCheck != 0)}">
+							  				<i id = "heartBox${map.promotionReviewDto.id}" class = "text-danger bi bi-heart-fill fs-5"
+							  					onclick="togglePromotionReviewLike(${map.promotionReviewDto.id})"></i>
+							  			</c:when>
+							  			<c:otherwise>
+							  				<i id = "heartBox${map.promotionReviewDto.id }" class = "text-danger bi bi-heart fs-5"
+							  					onclick="togglePromotionReviewLike(${map.promotionReviewDto.id})"></i>
+							  			</c:otherwise>
+							  		</c:choose>	
+							  	</div>
+							</div>			    	    
 						    <div class="d-flex align-items-center">
 			                    <img src="${data.userDto.profile_img_link}" class="rounded-circle" style="width: 25px; height: 25px;" alt="프로필사진">
 			                    <p class="card-text fs-6 mt-2 ms-2">${map.userDto.nickname}</p>
 			                </div>
-			                
 						    <p class="card-text fs-6 mt-2 text-secondary" style="display: -webkit-box; -webkit-line-clamp: 2;
-						       -webkit-box-orient: vertical; overflow: hidden;">${map.promotionReviewDto.promotion_review_content }</p>
+						       -webkit-box-orient: vertical; overflow: hidden;">
+						       ${map.promotionReviewDto.promotion_review_content}
+						    </p>
+						 	
 						  </div>
 						  	</div>
 						</div>
@@ -190,6 +400,8 @@
 		
 			</div> <!-- <div class = "col-10"> 닫는곳 -->
 		</div>
+	
+		
 	
 		<!-- 페이징-->
 		<div class = "row mt-3 d-flex justify-content-center">
@@ -208,7 +420,7 @@
 				    	<c:forEach begin="${startPage}" end="${endPage}" var="index">
 				    		<c:choose>
 				    			<c:when test="${index == currentPageNum}">
-				    				<li class="page-item active"><a class="page-link" href="./allPromotionReviewPage?page=${index}${promoReview_searchQueryString}">${index}</a></li>
+				    				<li class="page-item active"><a class="page-link bg-secondary" href="./allPromotionReviewPage?page=${index}${promoReview_searchQueryString}">${index}</a></li>
 				    			</c:when>
 				    			<c:otherwise>
 				    				<li class="page-item"><a class="page-link" href="./allPromotionReviewPage?page=${index}${promoReview_searchQueryString}">${index}</a></li>
@@ -229,8 +441,8 @@
 			</div>
 			
 		</div>
-	
-
+		
+		
 
 
 
@@ -247,9 +459,5 @@
 	<!-- 푸터 섹션 -->
 		</div>
 	</div>
-	<script
-		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
-		integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
-		crossorigin="anonymous"></script>
 </body>
 </html>

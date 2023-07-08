@@ -77,6 +77,18 @@
   	overflow: hidden;
   }
   
+  .event-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+
+.event-block {
+  border-radius: 4px;
+  padding: 5px;
+  margin-bottom: 2px;
+}
+  
  
 </style>
 
@@ -97,7 +109,7 @@
 	<div class="row ">
 		<div class="col"></div>
 		
-		<div class="col-8">
+		<div class="col-9">
 			
 			
 			<div id='wrap'>
@@ -153,7 +165,7 @@ var pastelColors = [
 	'rgba(234, 208, 255, 1)',   // Lavender
 	'rgba(207, 240, 246, 1)'    // Pale Blue
 ]; */
-
+/* 
 var pastelColors = [
 	'rgba(255, 217, 222, 1)',   // Pale Pink
 	'rgba(255, 239, 222, 1)',   // Peach
@@ -165,13 +177,41 @@ var pastelColors = [
 	'rgba(207, 240, 246, 1)'    // Pale Blue
 
 ];
+ */
 
-/* var pastelColors = [
-	'rgba(255, 217, 222, 1)',   // Pale Pink
-	
-
+/*  
+ // green 
+ var pastelColors = [
+	'#235D3A',
+	'#397D54',
+	'#73C088',
+	'#ABEDB7',
+	'#C8EAD1',
+];
+ */
+ 
+/* 
+ // purple violet  
+ var pastelColors = [
+	'#EADFF2',
+	'#DCCBED',
+	'#FEE6EB',
+	'#FCB7D0'
 ]; */
 
+ // purple violet  
+ var pastelColors = [
+	'#F6DFF9',
+	'#E0D5F1',
+	//'#D9C4E9',
+	'#FEE6EB',
+	'#FFD4E4'
+	//'#FDB8CF'
+];
+
+
+
+ 
 
 let employees = [];
 
@@ -231,7 +271,7 @@ function formatDate(date) {
 	return year + '-' + month + '-' + day;
 }
 
-
+/* 
 let colorCount = 0;
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -257,7 +297,7 @@ document.addEventListener('DOMContentLoaded', function() {
         type: 'timeGrid',
         duration: { days: 31 } // 주간 보기 설정
       }, */
-      timeGridWeek: {
+      /*timeGridWeek: {
         type: 'timeGrid',
         duration: { days: 7 } // 주간 보기 설정
       },
@@ -316,7 +356,7 @@ document.addEventListener('DOMContentLoaded', function() {
 		 /* for (var i = 0; i < employees.length; i++) {
 		  if(eventTitle===employees[i]) eventBlock.style.backgroundColor =  pastelColors[i]; // Apply custom CSS class for the event block
 		} */
-		 eventBlock.style.backgroundColor =  pastelColors[colorCount++ % pastelColors.length]; // Apply custom CSS class for the event block
+		/* eventBlock.style.backgroundColor =  pastelColors[colorCount++ % pastelColors.length]; // Apply custom CSS class for the event block
 		 eventBlock.className = eventTitle;
 		 eventBlock.classList.add('row');
 		
@@ -331,24 +371,29 @@ document.addEventListener('DOMContentLoaded', function() {
 		 eventTimeElement.classList.add('event-time','col-4','fs-smaller');
 		 eventTimeElement.innerText = eventTime.toLocaleTimeString([], { hour: '2-digit'});
 		 eventTimeElement.innerText += " - " + eventEndTime.toLocaleTimeString([], { hour: '2-digit'});
-		 
+
+		  var eventDot = document.createElement('div');
+		  eventDot.classList.add('event-dot'); // Apply custom CSS class for the event dot
+		  eventDot.style.backgroundColor = eventBlock.style.backgroundColor; // Set the dot color to match the event block's background color
+
+
 		 eventBlock.appendChild(eventTitleElement);
 		 eventBlock.appendChild(eventTimeElement);
 		 
 		 eventBlock.style.backgroundColor = arg.event.color; // Set the background color based on the assigned color
 		 
-		 return { domNodes: [eventBlock] };
+		  return { domNodes: [eventBlock, eventDot] };
     }
   });
   
   calendar.render();
 });
 
+ */
 
 
-
-
-/* function formatDate(date) {
+/* 
+function formatDate(date) {
 	var formattedDate = new Date(date);
 	
 	var year = formattedDate.getFullYear();
@@ -356,13 +401,51 @@ document.addEventListener('DOMContentLoaded', function() {
 	var day = String(formattedDate.getDate()).padStart(2, '0');
 	
 	return year + '-' + month + '-' + day;
-}
+} */
 
 
 document.addEventListener('DOMContentLoaded', function() {
   	var calendarEl = document.getElementById('calendar');
  	var calendar = new FullCalendar.Calendar(calendarEl, {
     // Other FullCalendar options...
+    
+    headerToolbar: {
+      left: 'prev,next today',
+      center: 'title',
+      right: 'listWeek,dayGridMonth,timeGridWeek,timeGridDay'
+    },
+    
+    initialView: 'listWeek', // 초기 뷰 설정 (월간 보기)
+    
+    views: {
+      /* timeGridWeek: {
+        type: 'timeGrid',
+        duration: { days: 31 } // 주간 보기 설정
+      }, */
+      timeGridWeek: {
+        type: 'timeGrid',
+        duration: { days: 7 } // 주간 보기 설정
+      },
+      timeGridDay: {
+        type: 'timeGrid',
+        duration: { days: 1 } // 일간 보기 설정
+      }
+    },
+    
+    eventRender: function(info) {
+        var eventElement = info.el;
+        var eventTitle = info.event.title;
+        
+        // Check if the view is 'listWeek' or 'dayGridMonth'
+        if (info.view.type === 'listWeek' || info.view.type === 'dayGridMonth') {
+          // Create a div element to hold the employee name and set the background color
+          var divElement = document.createElement('div');
+          divElement.style.backgroundColor = getEmployeeColor(eventTitle);
+          divElement.textContent = eventTitle;
+          
+          // Append the div element to the event element
+          eventElement.appendChild(divElement);
+        }
 
     events: function(info, successCallback, failureCallback) {
       var start = info.startStr; // Start date of the visible range
@@ -397,7 +480,7 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 
   calendar.render();
-}); */
+}); 
 
 
 

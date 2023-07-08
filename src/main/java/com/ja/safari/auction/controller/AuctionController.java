@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.ja.safari.auction.service.AuctionServiceImpl;
+import com.ja.safari.dto.AuctionKakaoPayApproveDto;
 import com.ja.safari.dto.ProductMainCategoryDto;
 import com.ja.safari.dto.ProductSubCategoryDto;
 import com.ja.safari.dto.UserDto;
@@ -49,79 +50,6 @@ public class AuctionController {
 	}
 	
 	
-	// 경매 수정
-//	@RequestMapping("modifyProductProcess")
-//	public String modifyAuctionProduct(HttpSession session, AuctionItemDto auctionItemDto, 
-//																	MultipartFile[] auctionItemImgFiles) {
-//	
-//		System.out.println("실행됩니까?");
-//	// 상세 이미지 삭제
-//	auctionService.removeAuctionProductImage(auctionItemDto.getId());
-//
-//	// 상세 이미지 등록
-//	List<AuctionItemImgDto> auctionItemImgList = new ArrayList<>();
-//	// 파일 저장 로직
-//	if (auctionItemImgFiles != null) {
-//
-//		for (MultipartFile auctionItemImgFile : auctionItemImgFiles) {
-//
-//			// 이미지가 존재하지 않을 때
-//			if (auctionItemImgFile.isEmpty()) {
-//				continue;
-//			}
-//
-//			String rootFolder = "C:/auctionFiles/";
-//
-//			// 날짜별 폴더 생성 로직
-//
-//			SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd"); // 날짜를 문자로 바꿔주는 역할
-//			String today = sdf.format(new Date()); // new Date(): 오늘 날짜 출력
-//
-//			File targetFolder = new File(rootFolder + today); 
-//
-//			if (!targetFolder.exists()) {
-//				targetFolder.mkdirs(); // 폴더 생성
-//
-//			}
-//
-//			// 저장 파일명 만들기. 핵심은 파일명 충돌 방지 = 랜덤 + 시간
-//			String fileName = UUID.randomUUID().toString();
-//			fileName += "_" + System.currentTimeMillis();
-//
-//			// 확장자 추출
-//			String originalFileName = auctionItemImgFile.getOriginalFilename(); // originalFileName : 사용자가 컴퓨터에 올리는 파일명
-//			String ext = originalFileName.substring(originalFileName.lastIndexOf(".")); // lastindexof: 뒤에서부터 .의 위치를
-//																						// 찾아서 숫자를 반환
-//
-//			// 슬래시 주의할 것 기억하기
-//			String saveFileName = today + "/" + fileName + ext;
-//
-//			try {
-//				// java.io.file 불러오기, 폴더를 포함한 파일명을 넣는다
-//				// 다른 이미지이지만 파일명이 같은 경우, 충돌을 피하려면
-//				auctionItemImgFile.transferTo(new File(rootFolder + saveFileName));
-//			} catch (Exception e) {
-//				e.printStackTrace();
-//			}
-//
-//			AuctionItemImgDto auctionItemImgDto = new AuctionItemImgDto();
-//			auctionItemImgDto.setAuction_item_img_link(saveFileName);
-//
-//			auctionItemImgList.add(auctionItemImgDto);
-//		}
-//	}
-//
-//	// 데이터 저장 로직
-//
-//	auctionService.modifyAuctionProduct(auctionItemDto, auctionItemImgList);
-//	
-//	return "redirect:./productDetail/" + auctionItemDto.getId();
-//	
-//	
-//
-//}	
-	
-	
 	// 경매 삭제
 	@RequestMapping("removeProductProcess/{id}")
 	public String removeProductProcess(@PathVariable int id) {
@@ -150,21 +78,87 @@ public class AuctionController {
 		return "auction/productDetail";
 	}
 	
+	// 마이페이지 - 내가 입찰한 기록 조회
+	@RequestMapping("bidList")
+	public String getMyBidList(HttpSession session, Model model) {
 	
+		UserDto sessionUser = (UserDto) session.getAttribute("sessionUser");
+		
+		model.addAttribute("userBidList", auctionService.getMyBidList(sessionUser.getId()));
+		
+		return "auction/bidList";
+	}
 	
-	// 입찰페이지 접속
-	@RequestMapping("bidPage/{id}")
-	public String bidPage(HttpSession session, Model model, @PathVariable int id) {
+	// 마이페이지 - 낙찰 기록 조회
+	@RequestMapping("successBidList")
+	public String getMySuccessBidList(HttpSession session, Model model) {
+	
+		UserDto sessionUser = (UserDto) session.getAttribute("sessionUser");
+		
+		model.addAttribute("successBidList", auctionService.getMySueecssfulBidList(sessionUser.getId()));
+		
+		return "auction/successBidList";
+	}
+	
+	// 마이페이지 - 찜 목록 조회
+	@RequestMapping("wishList")
+	public String MyAuctionWishList(HttpSession session, Model model) {
 		
 		UserDto sessionUser = (UserDto) session.getAttribute("sessionUser");
 		
-		if (sessionUser == null) {
-			return "main/loginPage";
-		} else {
-			model.addAttribute("bidProduct", auctionService.getAuctionProductDetail(id));
-			return "auction/bidPage";
+		model.addAttribute("auctionWishList", auctionService.getMyAuctionWishList(sessionUser.getId()));
+		
+		return "auction/wishList";		
+		
 	}
-	}
+	
+	
+	// 결제 실패 
+		@RequestMapping("paymentFailed")
+		public String paymentFailed(HttpSession session) {
+			
+			UserDto userDto = (UserDto) session.getAttribute("sessionUser");
+			if(userDto == null) return "redirect:./loginPage"; 		
+			
+			return "auction/paymentFailed";
+		}
+	
+	// 결제 중 
+		@RequestMapping("paymentProcess")
+		public String paymentProcess(HttpSession session, String pg_token) {
+			
+			UserDto userDto = (UserDto) session.getAttribute("sessionUser");
+			if(userDto == null) return "redirect:/user/loginPage"; 		
+			
+		
+			
+			AuctionKakaoPayApproveDto  auctionkakaoPayApproveDto = 
+					(AuctionKakaoPayApproveDto) session.getAttribute("auctionkakaoPay");
+			
+			auctionkakaoPayApproveDto.setPg_token(pg_token);
+			
+			
+			session.setAttribute("auctionkakaoPay", auctionkakaoPayApproveDto);
+			
+			return "auction/paymentProcess";
+		}
+		
+		
+		// 결제 성공     
+		@RequestMapping("paymentSucceed")
+		public String paymentSucceeded(HttpSession session, Model model, Integer id) {
+			
+			UserDto userDto = (UserDto) session.getAttribute("sessionUser");
+			if(userDto == null) return "redirect:/user/loginPage"; 		
+			
+			session.removeAttribute("auctionkakaoPay");
+			
+			model.addAttribute("map", auctionService.getAuctionKakaoPayInfo(id));
+			
+			return "auction/paymentSucceed";
+		}
+	
+	
 	
 
 	

@@ -12,7 +12,13 @@
 <jsp:include page="../common/meta.jsp"></jsp:include>
 <!-- 카카오맵 -->
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=1e9b83aad808555fe4c49e65c538d60c&libraries=services"></script>
+<style type="text/css">
 
+.myInfo{
+	color: #F68942;
+}
+
+</style>
 <!-- 메타 섹션 -->
 </head>
 <body>
@@ -47,106 +53,114 @@
 			
     			<h4 class="ps-4 mt-3 mb-4 fw-regular">내 정보</h4>
 
-				<div class="row mt-5 ms-4">
+				<div class="row  ms-4">
 					
 				    <div class="col"></div>
-				    <div class="col-2 d-grid ">
-				    	<div class="btn btn-dark btn-sm" onclick="openModal()">정보 수정</div>
+				    <div class="col-2 text-end">
+				    	<div class="btn btn-dark btn-sm px-5" onclick="openModal()">정보 수정</div>
 				    </div>
 				    
 				</div>
 				
-				<hr class="border">
+				<!-- <hr class="border"> -->
 				
-				
-				<div class="row ms-4 mt-2 mb-3 fw-medium">
-					
-					<div class="col ms-3">
-						<div class="row fw-light">
-							아이디
-						</div>
-						<div class="row mt-1">
-							${dto.business_userid}
-						</div>
-					</div>
-					<div class="col">
-						<div class="row fw-light">
-							상호명
-						</div>
-						<div class="row mt-1">
-							${dto.business_name}
-						</div>
-
-					</div>
-					<div class="col">
-						<div class="row fw-light">
-							대표자
-						</div>
-						<div class="row mt-1">
-							${dto.business_owner}
-						</div>
-					</div>
-					
-					<div class="col">
-						<div class="row fw-light">
-							연락처
-						</div>
-						<div class="row mt-1">
-							<c:set var="formattedPhone" value="${dto.phone.substring(0, 3)}-${dto.phone.substring(3, 7)}-${dto.phone.substring(7)}" />
-							${formattedPhone}
-						</div>
-					</div>
-					
-				</div>
-				
-				
-				<div class="row ms-4 mt-5 mb-3 fw-medium">
-				
-					<div class="col ms-3">
-						<div class="row fw-light">
-							사업자 등록번호
-						</div>
-						<div class="row mt-1">
-							
-							${dto.reg_num}
-							
-						</div>
-					</div>
-					<div class="col">
-						<div class="row fw-light">
-							등록일
-						</div>
-						<div class="row mt-1">
-							<fmt:formatDate value="${dto.reg_date}" pattern="MM/dd/yyyy" />
+				<!-- card -->
+				<div class="card mt-4 pb-3 pt-2 ps-5">
+					<div class="row mt-5 ms-5 mt-2 mb-3 fw-medium">
 						
+						<div class="col ms-3">
+							<div class="row fw-light text-secondary">
+								아이디
+							</div>
+							<div class="row mt-2 fw-bolder fs-5">
+								${dto.business_userid}
+							</div>
 						</div>
-
-					</div>
-					<div class="col">
-						<div class="row fw-light">
-							주소지
+						<div class="col">
+							<div class="row fw-light text-secondary">
+								상호명
+							</div>
+							<div class="row mt-2 fw-bolder fs-5">
+								${dto.business_name}
+							</div>
+	
 						</div>
-						<div class="row mt-1" id="compAddress">
-							${dto.business_address}
+						<div class="col">
+							<div class="row fw-light text-secondary">
+								대표자
+							</div>
+							<div class="row mt-2 fw-bolder fs-5">
+								${dto.business_owner}
+							</div>
 						</div>
-					</div>
-					<div class="col ms-3">
-						<div class="row fw-light">
-							판매 허가
+						
+						<div class="col">
+							<div class="row fw-light text-secondary">
+								연락처
+							</div>
+							<div class="row mt-2 fw-bolder fs-5">
+								<c:set var="formattedPhone" value="${dto.phone.substring(0, 3)}-${dto.phone.substring(3, 7)}-${dto.phone.substring(7)}" />
+								${formattedPhone}
+							</div>
 						</div>
-						<div class="row mt-1">
-							<c:choose>
-								<c:when test="${dto.permission == 'Y'}">
-									허가 완료
-								</c:when>
-								<c:otherwise>
-									미허가
-								</c:otherwise>
-							</c:choose>
-						</div>
+						
 					</div>
 					
+					<!-- <div class="row">
+						<div class="col opacity-25 me-5">
+							<hr class="opacity-25 border-2">
+						</div>
+					</div> -->
+					
+					<div class="row ms-5 mt-5 mb-5 fw-medium">
+					
+						<div class="col ms-3">
+							<div class="row fw-light text-secondary">
+								사업자 등록번호
+							</div>
+							<div class="row mt-2 fw-bolder fs-5">
+								
+								${dto.reg_num}
+								
+							</div>
+						</div>
+						<div class="col">
+							<div class="row fw-light text-secondary">
+								등록일
+							</div>
+							<div class="row mt-2 fw-bolder fs-5">
+								<fmt:formatDate value="${dto.reg_date}" pattern="MM/dd/yyyy" />
+							
+							</div>
+	
+						</div>
+						<div class="col">
+							<div class="row fw-light text-secondary">
+								주소지
+							</div>
+							<div class="row mt-2 fw-bolder fs-5" id="compAddress">
+								${dto.business_address}
+							</div>
+						</div>
+						<div class="col ms-3">
+							<div class="row fw-light text-secondary">
+								판매 허가
+							</div>
+							<div class="row mt-2  fw-bolder fs-5">
+								<c:choose>
+									<c:when test="${dto.permission == 'Y'}">
+										허가 완료
+									</c:when>
+									<c:otherwise>
+										미허가
+									</c:otherwise>
+								</c:choose>
+							</div>
+						</div>
+						
+					</div>
 				</div>
+				<!-- card -->
 				
 				<div class="row ms-4 mt-5 mb-3 fw-medium">
 					
@@ -156,7 +170,7 @@
 				
 				
 				
-				<hr class="border">
+				<!-- <hr class="border"> -->
 				
 			
 				<div class="row ms-4 mt-5 mb-2">
@@ -673,6 +687,20 @@ function updateUserInfo() {
   xhr.open("POST", "./productRegisterProcess");
   xhr.send(formData);
 }
+
+
+function changeTextColor() {
+	
+	const tab = document.getElementsByClassName('myInfo')[0];
+	tab.classList.remove("text-white");
+	
+}
+
+
+window.addEventListener("DOMContentLoaded",function(){
+	changeTextColor();
+
+});
 
 
 

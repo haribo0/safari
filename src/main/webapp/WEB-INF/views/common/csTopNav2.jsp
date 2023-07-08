@@ -26,7 +26,7 @@
       
     
 		<li class="nav-item ms-3">
-		  <a class="nav-link" href="#"> 1대1 문의</a>
+		  <a class="nav-link" href="./inquiries"> 1대1 문의</a>
 		</li>
 		
 		<li class="nav-item ms-3">

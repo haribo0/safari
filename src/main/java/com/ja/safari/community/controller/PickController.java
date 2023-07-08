@@ -16,6 +16,8 @@ import com.ja.safari.community.service.PickServiceImpl;
 import com.ja.safari.dto.PickCommentDto;
 import com.ja.safari.dto.PickDto;
 import com.ja.safari.dto.PickLikeDto;
+import com.ja.safari.dto.PickOptionDto;
+import com.ja.safari.dto.ProductDto;
 import com.ja.safari.dto.UserDto;
 import com.ja.safari.user.service.UserServiceImpl;
 
@@ -61,7 +63,7 @@ public class PickController {
 
 		//골라줘요 글쓰기 프로세스
 		@RequestMapping("pick/writeContentProcess")
-		public String pickWriteContentProcess(HttpSession session, PickDto pickDto) {
+		public String pickWriteContentProcess(HttpSession session, PickDto pickDto, PickOptionDto pickOptionDto) {
 			
 			UserDto sessionUser = (UserDto)session.getAttribute("sessionUser");
 			
@@ -69,6 +71,10 @@ public class PickController {
 			pickDto.setUser_id(user_id);
 			
 			pickService.registerPickBoard(pickDto);
+			
+			//중고거래 옵션 insert
+			pickService.registerPickOption(pickOptionDto);
+			
 			
 			return "redirect:/community/pick/mainPage";
 		}

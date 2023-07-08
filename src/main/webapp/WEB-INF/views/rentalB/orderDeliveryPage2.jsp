@@ -10,6 +10,15 @@
 <!-- 메타 섹션 -->
 <jsp:include page="../common/meta.jsp"></jsp:include>
 <!-- 메타 섹션 -->
+
+<style type="text/css">
+
+.deliveryTab{
+	color: #F68942;
+}
+
+</style>
+
 </head>
 <body>
 	<!-- 헤더 섹션 -->
@@ -392,10 +401,19 @@ function changeShippingStatus(e) {
 
 
 
+function changeTextColor() {
+	
+	const tab = document.getElementsByClassName('deliveryTab')[0];
+	tab.classList.remove("text-white");
+	
+}
+
+
 
 window.addEventListener("DOMContentLoaded",function(){
 	getProductListToBeShippedList();
 	getShippedOrderList();
+	changeTextColor();
 	
 	// setInterval(reloadCommentList, 3000);	// 3초마다 실행
 });

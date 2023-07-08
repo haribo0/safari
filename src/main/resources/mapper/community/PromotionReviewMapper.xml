@@ -143,8 +143,13 @@
 	WHERE review_id = #{review_id}
 </select>
 
+<select id="checkPromotionReviewMyLike" resultType="int">
+SELECT count(*)
+FROM promotion_review_like
+WHERE user_id = #{user_id}
+</select>
 
-<select id="orderByPromotionReviewLikes" resultType="int">
+<select id="orderByPromotionReviewLikes" resultType="com.ja.safari.dto.PromotionReviewLikeDto">
 	SELECT pro_like.review_id, count(pro_like.review_id) AS review_like_count
 	FROM promotion_review_like pro_like
 	INNER JOIN promotion_review pro_review ON pro_review.id = pro_like.review_id
@@ -152,5 +157,10 @@
 	ORDER BY review_like_count DESC
 </select>
 
+<select id="topViewByPromoReview" resultType="com.ja.safari.dto.PromotionReviewDto">
+SELECT *
+FROM promotion_review
+ORDER BY promotion_review_views DESC
+</select>
 
 </mapper>

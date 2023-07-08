@@ -3,9 +3,14 @@
  <link rel="stylesheet" href="/safari/resources/style/sidemenu.css" />   
 	<%-- 사이드 메뉴바시작 --%>	
 	<div class="col">
-		<div class="row fs-2 fw-bold">
+		
+		<div class="row mt-4 mb-2">
+			<div class="col"></div>
+		</div>
+	
+		<div class="row mt-5 fs-3 fw-bold">
 			<div class="col">
-				<a href="/safari/auction/mainPage">경매</a>
+				<a href="/safari/auction/mainPage">CATEGORY</a>
 			</div>
 		</div>
 		

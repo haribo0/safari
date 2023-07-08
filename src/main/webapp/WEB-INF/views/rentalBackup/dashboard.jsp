@@ -46,7 +46,7 @@
 
 				<div class="row mt-5">
 					<div class="col">
-						<div class="card" >
+						<div class="card shadow-sm" >
 						  <div class="card-body">
 						    <h5 class="fs-6 fw-medium"> 월별 주문 </h5>
 						    <hr class="border">
@@ -58,7 +58,7 @@
 					</div>
 					
 					<div class="col">
-						<div class="card" >
+						<div class="card shadow-sm" >
 						  <div class="card-body">
 						    <h5 class="fs-6 fw-medium"> 월간 매출액 </h5>
 						    <hr class="border">
@@ -69,7 +69,7 @@
 					</div>
 					
 					<div class="col-3 px-3">
-						<div class="card px-3" >
+						<div class="card px-3 shadow-sm" >
 						  <div class="card-body">
 						    <h5 class="fs-6 fw-medium"> 고객 성별 비율 </h5>
 						    <hr class="border">
@@ -85,7 +85,7 @@
 				<div class="row mt-5">
 				
 					<div class="col-2">
-						<div class="card" >
+						<div class="card shadow-sm" >
 						  <div class="card-body">
 						    <h5 class="fs-6 fw-medium"> 최근 주문 </h5>
 						    <hr class="border">
@@ -103,7 +103,7 @@
 					</div>
 					
 					<div class="col">
-						<div class="card" >
+						<div class="card shadow-sm" >
 						  <div class="card-body">
 						    <h5 class="fs-6 fw-medium"> 주문 </h5>
 						    <hr class="border">
@@ -122,7 +122,7 @@
 					</div>
 					
 					<div class="col">
-						<div class="card" >
+						<div class="card shadow-sm" >
 						  <div class="card-body">
 						    <h5 class="fs-6 fw-medium"> 반품 </h5>
 						    <hr class="border">

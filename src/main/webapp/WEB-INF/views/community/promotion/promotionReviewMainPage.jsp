@@ -24,7 +24,89 @@
         color: darkgray;
     }
 </style>
+<script>
+//좋아요 토글
+let mySessionId = null;
 
+function getSessionId(){
+	const xhr = new XMLHttpRequest();
+	
+	xhr.onreadystatechange = function(){
+		if(xhr.readyState == 4 && xhr.status == 200){
+			const response = JSON.parse(xhr.responseText);
+			
+			if(response.result == "success"){
+				mySessionId = response.id;
+			}
+		}
+	}
+
+	xhr.open("get", "../../user/getMyId", false);
+	xhr.send();
+}
+
+
+function togglePromotionReviewLike(reviewId){
+	if(mySessionId == null){
+		if(confirm("로그인을 하셔야 이용가능합니다. 로그인 하시겠습니까?")){
+			location.href = "../../user/loginPage";				
+		}
+		
+		return;
+	}	
+	
+	const xhr = new XMLHttpRequest();
+	
+	xhr.onreadystatechange = function(){
+		if(xhr.readyState == 4 && xhr.status == 200){
+			const response = JSON.parse(xhr.responseText);
+			
+			refreshMyHeart(reviewId);
+		}
+	}
+	
+	xhr.open("get", "./togglePromotionReviewLike?review_id=" + reviewId);
+	xhr.send();		
+}
+
+
+function refreshMyHeart(reviewId){
+	
+	if(mySessionId == null) return;	
+	
+	const xhr = new XMLHttpRequest();
+	
+	xhr.onreadystatechange = function(){
+		if(xhr.readyState == 4 && xhr.status == 200){
+			const response = JSON.parse(xhr.responseText);
+			// js 렌더링... 작업..
+			const heartBox = document.getElementById("heartBox"+reviewId);
+			
+			if(response.isLiked){
+				heartBox.classList.remove("bi-heart");
+				heartBox.classList.add("bi-heart-fill");
+			}else{
+				heartBox.classList.remove("bi-heart-fill");
+				heartBox.classList.add("bi-heart");
+			}
+
+			
+		}
+	}
+	
+	
+	//get
+	xhr.open("get", "./promoReviewIsLiked?review_id=" + reviewId);
+	xhr.send();
+	
+}
+
+window.addEventListener("DOMContentLoaded", function(){
+	
+	getSessionId();
+
+});
+</script>
 <body>
 	<!-- 헤더 섹션 -->
 	<jsp:include page="../../common/header.jsp"></jsp:include>
@@ -49,6 +131,10 @@
 					 <div class="vr mx-3"></div>
 					<a href="#" style="text-decoration: none; color: inherit;">
 						BEST
+					</a>
+					 <div class="vr mx-3"></div>
+					 <a href="#" style="text-decoration: none; color: inherit;">
+						임시
 					</a>
 					</div>
 				</div>
@@ -98,7 +184,7 @@
 				</div>
 				<div class = "row mt-2">
 					<div class = "col text-center fs-5">
-						월간 사람들이 많이 공감한 리뷰
+						월간 사람들이 많이 작성한 제품
 					</div>
 				</div>
 		</div>
@@ -107,12 +193,12 @@
 		<div class = "row mt-5">
 			<div class = "col">
 				<div class = "row mb-2">			
-					<!--  1위 -->
+					<!--  반복문 foreach 들어갈 자리 -->
 					<div class = "col mb-3">
 						<div class="card border border-0" style="width: 18rem; height: 350px;">
 							<a href="./contentPromotionReviewPage?id=${map.promotionReviewDto.id }"> <%-- 여기에 사진 누르면 들어가는 구매창 링크 --%> 	
 						  <img src="/uploadPromoFiles/${map.promotionReviewImgList[0].rental_review_img }"
-						  	   class="card-img-top" alt="실험용1" height="300" >
+						  	   class="card-img-top" alt="리워드게시물사진" height="300" >
 						  </a>
 						  <div class="card-body text-center">
 						  	<p class="card-text secondary fs-6 mt-1">${map.promotionReviewDto.rental_item_id }</p> <%-- 나중에 대여 카테고리 가져오면 여기 수정하기 --%>
@@ -122,35 +208,6 @@
 						</div>
 					</div>
 					
-					<!--  2위 -->
-					<div class = "col mb-3">
-						<div class="card border border-0" style="width: 18rem; height: 350px;">
-							<a href="./contentPromotionReviewPage?id=${map.promotionReviewDto.id }"> <%-- 여기에 사진 누르면 들어가는 구매창 링크 --%> 	
-						  <img src="/uploadPromoFiles/${map.promotionReviewImgList[0].rental_review_img }"
-						  	   class="card-img-top" alt="실험용1" height="300" >
-						  </a>
-						  <div class="card-body text-center">
-						  	<p class="card-text secondary fs-6 mt-1">${map.promotionReviewDto.rental_item_id }</p> <%-- 나중에 대여 카테고리 가져오면 여기 수정하기 --%>
-						    <h5 class="card-title fs-5 mt-1 fw-semibold">${map.promotionReviewDto.promotion_review_title }</h5>
-						    <p class="card-text fs-6 mt-3">${map.userDto.nickname }</p>
-						  </div>
-						</div>
-					</div>
-					
-					<!--  3위 -->
-					<div class = "col mb-3">
-						<div class="card border border-0" style="width: 18rem; height: 350px;">
-							<a href="./contentPromotionReviewPage?id=${map.promotionReviewDto.id }"> <%-- 여기에 사진 누르면 들어가는 구매창 링크 --%> 	
-						  <img src="/uploadPromoFiles/${map.promotionReviewImgList[0].rental_review_img }"
-						  	   class="card-img-top" alt="실험용1" height="300" >
-						  </a>
-						  <div class="card-body text-center">
-						  	<p class="card-text secondary fs-6 mt-1">${map.promotionReviewDto.rental_item_id }</p> <%-- 나중에 대여 카테고리 가져오면 여기 수정하기 --%>
-						    <h5 class="card-title fs-5 mt-1 fw-semibold">${map.promotionReviewDto.promotion_review_title }</h5>
-						    <p class="card-text fs-6 mt-3">${map.userDto.nickname }</p>
-						  </div>
-						</div>
-					</div>
 					
 				</div>
 			</div>
@@ -186,17 +243,35 @@
 										<div class = "col-4">
 										<a href="./contentPromotionReviewPage?id=${map.promotionReviewDto.id }"> <%-- 여기에 사진 누르면 들어가는 구매창 링크 --%> 	
 									  <img src="/uploadPromoFiles/${map.promotionReviewImgList[0].rental_review_img }"
-									  	   class="card-img-top" alt="실험용1" height="150" width="100" >
+									  	   class="card-img-top" alt="리워드게시물사진" height="150" width="100" >
 									  </a>
-									 		 </div>
+									 	</div>
 									 	<div class = "col">
 									  <div class="card-body">
-									    <h5 class="card-title fs-5 mt-1 fw-semibold">
-									    <a href="./contentPromotionReviewPage?id=${map.promotionReviewDto.id }" style="text-decoration: none; color: inherit;">
-									    ${map.promotionReviewDto.promotion_review_title }
-									    </a>
-									     <span class="comment-count">[${map.countPromotionReviewComment}]</span>
-									    </h5>
+									  <div class = "row">
+									  	  <div class = "col">
+										  	<h5 class="card-title fs-5 mt-1 fw-semibold">
+											    <a href="./contentPromotionReviewPage?id=${map.promotionReviewDto.id }" style="text-decoration: none; color: inherit;">
+											    ${map.promotionReviewDto.promotion_review_title }
+											    </a>
+										     	<span class="comment-count">[${map.countPromotionReviewComment}]</span>
+										    </h5>
+									  	  </div>
+									  	  <!--  공감버튼. 내가 누른 하트 유무-->
+									  	  <div class = "col-1 text-end">
+									  	
+									  		<c:choose>
+									  			<c:when test="${!empty sessionUser && (map.realCheck != 0)}">
+									  				<i id = "heartBox${map.promotionReviewDto.id}" class = "text-danger bi bi-heart-fill fs-5"
+									  				onclick="togglePromotionReviewLike(${map.promotionReviewDto.id})"></i>	
+									  			</c:when>
+									  			<c:otherwise>
+									  				<i id = "heartBox${map.promotionReviewDto.id }" class = "text-danger bi bi-heart fs-5"
+									  				onclick="togglePromotionReviewLike(${map.promotionReviewDto.id})"></i>
+									  			</c:otherwise>
+									  		</c:choose>	
+							  			  </div>
+									  </div>
 									    <div class="d-flex align-items-center">
 						                    <img src="${data.userDto.profile_img_link}" class="rounded-circle" style="width: 25px; height: 25px;" alt="프로필사진">
 						                    <p class="card-text fs-6 mt-2 ms-2">${map.userDto.nickname}</p>
@@ -239,24 +314,39 @@
 						<div class="mt-3">
 						<div class = "reviewlist container border border-1" style="border-radius: 10px;">
 						<div class = "row mt-4">			
-							<c:forEach items="${promoReviewList}" var="map" varStatus="status" begin="0" end="4">
+							<c:forEach items="${orderByLikePromoReviewList}" var="map" varStatus="status" begin="0" end="4">
 								<div class = "col mb-3">
 									<div class="card border border-0" style="width:30rem; height: 150px;">
 									<div class = "row">
 										<div class = "col-4">
-										<a href="./contentPromotionReviewPage?id=${map.promotionReviewDto.id }"> <%-- 여기에 사진 누르면 들어가는 구매창 링크 --%> 	
+										<a href="./contentPromotionReviewPage?id=${map.promotionReviewDto.id }"> 	
 									  <img src="/uploadPromoFiles/${map.promotionReviewImgList[0].rental_review_img }"
-									  	   class="card-img-top" alt="실험용1" height="150" width="100" >
+									  	   class="card-img-top" alt="리워드게시물사진" height="150" width="100" >
 									  </a>
 									 		 </div>
 									 	<div class = "col">
 									  <div class="card-body">
-									    <h5 class="card-title fs-5 mt-1 fw-semibold">
-									    <a href="./contentPromotionReviewPage?id=${map.promotionReviewDto.id }" style="text-decoration: none; color: inherit;">
-									    ${map.promotionReviewDto.promotion_review_title }
-									    </a>
-									    <span class="comment-count">[${map.countPromotionReviewComment}]</span>
-									    </h5>
+									    <div class = "row">
+									  	  <div class = "col">
+										  	<h5 class="card-title fs-5 mt-1 fw-semibold">
+											    <a href="./contentPromotionReviewPage?id=${map.promotionReviewDto.id }" style="text-decoration: none; color: inherit;">
+											    ${map.promotionReviewDto.promotion_review_title }
+											    </a>
+										     	<span class="comment-count">[${map.countPromotionReviewComment}]</span>
+										    </h5>
+									  	  </div>
+									  	  <!--  공감버튼. 내가 누른 하트 유무  밥 먹고와서 하세요-->
+									  	  <div class = "col-1 text-end">
+									  		<c:choose>
+									  			<c:when test="${!empty sessionUser && (map.realCheck != 0)}">
+									  			<i id = "heartBox${map.promotionReviewDto.id}" class = "text-danger bi bi-heart-fill fs-5" onclick="togglePromotionReviewLike(${map.promotionReviewDto.id})"></i>	
+									  			</c:when>
+									  			<c:otherwise>
+									  				<i id = "heartBox${map.promotionReviewDto.id }" class = "text-danger bi bi-heart fs-5" onclick="togglePromotionReviewLike(${map.promotionReviewDto.id})"></i>
+									  			</c:otherwise>
+									  		</c:choose>	
+							  			  </div>
+									   </div>
 									    <div class="d-flex align-items-center">
 						                    <img src="${data.userDto.profile_img_link}" class="rounded-circle" style="width: 25px; height: 25px;" alt="프로필사진">
 						                    <p class="card-text fs-6 mt-2 ms-2">${map.userDto.nickname}</p>
@@ -284,7 +374,9 @@
 				</div>
 			</div>
 			
-			
+			<div>&nbsp;</div>
+				<br>
+			<div>&nbsp;</div>
 			
 
 
@@ -307,9 +399,6 @@
 	<!-- 푸터 섹션 -->
 	<jsp:include page="../../common/footer.jsp"></jsp:include>
 	<!-- 푸터 섹션 -->
-	<script
-		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
-		integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
-		crossorigin="anonymous"></script>
+
 </body>
 </html>

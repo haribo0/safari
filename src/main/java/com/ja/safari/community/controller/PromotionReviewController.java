@@ -46,13 +46,27 @@ public class PromotionReviewController {
 	public String promotionReviewMainPage(Model model, @RequestParam(value = "page", defaultValue = "1") int page,
 			String promoReview_searchType,
 			String promoReview_searchWord,
-			PromotionReviewCommentDto promotionReviewCommentDto
+			PromotionReviewCommentDto promotionReviewCommentDto,
+			HttpSession session
 			) {
 	
-		List<Map<String, Object>> promoReviewList = promotionReviewService.getPromotionReviewList(page, promoReview_searchType, promoReview_searchWord, promotionReviewCommentDto);		
+		UserDto sessionUser = (UserDto)session.getAttribute("sessionUser");
+		
+		int sessionId = 0;
+		
+		if(sessionUser != null) {
+			sessionId = sessionUser.getId();
+		}
+		
+		List<Map<String, Object>> promoReviewList = promotionReviewService.getPromotionReviewList(page, promoReview_searchType, promoReview_searchWord, promotionReviewCommentDto, sessionId);		
+	
+		List<Map<String, Object>> orderByLikePromoReviewList = promotionReviewService.orderByPromotionReviewLikes(sessionId); 
+		
 		
 		model.addAttribute("promoReviewList", promoReviewList);
+		model.addAttribute("orderByLikePromoReviewList", orderByLikePromoReviewList);
 		
+			
 		return "/community/promotion/promotionReviewMainPage";
 	}
 	
@@ -219,14 +233,10 @@ public class PromotionReviewController {
 					multipartFile.transferTo(new File(rootFolder + saveFileName));
 				}catch(Exception e) {
 					e.printStackTrace();
-				}
-				
-				System.out.println("controller 수정 : 3");
+				}				
 				
 				PromotionReviewImgDto promotionReviewImgDto = new PromotionReviewImgDto();
-				promotionReviewImgDto.setRental_review_img(saveFileName);
-				
-				System.out.println("controller 수정 : 4");
+				promotionReviewImgDto.setRental_review_img(saveFileName);			
 				
 				promotionReviewImgDtoList.add(promotionReviewImgDto);
 			}
@@ -266,12 +276,22 @@ public class PromotionReviewController {
 				@RequestParam(value = "page", defaultValue = "1") int page,
 				String promoReview_searchType,
 				String promoReview_searchWord,
-				PromotionReviewCommentDto promotionReviewCommentDto
+				PromotionReviewCommentDto promotionReviewCommentDto,
+				HttpSession session
 				) {
 		
 		
+		UserDto sessionUser = (UserDto)session.getAttribute("sessionUser");
 		
-		List<Map<String, Object>> promoReviewList = promotionReviewService.getPromotionReviewList(page, promoReview_searchType, promoReview_searchWord, promotionReviewCommentDto);
+		int sessionId = 0;
+		
+		if(sessionUser != null) {
+			sessionId = sessionUser.getId();
+		}
+		
+		List<Map<String, Object>> topViewCount = promotionReviewService.topViewCount(sessionId);
+		
+		List<Map<String, Object>> promoReviewList = promotionReviewService.getPromotionReviewList(page, promoReview_searchType, promoReview_searchWord, promotionReviewCommentDto, sessionId);
 		int promotionReviewCount = promotionReviewService.getPromotionReviewCount(promoReview_searchType, promoReview_searchWord);
 		
 		
@@ -286,6 +306,7 @@ public class PromotionReviewController {
 		}
 		
 		model.addAttribute("promoReviewList", promoReviewList);
+		model.addAttribute("topViewCount", topViewCount);
 		model.addAttribute("totalPage", totalPage);
 		model.addAttribute("currentPageNum", page);
 		model.addAttribute("startPage", startPage);
@@ -324,12 +345,22 @@ public class PromotionReviewController {
 	
 	
 	
-	// 리워드 적립 페이지(거쳐가는 페이지)(이거 머리 안돌아가서 이상할걸 다시 수정하길)
+	// 리워드 적립 페이지(거쳐가는 페이지=> 여기서 포인트 적립이 되야 함.)(이거 머리 안돌아가서 이상할걸 다시 수정하길)
 	@RequestMapping("promotion/rewardPromotionReviewPage")
 	public String rewardPromotionReviewPage() {
 		
+		System.out.println("리워드 적립 거쳐가는 페이지 ");
 		
 		
-		return "redirect:/community/promotion/contentPromotionReviewPage";
+		return "redirect:/community/promotion/rentalProductPage";
+	}
+	
+	// 대여 상품 상세페이지(임시!!!!!!!! 나중에 진짜 대여랑 엮으시길 바랍니다.)
+	@RequestMapping("promotion/rentalProductPage")
+	public String rentalProductPage() {
+		
+		System.out.println("임시 대여 상품 페이지");
+		
+		return "/community/promotion/rentalProductPage";
 	}
 }

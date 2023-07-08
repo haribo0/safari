@@ -1,5 +1,6 @@
 package com.ja.safari.used.service;
 
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -8,6 +9,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.ja.safari.dto.ProductChatDto;
 import com.ja.safari.dto.ProductCityDto;
@@ -18,14 +20,21 @@ import com.ja.safari.dto.ProductMainCategoryDto;
 import com.ja.safari.dto.ProductRequestDto;
 import com.ja.safari.dto.ProductSubCategoryDto;
 import com.ja.safari.dto.ProductTownDto;
+import com.ja.safari.dto.UsedKaKaoPayApproveDto;
+import com.ja.safari.dto.UserCoinDto;
 import com.ja.safari.dto.UserDto;
 import com.ja.safari.used.mapper.UsedSqlMapper;
+import com.ja.safari.user.mapper.UserSqlMapper;
 
+@Transactional
 @Service
 public class UsedServiceImpl {
 	
 	@Autowired
 	UsedSqlMapper usedSqlMapper;
+	
+	@Autowired
+	UserSqlMapper userSqlMapper;
 	
 	//상품 대분류 카테고리 
 	public List<ProductMainCategoryDto> selectMainCategory(){
@@ -430,7 +439,51 @@ public class UsedServiceImpl {
 		return usedSqlMapper.selectProductRequestByProductIdAndRequestId(productId, requesterId);
 	}
 	
+	// 카카오페이  결제 저장 
+	public void saveOrderAndPaymentInfo(UsedKaKaoPayApproveDto usedKaKaoPayApproveDto) {
+		
+		usedSqlMapper.insertUsedPayment(usedKaKaoPayApproveDto);
+		// 코인 저장 
+		ProductDto productDto = usedSqlMapper.selectProductById(usedKaKaoPayApproveDto.getItem_code());
+		UserCoinDto userCoinDto = new UserCoinDto(); 
+		userCoinDto.setUser_id(productDto.getUser_id());
+		userCoinDto.setCoin_transaction(productDto.getPrice()); 
+		userCoinDto.setTransaction_operand("P");
+		userCoinDto.setTransaction_detail("중고거래 입금"); 
+		
+		userSqlMapper.insertUserCoin(userCoinDto);
+		
+		//채팅 저장
+		ProductChatDto productChatDto = new ProductChatDto();
+		// 돈 보내는 사람 
+		UserDto userDto = usedSqlMapper.selectUserDtoById(usedKaKaoPayApproveDto.getPartner_user_id());
+		// 채팅에 입금한거 저장
+		productChatDto.setPurchase_request_id(usedKaKaoPayApproveDto.getPartner_order_id());
+		
+		// productDto.getPrice() 값을 가져온다고 가정
+		int price = productDto.getPrice();
 
+		// 천단위마다 쉼표를 찍는 DecimalFormat 객체 생성
+		DecimalFormat decimalFormat = new DecimalFormat("#,###");
+
+		// price 값을 천단위마다 쉼표를 찍어서 문자열로 변환
+		String formattedPrice = decimalFormat.format(price);
+		
+		productChatDto.setContent(userDto.getNickname()+"이(가) "+formattedPrice+"원 송금하였습니다.");
+		usedSqlMapper.insertProductChat(productChatDto);
+	}
+	
+	// 광고 주문/결제 정보 가져오기  
+	public Map<String, Object> getOrderAndPaymentInfo(Integer orderId) {
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		map.put("payment", usedSqlMapper.getUsedPaymentByOrderId(orderId));
+		ProductDto productDto = usedSqlMapper.selectProductById(usedSqlMapper.selectProductRequestById(orderId).getProduct_id());
+		map.put("productDto", productDto);
+		
+		return map;
+	}
 	
 	
 	

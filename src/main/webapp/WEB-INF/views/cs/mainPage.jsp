@@ -109,6 +109,7 @@ function getWorkStateByEmpId() {
 			if(response.workState != "근무") {
 				const button = document.createElement('div');
 				button.classList.add('ms-3', 'btn', 'btn-outline-dark');
+				if(workState==='휴무') button.classList.add('disabled');
 				button.textContent = '출근';
 				button.addEventListener('click', startWorking);
 				workBox.appendChild(button);
@@ -125,7 +126,7 @@ function getWorkStateByEmpId() {
 	}
 
 	// get 방식 
-	xhr.open("get", "getWorkStateByEmpId");
+	xhr.open("get", "./getWorkStateByEmpId");
 	xhr.send();
 
 }

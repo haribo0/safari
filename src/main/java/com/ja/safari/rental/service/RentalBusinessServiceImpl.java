@@ -129,11 +129,16 @@ public class RentalBusinessServiceImpl {
 	public List<Map<String, Object>> getProductAndPriceListByUserId(int businessId){
 		
 		List<Map<String, Object>> list = new ArrayList<Map<String,Object>>();
+		
 		for(RentalItemDto item : rentalSqlMapper.getProductListByUserId(businessId)) {
+			
 			Map<String, Object> map = new HashMap<String, Object>();
 			map.put("product", item);
 			map.put("discountedPriceList", rentalSqlMapper.getDiscountedPriceList(item.getId()));
-			map.put("ads", rentalSqlMapper.getAdsCountByProductId(item.getId()) > 0);
+			List<RentalAdsOrderDto> rentalAdsOrderDtos = rentalSqlMapper.getAdsDtoByProductId(item.getId());
+			map.put("ads", rentalAdsOrderDtos.size() > 0);
+			if(rentalAdsOrderDtos.size()>0) map.put("adsDto", rentalAdsOrderDtos.get(0));
+			
 			list.add(map);
 		}
 		

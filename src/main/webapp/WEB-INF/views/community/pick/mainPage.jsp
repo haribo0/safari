@@ -51,35 +51,10 @@
 			<div class="col-9">
 				<div class="align-items-center justify-content-center justify-content-lg-center"> 
 					
-					<%-- pickBoardList --%>
+					<%-- pickBoardList --%> 
 					<div class="row"  style="text-align:center">
 						<div class="col">
-							<table class="table table-hover">
-								<thead>
-									<tr>
-										<th>글번호</th>
-										<th>제목</th>
-										<th>작성자</th>
-										<th>조회수</th>
-										<th>등록일</th>
-									</tr>	
-								</thead>
-								<tbody>
-								<c:forEach items="${pickBoardList}" var="pickDto">							
-									<tr class="align-middle">
-										<td><a class="text-black text-decoration-none" href="/safari/community/pick/readContentPage/${pickDto.pickDto.id}" >
-										${pickDto.pickDto.id}
-										</a></td>
-										<td><a class="text-black text-decoration-none" href="/safari/community/pick/readContentPage/${pickDto.pickDto.id}">
-										${pickDto.pickDto.title}</a></td>
-										<td>${pickDto.userDto.nickname}</td>
-										<td>${pickDto.pickDto.views}</td>
-										<td><fmt:formatDate value="${pickDto.pickDto.reg_date}" pattern="yyyy.MM.dd"/></td>
-									</tr>
-								</c:forEach>	
-								</tbody>
-							</table>
-							 
+							
 							<%-- 글쓰기버튼 --%>
 							<div class="row">
 								<div class="col text-end pe-5">
@@ -89,6 +64,50 @@
 								</div>
 							</div>
 							<%-- 글쓰기버튼 --%>
+								
+								
+								<%-- 골라줘요 항목 foreach --%>
+								<c:forEach items="${pickBoardList}" var="pickDto">				
+								<div class="align-middle ms-4 me-4 mb-4" style="text-align:start">
+								<hr>
+									
+									<div class="ms-2 me-2" style="font-size: 14px;">
+									
+									<div class="row">
+										<div class="col">
+										<span class="badge rounded-pill text-bg-dark mt-2 me-1 mb-3" style="padding: 6px 10px; font-size: 16px;">골라줘요</span> 
+										 ${pickDto.userDto.nickname}
+										| <i class="bi bi-clock mt-2" style="font-size: 12px;"></i> <fmt:formatDate value="${pickDto.pickDto.reg_date}" pattern="yyyy.MM.dd"/>
+										| views&nbsp;👀 · ${pickDto.pickDto.views}
+										</div>
+										
+										<div class="col">
+										</div>
+									</div>
+									
+									<br>
+									
+									<div class="ms-2 me-2">
+										<a class="text-black text-decoration-none" href="/safari/community/pick/readContentPage/${pickDto.pickDto.id}" >
+										${pickDto.pickDto.id}
+										</a>
+										||
+										<a class="text-black text-decoration-none" href="/safari/community/pick/readContentPage/${pickDto.pickDto.id}">
+										${pickDto.pickDto.content}</a>
+									<br>
+									</div>
+										
+										<%-- 해시태그 --%>
+										<div class="mt-3">
+											<button type="button" class="btn btn-outline-secondary rounded-pill btn-sm">#해시태그</button>
+											<button type="button" class="btn btn-outline-secondary rounded-pill btn-sm">#해시태그</button>
+											<button type="button" class="btn btn-outline-secondary rounded-pill btn-sm">#해시태그</button>	
+										</div>
+										<%-- 해시태그 --%>
+									</div>
+								</div>
+								</c:forEach>	
+								<%-- 골라줘요 항목 foreach --%>
 							
 						</div>	
 					</div>	

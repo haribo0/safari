@@ -26,10 +26,12 @@
 
 
 <div class="container-fluid">
-	<div class="row mt-2">
+	<div class="row mt-0">
 		<div class="col"></div>
 		<div class="col-10">
-			<h4>직원 관리</h4>
+			<!-- <h4>직원 관리</h4> -->
+			<h5 class="fw-bolder">직원 관리</h5>
+			
 			<div class="row">
 				<div class="col text-end d-grid"></div>
 				<div class="col-2 text-end ">
@@ -143,14 +145,14 @@
 				        
 				        
 				
-				        <div class="form-group row mt-4">
+				        <!-- <div class="form-group row mt-4">
 				            
 				            <div class="col-6">
 				            <div class="mb-1"><label for="mainImg" class=" col-form-label fw-medium">프로필사진?</label></div>
 				                <input type="file" class="form-control-file" id="mainImg" name="mainImg" accept="images/*">
 				            </div>
 				            
-				        </div>
+				        </div> -->
 				
 				        <div class="form-group row mt-4">
 				            
@@ -219,7 +221,9 @@ function registerEmployee() {
 	for (let i = 0; i < itemImgs.length; i++) {
 	  formData.append('itemImgs', itemImgs[i]);
 	} */
-
+	
+	
+	
 
 
 	xhr.onreadystatechange = function() {
@@ -227,7 +231,15 @@ function registerEmployee() {
 	    const response = JSON.parse(xhr.responseText);
 	    // 응답 처리
 	    getEmployeeList();
+	    // input 비워주기 
+		document.getElementById('username').value = "";
+		document.getElementById('password').value = "";
+		document.getElementById('name').value = "";
+		document.getElementById('job_position').value = "";
+		document.getElementById('nickname').value = "";
+
 	    modal.hide();
+	    
 	    
 	  }
 	}
@@ -332,10 +344,12 @@ function getEmployeeList() {
 				const col6Div = document.createElement('div');
 				col6Div.classList.add('col');
 				const select1 = document.createElement('select');
+				select1.classList.add('col');
 				select1.className = 'startTime';
+				select1.setAttribute("data-emp-id", map.empDto.id);
 				select1.id = 'start_time-'+map.empDto.id;
 				select1.name = 'start_time';
-				for (let hour = 09; hour <= 18; hour++) {
+				for (let hour = 00; hour <= 24; hour++) {
 				    let option = document.createElement('option');
 				    let time = ('0' + hour).slice(-2) + ':00';
 				    option.value = hour;
@@ -347,7 +361,6 @@ function getEmployeeList() {
 					    }
 				    }
 				    select1.appendChild(option);
-				  
 				}
 				
 				select1.addEventListener('change',changeDataForSchedule);
@@ -360,7 +373,8 @@ function getEmployeeList() {
 				const select = document.createElement('select');
 				select.className = 'endTime';
 				select.name = 'end_time';
-				for (let hour = 12; hour <= 22; hour++) {
+				select.setAttribute("data-emp-id", map.empDto.id);
+				for (let hour = 00; hour <= 24; hour++) {
 				    let option = document.createElement('option');
 				    let time = ('0' + hour).slice(-2) + ':00';
 				    option.value = hour;

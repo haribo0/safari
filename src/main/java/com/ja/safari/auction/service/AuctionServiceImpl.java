@@ -14,6 +14,7 @@ import com.ja.safari.dto.AuctionItemChatroomDto;
 import com.ja.safari.dto.AuctionItemDto;
 import com.ja.safari.dto.AuctionItemImgDto;
 import com.ja.safari.dto.AuctionItemLikeDto;
+import com.ja.safari.dto.AuctionKakaoPayApproveDto;
 import com.ja.safari.dto.ProductMainCategoryDto;
 import com.ja.safari.dto.ProductSubCategoryDto;
 import com.ja.safari.dto.UserDto;
@@ -152,6 +153,39 @@ public class AuctionServiceImpl {
 		return auctionList;
 	}
 	
+	// 경매 메인페이지에서 상태에 따른 경매 조회 
+	public List<Map<String, Object>> getAuctionListByStatus(String status) {
+		
+		List<Map<String, Object>> auctionList = new ArrayList<>();
+		
+		 List<AuctionItemDto> auctionDtoList = auctionSqlMapper.getAuctionListByStatus(status);
+		 
+		 for (AuctionItemDto auctionDto : auctionDtoList) {
+			 
+			 Map<String, Object> map = new HashMap<>();
+			 
+			 // 경매 리스트에서 회원의 닉네임을 출력
+			 UserDto userDto = userSqlMapper.selectUserDtoById(auctionDto.getUser_seller_id());
+			 
+			 // 경매 리스트에서 메인 이미지 출력
+			 AuctionItemImgDto auctionItemImgDto = auctionSqlMapper.getAuctionImg(auctionDto.getId());
+			 
+			 
+			 map.put("userDto", userDto);
+			 map.put("auctionImgDto", auctionItemImgDto);
+			 map.put("auctionDto", auctionDto);
+			 map.put("bidCount", auctionSqlMapper.getBidCount(auctionDto.getId()));
+			 
+			  
+			 auctionList.add(map);
+		 }
+			
+		return auctionList;
+	}
+	
+	
+	
+	
 	// 경매 수정
 	public void modifyAuctionProduct(AuctionItemDto auctionItemDto, List<AuctionItemImgDto> auctionItemImgDtoList) {
 		
@@ -181,6 +215,7 @@ public class AuctionServiceImpl {
 		
 		// 입찰 삭제
 		auctionSqlMapper.deleteAllBid(id);
+		
 		
 	}
 	
@@ -501,6 +536,37 @@ public class AuctionServiceImpl {
 	}
 	
 	
+	 // 마이페이지 - 내가 입찰한 기록 조회
+	public List<AuctionItemDto> getMyBidList(int userBuyerId) {
+		return auctionSqlMapper.getMyBidList(userBuyerId);
+	}
+	
+	// 마이페이지 - 낙찰 기록 조회
+	public List<AuctionBidDto> getMySueecssfulBidList(int userBuyerId) {
+		
+		return auctionSqlMapper.getMySueecssfulBidList(userBuyerId);
+	}
+	
+	// 마이페이지 - 찜 목록 조회
+	public List<AuctionItemDto> getMyAuctionWishList(int userBuyerId) {
+		return auctionSqlMapper.getMyAuctionWishList(userBuyerId);
+	}
+	
+	// 경매 카카오페이 결제 정보 저장
+	public void saveAuctionKakaoPayInfo(AuctionKakaoPayApproveDto auctionKakaoPayApproveDto) {
+		auctionSqlMapper.saveAuctionKakaoPayInfo(auctionKakaoPayApproveDto);
+	}
+	
+	// 경매 카카오페이 결제 정보 조회 (수정해야함)
+	public Map<String, Object>  getAuctionKakaoPayInfo(Integer id) {
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		map.put("auctionPayment", auctionSqlMapper.getAuctionKakaoPayInfo(id));
+		
+	
+		return map;
+	}
 	
 	
 }
