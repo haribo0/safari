@@ -47,4 +47,15 @@ public interface QuestionSqlMapper {
 		
 		public void removeQuestionLike(QuestionLikeDto questionLikeDto);
 		
+		//궁금해요 게시물 답변 조회
+		public QuestionReplyDto getQuestionReplyById(int id);
+		
+		//궁금해요 게시물 답변 채택 insert
+		public void acceptQuestionReply(int id);
+		
+		//궁금해요 게시물 답변 채택 완료 update
+		public void completeQuestionReply(int id); 
+		
+		//궁금해요 게시물 채택 상태 변경 update
+		public void completeQuestionBoard(int id);
 }

@@ -5,13 +5,17 @@
 <mapper namespace="com.ja.safari.community.mapper.QuestionSqlMapper">
 
 	
-	
+	<!-- 유저 -->
 	<select id="selectUserByUserId" resultType="com.ja.safari.dto.UserDto">
 	select * from user_table where id=#{id}
 	</select>
 	
 	
 	<!--              궁금해요                   -->
+	<!-- 궁금해요 게시물 댓글 -->
+	<select id="getQuestionReplyById" resultType="com.ja.safari.dto.QuestionReplyDto">
+	select * from question_reply_table where id=#{id}
+	</select>
 	
 	<!-- 궁금해요 게시물 insert -->
 	<insert id="registerQuestionBoard">
@@ -70,7 +74,7 @@
 	
 	<!-- 궁금해요 게시물 답변 select -->
 	<select id="selectAllQuestionReplyByBoardId" resultType="com.ja.safari.dto.QuestionReplyDto">
-	select * from question_reply_table where question_id=#{question_id} order by id desc
+	select * from question_reply_table where question_id=#{id} order by id desc
 	</select>
 	
 	<!-- 궁금해요 게시물 답변 delete -->
@@ -90,7 +94,7 @@
 	
 	<!-- 궁금해요 좋아요 수 count -->
 	<select id="getQuestionLikeCountByBoardId" resultType="int">
-	select count(*) from question_like_table where question_id=#{id}	
+	select count(*) from question_like_table where question_id=#{question_id}	
 	</select>
 	
 	<!-- 궁금해요 게시물 좋아요 입력/취소 -->
@@ -105,10 +109,27 @@
 	where question_id=#{question_id} and user_id=#{user_id}
 	</delete>
 	
-
+	<!-- 궁금해요 게시물 답변 채택 insert -->
+	<insert id="acceptQuestionReply">
+	insert into question_reply_complete values(
+	question_reply_complete_seq.nextval,
+	#{question_reply_id},
+	sysdate
+	)
+	</insert>
 	
+	<!-- 궁금해요 게시물 답변 채택 완료 update -->
+	<update id="completeQuestionReply">
+	update question_reply_table
+    	set status ='Y'
+    		 where id=#{id}
+	</update>
 	
-	
-	
+	<!-- 궁금해요 게시물 채택 상태 변경 update -->
+	<update id="completeQuestionBoard">
+	update question_table
+    	set status = '채택 완료'
+     		 where id = #{id}
+	</update>
 	
 </mapper>

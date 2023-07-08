@@ -161,7 +161,7 @@ public class HelpController {
 	public String updateContentProcess(HelpDto helpDto) {
 		helpService.updateHelpBoard(helpDto);
 
-		return "redirect:/community/help/mainPage";
+		return "redirect:/community/help/readContentPage/" + helpDto.getId();
 	}
 
 	// 해주세요 삭제
@@ -234,6 +234,8 @@ public class HelpController {
 
 	}
 
+	
+	
 	// 해주세요 미션완료 insert
 	@RequestMapping("help/acceptHelpCommentProcess") // id : helpCommentDto.id
 	public String acceptHelpCommentProcess(int help_comment_id, HelpCommentCompleteDto helpCommentCompleteDto) {

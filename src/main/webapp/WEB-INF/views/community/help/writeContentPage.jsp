@@ -17,11 +17,18 @@
 	<jsp:include page="../../common/header.jsp"></jsp:include>
 	<!-- 헤더 섹션 -->
 	
+<%-- 	<!-- 커뮤니티 메뉴바 -->
+      <div class="row">
+         <div class="col">
+            <jsp:include page="../communityTopNavi.jsp"></jsp:include>
+         </div>
+      </div>
+      <!-- 커뮤니티 메뉴바 --> --%>
 	
 	<div class="row">
 	
 	<%--왼쪽 시작--%>
-	<div class="col-3"></div>
+	<div class="col-2"></div>
 	<%--왼쪽 끝 --%>
 	
 	
@@ -31,42 +38,46 @@
 	<div class="col ">
 		<div class="container">	
 	
-	<!-- 만약 파일 보내는 경우 - enctype="multipart/form-data" 꼭 변경해야 함, 무조건 post방식-->
 	<%--글쓰기 폼 시작 --%>
+	
 	<form action="/safari/community/help/writeContentProcess" method="post" enctype="multipart/form-data">
 		
 		<div class="row">
 			<div class="col">
-				<table class="table table-hover">
-				 <tbody>
-				  <tr>
-				  	<td><input type="hidden" name="user_id" value="${sessionUser.id}"></td>
-				  </tr>
-				  <tr>
-					<td><input type="text" class="form-control" placeholder="제목을 입력해주세요" name="title" maxlength="40"></td>
-				  </tr>
-				  <tr>
-				  	<td>작성자: ${sessionUser.nickname}</td>
-				  </tr>
-				  <tr>
-				  	<td><textarea type="text" class="form-control" placeholder="내용을 입력해주세요" name="content" maxlength="3000" style="height:400px;"></textarea></td>
-				  </tr>
-				  <tr> 
-				  	<td><input type="text" class="form-control" placeholder="포인트"  name="points" maxlength="10"></td>
-				  </tr>
-				  <tr> 
-				  	<td><input type="text" class="form-control" placeholder="위치"  name="location" maxlength="10"></td>
-				  </tr>
-				</tbody>
-				</table>
-				<input name="helpBoardFiles" type="file" onchange="readURLContent(this)" id="helpBoardFiles" multiple accept="image/*">
+			 	
+				  <input type="hidden" name="user_id" value="${sessionUser.id}">
+				  <input type="text" class="form-control" placeholder="제목을 입력해주세요" name="title" maxlength="40" style= "margin-top: 10px;">
+				  <textarea type="text" class="form-control" placeholder="내용을 입력해주세요" name="content" maxlength="3000" style="height:400px; margin-top: 10px;"></textarea>
+				  <div style="display: flex; gap: 10px;">
+				  <select class="form-select" aria-label="Default select example" name="points" style="margin-top: 10px; max-width: 200px;">
+				  <option selected>포인트</option>
+				  <option value="0">0</option>
+				  <option value="100">100</option>
+				  <option value="200">200</option>
+				  <option value="300">300</option>
+				  <option value="400">400</option>
+				  <option value="500">500</option>
+				  <option value="600">600</option>
+				  <option value="700">700</option>
+				  <option value="800">800</option>
+				  <option value="900">900</option>
+				  <option value="1000">1000</option>
+				</select>
+				<input type="text" class="form-control" placeholder="위치"  name="location" maxlength="10" style="margin-top: 10px; max-width: 200px">
+				 </div>
+				  <!--  <input type="text" class="form-control" placeholder="포인트"  name="points" maxlength="10" style="margin-top: 10px;">-->
+				  <label for="helpBoardFiles" class="file-upload-btn" style="margin-top: 10px;">
+				  <i class="bi bi-paperclip"></i>
+				  <span class="sr-only">파일 선택</span>
+				  </label>
+				  <input name="helpBoardFiles" type="file" onchange="readURLContent(this)" id="helpBoardFiles" style= "display: none;"  multiple accept= "image/*">
 				</div>
-			</div>
+		</div>
 			
 			<div class="row">
 			<div class="col text-center">
 				<br>
-				<button>등록하기</button>
+				<button class="btn btn-primary">작성완료</button> 
 			</div>
 			</div>
 			</form>
@@ -76,7 +87,7 @@
 	<%--가운데 끝 --%>
 	
 	<%--오른쪽 시작--%>
-	<div class="col-3">
+	<div class="col-2">
 	</div>
 	<%--오른쪽 끝--%>	
 

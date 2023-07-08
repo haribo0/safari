@@ -8,7 +8,7 @@
 		select help_table_seq.nextval from dual
 	</select>
 	
-	
+	<!-- 유저 -->
 	<select id="selectUserByUserId" resultType="com.ja.safari.dto.UserDto">
 	select * from user_table where id=#{id}
 	</select>

@@ -40,6 +40,7 @@
 				<th>제목</th>
 				<th>작성자</th>
 				<th>조회수</th>
+				<th>좋아요</th>
 				<th>등록일</th>
 			  </tr>
 			</thead>
@@ -66,6 +67,7 @@
 				  
 				  <td>${map.userDto.nickname}</td>
 				  <td>${map.questionDto.views}</td>
+				  <td>${map.questionLikeCount}</td>
 				  <td><fmt:formatDate value="${map.questionDto.reg_date}" pattern="yyyy.MM.dd"/></td>
 				</tr>
 			</c:forEach>
