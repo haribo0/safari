@@ -16,6 +16,7 @@ import com.ja.safari.dto.RentalItemLikeDto;
 import com.ja.safari.dto.RentalItemReturnDto;
 import com.ja.safari.dto.RentalMainCategoryDto;
 import com.ja.safari.dto.RentalOrderDto;
+import com.ja.safari.dto.RentalOrderKakaopayReady;
 import com.ja.safari.dto.RentalPeriodDiscDto;
 import com.ja.safari.dto.RentalReviewDto;
 import com.ja.safari.dto.RentalReviewImgDto;
@@ -160,7 +161,6 @@ public class RentalServiceImpl {
 		
 		for(RentalReviewDto i :rentalReviewDtoList ) {
 			Map<String, Object> map = new HashMap<String, Object>();
-			float reviewRating = 0.0f;
 			
 			int reviewId = i.getId();
 			List<RentalReviewImgDto> rentalReviewImgDtoList = rentalSqlMapper.selectRentalReviewImgAll(reviewId);
@@ -188,7 +188,33 @@ public class RentalServiceImpl {
 
 		   
 		}
+
+	// 아이템 하나 title 가져오기
+	public String getItemTitle(int itemId) {
+		String title = rentalSqlMapper.selectItemTitleByItemId(itemId);
+		return title;
+	}
+
+	// 주문 진행시 pk 생성
+	public int getRentalOrderPk() {
+		return rentalSqlMapper.getRentalOrderPk();
+	}
+
+	// 카카오페이 준비 dto 생성
+	public void saveKakaoReady(RentalOrderKakaopayReady rentalOrderKakaopay) {
+		rentalSqlMapper.insertRentalKakaoReady(rentalOrderKakaopay);
+		return;
+	}
 	
+	// 카카오페이 준비 다음 단계를 위한 dto 다시 가져오기
+	public RentalOrderKakaopayReady getKakaoPayReady(int id) {
+		RentalOrderKakaopayReady kakaoPayReady = rentalSqlMapper.getRentalOrderKakaopay(id);
+		System.out.println("partner_user_id:: " + kakaoPayReady.getPartner_user_id());
+		System.out.println("partner_user_id:: " + kakaoPayReady.getTid());
+		return kakaoPayReady;
+	}
+
+
 	
 	
 

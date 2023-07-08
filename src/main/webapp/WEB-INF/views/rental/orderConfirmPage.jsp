@@ -141,7 +141,8 @@ select option[value=""][disabled] {
 					<input type="hidden" value="${data.rentalItemDto.id }" name="item_id">
 					<input type="hidden" value="" name="price" id="hidden_price">
 					<div class="row justify-content-end">
-						<button class="btn btn-success mt-5 w-25 pe-0">주문신청</button>					
+						<!-- <button class="btn btn-success mt-5 w-25 pe-0">주문신청</button> -->				
+					 	<span class="btn btn-success mt-5 w-25 pe-0" onclick="onReadyRentalKakaoPay()">주문신청</span>
 					</div>
 				</div>
 			</form>
@@ -172,6 +173,56 @@ select option[value=""][disabled] {
 		
 		xhr.open("get", "../user/getMyId", false);
 		xhr.send();		
+	}
+	
+	// 카카오페이 결제 ID 와 대여오더 ID 를 같이 쓸 pk 생성
+	function onReadyRentalKakaoPay() {
+		const xhr = new XMLHttpRequest();
+
+		xhr.onreadystatechange = function() {
+			if(xhr.readyState == 4 && xhr.status == 200){
+				const response = JSON.parse(xhr.responseText);
+				
+				const rentalOrderId = response.rentalOrderId;
+				console.log(response.rentalOrderId);
+
+				onRentalKakaoPay(rentalOrderId);
+				
+			}
+		}
+
+		xhr.open("get", "../rental/getRentalOrderPk");
+		xhr.send();	
+	}
+	
+	// 렌탈 카카오페이 진행
+	function onRentalKakaoPay(rentalOrderId) {
+		const xhr = new XMLHttpRequest();
+		const itemId = document.querySelector("[name=item_id]").value
+		const startDate = document.querySelector("[name=start_date]").value
+		const endDate = document.querySelector("[name=end_date]").value
+		const address = document.querySelector("[name=address]").value
+		const price = document.querySelector("[name=price]").value
+		const originalPrice = document.querySelector("[name=original_price]").value
+		const deposit = document.querySelector("[name=deposit]").value 
+		
+		xhr.onreadystatechange = function(){
+			if(xhr.readyState == 4 && xhr.status == 200){
+				const response = JSON.parse(xhr.responseText);
+				if(response.result == "success"){
+					mySessionId = response.id; 
+					const kakaoResult = JSON.parse(response.kakaoResult)
+					
+					console.log(kakaoResult.tid)
+					
+					location.href = kakaoResult.next_redirect_pc_url
+					
+				}
+			}
+		}
+		
+		xhr.open("get", "./rentalOrderKakaoProcess?user_id="+mySessionId+"&item_id=" + itemId + "&start_date=" + startDate + "&end_date=" + endDate + "&address=" + address + "&price=" + price + "&original_price=" + originalPrice + "&deposit=" + deposit + "&id="+ rentalOrderId);
+		xhr.send();
 	}
 	
 	// 카카오 주소 api

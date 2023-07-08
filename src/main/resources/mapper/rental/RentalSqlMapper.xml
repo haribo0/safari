@@ -128,7 +128,7 @@
 	<!-- 대여 오더 신청 -->
 	<insert id="insertRentalOrder">
 	INSERT INTO rental_order_table values(
-	    rental_order_table_seq.nextval,
+	    #{id},
 	    #{user_id},
 	    #{item_id},
 	    #{start_date},
@@ -239,8 +239,8 @@
 	</insert>
 	
 	<!-- 대여 카카오 페이 준비된 dto 가져오기 -->
-	<select id="getRentalOrderKakaopay" resultType="com.ja.safari.dto.RentalOrderKakaopay">
-		SELECT * FROM rental_order_kakaopay_table WHERE id= #{id}
+	<select id="getRentalOrderKakaopay" resultType="com.ja.safari.dto.RentalOrderKakaopayReady">
+		SELECT * FROM rental_order_kakaopay_table WHERE partner_order_id = #{id}
 	</select>
 	<!-- 
 	<update id="updateCustomerInfo">
