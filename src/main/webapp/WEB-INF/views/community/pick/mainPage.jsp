@@ -66,15 +66,25 @@
 							<%-- 글쓰기버튼 --%>
 								
 								
-								
+								<%-- 골라줘요 항목 foreach --%>
 								<c:forEach items="${pickBoardList}" var="pickDto">				
 								<div class="align-middle ms-4 me-4 mb-4" style="text-align:start">
 								<hr>
 									
-									<div class="ms-2 me-2">
-									<span class="badge rounded-pill text-bg-dark mt-2 me-1 mb-3" style="padding: 6px 10px; font-size: 16px;">골라줘요</span> ${pickDto.userDto.nickname}
-									| <i class="bi bi-clock"></i> <fmt:formatDate value="${pickDto.pickDto.reg_date}" pattern="yyyy.MM.dd"/>
-									| views👀 · ${pickDto.pickDto.views}
+									<div class="ms-2 me-2" style="font-size: 14px;">
+									
+									<div class="row">
+										<div class="col">
+										<span class="badge rounded-pill text-bg-dark mt-2 me-1 mb-3" style="padding: 6px 10px; font-size: 16px;">골라줘요</span> 
+										 ${pickDto.userDto.nickname}
+										| <i class="bi bi-clock mt-2" style="font-size: 12px;"></i> <fmt:formatDate value="${pickDto.pickDto.reg_date}" pattern="yyyy.MM.dd"/>
+										| views&nbsp;👀 · ${pickDto.pickDto.views}
+										</div>
+										
+										<div class="col">
+										</div>
+									</div>
+									
 									<br>
 									
 									<div class="ms-2 me-2">
@@ -83,7 +93,7 @@
 										</a>
 										||
 										<a class="text-black text-decoration-none" href="/safari/community/pick/readContentPage/${pickDto.pickDto.id}">
-										${pickDto.pickDto.title}</a>
+										${pickDto.pickDto.content}</a>
 									<br>
 									</div>
 										
@@ -97,7 +107,7 @@
 									</div>
 								</div>
 								</c:forEach>	
-								
+								<%-- 골라줘요 항목 foreach --%>
 							
 						</div>	
 					</div>	

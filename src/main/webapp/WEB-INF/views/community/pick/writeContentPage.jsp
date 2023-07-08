@@ -127,32 +127,57 @@
 									<input type="hidden" name="user_id" value="${sessionUser.id}">
 									
 									
-									 <div class="form-group">
-									     <div class="form-control" style="font-size: ; font-family: 'Noto Sans', sans-serif; box-shadow: none;">
-									        <strong><input type="text" name="title" placeholder="제목을 입력해주세요." style="width: 100%; border: none; outline: none;"></strong>
-									     </div>
-								     </div>
 								    
 								  	 <%-- select option--%> 
-									  <div class="form-group">
-										  <div class="form-control mt-2" style="font-size: ; font-family: 'Noto Sans', sans-serif; box-shadow: none;">
+									  <div class="form-group"> 
+									  <label for="product_sub_category" class="col col-form-label fw-bold">고민 중인 제품을 선택해주세요.</label>
+										  
+										  <div class="form-control mt-1" style="font-size: ; font-family: 'Noto Sans', sans-serif; box-shadow: none;">
 										    <strong>
-										      <label for="product_sub_category" class="col-sm-2 col-form-label fw-bold">제품 선택1</label>
 										      <select id="product_id" name="category" style="width: 100%; border: none; outline: none;">
-										        <option value="0" selected="selected">고민 중인 제품을 선택해주세요.</option>
+										        <option value="0" selected="selected">제품 선택1</option>
 										        <c:forEach items="${PickOptionList}" var="PickOptionDto">
 										        	<option value="${PickOptionDto.id}" class="${PickOptionDto.product_id}">${PickOptionDto.title}</option>
 										        </c:forEach>
 										      </select>
 										    </strong>
 										  </div>
+										  
+										  
+										  <div class="form-control mt-2" style="font-size: ; font-family: 'Noto Sans', sans-serif; box-shadow: none;">
+										    <strong>
+										      <select id="product_id" name="category" style="width: 100%; border: none; outline: none;">
+										        <option value="0" selected="selected">제품 선택2</option>
+										      </select>
+										    </strong>
+										  </div>
+										  
+										  <div class="form-control mt-2" style="font-size: ; font-family: 'Noto Sans', sans-serif; box-shadow: none;">
+										    <strong>
+										      <select id="product_id" name="category" style="width: 100%; border: none; outline: none;">
+										        <option value="0" selected="selected">제품 선택3</option>
+										      </select>
+										    </strong>
+										  </div>
+										  
+										  <div class="form-control mt-2" style="font-size: ; font-family: 'Noto Sans', sans-serif; box-shadow: none;">
+										    <strong>
+										      <select id="product_id" name="category" style="width: 100%; border: none; outline: none;">
+										        <option value="0" selected="selected">제품 선택4</option>
+										      </select>
+										    </strong>
+										  </div>
+										  
+										  <i class="bi bi-plus-circle-fill d-flex justify-content-center align-items-center mt-4 mb-2" style="font-size: 36px; color: gray;"></i>
+										  
 									</div>
 									<%-- select option--%> 
 								    
-								    <div class="form-group">
-								      <div class="form-control mt-2 mb-2" style="font-size: ; font-family: 'Noto Sans', sans-serif; box-shadow: none;">
+								    <div class="form-group mt-4 mb-4">
+								      <div class="form-control " style="font-size: ; font-family: 'Noto Sans', sans-serif; box-shadow: none;">
 								        <textarea rows="10" name="content" placeholder="내용을 입력해주세요." style="width: 100%; border: none; outline: none; padding: 0;"></textarea>
 								      </div>
+								      <span class="d-flex justify-content-end align-items-center mt-1 me-1" style="font-size: 14px; color: gray;"><i class="bi bi-info-circle-fill me-1" ></i>욕설, 비방, 광고 등 관련 없는 내용 작성 시 삭제될 수 있습니다.</span>
 								    </div>
 									
 								</div>	
