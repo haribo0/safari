@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ja.safari.cs.service.CsServiceImpl;
+import com.ja.safari.dto.CsLiveChatDto;
+import com.ja.safari.dto.CsLiveChatMsgDto;
 import com.ja.safari.dto.CsQnaDto;
 import com.ja.safari.dto.UserAddressDto;
 import com.ja.safari.dto.UserDto;
@@ -112,6 +114,75 @@ public class UserRestController {
 		  map.put("result", "success"); 
 		  map.put("list",  csServiceImpl.getInquiryListByUserId(sessionUser.getId())); 
 		  
+		  
+		  return map; 
+	  }
+	  
+	  // 실시간 문의 시작하기  
+	  @RequestMapping("startLiveChat") 
+	  public Map<String, Object> startLiveChat(HttpSession session, Integer categoryId) {
+		  
+		  Map<String, Object> map = new HashMap<String, Object>();
+		  UserDto sessionUser = (UserDto)session.getAttribute("sessionUser");
+		  if (sessionUser == null) {
+			  map.put("result", "fail");
+			  map.put("reason", "로그인이 되어 있지 않습니다.");
+			  return map;
+		  }
+		  
+		  CsLiveChatDto csLiveChatDto = new CsLiveChatDto();
+		  // 일단 카테고리와 유저 정보만 넣기 
+		  // 담당 직원 배정은 서비스에서 
+		  csLiveChatDto.setCategory_id(categoryId);
+		  csLiveChatDto.setUser_id(sessionUser.getId());
+		  
+		  map.put("result", "success"); 
+		  map.put("chatId", csServiceImpl.startLiveChat(csLiveChatDto)); 
+		  
+		  return map; 
+	  }
+	  
+	  
+	  // 실시간 문의 메세지 전송 (user)
+	  @RequestMapping("sendLiveChatMsg") 
+	  public Map<String, Object> sendLiveChatMsg(HttpSession session, String sendLiveChatMsg, Integer chatId) {
+		  
+		  Map<String, Object> map = new HashMap<String, Object>();
+		  UserDto sessionUser = (UserDto)session.getAttribute("sessionUser");
+		  if (sessionUser == null) {
+			  map.put("result", "fail");
+			  map.put("reason", "로그인이 되어 있지 않습니다.");
+			  return map;
+		  }
+		  
+		  CsLiveChatMsgDto csLiveChatMsgDto = new CsLiveChatMsgDto();
+		  // emp 0 or user 1
+		  csLiveChatMsgDto.setSender(1);
+		  csLiveChatMsgDto.setMsg(sendLiveChatMsg);
+		  csLiveChatMsgDto.setChat_id(chatId);
+		  
+		  csServiceImpl.sendLiveChatMsg(csLiveChatMsgDto);
+		  
+		  map.put("result", "success"); 
+		  
+		  return map; 
+	  }
+	  
+	  
+	  // 실시간 문의 메세지 가져오기 
+	  @RequestMapping("getLiveChatMsgList") 
+	  public Map<String, Object> getLiveChatMsgList(HttpSession session, Integer chatId) {
+		  
+		  Map<String, Object> map = new HashMap<String, Object>();
+		  UserDto sessionUser = (UserDto)session.getAttribute("sessionUser");
+		  if (sessionUser == null) {
+			  map.put("result", "fail");
+			  map.put("reason", "로그인이 되어 있지 않습니다.");
+			  return map;
+		  }
+		  
+		  map.put("result", "success"); 
+		  map.put("list", csServiceImpl.getLiveChatMsgList(chatId) ); 
 		  
 		  return map; 
 	  }

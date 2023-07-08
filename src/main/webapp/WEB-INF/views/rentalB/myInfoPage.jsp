@@ -51,7 +51,7 @@
 							
 			<div class="col mt-5 container ms-4">
 			
-    			<h4 class="ps-4 mt-3 mb-4 fw-regular">내 정보</h4>
+    			<h4 class="ps-4 mt-3 mb-2 fw-regular">내 정보</h4>
 
 				<div class="row  ms-4">
 					
@@ -65,14 +65,14 @@
 				<!-- <hr class="border"> -->
 				
 				<!-- card -->
-				<div class="card mt-4 pb-3 pt-2 ps-5">
+				<div class="card mt-4 pb-3 pt-2 ps-5 ms-4">
 					<div class="row mt-5 ms-5 mt-2 mb-3 fw-medium">
 						
 						<div class="col ms-3">
 							<div class="row fw-light text-secondary">
 								아이디
 							</div>
-							<div class="row mt-2 fw-bolder fs-5">
+							<div class="row mt-2 fw-bold fs-5">
 								${dto.business_userid}
 							</div>
 						</div>
@@ -80,7 +80,7 @@
 							<div class="row fw-light text-secondary">
 								상호명
 							</div>
-							<div class="row mt-2 fw-bolder fs-5">
+							<div class="row mt-2 fw-bold fs-5">
 								${dto.business_name}
 							</div>
 	
@@ -89,7 +89,7 @@
 							<div class="row fw-light text-secondary">
 								대표자
 							</div>
-							<div class="row mt-2 fw-bolder fs-5">
+							<div class="row mt-2 fw-bold fs-5">
 								${dto.business_owner}
 							</div>
 						</div>
@@ -98,7 +98,7 @@
 							<div class="row fw-light text-secondary">
 								연락처
 							</div>
-							<div class="row mt-2 fw-bolder fs-5">
+							<div class="row mt-2 fw-bold fs-5">
 								<c:set var="formattedPhone" value="${dto.phone.substring(0, 3)}-${dto.phone.substring(3, 7)}-${dto.phone.substring(7)}" />
 								${formattedPhone}
 							</div>
@@ -106,11 +106,6 @@
 						
 					</div>
 					
-					<!-- <div class="row">
-						<div class="col opacity-25 me-5">
-							<hr class="opacity-25 border-2">
-						</div>
-					</div> -->
 					
 					<div class="row ms-5 mt-5 mb-5 fw-medium">
 					
@@ -118,7 +113,7 @@
 							<div class="row fw-light text-secondary">
 								사업자 등록번호
 							</div>
-							<div class="row mt-2 fw-bolder fs-5">
+							<div class="row mt-2 fw-bold fs-5">
 								
 								${dto.reg_num}
 								
@@ -128,7 +123,7 @@
 							<div class="row fw-light text-secondary">
 								등록일
 							</div>
-							<div class="row mt-2 fw-bolder fs-5">
+							<div class="row mt-2 fw-bold fs-5">
 								<fmt:formatDate value="${dto.reg_date}" pattern="MM/dd/yyyy" />
 							
 							</div>
@@ -138,7 +133,7 @@
 							<div class="row fw-light text-secondary">
 								주소지
 							</div>
-							<div class="row mt-2 fw-bolder fs-5" id="compAddress">
+							<div class="row mt-2 fw-bold fs-5" id="compAddress">
 								${dto.business_address}
 							</div>
 						</div>
@@ -146,7 +141,7 @@
 							<div class="row fw-light text-secondary">
 								판매 허가
 							</div>
-							<div class="row mt-2  fw-bolder fs-5">
+							<div class="row mt-2  fw-bold fs-5">
 								<c:choose>
 									<c:when test="${dto.permission == 'Y'}">
 										허가 완료
@@ -162,7 +157,7 @@
 				</div>
 				<!-- card -->
 				
-				<div class="row ms-4 mt-5 mb-3 fw-medium">
+				<div class="row ms-4 mt-3 mb-3 fw-medium">
 					
 					
 				</div>
