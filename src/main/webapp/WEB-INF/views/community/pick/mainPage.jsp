@@ -87,7 +87,7 @@
 									
 									<br>
 									
-									<div class="ms-2 me-2">
+									<div class="ms-2 me-2 mb-2">
 										<a class="text-black text-decoration-none" href="/safari/community/pick/readContentPage/${pickDto.pickDto.id}" >
 										${pickDto.pickDto.id}
 										</a>
@@ -96,6 +96,41 @@
 										${pickDto.pickDto.content}</a>
 									<br>
 									</div>
+										
+										<%-- 내용카드 --%>
+										<div class="row">
+										  <div class="col-md-6 mt-2 mb-5">
+										  <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-center" >
+										  <div class="card" style="width: 255px; height: 320px;">
+										    <div class="d-felx justify-content-center">
+										    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS846XsQCCwKyA_1OgKiAPhT9YvnBxekWgQ52joFgHsnRKSdsiMoiloEcVvyrpGAq5IUwY&usqp=CAU" 
+										    class="rounded mx-auto d-block" alt="..." style="width: 250px; height: 250px;">
+										      <div class="card-body">
+										        <h6 class="card-title text-body-secondary mb-1">아디다스 티셔츠</h6>
+										        <p class="card-text mb-2">26,000원</p>
+										        <div class="text-center">
+										        </div></div></div>
+										    </div><button type="button" class="btn btn-outline-secondary rounded-pill btn-sm mt-4" style="width: 250px;">A</button>
+										      </div>
+										  </div>
+										  
+										  <div class="col-md-6 mt-2 mb-5">
+										  <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-center" >
+										  <div class="card" style="width: 255px; height: 320px;">
+										    <div class="d-felx justify-content-center">
+										    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTKx1kXLe73WUkC8YXj8IwJg_KUMw_uUmOC0FrSwNdLsDSNyhrKgxfNL_Cx5JMdyIonlSc&usqp=CAU" 
+										    class="rounded mx-auto d-block" alt="..." style="width: 250px; height: 250px;">
+										      <div class="card-body">
+										        <h6 class="card-title text-body-secondary mb-1">mlb 티셔츠</h6>
+										        <p class="card-text mb-2">30,000원</p>
+										        <div class="text-center">
+										        </div></div></div>
+										    </div><button type="button" class="btn btn-outline-secondary rounded-pill btn-sm mt-4" style="width: 250px;">B</button>
+										      </div>
+										  </div>
+										 </div>
+									
+										<%-- 내용카드 --%>
 										
 										<%-- 해시태그 --%>
 										<div class="mt-3">

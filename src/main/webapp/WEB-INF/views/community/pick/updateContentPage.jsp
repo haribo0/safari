@@ -85,19 +85,6 @@
 							</form>
 							<%-- write from--%>	
 						
-						<%-- write from
-							<form action="/safari/community/pick/updateContentProcess" method="post" >
-								제목: <input type="text" name="title" value="${map.pickDto.title}"><br>
-								작성자: ${sessionUser.nickname }<br>
-								
-								내용: <br>
-								<textarea rows="10" cols="60" name="content" >${map.pickDto.content}</textarea>
-								<input type="hidden" name="id" value="${map.pickDto.id}">
-								
-								
-								
-							
-							</form>--%>
 						</div>	
 					</div>
 					<%-- getPickBoard --%>
