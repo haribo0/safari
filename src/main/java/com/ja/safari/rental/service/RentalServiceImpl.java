@@ -1,5 +1,15 @@
 package com.ja.safari.rental.service;
 
+import java.io.BufferedReader;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -9,6 +19,7 @@ import org.apache.taglibs.standard.lang.jstl.Literal;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ja.safari.dto.RentalBusinessDto;
 import com.ja.safari.dto.RentalItemDto;
 import com.ja.safari.dto.RentalItemImgDto;
@@ -16,6 +27,9 @@ import com.ja.safari.dto.RentalItemLikeDto;
 import com.ja.safari.dto.RentalItemReturnDto;
 import com.ja.safari.dto.RentalMainCategoryDto;
 import com.ja.safari.dto.RentalOrderDto;
+import com.ja.safari.dto.RentalOrderKakaopayAmount;
+import com.ja.safari.dto.RentalOrderKakaopayApprove;
+import com.ja.safari.dto.RentalOrderKakaopayInactivation;
 import com.ja.safari.dto.RentalOrderKakaopayReady;
 import com.ja.safari.dto.RentalPeriodDiscDto;
 import com.ja.safari.dto.RentalReviewDto;
@@ -138,6 +152,57 @@ public class RentalServiceImpl {
 	// 대여 반납
 	public void rentalReturn(RentalItemReturnDto rentalItemReturnDto) {
 		rentalSqlMapper.insertRentalReturn(rentalItemReturnDto);
+		System.out.println("오더 아이디:: "+rentalItemReturnDto.getRental_order_id() );
+		//카카오 취소 진행
+		String sid = rentalSqlMapper.getSidbyId(rentalItemReturnDto.getRental_order_id());
+		System.out.println(" SID 아이디:: "+sid );
+		
+		try {
+			URL kakaoInactive = new URL("https://kapi.kakao.com/v1/payment/manage/subscription/inactive");
+			try {
+				HttpURLConnection serverConn = (HttpURLConnection) kakaoInactive.openConnection(); // 컨트롤어에서 서버연결
+				serverConn.setRequestMethod("POST");
+				serverConn.setRequestProperty("Authorization", "KakaoAK 3b571b6edfbddf7b9912075b7f7c4172"); // 카카오에서 권장하는 헤더에 담을 어드민 키
+				serverConn.setRequestProperty("Content-type", "application/x-www-form-urlencoded;charset=utf-8"); // utf-8 설정
+				serverConn.setDoOutput(true); // 서버한테 전달 할 값이 있다 라는 true 표시
+				
+				String parameter = "cid=TCSUBSCRIP" + "&sid=" + sid; // 정기결제 코드
+				
+				OutputStream sender = serverConn.getOutputStream(); // 데이터들을 던저줄 객체
+				DataOutputStream giver = new DataOutputStream(sender); // 위 객체에게 데이터를 줄 권한 줌
+				giver.write(parameter.getBytes(StandardCharsets.UTF_8)); // 형변환(바이트로 약속되어있음)
+				giver.close(); // 보내고 비움: 자동으로 flush
+				
+				int resultKakao = serverConn.getResponseCode(); // 전송이 잘 되었는지 안되었는지 번호를 받음
+				InputStream reciver; // 받는객체 생성
+				
+				if(resultKakao == 200) {
+					reciver = serverConn.getInputStream(); // 200 성공일 경우
+				} else {
+					reciver = serverConn.getErrorStream(); // 성공 외 경우
+				}
+				
+				InputStreamReader reader = new InputStreamReader(reciver); // 받은걸 읽음
+				BufferedReader bfrd = new BufferedReader(reader); // 바이트를 읽기 위해 형변환 버퍼리더 생성
+				String input = bfrd.readLine();
+				
+				System.out.println("취소 결과:: " + input);
+				
+				ObjectMapper objectMapper = new ObjectMapper();
+				RentalOrderKakaopayInactivation rentalOrderKakaopayInactivation = objectMapper.readValue(input, RentalOrderKakaopayInactivation.class);
+				rentalSqlMapper.insertRentalOrderKakaoInactivation(rentalOrderKakaopayInactivation);
+				
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		} catch (MalformedURLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+			
 	}
 
 	// 대여 리뷰 등록
@@ -200,6 +265,11 @@ public class RentalServiceImpl {
 		return rentalSqlMapper.getRentalOrderPk();
 	}
 
+	// 대여 카카오페이 approve pk 생성
+	public int getApprovePk() {
+		return rentalSqlMapper.getRentalOrderKakaopayApprovePk();
+	}
+
 	// 카카오페이 준비 dto 생성
 	public void saveKakaoReady(RentalOrderKakaopayReady rentalOrderKakaopay) {
 		rentalSqlMapper.insertRentalKakaoReady(rentalOrderKakaopay);
@@ -209,9 +279,19 @@ public class RentalServiceImpl {
 	// 카카오페이 준비 다음 단계를 위한 dto 다시 가져오기
 	public RentalOrderKakaopayReady getKakaoPayReady(int id) {
 		RentalOrderKakaopayReady kakaoPayReady = rentalSqlMapper.getRentalOrderKakaopay(id);
-		System.out.println("partner_user_id:: " + kakaoPayReady.getPartner_user_id());
-		System.out.println("partner_user_id:: " + kakaoPayReady.getTid());
 		return kakaoPayReady;
+	}
+
+	// 정기결제 주문 완료
+	public void saveKakaoApprove(RentalOrderKakaopayApprove rentalOrderKakaopayApprove) {
+		rentalSqlMapper.insertRentalKakaoApprove(rentalOrderKakaopayApprove);
+		return;
+	}
+
+	// 정기결제 주문시 amount 
+	public void saveKakaoApproveAmount(RentalOrderKakaopayAmount rentalOrderKakaopayAmount) {
+		rentalSqlMapper.insertRentalKakaoApproveAmount(rentalOrderKakaopayAmount);
+		return;
 	}
 
 
