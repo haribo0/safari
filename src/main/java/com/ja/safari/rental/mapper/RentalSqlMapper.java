@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Param;
 import com.ja.safari.dto.RentalBusinessDto;
 import com.ja.safari.dto.RentalMainCategoryDto;
 import com.ja.safari.dto.RentalOrderDto;
+import com.ja.safari.dto.RentalOrderKakaopayApprove;
 import com.ja.safari.dto.RentalOrderKakaopayReady;
 import com.ja.safari.dto.RentalPeriodDiscDto;
 import com.ja.safari.dto.RentalReviewDto;
@@ -91,6 +92,12 @@ public interface RentalSqlMapper {
 
 	// 카카오 페이 준비 dto 가져오기
 	public RentalOrderKakaopayReady getRentalOrderKakaopay(int id);
+
+	// 카카오 페이 approve
+	public void insertRentalKakaoApprove(RentalOrderKakaopayApprove rentalOrderKakaopayApprove);
+
+	// 카카오 페이 구독취소
+	public String getSidbyId(int id);
 
 	
 	

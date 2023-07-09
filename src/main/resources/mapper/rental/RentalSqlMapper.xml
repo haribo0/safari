@@ -242,6 +242,39 @@
 	<select id="getRentalOrderKakaopay" resultType="com.ja.safari.dto.RentalOrderKakaopayReady">
 		SELECT * FROM rental_order_kakaopay_table WHERE partner_order_id = #{id}
 	</select>
+	
+	<!-- 대여 카카오 approve  -->
+	<insert id="insertRentalKakaoApprove">
+		INSERT INTO rental_order_kakaopay_approve values(
+			rental_ord_kakaopay_apprv_seq.nextval,
+			#{aid},
+			#{tid},
+			#{cid},
+			#{sid},
+			#{partner_order_id},
+			#{partner_user_id},
+			#{payment_method_type},
+			#{item_name},
+			#{quantity},
+			#{created_at},
+			#{approved_at}
+		)
+	</insert>
+	
+	<!-- 대여 카카오 페이 구독 취소 를 위한 sid 가져오기 -->
+	<select id="getSidbyId" resultType="String">
+		SELECT sid FROM rental_order_kakaopay_approve WHERE partner_order_id = #{id}
+	</select>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	<!-- 
 	<update id="updateCustomerInfo">
 		update m_customer 
