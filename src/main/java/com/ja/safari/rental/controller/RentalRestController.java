@@ -29,6 +29,7 @@ import com.ja.safari.dto.RentalOrderKakaopayReady;
 import com.ja.safari.dto.RentalItemDto;
 import com.ja.safari.dto.RentalItemLikeDto;
 import com.ja.safari.dto.RentalOrderDto;
+import com.ja.safari.dto.RentalOrderKakaopayAmount;
 import com.ja.safari.dto.RentalOrderKakaopayApprove;
 import com.ja.safari.dto.UserDto;
 import com.ja.safari.rental.mapper.RentalSqlMapper;
@@ -245,9 +246,16 @@ public class RentalRestController {
 				
 				// 카카오 결제 정보 dto 테이블 넣기
 				
+				int approvePk = rentalService.getApprovePk();
+				
 				RentalOrderKakaopayApprove rentalOrderKakaopayApprove = objectMapper.readValue(input, RentalOrderKakaopayApprove.class);
+				RentalOrderKakaopayAmount rentalOrderKakaopayAmount = rentalOrderKakaopayApprove.getAmount();
+				rentalOrderKakaopayApprove.setId(approvePk);
+				rentalOrderKakaopayAmount.setId(approvePk);
 				
 				rentalService.saveKakaoApprove(rentalOrderKakaopayApprove);
+				rentalService.saveKakaoApproveAmount(rentalOrderKakaopayAmount);
+				System.out.println("Amount?:: " + rentalOrderKakaopayAmount.toString());
 				
 			} catch (IOException e) {
 				// TODO Auto-generated catch block

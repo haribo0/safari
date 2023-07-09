@@ -17,7 +17,7 @@ public class RentalOrderKakaopayApprove {
     private String payment_method_type; // 결제 수단
     private String item_name; // 상품명
     private int quantity; // 상품 수량
-    // private Amount amount; // 결제 금액 정보
+    private RentalOrderKakaopayAmount amount; // 결제 금액 정보
     private Date created_at; // 결제 요청 시간
     private Date approved_at; // 결제 승인 시간
     
@@ -26,8 +26,8 @@ public class RentalOrderKakaopayApprove {
 	}
 
 	public RentalOrderKakaopayApprove(int id, String aid, String tid, String cid, String sid, String partner_order_id,
-			String partner_user_id, String payment_method_type, String item_name, int quantity, Date created_at,
-			Date approved_at) {
+			String partner_user_id, String payment_method_type, String item_name, int quantity,
+			RentalOrderKakaopayAmount amount, Date created_at, Date approved_at) {
 		super();
 		this.id = id;
 		this.aid = aid;
@@ -39,6 +39,7 @@ public class RentalOrderKakaopayApprove {
 		this.payment_method_type = payment_method_type;
 		this.item_name = item_name;
 		this.quantity = quantity;
+		this.amount = amount;
 		this.created_at = created_at;
 		this.approved_at = approved_at;
 	}
@@ -123,6 +124,14 @@ public class RentalOrderKakaopayApprove {
 		this.quantity = quantity;
 	}
 
+	public RentalOrderKakaopayAmount getAmount() {
+		return amount;
+	}
+
+	public void setAmount(RentalOrderKakaopayAmount amount) {
+		this.amount = amount;
+	}
+
 	public Date getCreated_at() {
 		return created_at;
 	}
@@ -139,8 +148,7 @@ public class RentalOrderKakaopayApprove {
 		this.approved_at = approved_at;
 	}
 
-
-    
+	
 	
 }
 

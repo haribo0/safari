@@ -27,7 +27,9 @@ import com.ja.safari.dto.RentalItemLikeDto;
 import com.ja.safari.dto.RentalItemReturnDto;
 import com.ja.safari.dto.RentalMainCategoryDto;
 import com.ja.safari.dto.RentalOrderDto;
+import com.ja.safari.dto.RentalOrderKakaopayAmount;
 import com.ja.safari.dto.RentalOrderKakaopayApprove;
+import com.ja.safari.dto.RentalOrderKakaopayInactivation;
 import com.ja.safari.dto.RentalOrderKakaopayReady;
 import com.ja.safari.dto.RentalPeriodDiscDto;
 import com.ja.safari.dto.RentalReviewDto;
@@ -185,10 +187,11 @@ public class RentalServiceImpl {
 				String input = bfrd.readLine();
 				
 				System.out.println("취소 결과:: " + input);
-				// 취소 관련 DTO 생성?? 아니면 내비두기??
-				// ObjectMapper objectMapper = new ObjectMapper();
 				
-				// RentalOrderKakaopayReady rentalOrderKakaopayReady = objectMapper.readValue(input, RentalOrderKakaopayReady.class);
+				ObjectMapper objectMapper = new ObjectMapper();
+				RentalOrderKakaopayInactivation rentalOrderKakaopayInactivation = objectMapper.readValue(input, RentalOrderKakaopayInactivation.class);
+				rentalSqlMapper.insertRentalOrderKakaoInactivation(rentalOrderKakaopayInactivation);
+				
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -197,6 +200,8 @@ public class RentalServiceImpl {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
+		
 			
 	}
 
@@ -260,6 +265,11 @@ public class RentalServiceImpl {
 		return rentalSqlMapper.getRentalOrderPk();
 	}
 
+	// 대여 카카오페이 approve pk 생성
+	public int getApprovePk() {
+		return rentalSqlMapper.getRentalOrderKakaopayApprovePk();
+	}
+
 	// 카카오페이 준비 dto 생성
 	public void saveKakaoReady(RentalOrderKakaopayReady rentalOrderKakaopay) {
 		rentalSqlMapper.insertRentalKakaoReady(rentalOrderKakaopay);
@@ -275,6 +285,12 @@ public class RentalServiceImpl {
 	// 정기결제 주문 완료
 	public void saveKakaoApprove(RentalOrderKakaopayApprove rentalOrderKakaopayApprove) {
 		rentalSqlMapper.insertRentalKakaoApprove(rentalOrderKakaopayApprove);
+		return;
+	}
+
+	// 정기결제 주문시 amount 
+	public void saveKakaoApproveAmount(RentalOrderKakaopayAmount rentalOrderKakaopayAmount) {
+		rentalSqlMapper.insertRentalKakaoApproveAmount(rentalOrderKakaopayAmount);
 		return;
 	}
 

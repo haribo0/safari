@@ -5,6 +5,11 @@
 
 <mapper namespace="com.ja.safari.rental.mapper.RentalSqlMapper">
 	<!-- 대여 주문 pk 가져오기  -->
+	<select id="getRentalOrderKakaopayApprovePk" resultType="int">
+		SELECT rental_ord_kakaopay_apprv_seq.nextval FROM dual
+	</select>
+
+	<!-- 대여 주문 pk 가져오기  -->
 	<select id="getRentalOrderPk" resultType="int">
 		SELECT rental_order_table_seq.nextval FROM dual
 	</select>
@@ -246,7 +251,7 @@
 	<!-- 대여 카카오 approve  -->
 	<insert id="insertRentalKakaoApprove">
 		INSERT INTO rental_order_kakaopay_approve values(
-			rental_ord_kakaopay_apprv_seq.nextval,
+			#{id},
 			#{aid},
 			#{tid},
 			#{cid},
@@ -261,13 +266,37 @@
 		)
 	</insert>
 	
-	<!-- 대여 카카오 페이 구독 취소 를 위한 sid 가져오기 -->
+	<!-- 대여 카카오 amount  -->
+	<insert id="insertRentalKakaoApproveAmount">
+		INSERT INTO rental_order_kakaopay_amount values(
+			#{id},
+			#{total},
+			#{tax_free},
+			#{vat},
+			#{point},
+			#{discount},
+			#{green_deposit}
+		)
+	</insert>
+
+	
+	<!-- 대여 카카오 페이 구독취소를 위한 sid 가져오기 -->
 	<select id="getSidbyId" resultType="String">
 		SELECT sid FROM rental_order_kakaopay_approve WHERE partner_order_id = #{id}
 	</select>
 	
-	
-	
+		
+	<!-- 대여 카카오 구독취소  -->
+	<insert id="insertRentalOrderKakaoInactivation">
+		INSERT INTO rental_order_kakaopay_inactv values(
+			rental_ord_kakaopay_inactv_seq.nextval,
+			#{cid},
+			#{sid},
+			#{status},
+			#{created_at},
+			#{inactivated_at}
+		)
+	</insert>
 	
 	
 	
