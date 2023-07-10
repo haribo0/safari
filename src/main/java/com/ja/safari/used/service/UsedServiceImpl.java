@@ -1,6 +1,8 @@
 package com.ja.safari.used.service;
 
+import java.sql.Date;
 import java.text.DecimalFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -20,7 +22,9 @@ import com.ja.safari.dto.ProductMainCategoryDto;
 import com.ja.safari.dto.ProductRequestDto;
 import com.ja.safari.dto.ProductSubCategoryDto;
 import com.ja.safari.dto.ProductTownDto;
+import com.ja.safari.dto.UsedCheckboxSelectedReviewDto;
 import com.ja.safari.dto.UsedKaKaoPayApproveDto;
+import com.ja.safari.dto.UsedPurchaseReviewDto;
 import com.ja.safari.dto.UserCoinDto;
 import com.ja.safari.dto.UserDto;
 import com.ja.safari.used.mapper.UsedSqlMapper;
@@ -99,10 +103,11 @@ public class UsedServiceImpl {
 		
 		for(ProductDto productDto : productDtoList) {
 			Map<String, Object> map = new HashMap<>();
-			int productId = productDto.getId();
+			Integer productId = productDto.getId();
 			int reservationCount = usedSqlMapper.countProductRequestReservation(productId);
 			int completeCount = usedSqlMapper.countProductRequestComplete(productId);
 			Integer townIdTwo = productDto.getProduct_town_id();
+			
 			map.put("productDto", productDto);
 			map.put("reservationCount", reservationCount);
 			map.put("completeCount", completeCount);
@@ -459,7 +464,6 @@ public class UsedServiceImpl {
 		UserDto userDto = usedSqlMapper.selectUserDtoById(usedKaKaoPayApproveDto.getPartner_user_id());
 		// 채팅에 입금한거 저장
 		productChatDto.setPurchase_request_id(usedKaKaoPayApproveDto.getPartner_order_id());
-		
 		// productDto.getPrice() 값을 가져온다고 가정
 		int price = productDto.getPrice();
 
@@ -468,14 +472,12 @@ public class UsedServiceImpl {
 
 		// price 값을 천단위마다 쉼표를 찍어서 문자열로 변환
 		String formattedPrice = decimalFormat.format(price);
-		
 		productChatDto.setContent(userDto.getNickname()+"이(가) "+formattedPrice+"원 송금하였습니다.");
 		usedSqlMapper.insertProductChat(productChatDto);
 	}
 	
 	// 광고 주문/결제 정보 가져오기  
 	public Map<String, Object> getOrderAndPaymentInfo(Integer orderId) {
-		
 		Map<String, Object> map = new HashMap<String, Object>();
 		
 		map.put("payment", usedSqlMapper.getUsedPaymentByOrderId(orderId));
@@ -485,9 +487,66 @@ public class UsedServiceImpl {
 		return map;
 	}
 	
+	// 리뷰 모달 정보 다 가져오기 (상품, 유저, 거래, 평가 카테고리)
+	public Map<String, Object> getReviewHeaderAndBody(Integer senderId, Integer receiverId, Integer requestId){
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		map.put("senderDto", usedSqlMapper.selectUserDtoById(senderId));
+		map.put("receiverDto", usedSqlMapper.selectUserDtoById(receiverId));
+		map.put("productRequestDto", usedSqlMapper.selectProductRequestById(requestId));
+		map.put("productDto", usedSqlMapper.selectProductById(usedSqlMapper.selectProductRequestById(requestId).getProduct_id()));
+		map.put("productImgDto", usedSqlMapper.selectProductImg(usedSqlMapper.selectProductRequestById(requestId).getProduct_id()));
+		map.put("usedReviewRateCategoryDto", usedSqlMapper.selectUsedReviewRateCategory());
+		
+		return map;
+	}
 	
+	// 리뷰 모달에 질문, 체크박스 가져오기 
+	public Map<String, Object> getCheckBoxByRateId(Integer rateId){
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		map.put("usedReviewRateCategoryDto", usedSqlMapper.selectUsedReviewRateCategoryById(rateId));
+		map.put("usedReviewCheckboxCategoryDtoList", usedSqlMapper.selectUsedReviewCheckboxCategoryByRateId(rateId));
+		
+		return map;
+	}
 	
+	// 리뷰 모달에서 저장된 리뷰 내용 
+	public void insertPurchaseReview(UsedPurchaseReviewDto usedPurchaseReviewDto, Integer[] checkboxs) {
+		Integer reviewId = usedSqlMapper.selectPurchaseReviewPk();
+		
+		// 거래리뷰 insert 
+		usedPurchaseReviewDto.setId(reviewId);
+		if(usedPurchaseReviewDto.getReview_comment()==null || usedPurchaseReviewDto.getReview_comment()=="")
+			usedPurchaseReviewDto.setReview_comment("n");
+			usedSqlMapper.insertUsedPurchaseReview(usedPurchaseReviewDto);
+		
+		// checkbox insert 
+		for(Integer checkId:checkboxs) {
+			UsedCheckboxSelectedReviewDto usedCheckboxSelectedReviewDto = new UsedCheckboxSelectedReviewDto();
+			usedCheckboxSelectedReviewDto.setProduct_review_id(reviewId);
+			usedCheckboxSelectedReviewDto.setReview_checkbox_category_id(checkId);
+			usedSqlMapper.insertUsedCheckboxSelectedReview(usedCheckboxSelectedReviewDto);
+		}
+	}
 	
+	// 리뷰 갯수 
+	public int selectMyWroteReviewCount(Integer requestId, Integer senderId) {
+		return usedSqlMapper.selectMyWroteReviewCount(requestId, senderId);
+	}
+
+	// 내가 쓴 해당 거래의 리뷰 가져오기 
+	public Map<String, Object> getMyWroteReview(Integer requestId, Integer senderId, Integer receiverId) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		map.put("senderDto", usedSqlMapper.selectUserDtoById(senderId));
+		map.put("receiverDto", usedSqlMapper.selectUserDtoById(receiverId));
+		map.put("productDto", usedSqlMapper.selectProductById(usedSqlMapper.selectProductRequestById(requestId).getProduct_id()));
+		map.put("usedPurchaseReviewDto", usedSqlMapper.selectPurchaseReviewByRequestIdAndSenderId(requestId,senderId));
+		map.put("usedReviewCheckboxCategotyDtoList", usedSqlMapper.selectCheckboxSelectedReviewByRequestIdAndSenderId(requestId, senderId));
+		map.put("recevierReviewCount", usedSqlMapper.selectMyWroteReviewCount(requestId,receiverId));
+		return map;
+	}
 	
 	
 	

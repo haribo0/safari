@@ -15,7 +15,6 @@
   color: #000000; /* 글자색 */
   padding: 10px; /* 여백 */
   border-radius: 10px; /* 테두리의 굴곡 정도 */
-  text-align: end; /* 내용을 오른쪽 정렬 */
   width: auto;
   max-width: 320px;
 }
@@ -25,7 +24,6 @@
   color: #000000; /* 글자색 */
   padding: 10px; /* 여백 */
   border-radius: 10px; /* 테두리의 굴곡 정도 */
-  text-align: start; /* 내용을 왼쪽 정렬 */
   width: auto;
   max-width: 320px;
 }
@@ -51,7 +49,36 @@
 #statusButton{
 	font-size: 14px;
 }
+.onlyme{
+	font-size: 14px;
+}
 
+.btn-bunny {
+	cursor: pointer;
+}
+
+#reviewImg2 {
+    border-radius: 10px 10px 0 0;
+    border: 1px;
+    width: 100%;
+}
+
+.reviewContent {
+    background-color: #fff5ee; /* 연한 핑크색 배경색 */
+    padding: 10px;
+    border-radius: 0 0 10px 10px; /* 둥근 보더 */
+}
+
+#reviewImg3{
+	border-radius: 10px 10px 10px 10px;
+}
+
+/* 버튼 색깔 */
+.orangeButton{
+	background: #ff6f0f;
+	font-weight: bold;
+	color: white;
+}
 
 </style>
 </head>
@@ -203,10 +230,1084 @@
 	</div>
 	<!-- 채팅창 모달 -->
 
+	<!-- 리뷰작성 모달 -->
+	<div class="modal" id="writeReviewModal" tabindex="-1" >
+	  <div class="modal-dialog">
+	    <div class="modal-content">
+	      <div class="modal-header position-relative">
+ 	        <div class="modal-title position-absolute top-50 start-50 translate-middle fw-bold fs-3">
+ 	        	<h5 class="modal-title text-center">거래 후기 보내기</h5>
+ 	        </div>
+	        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+	      </div>
+	      <div class="modal-header ms-2" id="modalHeader2">
+		     <div class="my-custom-header-wrapper" id="modalHeaderWrapper2">
+		      	<!-- div class="row">
+		      		<div class="col">
+		      			에어팟 프로 
+		      		</div>
+		      	</div>
+		      	<div class="row">
+		      		<div class="col">
+		      			거래한 이웃
+		      			<span>피자죠아</span> 
+		      		</div>
+		      	</div>
+		      </div> -->
+	        </div>
+	       </div>
+	      <div class="modal-body ms-2" style="height: 500px">
+			<div class="chat-container overflow-y-scroll overflow-x-hidden" style="height:480px;" id="modalBody2">
+			<!-- <div class="row">
+      			<div class="col">
+      				바니바니님,
+      			</div>
+      		</div>
+      		<div class="row">
+      			<div class="col">
+      				피자죠아님과 거래가 어떠셨나요?
+      			</div>
+      		</div>
+      		<div class="row">
+      			<div class="col text-secondary onlyme mt-1">
+      				거래 선호도는 나만 볼 수 있어요 
+      			</div>
+      		</div>
+      		<div class="row mt-4">
+      			<div class="col-4 text-center">
+      				<img class="opacity-25 btn-bunny" alt="soso" src="/safari/resources/img/used/soso1.png" width="70" height="70" onclick="soso1Change()" id="sosoImg">
+      				<p class="text-secondary fw-semibold mt-1" id="sosoText">별로예요</p>
+      			</div>
+      			<div class="col-4 text-center">
+      				<img class="opacity-25 btn-bunny" alt="good" src="/safari/resources/img/used/good1.png" width="70" height="70" onclick="good1Change()" id="goodImg">
+      				<p class="text-secondary fw-semibold mt-1" id="goodText">좋아요</p>
+      			</div>
+      			<div class="col-4 text-center">
+      				<img class="opacity-25 btn-bunny" alt="best" src="/safari/resources/img/used/best1.png" width="70" height="70" onclick="best1Change()" id="bestImg">
+      				<p class="text-secondary fw-semibold mt-1" id="bestText">최고예요</p>
+      			</div>
+      		</div> -->
+      		<!-- <div class="row mt-3">
+      			<div class="col fs-6">어떤 점이 별로였나요?</div>
+      		</div>
+      		<div class="row mt-3">
+      			<div class="col">
+      				<input type="checkbox" id="myCheckbox">
+					<label for="myCheckbox">시간약속을 안 지켜요.</label>
+      			</div>
+      		</div>
+      		<div class="row mt-3">
+      			<div class="col">
+      				<input type="checkbox" id="myCheckbox">
+					<label for="myCheckbox">원하지 않는 가격을 계속 요구해요.</label>
+      			</div>
+      		</div>
+      		<div class="row mt-3">
+      			<div class="col">
+      				<input type="checkbox" id="myCheckbox">
+					<label for="myCheckbox">거래 시간과 장소를 정한 후 연락이 안돼요.</label>
+      			</div>
+      		</div>
+      		<div class="row mt-3">
+      			<div class="col">
+      				<input type="checkbox" id="myCheckbox">
+					<label for="myCheckbox">불친절해요.</label>
+      			</div>
+      		</div>
+      		<div class="row">
+      			<div class="col mt-4">
+      				아쉬웠던 점을 사파리 팀에 알려주세요.
+      			</div>
+      		</div>
+      		<div class="row">
+      			<div class="col onlyme text-secondary mt-1">
+      				상대방에게 전달되지 않으니 안심하세요.
+      			</div>
+      		</div>
+      		<div class="row">
+      			<div class="col mt-1">
+      				<textarea class="form-control" rows="3" cols="35" placeholder=" 여기에 적어주세요. (선택사항)"></textarea>
+      			</div>
+      		</div>
+      		<div class="row">
+      			<div class="col">
+      				<input class="mt-3 mb-4" type="file">
+      			</div>
+      		</div>
+		  </div> -->
+	      </div>
+	    </div>
+	  </div>
+	</div>
+	</div>
+	<!-- 리뷰 작성  모달 -->
+
+	<!-- 리뷰작성 후  모달 -->
+	<div class="modal" id="myWroteReviewModal" tabindex="-1" >
+	  <div class="modal-dialog">
+	    <div class="modal-content">
+	      <div class="modal-header position-relative">
+ 	        <div class="modal-title position-absolute top-50 start-50 translate-middle fw-bold fs-3">
+ 	        	<h5 class="modal-title text-center">내가 보낸 거래 후기</h5>
+ 	        </div>
+	        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+	      </div>
+	      <div class="modal-body ms-3 me-3" style="height: 530px">
+			<div class="chat-container overflow-y-scroll overflow-x-hidden" style="height:500px;" id="modalBody3">
+      	   <!-- <div class="row mt-3">
+      				<div class="col fw-bold">닉네임님에게</div>
+      			</div>
+				<div class="row">
+      				<div class="col fw-bold">따뜻한 후기를 보냈어요.</div>
+      			</div>
+      			<div class="row mt-1">
+      				<div class="col text-secondary onlyme">상대방닉네임과 상품이름을(를) 거래했어요.</div>
+      			</div>
+      			<div class="row mt-4">
+      				<div class="col">
+      					<img alt="review" width="100%" height="180" id="reviewImg2" src="/safari/resources/img/used/review2.jpeg">
+      				</div>
+      			</div>
+      			<div class="reviewContent">
+	     			<div class="row mt-3 mb-1">
+	     				<div class="col ms-3">
+	     					거래가 너무 좋았습니다. 앞으로도 이런 분과 거래하고 싶어요~! 
+	     				</div>
+	     			</div>
+	  				<ul>
+	  					<li class="mb-1">제가 있는 곳까지 와서 거래했어요.</li>
+	  					<li class="mb-1">제가 있는 곳까지 와서 거래했어요.</li>
+	  					<li class="mb-1">제가 있는 곳까지 와서 거래했어요.</li>
+	  				</ul>
+   				</div> -->
+		     </div>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+	<!-- 리뷰작성 후 모달 -->
+	
+	<!-- 상대방 리뷰 모달 -->
+	<div class="modal" id="receiverWroteReviewModal" tabindex="-1" >
+	  <div class="modal-dialog">
+	    <div class="modal-content">
+	      <div class="modal-header position-relative">
+ 	        <div class="modal-title position-absolute top-50 start-50 translate-middle fw-bold fs-3">
+ 	        	<h5 class="modal-title text-center">받은 거래 후기</h5>
+ 	        </div>
+	        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+	      </div>
+	      <div class="modal-body ms-3 me-3" style="height: 530px">
+			<div class="chat-container overflow-y-scroll overflow-x-hidden" style="height:500px;" id="modalBody4">
+      	   <!-- <div class="row mt-3">
+      				<div class="col fw-bold">닉네임님에게</div>
+      			</div>
+				<div class="row">
+      				<div class="col fw-bold">따뜻한 후기를 보냈어요.</div>
+      			</div>
+      			<div class="row mt-1">
+      				<div class="col text-secondary onlyme">상대방닉네임과 상품이름을(를) 거래했어요.</div>
+      			</div>
+      			<div class="row mt-4">
+      				<div class="col">
+      					<img alt="review" width="100%" height="180" id="reviewImg2" src="/safari/resources/img/used/review2.jpeg">
+      				</div>
+      			</div>
+      			<div class="reviewContent">
+	     			<div class="row mt-3 mb-1">
+	     				<div class="col ms-3">
+	     					거래가 너무 좋았습니다. 앞으로도 이런 분과 거래하고 싶어요~! 
+	     				</div>
+	     			</div>
+	  				<ul>
+	  					<li class="mb-1">제가 있는 곳까지 와서 거래했어요.</li>
+	  					<li class="mb-1">제가 있는 곳까지 와서 거래했어요.</li>
+	  					<li class="mb-1">제가 있는 곳까지 와서 거래했어요.</li>
+	  				</ul>
+   				</div> -->
+		     </div>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+	<!-- 상대방 리뷰 모달 -->
+
 <script>
 	let mySessionId = null;
 	let requestId2 = null;
 	let receiverId2 = null;
+	
+	
+	// 리뷰 기분 - 별로예요 
+	function soso1Change(rateId, senderId, receiverId, requestId) {
+		
+		const sosoImgBox = document.getElementById("soso1Img");
+		sosoImgBox.classList.remove("opacity-25");
+		const sosoTextBox = document.getElementById("soso1Text");
+		sosoTextBox.classList.remove("text-secondary");
+		
+		const goodImgBox = document.getElementById("good1Img");
+		goodImgBox.classList.add("opacity-25");
+		const goodTextBox = document.getElementById("good1Text");
+		goodTextBox.classList.add("text-secondary");
+		
+		const bestImgBox = document.getElementById("best1Img");
+		bestImgBox.classList.add("opacity-25");
+		const bestTextBox = document.getElementById("best1Text");
+		bestTextBox.classList.add("text-secondary");
+		
+		// 체크 박스 가져오기
+		getCheckBoxByRate(rateId, senderId, receiverId, requestId);
+	}
+	
+	// 리뷰 기분 - 좋아요 
+	function good1Change(rateId, senderId, receiverId, requestId) {
+		const goodImgBox = document.getElementById("good1Img");
+		goodImgBox.classList.remove("opacity-25");
+		const goodTextBox = document.getElementById("good1Text");
+		goodTextBox.classList.remove("text-secondary");
+		
+		const sosoImgBox = document.getElementById("soso1Img");
+		sosoImgBox.classList.add("opacity-25");
+		const sosoTextBox = document.getElementById("soso1Text");
+		sosoTextBox.classList.add("text-secondary");
+		const bestImgBox = document.getElementById("best1Img");
+		bestImgBox.classList.add("opacity-25");
+		const bestTextBox = document.getElementById("best1Text");
+		bestTextBox.classList.add("text-secondary");
+		
+		// 체크 박스 가져오기
+		getCheckBoxByRate(rateId, senderId, receiverId, requestId);
+	}
+	
+	// 리뷰 기분 - 최고예요 
+	function best1Change(rateId, senderId, receiverId, requestId) {
+		const bestImgBox = document.getElementById("best1Img");
+		bestImgBox.classList.remove("opacity-25");
+		const bestTextBox = document.getElementById("best1Text");
+		bestTextBox.classList.remove("text-secondary");
+		
+		const goodImgBox = document.getElementById("good1Img");
+		goodImgBox.classList.add("opacity-25");
+		const goodTextBox = document.getElementById("good1Text");
+		goodTextBox.classList.add("text-secondary");
+		
+		const sosoImgBox = document.getElementById("soso1Img");
+		sosoImgBox.classList.add("opacity-25");
+		const sosoTextBox = document.getElementById("soso1Text");
+		sosoTextBox.classList.add("text-secondary");
+		
+		// 체크 박스 가져오기
+		getCheckBoxByRate(rateId, senderId, receiverId, requestId);
+	}
+	
+	// 리뷰 기분에 따른 체크박스 표시
+	function getCheckBoxByRate(rateId, senderId, receiverId, requestId) {
+		// 거래후기 모달 창 바디 
+		const rateCheckContainerBox = document.getElementById('rateCheckContainer');
+		
+		const xhr = new XMLHttpRequest();
+		
+		xhr.onreadystatechange = function(){
+	        if(xhr.readyState == 4 && xhr.status == 200){
+	            const response = JSON.parse(xhr.responseText);
+	     		
+	    		rateCheckContainerBox.innerHTML = "";
+
+	            // Fifth row (Title)
+	            const fifthRow = document.createElement("div");
+	            fifthRow.classList.add("row");
+
+	            const fifthCol = document.createElement("div");
+	            fifthCol.classList.add("col", "fs-6", "fw-bold");
+	            fifthCol.textContent = response.map.usedReviewRateCategoryDto.question;
+
+	            fifthRow.appendChild(fifthCol);
+
+	            rateCheckContainerBox.appendChild(fifthRow);
+
+				// check box 
+				for(data of response.map.usedReviewCheckboxCategoryDtoList){
+	              const checkboxRow = document.createElement("div");
+	              checkboxRow.classList.add("row", "mt-1");
+
+	              const checkboxCol = document.createElement("div");
+	              checkboxCol.classList.add("col");
+
+	              const checkboxInput = document.createElement("input");
+	              checkboxInput.type = "checkbox";
+	              checkboxInput.id = data.id;
+	              checkboxInput.classList.add("reviewCheckbox");
+				  
+	           // 변화가 있으면 함수 실행 
+				  checkboxInput.addEventListener('change',changeReviewCheckBox);
+	              
+	              
+	              const checkboxLabel = document.createElement("label");
+	              checkboxLabel.htmlFor = data.id;
+	              checkboxLabel.textContent = data.content;
+	              checkboxLabel.classList.add("col", "ms-1");
+					
+	              checkboxCol.appendChild(checkboxInput);
+	              checkboxCol.appendChild(checkboxLabel);
+
+	              checkboxRow.appendChild(checkboxCol);
+
+	              rateCheckContainerBox.appendChild(checkboxRow);
+	              
+	            };
+
+	            // Additional rows
+	            const additionalRow1 = document.createElement("div");
+	            additionalRow1.classList.add("row");
+
+	            const additionalCol1 = document.createElement("div");
+	            additionalCol1.classList.add("col", "mt-4", "fw-bold");
+	            additionalCol1.textContent = response.map.usedReviewRateCategoryDto.textarea_content;
+
+	            additionalRow1.appendChild(additionalCol1);
+
+	            rateCheckContainerBox.appendChild(additionalRow1);
+
+	            const additionalRow2 = document.createElement("div");
+	            additionalRow2.classList.add("row");
+
+	            const additionalCol2 = document.createElement("div");
+	            additionalCol2.classList.add("col", "onlyme", "text-secondary", "mt-1", "mb-1");
+	            additionalCol2.textContent = "남겨주신 거래 후기는 상대방의 프로필에 공개돼요";
+
+	            additionalRow2.appendChild(additionalCol2);
+
+	            rateCheckContainerBox.appendChild(additionalRow2);
+
+	            const additionalRow3 = document.createElement("div");
+	            additionalRow3.classList.add("row");
+
+	            const additionalCol3 = document.createElement("div");
+	            additionalCol3.classList.add("col", "mt-1");
+
+	            const textarea = document.createElement("textarea");
+	            textarea.classList.add("form-control");
+	            textarea.rows = 3;
+	            textarea.cols = 35;
+	            textarea.placeholder = " 여기에 적어주세요. (선택사항)";
+	            textarea.id = "reviewTextarea";
+
+	            additionalCol3.appendChild(textarea);
+
+	            additionalRow3.appendChild(additionalCol3);
+
+	            rateCheckContainerBox.appendChild(additionalRow3);
+
+	            const additionalRow4 = document.createElement("div");
+	            additionalRow4.classList.add("row", "mt-2");
+
+	            const additionalCol4 = document.createElement("div");
+	            additionalCol4.classList.add("col");
+
+	            const inputFile = document.createElement("input");
+	            inputFile.type = "file";
+	            inputFile.id = "reviewImg"
+	            
+	            additionalCol4.appendChild(inputFile);
+
+	            additionalRow4.appendChild(additionalCol4);
+
+	            rateCheckContainerBox.appendChild(additionalRow4);
+
+	            const additionalRow5 = document.createElement("div");
+	            additionalRow5.classList.add("row");
+
+	            const additionalCol5 = document.createElement("div");
+	            additionalCol5.classList.add("col", "mt-3", "d-grid", "mb-4");
+
+	            const sendButton = document.createElement("button");
+	            sendButton.classList.add("btn", "btn-secondary");
+	            sendButton.id = "sendButton";
+	            sendButton.disabled = "true";
+	            sendButton.textContent = "후기 보내기";
+	            sendButton.setAttribute("onclick", "insertPurchaseReview("+rateId+","+senderId+","+receiverId+","+requestId+")");
+	            
+	            additionalCol5.appendChild(sendButton);
+
+	            additionalRow5.appendChild(additionalCol5);
+
+	            rateCheckContainerBox.appendChild(additionalRow5);
+	            
+	        }
+	    }
+	    //get
+		xhr.open("get", "./getCheckBoxByRateId?rateId="+rateId);
+		xhr.send();
+	}
+	
+	
+	function changeReviewCheckBox(e) {
+		// 체크 개수 
+		let checkCount = 0;
+		// 체크 박스 
+		const checkboxes = document.querySelectorAll('.reviewCheckbox');
+		// Send 버튼 선택
+		const sendButton = document.getElementById('sendButton');
+		document.querySelectorAll('.reviewCheckbox').forEach(function(checkbox){
+			console.log(checkbox.checked);
+			
+			if (checkbox.checked) {
+				checkCount++;
+			}
+			console.log(checkCount)
+		});
+		
+		if(checkCount>0){
+			sendButton.disabled = false;
+		    sendButton.classList.remove('btn-secondary');
+		    sendButton.classList.add('orangeButton');
+		}else{
+			sendButton.disabled = true;
+		    sendButton.classList.remove('orangeButton');
+		    sendButton.classList.add('btn-secondary');
+		}
+	}
+	
+	// 리뷰 작성 insert
+	function insertPurchaseReview(rateId,senderId,receiverId,requestId) {
+		  // 거래후기 모달 창 바디
+			const rateCheckContainerBox = document.getElementById('rateCheckContainer');
+		
+		  // Input 정보 가져오기
+			const reviewCheckboxs = rateCheckContainerBox.querySelectorAll('.reviewCheckbox');
+		    const textarea = document.getElementById('reviewTextarea').value;
+			const reviewImg = document.getElementById('reviewImg').files[0];
+			
+			const formData = new FormData();
+			
+			// 텍스트 데이터 추가
+			formData.append('purchase_request_id', requestId);
+			formData.append('sender_id', senderId);
+			formData.append('receiver_id', receiverId);
+		 
+			if(textarea){		
+				formData.append('review_comment', textarea);
+			}		
+			if (reviewImg) {
+			    formData.append('reviewImg', reviewImg);
+			}
+			
+			  // 저장할 변수 초기화
+			const selectedCheckboxes = [];  
+			
+			// 체크박스 선택 여부 확인
+			rateCheckContainerBox.querySelectorAll('.reviewCheckbox').forEach(function(checkboxInput) {
+			  if (checkboxInput.checked) {
+			    selectedCheckboxes.push(checkboxInput.id);
+			  }
+			});
+			formData.append('selectedCheckboxes', selectedCheckboxes);
+
+			
+			/* // 닫을 때 
+			modalHide('writeReviewModal');
+			// 열 때
+			const writeReviewModal = bootstrap.Modal.getOrCreateInstance('#myWroteReviewModal');
+			writeReviewModal.show(); */
+			
+		    const xhr = new XMLHttpRequest();
+			
+			xhr.onreadystatechange = function(){
+		        if(xhr.readyState == 4 && xhr.status == 200){
+		            const response = JSON.parse(xhr.responseText);
+		            getMyWroteReviewHideAndShow(senderId, receiverId, requestId, 'writeReviewModal');
+		        }
+		    }
+		    //post
+		    xhr.open("POST", "./insertPurchaseReview");
+ 	 	    xhr.send(formData);
+ 	 		
+	}
+	
+	// 채팅창 닫고 내가 썼던 리뷰 보여주기 
+	function getMyWroteReview(senderId, receiverId, requestId) {
+		getMyWroteReviewHideAndShow(senderId, receiverId, requestId, 'chatModal');
+		
+	}
+	
+	// 현재 모달창 닫고 내가 썼던 리뷰 보여주기 
+	function getMyWroteReviewHideAndShow(senderId, receiverId, requestId, modalName){
+		const modalBodyBox = document.getElementById('modalBody3');
+		// 닫을 때 
+		modalHide(modalName);
+		// 열 때
+		const wroteReviewModal = bootstrap.Modal.getOrCreateInstance('#myWroteReviewModal');
+		
+		const xhr = new XMLHttpRequest();
+		modalBodyBox.innerHTML = "";	
+		xhr.onreadystatechange = function(){
+	        if(xhr.readyState == 4 && xhr.status == 200){
+	        	
+	            const response = JSON.parse(xhr.responseText);
+	            console.log(response.map.usedPurchaseReviewDto.review_img_link);
+	            console.log(response.map.usedPurchaseReviewDto.review_comment);
+	         // Create elements
+	            const row1 = document.createElement('div');
+	            row1.className = 'row';
+	            const col1 = document.createElement('div');
+	            col1.className = 'col fw-bold';
+	            col1.textContent = response.map.receiverDto.nickname+'님에게';
+	            row1.appendChild(col1);
+
+	            const row2 = document.createElement('div');
+	            row2.className = 'row';
+	            const col2 = document.createElement('div');
+	            col2.className = 'col fw-bold';
+	            col2.textContent = '따뜻한 후기를 보냈어요.';
+	            row2.appendChild(col2);
+
+	            const row3 = document.createElement('div');
+	            row3.className = 'row mt-1';
+	            const col3 = document.createElement('div');
+	            col3.className = 'col text-secondary onlyme';
+	            col3.textContent = response.map.receiverDto.nickname + '과 '+ response.map.productDto.title +'을(를) 거래했어요.';
+	            row3.appendChild(col3);
+
+	            // 리뷰에 사진이 없고 내용도 없을 때 
+	            if(response.map.usedPurchaseReviewDto.review_img_link == 'n' && response.map.usedPurchaseReviewDto.review_comment == 'n'){
+	            	const row4 = document.createElement('div');
+	 	            row4.className = 'row mt-2';
+	 	            const col4 = document.createElement('div');
+	 	            col4.className = 'col';
+	 	            const img = document.createElement('img');
+	 	            img.alt = 'review';
+	 	            img.height = '180';
+	 	            img.id = 'reviewImg2';
+	            	
+	            	img.src = '/safari/resources/img/used/review2.jpeg';
+	            	col4.appendChild(img);
+		            row4.appendChild(col4);
+		            
+		            const reviewContentDiv = document.createElement('div');
+		            reviewContentDiv.className = 'reviewContent mb-3';
+		            
+		            const row5 = document.createElement('div');
+		            row5.className = 'row mt-3 mb-1';
+		            
+		            reviewContentDiv.appendChild(row5);
+		            
+		            const ul = document.createElement('ul');
+		            for (data of response.map.usedReviewCheckboxCategotyDtoList) {
+		              const li = document.createElement('li');
+		              li.className = 'mb-1';
+		              li.textContent = data.content;
+		              ul.appendChild(li);
+		            }
+		            
+		            reviewContentDiv.appendChild(ul);
+		            
+		            modalBodyBox.appendChild(row1);
+		            modalBodyBox.appendChild(row2);
+		            modalBodyBox.appendChild(row3);
+		            modalBodyBox.appendChild(row4);
+		            modalBodyBox.appendChild(reviewContentDiv);
+		            
+		            // 상대방이 쓴 리뷰가 있다면 
+		            if(response.map.recevierReviewCount>0){
+		            	const row6 = document.createElement('div');
+		 	            row6.className = 'row mb-3';
+		 	            const col6 = document.createElement('div');
+		 	            col6.className = 'col d-grid';
+		 	            
+		 	            const receiverButton = document.createElement("button");
+		 	            receiverButton.classList.add("btn", "orangeButton");
+		 	            receiverButton.id = "recieverButton";
+		 	            receiverButton.textContent = "받은 거래 후기 보기";
+			            receiverButton.setAttribute("onclick", "getReceiverWroteReviewHideAndShow("+receiverId+","+senderId+","+requestId+")");
+			            
+			            row6.appendChild(col6);
+			            col6.appendChild(receiverButton);
+			            modalBodyBox.appendChild(row6);
+		            }
+	            }
+	            // 리뷰에 사진이 있을 떄 
+	            else if(response.map.usedPurchaseReviewDto.review_img_link != 'n' && response.map.usedPurchaseReviewDto.review_comment == 'n'){
+	            	const row4 = document.createElement('div');
+	 	            row4.className = 'row mt-2';
+	 	            const col4 = document.createElement('div');
+	 	            col4.className = 'col';
+	 	            const img = document.createElement('img');
+	 	            img.alt = 'review';
+	 	            img.height = '180';
+	 	            img.id = 'reviewImg2';
+	            	img.src = '/safarifile/' + response.map.usedPurchaseReviewDto.review_img_link;
+	            	
+	            	col4.appendChild(img);
+		            row4.appendChild(col4);
+
+		            const reviewContentDiv = document.createElement('div');
+		            reviewContentDiv.className = 'reviewContent mb-3';
+		            
+		            const row5 = document.createElement('div');
+		            row5.className = 'row mt-3 mb-1';
+		            
+		            reviewContentDiv.appendChild(row5);
+		            
+		            const ul = document.createElement('ul');
+		            for (data of response.map.usedReviewCheckboxCategotyDtoList) {
+		              const li = document.createElement('li');
+		              li.className = 'mb-1';
+		              li.textContent = data.content;
+		              ul.appendChild(li);
+		            }
+		            
+		            reviewContentDiv.appendChild(ul);
+		            
+		            modalBodyBox.appendChild(row1);
+		            modalBodyBox.appendChild(row2);
+		            modalBodyBox.appendChild(row3);
+		            modalBodyBox.appendChild(row4);
+		            modalBodyBox.appendChild(reviewContentDiv);
+
+		         // 상대방이 쓴 리뷰가 있다면 
+		            if(response.map.recevierReviewCount>0){
+		            	const row6 = document.createElement('div');
+		 	            row6.className = 'row';
+		 	            const col6 = document.createElement('div');
+		 	            col6.className = 'col d-grid';
+		 	            
+		 	            const receiverButton = document.createElement("button");
+		 	            receiverButton.classList.add("btn", "orangeButton");
+		 	            receiverButton.id = "recieverButton";
+		 	            receiverButton.textContent = "받은 거래 후기 보기";
+			            receiverButton.setAttribute("onclick", "getReceiverWroteReviewHideAndShow("+receiverId+","+senderId+","+requestId+")");
+			            
+			            row6.appendChild(col6);
+			            col6.appendChild(receiverButton);
+			            modalBodyBox.appendChild(row6);
+		            }		            
+		            
+	            }else if(response.map.usedPurchaseReviewDto.review_img_link == 'n' && response.map.usedPurchaseReviewDto.review_comment != 'n'){
+	            	const row4 = document.createElement('div');
+	 	            row4.className = 'row mt-2';
+	 	            const col4 = document.createElement('div');
+	 	            col4.className = 'col';
+	 	            const img = document.createElement('img');
+	 	            img.alt = 'review';
+	 	            img.height = '180';
+	 	            img.id = 'reviewImg2';
+	            	img.src = '/safari/resources/img/used/review2.jpeg';
+	            	col4.appendChild(img);
+		            row4.appendChild(col4);
+		            
+		            const reviewContentDiv = document.createElement('div');
+		            reviewContentDiv.className = 'reviewContent mb-3';
+		            
+		            const row5 = document.createElement('div');
+		            row5.className = 'row mt-3 mb-1';
+		            
+		            const col5 = document.createElement('div');
+		            col5.className = 'col ms-3';
+		            col5.textContent = response.map.usedPurchaseReviewDto.review_comment;
+		            row5.appendChild(col5);
+		            
+		            reviewContentDiv.appendChild(row5);
+		            
+		            const ul = document.createElement('ul');
+		            for (data of response.map.usedReviewCheckboxCategotyDtoList) {
+		              const li = document.createElement('li');
+		              li.className = 'mb-1';
+		              li.textContent = data.content;
+		              ul.appendChild(li);
+		            }
+		            
+		            reviewContentDiv.appendChild(ul);
+		            
+		            modalBodyBox.appendChild(row1);
+		            modalBodyBox.appendChild(row2);
+		            modalBodyBox.appendChild(row3);
+		            modalBodyBox.appendChild(row4);
+		            modalBodyBox.appendChild(reviewContentDiv);
+
+		            // 상대방이 쓴 리뷰가 있다면 
+		            if(response.map.recevierReviewCount>0){
+		            	const row6 = document.createElement('div');
+		 	            row6.className = 'row';
+		 	            const col6 = document.createElement('div');
+		 	            col6.className = 'col d-grid';
+		 	            
+		 	            const receiverButton = document.createElement("button");
+		 	            receiverButton.classList.add("btn", "orangeButton");
+		 	            receiverButton.id = "recieverButton";
+		 	            receiverButton.textContent = "받은 거래 후기 보기";
+			            receiverButton.setAttribute("onclick", "getReceiverWroteReviewHideAndShow("+receiverId+","+senderId+","+requestId+")");
+			            
+			            row6.appendChild(col6);
+			            col6.appendChild(receiverButton);
+			            modalBodyBox.appendChild(row6);
+		            }
+		           
+	            }else{
+	            	const row4 = document.createElement('div');
+	 	            row4.className = 'row mt-2';
+	 	            const col4 = document.createElement('div');
+	 	            col4.className = 'col';
+	 	            const img = document.createElement('img');
+	 	            img.alt = 'review';
+	 	            img.height = '180';
+	 	            img.id = 'reviewImg2';
+	            	img.src = '/safarifile/' + response.map.usedPurchaseReviewDto.review_img_link;
+	            	
+	            	col4.appendChild(img);
+		            row4.appendChild(col4);
+
+		            const reviewContentDiv = document.createElement('div');
+		            reviewContentDiv.className = 'reviewContent mb-3';
+		            
+		            const row5 = document.createElement('div');
+		            row5.className = 'row mt-3 mb-1';
+		            
+		            const col5 = document.createElement('div');
+		            col5.className = 'col ms-3';
+		            col5.textContent = response.map.usedPurchaseReviewDto.review_comment;
+		            row5.appendChild(col5);
+		            
+		            reviewContentDiv.appendChild(row5);
+		            
+		            const ul = document.createElement('ul');
+		            for (data of response.map.usedReviewCheckboxCategotyDtoList) {
+		              const li = document.createElement('li');
+		              li.className = 'mb-1';
+		              li.textContent = data.content;
+		              ul.appendChild(li);
+		            }
+		            
+		            reviewContentDiv.appendChild(ul);
+		            
+		            modalBodyBox.appendChild(row1);
+		            modalBodyBox.appendChild(row2);
+		            modalBodyBox.appendChild(row3);
+		            modalBodyBox.appendChild(row4);
+		            modalBodyBox.appendChild(reviewContentDiv);
+		            
+		            // 상대방이 쓴 리뷰가 있다면 
+		            if(response.map.recevierReviewCount>0){
+		            	const row6 = document.createElement('div');
+		 	            row6.className = 'row';
+		 	            const col6 = document.createElement('div');
+		 	            col6.className = 'col d-grid';
+		 	            
+		 	            const receiverButton = document.createElement("button");
+		 	            receiverButton.classList.add("btn", "orangeButton");
+		 	            receiverButton.id = "recieverButton";
+		 	            receiverButton.textContent = "받은 거래 후기 보기";
+			            receiverButton.setAttribute("onclick", "getReceiverWroteReviewHideAndShow("+receiverId+","+senderId+","+requestId+")");
+			            
+			            row6.appendChild(col6);
+			            col6.appendChild(receiverButton);
+			            modalBodyBox.appendChild(row6);
+		            }
+	            }
+	            
+	           /*  col4.appendChild(img);
+	            row4.appendChild(col4);
+
+	            const reviewContentDiv = document.createElement('div');
+	            reviewContentDiv.className = 'reviewContent';
+	            
+	            // 리뷰에 직접 작성한 내용이 없을 떄 
+	            if(response.map.usedPurchaseReviewDto.review_comment == 'n'){
+	            	const row5 = document.createElement('div');
+		            row5.className = 'row mt-3 mb-1';
+	            }
+	            // 리뷰에 직접 작성한 내용이 있을 떄 
+	            else{
+	            	const row5 = document.createElement('div');
+		            row5.className = 'row mt-3 mb-1';
+		            const col5 = document.createElement('div');
+		            col5.className = 'col ms-3';
+		            col5.textContent = response.map.usedPurchaseReviewDto.review_comment;
+		            row5.appendChild(col5);
+	            } */
+				
+	            /* const ul = document.createElement('ul');
+	            // 체크박스 list 
+	            for(data of response.map.usedReviewCheckboxCategotyDtoList){
+	            	const li = document.createElement('li');
+		            li.className = 'mb-1';
+		            li.textContent = data.content;
+		            console.log(data.content);
+		            ul.appendChild(li);
+	            }
+
+	            reviewContentDiv.appendChild(row5);
+	            reviewContentDiv.appendChild(ul);
+
+	            modalBodyBox.appendChild(row1);
+	            modalBodyBox.appendChild(row2);
+	            modalBodyBox.appendChild(row3);
+	            modalBodyBox.appendChild(row4);
+	            modalBodyBox.appendChild(reviewContentDiv);
+	             */
+	        }
+	    }
+		//get
+		xhr.open("get", "./getMyWroteReview?senderId="+senderId+"&receiverId="+receiverId+"&requestId="+requestId);
+		xhr.send();
+		
+		wroteReviewModal.show();
+		
+		
+	}
+	
+	// 내가 쓴 리뷰모달 창 닫고 상대방이 쓴 리뷰 열기 
+	function getReceiverWroteReviewHideAndShow(senderId, receiverId, requestId) {
+		const modalBodyBox = document.getElementById('modalBody4');
+		// 닫을 때 
+		modalHide('myWroteReviewModal');
+		// 열 때 
+		const wroteReviewModal = bootstrap.Modal.getOrCreateInstance('#receiverWroteReviewModal');
+		
+		const xhr = new XMLHttpRequest();
+		modalBodyBox.innerHTML = "";
+		xhr.onreadystatechange = function(){
+	        if(xhr.readyState == 4 && xhr.status == 200){
+	        	
+	        	
+	            const response = JSON.parse(xhr.responseText);
+	            console.log(response.map.usedPurchaseReviewDto.review_img_link);
+	            console.log(response.map.usedPurchaseReviewDto.review_comment);
+	         // Create elements
+	            const row1 = document.createElement('div');
+	            row1.className = 'row';
+	            const col1 = document.createElement('div');
+	            col1.className = 'col fw-bold';
+	            col1.textContent = response.map.receiverDto.nickname+'님이 보낸';
+	            row1.appendChild(col1);
+
+	            const row2 = document.createElement('div');
+	            row2.className = 'row';
+	            const col2 = document.createElement('div');
+	            col2.className = 'col fw-bold';
+	            col2.textContent = '따뜻한 후기가 도착했어요.';
+	            row2.appendChild(col2);
+
+	            const row3 = document.createElement('div');
+	            row3.className = 'row mt-1';
+	            const col3 = document.createElement('div');
+	            col3.className = 'col text-secondary onlyme';
+	            col3.textContent = response.map.receiverDto.nickname + '과 '+ response.map.productDto.title +'을(를) 거래했어요.';
+	            row3.appendChild(col3);
+
+	            // 리뷰에 사진이 없고 내용도 없을 때 
+	            if(response.map.usedPurchaseReviewDto.review_img_link == 'n' && response.map.usedPurchaseReviewDto.review_comment == 'n'){
+	            	const row4 = document.createElement('div');
+	 	            row4.className = 'row mt-2';
+	 	            const col4 = document.createElement('div');
+	 	            col4.className = 'col';
+	 	            const img = document.createElement('img');
+	 	            img.alt = 'review';
+	 	            img.height = '180';
+	 	            img.id = 'reviewImg2';
+	            	
+	            	img.src = '/safari/resources/img/used/review2.jpeg';
+	            	col4.appendChild(img);
+		            row4.appendChild(col4);
+		            
+		            const reviewContentDiv = document.createElement('div');
+		            reviewContentDiv.className = 'reviewContent mb-3';
+		            
+		            const row5 = document.createElement('div');
+		            row5.className = 'row mt-3 mb-1';
+		            
+		            reviewContentDiv.appendChild(row5);
+		            
+		            const ul = document.createElement('ul');
+		            for (data of response.map.usedReviewCheckboxCategotyDtoList) {
+		              const li = document.createElement('li');
+		              li.className = 'mb-1';
+		              li.textContent = data.content;
+		              ul.appendChild(li);
+		            }
+		            
+		            reviewContentDiv.appendChild(ul);
+		            
+		            modalBodyBox.appendChild(row1);
+		            modalBodyBox.appendChild(row2);
+		            modalBodyBox.appendChild(row3);
+		            modalBodyBox.appendChild(row4);
+		            modalBodyBox.appendChild(reviewContentDiv);
+		            
+	            }
+	            // 리뷰에 사진이 있을 떄 
+	            else if(response.map.usedPurchaseReviewDto.review_img_link != 'n' && response.map.usedPurchaseReviewDto.review_comment == 'n'){
+	            	const row4 = document.createElement('div');
+	 	            row4.className = 'row mt-2';
+	 	            const col4 = document.createElement('div');
+	 	            col4.className = 'col';
+	 	            const img = document.createElement('img');
+	 	            img.alt = 'review';
+	 	            img.height = '180';
+	 	            img.id = 'reviewImg2';
+	            	img.src = '/safarifile/' + response.map.usedPurchaseReviewDto.review_img_link;
+	            	
+	            	col4.appendChild(img);
+		            row4.appendChild(col4);
+
+		            const reviewContentDiv = document.createElement('div');
+		            reviewContentDiv.className = 'reviewContent mb-3';
+		            
+		            const row5 = document.createElement('div');
+		            row5.className = 'row mt-3 mb-1';
+		            
+		            reviewContentDiv.appendChild(row5);
+		            
+		            const ul = document.createElement('ul');
+		            for (data of response.map.usedReviewCheckboxCategotyDtoList) {
+		              const li = document.createElement('li');
+		              li.className = 'mb-1';
+		              li.textContent = data.content;
+		              ul.appendChild(li);
+		            }
+		            
+		            reviewContentDiv.appendChild(ul);
+
+		            modalBodyBox.appendChild(row1);
+		            modalBodyBox.appendChild(row2);
+		            modalBodyBox.appendChild(row3);
+		            modalBodyBox.appendChild(row4);
+		            modalBodyBox.appendChild(reviewContentDiv);
+		            
+	            }else if(response.map.usedPurchaseReviewDto.review_img_link == 'n' && response.map.usedPurchaseReviewDto.review_comment != 'n'){
+	            	const row4 = document.createElement('div');
+	 	            row4.className = 'row mt-2';
+	 	            const col4 = document.createElement('div');
+	 	            col4.className = 'col';
+	 	            const img = document.createElement('img');
+	 	            img.alt = 'review';
+	 	            img.height = '180';
+	 	            img.id = 'reviewImg2';
+	            	img.src = '/safari/resources/img/used/review2.jpeg';
+	            	col4.appendChild(img);
+		            row4.appendChild(col4);
+		            
+		            const reviewContentDiv = document.createElement('div');
+		            reviewContentDiv.className = 'reviewContent mb-3';
+		            
+		            const row5 = document.createElement('div');
+		            row5.className = 'row mt-3 mb-1';
+		            
+		            const col5 = document.createElement('div');
+		            col5.className = 'col ms-3';
+		            col5.textContent = response.map.usedPurchaseReviewDto.review_comment;
+		            row5.appendChild(col5);
+		            
+		            reviewContentDiv.appendChild(row5);
+		            
+		            const ul = document.createElement('ul');
+		            for (data of response.map.usedReviewCheckboxCategotyDtoList) {
+		              const li = document.createElement('li');
+		              li.className = 'mb-1';
+		              li.textContent = data.content;
+		              ul.appendChild(li);
+		            }
+		            
+		            reviewContentDiv.appendChild(ul);
+
+		            modalBodyBox.appendChild(row1);
+		            modalBodyBox.appendChild(row2);
+		            modalBodyBox.appendChild(row3);
+		            modalBodyBox.appendChild(row4);
+		            modalBodyBox.appendChild(reviewContentDiv);
+	            }else{
+	            	const row4 = document.createElement('div');
+	 	            row4.className = 'row mt-2';
+	 	            const col4 = document.createElement('div');
+	 	            col4.className = 'col';
+	 	            const img = document.createElement('img');
+	 	            img.alt = 'review';
+	 	            img.height = '180';
+	 	            img.id = 'reviewImg2';
+	            	img.src = '/safarifile/' + response.map.usedPurchaseReviewDto.review_img_link;
+	            	
+	            	col4.appendChild(img);
+		            row4.appendChild(col4);
+
+		            const reviewContentDiv = document.createElement('div');
+		            reviewContentDiv.className = 'reviewContent mb-3';
+		            
+		            const row5 = document.createElement('div');
+		            row5.className = 'row mt-3 mb-1';
+		            
+		            const col5 = document.createElement('div');
+		            col5.className = 'col ms-3';
+		            col5.textContent = response.map.usedPurchaseReviewDto.review_comment;
+		            row5.appendChild(col5);
+		            
+		            reviewContentDiv.appendChild(row5);
+		            
+		            const ul = document.createElement('ul');
+		            for (data of response.map.usedReviewCheckboxCategotyDtoList) {
+		              const li = document.createElement('li');
+		              li.className = 'mb-1';
+		              li.textContent = data.content;
+		              ul.appendChild(li);
+		            }
+		            
+		            reviewContentDiv.appendChild(ul);
+
+		            modalBodyBox.appendChild(row1);
+		            modalBodyBox.appendChild(row2);
+		            modalBodyBox.appendChild(row3);
+		            modalBodyBox.appendChild(row4);
+		            modalBodyBox.appendChild(reviewContentDiv);
+		            
+	            }
+	            
+	           /*  col4.appendChild(img);
+	            row4.appendChild(col4);
+
+	            const reviewContentDiv = document.createElement('div');
+	            reviewContentDiv.className = 'reviewContent';
+	            
+	            // 리뷰에 직접 작성한 내용이 없을 떄 
+	            if(response.map.usedPurchaseReviewDto.review_comment == 'n'){
+	            	const row5 = document.createElement('div');
+		            row5.className = 'row mt-3 mb-1';
+	            }
+	            // 리뷰에 직접 작성한 내용이 있을 떄 
+	            else{
+	            	const row5 = document.createElement('div');
+		            row5.className = 'row mt-3 mb-1';
+		            const col5 = document.createElement('div');
+		            col5.className = 'col ms-3';
+		            col5.textContent = response.map.usedPurchaseReviewDto.review_comment;
+		            row5.appendChild(col5);
+	            } */
+				
+	            /* const ul = document.createElement('ul');
+	            // 체크박스 list 
+	            for(data of response.map.usedReviewCheckboxCategotyDtoList){
+	            	const li = document.createElement('li');
+		            li.className = 'mb-1';
+		            li.textContent = data.content;
+		            console.log(data.content);
+		            ul.appendChild(li);
+	            }
+
+	            reviewContentDiv.appendChild(row5);
+	            reviewContentDiv.appendChild(ul);
+
+	            modalBodyBox.appendChild(row1);
+	            modalBodyBox.appendChild(row2);
+	            modalBodyBox.appendChild(row3);
+	            modalBodyBox.appendChild(row4);
+	            modalBodyBox.appendChild(reviewContentDiv);
+	             */
+	        }
+	    }
+		//get
+		xhr.open("get", "./getMyWroteReview?senderId="+senderId+"&receiverId="+receiverId+"&requestId="+requestId);
+		xhr.send();
+		
+		wroteReviewModal.show();
+	}
 	
 	// 채팅방 룸 목록 열기 
 	function reloadChatRoomList() {
@@ -437,7 +1538,7 @@
 	            row1col2 = document.createElement('div');
 	            row1col2.classList.add('col');
 	            row1col2row1 = document.createElement('div');
-	            row1col2row1.classList.add('row');
+	            row1col2row1.classList.add('row', 'mt-2');
 	            row1col2row1col1 = document.createElement('div');
 	            row1col2row1col1.classList.add('col', 'ms-1');
 	            row1col2row1col1.innerText = response.map.productDto.title;
@@ -558,13 +1659,35 @@
 	    	            row2col3.appendChild(row2col3Icon);
 	    	            row2col3.appendChild(row2col3Span);
 	    	            
-	            	}else if(response.productRequestDto.status == '거래완료'){
+	            	}else if(response.productRequestDto.status == '거래완료' && response.myWroteReviewCount == 0){
 	            		row2col1 = document.createElement('div');
 	    	            row2col1.classList.add('col-2', 'btn', 'btn-outline-secondary', 'text-dark', 'me-3', 'ms-2', 'btn-sm', 'p-1');
 	    				row2col1Icon = document.createElement('i');
 	    				row2col1Icon.classList.add('bi', 'bi-chat-dots-fill');
 	    				const row2col1Span = document.createElement('span');
 	    				row2col1Span.innerText = ' 리뷰쓰기';
+	    				row2col1Span.setAttribute("onclick", "writeReview("+response.sessionId+","+response.productRequestDto.user_id+","+response.productRequestDto.id+")");
+	    	            
+	    	            const row2col4 = document.createElement('div');
+	    	            row2col4.classList.add('col');
+	    	            
+	    	            row2.appendChild(row2col1);
+	    	            row2.appendChild(row2col4);
+	    	            
+	    	            row2col1.appendChild(row2col1Icon);
+	    	            row2col1.appendChild(row2col1Span);
+	    	            
+	    	            row2.appendChild(row2col1);
+	    	            row2.appendChild(row2col4);
+	            	}else if(response.productRequestDto.status == '거래완료' && response.myWroteReviewCount > 0){
+	            		row2col1 = document.createElement('div');
+	    	            row2col1.classList.add('col-3', 'btn', 'btn-outline-secondary', 'text-dark', 'me-3', 'ms-2', 'btn-sm', 'p-1');
+	    				row2col1Icon = document.createElement('i');
+	    				row2col1Icon.classList.add('bi', 'bi-pencil-square');
+	    				const row2col1Span = document.createElement('span');
+	    				row2col1Span.innerText = ' 보낸 후기 보기';
+	    				row2col1Span.classList.add('fw-bold');
+	    				row2col1Span.setAttribute("onclick", "getMyWroteReview("+response.sessionId+","+response.productRequestDto.user_id+","+response.productRequestDto.id+")");
 	    	            
 	    	            const row2col4 = document.createElement('div');
 	    	            row2col4.classList.add('col');
@@ -628,13 +1751,35 @@
 	    	            row2col1.appendChild(row2col1Icon);
 	    	            row2col1.appendChild(row2col1Span);
 	    	            
-	            	}else if(response.productRequestDto.status == '거래완료'){
+	            	}else if(response.productRequestDto.status == '거래완료' && response.myWroteReviewCount == 0){
 	            		row2col1 = document.createElement('div');
 	    	            row2col1.classList.add('col-2', 'btn', 'btn-outline-secondary', 'text-dark', 'me-3', 'ms-2', 'btn-sm', 'p-1');
 	    				row2col1Icon = document.createElement('i');
 	    				row2col1Icon.classList.add('bi', 'bi-chat-dots-fill');
 	    				const row2col1Span = document.createElement('span');
 	    				row2col1Span.innerText = ' 리뷰쓰기';
+	    				row2col1Span.setAttribute("onclick", "writeReview("+response.sessionId+","+ response.map.productDto.user_id+","+response.productRequestDto.id+")");
+	    				
+	    	            const row2col4 = document.createElement('div');
+	    	            row2col4.classList.add('col');
+	    	            
+	    	            row2.appendChild(row2col1);
+	    	            row2.appendChild(row2col4);
+	    	            
+	    	            row2col1.appendChild(row2col1Icon);
+	    	            row2col1.appendChild(row2col1Span);
+	    	            
+	    	            row2.appendChild(row2col1);
+	    	            row2.appendChild(row2col4);
+	            	}else if(response.productRequestDto.status == '거래완료' && response.myWroteReviewCount > 0){
+	            		row2col1 = document.createElement('div');
+	    	            row2col1.classList.add('col-3', 'btn', 'btn-outline-secondary', 'text-dark', 'me-3', 'ms-2', 'btn-sm', 'p-1');
+	    				row2col1Icon = document.createElement('i');
+	    				row2col1Icon.classList.add('bi', 'bi-pencil-square');
+	    				const row2col1Span = document.createElement('span');
+	    				row2col1Span.innerText = ' 보낸 후기 보기';
+	    				row2col1Span.classList.add('fw-bold');
+	    				row2col1Span.setAttribute("onclick", "getMyWroteReview("+response.sessionId+","+response.map.productDto.user_id+","+response.productRequestDto.id+")");
 	    	            
 	    	            const row2col4 = document.createElement('div');
 	    	            row2col4.classList.add('col');
@@ -772,13 +1917,20 @@
 		/* xhr.send(`requestId=\${requestId}&receiverId=\${receiverId}`); */
 		
 	}
-	
 
+// scroll lock
+let chatMsgScrollTop = -1;
+	
 // 채팅 내용 리스트 리로딩 
 function reloadChatList(requestId) {
 	// chatlisBox 
     const getChatbox = document.getElementById("getChatList");
     
+    // 스크롤 위치 저장
+	const isScrolledToBottom = getChatbox.scrollHeight - getChatbox.clientHeight <= getChatbox.scrollTop + 10;
+	if(chatMsgScrollTop != 1) chatMsgScrollTop = getChatbox.scrollTop;
+
+	
 	// 채팅 읽음 표시 update 
 	updateIsRead(requestId);
 	
@@ -834,7 +1986,7 @@ function reloadChatList(requestId) {
 					  
 					  
 					  const col2 = document.createElement('div');
-					  col2.classList.add('col-7', 'me-3', 'myContent');
+					  col2.classList.add('col-7', 'me-3', 'myContent', 'text-break');
 					  col2.innerText = data.content;
 					  
 					  row1.appendChild(col1);
@@ -853,7 +2005,7 @@ function reloadChatList(requestId) {
 					  colIcon.appendChild(icon);
 					  
 					  const col3 = document.createElement('div');
-					  col3.classList.add('col-7', 'ms-2', 'text-left', 'otherContent');
+					  col3.classList.add('col-7', 'ms-2', 'otherContent', 'text-break');
 					  col3.innerText = data.content;
 					  
 					  const col4 = document.createElement('div');
@@ -883,7 +2035,7 @@ function reloadChatList(requestId) {
 				  // 송금 받았을 때 
 				  else{
 					  const col3 = document.createElement('div');
-					  col3.classList.add('col','text-center','fw-bold');
+					  col3.classList.add('col','text-center');
 					  col3.innerText = data.content;
 					  
 					  row1.appendChild(col3);
@@ -891,8 +2043,18 @@ function reloadChatList(requestId) {
 					  getChatbox.appendChild(row1);
 				  }
 			}
-			// 채팅 화면 마지막으로 맞추기 
-			getChatbox.scrollTop = getChatbox.scrollHeight;
+			/* // 채팅 화면 마지막으로 맞추기 
+			getChatbox.scrollTop = getChatbox.scrollHeight; */
+			
+			// 스크롤 위치 복원
+			if (isScrolledToBottom) {
+				getChatbox.scrollTop = getChatbox.scrollHeight;
+			} else if (chatMsgScrollTop === -1) {
+				getChatbox.scrollTop = getChatbox.scrollHeight;
+			} else {
+				getChatbox.scrollTop = chatMsgScrollTop
+			}
+
 		}
 	}
 	
@@ -1039,10 +2201,310 @@ function saveTidToSession(cid,partner_order_id,partner_user_id,tid, item_name, i
     xhr.send("cid="+cid+"&partner_order_id="+partner_order_id+"&partner_user_id="+partner_user_id+"&tid="+tid+"&item_name="+item_name+"&item_code="+item_code);
 }
 
+// 리뷰 클릭하면 채팅창 닫고 리뷰쓰기 모달 열기
+function writeReview(senderId, receiverId, requestId) {
+	modalHide('chatModal');
+	reviewModalOn(senderId, receiverId, requestId);
+}
+
+// 리뷰모달 열기 
+function  reviewModalOn(senderId, receiverId, requestId) {
+	
+	// 리뷰 모달 열기 전 정보 가져오기
+	getReviewInformation(senderId, receiverId, requestId);
+	
+	// 열 때
+	const writeReviewModal = bootstrap.Modal.getOrCreateInstance('#writeReviewModal');
+	writeReviewModal.show();
+	
+}
+
+//리뷰 모달 열기 전 정보 가져오기
+function getReviewInformation(senderId, receiverId, requestId) {
+	// 거래후기 모달 창 헤더 
+	const modalHeaderWrapperBox = document.getElementById('modalHeaderWrapper2');
+	
+	
+	// 거래후기 모달 창 바디 
+	const modalBodyBox = document.getElementById('modalBody2');
+	
+	const xhr = new XMLHttpRequest();
+	
+	xhr.onreadystatechange = function(){
+        if(xhr.readyState == 4 && xhr.status == 200){
+            const response = JSON.parse(xhr.responseText);
+            
+            modalHeaderWrapperBox.innerHTML = "";
+            modalBodyBox.innerHTML = "";
+            
+            // header 
+            const row1 = document.createElement('div');
+            row1.classList.add('row');
+			
+            const col1 = document.createElement('div');
+            col1.classList.add('col-5', 'p-0');
+          	const col1Img = document.createElement("img");
+          	col1Img.alt = response.map.productDto.title;
+          	col1Img.src = '/safarifile/' + response.map.productImgDto.product_img_link;
+          	col1Img.width = 90;
+          	col1Img.height = 90;
+            
+          	const col2 = document.createElement('div');
+            col2.classList.add('col', 'mt-3');
+            
+          	const col2row1 = document.createElement('div');
+          	col2row1.classList.add('row');
+            const col2row1col1 = document.createElement('div');
+            col2row1col1.classList.add('col', 'fw-bold');
+            /* col2row1col1.textContent = '에어팟 프로'; */
+            col2row1col1.textContent = response.map.productDto.title;
+
+            const col2row2 = document.createElement('div');
+          	col2row2.classList.add('row');
+            const col2row2col1 = document.createElement('div');
+            col2row2col1.classList.add('col');
+            col2row2col1.textContent = '거래한 이웃'
+            
+            const span = document.createElement('span');
+            span.classList.add('fw-bold', 'ms-2');
+            /* span.textContent = '피자죠아'; */
+            span.textContent = response.map.receiverDto.nickname;
+            
+            row1.appendChild(col1);
+            col1.appendChild(col1Img);
+            row1.appendChild(col2);
+            col2.appendChild(col2row1);
+            col2row1.appendChild(col2row1col1);
+            col2.appendChild(col2row2);
+            col2row2.appendChild(col2row2col1);
+            col2row2col1.appendChild(span);
+            
+            modalHeaderWrapperBox.appendChild(row1);
+            
+            
+           /*  col1.classList.add('col', "fw-bold");
+             col1.textContent = '에어팟 프로'; 
+            col1.textContent = response.map.productDto.title;
+
+            row1.appendChild(col1);
+            modalHeaderWrapperBox.appendChild(row1);
+
+            const row2 = document.createElement('div');
+            row2.classList.add('row');
+            
+            
+            const col2 = document.createElement('div');
+            col2.classList.add('col');
+            col2.textContent = '거래한 이웃';
+
+            const span = document.createElement('span');
+            span.classList.add('fw-bold', 'ms-2');
+            /* span.textContent = '피자죠아'; 
+            span.textContent = response.map.receiverDto.nickname;
+
+            col2.appendChild(span);
+            row2.appendChild(col2);
+            modalHeaderWrapperBox.appendChild(row2); */
+            
+            // body 
+            // First row
+            const firstRow = document.createElement("div");
+            firstRow.classList.add("row");
+
+            const firstCol = document.createElement("div");
+            firstCol.classList.add("col", "fw-bold");
+            /* firstCol.textContent = "바니바니님,"; */
+            firstCol.textContent = response.map.senderDto.nickname+"님,";
+
+            firstRow.appendChild(firstCol);
+
+            modalBodyBox.appendChild(firstRow);
+
+            // Second row
+            const secondRow = document.createElement("div");
+            secondRow.classList.add("row");
+
+            const secondCol = document.createElement("div");
+            secondCol.classList.add("col", "fw-bold");
+            secondCol.textContent = response.map.receiverDto.nickname+"님과 거래가 어떠셨나요?";
+
+            secondRow.appendChild(secondCol);
+
+            modalBodyBox.appendChild(secondRow);
+
+            // Third row
+            const thirdRow = document.createElement("div");
+            thirdRow.classList.add("row");
+
+            const thirdCol = document.createElement("div");
+            thirdCol.classList.add("col", "text-secondary", "onlyme", "mt-1");
+            thirdCol.textContent = "거래 선호도는 나만 볼 수 있어요";
+
+            thirdRow.appendChild(thirdCol);
+
+            modalBodyBox.appendChild(thirdRow);
+
+            // Fourth row
+            const fourthRow = document.createElement("div");
+            fourthRow.classList.add("row", "mt-4");
+			
+            // 평가 카테고리 
+            for(data of response.map.usedReviewRateCategoryDto){
+            	// 평가 list 
+                const col4 = document.createElement("div");
+                col4.classList.add("col-4", "text-center");
+
+                const img4 = document.createElement("img");
+                img4.classList.add("opacity-25", "btn-bunny");
+                img4.alt = data.img_title;
+                img4.src = "/safari/resources/img/used/"+data.img_title+".png";
+                img4.width = 70;
+                img4.height = 70;
+                img4.setAttribute("onclick", data.img_title+"Change("+data.id+","+senderId+","+receiverId+","+requestId+")");
+                img4.id=data.img_title+"Img";
+                
+                
+                const p4 = document.createElement("p");
+                p4.classList.add("text-secondary", "fw-semibold", "mt-1");
+                p4.textContent = data.content;
+                p4.id = data.img_title+"Text";
+
+                col4.appendChild(img4);
+                col4.appendChild(p4);
+
+                fourthRow.appendChild(col4);
+                
+               
+            }
+            
+            const rateCheckContainer = document.createElement("div");
+            rateCheckContainer.classList.add("container");
+            rateCheckContainer.id = 'rateCheckContainer';
+            
+            modalBodyBox.appendChild(fourthRow);
+            modalBodyBox.appendChild(rateCheckContainer);
+            
+
+            
+
+/*             // Fifth row
+            const fifthRow = document.createElement("div");
+            fifthRow.classList.add("row", "mt-3");
+
+            const fifthCol = document.createElement("div");
+            fifthCol.classList.add("col", "fs-6");
+            fifthCol.textContent = "어떤 점이 별로였나요?";
+
+            fifthRow.appendChild(fifthCol);
+
+            container.appendChild(fifthRow);
+
+            // Checkboxes
+            const checkboxes = [
+              {
+                id: "checkbox1",
+                labelText: "시간약속을 안 지켜요."
+              },
+              {
+                id: "checkbox2",
+                labelText: "원하지 않는 가격을 계속 요구해요."
+              },
+              {
+                id: "checkbox3",
+                labelText: "거래 시간과 장소를 정한 후 연락이 안돼요."
+              },
+              {
+                id: "checkbox4",
+                labelText: "불친절해요."
+              }
+            ];
+
+            checkboxes.forEach((checkbox) => {
+              const checkboxContainer = document.createElement("div");
+              checkboxContainer.classList.add("row", "mt-3");
+
+              const checkboxCol = document.createElement("div");
+              checkboxCol.classList.add("col");
+
+              const checkboxInput = document.createElement("input");
+              checkboxInput.type = "checkbox";
+              checkboxInput.id = checkbox.id;
+
+              const checkboxLabel = document.createElement("label");
+              checkboxLabel.htmlFor = checkbox.id;
+              checkboxLabel.textContent = checkbox.labelText;
+
+              checkboxCol.appendChild(checkboxInput);
+              checkboxCol.appendChild(checkboxLabel);
+
+              checkboxContainer.appendChild(checkboxCol);
+
+              container.appendChild(checkboxContainer);
+            });
+
+            // Additional rows
+            const sixthRow = document.createElement("div");
+            sixthRow.classList.add("row", "mt-4");
+
+            const sixthCol = document.createElement("div");
+            sixthCol.classList.add("col");
+            sixthCol.textContent = "아쉬웠던 점을 사파리 팀에 알려주세요.";
+
+            sixthRow.appendChild(sixthCol);
+
+            container.appendChild(sixthRow);
+
+            const seventhRow = document.createElement("div");
+            seventhRow.classList.add("row");
+
+            const seventhCol = document.createElement("div");
+            seventhCol.classList.add("col", "onlyme", "text-secondary", "mt-1");
+            seventhCol.textContent = "상대방에게 전달되지 않으니 안심하세요.";
+
+            seventhRow.appendChild(seventhCol);
+
+            container.appendChild(seventhRow);
+
+            const eighthRow = document.createElement("div");
+            eighthRow.classList.add("row");
+
+            const eighthCol = document.createElement("div");
+            eighthCol.classList.add("col", "mt-1");
+
+            const textarea = document.createElement("textarea");
+            textarea.classList.add("form-control");
+            textarea.rows = 3;
+            textarea.cols = 35;
+            textarea.placeholder = " 여기에 적어주세요. (선택사항)";
+
+            eighthCol.appendChild(textarea);
+
+            eighthRow.appendChild(eighthCol);
+
+            container.appendChild(eighthRow);
+
+            const ninthRow = document.createElement("div");
+            ninthRow.classList.add("row");
+
+            const ninthCol = document.createElement("div");
+            ninthCol.classList.add("col");
+
+            const inputFile = document.createElement("input");
+            inputFile.classList.add("mt-3", "mb-4");
+            inputFile.type = "file";
+            */
+		
+        }
+    }
+    //get
+	xhr.open("get", "./getReviewHeaderAndBody?senderId="+senderId+"&receiverId="+receiverId+"&requestId="+requestId);
+	xhr.send();
+}	
 
 //modal 닫을 때
-function modalHide(e) {
-	const myModal = bootstrap.Modal.getOrCreateInstance('#chatModal');
+function modalHide(id) {
+	const modalId = '#'+ id;
+	const myModal = bootstrap.Modal.getOrCreateInstance(modalId);
        myModal.hide();
 }
 

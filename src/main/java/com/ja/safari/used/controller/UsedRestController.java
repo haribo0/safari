@@ -1,23 +1,28 @@
 package com.ja.safari.used.controller;
 
+import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
-import com.ja.safari.dto.KaKaoPayApproveDto;
 import com.ja.safari.dto.ProductChatDto;
 import com.ja.safari.dto.ProductDto;
 import com.ja.safari.dto.ProductLikeDto;
-import com.ja.safari.dto.RentalBusinessDto;
 import com.ja.safari.dto.UsedKaKaoPayApproveDto;
+import com.ja.safari.dto.UsedPurchaseReviewDto;
 import com.ja.safari.dto.UserDto;
 import com.ja.safari.used.service.UsedServiceImpl;
+
 
 @RestController
 @RequestMapping("/used/*")
@@ -124,6 +129,22 @@ public class UsedRestController {
 		map.put("result", "success");
 		map.put("isLiked", usedService.isLiked(productLikeDto));
 		
+		return map;
+	}
+	
+	// 업로드한 시간 가져오기 
+	@RequestMapping("getUploadTime")
+	public Map<String, Object> getUploadTime(Integer productId){
+		Map<String, Object> map = new HashMap<>();
+		ProductDto productDto = usedService.selectProductDtoById(productId);
+		
+		Date regDate = productDto.getReg_date(); // 여기에 DB에서 가져온 Date 객체를 할당
+	        
+	    // 원하는 형식으로 포맷팅
+	    SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+	    String formattedDateTime = formatter.format(regDate);
+		map.put("date", formattedDateTime);
+		map.put("result", "success");
 		return map;
 	}
 	
@@ -236,6 +257,7 @@ public class UsedRestController {
 		    map.put("completeCount", usedService.countProductRequestComplete(productId));
 		    map.put("requestCount", usedService.countProductRequestByProductId(productId));
 			map.put("productRequestDto", usedService.selectProductRequestByProductIdAndRequestId(productId, requesterId));
+			map.put("myWroteReviewCount", usedService.selectMyWroteReviewCount(requestId, sessionUser.getId()));
 			map.put("result", "success");
 			return map;
 		}
@@ -323,7 +345,7 @@ public class UsedRestController {
 
 	// 카카오페이 결제 ready 정보 보내주기 
 	@RequestMapping("getKakaoPayReadyInfo")
-	public  Map<String, Object> getKakaoPayReadyInfo(HttpSession session) {
+	public Map<String, Object> getKakaoPayReadyInfo(HttpSession session) {
 		
 		Map<String, Object> map = new HashMap<String, Object>();
 		
@@ -339,14 +361,12 @@ public class UsedRestController {
 		map.put("result", "success");
 		map.put("readyInfo", usedkakaoPayApproveDto);
 		
-		
 		return map;
 	}
 	
 	// 카카오페이 결제 후 정보 저장  
 	@RequestMapping("saveOrderAndPaymentInfo")
 	public  Map<String, Object> saveOrderAndPaymentInfo(HttpSession session, UsedKaKaoPayApproveDto usedKakaoApproveDto) {
-		
 		Map<String, Object> map = new HashMap<String, Object>();
 		
 		UserDto sessionUser = (UserDto) session.getAttribute("sessionUser");
@@ -360,6 +380,113 @@ public class UsedRestController {
 		
 		return map;
 	}
+	
+	// 리뷰 모달창 정보 가져오기 
+	@RequestMapping("getReviewHeaderAndBody")
+	public Map<String, Object> getReviewHeaderAndBody(HttpSession session, Integer senderId, Integer receiverId, Integer requestId){
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		UserDto sessionUser = (UserDto) session.getAttribute("sessionUser");
+		if(sessionUser == null) {
+			map.put("result", "fail");
+			map.put("reason", "login required");
+			return map;
+		}else {
+			map.put("map", usedService.getReviewHeaderAndBody(senderId, receiverId, requestId));
+			return map;
+		}
+	}
+	
+	// 리뷰 rateId에 따른 체크박스 가져오기 
+	@RequestMapping("getCheckBoxByRateId")
+	public Map<String, Object> getCheckBoxByRateId(HttpSession session, Integer rateId){
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		UserDto sessionUser = (UserDto) session.getAttribute("sessionUser");
+		if(sessionUser == null) {
+			map.put("result", "fail");
+			map.put("reason", "login required");
+			return map;
+		}else {
+			map.put("map", usedService.getCheckBoxByRateId(rateId));
+			return map;
+		}
+	}
+	
+	// 리뷰 insert 
+	@RequestMapping("insertPurchaseReview")
+	public Map<String, Object> insertPurchaseReview(HttpSession session,
+		   UsedPurchaseReviewDto usedPurchaseReviewDto,
+		   Integer[] selectedCheckboxes,
+		   MultipartFile reviewImg
+		){
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		UserDto sessionUser = (UserDto) session.getAttribute("sessionUser");
+		if(sessionUser == null) {
+			map.put("result", "fail");
+			map.put("reason", "login required");
+			return map;
+		}else {
+			if(reviewImg != null) {
+				String rootFolder = "/Users/gahyeonhong/Documents/safari/";
+				SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
+				String today = sdf.format(new Date());
+				File targetFolder = new File(rootFolder + today); //C:/uploadFolder/2023/05/23
+					
+				if(!targetFolder.exists()) {
+					targetFolder.mkdirs();
+				}
+				// 저장 파일명 만들기. 핵심은 파일명 충돌 방지 = 랜덤 + 시간
+				String fileName = UUID.randomUUID().toString();
+				fileName += "_" + System.currentTimeMillis();
+					
+				//확장자 추출
+				String originalFileName = reviewImg.getOriginalFilename(); //사용자에 있는 파일명
+					
+				String ext = originalFileName.substring(originalFileName.lastIndexOf("."));
+					
+				String saveFileName = today + "/" + fileName + ext;
+					
+				//문법 오류 피하기 위해서
+				try {
+					reviewImg.transferTo(new File(rootFolder + saveFileName));
+				}catch(Exception e) {
+					e.printStackTrace();
+				}
+				usedPurchaseReviewDto.setReview_img_link(saveFileName);
+				}
+			else {
+				usedPurchaseReviewDto.setReview_img_link("n");
+			}
+			// insert
+			usedService.insertPurchaseReview(usedPurchaseReviewDto, selectedCheckboxes);
+			map.put("result", "success");
+			return map;
+		}
+	}
+	
+	// 내가 쓴 리뷰 가져오기 
+	@RequestMapping("getMyWroteReview")
+	public Map<String, Object> getMyWroteReview(HttpSession session, Integer requestId, Integer senderId, Integer receiverId) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		UserDto sessionUser = (UserDto) session.getAttribute("sessionUser");
+		if(sessionUser == null) {
+			map.put("result", "fail");
+			map.put("reason", "login required");
+			return map;
+		}else {
+			map.put("map", usedService.getMyWroteReview(requestId,senderId,receiverId));
+			map.put("result", "success");
+			return map;
+		}
+	}
+	
+	
+	
+	
+	
 	
 	
 	

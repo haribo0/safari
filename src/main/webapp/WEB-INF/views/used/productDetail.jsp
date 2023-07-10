@@ -115,12 +115,68 @@
 		xhr.send();
 	}
 
+	// 업로드 날짜 
+  	function dateToTimeDifference(productId) {
+	  // 날짜 box
+	  const uploadTimeBox = document.getElementById("uploadTime");
+		
+	  const xhr = new XMLHttpRequest();
+	  xhr.onreadystatechange = function(){
+			if(xhr.readyState == 4 && xhr.status == 200){
+				//map 갖고오기
+				const response = JSON.parse(xhr.responseText);
+				//js 작업
+				if(response.result == "success"){
+					 // 자바스크립트 날짜로 변환 
+					  const dateFromDatabase = new Date(response.date);
+					  // 현재와 시간차 (밀리초)
+					  const timeDifference = Date.now() - dateFromDatabase.getTime();
+					  
+					  // 초, 분, 시간, 일, 월, 년 계산 (integer)
+					  const seconds = Math.floor(timeDifference / 1000);
+					  const minutes = Math.floor(seconds / 60);
+					  const hours = Math.floor(minutes / 60);
+					  const days = Math.floor(hours / 24);
+					  const months = Math.floor(days / 30);
+					  const years = Math.floor(months / 12);
+					
+					  let formattedTime;
+					  
+					  console.log(dateFromDatabase);
+					  console.log(timeDifference);
+					  console.log(days);
+					  // 가장 큰 단위로부터 표시
+					  if (years >= 1) {
+					    formattedTime = `\${years}년 전`;
+					  } else if (months >= 1) {
+					    formattedTime = `\${months}개월 전`;
+					  } else if (days >= 1) {
+					    formattedTime = `\${days}일 전`;
+					  } else if (hours >= 1) {
+					    formattedTime = `\${hours}시간 전`;
+					  } else if (minutes >= 1) {
+					    formattedTime = `\${minutes}분 전`;
+					  } else {
+					    formattedTime = `\${seconds}초 전`;
+					  }
+						
+					  uploadTimeBox.innerText = formattedTime;
+				}
+			}
+		}
+	  	
+	  //get
+	  xhr.open("get", "./getUploadTime?productId="+productId); 
+      xhr.send();
+	}
+
 
 	window.addEventListener("DOMContentLoaded", function() {
 		//사실상 시작 시점...
 		getSessionId();
 		refreshTotalLikeCount();
 		refreshMyHeart();
+		dateToTimeDifference(productId);
 	});
   </script>
 
@@ -172,13 +228,16 @@
 				<button type="button" class="btn btn-warning btn-sm col-1 p-0 text-black mb-1" disabled>나눔</button>
 			</c:when>
 			<c:otherwise>
-				        <h5 class="fw-bold mb-1 mt-2"><fmt:formatNumber value="${map.productDto.price}" pattern="#,##0" /></h5>
+				        <h5 class="fw-bold mb-1 mt-2"><fmt:formatNumber value="${map.productDto.price}" pattern="#,##0원" /></h5>
 			</c:otherwise>
 		</c:choose>
 		<h6 class="mt-4">위치 : ${map.productCityDto.product_city_name } ${map.productTownDto.product_town_name }</h6>
 		<h6>거래희망 장소 :  ${map.productDto.location }</h6>
         <h6>조회수 :  ${map.productDto.views }</h6>
-        <h6>등록일 : <fmt:formatDate value="${map.productDto.reg_date}" pattern="yyyy-MM-dd HH:mm:ss"/></h6>
+        <%-- <h6>등록일 : <fmt:formatDate value="${map.productDto.reg_date}" pattern="yyyy-MM-dd HH:mm:ss"/></h6> --%>
+        <div class="row">
+        	<div class="col text-secondary" id="uploadTime"></div>
+        </div>
     	<div class="row">
     		<div class="col ms-3">
   						<i id="heartBox" onclick="toggleLike()" class="fs-2 bi bi-heart"></i> <span id="totalLikeCount"></span>
