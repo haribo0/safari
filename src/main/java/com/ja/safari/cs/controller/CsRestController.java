@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.ja.safari.cs.service.CsServiceImpl;
 import com.ja.safari.dto.CsEmpDto;
+import com.ja.safari.dto.CsLiveChatMsgDto;
 import com.ja.safari.dto.CsQnaDto;
 
 @RestController
@@ -188,6 +189,162 @@ public class CsRestController {
 	}
 	
 	
+	
+	// 직원아이디로 실시간 문의 채팅방 리스트  가져오기 + 처리되지 않은 문의 개수 
+	@RequestMapping("getLiveChatList")
+	public  Map<String, Object> getLiveChatList(HttpSession session) {
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		CsEmpDto empUser = (CsEmpDto) session.getAttribute("empUser");
+		if(empUser == null) {
+			map.put("result", "fail");
+			map.put("reason", "login required");
+			return map;
+		}
+		
+		map.put("result", "success");
+		map.put("list", csService.getCsChatResponseDtoList2ByEmpId(empUser.getId()));
+		map.put("count", csService.getUnfinishedChatCountByEmpId(empUser.getId()));
+		
+		return map;
+	}
+	
+	// 직원아이디로 실시간 문의 채팅방 리스트  가져오기 + 처리되지 않은 문의 개수 
+	@RequestMapping("getLiveChatList2")
+	public  Map<String, Object> getLiveChatList2(HttpSession session) {
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		CsEmpDto empUser = (CsEmpDto) session.getAttribute("empUser");
+		if(empUser == null) {
+			map.put("result", "fail");
+			map.put("reason", "login required");
+			return map;
+		}
+		
+		map.put("result", "success");
+		map.put("list", csService.getLiveChatListByEmpId(empUser.getId()));
+		map.put("count", csService.getUnfinishedChatCountByEmpId(empUser.getId()));
+		
+		return map;
+	}
+	
+	// 직원아이디로 실시간 문의 채팅방 리스트  가져오기 + 처리되지 않은 문의 개수 
+	@RequestMapping("getMsgListByChatId")
+	public  Map<String, Object> getMsgListByChatId(HttpSession session, Integer chatId) {
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		CsEmpDto empUser = (CsEmpDto) session.getAttribute("empUser");
+		if(empUser == null) {
+			map.put("result", "fail");
+			map.put("reason", "login required");
+			return map;
+		}
+		
+		// 읽음 처리 
+		csService.markMsgAsReadByEmp(chatId);
+		
+		map.put("result", "success");
+		map.put("list", csService.getMsgListByChatId(empUser.getId()));
+		
+		return map;
+	}
+
+	// 직원 메세지 읽음 처리  
+	@RequestMapping("markMsgAsRead")
+	public  Map<String, Object> markMsgAsRead(HttpSession session, Integer chatId) {
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		CsEmpDto empUser = (CsEmpDto) session.getAttribute("empUser");
+		if(empUser == null) {
+			map.put("result", "fail");
+			map.put("reason", "login required");
+			return map;
+		}
+		
+		csService.markMsgAsReadByEmp(chatId);
+		
+		map.put("result", "success");
+		
+		return map;
+	}
+	
+	// 직원 메세지 저장  
+	@RequestMapping("saveChatMsg")
+	public  Map<String, Object> saveChatMsg(HttpSession session, CsLiveChatMsgDto chatMsgDto) {
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		CsEmpDto empUser = (CsEmpDto) session.getAttribute("empUser");
+		if(empUser == null) {
+			map.put("result", "fail");
+			map.put("reason", "login required");
+			return map;
+		}
+		
+		chatMsgDto.setSender(0);
+		csService.saveChatMsg(chatMsgDto);
+		
+		map.put("result", "success");
+		
+		return map;
+	}
+	
+	// 메세지 새로고침   
+	@RequestMapping("reloadChatMsgByChatId")
+	public  Map<String, Object> reloadChatMsgByChatId(HttpSession session, Integer chatId) {
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		CsEmpDto empUser = (CsEmpDto) session.getAttribute("empUser");
+		if(empUser == null) {
+			map.put("result", "fail");
+			map.put("reason", "login required");
+			return map;
+		}
+		
+		map.put("result", "success");
+		map.put("list", csService.getMsgListByChatId(chatId));
+		map.put("isChatEnded", csService.isChatEnded(chatId)); 
+		map.put("user", csService.getUserDtoByChatId(chatId)); 
+
+		return map;
+	}
+	
+	
+	// 실시간 문의 종료   
+	@RequestMapping("endLiveChatById")
+	public  Map<String, Object> endLiveChatById(HttpSession session, Integer chatId) {
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		CsEmpDto empUser = (CsEmpDto) session.getAttribute("empUser");
+		if(empUser == null) {
+			map.put("result", "fail");
+			map.put("reason", "login required");
+			return map;
+		}
+		
+		csService.endLiveChatById(chatId);
+		
+		map.put("result", "success");
+		
+		return map;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	@RequestMapping("changeSchedule")
 	public  Map<String, Object> changeSchedule(HttpSession session, String[] days, Integer startTime, Integer endTime, Integer empId) {
 		
@@ -257,29 +414,19 @@ public class CsRestController {
 			return map;
 		}
 		
-		
-		
 		SimpleDateFormat dateTimeFormat = new SimpleDateFormat("yyyy-MM-dd");
 		try {
 		    Date startDate = dateTimeFormat.parse(start);
 		    Date endDate = dateTimeFormat.parse(end);
 		    
 			map.put("result", "success");
-//			for(CsEventDto eventDto : csService.getCalendarData(startDate, endDate));
-			
 			map.put("list", csService.getCalendarData(startDate, endDate));
-//			for(CsEventDto eventDto : csService.getCalendarData(startDate, endDate)) {
-//				System.out.println(eventDto.getTitle());
-//				System.out.println(eventDto.getStart());
-//				System.out.println(eventDto.getEnd());
-//			}
 			
 			return map;
 
 		} catch (Exception e) {
 		    e.printStackTrace();
 		}
-		
 		
 		return map;
 	}

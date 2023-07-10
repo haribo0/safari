@@ -18,6 +18,8 @@
     
 <div class="row ms-4">
 	<div class="col py-3 "><a href="./mainPage" class="btn"><img class="img-fluid" width="150px" max-width="150px" src="/safari/resources/img/logo0.png"></a></div>
+	<!-- <div class="col pt-4 "><a href="./mainPage" class="btn"><img class="img-fluid" width="240px" max-width="240px" src="/safari/resources/img/lionPng.png"></a></div> -->
+<!-- 	<div class="col-2"></div> -->
 	<div class="col-5"></div>
 </div>
 

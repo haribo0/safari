@@ -7,6 +7,10 @@ import org.apache.ibatis.annotations.Param;
 import com.ja.safari.dto.RentalBusinessDto;
 import com.ja.safari.dto.RentalMainCategoryDto;
 import com.ja.safari.dto.RentalOrderDto;
+import com.ja.safari.dto.RentalOrderKakaopayAmount;
+import com.ja.safari.dto.RentalOrderKakaopayApprove;
+import com.ja.safari.dto.RentalOrderKakaopayInactivation;
+import com.ja.safari.dto.RentalOrderKakaopayReady;
 import com.ja.safari.dto.RentalPeriodDiscDto;
 import com.ja.safari.dto.RentalReviewDto;
 import com.ja.safari.dto.RentalReviewImgDto;
@@ -78,6 +82,31 @@ public interface RentalSqlMapper {
 
 	// 대여 리뷰 갯수 가져오기
 	public Integer selectReviewCount(int id);
+
+	// 대여 title 가져오기
+	public String selectItemTitleByItemId(int itemId);
+
+	// 대여 pk 가져오기
+	public int getRentalOrderPk();
+
+	// 대여 appove pk 가져오기
+	public int getRentalOrderKakaopayApprovePk();
+
+	// 카카오 페이 준비
+	public void insertRentalKakaoReady(RentalOrderKakaopayReady rentalOrderKakaopayReady);
+
+	// 카카오 페이 준비 dto 가져오기
+	public RentalOrderKakaopayReady getRentalOrderKakaopay(int id);
+
+	// 카카오 페이 approve & amount
+	public void insertRentalKakaoApprove(RentalOrderKakaopayApprove rentalOrderKakaopayApprove);
+	public void insertRentalKakaoApproveAmount(RentalOrderKakaopayAmount rentalOrderKakaopayAmount);
+
+	// 카카오 페이 구독취소	
+	public String getSidbyId(int id);
+	public void insertRentalOrderKakaoInactivation(RentalOrderKakaopayInactivation rentalOrderKakaopayInactivation);
+
+
 
 	
 	

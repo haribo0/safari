@@ -51,6 +51,7 @@ public class CsController {
 		return "cs/registerPage";
 	}
 	
+	// 대시 보드 - 팀장용 
 	@RequestMapping("dashboard") 
 	public String dashboard(HttpSession session){
 		
@@ -60,6 +61,7 @@ public class CsController {
 		return "cs/dashboard2";
 	}
 	
+	// 테스트용 - 안 씀 
 	@RequestMapping("dashboardFetch") 
 	public String dashboardFetch(HttpSession session){
 		
@@ -69,13 +71,14 @@ public class CsController {
 		return "cs/dashboardFetch";
 	}
 	
+	// 테스트 페이지 - 안 씀 
 	@RequestMapping("testPage") 
 	public String testPage(){
 		
 		return "cs/test";
 	}
 	
-	
+	// 직원 
 	@RequestMapping("employees") 
 	public String employees(HttpSession session){
 		
@@ -85,7 +88,7 @@ public class CsController {
 		return "cs/employees";
 	}
 	
-	
+	// 1대1 문의 
 	@RequestMapping("inquiries") 
 	public String inquiries(HttpSession session){
 		
@@ -93,6 +96,16 @@ public class CsController {
 		if(empUser==null) return "redirect:./loginPage";
 		
 		return "cs/inquiries";
+	}
+
+	// 실시간 문의 
+	@RequestMapping("liveChat") 
+	public String liveChat(HttpSession session){
+		
+		CsEmpDto empUser = (CsEmpDto) session.getAttribute("empUser");
+		if(empUser==null) return "redirect:./loginPage";
+		
+		return "cs/liveChat";
 	}
 	
 	

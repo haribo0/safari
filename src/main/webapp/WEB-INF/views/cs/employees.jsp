@@ -328,7 +328,7 @@ function getEmployeeList() {
                   
 				  const label = document.createElement('label');
 				  label.textContent = daysOfWeek[i];
-				  label.className = 'pe-2';
+				  label.className = 'pe-2' ;
 				  label.setAttribute('for', 'checkbox-'+map.empDto.id+"-"+i);
 				
 				  // 변화가 있으면 함수 실행 

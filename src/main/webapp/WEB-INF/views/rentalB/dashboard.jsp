@@ -100,7 +100,7 @@
 					<div class="col-2">
 						<div class="card shadow-sm" >
 						  <div class="card-body ms-2">
-						    <h5 class="fs-5  fw-bold"> 최근 </h5>
+						    <h5 class="fs-5  fw-bold" id="lastMonth"> 최근 </h5>
 						    <hr class="border">
 						    <div class="fw-bolder fs-6 text-dark mt-2">
 						    	주문
@@ -485,6 +485,16 @@ function changeTextColor() {
 }
 
 
+function getLastMonth() {
+	
+	const lastMonth = document.getElementById('lastMonth');
+	const currentDate = new Date();
+	currentDate.setMonth(currentDate.getMonth() - 1);
+	const lastMonthNumber = currentDate.getMonth() + 1;
+	lastMonth.innerHTML = "";
+	lastMonth.innerText = 	lastMonthNumber+'월';
+	
+}
 
 
 
@@ -496,6 +506,7 @@ window.addEventListener("DOMContentLoaded",function(){
 	getRecentOrderList();
 	getRecentReturnList();
 	changeTextColor();
+	getLastMonth();
 
 });
 

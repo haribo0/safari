@@ -5,7 +5,7 @@ import java.util.Date;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @JsonIgnoreProperties(ignoreUnknown = true) // 서버에서 json parse할때 키와 값을 dto로 생성시 무시되는 값 있을때 오류 무시
-public class RentalOrderKakaopay {
+public class RentalOrderKakaopayReady {
 	
 	private Integer id;
 	private Integer partner_user_id;
@@ -19,11 +19,11 @@ public class RentalOrderKakaopay {
 	private String next_redirect_pc_url;
 	private Date reg_date;
 	
-	public RentalOrderKakaopay() {
+	public RentalOrderKakaopayReady() {
 		super();
 	}
 
-	public RentalOrderKakaopay(Integer id, Integer partner_user_id, String cid, String tid, Integer amount,
+	public RentalOrderKakaopayReady(Integer id, Integer partner_user_id, String cid, String tid, Integer amount,
 			String pg_token, String payment_method_type, Integer partner_order_id, String item_name,
 			String next_redirect_pc_url, Date reg_date) {
 		super();

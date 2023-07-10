@@ -13,6 +13,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
@@ -23,6 +24,7 @@ import com.ja.safari.dto.RentalItemDto;
 import com.ja.safari.dto.RentalItemImgDto;
 import com.ja.safari.dto.RentalMainCategoryDto;
 import com.ja.safari.dto.RentalPeriodDiscDto;
+import com.ja.safari.dto.RentalReturnExtraCharge;
 import com.ja.safari.dto.RentalReviewDto;
 import com.ja.safari.dto.RentalSubCategoryDto;
 import com.ja.safari.rental.service.RentalBusinessServiceImpl;
@@ -34,6 +36,7 @@ public class RentalBusinessRestController {
 	@Autowired
 	RentalBusinessServiceImpl rentalService;
 	
+	// 아이디 중복 확인 
 	@RequestMapping("isUserIdTaken")
 	public  Map<String, Object> isUserIdTaken(String userId) {
 		
@@ -45,6 +48,7 @@ public class RentalBusinessRestController {
 		return map;
 	}
 	
+	// 소분류 카테고리 
 	@RequestMapping("getSubCategoryList")
 	public  Map<String, Object> getSubCategoryList(int mainCategoryId) {
 		
@@ -330,9 +334,28 @@ public class RentalBusinessRestController {
 		return map;
 	}
 	
-	// 정산 정보 저장 
-	@RequestMapping("returnAfterCharge")
-	public  Map<String, Object> returnAfterCharge(HttpSession session, Integer returnId, Integer[] chargeValue, String[] reasonValue) {
+//	// 정산 정보 저장 - 배열 여러개 
+//	@RequestMapping("returnAfterCharge")
+//	public  Map<String, Object> returnAfterCharge(HttpSession session, Integer returnId, Integer[] chargeValue, String[] reasonValue) {
+//		
+//		Map<String, Object> map = new HashMap<String, Object>();
+//		
+//		RentalBusinessDto businessDto = (RentalBusinessDto) session.getAttribute("businessUser");
+//		if(businessDto == null) {
+//			map.put("result", "fail");
+//			map.put("reason", "login required");
+//			return map;
+//		}
+//		
+//		rentalService.returnAfterCharge(returnId, chargeValue, reasonValue);
+//		map.put("result", "success");
+//		
+//		return map;
+//	}
+	
+	// 정산 정보 저장 - dto RequestBody
+	@RequestMapping("returnComplete")
+	public  Map<String, Object> returnComplete(HttpSession session, @RequestBody RentalReturnExtraCharge[] extraChargeList) {
 		
 		Map<String, Object> map = new HashMap<String, Object>();
 		
@@ -343,33 +366,21 @@ public class RentalBusinessRestController {
 			return map;
 		}
 		
-		rentalService.returnAfterCharge(returnId, chargeValue, reasonValue);
+		// rentalService.returnComplete(extraChargeList);
+		
+//		for(RentalReturnExtraCharge extraCharge : extraChargeList) {
+//			 System.out.println(extraCharge.getReturn_id()+"returnId");
+//			 System.out.println(extraCharge.getReason()+"reason");
+//			 System.out.println(extraCharge.getCharge()+"charge");
+//		}
+		
+		rentalService.returnComplete(extraChargeList);
+		
 		map.put("result", "success");
 		
 		return map;
 	}
 
-	
-	// 리뷰 리스트 
-//	@RequestMapping("getAllReviews")
-//	public  Map<String, Object> getAllReviewList(HttpSession session) {
-//		
-//		System.out.println("aaa");
-//		
-//		Map<String, Object> map = new HashMap<String, Object>();
-//		
-//		RentalBusinessDto businessDto = (RentalBusinessDto) session.getAttribute("businessUser");
-//		if(businessDto == null) {
-//			map.put("result", "fail");
-//			map.put("reason", "login required");
-//			return map;
-//		}
-//		map.put("result", "success");
-//		map.put("list", rentalService.getAllReviews());
-//		
-//		return map;
-//	}
-	
 	
 	
 	// 리뷰 리스트 
@@ -452,7 +463,6 @@ public class RentalBusinessRestController {
 		
 		map.put("result", "success");
 		
-		
 		return map;
 	}
 	
@@ -478,6 +488,7 @@ public class RentalBusinessRestController {
 		
 		return map;
 	}
+	
 	
 	// 카카오페이 결제 후 정보 저장  
 	@RequestMapping("saveOrderAndPaymentInfo")
@@ -631,6 +642,14 @@ public class RentalBusinessRestController {
 	
 	
 	
+	
+	
+	
+	
+	
+	
+	
+	
 	////////////
 	// 대시보드 //
 	///////////
@@ -694,22 +713,9 @@ public class RentalBusinessRestController {
 	}
 	
 	
-	// 최근 반납 가져오기
-//	@RequestMapping("getRecentReturnList")
-//	public  Map<String, Object> getRecentReturnList(HttpSession session) {
-//		
-//		Map<String, Object> map = new HashMap<String, Object>();
-//		
-//		RentalBusinessDto businessDto = (RentalBusinessDto) session.getAttribute("businessUser");
-//		if(businessDto == null) {
-//			map.put("result", "fail");
-//			map.put("reason", "login required");
-//			return map;
-//		}
-//		map.put("result", "success");
-//		
-//		return map;
-//	}
+	
+	
+	
 	
 	
 	

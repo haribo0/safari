@@ -496,6 +496,29 @@
 
 	</select>
 	
+	<!-- 렌탈 주문 정산 완료 -->
+	<update id="returnCompleteById">
+		UPDATE rental_item_return_table
+		SET
+			is_completed = 'Y'
+		WHERE id = #{rentalId}
+	</update>
+	
+	
+	<!-- 추가금 인서트 -->
+	<insert id="insertExtraCharge">
+		INSERT INTO rental_return_extra_charge VALUES (
+			rental_return_extra_charge_seq.nextval,
+			#{return_id},
+			#{reason},
+			#{charge}
+		)
+	</insert>
+	
+	
+	
+	
+	
 	
 	
 	

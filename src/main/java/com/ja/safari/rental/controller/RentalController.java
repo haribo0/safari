@@ -54,7 +54,7 @@ public class RentalController {
 	// 대여 메인 페이지
 	@RequestMapping("mainPage")
 	public String main(Model model, Integer sub_category_id, Integer main_category_id) {
-		System.out.println("sub_category_id:: " + sub_category_id);
+		//System.out.println("sub_category_id:: " + sub_category_id);
 		
 		List<Map<String, Object>> categoryList = rentalService.getCategoryList();
 		List<Map<String, Object>> rentalItemList = rentalService.getRentalItemList(sub_category_id, main_category_id);
@@ -124,9 +124,8 @@ public class RentalController {
 		}
 	}
 	
-	
-	
-	
+	//대여 카카오페이 성공페이지
+	//안내 페이지 제공예정
 	
 	
 	
@@ -134,41 +133,6 @@ public class RentalController {
 	 * 로직처리 
 	 */
 	
-	
-	/*
-	 * @RequestMapping("businessRegisterProcess") public String
-	 * businessRegisterProcess(RentalBusinessDto rentalBusinessDto, String
-	 * addressDetail, MultipartFile regImg) {
-	 * 
-	 * // 파일 저장 로직 if(regImg != null) {
-	 * 
-	 * String rootFolder = "C:\\Users\\ziegl\\Pictures\\prdSrc";
-	 * 
-	 * // 날짜별 폴더 생성 로직 SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
-	 * String today = sdf.format(new Date()); File targetFoler = new File(rootFolder
-	 * + today); if(!targetFoler.exists()) { targetFoler.mkdirs(); }
-	 * 
-	 * // 저장 파일명 만들기 : 파일명 충돌 방지 = 랜덤 + 시간 String fileName =
-	 * UUID.randomUUID().toString(); fileName += "_" + System.currentTimeMillis();
-	 * 
-	 * // 확장자 추출 String originalFileName = regImg.getOriginalFilename(); String
-	 * extString = originalFileName.substring(originalFileName.lastIndexOf("."));
-	 * String saveFileName = today + "/" + fileName + extString;
-	 * 
-	 * try { regImg.transferTo(new File(rootFolder + saveFileName)); } catch
-	 * (Exception e) { e.printStackTrace(); }
-	 * 
-	 * rentalBusinessDto.setReg_img_link(saveFileName);
-	 * 
-	 * } // 파일 업로드 관련 끝
-	 * 
-	 * String address = rentalBusinessDto.getBusiness_address(); address +=
-	 * " "+addressDetail; rentalBusinessDto.setBusiness_address(address);
-	 * 
-	 * rentalService.registerBusiness(rentalBusinessDto);
-	 * 
-	 * return "redirect:./mainPage"; }
-	 */
 	
 	// 로그인 프로세스 
 	@RequestMapping("businessLoginProcess")
@@ -185,56 +149,15 @@ public class RentalController {
 	// 대여 주문 프로세스 
 	@RequestMapping("rentalOrderProcess")
 	public String rentalOrderProcess(HttpSession session, RentalOrderDto params) {
+	 
 		UserDto sessionUser = (UserDto)session.getAttribute("sessionUser");
 		if(sessionUser==null) return "redirect:../user/loginPage";
 		
 		//if(prd_address!=null || prd_address!="") params.setAddress(prd_address);
-		System.out.println(params.getAddress());
-		System.out.println(params.getDeposit());
-		System.out.println(params.getOriginal_price());
-		System.out.println(params.getEnd_date());
-		System.out.println(params.getStart_date());
 		
 		params.setUser_id(sessionUser.getId());
 		rentalService.OrderRental(params);
 		
-//		try {
-//			URL kakaoAddress = new URL("https://kapi.kakao.com/v1/payment/ready");
-//			try {
-//				HttpURLConnection serverConn = (HttpURLConnection) kakaoAddress.openConnection();
-//				serverConn.setRequestMethod("POST");
-//				serverConn.setRequestProperty("Authorization", "KakaoAK 3b571b6edfbddf7b9912075b7f7c4172");
-//				serverConn.setRequestProperty("Content-type", "application/x-www-form-urlencoded;charset=utf-8");
-//				serverConn.setDoOutput(true);
-//				String parameter = "cid=TC0ONETIME&partner_order_id=partner_order_id&partner_user_id=partner_user_id&item_name=초코파이&quantity=1&total_amount=2200&vat_amount=200&tax_free_amount=0&approval_url=https://developers.kakao.com/success&fail_url=https://developers.kakao.com/fail&cancel_url=https://developers.kakao.com/cancel";
-//				OutputStream sender = serverConn.getOutputStream();
-//				DataOutputStream giver = new DataOutputStream(sender);
-//				giver.writeBytes(parameter);
-//				giver.close();
-//				
-//				int resultKakao = serverConn.getResponseCode();
-//				
-//				InputStream taker;
-//				if(resultKakao == 200) {
-//					taker = serverConn.getInputStream();
-//				} else {
-//					taker = serverConn.getErrorStream();
-//				}
-//				
-//				InputStreamReader reader = new InputStreamReader(taker);
-//				BufferedReader bfrd = new BufferedReader(reader);
-//				
-//				return bfrd.readLine();
-//				
-//			} catch (IOException e) {
-//				// TODO Auto-generated catch block
-//				e.printStackTrace();
-//			}
-//		} catch (MalformedURLException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-	
 		return "redirect:./mainPage";
 	}
 	
@@ -269,7 +192,7 @@ public class RentalController {
 				}
 			
 	
-			String rootFolder = "C:/uploadFiles";
+			String rootFolder = "C:\\ploadFiles";
 	
 			// 날짜별 폴더 생성 로직 
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
