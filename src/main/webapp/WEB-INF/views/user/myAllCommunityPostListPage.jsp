@@ -75,6 +75,7 @@
 							  </li>
 							</ul>
 							
+							<!--  내가 쓴 게시물(내용) -->
 							<div class = "myPostList mt-3">
 							<div class="tab-content" id="myTabContent">
 								<div class="tab-pane fade show active" id="pick-tab-pane" role="tabpanel" aria-labelledby="pick-tab" tabindex="0">
