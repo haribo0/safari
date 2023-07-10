@@ -145,10 +145,46 @@
 										</c:forEach>
 									</div>
 									
-									
-									
-									
+									<!-- 리워드 페이징(임시로 들고옴) -->
+								<div class = "row mt-3 d-flex justify-content-center">
+									<div class = "col-2 ms-0">
+										<nav aria-label="Page navigation">
+										    <ul class="pagination mb-0">
+										    	<c:choose>
+										    		<c:when test="${startPage <= 1}">
+										    			<li class="page-item disabled"><a class="page-link" href="./myAllCommunityPostListPage?page=${startPage-1}${promoReview_searchQueryString}">&lt;</a></li>
+										    		</c:when>
+										    		<c:otherwise>
+										    			<li class="page-item"><a class="page-link" href="./myAllCommunityPostListPage?page=${startPage-1}${promoReview_searchQueryString}">&lt;</a></li>
+										    		</c:otherwise>
+										    	</c:choose>
+										    	
+										    	<c:forEach begin="${startPage}" end="${endPage}" var="index">
+										    		<c:choose>
+										    			<c:when test="${index == currentPageNum}">
+										    				<li class="page-item active"><a class="page-link bg-secondary" href="./myAllCommunityPostListPage?page=${index}${promoReview_searchQueryString}">${index}</a></li>
+										    			</c:when>
+										    			<c:otherwise>
+										    				<li class="page-item"><a class="page-link" href="./myAllCommunityPostListPage?page=${index}${promoReview_searchQueryString}">${index}</a></li>
+										    			</c:otherwise>
+										    		</c:choose>
+										    	</c:forEach>
+										    	
+										    	<c:choose>
+										    		<c:when test="${endPage >= totalPage}">
+										    			<li class="page-item disabled"><a class="page-link" href="./myAllCommunityPostListPage?page=${endPage+1}${promoReview_searchQueryString}">&gt;</a></li>
+										    		</c:when>
+										    		<c:otherwise>
+										    			<li class="page-item"><a class="page-link" href="./myAllCommunityPostListPage?page=${endPage+1}${promoReview_searchQueryString}">&gt;</a></li>
+										    		</c:otherwise>
+										    	</c:choose>
+										    </ul>
+										</nav>
+									</div>
 								</div>
+									
+									
+								</div> 
 							</div>
 							</div>
 							</div>
@@ -156,77 +192,9 @@
 					</div>
 				</div>
 				
-				<div class="row mt-5" style="border-bottom: 2px solid #222; height: 48px;">
-					<div class="col p-0">				
-						<h5>작성한 댓글</h5>		
-					</div>
-				</div>	
 				
 				
-				<!--  댓글 -->
-				<div class = "row mt-1">
-					<div class = "col-4">
-						<!--  골라줘요 댓글 -->
-						<div class = "row">
-							<div class = "col fw-semibold">
-								골라줘요
-							</div>
-						</div>
-						<div class = "row mt-2">
-							<div class = "col">
-								댓글 5개
-							</div>
-						</div>
-						<hr class="my-4" style="border-color: gray;">
-						<!-- 해주세요 댓글  -->
-						<div class = "row">
-							<div class = "col fw-semibold">
-								해주세요
-							</div>
-						</div>
-						<div class = "row mt-2">
-							<div class = "col">
-								댓글 5개
-							</div>
-						</div>
-						<hr class="my-4" style="border-color: gray;">
-						<!--  궁금해요 댓글 -->
-						<div class = "row">
-							<div class = "col fw-semibold">
-								궁금해요
-							</div>
-						</div>
-						<div class = "row mt-2">
-							<div class = "col">
-								댓글 5개
-							</div>
-						</div>
-						<hr class="my-4" style="border-color: gray;">
-						<!--  구인구직 댓글 -->
-						<div class= "row">
-							<div class= "col fw-semibold">
-								구인구직
-							</div>
-						</div>
-						<div class = "row mt-2">
-							<div class = "col">
-								댓글 5개
-							</div>
-						</div>
-						<hr class="my-4" style="border-color: gray;">
-						<!-- 리워드 댓글 -->
-						<div class= "row">
-							<div class= "col fw-semibold">
-								리워드
-							</div>
-						</div>
-						<div class = "row mt-2">
-							<div class = "col">
-								댓글 5개
-							</div>
-						</div>
-					</div>
-				</div>
+			
 
 
 
