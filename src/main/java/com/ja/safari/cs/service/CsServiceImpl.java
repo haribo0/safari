@@ -12,14 +12,17 @@ import org.springframework.stereotype.Service;
 
 import com.ja.safari.cs.mapper.CsSqlMapper;
 import com.ja.safari.dto.CsAttendanceLogDto;
+import com.ja.safari.dto.CsChatListDto;
 import com.ja.safari.dto.CsChatResponseDto;
 import com.ja.safari.dto.CsChatResponseDto2;
 import com.ja.safari.dto.CsEmpDto;
 import com.ja.safari.dto.CsEventDto;
 import com.ja.safari.dto.CsLiveChatDto;
 import com.ja.safari.dto.CsLiveChatMsgDto;
+import com.ja.safari.dto.CsLiveChatRating;
 import com.ja.safari.dto.CsQnaCombinedDto;
 import com.ja.safari.dto.CsQnaDto;
+import com.ja.safari.dto.CsQnaRating;
 import com.ja.safari.dto.CsScheduleDto;
 import com.ja.safari.user.mapper.UserSqlMapper;
 
@@ -276,7 +279,6 @@ public class CsServiceImpl {
 		
 		// 출근했고 가장 일 적은 직원 가져오기 
 		CsEmpDto empDto = csSqlMapper.getEmployeeWithLeastWorkload();
-		System.out.println(empDto.getNickname());
 		// 담당 직원 배정 
 		csLiveChatDto.setEmp_id(empDto.getId());
 		// pk 가져오기
@@ -307,20 +309,27 @@ public class CsServiceImpl {
 		return csSqlMapper.getUnfinishedChatCountByEmpId(empId);
 	}
 
-//	// 직원 아이디로 채팅방 리스트 가져오기 (채팅방만)
-//	public List<Map<String, Object>> getLiveChatListByEmpId(int id) {
-//		
-//		List<Map<String, Object>> list = new ArrayList<Map<String,Object>>();
-//		
-//		for(Cs  :  csSqlMapper.) {
-//			Map<String, Object> map = new HashMap<String, Object>();
-//			map.put("qna", csQnaDto);
-//			map.put("category", csSqlMapper.getCategoryById(csQnaDto.getCategory_id()));
-//			list.add(map);
-//		}
-//		
-//		return list;
-//	}
+	// 직원 아이디로 채팅방 리스트 가져오기 (채팅방만)
+	public List<Map<String, Object>> getLiveChatListByEmpId(int empId) {
+		
+		List<Map<String, Object>> list = new ArrayList<Map<String,Object>>();
+		
+		for(CsChatListDto csChatListDto  :  csSqlMapper.getLiveChatListByEmpId(empId)) {
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("chat", csChatListDto);
+			map.put("unread", csSqlMapper.getUnreadMsgCountByChatId(csChatListDto.getId()));
+			map.put("msg", csSqlMapper.getLastMsgByChatId(csChatListDto.getId()));
+			list.add(map);
+			
+		}
+		return list;
+	}
+	
+	// 메세지 리스트 가져오기
+	public List<CsLiveChatMsgDto> getMsgListByChatId(int chatId) {
+		
+		return csSqlMapper.getMsgListByChatId(chatId);
+	}
 	
 	// 직원 아이디로 채팅방 리스트 ResonseDto 가져오기
 	public List<CsChatResponseDto> getChatResponseDtoListByEmpId(int empId) {
@@ -334,22 +343,60 @@ public class CsServiceImpl {
 		return csSqlMapper.getCsChatResponseDtoList2ByEmpId(empId);
 	}
 
+	// 직원 | 메세지 읽음 처리 
 	public void markMsgAsReadByEmp(Integer chatId) {
 		csSqlMapper.markMsgAsReadByEmp(chatId);
 	}
-	
-	
-	
-	
-	
-	
-	
-//	// 직원 아이디로 채팅방 리스트 가져오기 (채팅방만)
-//	public List<CsLiveChatDto> getLiveChatListByEmpId(int id) {
-//		
-//		return null;
-//	}
 
+	// 1대1 문의 답변에 대한 후기가 있는지 
+	public boolean isQnaReplyRated(Integer id) {
+		
+		return csSqlMapper.getQnaReplyRateCount(id) > 0;
+	}
+
+	// 1대1 문의 후기 저장 
+	public void saveQnaReplyRating(CsQnaRating csQnaRating) {
+		
+		csSqlMapper.insertQnaReplyRating(csQnaRating);
+	}
+
+	public void saveChatMsg(CsLiveChatMsgDto chatMsgDto) {
+		
+		csSqlMapper.insertLiveChatMsgByEmp(chatMsgDto);
+	}
+
+	// user | 메세지 읽음 처리 
+	public void markMsgAsReadByUser(Integer chatId) {
+		csSqlMapper.markMsgAsReadByUser(chatId);
+		
+	}
+
+	// 실시간 문의 상담 종료 
+	public void endLiveChatById(Integer chatId) {
+		
+		csSqlMapper.endLiveChatById(chatId);
+	}
+
+	// 실시간 문의 상담 종료 여부 
+	public boolean isChatEnded(Integer chatId) {
+		// end_date 있으면 1 없으면 0 
+		return csSqlMapper.isChatEnded(chatId) > 0;
+	}
+
+	// 실시간 문의 후기 저장 
+	public void saveLiveChatRating(CsLiveChatRating liveChatRating) {
+		csSqlMapper.saveLiveChatRating(liveChatRating);
+		
+	}
+
+
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	

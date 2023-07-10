@@ -165,13 +165,11 @@
 				<div class="col">
 					
 					<div class="row  bg-light text-center py-3 ">
-						<div class="col text-end" id="endLiveChat">
-							<!-- <div class="btn btn-dark btn-sm">상담 종료</div> -->
-						</div>
+						<div class="col fw-bolder text-light"> 문의 </div>
 					</div>
 					
 					<!-- 글 상세보기 -->
-					<div class="row ps-5 pe-3 pt-5 pb-5  border-left">
+					<div class="row ps-5 pe-3 pt-5  border-left">
 						<div class="col" id="">
 							<div class="chat-container overflow-y-scroll overflow-x-hidden" style="height:480px;" id="chatMsgContainer">
 							
@@ -233,7 +231,6 @@ let liveChatId =  null;
 let lastChatMsgId = null;
 let intervalHandler = null;
 
-let chatMsgScrollTop = -1;
 
 
 
@@ -263,7 +260,7 @@ function getLiveChatList() {
 		if(xhr.readyState == 4 && xhr.status == 200){
 			const response = JSON.parse(xhr.responseText);
 			
-			// 문의 count 
+			
 			chatCountBox.innerHTML = "";
 			chatCountBox.innerText = "실시간 문의 : "+response.count+"건";
 			
@@ -330,6 +327,43 @@ function getLiveChatList() {
 				
 			});
 			
+			/* /////////// 채팅 아래쪽 인풋 박스와 이벤트 리스너 ///////////
+			// Create the main container div
+			const containerDiv = document.createElement('div');
+			containerDiv.classList.add('row', 'bg-light', 'text-center', 'py-3', 'border-left');
+			
+			// Create the column div for the textarea
+			const textareaColDiv = document.createElement('div');
+			textareaColDiv.classList.add('col', 'text-end', 'ms-2');
+			// Create the textarea element
+			const textarea = document.createElement('textarea');
+			textarea.id = 'chatText';
+			textarea.placeholder = '메시지 보내기';
+			textarea.rows = 1;
+			textarea.cols = 20;
+			textarea.classList.add('form-control', 'ms-2');
+			textareaColDiv.appendChild(textarea);
+			
+			// Create the column div for the button
+			const buttonColDiv = document.createElement('div');
+			buttonColDiv.classList.add('col-2', 'd-grid');
+			// Create the button element
+			const button = document.createElement('button');
+			button.classList.add('send-button', 'btn', 'btn-dark', 'ms-3', 'px-3');
+			button.id = 'sendMsg';
+			// button.setAttribute("data-id", dto.id);
+			button.textContent = '전송';
+			button.addEventListener("click", function() {
+				sendMsg(dto.id);
+			});
+			buttonColDiv.appendChild(button);
+			
+			// Append the textarea and button columns to the main container div
+			containerDiv.appendChild(textareaColDiv);
+			containerDiv.appendChild(buttonColDiv);
+			
+			inputBox.appendChild(containerDiv); */
+			
 			
 		}
 	}
@@ -373,41 +407,105 @@ function dateToTimeDifference(date) {
 
 // 채팅 메세지  상세보기 
 function getChatMsg(dto) {
-
-	// 전역변수 저장 
+	
+	const chatMsgContainer = document.getElementById("chatMsgContainer");
+	//const selectedRow = document.getElementById("row-"+dto.id);
+	//const unreadCount = document.getElementById("unreadCount-"+dto.id);
+	
+	// 현재 누른 문의에 배경색을 주기 
 	liveChatId = dto.id;
 	
-	// 메세지 가져오기 
-	reloadChatMsg();
-	
-	// 상담 종료 버튼 만들기 
-	const btnBox = document.getElementById("endLiveChat");
-	btnBox.innerHTML="";
-	const button = document.createElement('div');
-	button.classList.add('btn', 'btn-dark', 'btn-sm');
-	button.textContent = '상담 종료';
-	button.addEventListener('click', endLiveChat);
-	btnBox.appendChild(button);
+	// 상세보기 창 열고 답변 인풋 달고 작성버튼에 이벤트 리스너 더해주고
 	
 	
-
+	// 초기화 
+	chatMsgContainer.innerHTML = "";
 	
-}
+	// 메세지 생성 
+	dto.chatMsg.forEach(function(msg){
+		
+		const row1 = document.createElement('div');
+		  row1.classList.add('row', 'mt-1');
+		  
+		  // 내가 보낸 메세지 
+		  if( msg.sender === 0 ){
+			  const col1 = document.createElement('div');
+			  col1.classList.add('col', 'd-flex', 'flex-column', 'justify-content-end');
+			  const col1row1 = document.createElement('div');
+			  col1row1.classList.add('row', 'justify-content-end', 'mx-1');
+			 
+			  // 안 읽음 
+			  if(msg.is_read == 0){
+				  col1row1.innerText = '1';
+			  } else { // 읽음 
+				  col1row1.innerText = ' ';
+			  }
+			  
+			  const col1row2 = document.createElement('div');
+			  col1row2.classList.add('row', 'justify-content-end', 'mx-1', 'chatTime');
+			  const regDate = new Date(msg.reg_date);
+			  const formattedDate = regDate.toLocaleTimeString('ko-KR', { hour: 'numeric', minute: '2-digit' });
+			  col1row2.innerText = formattedDate;
+			  
+			  const col2 = document.createElement('div');
+			  col2.classList.add('col-7', 'me-3', 'myContent', 'text-start', 'text-break');
+			  col2.innerText = msg.msg;
+			  
+			  row1.appendChild(col1);
+			  row1.appendChild(col2);
+			  col1.appendChild(col1row1);
+			  col1.appendChild(col1row2);
+			  
+			  chatMsgContainer.appendChild(row1);
+		  }else {
+			  const colIcon = document.createElement('div');
+			  colIcon.classList.add('col-1', 'ms-2', 'text-left');
 
-
-
-
-function markAsRead() {
+			  const icon = document.createElement('i');
+			  icon.classList.add('bi', 'bi-person-circle', 'fs-4');
+			  colIcon.style.lineHeight = 1;
+			  colIcon.appendChild(icon);
+			  
+			  const col3 = document.createElement('div');
+			  col3.classList.add('col-7', 'ms-2', 'text-left', 'text-break', 'otherContent');
+			  col3.innerText = msg.msg;
+			  
+			  const col4 = document.createElement('div');
+			  col4.classList.add('col', 'd-flex', 'flex-column', 'justify-content-end');
+			  const col4row1 = document.createElement('div');
+			  col4row1.classList.add('row', 'justify-content-start', 'mx-1');
+			  const col4row2 = document.createElement('div');
+			  col4row2.classList.add('row', 'justify-content-start', 'mx-1', 'chatTime');
+			  const regDate = new Date(msg.reg_date);
+			  const formattedDate = regDate.toLocaleTimeString('ko-KR', { hour: 'numeric', minute: '2-digit' });
+			  col4row2.innerText = formattedDate;
+			  
+			  // 안 읽음 
+			  /* if(msg.is_read == 0){
+				  col4row1.innerText = '1';
+			  }else{ // 읽음 
+				  col4row1.innerText = ' ';
+			  } */
+			  
+			  row1.appendChild(colIcon);
+			  row1.appendChild(col3);
+			  row1.appendChild(col4);
+			  col4.appendChild(col4row1);
+			  col4.appendChild(col4row2);
+			  
+			  chatMsgContainer.appendChild(row1);
+		  }
+		
+	});
+	chatMsgContainer.scrollTop = chatMsgContainer.scrollHeight;
 	
-
+	
 	// 읽음 처리 
 	const xhr = new XMLHttpRequest();
 
 	xhr.onreadystatechange = function() {
 		if(xhr.readyState == 4 && xhr.status == 200){
 			const response = JSON.parse(xhr.responseText);
-			
-
 			
 			
 			// 3초마다 채팅 업로드 
@@ -419,7 +517,6 @@ function markAsRead() {
 			intervalHandler = setInterval(() => {
 				// 리스트 업데이트
 				getLiveChatList();
-
 				reloadChatMsg();
 			}, 3000);
 			
@@ -430,57 +527,11 @@ function markAsRead() {
 	// get 방식 
 	xhr.open("get", "./markMsgAsRead?chatId="+dto.id);
 	xhr.send();
-	
-	
-}
 
-
-
-
-
-
-
-
-/* 
-//채팅 메세지 reload 및 스크롤 위치 유지
-function reloadChatMsgAndScroll() {
-  // 스크롤 위치 저장
-  const chatMsgContainer = document.getElementById("chatMsgContainer");
-  chatMsgScrollTop = chatMsgContainer.scrollTop;
-
-  // 채팅 메세지 reload
-  reloadChatMsg();
-}
- */
-
-
-
-// 상담 종료 
-function endLiveChat() {
-	
-	const xhr = new XMLHttpRequest();
-
-	xhr.onreadystatechange = function() {
-		if(xhr.readyState == 4 && xhr.status == 200){
-			const response = JSON.parse(xhr.responseText);
-
-			// Clear right column
-			const btnBox = document.getElementById("endLiveChat");
-			btnBox.innerHTML="";
-			/* const chatMsgContainer = document.getElementById("chatMsgContainer");
-			chatMsgContainer.innerHTML = ""; */
-			
-			getLiveChatList();
-
-			
-		}
-	}
-
-	// get 방식 
-	xhr.open("get", "./endLiveChatById?chatId="+liveChatId);
-	xhr.send();
 	
 }
+
+
 
 
 
@@ -521,23 +572,15 @@ function sendMsg() {
 //채팅 메세지 reload 
 function reloadChatMsg() {
 	
-	// 스크롤 위치 저장
 	const chatMsgContainer = document.getElementById("chatMsgContainer");
-	const isScrolledToBottom = chatMsgContainer.scrollHeight - chatMsgContainer.clientHeight <= chatMsgContainer.scrollTop + 10;
-	
-	// 스크롤 위치 저장
-	if(chatMsgScrollTop != 1) chatMsgScrollTop = chatMsgContainer.scrollTop;
 	
 	
-	
+	// 읽음 처리 
 	const xhr = new XMLHttpRequest();
 
 	xhr.onreadystatechange = function() {
 		if(xhr.readyState == 4 && xhr.status == 200){
 			const response = JSON.parse(xhr.responseText);
-			
-			// 읽음 처리 
-			markAsRead();
 			
 			// GET MESSAGES BY CHAT ID 
 			const chatMsgContainer = document.getElementById("chatMsgContainer");
@@ -620,30 +663,7 @@ function reloadChatMsg() {
 				  }
 				
 			});
-			
-			// 만약 채팅 상담이 종료 되었을 경우 
-			if(response.isChatEnded) {
-				
-				// 상담이 종료되었습니다. 
-				const rowDiv = document.createElement('div');
-				rowDiv.classList.add('row py-2');
-				const colDiv = document.createElement('div');
-				colDiv.classList.add('col', 'text-secondary', 'text-center');
-				colDiv.textContent = '상담이 종료되었습니다';
-				rowDiv.appendChild(colDiv);
-				chatMsgContainer.appendChild(rowDiv);
-			}
-			
-			
-			// 스크롤 위치 복원
-			if (isScrolledToBottom) {
-				chatMsgContainer.scrollTop = chatMsgContainer.scrollHeight;
-			} else if (chatMsgScrollTop === -1) {
-				chatMsgContainer.scrollTop = chatMsgContainer.scrollHeight;
-			} else {
-				chatMsgContainer.scrollTop = chatMsgScrollTop
-			}
-			//chatMsgContainer.scrollTop = chatMsgContainer.scrollHeight;
+			chatMsgContainer.scrollTop = chatMsgContainer.scrollHeight;
 			
 			
 			

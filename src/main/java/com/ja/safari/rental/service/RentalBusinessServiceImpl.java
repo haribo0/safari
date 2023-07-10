@@ -510,24 +510,31 @@ public class RentalBusinessServiceImpl {
 		
 	}
 	
-	// 반품 후 정산 
-	public void returnAfterCharge(Integer returnId, Integer[] chargeValue, String[] reasonValue) {
-		// TODO : 할 일 -> 각각 배열 말고 dto 리스트로 한번에 가져오기
-		// 1. 먼저 반품 정산서 인서트 후 pk 가지고 정산사유/비용 인서트 
-		
-		
-		
-		for(int i=0;i<chargeValue.length;i++) {
-			
-		}
-		
-	}
+//	// 반품 후 정산 
+//	public void returnAfterCharge(Integer returnId, Integer[] chargeValue, String[] reasonValue) {
+//		// TODO : 할 일 -> 각각 배열 말고 dto 리스트로 한번에 가져오기
+//		// 1. 먼저 반품 정산서 인서트 후 pk 가지고 정산사유/비용 인서트 
+//		
+//		
+//		
+//		for(int i=0;i<chargeValue.length;i++) {
+//			
+//		}
+//		
+//	}
 	
 	// 주문 완료 프로세스 
-	public void returnComplete(List<RentalReturnExtraCharge> extraChargeList) {
-		// TODO : 1. 추가금 있으면 추가금 인서트  2. 반납/주문 완료 처리 
+	public void returnComplete(RentalReturnExtraCharge[] extraChargeList) {
+		// TODO : 1. 추가금 있으면 추가금 인서트 / 2. 보증금에서 추가금 빼고 코인 반납 / 3. 반납/주문 완료 처리 
 		
+		// 1. 추가금 프로세스 (일단은 추가금 DB에 인서트만 )
+		for(RentalReturnExtraCharge extraCharge : extraChargeList) {
+			if(extraCharge.getCharge() == 0) continue;
+			rentalSqlMapper.insertExtraCharge(extraCharge);
+		}
 		
+		// 2. 완료 처리 
+		rentalSqlMapper.returnCompleteById(extraChargeList[0].getReturn_id());
 	}
 	
 	
@@ -557,6 +564,7 @@ public class RentalBusinessServiceImpl {
 	public List<Map<String, Object>> getRevenueByDay(Integer businessId) {
 		return rentalSqlMapper.getRevenueByDay(businessId);
 	}
+
 
 	
 	

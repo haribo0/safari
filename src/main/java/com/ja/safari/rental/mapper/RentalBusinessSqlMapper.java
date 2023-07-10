@@ -18,6 +18,7 @@ import com.ja.safari.dto.RentalKakaoPaymentDto;
 import com.ja.safari.dto.RentalMainCategoryDto;
 import com.ja.safari.dto.RentalOrderDto;
 import com.ja.safari.dto.RentalPeriodDiscDto;
+import com.ja.safari.dto.RentalReturnExtraCharge;
 import com.ja.safari.dto.RentalReviewDto;
 import com.ja.safari.dto.RentalReviewImgDto;
 import com.ja.safari.dto.RentalSubCategoryDto;
@@ -166,7 +167,12 @@ public interface RentalBusinessSqlMapper {
 	// 반품 수취확인 
 	public void changeReturnShippingStatus(int returnId);
 	
+	// 반품 주문 정산까지 완료 처리 
+	public void returnCompleteById(int returnId);
 	
+	// 추가금 정산 디비에 입력 
+	public void insertExtraCharge(RentalReturnExtraCharge extraCharge);
+
 	
 	
 
@@ -187,6 +193,7 @@ public interface RentalBusinessSqlMapper {
 	
 	// 월별 매출 
 	public List<Map<String, Object>> getRevenueByDay(Integer businessId);
+
 
 
 

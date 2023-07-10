@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 	<div class="container">
-		<div class="row justify-content-between px-4" style="height:160px; background: #343b46; color: #fff;">
+		<div class="row justify-content-between px-4 text-start" style="height:160px; background: #343b46; color: #fff;">
 			<div class="col d-flex align-items-center">
 				<div class="row w-100">
 					<div class="col-2 d-flex justify-content-center position-relative">
