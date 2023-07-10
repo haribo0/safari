@@ -215,17 +215,12 @@ public class UserController {
 			return "redirect:../user/loginPage";
 		}else {
 			
-			System.out.println("마페 컨트롤러 리스트 전");
 			int sessionId = 0;
 			sessionId = sessionUser.getId();
 			List<Map<String, Object>> proreviewByMyPost = userService.getProreviewByMyPost(sessionId);
 			
-			System.out.println("proreviewByMyPost 컨트롤러" + proreviewByMyPost);
 			
 			model.addAttribute("proreviewByMyPost", proreviewByMyPost);
-			
-			System.out.println("모달 : " + model);
-			System.out.println("모달이후 proreviewByMyPost 컨트롤러" + proreviewByMyPost);
 			
 			return "user/myAllCommunityPostListPage";
 		}

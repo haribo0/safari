@@ -10,6 +10,19 @@
 <jsp:include page="../common/meta.jsp"></jsp:include>
 <!-- 메타 섹션 --> 
 </head>
+<style>
+.square-img-container {
+  width: 120px;
+  height: 120px;
+  margin: auto;
+}
+
+.square-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+</style>
 <body>
 	<!-- 헤더 섹션 -->
 	<jsp:include page="../common/header.jsp"></jsp:include>
@@ -31,13 +44,10 @@
 					<div class="col p-0">				
 						<h5>작성한 게시글</h5>		
 					</div>
-					<div class = "col-4 p-0">
-						<h5>작성한 댓글</h5>
-					</div>
 				</div>	
 
+				<!--  게시물  -->
 				<div class = "row mt-3">
-					<!--  게시물  -->
 					<div class = "col">
 						<div class = "row mt-3">
 							<div class = "col">
@@ -81,48 +91,80 @@
 								</div>
 								<div class="tab-pane fade" id="proreview-tab-pane" role="tabpanel" aria-labelledby="proreview-tab" tabindex="0">
 									<!--  리워드 내용 (아직 틀만 잡음) -->
-									<div class= "row">
-										<div class = "col">
+									<div class= "row mt-1 ">
 										<c:forEach items="${proreviewByMyPost}" var="map" varStatus="status"> 
-											<div class = "row">
+										<div class = "col">
+											<div class = "row mb-4 mx-0 card border border-1">
 												<div class = "col">
-												 	<div class= "row">
-												 		<div class = "col">
-												 			제목 : ${map.promotionReviewDto.promotion_review_title }
-												 		</div>
-												 		<div class = "col"></div>	 
-												 	</div>
-												 	<div class = "row mt-2">
-												 		<div class = "col">
-												 			내용 : ${map.promotionReviewDto.promotion_review_content}
-												 		</div>
-												 	</div>
-												 	<div class = "row mt-2">
-												 		<div class = "col">
-												 			닉네임 : ${map.userDto.nickname}
-												 		</div>
-												 	</div>
+													<div class = "row">
+														<div class = "col">
+															<div class= "row mt-1">
+																<div class = "col">
+																	카테고리
+																</div>
+															</div>
+														 	<div class= "row mt-1">
+														 		<div class = "col fw-semibold fs-6" style="display: -webkit-box; -webkit-line-clamp: 1; -webkit-box-orient: vertical; overflow: hidden;">
+															 		<a href="../../safari/community/promotion/contentPromotionReviewPage?id=${map.promotionReviewDto.id }" style="text-decoration: none; color: inherit;">
+															 			${map.promotionReviewDto.promotion_review_title }
+															 		</a>
+														 		</div>
+														 	</div>
+														 	<div class = "row">
+														 		<div class = "col" style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">
+															 		<a href="../../safari/community/promotion/contentPromotionReviewPage?id=${map.promotionReviewDto.id }" style="text-decoration: none; color: inherit;">
+															 			${map.promotionReviewDto.promotion_review_content}
+															 		</a>			 		
+														 		</div>
+														 	</div>
+														 	<div class = "row mt-1 mb-1">
+														 		<div class = "col" style = "color:gray;">
+														 			${map.userDto.nickname}
+														 		</div>
+														 		<div class = "col text-end text-secondary">
+														 			<i class="bi bi-chat-square-dots"></i>
+														 			&nbsp;
+														 			<i class="bi bi-heart"></i>
+														 		</div>
+														 	</div>
+														</div>
+														<div class = "col-4 d-flex justify-content-end">
+															  <div class="square-img-container">
+															 <img src="/uploadPromoFiles/${map.promotionReviewImgList[0].rental_review_img }"
+						  	 									  class="card-img-top" alt="리워드게시물사진" height="120" width="120" >
+						  	 									</div>
+														</div>								
+													</div>
 												</div>
 											</div>
-										</c:forEach>
 										</div>
+										<c:if test="${status.count % 2 == 0}">
 									</div>
+											<div class = "row">
+										</c:if>							
+										</c:forEach>
+									</div>
+									
+									
+									
 									
 								</div>
 							</div>
 							</div>
-							
-							
-							
-							
-							
 							</div>
 						</div>
-						
-						
-						
 					</div>
-					<!--  댓글 -->
+				</div>
+				
+				<div class="row mt-5" style="border-bottom: 2px solid #222; height: 48px;">
+					<div class="col p-0">				
+						<h5>작성한 댓글</h5>		
+					</div>
+				</div>	
+				
+				
+				<!--  댓글 -->
+				<div class = "row mt-1">
 					<div class = "col-4">
 						<!--  골라줘요 댓글 -->
 						<div class = "row">
@@ -185,7 +227,6 @@
 						</div>
 					</div>
 				</div>
-
 
 
 

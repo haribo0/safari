@@ -210,8 +210,10 @@ window.addEventListener("DOMContentLoaded", function(){
 		
 	</div>
 	
+	
 	<div class = "row">
 	<!--  사진 첨부(게시물 등록자가 올린것들?) -->
+		
 		<div class = "col"> 
 		
 
