@@ -116,58 +116,45 @@
 	}
 
 	// 업로드 날짜 
-  	function dateToTimeDifference(productId) {
+  	function dateToTimeDifference(date) {
 	  // 날짜 box
 	  const uploadTimeBox = document.getElementById("uploadTime");
 		
-	  const xhr = new XMLHttpRequest();
-	  xhr.onreadystatechange = function(){
-			if(xhr.readyState == 4 && xhr.status == 200){
-				//map 갖고오기
-				const response = JSON.parse(xhr.responseText);
-				//js 작업
-				if(response.result == "success"){
-					 // 자바스크립트 날짜로 변환 
-					  const dateFromDatabase = new Date(response.date);
-					  // 현재와 시간차 (밀리초)
-					  const timeDifference = Date.now() - dateFromDatabase.getTime();
-					  
-					  // 초, 분, 시간, 일, 월, 년 계산 (integer)
-					  const seconds = Math.floor(timeDifference / 1000);
-					  const minutes = Math.floor(seconds / 60);
-					  const hours = Math.floor(minutes / 60);
-					  const days = Math.floor(hours / 24);
-					  const months = Math.floor(days / 30);
-					  const years = Math.floor(months / 12);
-					
-					  let formattedTime;
-					  
-					  console.log(dateFromDatabase);
-					  console.log(timeDifference);
-					  console.log(days);
-					  // 가장 큰 단위로부터 표시
-					  if (years >= 1) {
-					    formattedTime = `\${years}년 전`;
-					  } else if (months >= 1) {
-					    formattedTime = `\${months}개월 전`;
-					  } else if (days >= 1) {
-					    formattedTime = `\${days}일 전`;
-					  } else if (hours >= 1) {
-					    formattedTime = `\${hours}시간 전`;
-					  } else if (minutes >= 1) {
-					    formattedTime = `\${minutes}분 전`;
-					  } else {
-					    formattedTime = `\${seconds}초 전`;
-					  }
-						
-					  uploadTimeBox.innerText = formattedTime;
-				}
-			}
-		}
+	 // 자바스크립트 날짜로 변환 
+	  const dateFromDatabase = new Date(date);
+	  // 현재와 시간차 (밀리초)
+	  const timeDifference = Date.now() - dateFromDatabase.getTime();
+	  
+	  // 초, 분, 시간, 일, 월, 년 계산 (integer)
+	  const seconds = Math.floor(timeDifference / 1000);
+	  const minutes = Math.floor(seconds / 60);
+	  const hours = Math.floor(minutes / 60);
+	  const days = Math.floor(hours / 24);
+	  const months = Math.floor(days / 30);
+	  const years = Math.floor(months / 12);
+	
+	  let formattedTime;
+	  
+	  console.log(dateFromDatabase);
+	  console.log(timeDifference);
+	  console.log(days);
+	  // 가장 큰 단위로부터 표시
+	  if (years >= 1) {
+	    formattedTime = `\${years}년 전`;
+	  } else if (months >= 1) {
+	    formattedTime = `\${months}개월 전`;
+	  } else if (days >= 1) {
+	    formattedTime = `\${days}일 전`;
+	  } else if (hours >= 1) {
+	    formattedTime = `\${hours}시간 전`;
+	  } else if (minutes >= 1) {
+	    formattedTime = `\${minutes}분 전`;
+	  } else {
+	    formattedTime = `\${seconds}초 전`;
+	  }
+		
+	  uploadTimeBox.innerText = formattedTime;
 	  	
-	  //get
-	  xhr.open("get", "./getUploadTime?productId="+productId); 
-      xhr.send();
 	}
 
 

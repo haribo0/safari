@@ -779,7 +779,7 @@
 	 	            img.alt = 'review';
 	 	            img.height = '180';
 	 	            img.id = 'reviewImg2';
-	            	
+	 	            img.className = 'object-fit-cover';
 	            	img.src = '/safari/resources/img/used/review2.jpeg';
 	            	col4.appendChild(img);
 		            row4.appendChild(col4);
@@ -837,6 +837,7 @@
 	 	            img.height = '180';
 	 	            img.id = 'reviewImg2';
 	            	img.src = '/safarifile/' + response.map.usedPurchaseReviewDto.review_img_link;
+	            	img.className = 'object-fit-cover';
 	            	
 	            	col4.appendChild(img);
 		            row4.appendChild(col4);
@@ -893,6 +894,7 @@
 	 	            img.height = '180';
 	 	            img.id = 'reviewImg2';
 	            	img.src = '/safari/resources/img/used/review2.jpeg';
+	            	img.className = 'object-fit-cover';
 	            	col4.appendChild(img);
 		            row4.appendChild(col4);
 		            
@@ -953,6 +955,8 @@
 	 	            img.height = '180';
 	 	            img.id = 'reviewImg2';
 	            	img.src = '/safarifile/' + response.map.usedPurchaseReviewDto.review_img_link;
+	            	img.className = 'object-fit-cover';
+	            	
 	            	
 	            	col4.appendChild(img);
 		            row4.appendChild(col4);
@@ -1105,6 +1109,7 @@
 	 	            img.alt = 'review';
 	 	            img.height = '180';
 	 	            img.id = 'reviewImg2';
+	 	            img.className = 'object-fit-cover';
 	            	
 	            	img.src = '/safari/resources/img/used/review2.jpeg';
 	            	col4.appendChild(img);
@@ -1146,6 +1151,7 @@
 	 	            img.height = '180';
 	 	            img.id = 'reviewImg2';
 	            	img.src = '/safarifile/' + response.map.usedPurchaseReviewDto.review_img_link;
+	            	img.className = 'object-fit-cover';
 	            	
 	            	col4.appendChild(img);
 		            row4.appendChild(col4);
@@ -1184,6 +1190,7 @@
 	 	            img.height = '180';
 	 	            img.id = 'reviewImg2';
 	            	img.src = '/safari/resources/img/used/review2.jpeg';
+	            	img.className = 'object-fit-cover';
 	            	col4.appendChild(img);
 		            row4.appendChild(col4);
 		            
@@ -1225,6 +1232,7 @@
 	 	            img.height = '180';
 	 	            img.id = 'reviewImg2';
 	            	img.src = '/safarifile/' + response.map.usedPurchaseReviewDto.review_img_link;
+	            	img.className = 'object-fit-cover';
 	            	
 	            	col4.appendChild(img);
 		            row4.appendChild(col4);
