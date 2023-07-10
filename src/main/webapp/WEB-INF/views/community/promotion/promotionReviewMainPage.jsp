@@ -172,7 +172,8 @@ window.addEventListener("DOMContentLoaded", function(){
 			</div>
 		</div>
 
-
+		
+		
 		
 		 <!--  게시물 사진들 나올 곳 -->
 		<div class = "row mt-5">

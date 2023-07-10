@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.ja.safari.auction.service.AuctionServiceImpl;
 import com.ja.safari.cs.service.CsServiceImpl;
 import com.ja.safari.dto.CsEmpDto;
+import com.ja.safari.dto.PromotionReviewDto;
 import com.ja.safari.dto.UserDto;
 import com.ja.safari.user.service.UserServiceImpl;
 
@@ -132,7 +133,6 @@ public class UserController {
 		}
 		
 		model.addAttribute("qna", csService.getQnaCombinedDtoById(id));
-		model.addAttribute("isRated", csService.isQnaReplyRated(id));
 		
 		return "user/myInquiryDetail";
 	}
@@ -207,13 +207,26 @@ public class UserController {
 	
 	// 세연 마이페이지 - 커뮤니티 게시글 리스트
 	@RequestMapping("myAllCommunityPostListPage")
-	public String myAllCommunityPostListPage(HttpSession session) {
-		
+	public String myAllCommunityPostListPage(Model model, HttpSession session, PromotionReviewDto promotionReviewDto) {
+
 		UserDto sessionUser = (UserDto)session.getAttribute("sessionUser");
 		
 		if(sessionUser==null) {
 			return "redirect:../user/loginPage";
 		}else {
+			
+			System.out.println("마페 컨트롤러 리스트 전");
+			int sessionId = 0;
+			sessionId = sessionUser.getId();
+			List<Map<String, Object>> proreviewByMyPost = userService.getProreviewByMyPost(sessionId);
+			
+			System.out.println("proreviewByMyPost 컨트롤러" + proreviewByMyPost);
+			
+			model.addAttribute("proreviewByMyPost", proreviewByMyPost);
+			
+			System.out.println("모달 : " + model);
+			System.out.println("모달이후 proreviewByMyPost 컨트롤러" + proreviewByMyPost);
+			
 			return "user/myAllCommunityPostListPage";
 		}
 		

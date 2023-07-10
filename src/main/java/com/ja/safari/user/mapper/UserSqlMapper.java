@@ -3,6 +3,7 @@ package com.ja.safari.user.mapper;
 import java.util.List;
 
 import com.ja.safari.dto.CsQnaDto;
+import com.ja.safari.dto.PromotionReviewDto;
 import com.ja.safari.dto.RentalOrderDto;
 import com.ja.safari.dto.UserAddressDto;
 import com.ja.safari.dto.UserCoinDto;
@@ -34,6 +35,7 @@ public interface UserSqlMapper {
 	// user coin insert
 	public void insertUserCoin(UserCoinDto userCoinDto);
 
-		
+	// 커뮤니티 리워드 내가 쓴 게시글
+	public List<PromotionReviewDto> selectProreviewByMyPost(int user_id);
 	
 }
