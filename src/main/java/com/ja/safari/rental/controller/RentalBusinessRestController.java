@@ -36,6 +36,7 @@ public class RentalBusinessRestController {
 	@Autowired
 	RentalBusinessServiceImpl rentalService;
 	
+	// 아이디 중복 확인 
 	@RequestMapping("isUserIdTaken")
 	public  Map<String, Object> isUserIdTaken(String userId) {
 		
@@ -47,6 +48,7 @@ public class RentalBusinessRestController {
 		return map;
 	}
 	
+	// 소분류 카테고리 
 	@RequestMapping("getSubCategoryList")
 	public  Map<String, Object> getSubCategoryList(int mainCategoryId) {
 		
@@ -332,28 +334,28 @@ public class RentalBusinessRestController {
 		return map;
 	}
 	
-	// 정산 정보 저장 - 배열 여러개 
-	@RequestMapping("returnAfterCharge")
-	public  Map<String, Object> returnAfterCharge(HttpSession session, Integer returnId, Integer[] chargeValue, String[] reasonValue) {
-		
-		Map<String, Object> map = new HashMap<String, Object>();
-		
-		RentalBusinessDto businessDto = (RentalBusinessDto) session.getAttribute("businessUser");
-		if(businessDto == null) {
-			map.put("result", "fail");
-			map.put("reason", "login required");
-			return map;
-		}
-		
-		rentalService.returnAfterCharge(returnId, chargeValue, reasonValue);
-		map.put("result", "success");
-		
-		return map;
-	}
+//	// 정산 정보 저장 - 배열 여러개 
+//	@RequestMapping("returnAfterCharge")
+//	public  Map<String, Object> returnAfterCharge(HttpSession session, Integer returnId, Integer[] chargeValue, String[] reasonValue) {
+//		
+//		Map<String, Object> map = new HashMap<String, Object>();
+//		
+//		RentalBusinessDto businessDto = (RentalBusinessDto) session.getAttribute("businessUser");
+//		if(businessDto == null) {
+//			map.put("result", "fail");
+//			map.put("reason", "login required");
+//			return map;
+//		}
+//		
+//		rentalService.returnAfterCharge(returnId, chargeValue, reasonValue);
+//		map.put("result", "success");
+//		
+//		return map;
+//	}
 	
-	// 정산 정보 저장 - dto 
+	// 정산 정보 저장 - dto RequestBody
 	@RequestMapping("returnComplete")
-	public  Map<String, Object> returnComplete(HttpSession session, @RequestBody List<RentalReturnExtraCharge> extraChargeList) {
+	public  Map<String, Object> returnComplete(HttpSession session, @RequestBody RentalReturnExtraCharge[] extraChargeList) {
 		
 		Map<String, Object> map = new HashMap<String, Object>();
 		
@@ -366,11 +368,13 @@ public class RentalBusinessRestController {
 		
 		// rentalService.returnComplete(extraChargeList);
 		
-		for(RentalReturnExtraCharge extraCharge : extraChargeList) {
-			 System.out.println(extraCharge.getReturn_id());
-			 System.out.println(extraCharge.getReason());
-			 System.out.println(extraCharge.getCharge());
-		}
+//		for(RentalReturnExtraCharge extraCharge : extraChargeList) {
+//			 System.out.println(extraCharge.getReturn_id()+"returnId");
+//			 System.out.println(extraCharge.getReason()+"reason");
+//			 System.out.println(extraCharge.getCharge()+"charge");
+//		}
+		
+		rentalService.returnComplete(extraChargeList);
 		
 		map.put("result", "success");
 		

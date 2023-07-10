@@ -132,6 +132,7 @@ public class UserController {
 		}
 		
 		model.addAttribute("qna", csService.getQnaCombinedDtoById(id));
+		model.addAttribute("isRated", csService.isQnaReplyRated(id));
 		
 		return "user/myInquiryDetail";
 	}

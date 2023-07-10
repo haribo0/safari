@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<div class="col-2">
+<div class="col-2 text-start">
 		<div style="border-bottom: 2px solid #222; height: 48px;">
 			<a href="./myPage" class="btn p-0"><h4 class="fw-bold mb-3" style="letter-spacing: -0.8px;">MY PAGE</h4></a>	
 		</div>

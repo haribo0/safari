@@ -45,14 +45,22 @@
     
     <!-- 오른쪽 메뉴 -->
 	<ul class="navbar-nav ml-auto">
-	  <!-- <li class="nav-item">
-	    <a class="nav-link" href="#">메뉴1</a>
-	  </li> -->
-	  
-	  <li class="nav-item me-1">
-	    <a class="nav-link" href="#"><i class="bi bi-bell"></i></a>
-	  </li>
-	  
+		<c:if test="${!empty empUser}">
+		  <li class="nav-item">
+		    <a class="nav-link" href="#">
+		    	<div class="form-check form-switch">
+				  <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault" checked>
+				  <label class="form-check-label" for="flexSwitchCheckDefault" >근무</label>
+				</div>
+		    </a>
+		  </li>
+		</c:if>
+		  <!-- 알림 -->
+		  <!-- 
+		  <li class="nav-item me-1">
+		    <a class="nav-link" href="#"><i class="bi bi-bell"></i></a>
+		  </li>
+		   -->
 	  
 	  <c:if test="${!empty empUser && true}">
 		  <li class="nav-item me-1">

@@ -372,7 +372,7 @@ function getItemToBeReturnedList() {
 
 
 
-// 수추확인 후 - 정산 처리  
+// 수취확인 후 - 정산 처리  
 function getItemReturnedList() {
 	
 	const listBox = document.getElementById("listBox2");
@@ -435,8 +435,14 @@ function getItemReturnedList() {
 				col5.classList.add("text-center","my-auto");
 					const btn1 = document.createElement("div");
 					btn1.classList.add("col");
-					btn1.className = 'btn btn-outline-dark';
-					btn1.innerText = "정산하기";
+					btn1.id = 'btn-'+data.returnDto.id;
+					if(data.returnDto.is_completed === 'Y') {
+						btn1.innerText = "정산완료";
+						btn1.className = 'btn btn-outline-dark disabled';
+					} else {
+						btn1.innerText = "정산하기";
+						btn1.className = 'btn btn-dark';
+					}
 					btn1.setAttribute('data-order-id', data.orderDto.id);
 					btn1.setAttribute('data-return-id', data.returnDto.id);
 					btn1.setAttribute('onclick', 'check(this)');
@@ -581,13 +587,12 @@ function appendInputs(){
 
 function getInputData() {
 	
-	// Get all the input elements with class names 'charge' and 'reason'
+	// 추가금이랑 사유 인풋 다 가져오기 
 	const chargeInputs = document.getElementsByClassName('charge');
 	const reasonInputs = document.getElementsByClassName('reason');
 	
 	
-	extraChargeList = [];
-	
+	let extraChargeList = [];
 	
 		
 	// Loop through the input elements and retrieve their values
@@ -605,7 +610,6 @@ function getInputData() {
 				"reason":reasonInputs[i].value,
 				"charge":chargeInputs[i].value
 		}
-		
 		extraChargeList.push(dto);
 	}
 	
@@ -616,13 +620,21 @@ function getInputData() {
 		extraChargeList.push(dto);
 	}
 
-	
+	extraChargeList = JSON.stringify(extraChargeList);
 	
 	const xhr = new XMLHttpRequest();
 
 	xhr.onreadystatechange = function() {
 		if(xhr.readyState == 4 && xhr.status == 200){
 			const response = JSON.parse(xhr.responseText);
+			
+			// 정산완료로 버튼 바꾸고 disabled
+			getItemToBeReturnedList();
+			getItemReturnedList();
+
+			// 모달 닫기 
+			const checkModal = bootstrap.Modal.getOrCreateInstance('#checkModal');
+			checkModal.hide();
 			
 		}
 	}
@@ -634,12 +646,10 @@ function getInputData() {
 }
 
 
-
-
 /* 
 function getInputData() {
 	
-	// Get all the input elements with class names 'charge' and 'reason'
+	// 사유랑 금액 input 다 가져오기 (1개 이상)
 	const chargeInputs = document.getElementsByClassName('charge');
 	const reasonInputs = document.getElementsByClassName('reason');
 	
@@ -665,6 +675,10 @@ function getInputData() {
 		if(xhr.readyState == 4 && xhr.status == 200){
 			const response = JSON.parse(xhr.responseText);
 			
+			// 모달 닫기 
+			
+			// 정산하기 버튼 disabled
+			
 		}
 	}
 
@@ -673,7 +687,6 @@ function getInputData() {
 	xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 	xhr.send("returnId="+returnId+"&chargeValue="+chargeValue+"&reasonValue="+reasonValue);
 }
-
  */
 
 

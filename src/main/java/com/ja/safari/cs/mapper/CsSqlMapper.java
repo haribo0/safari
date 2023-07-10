@@ -6,12 +6,15 @@ import java.util.List;
 import com.ja.safari.dto.CsAttendanceLogDto;
 import com.ja.safari.dto.CsCategoryDto;
 import com.ja.safari.dto.CsChatCombinedDto;
+import com.ja.safari.dto.CsChatListDto;
 import com.ja.safari.dto.CsChatResponseDto;
 import com.ja.safari.dto.CsChatResponseDto2;
 import com.ja.safari.dto.CsEmpDto;
 import com.ja.safari.dto.CsLiveChatDto;
 import com.ja.safari.dto.CsLiveChatMsgDto;
+import com.ja.safari.dto.CsLiveChatRating;
 import com.ja.safari.dto.CsQnaDto;
+import com.ja.safari.dto.CsQnaRating;
 import com.ja.safari.dto.CsQnaCombinedDto;
 import com.ja.safari.dto.CsScheduleDto;
 
@@ -73,6 +76,10 @@ public interface CsSqlMapper {
 	
 	// 1대1 문의 CombinedDto 가져오기 - id로  
 	public CsQnaCombinedDto getQnaCombinedDtoById(Integer id);
+	
+	// 1대1 문의 답변 후기 카운트 
+	public int getQnaReplyRateCount(Integer id);
+
 
 	// 1대1 문의 답변 저장 - 업데이트 
 	public void saveQnaReply(CsQnaDto qnaDto);
@@ -86,14 +93,23 @@ public interface CsSqlMapper {
 	// 실시간 채팅 메세지 입력 
 	public void insertLiveChatMsg(CsLiveChatMsgDto csLiveChatDto);
 
-	// 실시간 채팅 메세지 리스트 가져오기 
+	// 실시간 채팅 메세지 리스트 가져오기 - 유저 
 	public List<CsLiveChatMsgDto> getLiveChatMsgListByChatId(Integer chatId);
 
 	// 종료되지 않은 실시간 문의 카운트 가져오기 
 	public Integer getUnfinishedChatCountByEmpId(int empId);
 
 	// 실시간 채팅방 리스트 가져오기 - 직원 아이디로 
-	public List<CsLiveChatMsgDto> getLiveChatListByEmpId(Integer empId);
+	public List<CsChatListDto> getLiveChatListByEmpId(Integer empId);
+	
+	// 메세지 리스트 가져오기 
+	public List<CsLiveChatMsgDto> getMsgListByChatId(Integer chatId);
+	
+	// 안 읽은 메세지 카운트  
+	public Integer getUnreadMsgCountByChatId(Integer chatId);
+	
+	// 실시간 채팅방 마지막 메시지 가져오기 
+	public CsLiveChatMsgDto getLastMsgByChatId(Integer chatId);
 	
 	// resultMap | 실시간 채팅방 리스트 가져오기 - 직원 아이디로 
 	public List<CsChatCombinedDto> getLiveChatCombinedListByEmpId(Integer empId);
@@ -103,9 +119,34 @@ public interface CsSqlMapper {
 	
 	// resultMap | 실시간 채팅방 리스트 가져오기 - 직원 아이디로 ResponseDto - 안 읽은 메세지 개수 추가 
 	public List<CsChatResponseDto2> getCsChatResponseDtoList2ByEmpId(Integer empId);
+	
+	// resultMap | 실시간 채팅방 리스트 가져오기 - 필요한 것만 
+	public List<CsChatResponseDto2> getCsChatListDtosByEmpId(Integer empId);
 
 	// 직원이 채팅방 누르면 읽음 처리 
 	public void markMsgAsReadByEmp(Integer chatId);
+	
+	// 유저 읽음 처리 
+	public void markMsgAsReadByUser(Integer chatId);
+
+	// 1대1 문의 답변 후기 저장 
+	public void insertQnaReplyRating(CsQnaRating csQnaRating);
+
+	// 실시간 메세지 저장 - 직원 
+	public void insertLiveChatMsgByEmp(CsLiveChatMsgDto chatMsgDto);
+	
+	// 실시간 문의 종료 
+	public void endLiveChatById(Integer chatId);
+	
+	// 실시간 문의 종료 여부 확인 
+	public int isChatEnded(Integer chatId);
+
+	// 실시간 문의 가져오기  
+	public CsLiveChatDto getChatById(Integer chatId);
+
+	// 실시간 문의 후기 저장 
+	public void saveLiveChatRating(CsLiveChatRating liveChatRating);
+
 	
 	
 	

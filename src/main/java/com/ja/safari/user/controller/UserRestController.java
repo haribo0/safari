@@ -14,7 +14,9 @@ import org.springframework.web.bind.annotation.RestController;
 import com.ja.safari.cs.service.CsServiceImpl;
 import com.ja.safari.dto.CsLiveChatDto;
 import com.ja.safari.dto.CsLiveChatMsgDto;
+import com.ja.safari.dto.CsLiveChatRating;
 import com.ja.safari.dto.CsQnaDto;
+import com.ja.safari.dto.CsQnaRating;
 import com.ja.safari.dto.UserAddressDto;
 import com.ja.safari.dto.UserDto;
 import com.ja.safari.user.service.UserServiceImpl;
@@ -118,6 +120,44 @@ public class UserRestController {
 		  return map; 
 	  }
 	  
+	  // 1대1문의 답변 후기 저장  
+	  @RequestMapping("saveQnaReplyRating") 
+	  public Map<String, Object> saveQnaReplyRating(HttpSession session, CsQnaRating csQnaRating) {
+		  
+		  Map<String, Object> map = new HashMap<String, Object>();
+		  UserDto sessionUser = (UserDto)session.getAttribute("sessionUser");
+		  if (sessionUser == null) {
+			  map.put("result", "fail");
+			  map.put("reason", "로그인이 되어 있지 않습니다.");
+			  return map;
+		  }
+		  
+		  csServiceImpl.saveQnaReplyRating(csQnaRating);
+		  
+		  map.put("result", "success"); 
+		  
+		  return map; 
+	  }
+	  
+	  // 실시간 문의 후기 저장  
+	  @RequestMapping("saveLiveChatRating") 
+	  public Map<String, Object> saveQnaReplyRating(HttpSession session, CsLiveChatRating liveChatRating) {
+		  
+		  Map<String, Object> map = new HashMap<String, Object>();
+		  UserDto sessionUser = (UserDto)session.getAttribute("sessionUser");
+		  if (sessionUser == null) {
+			  map.put("result", "fail");
+			  map.put("reason", "로그인이 되어 있지 않습니다.");
+			  return map;
+		  }
+		  
+		  csServiceImpl.saveLiveChatRating(liveChatRating);
+		  
+		  map.put("result", "success"); 
+		  
+		  return map; 
+	  }
+	  
 	  // 실시간 문의 시작하기  
 	  @RequestMapping("startLiveChat") 
 	  public Map<String, Object> startLiveChat(HttpSession session, Integer categoryId) {
@@ -182,10 +222,14 @@ public class UserRestController {
 		  }
 		  
 		  map.put("result", "success"); 
-		  map.put("list", csServiceImpl.getLiveChatMsgList(chatId) ); 
+		  map.put("list", csServiceImpl.getLiveChatMsgList(chatId)); 
+		  map.put("isChatEnded", csServiceImpl.isChatEnded(chatId)); 
+		  // 읽음 처리 
+		  csServiceImpl.markMsgAsReadByUser(chatId);
 		  
 		  return map; 
 	  }
+
 	  
 	  
 	  

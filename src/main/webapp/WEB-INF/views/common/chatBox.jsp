@@ -3,6 +3,58 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <style>
 
+
+/*  */ /* 별점 */ /*  */
+#full-stars-example-two {
+  /* use display:inline-flex to prevent whitespace issues. alternatively, you can put all the children of .rating-group on a single line */
+  .rating-group {
+    display: inline-flex;
+  }
+  /* make hover effect work properly in IE */
+  .rating__icon {
+    pointer-events: none;
+  }
+  /* hide radio inputs */
+  .rating__input {
+   position: absolute !important;
+   left: -9999px !important;
+  }
+  /* hide 'none' input from screenreaders */
+  .rating__input--none {
+    display: none
+  }
+  /* set icon padding and size */
+  .rating__label {
+    cursor: pointer;
+    padding: 0 0.1em;
+    font-size: 2rem;
+  }
+  /* set default star color */
+  .rating__icon--star {
+    color: orange;
+  }
+  /* if any input is checked, make its following siblings grey */
+  .rating__input:checked ~ .rating__label .rating__icon--star {
+    color: #ddd;
+  }
+  /* make all stars orange on rating group hover */
+  .rating-group:hover .rating__label .rating__icon--star {
+    color: orange;
+  }
+  /* make hovered input's following siblings grey on hover */
+  .rating__input:hover ~ .rating__label .rating__icon--star {
+    color: #ddd;
+  }
+}
+body {
+  padding: 1rem;
+  text-align: center;
+}
+/*  */ /* 별점 */ /*  */
+
+
+
+
 /* 카테고리 버튼 round */
 .rnd{
 	border-radius: 50px;
@@ -63,6 +115,9 @@
 
 </style>
    
+<!-- font awesome / 별점 -->
+<script src="https://kit.fontawesome.com/a83ecfd9ee.js" crossorigin="anonymous"></script>
+<!-- font awesome / 별점 -->
    
    
    
@@ -143,6 +198,11 @@
 			<!-- Messages -->
 			<div class="chat-container overflow-y-scroll overflow-x-hidden" style="height:380px;" id="chatMsgBox">
 			
+				<!-- <div class="row">
+					<div class="col text-secondary text-center"> 상담이 종료되었습니다 </div>	
+				</div>
+ -->
+			
 			</div>
 			<!-- Messages -->
 	      </div>
@@ -161,6 +221,68 @@
 <!--  -->  
 
 
+
+
+
+<!--  -->  
+<!--  -->  
+<!--  -->  
+<!-- LiveChatFeedbackModal -->
+<div class="modal" tabindex="-1" id="feedbackModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">실시간 문의 평가</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+      
+      	<div class="row py-3">
+    	  	<div class="col text-start">
+				상담에 대한 피드백을 남겨주세요
+	      	</div>
+      	</div>
+      
+      	<div class="row">
+    	  	<div class="col">
+      			<div id="full-stars-example-two">
+				    <div class="rating-group">
+				        <input disabled checked class="rating__input rating__input--none" name="rating3" id="rating3-none" value="0" type="radio">
+				        <label aria-label="1 star" class="rating__label" for="rating3-1"><i class="rating__icon rating__icon--star fa fa-2xs fa-star"></i></label>
+				        <input class="rating__input" name="rating3" id="rating3-1" value="1" type="radio">
+				        <label aria-label="2 stars" class="rating__label" for="rating3-2"><i class="rating__icon rating__icon--star fa fa-2xs fa-star"></i></label>
+				        <input class="rating__input" name="rating3" id="rating3-2" value="2" type="radio">
+				        <label aria-label="3 stars" class="rating__label" for="rating3-3"><i class="rating__icon rating__icon--star fa fa-2xs fa-star"></i></label>
+				        <input class="rating__input" name="rating3" id="rating3-3" value="3" type="radio">
+				        <label aria-label="4 stars" class="rating__label" for="rating3-4"><i class="rating__icon rating__icon--star fa fa-2xs fa-star"></i></label>
+				        <input class="rating__input" name="rating3" id="rating3-4" value="4" type="radio">
+				        <label aria-label="5 stars" class="rating__label" for="rating3-5"><i class="rating__icon rating__icon--star fa fa-2xs fa-star"></i></label>
+				        <input class="rating__input" name="rating3" id="rating3-5" value="5" type="radio">
+				    </div>
+				</div>
+	      	</div>
+      	</div>
+        
+      
+      	<div class="row mt-2">
+    	  	<div class="col">
+				<textarea rows="3" cols="" class="form-control" id="textReview"></textarea>
+	      	</div>
+      	</div>
+        
+        
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-dark" data-bs-dismiss="modal">닫기</button>
+        <button type="button" class="btn btn-dark" onclick="saveFeedback()">평가 남기기</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- LiveChatFeedbackModal -->
+<!--  -->  
+<!--  -->  
+<!--  -->  
 
 
 
@@ -183,6 +305,10 @@
 
 
 let liveChatId = null;
+let liveChatEnded = null;
+let intervalHandler = null;
+let feedbackBtnActive = true;
+
 
 
 function displayCurrentTime() {
@@ -216,6 +342,16 @@ function openLiveChat() {
 	
 	
 	// TODO : 이미 열린 채팅 중 종료되지 않은 채팅 있는지 확인
+	
+	// 3초마다 채팅 업로드 
+	if(intervalHandler != null){
+		clearInterval(intervalHandler);
+		intervalHandler = null;
+	}
+	
+	intervalHandler = setInterval(() => {
+		getMsg();
+	}, 3000);
 	
 	modal.show();
 	
@@ -272,8 +408,6 @@ function removeClickEventListeners() {
 
 
 
-
-
 //  실시간 문의 메세지 보내기 
 function sendMsg() {
 	// 채팅 시작 전이면 리턴 
@@ -285,11 +419,13 @@ function sendMsg() {
 	// 내용 없을 경우 인서트 하지 않고 리턴 
 	if(!inputValue) return;
 	
+	
 	const xhr = new XMLHttpRequest();
 	
     xhr.onreadystatechange = function(){
         if(xhr.readyState == 4 && xhr.status == 200){
             const response = JSON.parse(xhr.responseText);
+            
             
             // textarea안에 값 지우기 
             inputBox.value = "";
@@ -336,14 +472,14 @@ function getMsg() {
 			// 초기화 
 			msgBox.innerHTML = "";
 			
-			// 메세지 생성 
+			// 메세지 생성 반복 시작 
 			response.list.forEach(function(msg){
 				
 				const row1 = document.createElement('div');
 				  row1.classList.add('row', 'mt-1');
 				  
 				  // 내가 보낸 메세지 
-				  if( msg.sender == 1 ){
+				  if( msg.sender === 1 ){
 					  const col1 = document.createElement('div');
 					  col1.classList.add('col', 'd-flex', 'flex-column', 'justify-content-end');
 					  const col1row1 = document.createElement('div');
@@ -372,6 +508,7 @@ function getMsg() {
 					  col1.appendChild(col1row2);
 					  
 					  msgBox.appendChild(row1);
+					  
 				  }else {
 					  const colIcon = document.createElement('div');
 					  colIcon.classList.add('col-1', 'ms-2', 'd-grid', 'text-left');
@@ -412,6 +549,58 @@ function getMsg() {
 				  }
 				
 			});
+			// 메세지 생성 반복문 종료 
+			
+			
+			// 만약 채팅 상담이 종료 되었을 경우 
+			if(response.isChatEnded) {
+				// 메세지 못 보내게 
+				const sendMsgBtn = document.getElementById("sendMsg");
+				sendMsgBtn.classList.add("disabled");
+				// 상담이 종료되었습니다. 
+				const rDiv = document.createElement('div');
+				rDiv.classList.add('row','py-2');
+				const cDiv = document.createElement('div');
+				cDiv.classList.add('col', 'text-secondary', 'text-center','mt-3');
+				cDiv.textContent = '상담이 종료되었습니다';
+				rDiv.appendChild(cDiv);
+				msgBox.appendChild(rDiv);
+				// 인터벌 제거  
+				if(intervalHandler != null){
+					clearInterval(intervalHandler);
+					intervalHandler = null;
+				}
+				// 후기 남기기 
+				const r1Div = document.createElement('div');
+				r1Div.classList.add('row','py-2');
+				const c1Div = document.createElement('div');
+				c1Div.classList.add('col', 'text-secondary', 'text-center');
+				c1Div.textContent = '문의가 만족스러우셨나요?';
+				r1Div.appendChild(c1Div);
+				
+				const r2Div = document.createElement('div');
+				r2Div.className = 'row py-2 text-center';
+				const c2Div = document.createElement('div');
+				c2Div.classList.add('col', 'text-secondary', 'text-center');
+				const btn1Div = document.createElement('div');
+				if(feedbackBtnActive) {
+					btn1Div.className = 'btn btn-dark px-3';
+				} else {
+					btn1Div.className = 'btn btn-dark px-3';
+				}
+				btn1Div.textContent = "문의 평가하기";
+				btn1Div.id = "feedbackBtn";
+				btn1Div.addEventListener('click', feedback);
+
+				c2Div.appendChild(btn1Div);
+				r2Div.appendChild(c2Div);
+				
+				msgBox.appendChild(r1Div);
+				msgBox.appendChild(r2Div);
+				
+			}
+			
+			// 스크롤 처리 
 			msgBox.scrollTop = msgBox.scrollHeight;
 			
 		}
@@ -423,129 +612,75 @@ function getMsg() {
 	
 }
 
-
-
-
-/* 
-//채팅 내용 리스트 리로딩 
-function reloadChatMsg(requestId) {
+ 
+ 
+ 
+ 
+// 상담 평가 모달 열기 
+function feedback() {
+	 
+	// 기존 채팅 모달 닫기 
+	const modal = bootstrap.Modal.getOrCreateInstance('#liveChatModal');
+	modal.hide();
+	
+	// 문의 평가 모달 열기 
+	const newModal = bootstrap.Modal.getOrCreateInstance('#feedbackModal');
+	newModal.show();
 	
 	
-// chatlisBox 
-const getChatbox = document.getElementById("getChatList");
+}
+ 
+ 
+ 
+ 
+ 
+// 상담 평가 보내기 
+function saveFeedback() {
+	 
+	const ratingGroup = document.querySelector('#full-stars-example-two .rating-group');
+	const checkedInput = ratingGroup.querySelector('input:checked');
+	const ratingValue = checkedInput ? checkedInput.value : null;
+	
+	const textAreaBox = document.getElementById("textReview");
+	const textReview = textAreaBox.value.trim();
+	
+	const xhr = new XMLHttpRequest();
 
-// 채팅 읽음 표시 update 
-updateIsRead(requestId);
-
-const xhr = new XMLHttpRequest();
-
-xhr.onreadystatechange = function(){
-	if(xhr.readyState == 4 && xhr.status == 200){
-		const response = JSON.parse(xhr.responseText);
-		mySessionId = response.sessionId;
-		
-	    getChatbox.innerHTML = ""; //초기화 얘만 innerHTML 허용... 
-		let yearMonthDay = null;
-	    
-		// 채팅 내용 반복문 돌리기 
-		for(data of response.chatList){
-			// 시간 몇월
-			  const regDate = new Date(data.reg_date);  
-			  const year = regDate.getFullYear();
-			  const month = regDate.getMonth() + 1;
-			  const day = regDate.getDate();
-			  const formattedDateHappen = year + '년 ' + month + '월 ' + day + '일';
-			  
-			  if(yearMonthDay != formattedDateHappen){
-				  const yearMonthDayRow = document.createElement('div');
-				  yearMonthDayRow.classList.add('row', 'justify-content-center', 'mt-4', 'mb-4');
-				  yearMonthDayRow.innerText = formattedDateHappen;
-				  getChatbox.appendChild(yearMonthDayRow);
-				  yearMonthDay = formattedDateHappen;
-			  }
+	xhr.onreadystatechange = function() {
+		if(xhr.readyState == 4 && xhr.status == 200){
+			const response = JSON.parse(xhr.responseText);
 			
-			  const row1 = document.createElement('div');
-			  row1.classList.add('row', 'mt-1');
-			  
-			  if(mySessionId!=data.receiver_id && data.receiver_id != 0){
-				  const col1 = document.createElement('div');
-				  col1.classList.add('col', 'd-flex', 'flex-column', 'justify-content-end');
-				  const col1row1 = document.createElement('div');
-				  col1row1.classList.add('row', 'justify-content-end', 'mx-1');
-				 
-				  if(data.read_unread == 'N'){
-					  col1row1.innerText = '1';
-				  }else{
-					  col1row1.innerText = ' ';
-				  }
-				  
-				  const col1row2 = document.createElement('div');
-				  col1row2.classList.add('row', 'justify-content-end', 'mx-1', 'chatTime');
-				  const regDate = new Date(data.reg_date);
-				  const formattedDate = regDate.toLocaleTimeString('ko-KR', { hour: 'numeric', minute: '2-digit' });
-				  col1row2.innerText = formattedDate;
-				  
-				  
-				  const col2 = document.createElement('div');
-				  col2.classList.add('col-7', 'me-3', 'myContent');
-				  col2.innerText = data.content;
-				  
-				  row1.appendChild(col1);
-				  row1.appendChild(col2);
-				  col1.appendChild(col1row1);
-				  col1.appendChild(col1row2);
-				  
-				  getChatbox.appendChild(row1);
-			  }else if(mySessionId==data.receiver_id && data.receiver_id != 0) {
-				  const colIcon = document.createElement('div');
-				  colIcon.classList.add('col-1', 'ms-2', 'text-left');
-
-				  const icon = document.createElement('i');
-				  icon.classList.add('bi', 'bi-person-circle', 'fs-4');
-				  colIcon.style.lineHeight = 1;
-				  colIcon.appendChild(icon);
-				  
-				  const col3 = document.createElement('div');
-				  col3.classList.add('col-7', 'ms-2', 'text-left', 'otherContent');
-				  col3.innerText = data.content;
-				  
-				  const col4 = document.createElement('div');
-				  col4.classList.add('col', 'd-flex', 'flex-column', 'justify-content-end');
-				  const col4row1 = document.createElement('div');
-				  col4row1.classList.add('row', 'justify-content-start', 'mx-1');
-				  const col4row2 = document.createElement('div');
-				  col4row2.classList.add('row', 'justify-content-start', 'mx-1', 'chatTime');
-				  const regDate = new Date(data.reg_date);
-				  const formattedDate = regDate.toLocaleTimeString('ko-KR', { hour: 'numeric', minute: '2-digit' });
-				  col4row2.innerText = formattedDate;
-				  
-				  if(data.read_unread == 'N'){
-					  col4row1.innerText = '1';
-				  }else{
-					  col4row1.innerText = ' ';
-				  }
-				  
-				  row1.appendChild(colIcon);
-				  row1.appendChild(col3);
-				  row1.appendChild(col4);
-				  col4.appendChild(col4row1);
-				  col4.appendChild(col4row2);
-				  
-				  getChatbox.appendChild(row1);
-			  }
-			  
+			// 평가 후에는 평가 남기기 버튼 disable 	
+			const feedbackBtn = document.getElementById("feedbackBtn");
+			feedbackBtn.classList.add("disabled");
+			feedbackBtnActive = false;
+			
+			// 문의 평가 모달 닫기  
+			const modal = bootstrap.Modal.getOrCreateInstance('#feedbackModal');
+			modal.hide();
+			
 		}
-		// 채팅 화면 마지막으로 맞추기 
-		getChatbox.scrollTop = getChatbox.scrollHeight;
 	}
-}
 
-//get
-xhr.open("get", "./reloadChatList?requestId=" + requestId);
-xhr.send();
+	// post 방식 
+	xhr.open("post", "./saveLiveChatRating");
+	xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+	xhr.send("chat_id="+liveChatId+"&rating="+ratingValue+"&text_review="+textReview);
+	
 }
+ 
+ 
+ 
 
- */
+// 모달 닫으면 인터벌 핸들러 지우기 
+const myModalEl = document.getElementById('liveChatModal')
+myModalEl.addEventListener('hide.bs.modal', event => {
+	if(intervalHandler != null){
+		clearInterval(intervalHandler);
+		intervalHandler = null;
+	}
+})
+
 
  
 window.addEventListener("DOMContentLoaded",function(){
