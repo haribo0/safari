@@ -50,7 +50,7 @@
 					<div class="row">
 						<div class="col" style="width:990px;"> 
 						
-							<%-- 골라줘요 항목 foreach --%>
+							<%-- 골라줘요 항목 --%>
 									
 								<div class="align-middle ms-4 me-4 mb-4" style="text-align:start">
 								<hr>
@@ -165,7 +165,7 @@
 										<%-- 해시태그 --%>
 									</div>
 								</div>
-								<%-- 골라줘요 항목 foreach --%>
+								<%-- 골라줘요 항목 --%>
 						
 						<%-- 좋아요 
 						<br>
@@ -251,9 +251,9 @@
 									</div>--%>
 									
 									<div style="display: flex; align-items: center; margin-left: 28px; word-wrap: break-word;">
-  <input type="text" class="form-control border-0 bg-transparent" value="${pickCommentDto.pickCommentDto.content}" style="box-shadow: none; caret-color: transparent; flex-grow: 1; margin-right: -5px;">
-  <button style="background: none; border: none; padding: 0; margin-right: 10px;"> <i class="bi bi-backspace-fill" style="color: black;"></i> </button>
-</div>
+									  <input type="text" class="form-control border-0 bg-transparent" value="${pickCommentDto.pickCommentDto.content}" style="box-shadow: none; caret-color: transparent; flex-grow: 1; margin-right: -5px;">
+									  <button style="background: none; border: none; padding: 0; margin-right: 10px;"> <i class="bi bi-backspace-fill" style="color: black;"></i> </button>
+									</div>
 
 
 									<hr>
