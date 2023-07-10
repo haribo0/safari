@@ -309,6 +309,7 @@ public class CsRestController {
 		map.put("result", "success");
 		map.put("list", csService.getMsgListByChatId(chatId));
 		map.put("isChatEnded", csService.isChatEnded(chatId)); 
+		map.put("user", csService.getUserDtoByChatId(chatId)); 
 
 		return map;
 	}

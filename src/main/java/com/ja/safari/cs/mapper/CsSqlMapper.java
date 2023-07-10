@@ -17,6 +17,7 @@ import com.ja.safari.dto.CsQnaDto;
 import com.ja.safari.dto.CsQnaRating;
 import com.ja.safari.dto.CsQnaCombinedDto;
 import com.ja.safari.dto.CsScheduleDto;
+import com.ja.safari.dto.UserDto;
 
 public interface CsSqlMapper {
 
@@ -146,6 +147,13 @@ public interface CsSqlMapper {
 
 	// 실시간 문의 후기 저장 
 	public void saveLiveChatRating(CsLiveChatRating liveChatRating);
+
+	// 채팅 아이디로 유저 찾아오기 
+	public UserDto getUserDtoByChatId(Integer chatId);
+
+	// 채팅 아이디로 직원 찾아오기 
+	public CsEmpDto getEmpDtoByChatId(Integer chatId);
+	
 
 	
 	

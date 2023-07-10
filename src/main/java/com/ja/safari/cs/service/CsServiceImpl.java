@@ -24,6 +24,7 @@ import com.ja.safari.dto.CsQnaCombinedDto;
 import com.ja.safari.dto.CsQnaDto;
 import com.ja.safari.dto.CsQnaRating;
 import com.ja.safari.dto.CsScheduleDto;
+import com.ja.safari.dto.UserDto;
 import com.ja.safari.user.mapper.UserSqlMapper;
 
 @Service
@@ -387,6 +388,18 @@ public class CsServiceImpl {
 	public void saveLiveChatRating(CsLiveChatRating liveChatRating) {
 		csSqlMapper.saveLiveChatRating(liveChatRating);
 		
+	}
+
+	// 채팅 아이디로 유저 가져오기 
+	public UserDto getUserDtoByChatId(Integer chatId) {
+		
+		return csSqlMapper.getUserDtoByChatId(chatId);
+	}
+
+	// 채팅 아이디로 상담사 닉네임 가져오기 
+	public String getEmpNicknameByChatId(Integer chatId) {
+		CsEmpDto empDto = csSqlMapper.getEmpDtoByChatId(chatId);
+		return empDto.getNickname() ;
 	}
 
 

@@ -559,7 +559,7 @@ function reloadChatMsg() {
 			response.list.forEach(function(msg){
 				
 				const row1 = document.createElement('div');
-				  row1.classList.add('row', 'mt-1','py-1');
+				  row1.classList.add('row', 'mt-1');
 				  
 				  // 내가 보낸 메세지 
 				  if( msg.sender === 0 ){
@@ -593,81 +593,50 @@ function reloadChatMsg() {
 					  chatMsgContainer.appendChild(row1);
 				  }else {
 					  const colIcon = document.createElement('div');
-					  colIcon.classList.add('col-auto', 'my-auto', 'ms-2', 'text-left');
+					  colIcon.classList.add('col-1', 'ms-2', 'text-left');
 					  
-					  /* const outerDiv1 = document.createElement('div');
+					  const outerDiv1 = document.createElement('div');
 					  outerDiv1.className = 'row';
 					  const innerDiv1 = document.createElement('div');
 					  innerDiv1.className = 'col text-secondary ps-1';
 					  innerDiv1.style.fontSize = "14px";
 					  innerDiv1.innerText = response.user.nickname;
-					  outerDiv1.appendChild(innerDiv1); */
-					   
+					  outerDiv1.appendChild(innerDiv1);
+
+
 					  const outerDiv2 = document.createElement('div');
-					  outerDiv2.className = 'row my-auto';
+					  outerDiv2.className = 'row';
 					  const innerDiv2 = document.createElement('div');
-					  innerDiv2.className = 'col text-start ps-1 pt-1';
+					  innerDiv2.className = 'col text-start ps-1';
 					  const imageElement = document.createElement('img');
 					  imageElement.className = 'img-fluid rounded-circle';
-					  if(response.user.profile_img_link === null) {
-						  imageElement.src = '/safari/resources/img/user.jpg';
-					  } else {
-						  imageElement.src = '/safariImg/'+response.user.profile_img_link;
-					  }
-					  imageElement.style.width = '46px';
-					  imageElement.style.height = '46px';
+					  imageElement.src = '/safari/resources/img/user.jpg';
+					  imageElement.style.width = '32px';
+					  imageElement.style.height = '32px';
 					  innerDiv2.appendChild(imageElement);
 					  outerDiv2.appendChild(innerDiv2);
 					  
 					  colIcon.appendChild(outerDiv2);
-					  /* colIcon.appendChild(outerDiv1); */
+					  colIcon.appendChild(outerDiv1);
 					  
 					  /* const icon = document.createElement('i');
 					  icon.classList.add('bi', 'bi-person-circle', 'fs-4');
 					  colIcon.style.lineHeight = 1;
 					  colIcon.appendChild(icon); */
 					  
-					  
-					  // 메세지 
-					  const colOuterDiv = document.createElement('div');
-					  colOuterDiv.classList.add('col');
-						  const rowInnerDiv1 = document.createElement('div');
-						  rowInnerDiv1.classList.add('row');
-						  const innerDiv1 = document.createElement('div');
-						  innerDiv1.className = 'col text-secondary';
-						  innerDiv1.style.fontSize = "14px";
-						  innerDiv1.innerText = response.user.nickname;
-						  rowInnerDiv1.appendChild(innerDiv1);
-						  
-						  const rowInnerDiv2 = document.createElement('div');
-						  rowInnerDiv2.classList.add('row');
-						  const col3 = document.createElement('div');
-						  col3.classList.add('col-7', 'ms-2', 'text-left', 'text-break', 'otherContent');
-						  col3.innerText = msg.msg;
-						  rowInnerDiv2.appendChild(col3);
-						  
-					 
-						  
-					  
-					  /* const col3 = document.createElement('div');
+					  const col3 = document.createElement('div');
 					  col3.classList.add('col-7', 'ms-2', 'text-left', 'text-break', 'otherContent');
-					  col3.innerText = msg.msg; */
+					  col3.innerText = msg.msg;
 					  
 					  const col4 = document.createElement('div');
-					  col4.classList.add('col', 'd-flex', 'flex-column','text-start', 'justify-content-end');
+					  col4.classList.add('col', 'd-flex', 'flex-column', 'justify-content-end');
 					  const col4row1 = document.createElement('div');
 					  col4row1.classList.add('row', 'justify-content-start', 'mx-1');
 					  const col4row2 = document.createElement('div');
-					  col4row2.classList.add('row', 'justify-content-start', 'mx-1', 'chatTime', 'text-start');
+					  col4row2.classList.add('row', 'justify-content-start', 'mx-1', 'chatTime');
 					  const regDate = new Date(msg.reg_date);
 					  const formattedDate = regDate.toLocaleTimeString('ko-KR', { hour: 'numeric', minute: '2-digit' });
 					  col4row2.innerText = formattedDate;
-					  
-					  col4.appendChild(col4row1);
-					  col4.appendChild(col4row2);
-					  rowInnerDiv2.appendChild(col4);
-					  colOuterDiv.appendChild(rowInnerDiv1);
-					  colOuterDiv.appendChild(rowInnerDiv2);
 					  
 					  // 안 읽음 
 					  /* if(msg.is_read == 0){
@@ -677,10 +646,10 @@ function reloadChatMsg() {
 					  } */
 					  
 					  row1.appendChild(colIcon);
-					  row1.appendChild(colOuterDiv);
-					  //row1.appendChild(col4);
-					  //col4.appendChild(col4row1);
-					  //col4.appendChild(col4row2);
+					  row1.appendChild(col3);
+					  row1.appendChild(col4);
+					  col4.appendChild(col4row1);
+					  col4.appendChild(col4row2);
 					  
 					  chatMsgContainer.appendChild(row1);
 				  }

@@ -224,6 +224,7 @@ public class UserRestController {
 		  map.put("result", "success"); 
 		  map.put("list", csServiceImpl.getLiveChatMsgList(chatId)); 
 		  map.put("isChatEnded", csServiceImpl.isChatEnded(chatId)); 
+		  map.put("emp", csServiceImpl.getEmpNicknameByChatId(chatId)); 
 		  // 읽음 처리 
 		  csServiceImpl.markMsgAsReadByUser(chatId);
 		  

@@ -350,6 +350,20 @@
 		  AND end_date IS NOT NULL
 	</select>
 	
+	<!-- 실시간 문의 채팅 아이디로 유저 찾기  -->
+	<select id="getUserDtoByChatId" resultType="com.ja.safari.dto.UserDto">
+		SELECT ut.* FROM cs_live_chat c
+		JOIN USER_TABLE ut ON c.user_id = ut.ID 
+		WHERE c.id = #{chatId}
+	</select>
+	
+	<!-- 실시간 문의 채팅 아이디로 직원 찾기  -->
+	<select id="getEmpDtoByChatId" resultType="com.ja.safari.dto.CsEmpDto">
+		SELECT e.* FROM CS_EMP e
+		JOIN cs_live_chat c ON c.emp_id = e.id
+		WHERE c.id = #{chatId}
+	</select>
+	
 		
 	<!-- 실시간 문의  후기  -->
 	<insert id="saveLiveChatRating" >
