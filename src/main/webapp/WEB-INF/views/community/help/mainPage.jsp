@@ -35,7 +35,7 @@
 	 <div class="container text mt-2">
 	 
 	 <div class="col">
-	<h2 class="text ms-3 mb-3"> 해주세요 </h2>
+	<h4 class="text ms-3 mb-3"> 해주세요 </h4>
 	
 	
 	
@@ -99,6 +99,34 @@
 	</div>
 	<%--글쓰기 버튼 끝 --%>	
 	
+	<%--검색  --%>
+	<div class="container">
+	<div class="row">
+	<div class="col-1" style="padding:0px;">
+ <div class="dropdown">
+  <button class="btn btn-secondary dropdown-toggle" type="button" style="background-color: transparent; color: inherit;" data-bs-toggle="dropdown" aria-expanded="false">
+   제목
+  </button>
+  <ul class="dropdown-menu">
+    <li><button class="dropdown-item" type="button">제목</button></li>
+    <li><button class="dropdown-item" type="button">내용</button></li>
+    <li><button class="dropdown-item" type="button">제목+내용</button></li>
+    <li><button class="dropdown-item" type="button">작성자</button></li>
+  </ul>
+  </div></div>
+  <div class="col-5 d-grid"  style="padding:0px;">
+  <form class="col-12 col-lg-auto me-lg-4" role="search">
+    <input type="search" class="form-control search_box" placeholder="검색" aria-label="Search">
+  </form>
+</div></div>
+</div>
+
+
+
+
+ 
+	 <%--검색창 --%>
+	 
 	<style>
 	.pagination .page-link {
     color: black !important;

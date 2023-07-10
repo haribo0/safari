@@ -135,7 +135,7 @@
 			<div class="row">
 				<div class="col">
 				
-				<i class="bi bi-chat-dots"></i>&nbsp;<span style="font-size: 14px;">댓글</span>
+				<i class="bi bi-chat-dots"></i>&nbsp;<span style="font-size: 13px;">댓글</span>
 				</div>
 			</div>
 			<%-- 댓글 작성 글자 --%>
@@ -148,11 +148,11 @@
 				<%-- 댓글 작성 박스 --%>
 				<div class="row mt-2">
 					<div class="col-11 d-grid ">
-						<textarea class="form-floating border p-2 mb-2 border-opacity" placeholder="댓글을 입력하세요" id="floatingTextarea2" style="height: 90px; width: 1180px; font-size: 13px;" name="content" ></textarea>
+						<textarea class="form-floating border p-2 mb-2 border-opacity" placeholder="댓글을 입력하세요" id="floatingTextarea2" style="height: 60px; width: 1180px; font-size: 13px;" name="content" ></textarea>
 					
 					</div>
 					<div class="col d-flex justify-content-center ">
-						<button class="btn btn-primary" style="font-size: 13px; height: 90px; width: 68px">입력</button>
+						<button class="btn btn-secondary" style="font-size: 22px; height: 60px; width: 68px"><i class="bi bi-chat-text"></i></button>
 					</div>
 				</div>
 			</form>	
@@ -166,7 +166,7 @@
 
 			<%-- 댓글 반복문 --%>
 			<div class="row">
-			<div class="col">
+			<div class="col" style="margin-left: 10px; margin-right: 20px;">
 			<c:forEach items="${helpCommentsList}" var="helpComment">
 
 
@@ -177,9 +177,9 @@
 	                    <!-- 댓글 내용-->
 	                        <div class="row mt-2 ">
 	                            <div class="col fw-bold">
-	                            	<span style="font-size: 13px;">${helpComment.userDto.nickname }</span>
+	                            	<span style="font-size: 13px;">${helpComment.userDto.nickname }</span> 
 	                                <span class="text-secondary ms-2" style="font-size: 13px; font-weight: normal;">
-	                                <fmt:formatDate value="${helpComment.helpCommentDto.reg_date}" pattern="yyyy.MM.dd a hh:mm"/> 
+	                                <fmt:formatDate value="${helpComment.helpCommentDto.reg_date}" pattern="yyyy.MM.dd a hh:mm"/> 🚨
 	                                </span>
 	                                
 	                                  <c:if test="${sessionUser.id == helpComment.userDto.id }">
