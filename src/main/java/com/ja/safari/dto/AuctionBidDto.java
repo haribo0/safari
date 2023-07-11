@@ -14,13 +14,21 @@ public class AuctionBidDto {
 	
 	
 	// 조인
+	private int user_seller_id;
 	private String main_category_name;
 	private String sub_category_name;
 	private String title;
+	private String nickname;
 	@DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
 	private Date end_date;
 	private String auction_item_img_link;
 	private String payment_exists;
+	private String auction_status;
+	private String delivery_exists;
+	
+	private Date payment_reg_date;
+	private Date delivery_reg_date;
+	
 	
 	public AuctionBidDto() {
 	}
@@ -100,7 +108,42 @@ public class AuctionBidDto {
 	public void setPayment_exists(String payment_exists) {
 		this.payment_exists = payment_exists;
 	}
+	public String getNickname() {
+		return nickname;
+	}
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
+	}
+	public String getAuction_status() {
+		return auction_status;
+	}
+	public void setAuction_status(String auction_status) {
+		this.auction_status = auction_status;
+	}
+	public int getUser_seller_id() {
+		return user_seller_id;
+	}
+	public void setUser_seller_id(int user_seller_id) {
+		this.user_seller_id = user_seller_id;
+	}
+	public String getDelivery_exists() {
+		return delivery_exists;
+	}
+	public void setDelivery_exists(String delivery_exists) {
+		this.delivery_exists = delivery_exists;
+	}
+	public Date getPayment_reg_date() {
+		return payment_reg_date;
+	}
+	public void setPayment_reg_date(Date payment_reg_date) {
+		this.payment_reg_date = payment_reg_date;
+	}
+	public Date getDelivery_reg_date() {
+		return delivery_reg_date;
+	}
+	public void setDelivery_reg_date(Date delivery_reg_date) {
+		this.delivery_reg_date = delivery_reg_date;
+	}
+	
 
-	
-	
 }

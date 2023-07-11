@@ -18,10 +18,10 @@ import com.ja.safari.dto.CsLiveChatRating;
 import com.ja.safari.dto.CsQnaDto;
 import com.ja.safari.dto.CsQnaRating;
 import com.ja.safari.dto.UserAddressDto;
+import com.ja.safari.dto.UserChargeCoinKakaoPayApproveDto;
+import com.ja.safari.dto.UserCoinDto;
 import com.ja.safari.dto.UserDto;
 import com.ja.safari.user.service.UserServiceImpl;
-
-import oracle.net.jdbc.TNSAddress.AddressList;
 
 @RestController
 @RequestMapping("/user/*")
@@ -120,6 +120,27 @@ public class UserRestController {
 		  return map; 
 	  }
 	  
+	  // 회원의 현재 보유 코인 조회
+	  @RequestMapping("getUserCoinBalance") 
+	  public Map<String, Object> getUserCoinBalance(HttpSession session) {
+		  
+		  Map<String, Object> map = new HashMap<String, Object>();
+		  
+		  UserDto userDto = (UserDto) session.getAttribute("sessionUser");
+			
+			if(userDto == null) {
+				map.put("result", "fail");
+				map.put("reason", "로그인이 필요합니다.");
+				return map;
+			}
+			
+			map.put("result", "success");
+			map.put("coins", userService.getUserCoinBalance(userDto.getId()));
+			
+			return map;
+		  
+	  }
+
 	  // 1대1문의 답변 후기 저장  
 	  @RequestMapping("saveQnaReplyRating") 
 	  public Map<String, Object> saveQnaReplyRating(HttpSession session, CsQnaRating csQnaRating) {
@@ -232,10 +253,100 @@ public class UserRestController {
 	  }
 
 	  
-	  
-	  
-	  
-	 
+	  // 코인 충전 pk 받아오기
+	  @RequestMapping("getOnChargeCoinPk")
+	  public Map<String, Object> getOnChargeCoinPk(HttpSession session) {
+			
+			Map<String, Object> map = new HashMap<String, Object>();
+			
+			
+			UserDto userDto = (UserDto) session.getAttribute("sessionUser");
+			
+			if(userDto == null) {
+				map.put("result", "fail");
+				map.put("reason", "로그인이 필요합니다.");
+				return map;
+			}
+			
+			map.put("partnerOrderId", userService.getOnChargeCoinPk());
+			map.put("result", "success");
+			
+			return map;
 
+	  }
+	  
+		// 코인 충전 준비 정보를 세션에 저장하기 
+		@RequestMapping("saveChargeCoinTidToSession")
+		public Map<String, Object> saveAuctionTidToSession(HttpSession session, UserChargeCoinKakaoPayApproveDto userChargeCoinKakaoPayApproveDto) {
+			
+			Map<String, Object> map = new HashMap<String, Object>();
+			
+			UserDto sessionUser = (UserDto) session.getAttribute("sessionUser");
+			if(sessionUser == null) {
+				map.put("result", "fail");
+				map.put("reason", "로그인이 필요합니다");
+				return map;
+			}
+	
+			session.setAttribute("userChargeCoinkakaoPay", userChargeCoinKakaoPayApproveDto);
+			
+			map.put("result", "success");
+
+			return map;		
+			
+		}
+	  
+		// 카카오페이 코인 충전 정보 보내주기 
+	  @RequestMapping("getOnChargeCoinKakaoPayReadyInfo")
+		public  Map<String, Object> getOnChargeCoinKakaoPayReadyInfo(HttpSession session) {
+			
+			Map<String, Object> map = new HashMap<String, Object>();
+			
+			UserDto sessionUser = (UserDto) session.getAttribute("sessionUser");
+			if(sessionUser == null) {
+				map.put("result", "fail");
+				map.put("reason", "로그인이 필요합니다");
+				return map;
+			}
+			
+			UserChargeCoinKakaoPayApproveDto userChargeCoinKakaoPayApproveDto = 
+							(UserChargeCoinKakaoPayApproveDto) session.getAttribute("userChargeCoinkakaoPay");
+
+			map.put("result", "success");
+			map.put("coinReadyInfo", userChargeCoinKakaoPayApproveDto);	
+			
+			return map;
+		}
+	  
+	  
+		// 코인 충전 후 저장
+		@RequestMapping("saveChargeCoinData")
+		public  Map<String, Object> saveChargeCoinData(HttpSession session, UserChargeCoinKakaoPayApproveDto userChargeCoinKakaoPayApproveDto,
+			UserCoinDto userCoinDto) {
+			
+			Map<String, Object> map = new HashMap<String, Object>();
+			
+			UserDto userDto = (UserDto) session.getAttribute("sessionUser");
+			if(userDto == null) {
+				map.put("result", "fail");
+				map.put("reason", "login required");
+				return map;
+			}
+			System.out.println(userChargeCoinKakaoPayApproveDto.getPartner_order_id());
+			userCoinDto.setId(userChargeCoinKakaoPayApproveDto.getPartner_order_id());
+			
+			userCoinDto.setUser_id(userChargeCoinKakaoPayApproveDto.getPartner_user_id());
+			userCoinDto.setTransaction_detail(userChargeCoinKakaoPayApproveDto.getItem_name());
+			userCoinDto.setCoin_transaction(userChargeCoinKakaoPayApproveDto.getAmount());
+			
+			userService.insertUserCoin(userCoinDto);
+			
+			map.put("result", "success");
+			
+			return map;
+		}
+	  
+	  
+	  
 }
 

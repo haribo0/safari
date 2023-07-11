@@ -21,9 +21,24 @@
 	<!-- 커뮤니티 메뉴바 -->
 	<jsp:include page="../community/communityTopNavi.jsp"></jsp:include>
 	
+	<!--  body -->
+	<div class = "container main_box">
+	<div class = "row mt-3">
+		<div class = "col">
+			커뮤니티 메인 페이지 내용
+		</div>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	</div> <!--  <div class = "container main_box"> 닫힘 -->
+	<div class = "mb-5"></div>
 	<!-- 푸터 섹션 -->
 	<jsp:include page="../common/footer.jsp"></jsp:include>
 	<!-- 푸터 섹션 -->
-
 </body>	
 </html>

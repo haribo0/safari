@@ -112,6 +112,23 @@ public class AuctionController {
 		
 	}
 	
+	// 마이 페이지 - 경매 업로드 조회
+	@RequestMapping("uploadAuctionList")
+	public String getMyUploadAuctionList(HttpSession session, Model model) {
+		
+		UserDto sessionUser = (UserDto) session.getAttribute("sessionUser");
+		
+		model.addAttribute("uploadAuctionList", auctionService.getAuctionAndBidInfoByUploader(sessionUser.getId()));
+		
+		model.addAttribute("endedAuctionList", auctionService.getEndedAuctionAndPayYnInfoByUploader(sessionUser.getId()));
+		
+		model.addAttribute("noBidAuctionList", auctionService.getAuctionInfoByUploader(sessionUser.getId()));
+		
+		return "auction/uploadAuctionList";		
+		
+	}
+	
+
 	
 	// 결제 실패 
 		@RequestMapping("paymentFailed")

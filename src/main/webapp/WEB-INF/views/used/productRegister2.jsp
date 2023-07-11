@@ -12,6 +12,33 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
+<style>
+/* 버튼 색깔 */
+.orangeButton{
+	background: #ff6f0f;
+	color: white;
+}
+
+input[type=file]::file-selector-button {
+  background-color: #e5e5e5;
+  color: #000;
+  border: 0px;
+  border-right: 1px solid #e5e5e5;
+  padding: 5px 12px;
+  margin-right: 20px;
+  transition: .5s;
+  border-radius: 4px;
+  cursor: pointer;
+  
+}
+
+input[type=file]::file-selector-button:hover {
+  background-color: #eee;
+  border: 0px;
+  border-right: 1px solid #e5e5e5;
+  order-radius: 4px;
+}
+</style>
 </head>
 <body>
 <jsp:include page="../common/header.jsp"></jsp:include>
@@ -20,7 +47,7 @@
     <div class="row">
     <div class="col-2"></div>
     <div class="col">
-    <form action="./productRegisterProcess" method="post" enctype="multipart/form-data">
+    <form action="./productRegisterProcess" method="post" enctype="multipart/form-data" id="registrationForm">
         <div class="form-group row mt-1">
             <label for="title" class="col-sm-2 col-form-label fw-bold">상품 제목</label>
             <div class="col-sm-10">
@@ -50,7 +77,7 @@
         <div class="form-group row mt-3">
             <label for="content" class="col-sm-2 col-form-label fw-bold">상품 설명</label>
             <div class="col-sm-10">
-                <textarea class="form-control" name="content" rows="5" placeholder="상품 설명"></textarea>
+                <textarea class="form-control" name="content" rows="5" placeholder="상품 설명" id="content"></textarea>
             </div>
         </div>
 		
@@ -70,8 +97,8 @@
 
         <div class="form-group row mt-3">
             <label for="images" class="col-sm-2 col-form-label fw-bold">상품 이미지</label>
-            <div class="col-sm-10">
-                <input type="file" class="form-control-file" name="images" accept="image/*" multiple>
+            <div class="col-sm-10 input_container my-auto">
+                <input type="file" class="form-control-file" name="images" accept="image/*" id="fileUpload" multiple>
             </div>
         </div>
         <div class="form-group row mt-3">
@@ -94,17 +121,14 @@
         <div class="form-group row mt-3">
         	<label for="location" class="col-sm-2 col-form-label fw-bold">거래 희망 장소</label>
             <div class="col-4">
-             	<input class="form-control" type="text" name="location"> 
-            </div>
-            <div class="col-4">
-             	<div class="btn btn-light">장소 선택</div>
+             	<input class="form-control" type="text" name="location" id="location"> 
             </div>
         </div>
 		
-        <div class="row">
+        <div class="row mb-4">
         	<div class="col"></div>
             <div class="col-2 me-0 d-grid">
-                <button type="submit" class="btn btn-primary btn-block btn-dark">등록</button>
+                <div class="btn btn-block orangeButton" id="registerButton">등록</div>
             </div>
         </div>
         <input type="hidden" value="${sessionUser.id }" name="user_id">
@@ -233,8 +257,102 @@ function formatPrice() {
     this.value = number.toLocaleString();
 }
 
+const registerButton = document.getElementById("registerButton");
+
+// 등록 버튼 누를때 정보 입력 안되어있으면 focus 
+registerButton.addEventListener("click", function(event) {
+	const title = document.getElementById('title');
+	const product_main_category = document.getElementById('product_main_category');
+	const product_sub_category = document.getElementById('product_sub_category');
+	const content = document.getElementById('content');
+	const price = document.getElementById('price');
+	const fileUpload = document.getElementById('fileUpload').files[0]; 
+	const product_city = document.getElementById('product_city');
+	const product_town = document.getElementById('product_town');
+	const location = document.getElementById('location');
+	
+	if(!title.value) {
+	  event.preventDefault();
+	  alert("제목을 입력해주세요.");
+	  title.focus();
+	  return;
+	}
+	if(product_main_category.value==0) {
+	  event.preventDefault();
+	  alert("카테고리 대분류를 선택해주세요.");
+	  product_main_category.focus();
+	  return;
+	}
+	if(product_sub_category.value==0) {
+	  event.preventDefault();
+	  alert("카테고리 대분류를 선택해주세요.");
+	  product_sub_category.focus();
+	  return;
+	}
+	if(product_main_category.value==0) {
+	  event.preventDefault();
+	  alert("카테고리 소분류를 선택해주세요.");
+	  product_main_category.focus();
+	  return;
+	}
+	if(!content.value) {
+	  event.preventDefault();
+	  alert("상품 설명을 입력해주세요.");
+	  content.focus();
+	  return;
+	}
+	if(!price.value) {
+	  event.preventDefault();
+	  alert("가격을 입력해주세요.");
+	  price.focus();
+	  return;
+	}
+	if(!fileUpload) {
+	  event.preventDefault();
+	  alert("파일을 선택해주세요.");
+	  document.getElementById('fileUpload').focus();
+	  return;
+	}
+	if(product_city.value==0) {
+	  event.preventDefault();
+	  alert("지역을 선택해주세요.");
+	  product_city.focus();
+	  return;
+	}
+	if(product_town.value==0) {
+	  event.preventDefault();
+	  alert("동네를 선택해주세요.");
+	  product_town.focus();
+	  return;
+	}
+	if(!location.value) {
+	  event.preventDefault();
+	  alert("거래 희망 장소를 입력해주세요.");
+	  location.focus();
+	  return;
+	}
+
+  // 폼 id 	
+  const registrationForm = document.getElementById("registrationForm");
+  registrationForm.submit();
+
+});
+
 </script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script>
+window.onload = function(){
+    document.getElementById("location").addEventListener("click", function(){ //주소입력칸을 클릭하면
+        //카카오 지도 발생
+        new daum.Postcode({
+            oncomplete: function(data) { //선택시 입력값 세팅
+                document.getElementById("location").value = data.address; // 주소 넣기
+                document.querySelector("input[name=location]").focus(); //상세입력 포커싱
+            }
+        }).open();
+    });
+}
+</script>
 
 
 </body>

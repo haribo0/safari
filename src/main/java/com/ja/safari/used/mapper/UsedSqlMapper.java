@@ -14,7 +14,11 @@ import com.ja.safari.dto.ProductMainCategoryDto;
 import com.ja.safari.dto.ProductRequestDto;
 import com.ja.safari.dto.ProductSubCategoryDto;
 import com.ja.safari.dto.ProductTownDto;
+import com.ja.safari.dto.UsedCheckboxSelectedReviewDto;
 import com.ja.safari.dto.UsedKaKaoPayApproveDto;
+import com.ja.safari.dto.UsedPurchaseReviewDto;
+import com.ja.safari.dto.UsedReviewCheckboxCategoryDto;
+import com.ja.safari.dto.UsedReviewRateCategoryDto;
 import com.ja.safari.dto.UserDto;
 
 public interface UsedSqlMapper {
@@ -120,5 +124,29 @@ public interface UsedSqlMapper {
 	public void insertUsedPayment(UsedKaKaoPayApproveDto usedKakaoPayApproveDto);
 	// 결제 select 
 	public UsedKaKaoPayApproveDto getUsedPaymentByOrderId(Integer orderId);
+	// 리뷰 평가 카테고리 
+	public List<UsedReviewRateCategoryDto> selectUsedReviewRateCategory();
+	// 리뷰 평가 카테고리 - id에 따른 
+	public UsedReviewRateCategoryDto selectUsedReviewRateCategoryById(Integer id);
+	// 리뷰 평가 id에 따른 체크박스 카테고리 
+	public List<UsedReviewCheckboxCategoryDto> selectUsedReviewCheckboxCategoryByRateId(Integer rateId);
+	// 리뷰 pk
+	public int selectPurchaseReviewPk();
+	// 리뷰 insert
+	public void insertUsedPurchaseReview(UsedPurchaseReviewDto purchaseReviewDto);
+	// 리뷰 체크박스 insert 
+	public void insertUsedCheckboxSelectedReview(UsedCheckboxSelectedReviewDto usedCheckboxSelectedReviewDto);
+	// 해당 거래에 대한 내가 쓴 리뷰 개수 
+	public int selectMyWroteReviewCount(@Param("requestId")Integer requestId, @Param("senderId")Integer senderId);
+	// 해당 거래에 대한 내가 쓴 리뷰내용 가져오기 
+	public UsedPurchaseReviewDto selectPurchaseReviewByRequestIdAndSenderId(@Param("requestId")Integer requestId, @Param("senderId")Integer senderId);
+	// 해당 거래에 대한 내가 쓴 리뷰체크 박스 가져오기 
+	public List<UsedReviewCheckboxCategoryDto> selectCheckboxSelectedReviewByRequestIdAndSenderId(@Param("requestId")Integer requestId, @Param("senderId")Integer senderId);
+	
+	
+	
+	
+	
+	
 	
 }

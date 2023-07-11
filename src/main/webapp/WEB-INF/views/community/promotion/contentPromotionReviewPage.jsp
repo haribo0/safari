@@ -158,7 +158,10 @@ function clip(){
 	alert("URL이 복사되었습니다.")
 }
 
-
+function goToLoginPage() {
+	  alert("로그인 후 이용가능합니다")
+	  window.location.href = "../../user/loginPage"; // 메인 페이지의 주소를 입력해주세요
+	}
 
 window.addEventListener("DOMContentLoaded", function(){
 	
@@ -210,69 +213,68 @@ window.addEventListener("DOMContentLoaded", function(){
 		
 	</div>
 	
+	
 	<div class = "row">
 	<!--  사진 첨부(게시물 등록자가 올린것들?) -->
+		
 		<div class = "col"> 
-		
-
-		
-			<!--  상세 게시물 사진 -->
-			<div class = "row mt-3">
-				<div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="true">
-					 <div class="carousel-indicators">
-						<button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-					    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
-					  
-					 </div>
-					 <div class="carousel-inner">
-						 <div class="carousel-item active">
-						    <img src="/uploadPromoFiles/${data.promotionReviewImgDtoList[0].rental_review_img }" class="d-block w-100" alt="...">
-						 </div>
-						 <div class="carousel-item">
-					     	<img src="/uploadPromoFiles/${data.promotionReviewImgDtoList[1].rental_review_img }" class="d-block w-100" alt="...">
-					    </div>
-				  	</div>
-					 <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
-					  	<span class="carousel-control-prev-icon" aria-hidden="true"></span>
-					    <span class="visually-hidden">Previous</span>
-					 </button>
-					 <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
-					 	<span class="carousel-control-next-icon" aria-hidden="true"></span>
-					    <span class="visually-hidden">Next</span>
-					 </button>
-				</div>
-			</div>
-			<div class = "row">
+			<div class = "row sticky-top">
 				<div class = "col">
-					<form action="./rewardPromotionReviewPage" method="post">
-					<button class = "form-control btn btn-dark me-2">
-							<i class="bi bi-fast-forward"></i>&nbsp; 더 알아보기 &nbsp;<i class="bi bi-fast-forward"></i>
-					</button>
-					</form>
-				</div>
-			</div>	
-			
-			<!--  별점 받는 내역들(댓글처럼) => 다른걸로 수정해야하는ㄷ ㅔ뭘로 하지 아이디어 좀.. -->
-			<div class = "row mt-5">
-				<div class = "col fs-6 fw-semibold">
-					총 공감수
-				</div>
-			<!--  댓글 아이콘 -->
-				<div class = "col-1">			
-					<a href="#" style="text-decoration: none; color: inherit;">
-					<span class="bi bi-chat-dots-fill fs-5"></span>
-					</a>
-				</div>
-			</div>
-			<div class = "reviewlist container border border-1 mt-3" style="border-radius: 10px;">
-				<div class = "row mt-2">
-					<div class = "col">
-						공감 수 : n개  ,  ..
+					<!--  대여 상품명 & 상호 -->
+					<div class = "row mt-5">
+						<div class = "col fs-5 fw-semibold">
+							대여 상품명
+							<i class="bi bi-box"></i>
+						</div>
 					</div>
+					<div class = "reviewlist container border border-1 mt-3" style="border-radius: 10px;">
+						<div class = "row mt-2">
+							<div class = "col">
+								공감 수 : n개  ,  ..
+							</div>
+						</div>
+					</div>	
+		
+					<!--  상세 게시물 사진 -->
+					<div class = "row mt-3">
+						<div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="true">
+							 <div class="carousel-indicators">
+								<button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+							    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+							  
+							 </div>
+							 <div class="carousel-inner">
+								 <div class="carousel-item active">
+								    <img src="/uploadPromoFiles/${data.promotionReviewImgDtoList[0].rental_review_img }" class="d-block w-100" alt="...">
+								 </div>
+								 <div class="carousel-item">
+							     	<img src="/uploadPromoFiles/${data.promotionReviewImgDtoList[1].rental_review_img }" class="d-block w-100" alt="...">
+							    </div>
+						  	</div>
+							 <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+							  	<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+							    <span class="visually-hidden">Previous</span>
+							 </button>
+							 <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+							 	<span class="carousel-control-next-icon" aria-hidden="true"></span>
+							    <span class="visually-hidden">Next</span>
+							 </button>
+						</div>
+					</div>
+					<div class = "row">
+						<div class = "col">
+							<form action="./rewardPromotionReviewPage" method="post">
+							<button class = "form-control btn btn-dark me-2">
+									<i class="bi bi-fast-forward"></i>&nbsp; 더 알아보기 &nbsp;<i class="bi bi-fast-forward"></i>
+							</button>
+							</form>
+						</div>
+					</div>	
+					
+						
 				</div>
 			</div>
-			
-		</div> <!--  col 1번 -->
+		</div>
 	
 		
 		<!--  중간 바 -->
@@ -283,7 +285,7 @@ window.addEventListener("DOMContentLoaded", function(){
 		</div> <!--  col 2번 -->
 		
 		<!--  게시물 내용 -->
-		<div class = "col-7 scroll-container"> 
+		<div class = "col-7"> <!--  수습 안 되면 다시 scroll-container 붙이기 --> 
 			
 			<div class = "row">
 				<div class = "col">
@@ -355,7 +357,7 @@ window.addEventListener("DOMContentLoaded", function(){
 					
 						<!--  본문 내용 -->
 					<div class = "row mt-5">
-						<div class = "col">
+						<div class = "col" style="height: 500px; overflow: auto;">
 							${data.promotionReviewDto.promotion_review_content}
 						</div>
 					</div>
@@ -390,35 +392,67 @@ window.addEventListener("DOMContentLoaded", function(){
 					<div class = "row mt-5">
 						<div class = "col">
 							<div class = "row">
-								<div class = "col fw-semibold fst-italic fs-5">댓글</div>
+								<div class = "col fw-semibold fst-italic fs-5">
+									Comment
+									<span class="bi bi-chat-dots-fill fs-5"></span>
+								</div>
 							</div>
-							<div class = "row mt-5">
-								<div class = "col fw-semibold">
-									<c:if test="${!empty sessionUser}">
-									<form action="./writePromotionReivewCommentProcess" method="post">
-									<div class = "row">
-										<div class = "col">
-										${data.userDto.nickname }
-										</div>
-									</div>
-									<div class = "row mt-3">
-										<div class = "col">
-										<input class = "form-control" type = "text" name = "promotion_review_comment" placeholder="댓글 작성하기">
-										<input type = "hidden" name = "promotion_review_id"  value = "${data.promotionReviewDto.id }" >
-										</div>
-									</div>
-									<div class = "row mt-2">
-										<div class = "col-2">
-											<input type = "checkbox" name = "private_comment" id = "privateCommentCheckBox">
-											<label for="privateCommentCheckbox">비밀글</label>
-										</div>
-										<div class = "col-8"></div>
-										<div class = "col">
-										<button class = "btn btn-dark">작성 완료</button>
-										</div>
-									</div>
-									</form>
-									</c:if>
+							
+							<div class = "row mt-2 card border border-1">
+								<div class = "col mb-2 fw-semibold">
+									<c:choose>
+										<c:when test="${!empty sessionUser}">
+											<form action="./writePromotionReivewCommentProcess" method="post">
+												<div class = "row mt-3">
+													<div class = "col">
+													${data.userDto.nickname }
+													</div>
+												</div>
+												<div class = "row mt-1">
+													<div class = "col">
+													<input class = "form-control" type = "text" name = "promotion_review_comment" placeholder="댓글 작성하기">
+													<input type = "hidden" name = "promotion_review_id"  value = "${data.promotionReviewDto.id }" >
+													</div>
+												</div>
+												<div class = "row mt-2">
+													<div class = "col-2">
+														<input type = "checkbox" name = "private_comment" id = "privateCommentCheckBox">
+														<label for="privateCommentCheckbox">비밀글</label>
+													</div>
+													<div class = "col-8"></div>
+													<div class = "col">
+													<button class = "form-control btn btn-dark">등록</button>
+													</div>
+												</div>
+											</form>
+										</c:when>
+										<c:otherwise>
+											<form action="../../user/loginPage" method="post">
+												<div class = "row mt-3">
+													<div class = "col ">
+													로그인하지 않은 사용자
+													</div>
+												</div>
+												<div class = "row mt-1">
+													<div class = "col">
+													<input class = "form-control" type = "text" name = "promotion_review_comment"
+														onclick="goToLoginPage(); return false;" placeholder="댓글을 작성하려면 로그인 해주세요.">
+													</div>
+												</div>
+												<div class = "row mt-2">
+													<div class = "col-2">
+														<input type = "checkbox" name = "private_comment" id = "privateCommentCheckBox">
+														<label for="privateCommentCheckbox">비밀글</label>
+													</div>
+													<div class = "col-8"></div>
+													<div class = "col">
+													<button class = "form-control btn btn-dark">등록</button>
+													</div>
+												</div>
+											</form>
+										</c:otherwise>
+									</c:choose>
+									
 									</div>
 								</div>
 							</div>
@@ -426,7 +460,7 @@ window.addEventListener("DOMContentLoaded", function(){
 					</div>
 	
 								
-					<!--  댓글 구현 -->
+					<!--  댓글 리스트 -->
 					<div class = "row mt-5">
 						<div class = "col">
 							<c:forEach items = "${promoCommentDtoList}" var = "mapPromoComment">
@@ -443,8 +477,8 @@ window.addEventListener("DOMContentLoaded", function(){
 													${mapPromoComment.userDto.nickname}
 												</div>
 												<div class = "col-1"></div>
-												<div class = "col text-end ms-1">
-												<fmt:formatDate value="${mapPromoComment.promotionReviewCommentDto.reg_date}" pattern = "yyyy-MM-dd HH-mm-ss"/>	
+												<div class = "col text-end text-secondary ms-1" style = "font-size: 12px;">
+												<fmt:formatDate value="${mapPromoComment.promotionReviewCommentDto.reg_date}" pattern = "yyyy-MM-dd  HH-mm-ss"/>	
 												</div>
 											</div>
 											<div class ="row mt-2">
