@@ -8,10 +8,10 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.ja.safari.dto.CsQnaDto;
 import com.ja.safari.dto.RentalItemDto;
 import com.ja.safari.dto.RentalOrderDto;
 import com.ja.safari.dto.UserAddressDto;
+import com.ja.safari.dto.UserCoinDto;
 import com.ja.safari.dto.UserDto;
 import com.ja.safari.rental.mapper.RentalSqlMapper;
 import com.ja.safari.user.mapper.UserSqlMapper;
@@ -74,7 +74,41 @@ public class UserServiceImpl {
 	public UserDto selectUserDtoById(int id) {
 		return userSqlMapper.selectUserDtoById(id);
 	}
+	
+	// 코인 충전 pk 받아오기
+	public int getOnChargeCoinPk() {
+		return userSqlMapper.getOnChargeCoinPk();
+	}
+	
+	// 코인 충전 정보 저장
+	public void insertUserCoin(UserCoinDto userCoinDto) {
+		userSqlMapper.insertUserCoin(userCoinDto);
+	}
 
+	// 코인 방금 충전한 내역 조회
+	public Map<String, Object> getChargeCoinSuccessHistory(Integer id) {
+		
+		Map<String, Object> map = new HashMap<>();
+		
+		map.put("chargeCoinHistory", userSqlMapper.getChargeCoinSuccessHistory(id));
+		
+		return map;
+	}
+	
+	// 회원의 현재 보유 코인 조회
+	public int getUserCoinBalance(int userId) {
+		return userSqlMapper.getUserCoinBalance(userId);
+	}
+	
+	// 회원의 코인 충전 내역 조회
+	public List<UserCoinDto> getCoinChargeHistoryList(int userId) {
+		return userSqlMapper.getCoinChargeHistoryList(userId);
+	}
+	
+	// 회원의 코인 사용 내역 조회
+	public List<UserCoinDto> getCoinTransactions(int userId) {
+		return userSqlMapper.getCoinTransactions(userId);
+	}
 	
 
 	

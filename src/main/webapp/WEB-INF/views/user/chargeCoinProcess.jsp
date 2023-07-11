@@ -40,8 +40,8 @@
 <script>
 
 
-//카카오페이 결제 ready 정보 보내주기
-function getAuctionKakaoPayReadyInfo() {
+// 코인 충전 정보 보내주기
+function getOnChargeCoinKakaoPayReadyInfo() {
 
 	const xhr = new XMLHttpRequest();
 
@@ -49,38 +49,38 @@ function getAuctionKakaoPayReadyInfo() {
 		if(xhr.readyState == 4 && xhr.status == 200){
 			const response = JSON.parse(xhr.responseText);
 			
-			const cid = response.auctionReadyInfo.cid;
-			const tid = response.auctionReadyInfo.tid;
-			const partner_order_id = response.auctionReadyInfo.partner_order_id;
-			const partner_user_id = response.auctionReadyInfo.partner_user_id;
+			const cid = response.coinReadyInfo.cid;
+			const tid = response.coinReadyInfo.tid;
+			const partner_order_id = response.coinReadyInfo.partner_order_id;
+			const partner_user_id = response.coinReadyInfo.partner_user_id;
 			const quantity = 1;
-			const item_name = response.auctionReadyInfo.item_name;
-			const pg_token = response.auctionReadyInfo.pg_token;
+			const item_name = response.coinReadyInfo.item_name;
+			const pg_token = response.coinReadyInfo.pg_token;
 			
-			console.log(cid);
+	/* 		console.log(cid);
 			console.log(tid);
 			console.log(partner_order_id);
 			console.log(partner_user_id);
 			console.log(item_name);
 			console.log(pg_token);
+			 */
 			
-			
-			getAuctionApproveData(cid, tid, partner_order_id, partner_user_id, pg_token);
+			getChargeCoinApproveData(cid, tid, partner_order_id, partner_user_id, pg_token);
 			
 			
 		}
 	}
 
-		// get 방식 
-		xhr.open("get", "/safari/auction/getAuctionKakaoPayReadyInfo");
+
+		xhr.open("get", "/safari/user/getOnChargeCoinKakaoPayReadyInfo");
 		xhr.send();
 
-	}
+}
 
 
 
-//결제 정보 가져오기
-function getAuctionApproveData(cid, tid, partner_order_id, partner_user_id, pg_token) {
+//충전 정보 가져오기
+function getChargeCoinApproveData(cid, tid, partner_order_id, partner_user_id, pg_token) {
 
 	const xhr = new XMLHttpRequest();
 
@@ -95,12 +95,10 @@ function getAuctionApproveData(cid, tid, partner_order_id, partner_user_id, pg_t
 			console.log(partner_user_id);
 			console.log(pg_token);
 
-			saveAuctionPaymentData(cid, tid, partner_order_id, 
+			saveChargeCoinData(cid, tid, partner_order_id, 
 					partner_user_id, pg_token, response.item_name, 
 					response.amount.total, response.payment_method_type);
-			
-			
-			
+					
 			
 		}
 	}
@@ -114,7 +112,7 @@ function getAuctionApproveData(cid, tid, partner_order_id, partner_user_id, pg_t
 
 
 //결제 정보 저장
-function saveAuctionPaymentData(cid, tid, partner_order_id, 
+function saveChargeCoinData(cid, tid, partner_order_id, 
 		   						partner_user_id, pg_token, item_name,
 		   						amount, payment_method_type) {
 	
@@ -125,7 +123,7 @@ function saveAuctionPaymentData(cid, tid, partner_order_id,
 		if(xhr.readyState == 4 && xhr.status == 200){
 			const response = JSON.parse(xhr.responseText);
 			
-			console.log("savePaymentData::"+response.result);
+			console.log(partner_order_id);
 			
 		     // 팝업 창 닫기
 	         window.close();
@@ -133,10 +131,10 @@ function saveAuctionPaymentData(cid, tid, partner_order_id,
 		    
 	         // 부모 창으로 이동하여 전체 화면으로 결제 완료 페이지 표시
 	       if (window.opener) {
-	            window.opener.location.href = "http://localhost:8181/safari/auction/paymentSucceed?id=" + partner_order_id;
+	            window.opener.location.href = "http://localhost:8181/safari/user/chargeCoinSucceed?id=" + partner_order_id;
 	         } else {
 	            // window.opener가 없을 경우에는 현재 창을 리다이렉트
-	            location.href = "http://localhost:8181/safari/auction/paymentSucceed?id=" + partner_order_id;
+	            location.href = "http://localhost:8181/safari/user/chargeCoinSucceed?id=" + partner_order_id;
 	         } 
 	
 		}
@@ -144,7 +142,7 @@ function saveAuctionPaymentData(cid, tid, partner_order_id,
 
 
 	// post 방식 
-	xhr.open("post", "/safari/auction/saveAuctionPaymentInfo");
+	xhr.open("post", "/safari/user/saveChargeCoinData");
 	xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 	xhr.send("cid="+cid+"&tid="+tid+"&partner_order_id="+partner_order_id+"&partner_user_id="+partner_user_id+"&pg_token="+pg_token+"&item_name="+item_name+"&amount="+amount+"&payment_method_type="+payment_method_type);
 
@@ -157,7 +155,7 @@ function saveAuctionPaymentData(cid, tid, partner_order_id,
 
 // 시작시 실행 
 window.addEventListener("DOMContentLoaded",function(){
-	 getAuctionKakaoPayReadyInfo();
+	 getOnChargeCoinKakaoPayReadyInfo();
 	
 
 	

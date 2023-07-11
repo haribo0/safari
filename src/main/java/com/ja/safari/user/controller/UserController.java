@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.ja.safari.auction.service.AuctionServiceImpl;
 import com.ja.safari.cs.service.CsServiceImpl;
-import com.ja.safari.dto.CsEmpDto;
+import com.ja.safari.dto.UserChargeCoinKakaoPayApproveDto;
 import com.ja.safari.dto.UserDto;
 import com.ja.safari.user.service.UserServiceImpl;
 
@@ -55,6 +55,8 @@ public class UserController {
 		return "/main/loginPage";
 	}
 	
+
+	
 	// 주소관리|마이페이지
 	@RequestMapping("myAddressPage")
 	public String myAddressPage(HttpSession session) {
@@ -83,12 +85,23 @@ public class UserController {
 		return "/main/myOrderListPage";
 	}
 	
-	// 대여|코인페이지
+	// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+	// 대여|코인페이지 (!    하리님한테 수정해도 되는지 말씀드리기 !)
 	@RequestMapping("myCoinPage")
-	public String myCoinPage () {
+	public String myCoinPage (HttpSession session, Model model) {
+		
+		UserDto sessionUser = (UserDto)session.getAttribute("sessionUser");
+		if(sessionUser==null) {
+			return "redirect:../user/loginPage";
+		}
+		
+		model.addAttribute("chargeCoinHistoryList" ,userService.getCoinChargeHistoryList(sessionUser.getId()));
+		model.addAttribute("coinTransactions", userService.getCoinTransactions(sessionUser.getId()));
+		
 		
 		return "/user/myCoinPage";
 	}
+	// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 	
 	// 1대1문의 | 마이페이지
 	@RequestMapping("myInquiryPage")
@@ -188,22 +201,54 @@ public class UserController {
 		}
 	}
 	
-	// 영인 마이페이지 - 경매 리스트
-	@RequestMapping("auctionList")
-	public String auctionList(Model model, HttpSession session) {
+	
+	// 코인 충전 실패 
+	@RequestMapping("chargeCoinFailed")
+	public String paymentFailed(HttpSession session) {
 		
-		UserDto sessionUser = (UserDto) session.getAttribute("sessionUser");
+		UserDto userDto = (UserDto) session.getAttribute("sessionUser");
+		if(userDto == null) return "redirect:./loginPage"; 		
 		
-		if (sessionUser == null) {
-			return "/main/loginPage";
-		} else {
-			model.addAttribute("bidHistoryList", auctionService.getBidHistoryByUser(sessionUser.getId()));
-			model.addAttribute("auctionHistoryList", auctionService.getAuctionUploadHistoryByUser(sessionUser.getId()));
-			return "/auction/List";
-		}
+		return "user/chargeCoinFailed";
+	}
+
+	// 코인 충전 진행
+	@RequestMapping("chargeCoinProcess")
+	public String paymentProcess(HttpSession session, String pg_token) {
 		
+		UserDto userDto = (UserDto) session.getAttribute("sessionUser");
+		if(userDto == null) return "redirect:/user/loginPage"; 		
+		
+	
+		UserChargeCoinKakaoPayApproveDto userChargeCoinKakaoPayApproveDto = 
+				(UserChargeCoinKakaoPayApproveDto) session.getAttribute("userChargeCoinkakaoPay");
+		
+		userChargeCoinKakaoPayApproveDto.setPg_token(pg_token);
+		
+		session.setAttribute("userChargeCoinkakaoPay", userChargeCoinKakaoPayApproveDto);
+		
+
+		return "user/chargeCoinProcess";
 	}
 	
+	
+	// 코인 충전 성공     
+	@RequestMapping("chargeCoinSucceed")
+	public String paymentSucceeded(HttpSession session, Model model, Integer id) {
+		
+		UserDto userDto = (UserDto) session.getAttribute("sessionUser");
+		if(userDto == null) return "redirect:/user/loginPage"; 		
+		
+		session.removeAttribute("userChargeCoinkakaoPay");
+		
+		model.addAttribute("map", userService.getChargeCoinSuccessHistory(id));
+		
+		return "user/chargeCoinSucceed";
+	}
+
+	
+	
+
 	
 	
 	

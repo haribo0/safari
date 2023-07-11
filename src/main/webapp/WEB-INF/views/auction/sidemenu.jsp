@@ -8,9 +8,9 @@
 			<div class="col"></div>
 		</div>
 	
-		<div class="row mt-5 fs-3 fw-bold">
+		<div class="row mt-5 fs-4 fw-bold">
 			<div class="col">
-				<a href="/safari/auction/mainPage">CATEGORY</a>
+				<a href="/safari/auction/mainPage">전체보기</a>
 			</div>
 		</div>
 		
@@ -22,10 +22,12 @@
 	</div>
 	<%-- 사이드 메뉴바 끝 --%>
 <script>
+
 let mainCategoryId = null;
 let subCategoryId = null;
 
 // 카테고리 출력
+
 
 // 대규모 카테고리 리스트
 function getProductMainCategoriesForMenu() {
@@ -71,16 +73,14 @@ function getProductMainCategoriesForMenu() {
         	    categoryListBox.appendChild(mainCategoryRow);      	
         	    
 
-	
-   
         	}
-        	
 
         }
    };
     xhr.open("get", "/safari/auction/getProductMainCategoriesForMenu");
     xhr.send();
 }
+
 
 
 // 대규모 카테고리에 따른 소규모 카테고리 리스트
@@ -93,7 +93,7 @@ function getProductSubCategoriesForMenu(productMainCategoryId, subCategoryDiv) {
  
             const response = JSON.parse(xhr.responseText);
             
-            const subCategoryBox = document.getElementById("mainCategories_" + productMainCategoryId);
+            const subCategoryBox = document.getElementById("mainCategories_" + productMainㅠCategoryId);
             subCategoryBox.innerHTML = "";
             
             for(data of response.subCategories) {
@@ -107,8 +107,6 @@ function getProductSubCategoriesForMenu(productMainCategoryId, subCategoryDiv) {
             	
             	subCategoryCol.id = "subCategory_" + data.id;
             
-            	
-            	
             	
             	subCategoryCol.innerText = data.sub_category_name;
             	

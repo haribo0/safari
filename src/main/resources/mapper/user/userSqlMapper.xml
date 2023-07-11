@@ -29,10 +29,7 @@
 			SELECT * FROM user_table WHERE id = #{id}
 		</select>
 		
-		
-		
-		
-		
+
 				
 		<!-- 주소추가 -->
 		<insert id="insertUserAddress">
@@ -60,17 +57,56 @@
 			SELECT * FROM user_table WHERE id = #{id}
 		</select>
 		
+		
+		
+		<!-- 회원 코인 충전 pk 받아오기 -->
+		<select id="getOnChargeCoinPk" resultType="int">
+			SELECT coin_table_seq.nextval FROM dual
+		</select>
+		
 		<!-- 회원 코인 insert -->
 		<insert id="insertUserCoin">
 			INSERT INTO coin_table values(
-			coin_table_seq.nextval,
+			#{id},
 			#{user_id},
 			#{coin_transaction},
-			#{transaction_operand},
+			'P',
 			#{transaction_detail},
 			SYSDATE
 			)
 		</insert>
+		
+		<!-- 코인 방금 충전한 내역 조회 -->
+		<select id="getChargeCoinSuccessHistory" resultType="com.ja.safari.dto.UserCoinDto">
+			SELECT * FROM coin_table WHERE id = #{id}
+		</select>
+		
+		<!-- 회원의 현재 보유 코인 조회 -->
+		<select id="getUserCoinBalance" resultType="int">
+			SELECT NVL(SUM(CASE WHEN transaction_operand = 'P' 
+			            THEN coin_transaction 
+			            ELSE -coin_transaction END),0) total_coin
+				   FROM coin_table
+				   WHERE user_id = #{userId}	
+		</select>
+		
+		<!-- 회원의 코인 충전 내역 조회 -->
+		<select id="getCoinChargeHistoryList" resultType="com.ja.safari.dto.UserCoinDto">
+			SELECT * 
+			    FROM coin_table 
+			    WHERE user_id = #{userId}
+			          AND transaction_operand = 'P'
+			    ORDER BY reg_date DESC      
+		</select>
+		
+		<!-- 회원의 코인 사용 내역 조회 -->
+		<select id="getCoinTransactions" resultType="com.ja.safari.dto.UserCoinDto">
+ 			SELECT * 
+			    FROM coin_table 
+			    WHERE user_id = #{userId}
+			          AND transaction_operand = 'M'
+			    ORDER BY reg_date DESC   		
+		</select>
 		
 		
 		
