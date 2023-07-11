@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<div class="col-2">
+<div class="col-2 text-start">
 		<div style="border-bottom: 2px solid #222; height: 48px;">
 			<a href="./myPage" class="btn p-0"><h4 class="fw-bold mb-3" style="letter-spacing: -0.8px;">MY PAGE</h4></a>	
 		</div>
@@ -57,9 +57,9 @@
 		  <a class="btn text fw-bolder py-1 ps-0 mt-2" href="#" >커뮤니티</a></li>
 		  	<div class="" id="">
 				<ul class="list-group">
-					<li class="list-group-item border-0 py-1 ps-0"><a href="#" class="btn py-0 text-body-secondary ps-0 fs-nav-small">리스트제목</a></li>
-					<li class="list-group-item border-0 py-1 ps-0"><a href="#" class="btn py-0 text-body-secondary ps-0 fs-nav-small">리스트제목</a></li>
-					<li class="list-group-item border-0 py-1 ps-0"><a href="#" class="btn py-0 text-body-secondary ps-0 fs-nav-small">리스트제목</a></li>
+					<li class="list-group-item border-0 py-1 ps-0"><a href="./myAllCommunityPostListPage" class="btn py-0 text-body-secondary ps-0 fs-nav-small">게시글리스트</a></li>
+					<li class="list-group-item border-0 py-1 ps-0"><a href="./myCommunityLikesListPage" class="btn py-0 text-body-secondary ps-0 fs-nav-small">좋아요리스트</a></li>
+					<li class="list-group-item border-0 py-1 ps-0"><a href="./rewardLikesListPage" class="btn py-0 text-body-secondary ps-0 fs-nav-small">대여찜(임시로)</a></li>
 					<li class="list-group-item border-0 py-1 ps-0"><a href="#" class="btn py-0 text-body-secondary ps-0 fs-nav-small">리스트제목</a></li>
 				</ul>
 			</div>

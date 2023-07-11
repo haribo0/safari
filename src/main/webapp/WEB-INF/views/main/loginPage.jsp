@@ -7,7 +7,9 @@
 <head>
 <meta charset="UTF-8">
 <title>사파리 | 로그인</title>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+<!-- 메타 섹션 -->
+<jsp:include page="../common/meta.jsp"></jsp:include>
+<!-- 메타 섹션 -->
 </head>
 <body>
 	<!-- 헤더 섹션 -->

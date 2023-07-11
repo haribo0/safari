@@ -19,7 +19,7 @@
 <style type="text/css">
 
 	
-  .orderTab{
+.orderTab{
 	color: #F68942;
 }
 
@@ -67,7 +67,7 @@
 				<div class="row mt-5 ms-4">
 					<!-- <form action="#" method="GET" class="d-flex" role="search"> -->
 					
-					<div class="col-1 me-1 text-end col-form-label">
+					<div class="col-auto me-1 text-end col-form-label">
 						진행상태 
 					</div>
 					
@@ -82,7 +82,7 @@
 						</select>
 					</div>
 					
-					<div class="col-1 me-1 text-end col-form-label">
+					<div class="col-auto me-1 text-end col-form-label">
 						상품 
 					</div>
 					

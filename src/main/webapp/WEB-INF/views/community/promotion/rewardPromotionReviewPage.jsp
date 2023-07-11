@@ -15,7 +15,16 @@
 	<!-- 헤더 섹션 -->
 
 	<div class="container main_box">
-	
+		<div class = "row">
+			<div class = "col">
+				리워드 적립 페이지...
+			</div>
+		</div>
+		<div class = "row">
+			<div class = "col">
+				
+			</div>
+		</div>
 	
 	
 	
@@ -38,9 +47,5 @@
 	<!-- 푸터 섹션 -->
 		</div>
 	</div>
-	<script
-		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
-		integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
-		crossorigin="anonymous"></script>	
 </body>
 </html>

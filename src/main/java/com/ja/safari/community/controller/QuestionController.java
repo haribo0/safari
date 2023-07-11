@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.ja.safari.community.service.QuestionServiceImpl;
 import com.ja.safari.dto.QuestionDto;
 import com.ja.safari.dto.QuestionLikeDto;
+import com.ja.safari.dto.QuestionReplyCompleteDto;
 import com.ja.safari.dto.QuestionReplyDto;
 import com.ja.safari.dto.UserDto;
 import com.ja.safari.user.service.UserServiceImpl;
@@ -121,9 +122,9 @@ public class QuestionController {
 		    model.addAttribute("board", questionService.getQuestionBoardByBoardId(id));
 			 
 			
-//			 List<Map<String,Object>> questionReplyBoardList = communityService.getQuestionReplyBoardList(id);
-//			 
-//			 model.addAttribute("questionReplyBoardList", questionReplyBoardList); 
+			 List<Map<String,Object>> questionReplyBoardList = questionService.getQuestionReplyBoardList(id);
+			 
+			 model.addAttribute("questionReplyBoardList", questionReplyBoardList); 
 			 
 			 return "/community/question/replyQuestionContentPage";
 			 }
@@ -165,4 +166,27 @@ public class QuestionController {
 				return "redirect:/community/question/questionReadContentPage/" + id;
 			}
 		}
+		
+	  //궁금해요 게시물 채택 
+		@RequestMapping("question/acceptQuestionReplyProcess")
+		public String acceptQuestionReplyProcess(int question_reply_id, QuestionReplyCompleteDto questionReplyCompleteDto) {
+		
+		// 궁금해요 채택완료 테이블
+		questionReplyCompleteDto.setQuestion_reply_id(question_reply_id);
+		
+		QuestionReplyDto questionReplyDto = questionService.getQuestionReplyById(question_reply_id);
+			
+		questionService.acceptQuestionReply(question_reply_id);
+		questionService.completeQuestionReply(question_reply_id);
+		questionService.completeQuestionBoard(question_reply_id);
+		
+		
+		return "redirect:/community/question/questionReadContentPage/" + questionReplyDto.getQuestion_id();
+}
+		
+		
+		
+		
+		
+		
 }

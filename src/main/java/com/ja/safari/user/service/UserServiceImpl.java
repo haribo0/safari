@@ -8,6 +8,11 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.ja.safari.community.mapper.PromotionReviewCommentMapper;
+import com.ja.safari.community.mapper.PromotionReviewMapper;
+import com.ja.safari.dto.CsQnaDto;
+import com.ja.safari.dto.PromotionReviewDto;
+import com.ja.safari.dto.PromotionReviewImgDto;
 import com.ja.safari.dto.RentalItemDto;
 import com.ja.safari.dto.RentalOrderDto;
 import com.ja.safari.dto.UserAddressDto;
@@ -25,6 +30,11 @@ public class UserServiceImpl {
 	@Autowired
 	private RentalSqlMapper rentalSqlMapper;
 	
+	@Autowired
+	private PromotionReviewMapper promotionReviewMapper;
+	
+	@Autowired
+	private PromotionReviewCommentMapper promotionReviewCommentMapper;
 	
 	
 	//회원가입
@@ -110,7 +120,41 @@ public class UserServiceImpl {
 		return userSqlMapper.getCoinTransactions(userId);
 	}
 	
+	// 세연 - 커뮤니티 내가 쓴 게시글(리워드) 불러오기
+	public List<Map<String, Object>> getProreviewByMyPost(int user_id) {
 
+		List<PromotionReviewDto> proReviewMyPostList = userSqlMapper.selectProreviewByMyPost(user_id);
+		
+		
+		List<Map<String, Object>> promoReviewMyPostList = new ArrayList<>();
+		
+		
+		for(PromotionReviewDto promotionReviewDto : proReviewMyPostList) {
+		
+			
+			Map<String, Object> map = new HashMap<>();
+		
+			
+			UserDto userDto = userSqlMapper.selectUserDtoById(promotionReviewDto.getUser_id());
+			
+			List<PromotionReviewImgDto> promotionReviewImgList = promotionReviewMapper.selectByPromoReviewImgId(promotionReviewDto.getId());
+			
+			int countPromotionReviewComment = promotionReviewCommentMapper.countPromotionReviewComment(promotionReviewDto.getId());
+			
+			int countLikeByPromotionReview = promotionReviewMapper.countLikeByPromotionReviewId(promotionReviewDto.getId());
+			
+			map.put("userDto", userDto);
+			map.put("promotionReviewDto", promotionReviewDto);
+			map.put("promotionReviewImgList", promotionReviewImgList);
+			map.put("countPromotionReviewComment", countPromotionReviewComment);
+			map.put("countLikeByPromotionReview", countLikeByPromotionReview);
+			
+			promoReviewMyPostList.add(map);
+			
+		}
+		
+		return promoReviewMyPostList;
+	}
 	
 	
 	

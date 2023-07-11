@@ -70,13 +70,6 @@
 								<div class="col d-grid">
 								
 									<input type="hidden" name="user_id" value="${sessionUser.id}">
-									
-									
-									 <div class="form-group">
-									     <div class="form-control" style="font-size: ; font-family: 'Noto Sans', sans-serif; box-shadow: none;">
-									        <strong><input type="text" name="title" value="${map.pickDto.title}" style="width: 100%; border: none; outline: none;"></strong>
-									     </div>
-								     </div>
 								    
 								    <div class="form-group">
 								      <div class="form-control justify-content-end mt-2 mb-2" style="font-size: ; font-family: 'Noto Sans', sans-serif; box-shadow: none;">
@@ -92,19 +85,6 @@
 							</form>
 							<%-- write from--%>	
 						
-						<%-- write from
-							<form action="/safari/community/pick/updateContentProcess" method="post" >
-								제목: <input type="text" name="title" value="${map.pickDto.title}"><br>
-								작성자: ${sessionUser.nickname }<br>
-								
-								내용: <br>
-								<textarea rows="10" cols="60" name="content" >${map.pickDto.content}</textarea>
-								<input type="hidden" name="id" value="${map.pickDto.id}">
-								
-								
-								
-							
-							</form>--%>
 						</div>	
 					</div>
 					<%-- getPickBoard --%>

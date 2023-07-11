@@ -54,32 +54,7 @@
 					<%-- pickBoardList --%> 
 					<div class="row"  style="text-align:center">
 						<div class="col">
-							<table class="table table-hover">
-								<thead>
-									<tr>
-										<th>글번호</th>
-										<th>제목</th>
-										<th>작성자</th>
-										<th>조회수</th>
-										<th>등록일</th>
-									</tr>	
-								</thead>
-								<tbody>
-								<c:forEach items="${pickBoardList}" var="pickDto">							
-									<tr class="align-middle">
-										<td><a class="text-black text-decoration-none" href="/safari/community/pick/readContentPage/${pickDto.pickDto.id}" >
-										${pickDto.pickDto.id}
-										</a></td>
-										<td><a class="text-black text-decoration-none" href="/safari/community/pick/readContentPage/${pickDto.pickDto.id}">
-										${pickDto.pickDto.title}</a></td>
-										<td>${pickDto.userDto.nickname}</td>
-										<td>${pickDto.pickDto.views}</td>
-										<td><fmt:formatDate value="${pickDto.pickDto.reg_date}" pattern="yyyy.MM.dd"/></td>
-									</tr>
-								</c:forEach>	
-								</tbody>
-							</table>
-							 
+							
 							<%-- 글쓰기버튼 --%>
 							<div class="row">
 								<div class="col text-end pe-5">
@@ -89,6 +64,85 @@
 								</div>
 							</div>
 							<%-- 글쓰기버튼 --%>
+								
+								
+								<%-- 골라줘요 항목 foreach --%>
+								<c:forEach items="${pickBoardList}" var="pickDto">				
+								<div class="align-middle ms-4 me-4 mb-4" style="text-align:start">
+								<hr>
+									
+									<div class="ms-2 me-2" style="font-size: 14px;">
+									
+									<div class="row">
+										<div class="col">
+										<span class="badge rounded-pill text-bg-dark mt-2 me-1 mb-3" style="padding: 6px 10px; font-size: 16px;">골라줘요</span> 
+										 ${pickDto.userDto.nickname}
+										| <i class="bi bi-clock mt-2" style="font-size: 12px;"></i> <fmt:formatDate value="${pickDto.pickDto.reg_date}" pattern="yyyy.MM.dd"/>
+										| views&nbsp;👀 · ${pickDto.pickDto.views}
+										</div>
+										
+										<div class="col">
+										</div>
+									</div>
+									
+									<br>
+									
+									<div class="ms-2 me-2 mb-2">
+										<a class="text-black text-decoration-none" href="/safari/community/pick/readContentPage/${pickDto.pickDto.id}" >
+										${pickDto.pickDto.id}
+										</a>
+										||
+										<a class="text-black text-decoration-none" href="/safari/community/pick/readContentPage/${pickDto.pickDto.id}">
+										${pickDto.pickDto.content}</a>
+									<br>
+									</div>
+										
+										<%-- 내용카드 --%>
+										<div class="row">
+										  <div class="col-md-6 mt-2 mb-5">
+										  <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-center" >
+										  <div class="card" style="width: 255px; height: 320px;">
+										    <div class="d-felx justify-content-center">
+										    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS846XsQCCwKyA_1OgKiAPhT9YvnBxekWgQ52joFgHsnRKSdsiMoiloEcVvyrpGAq5IUwY&usqp=CAU" 
+										    class="rounded mx-auto d-block" alt="..." style="width: 250px; height: 250px;">
+										      <div class="card-body">
+										        <h6 class="card-title text-body-secondary mb-1">아디다스 티셔츠</h6>
+										        <p class="card-text mb-2">26,000원</p>
+										        <div class="text-center">
+										        </div></div></div>
+										    </div><button type="button" class="btn btn-outline-secondary rounded-pill btn-sm mt-4" style="width: 250px;">A</button>
+										      </div>
+										  </div>
+										  
+										  <div class="col-md-6 mt-2 mb-5">
+										  <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-center" >
+										  <div class="card" style="width: 255px; height: 320px;">
+										    <div class="d-felx justify-content-center">
+										    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTKx1kXLe73WUkC8YXj8IwJg_KUMw_uUmOC0FrSwNdLsDSNyhrKgxfNL_Cx5JMdyIonlSc&usqp=CAU" 
+										    class="rounded mx-auto d-block" alt="..." style="width: 250px; height: 250px;">
+										      <div class="card-body">
+										        <h6 class="card-title text-body-secondary mb-1">mlb 티셔츠</h6>
+										        <p class="card-text mb-2">30,000원</p>
+										        <div class="text-center">
+										        </div></div></div>
+										    </div><button type="button" class="btn btn-outline-secondary rounded-pill btn-sm mt-4" style="width: 250px;">B</button>
+										      </div>
+										  </div>
+										 </div>
+									
+										<%-- 내용카드 --%>
+										
+										<%-- 해시태그 --%>
+										<div class="mt-3">
+											<button type="button" class="btn btn-outline-secondary rounded-pill btn-sm">#해시태그</button>
+											<button type="button" class="btn btn-outline-secondary rounded-pill btn-sm">#해시태그</button>
+											<button type="button" class="btn btn-outline-secondary rounded-pill btn-sm">#해시태그</button>	
+										</div>
+										<%-- 해시태그 --%>
+									</div>
+								</div>
+								</c:forEach>	
+								<%-- 골라줘요 항목 foreach --%>
 							
 						</div>	
 					</div>	

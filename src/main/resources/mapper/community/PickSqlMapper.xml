@@ -21,7 +21,6 @@
 		insert into pick_table values(
 		    #{id},
 		    #{user_id},
-		    #{title},
 		    #{content},
 		    0,
 		    sysdate
@@ -44,7 +43,7 @@
 	<!-- 골라줘요 게시판 수정하기 -->
 	<update id="updatePickBoard" >
 		update pick_table
-		set title= #{title}, content = #{content}
+		set content = #{content}
 		where id = #{id}
 	</update>
 	

@@ -41,6 +41,10 @@ public class QuestionServiceImpl {
 		
 		UserDto userDto = userSqlMapper.selectUserDtoById(questionDto.getUser_id());
 		
+		System.out.println("questionDto_status dddd: " + questionDto.getStatus());
+		System.out.println("questionDto_userid: ddddd" + questionDto.getUser_id());
+		
+		
 		map.put("userDto", userDto);
 		map.put("questionDto", questionDto);
 		
@@ -53,7 +57,7 @@ public class QuestionServiceImpl {
 		questionSqlMapper.increaseQuestionReadCount(id);
 	}
 	
-	//궁금해요 게시물 전체 조회
+	//궁금해요 메인페이지 전체 조회
 	public List<Map<String, Object>> getQuestionBoardList(){
 		
 		List<Map<String, Object>> questionBoardList = new ArrayList<>();
@@ -66,8 +70,11 @@ public class QuestionServiceImpl {
 			
 			UserDto userDto = userSqlMapper.selectUserDtoById(questionDto.getUser_id());
 			
+			int questionLikeCount = questionSqlMapper.getQuestionLikeCountByBoardId(questionDto.getId());
+			
 			map.put("userDto", userDto);
 			map.put("questionDto", questionDto);
+			map.put("questionLikeCount", questionLikeCount);
 			
 			questionBoardList.add(map);
 		}
@@ -95,7 +102,12 @@ public class QuestionServiceImpl {
 		questionSqlMapper.deleteQuestionReply(id);
 	}
 
-	//궁금해요 게시물 답변 조회
+	//궁금해요 게시물 답변 하나 조회 
+	public QuestionReplyDto getQuestionReplyById(int id) {
+		return questionSqlMapper.getQuestionReplyById(id);
+	}
+	
+	//궁금해요 게시물 답변 전체 조회
 	public List<Map<String, Object>> getQuestionReplyBoardList(int id){
 	
 	List<Map<String, Object>> questionReplyBoardList = new ArrayList<>();
@@ -107,6 +119,10 @@ public class QuestionServiceImpl {
 		Map<String, Object> map = new HashMap<>();
 		
 		UserDto userDto = userSqlMapper.selectUserDtoById(questionReplyDto.getUser_id());
+		
+		System.out.println("reply_userid: " + userDto.getId());
+		System.out.println("reply_userid: " + questionReplyDto.getUser_id());
+		System.out.println("reply_status: " + questionReplyDto.getStatus());
 		
 		map.put("userDto", userDto);
 		map.put("questionReplyDto", questionReplyDto);
@@ -142,7 +158,22 @@ public class QuestionServiceImpl {
 		questionSqlMapper.removeQuestionLike(questionLikeDto);
 	}
 	
+	//궁금해요 게시물 답변 채택 insert
+	public void acceptQuestionReply(int id) {
+		questionSqlMapper.acceptQuestionReply(id);
+	}
 
+	//궁금해요 게시물 답변 채택 update
+	public void completeQuestionReply(int id) {
+		questionSqlMapper.completeQuestionReply(id);
+	}
+	
+	//궁금해요 게시물 채택상태 update
+	public void completeQuestionBoard(int id) {
+		questionSqlMapper.completeQuestionBoard(id);
+	}
+	
+	
 	
 //	public  void  getRegisterHelpBoardList() {
 //		List<HelpDto> registerHelpBoardDtoList =  communitySqlMapper.registerHelpBoardselectAll();
