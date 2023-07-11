@@ -47,8 +47,14 @@ public interface UserSqlMapper {
 	// 회원의 코인 충전 내역 조회
 	public List<UserCoinDto> getCoinChargeHistoryList(int userId);
 	
-	// 회원의 코인 사용 내역 조회
-	public List<UserCoinDto> getCoinTransactions(int userId);
+	// 회원의 코인 지출 내역 조회
+	public List<UserCoinDto> getCoinUsageHistoryList(int userId);
+	
+	// 회원의 코인 전체 사용 내역 조회
+	public List<UserCoinDto> getUserCoinAllHistoryList(int userId);
+	
+	// 회원의 코인 전체 사용 내역 횟수
+	public int getUserCoinAllHistoryCount(int userId);
 
 	// 커뮤니티 리워드 내가 쓴 게시글
 	public List<PromotionReviewDto> selectProreviewByMyPost(int user_id);

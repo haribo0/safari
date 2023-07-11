@@ -17,6 +17,7 @@ import com.ja.safari.dto.AuctionItemLikeDto;
 import com.ja.safari.dto.AuctionKakaoPayApproveDto;
 import com.ja.safari.dto.ProductMainCategoryDto;
 import com.ja.safari.dto.ProductSubCategoryDto;
+import com.ja.safari.dto.UserCoinDto;
 import com.ja.safari.dto.UserDto;
 import com.ja.safari.user.mapper.UserSqlMapper;
 
@@ -588,6 +589,13 @@ public class AuctionServiceImpl {
 	
 		return map;
 	}
+	
+	
+	// 경매 낙찰 후 결제하여 코인 차감
+	public void reduceUserCoinByAuction(UserCoinDto userCoinDto) {
+		auctionSqlMapper.reduceUserCoinByAuction(userCoinDto);
+	}
+	
 	
 	// 경매 업로더의 입장에서 종료된 경매 리스트 상태 조회
 	public List<AuctionBidDto> getEndedAuctionlist(int userSellerId) {

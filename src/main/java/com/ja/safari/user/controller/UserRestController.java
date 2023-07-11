@@ -345,6 +345,39 @@ public class UserRestController {
 			
 			return map;
 		}
+		
+		
+		// 회원의 코인 충전, 사용 내역 확인
+		@RequestMapping("getCoinUsageHistory")
+		public  Map<String, Object> getCoinUsageHistory(String type, HttpSession session) {
+			
+			Map<String, Object> map = new HashMap<String, Object>();
+			
+			UserDto userDto = (UserDto) session.getAttribute("sessionUser");
+			
+			if(userDto == null) {
+				map.put("result", "fail");
+				map.put("reason", "login required");
+				return map;
+			}
+
+			   List<UserCoinDto> coinHistoryList;
+			   
+			    if (type.equals("all")) {
+			        coinHistoryList = userService.getUserCoinAllHistoryList(userDto.getId());
+			    } else if (type.equals("charge")) {
+			        coinHistoryList = userService.getCoinChargeHistoryList(userDto.getId());
+			    } else {
+			        coinHistoryList = userService.getCoinUsageHistoryList(userDto.getId());
+			    }
+			    
+			    map.put("coinHistoryCount", userService.getUserCoinAllHistoryCount(userDto.getId()));
+			    
+			    map.put("coinHistoryList", coinHistoryList);
+			    
+			    return map;
+
+		}
 	  
 	  
 	  

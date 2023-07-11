@@ -12,6 +12,7 @@ import com.ja.safari.dto.AuctionItemLikeDto;
 import com.ja.safari.dto.AuctionKakaoPayApproveDto;
 import com.ja.safari.dto.ProductMainCategoryDto;
 import com.ja.safari.dto.ProductSubCategoryDto;
+import com.ja.safari.dto.UserCoinDto;
 
 public interface AuctionSqlMapper {
 	
@@ -185,6 +186,10 @@ public interface AuctionSqlMapper {
 	
 	// 경매 낙찰 건에 대한 카카오페이 결제 정보 조회 
 	public AuctionKakaoPayApproveDto getAuctionKakaoPayInfo(Integer id);
+	
+	// 경매 낙찰 후 결제하여 코인 차감
+	public void reduceUserCoinByAuction(UserCoinDto userCoinDto);
+	
 	
 	//  결제 정보 삭제 (테스트 데이터 삭제 위함 !! 사실 절대 사용하면 안됨)
 	public void removePayData(int auctionItemId);

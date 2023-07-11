@@ -88,6 +88,12 @@ input[id="tab03"]:checked ~ .con3 {
   50% { opacity: 0.3; } /* 연해진 색상을 표현하기 위해 opacity 값을 줄여줍니다 */
   100% { opacity: 1; }
 }
+
+.orangeButton{
+	background: #ff6f0f;
+	font-weight: bold;
+	color: white;
+}
 </style>
 </head>
 <body>
@@ -242,7 +248,10 @@ input[id="tab03"]:checked ~ .con3 {
 						</div>
 					</div>				
 					<div class="row">
-						<div class="col ms-2 border border-1" id="chatMessageBox" style="height: 300px; overflow: auto"></div>
+						<div class="col ms-2 border border-1" id="chatMessageBox" style="height: 300px; overflow: auto">
+						
+						
+						</div>
 					</div>
 		  				
 					<div class="row mt-2">
@@ -278,18 +287,27 @@ input[id="tab03"]:checked ~ .con3 {
 			
 					<div class="row mt-2">
 					 	<div class="col">
-							<table class="table">
-								<thead class="table-secondary">
-									<tr class="text-center">
-										<td>닉네임</td>
-										<td>입찰가</td>
-										<td>거래일</td>
-									</tr>
-								</thead>
-								<tbody id="bidListBox">
-									
-								</tbody>
-							</table>
+					 	
+						 	<div class="row mt-2 fw-medium border-bottom border-black border-2 py-2">
+								<div class="col text-center">
+									닉네임
+								</div>
+								<div class="col text-center">
+									입찰가
+								</div>
+								
+								<div class="col text-center">
+									거래일
+								</div>
+							</div>
+								 	
+					 		
+					 			<div class="row">
+					 				<div class="col" id="bidListBox">
+					 					
+					 				</div>
+					 			</div>
+					 	
 					 	</div>
 				   </div>	    			
 				</div>
@@ -309,6 +327,12 @@ input[id="tab03"]:checked ~ .con3 {
 					
 					<div class="row mt-2">
 						<div class="col ms-2 border border-1">
+						
+							<div class="row mt-2">
+								<div class="col">
+									• 현재 보유하신 코인보다 더 높은 금액은 입찰하실 수 없습니다.
+								</div>
+							</div>
 									
 							<div class="row mt-2 text-danger">
 								<div class="col">
@@ -619,6 +643,33 @@ style="position: absolute; transform: translateX(70%);right: 50%;">
 <%-- 동시 입찰 실패Modal --%>
 
 
+<%-- 코인 보유 금액 < 입찰금액 --%>
+<div class="modal" id="bidFailureLowerCoinModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered"> 
+    <div class="modal-content">
+      <div class="modal-header">
+      	
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div> 
+      <div class="modal-body">
+      	
+      	<div class="row text-center">
+    		<div class="col">코인이 부족하여 입찰하실 수 없습니다.</div>
+       </div>
+  
+      </div>
+      
+      <div class="modal-footer">
+      	<input type="button" class="btn orangeButton" value="충전하기" onclick="location.href='/safari/user/myCoinPage'">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">창닫기</button>
+      </div>      
+   
+    </div>
+  </div>
+</div>
+<%-- 코인 보유 금액 < 입찰금액 --%>
+
+
 
 
 <%-- updateModal --%>
@@ -784,8 +835,9 @@ let startDate = null;
 // 경매 종료일
 let endDate = null;
 
-// 즉시 낙찰 여부를 담을 변수 선언
-//let immeDiateSuccess = null;
+// 회원의 코인 보유 금액
+let userCoinBalance = null;
+
 
 // 현재 최고 입찰자는 누구인지?
 let nowMaxBider = null;	
@@ -795,6 +847,8 @@ let highestBidder = null;
 
 // 판매자 여부
 let isSeller = null;
+
+
 
 // 채팅 전송 시 enter 키 이벤트 처리
 function checkSendMessage(event) {
@@ -814,6 +868,7 @@ function getSessionId() {
 
             if(response.result == "success") {
                 sessionId = response.id;
+                console.log("현재 접속한 pk는 " + sessionId);
             }
             
         }
@@ -1628,7 +1683,6 @@ function showCountDownTableBefore() {
 
 
 
-
 // 입찰하기 
 function bidRequest() {
 
@@ -1656,6 +1710,22 @@ function bidRequest() {
 		bidPriceBox.focus();
 		return;
 	}
+	
+	// 현재 보유 코인보다 높은 금액으로 입찰하려는 경우 입찰 막기
+	if (bidPriceBox.value > userCoinBalance) {
+		
+		const failModal = bootstrap.Modal.getOrCreateInstance("#bidFailureLowerCoinModal");
+		failModal.show();
+		
+		setTimeout(function() { // 3초 뒤 모달 창 삭제
+			failModal.hide();
+		}, 3000);
+		
+		bidPriceBox.value = '';
+		bidPriceBox.focus();
+		return;
+	}
+	
 	
 	const xhr = new XMLHttpRequest();
 	xhr.onreadystatechange = function() {
@@ -1845,47 +1915,54 @@ function reloadBidList() {
             bidListBox.innerHTML = "";
             
            	if (response.bidCount == 0) {
-              	const tr = document.createElement("tr");
-            	const td1 = document.createElement("td");
-            	td1.classList.add("text-center");
-            	td1.setAttribute("colspan", "3"); // colspan 속성 추가
+     
+            	const bidRow = document.createElement("div");
+            	bidRow.classList.add("row", "border-bottom",  'py-2');
             	
-            	td1.innerText = "아직 입찰한 정보가 없습니다.";
-            	tr.appendChild(td1);
-            	bidListBox.appendChild(tr);
+            	const bidCol = document.createElement("div");
+            	bidCol.classList.add("col", "text-center");
+            	bidCol.setAttribute("colspan", "3");
+            	bidCol.innerText = "입찰 정보가 없습니다.";
+            	
+            	bidRow.appendChild(bidCol);
+     
+            	bidListBox.appendChild(bidRow);
+   
+            	
            	}
             
            	else {
-            for(data of response.bidList) {
-            	const tr = document.createElement("tr");
-            	const td1 = document.createElement("td");
-            	td1.classList.add("text-center");
+            	for(data of response.bidList) {
             	
-            	td1.innerText = data.userDto.nickname;
-    	
-            	const td2 = document.createElement("td");
-            	td2.classList.add("text-center");
+             	const bidpriceRow = document.createElement("div");
+            	bidpriceRow.classList.add("row", 'border-bottom', "py-2");
             	
-              	const bidPrice = data.auctionBidDto.bid_price; 
+            	const nicknameCol = document.createElement("div");
+            	nicknameCol.classList.add("col", "text-center");
+            	
+            	nicknameCol.innerText =  data.userDto.nickname;
+            	
+            	const bidPrice = data.auctionBidDto.bid_price; 
             	const formattedbidPrice = new Intl.NumberFormat('ko-KR').format(bidPrice);
             	
-              
-  
+            	const bidpriceCol = document.createElement("div");
+            	bidpriceCol.classList.add("col", "text-center");
             	
-            	td2.innerText = formattedbidPrice + "원";
+            	bidpriceCol.innerText = formattedbidPrice + "원";
             	
-            	const td3 = document.createElement("td");
-            	td3.classList.add("text-center");
+            	const regdateCol = document.createElement("div");
+            	regdateCol.classList.add("col", "text-center");
             	
-            	td3.innerText = formatDateTime(data.auctionBidDto.reg_date);
+            	regdateCol.innerText = formatDateTime(data.auctionBidDto.reg_date);
             	
-            	tr.appendChild(td1);
-            	tr.appendChild(td2);
-            	tr.appendChild(td3);
+            	bidpriceRow.appendChild(nicknameCol);
+            	bidpriceRow.appendChild(bidpriceCol);
+            	bidpriceRow.appendChild(regdateCol);
             	
-            	bidListBox.appendChild(tr);
-  
-            }
+            
+            	bidListBox.appendChild(bidpriceRow);
+            
+              }
            	}
             
             if (bidListshouldAutoScroll) {
@@ -2454,6 +2531,8 @@ function getAuctionCoinBalance() {
 				const response = JSON.parse(xhr.responseText);
 				if(response.result == "success"){
 					coinBalance.innerText = new Intl.NumberFormat('ko-KR').format(response.coins) + "원";
+					userCoinBalance = response.coins;
+					//console.log(userCoinBalance);
 				}
 			}
 		}

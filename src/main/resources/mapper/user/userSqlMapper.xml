@@ -99,14 +99,32 @@
 			    ORDER BY reg_date DESC      
 		</select>
 		
-		<!-- 회원의 코인 사용 내역 조회 -->
-		<select id="getCoinTransactions" resultType="com.ja.safari.dto.UserCoinDto">
+		<!-- 회원의 코인 지출 내역 조회 -->
+		<select id="getCoinUsageHistoryList" resultType="com.ja.safari.dto.UserCoinDto">
  			SELECT * 
 			    FROM coin_table 
 			    WHERE user_id = #{userId}
 			          AND transaction_operand = 'M'
 			    ORDER BY reg_date DESC   		
 		</select>
+		
+		<!-- 회원의 코인 전체 사용 내역 조회 -->
+		<select id="getUserCoinAllHistoryList" resultType="com.ja.safari.dto.UserCoinDto">
+			SELECT * 
+		      FROM coin_table
+		      WHERE user_id = #{userId}
+		      ORDER BY reg_date DESC
+		</select>
+		
+		<!-- 회원의 코인 전체 사용 내역 횟수 -->
+		<select id="getUserCoinAllHistoryCount" resultType="int">
+			SELECT COUNT(*) 
+		      FROM coin_table
+		      WHERE user_id = #{userId}
+		</select>
+		
+		
+		
 		
 		
 		<!--  커뮤니티 리워드 내가 쓴 게시글 가져오기 -->

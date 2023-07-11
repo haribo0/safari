@@ -647,7 +647,7 @@ window.addEventListener("DOMContentLoaded", function(){
 	<div class="col-10 justify-content-center ps-5">
 	
 	
-	<div class="row fw-5 mb-3">
+	<!-- <div class="row fw-5 mb-3">
 		<div class="col">
 			<div class="row">
 				<div class="col-10 text-center">
@@ -661,9 +661,13 @@ window.addEventListener("DOMContentLoaded", function(){
 				</div>
 			</div>
 		</div>
+	</div> -->
+	
+	<div class="row mt-3">
+		<div class="col"></div>
 	</div>
 	
-	<div class="row">
+	<div class="row mt-5">
 		<div class="col">
 			<div class="row mt-2 mb-1">
 				<div class="col">

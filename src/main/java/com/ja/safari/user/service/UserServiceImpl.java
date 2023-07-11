@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 
 import com.ja.safari.community.mapper.PromotionReviewCommentMapper;
 import com.ja.safari.community.mapper.PromotionReviewMapper;
-import com.ja.safari.dto.CsQnaDto;
 import com.ja.safari.dto.PromotionReviewDto;
 import com.ja.safari.dto.PromotionReviewImgDto;
 import com.ja.safari.dto.RentalItemDto;
@@ -115,9 +114,19 @@ public class UserServiceImpl {
 		return userSqlMapper.getCoinChargeHistoryList(userId);
 	}
 	
-	// 회원의 코인 사용 내역 조회
-	public List<UserCoinDto> getCoinTransactions(int userId) {
-		return userSqlMapper.getCoinTransactions(userId);
+	// 회원의 코인 지출 내역 조회
+	public List<UserCoinDto> getCoinUsageHistoryList(int userId) {
+		return userSqlMapper.getCoinUsageHistoryList(userId);
+	}
+	
+	// 회원의 코인 전체 사용 내역 조회
+	public List<UserCoinDto> getUserCoinAllHistoryList(int userId) {
+		return userSqlMapper.getUserCoinAllHistoryList(userId);
+	}
+	
+	// 회원의 코인 전체 사용 내역 횟수
+	public int getUserCoinAllHistoryCount(int userId) {
+		return userSqlMapper.getUserCoinAllHistoryCount(userId);
 	}
 	
 	// 세연 - 커뮤니티 내가 쓴 게시글(리워드) 불러오기

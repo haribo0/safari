@@ -130,7 +130,7 @@ public class AuctionController {
 	
 
 	
-	// 결제 실패 
+	   // 결제 실패 
 		@RequestMapping("paymentFailed")
 		public String paymentFailed(HttpSession session) {
 			
@@ -163,12 +163,14 @@ public class AuctionController {
 		
 		// 결제 성공     
 		@RequestMapping("paymentSucceed")
-		public String paymentSucceeded(HttpSession session, Model model, Integer id) {
+		public String paymentSucceeded(HttpSession session, Model model, Integer id)
+		{
 			
 			UserDto userDto = (UserDto) session.getAttribute("sessionUser");
 			if(userDto == null) return "redirect:/user/loginPage"; 		
 			
 			session.removeAttribute("auctionkakaoPay");
+			
 			
 			model.addAttribute("map", auctionService.getAuctionKakaoPayInfo(id));
 			

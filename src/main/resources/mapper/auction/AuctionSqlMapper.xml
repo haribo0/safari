@@ -518,6 +518,18 @@
 			SYSDATE)
 	</insert>
 	
+	<!--  경매 낙찰 후 결제하여 코인 차감 -->
+	<insert id="reduceUserCoinByAuction">
+		INSERT INTO coin_table VALUES(
+			coin_table_seq.nextval,
+			#{user_id},
+			#{coin_transaction},
+			'M',
+			'낙찰한 경매 상품 결제',
+			SYSDATE
+			)
+	</insert>
+	
 	<!-- 경매 낙찰 건에 대한 카카오페이 결제 정보 조회 -->
 	<select id="getAuctionKakaoPayInfo" resultType="com.ja.safari.dto.AuctionKakaoPayApproveDto">
 		SELECT *
