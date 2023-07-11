@@ -72,41 +72,47 @@
 							     </div>
 								
 								
+									<div class="row">
+  									<div class="col d-flex flex-column justify-content-start align-items-start text-start" style="font-size: 20px;">
+  									<label for="" class="col col-form-label fw-bold">모집조건</label>
+  									</div>
+  									</div>
+  									
   									<div class="row">
-									<%-- 직업 select option--%> 
-									<div class="col">
-									<div class="form-group"> 
-									<label for="position_category_id" class="col col-form-label fw-bold">직무를 선택해주세요.</label>
-										<div class="form-control mt-1" style="font-size: ; font-family: 'Noto Sans', sans-serif; box-shadow: none;">
-											<strong>
-										    <select id="position_category_id" name="position_category_id" style="width: 100%; border: none; outline: none;">
-											    <option value="1" selected="selected">경영</option>
-											    <option value="2">회계</option>
-											    <option value="3">서비스</option>
-										    </select>
-										  </strong>
+										<%-- 직업 select option--%> 
+										<div class="col">
+										  <div class="form-group">
+										    <div class="d-flex align-items-center">
+										      <label for="position_category_id" class="col-form-label fw-bold">직무</label>
+										      <div class="form-control mt-1" style="font-size: ; font-family: 'Noto Sans', sans-serif; box-shadow: none;">
+										        <strong>
+										          <select id="position_category_id" name="position_category_id" style="width: 100%; border: none; outline: none;">
+										            <option value="1" selected="selected">경영</option>
+										            <option value="2">회계</option>
+										            <option value="3">서비스</option>
+										          </select>
+										        </strong>
+										      </div>
+										    </div>
+										  </div>
 										</div>
-									</div>
-									</div>
-									<%--직업 select option--%> 
-									
-									<%-- 성별 select option--%> 
-									<div class="col">
-									<div class="form-group"> 
-									<label for="gender" class="col col-form-label fw-bold">성별을 선택해주세요.</label>
-										<div class="form-control mt-1" style="font-size: ; font-family: 'Noto Sans', sans-serif; box-shadow: none;">
-											<strong>
-										    <select id="gender" name="gender" style="width: 100%; border: none; outline: none;">
-											    <option value="1" selected="selected">무관</option>
-											    <option value="2">남</option>
-											    <option value="3">여</option>
-										    </select>
-										  </strong>
+										<%--직업 select option--%> 
+										
+										<%--성별 select option--%> 
+										<div class="col">
+										  <div class="form-group">
+										    <div class="d-flex align-items-center">
+										      <label class="col-form-label fw-bold">성별</label>
+										      <div class="form-control mt-1" style="font-size: ; font-family: 'Noto Sans', sans-serif; box-shadow: none;">
+										        <label><input type="radio" name="gender" value="1" checked> 무관</label>
+										        <label><input type="radio" name="gender" value="2"> 남</label>
+										        <label><input type="radio" name="gender" value="3"> 여</label>
+										      </div>
+										    </div>
+										  </div>
 										</div>
-									</div>
-									</div>
-									<%--성별 select option--%> 
-									</div>
+										<%--성별 select option--%> 
+										</div>
 								
 								<%--입력 박스--%> 
 								<div class="form-group mt-1 mb-1">

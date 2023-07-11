@@ -35,7 +35,7 @@
 			<div class="row">
 			
 			<!-- 왼쪽 -->
-			<div class="col">
+			<div class="col" style="background-color:lightgrey;">
 				왼쪽
 			</div>
 			<!-- 왼쪽 -->
@@ -130,7 +130,7 @@
 			
 			
 			<!-- 오른쪽 -->
-			<div class="col">
+			<div class="col" style="background-color:lightgrey;">
 				오른쪽
 			</div>
 			<!-- 오른쪽 -->

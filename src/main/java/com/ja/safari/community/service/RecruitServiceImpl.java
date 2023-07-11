@@ -1,4 +1,4 @@
-package com.ja.safari.community.service;
+ package com.ja.safari.community.service;
 
 import java.util.ArrayList;
 import java.util.HashMap;
