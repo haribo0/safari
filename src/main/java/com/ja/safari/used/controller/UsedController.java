@@ -244,7 +244,11 @@ public class UsedController {
 		model.addAttribute("list", list);
 		// 거래요청 List
 		model.addAttribute("productRequestList", usedService.selectProductRequestByProductId(productId));
+		ProductDto productDto = usedService.selectProductDtoById(productId);
+		model.addAttribute("ProductSubCategoryDto", usedService.selectProductSubCategoryById(productDto.getProduct_sub_category()));
+		model.addAttribute("ProductMainCategoryDto", usedService.selectProductMainCategoryDtoById(productId));
 		usedService.updateProductViewsById(productId);
+		model.addAttribute("productUser", usedService.selectUserDtoById(productDto.getUser_id()));
 		
 		return "used/productDetail";
 	}
