@@ -228,45 +228,53 @@ body {
 <!--  -->  
 <!--  -->  
 <!-- LiveChatFeedbackModal -->
-<div class="modal" tabindex="-1" id="feedbackModal">
+<div class="modal modal-sm" tabindex="-1" id="feedbackModal">
   <div class="modal-dialog">
-    <div class="modal-content">
+    <div class="modal-content selector-for-some-widget px-3 pb-2 pt-3" style="box-sizing: content-box;">
       <div class="modal-header">
         <h5 class="modal-title">실시간 문의 평가</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-      
-      	<div class="row py-3">
-    	  	<div class="col text-start">
-				상담에 대한 피드백을 남겨주세요
+      	
+      	<div class="row mt-2">
+    	  	<div class="col text-start text-medium">
+				문의 평가
 	      	</div>
       	</div>
-      
-      	<div class="row">
-    	  	<div class="col">
+      	<div class="row py-3">
+	      	<div class="col ">
       			<div id="full-stars-example-two">
 				    <div class="rating-group">
 				        <input disabled checked class="rating__input rating__input--none" name="rating3" id="rating3-none" value="0" type="radio">
-				        <label aria-label="1 star" class="rating__label" for="rating3-1"><i class="rating__icon rating__icon--star fa fa-2xs fa-star"></i></label>
+				        <label aria-label="1 star" class="rating__label" for="rating3-1"><i class="rating__icon rating__icon--star fa fa-sm fa-star"></i></label>
 				        <input class="rating__input" name="rating3" id="rating3-1" value="1" type="radio">
-				        <label aria-label="2 stars" class="rating__label" for="rating3-2"><i class="rating__icon rating__icon--star fa fa-2xs fa-star"></i></label>
+				        <label aria-label="2 stars" class="rating__label" for="rating3-2"><i class="rating__icon rating__icon--star fa fa-sm fa-star"></i></label>
 				        <input class="rating__input" name="rating3" id="rating3-2" value="2" type="radio">
-				        <label aria-label="3 stars" class="rating__label" for="rating3-3"><i class="rating__icon rating__icon--star fa fa-2xs fa-star"></i></label>
+				        <label aria-label="3 stars" class="rating__label" for="rating3-3"><i class="rating__icon rating__icon--star fa fa-sm fa-star"></i></label>
 				        <input class="rating__input" name="rating3" id="rating3-3" value="3" type="radio">
-				        <label aria-label="4 stars" class="rating__label" for="rating3-4"><i class="rating__icon rating__icon--star fa fa-2xs fa-star"></i></label>
+				        <label aria-label="4 stars" class="rating__label" for="rating3-4"><i class="rating__icon rating__icon--star fa fa-sm fa-star"></i></label>
 				        <input class="rating__input" name="rating3" id="rating3-4" value="4" type="radio">
-				        <label aria-label="5 stars" class="rating__label" for="rating3-5"><i class="rating__icon rating__icon--star fa fa-2xs fa-star"></i></label>
+				        <label aria-label="5 stars" class="rating__label" for="rating3-5"><i class="rating__icon rating__icon--star fa fa-sm fa-star"></i></label>
 				        <input class="rating__input" name="rating3" id="rating3-5" value="5" type="radio">
 				    </div>
 				</div>
 	      	</div>
       	</div>
-        
+      
+      	<!-- <div class="row">
+    	  	
+      	</div>
+         -->
       
       	<div class="row mt-2">
+    	  	<div class="col text-start text-medium">
+				문의에 대한 경험을 공유해주세요 
+	      	</div>
+      	</div>
+      	<div class="row mt-2">
     	  	<div class="col">
-				<textarea rows="3" cols="" class="form-control" id="textReview"></textarea>
+				<textarea rows="6" cols="" class="form-control" id="textReview" placeholder="선택 사항"></textarea>
 	      	</div>
       	</div>
         
@@ -520,6 +528,7 @@ function getMsg() {
 					  innerDiv2.className = 'col text-start ps-1 pt-1';
 					  const imageElement = document.createElement('img');
 					  imageElement.className = 'img-fluid rounded-circle';
+					  imageElement.style.filter = "grayscale(1)";
 					  if(true) {
 						  imageElement.src = '/safari/resources/img/user.jpg';
 					  } else {

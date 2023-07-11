@@ -609,6 +609,7 @@ function reloadChatMsg() {
 					  innerDiv2.className = 'col text-start ps-1 pt-1';
 					  const imageElement = document.createElement('img');
 					  imageElement.className = 'img-fluid rounded-circle';
+					  imageElement.style.filter = "grayscale(1)";
 					  if(response.user.profile_img_link === null) {
 						  imageElement.src = '/safari/resources/img/user.jpg';
 					  } else {
