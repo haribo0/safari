@@ -17,6 +17,7 @@ import com.ja.safari.dto.AuctionItemLikeDto;
 import com.ja.safari.dto.AuctionKakaoPayApproveDto;
 import com.ja.safari.dto.ProductMainCategoryDto;
 import com.ja.safari.dto.ProductSubCategoryDto;
+import com.ja.safari.dto.UserCoinDto;
 import com.ja.safari.dto.UserDto;
 import com.ja.safari.user.mapper.UserSqlMapper;
 
@@ -215,6 +216,9 @@ public class AuctionServiceImpl {
 		
 		// 입찰 삭제
 		auctionSqlMapper.deleteAllBid(id);
+		
+		// 결제 삭제
+		auctionSqlMapper.removePayData(id);
 		
 		
 	}
@@ -514,27 +518,7 @@ public class AuctionServiceImpl {
 		return bidHistoryList;
 	}
 	
-	// 경매 마이페이지에서 내가 업로드한 경매 상품 조회
-	public List<Map<String, Object>> getAuctionUploadHistoryByUser(int userSellerId) {
-		
-		List<Map<String, Object>> auctionHistoryList = new ArrayList<>();
-		
-		List<AuctionItemDto> auctionHistoryDtoList = auctionSqlMapper.getAuctionUploadHistoryByUser(userSellerId);
-		
-		for (AuctionItemDto auctionHistoryDto : auctionHistoryDtoList) {
-			
-			Map<String, Object> map = new HashMap<>();
-			
-			map.put("auctionBidCount", auctionSqlMapper.getBidCount(auctionHistoryDto.getId()));
-			
-			map.put("auctionHistoryImgDto", auctionSqlMapper.getAuctionImg(auctionHistoryDto.getId()));
-			
-			map.put("auctionHistoryDto", auctionHistoryDto);
-			
-		}
-		return auctionHistoryList;
-	}
-	
+
 	
 	 // 마이페이지 - 내가 입찰한 기록 조회
 	public List<AuctionItemDto> getMyBidList(int userBuyerId) {
@@ -547,10 +531,48 @@ public class AuctionServiceImpl {
 		return auctionSqlMapper.getMySueecssfulBidList(userBuyerId);
 	}
 	
+	// 마이페이지 - 낙찰된 건 (배송 조회)
+	public List<AuctionBidDto> getMySuccessfulBidPayAndDeliveryStatusList(int userBuyerId) {
+		
+		return auctionSqlMapper.getMySuccessfulBidPayAndDeliveryStatusList(userBuyerId);
+	}
+	
 	// 마이페이지 - 찜 목록 조회
 	public List<AuctionItemDto> getMyAuctionWishList(int userBuyerId) {
 		return auctionSqlMapper.getMyAuctionWishList(userBuyerId);
 	}
+	
+	//  마이페이지 - 경매 업로더 입장에서 입찰정보가 없을 경우 제품 정보 조회
+	public  List<AuctionItemDto> getAuctionInfoByUploader(int userSellerId) {
+		
+		return auctionSqlMapper.getAuctionInfoByUploader(userSellerId);
+	}
+	
+	
+	// 마이페이지 - 경매 업로더 입장에서 낙찰자 정보와 경매 물품 정보 조회
+	public List<AuctionBidDto> getAuctionAndBidInfoByUploader(int userSellerId) {
+	
+		return auctionSqlMapper.getAuctionAndBidInfoByUploader(userSellerId);
+	}
+	
+	// 경매 업로더 입장에서 결제 여부 조회
+	public List<AuctionBidDto> getPayYnByUploader(int userSellerId) {
+		
+		return auctionSqlMapper.getPayYnByUploader(userSellerId);
+	}
+	
+	// 경매 업로더 - 최고 입찰자, 낙찰자 조회
+	public AuctionBidDto getMaxBiderNickname(int userSellerId, int auctionItemId) {
+		
+		return auctionSqlMapper.getMaxBiderNickname(userSellerId, auctionItemId);
+	}
+	
+	// 경매 업로더 - 종료된 경매에서 상품 정보와 결제 상태 확인
+	public List<AuctionBidDto> getEndedAuctionAndPayYnInfoByUploader(int userSellerId) {
+		
+		return auctionSqlMapper.getEndedAuctionAndPayYnInfoByUploader(userSellerId);
+	}
+	
 	
 	// 경매 카카오페이 결제 정보 저장
 	public void saveAuctionKakaoPayInfo(AuctionKakaoPayApproveDto auctionKakaoPayApproveDto) {
@@ -568,5 +590,27 @@ public class AuctionServiceImpl {
 		return map;
 	}
 	
+	
+	// 경매 낙찰 후 결제하여 코인 차감
+	public void reduceUserCoinByAuction(UserCoinDto userCoinDto) {
+		auctionSqlMapper.reduceUserCoinByAuction(userCoinDto);
+	}
+	
+	
+	// 경매 업로더의 입장에서 종료된 경매 리스트 상태 조회
+	public List<AuctionBidDto> getEndedAuctionlist(int userSellerId) {
+		return auctionSqlMapper.getEndedAuctionlist(userSellerId);
+	}
+	
+	
+	// 배송 시작 (낙찰자가 결제하면 배송준비중, 판매자가 배송처리 누르는순간 배송중)
+	public void startAuctionDelivery(int partnerOrderId) {
+		auctionSqlMapper.startAuctionDelivery(partnerOrderId);
+	}
+
+	// 배송 3일 지나면 배송완료 처리
+	public void completeAuctionDelivery(int partnerOrderId) {
+		auctionSqlMapper.completeAuctionDelivery(partnerOrderId);
+	}
 	
 }

@@ -51,7 +51,6 @@
 						<div class="col" style="width:990px;"> 
 						
 							<%-- 골라줘요 항목 --%>
-									
 								<div class="align-middle ms-4 me-4 mb-4" style="text-align:start">
 								<hr>
 									

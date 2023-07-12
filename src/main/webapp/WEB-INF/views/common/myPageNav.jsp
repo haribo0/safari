@@ -46,10 +46,10 @@
 		  <a class="btn text fw-bolder py-1 ps-0 mt-2" href="#" >경매</a></li>
 		  	<div class="" id="">
 				<ul class="list-group">
-					<li class="list-group-item border-0 py-1 ps-0"><a href="#" class="btn py-0 text-body-secondary ps-0 fs-nav-small">리스트제목</a></li>
-					<li class="list-group-item border-0 py-1 ps-0"><a href="#" class="btn py-0 text-body-secondary ps-0 fs-nav-small">리스트제목</a></li>
-					<li class="list-group-item border-0 py-1 ps-0"><a href="#" class="btn py-0 text-body-secondary ps-0 fs-nav-small">리스트제목</a></li>
-					<li class="list-group-item border-0 py-1 ps-0"><a href="#" class="btn py-0 text-body-secondary ps-0 fs-nav-small">리스트제목</a></li>
+					<li class="list-group-item border-0 py-1 ps-0"><a href="/safari/auction/bidList" class="btn py-0 text-body-secondary ps-0 fs-nav-small">입찰목록</a></li>
+					<li class="list-group-item border-0 py-1 ps-0"><a href="/safari/auction/successBidList" class="btn py-0 text-body-secondary ps-0 fs-nav-small">낙찰목록</a></li>
+					<li class="list-group-item border-0 py-1 ps-0"><a href="/safari/auction/wishList" class="btn py-0 text-body-secondary ps-0 fs-nav-small">찜</a></li>
+					<li class="list-group-item border-0 py-1 ps-0"><a href="/safari/auction/uploadAuctionList" class="btn py-0 text-body-secondary ps-0 fs-nav-small">경매 업로드 목록</a></li>
 				</ul>
 			</div>
 			

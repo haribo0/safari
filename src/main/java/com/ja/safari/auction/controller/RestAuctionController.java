@@ -24,6 +24,7 @@ import com.ja.safari.dto.AuctionItemDto;
 import com.ja.safari.dto.AuctionItemImgDto;
 import com.ja.safari.dto.AuctionItemLikeDto;
 import com.ja.safari.dto.AuctionKakaoPayApproveDto;
+import com.ja.safari.dto.UserCoinDto;
 import com.ja.safari.dto.UserDto;
 import com.ja.safari.user.service.UserServiceImpl;
 
@@ -655,7 +656,8 @@ public class RestAuctionController {
 
 	// 카카오페이 결제 후 정보 저장
 	@RequestMapping("saveAuctionPaymentInfo")
-	public  Map<String, Object> saveAuctionPaymentInfo(HttpSession session, AuctionKakaoPayApproveDto auctionKakaoPayApproveDto) {
+	public  Map<String, Object> saveAuctionPaymentInfo(HttpSession session, AuctionKakaoPayApproveDto auctionKakaoPayApproveDto,
+																								UserCoinDto userCoinDto) {
 		
 		Map<String, Object> map = new HashMap<String, Object>();
 		
@@ -668,11 +670,116 @@ public class RestAuctionController {
 		
 		auctionService.saveAuctionKakaoPayInfo(auctionKakaoPayApproveDto);
 		
+		System.out.println(auctionKakaoPayApproveDto.getPartner_user_id());
+		System.out.println(auctionKakaoPayApproveDto.getAmount());
+		
+		userCoinDto.setUser_id(auctionKakaoPayApproveDto.getPartner_user_id());
+
+		userCoinDto.setCoin_transaction(auctionKakaoPayApproveDto.getAmount());
+		
+		// 코인 차감
+		auctionService.reduceUserCoinByAuction(userCoinDto);
+		
 		map.put("result", "success");
 		
 		return map;
 	}
 	
+   // 마이페이지 - 낙찰된 건 (배송 조회)
+	@RequestMapping("getMySuccessfulBidPayAndDeliveryStatusList")
+	public Map<String, Object> getMySuccessfulBidAndDeliveryStatusList(HttpSession session) {
+		
+		UserDto sessionUser = (UserDto) session.getAttribute("sessionUser");
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		map.put("myStatusList", auctionService.getMySuccessfulBidPayAndDeliveryStatusList(sessionUser.getId()));
+		
+		return map;
+	}
+	
+	
+	// 경매 업로더 입장에서 종료된 경매 - 낙찰자 정보 조회
+	@RequestMapping("getEndedAuctionMaxBiderByUploader")
+	public Map<String, Object> getEndedAuctionMaxBiderByUploader(HttpSession session) {
+		
+		UserDto sessionUser = (UserDto) session.getAttribute("sessionUser");
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		map.put("maxBiderInfo", auctionService.getAuctionAndBidInfoByUploader(sessionUser.getId()));
+		
+		return map;
+		
+	}
+	
+	 // 경매 업로더 입장에서 결제 여부 조회
+	@RequestMapping("getPayYnByUploader")
+	public  Map<String, Object> getPayYnByUploader(HttpSession session) {
+		
+		UserDto sessionUser = (UserDto) session.getAttribute("sessionUser");
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		map.put("payYn", auctionService.getPayYnByUploader(sessionUser.getId()));
+		
+		return map;
+	}
+	
+	// 경매 업로더 - 최고 입찰자, 낙찰자 조회
+	@RequestMapping("getMaxBiderNickname")
+	public Map<String, Object> getMaxBiderNickname(HttpSession session,  int auctionItemId) {
+		
+		UserDto sessionUser = (UserDto) session.getAttribute("sessionUser");
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		map.put("maxBiderNickname", auctionService.getMaxBiderNickname(sessionUser.getId(), auctionItemId));
+		
+		return map;
+		
+	}
+	
+	// 경매 업로더의 입장에서 종료된 경매 리스트 상태 조회
+	@RequestMapping("selectEndedAuctionInfo")
+	public Map<String, Object> selectEndedAuctionInfo(HttpSession session) {
+		
+		UserDto sessionUser = (UserDto) session.getAttribute("sessionUser");
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		map.put("endedAuctionList", auctionService.getEndedAuctionlist(sessionUser.getId()));
+		
+		return map;
+	}
+	
+	// 배송 시작
+	@RequestMapping("startAuctionDelivery")
+	public  Map<String, Object> startAuctionDelivery(int partnerOrderId) {
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		auctionService.startAuctionDelivery(partnerOrderId);
+		
+		map.put("result", "success");
+		
+		return map;
+		
+	}
+	 
+	// 배송 완료 (쿼리 수정해야함)
+	@RequestMapping("completeAuctionDelivery")
+	public Map<String, Object> completeAuctionDelivery(int auctionItemId) {
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		auctionService.completeAuctionDelivery(auctionItemId);
+		
+		map.put("result", "success");
+		
+		return map;
+		
+	}
 	
 	
 	

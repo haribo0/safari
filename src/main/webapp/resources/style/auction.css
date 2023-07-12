@@ -73,7 +73,7 @@ a {
   padding: 10px; /* 여백 */
   border-radius: 10px; /* 테두리의 굴곡 정도 */
   text-align: end; /* 내용을 오른쪽 정렬 */
-    display: inline-block;
+  display: inline-block;
   width: auto;
 
 }

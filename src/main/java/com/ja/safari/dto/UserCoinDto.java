@@ -10,6 +10,9 @@ public class UserCoinDto {
 	private String transaction_detail;
 	private Date reg_date;
 	
+	// 현재 보유하고 있는 코인 금액
+	private int total_coin;
+	
 	public UserCoinDto() {
 		super();
 	}
@@ -71,6 +74,14 @@ public class UserCoinDto {
 
 	public void setReg_date(Date reg_date) {
 		this.reg_date = reg_date;
+	}
+
+	public int getTotal_coin() {
+		return total_coin;
+	}
+
+	public void setTotal_coin(int total_coin) {
+		this.total_coin = total_coin;
 	}
 
 	

@@ -59,6 +59,16 @@ public class UsedRestController {
 		return map;
 	}
 	
+	// 상품상세 
+	@RequestMapping("getProductById")
+	public Map<String, Object> getProductById(Integer productId) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("productDto", usedService.selectProductDtoById(productId));
+		map.put("result", "success");
+		
+		return map;
+	}
+	
 	// 대분류에 따른 소분류 
 	@RequestMapping("getSubCategoryList")
 	public Map<String, Object> getSubCategoryList(Integer mainCategoryId) {
@@ -132,22 +142,6 @@ public class UsedRestController {
 		return map;
 	}
 	
-	// 업로드한 시간 가져오기 
-	@RequestMapping("getUploadTime")
-	public Map<String, Object> getUploadTime(Integer productId){
-		Map<String, Object> map = new HashMap<>();
-		ProductDto productDto = usedService.selectProductDtoById(productId);
-		
-		Date regDate = productDto.getReg_date(); // 여기에 DB에서 가져온 Date 객체를 할당
-	        
-	    // 원하는 형식으로 포맷팅
-	    SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-	    String formattedDateTime = formatter.format(regDate);
-		map.put("date", formattedDateTime);
-		map.put("result", "success");
-		return map;
-	}
-	
 	// 수정할때 price가져오기
 	@RequestMapping("getProductPrice")
 	public Map<String, Object> getProductPrice(int productId){
@@ -202,8 +196,6 @@ public class UsedRestController {
 			return map;
 		}
 	}
-	
-	
 	
 	// 채팅창 modal-reloadChatList - 채팅내용 리스트 보여주기 
 	@RequestMapping("reloadChatList")

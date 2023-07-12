@@ -32,8 +32,29 @@ public interface UserSqlMapper {
 	// 1대1 문의 
 	public void postInquiry(CsQnaDto inquiry);
 	
+	// 회원 코인 충전 pk 받아오기 
+	public int getOnChargeCoinPk();
+	
 	// user coin insert
 	public void insertUserCoin(UserCoinDto userCoinDto);
+	
+	// 코인 방금 충전한 내역 조회
+	public UserCoinDto getChargeCoinSuccessHistory(Integer id);
+
+	// 회원의 현재 보유 코인 조회
+	public int getUserCoinBalance(int userId);
+	
+	// 회원의 코인 충전 내역 조회
+	public List<UserCoinDto> getCoinChargeHistoryList(int userId);
+	
+	// 회원의 코인 지출 내역 조회
+	public List<UserCoinDto> getCoinUsageHistoryList(int userId);
+	
+	// 회원의 코인 전체 사용 내역 조회
+	public List<UserCoinDto> getUserCoinAllHistoryList(int userId);
+	
+	// 회원의 코인 전체 사용 내역 횟수
+	public int getUserCoinAllHistoryCount(int userId);
 
 	// 커뮤니티 리워드 내가 쓴 게시글
 	public List<PromotionReviewDto> selectProreviewByMyPost(int user_id);

@@ -172,6 +172,13 @@
 										  
 									</div>
 									<%-- select option--%> 
+									
+									<%-- pick option 미리보기--%>
+									  pick option 미리보기
+									  <c:forEach items="${showProductByproductIdList}" var="productDto">
+									  ${productDto.productDto.title}
+									  </c:forEach>
+									<%-- pick option 미리보기--%> 
 								    
 								    <div class="form-group mt-4 mb-4">
 								      <div class="form-control " style="font-size: ; font-family: 'Noto Sans', sans-serif; box-shadow: none;">

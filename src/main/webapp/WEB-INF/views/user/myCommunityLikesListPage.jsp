@@ -31,7 +31,8 @@
 						<h5>좋아요 리스트</h5>		
 					</div>
 				</div>	
-
+			
+			<!--  들어갈 내용 -->
 				<div class = "row mt-3">
 					<div class = "col">
 						

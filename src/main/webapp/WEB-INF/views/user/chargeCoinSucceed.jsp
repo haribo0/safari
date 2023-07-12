@@ -26,7 +26,11 @@
   .f-sm2  {
     font-size: 15px;
   }
-  
+  .orangeButton{
+	background: #ff6f0f;
+	font-weight: bold;
+	color: white;
+}
 </style>
 
 </head>
@@ -60,21 +64,39 @@
 						<span class="fs-2">
 							<i class="bi bi-lg bi-check-circle"></i>
 						</span>
-				  		<div class="fs-4 fw-medium mt-1">결제 실패</div>
+				  		<div class="fs-4 fw-medium mt-1">코인 충전 완료</div>
 				  		
 				  		
-				  		<div class="row mt-2">
-				  			<div class="col">
-				  				코인이 부족하여 결제에 실패하였습니다.
-				  			</div>
+				  		
+			  			<div class="fs-6 text-start mt-5 fw-medium"> ID</div>
+				  		<div class="fs-5 fw-light text-start mt-1" id="orderId">${map.chargeCoinHistory.id}</div>
+				  		
+						<div class="fs-6 text-start mt-4 fw-medium">충전 상세설명</div>
+				  		<div class="fs-5 fw-light text-start mt-1 fw-bold">${map.chargeCoinHistory.transaction_detail}</div>				  		
+				  		
+				  		<div class="fs-6 text-start mt-4 fw-medium">결제 수단</div>
+				  		<div class="fs-5 fw-light text-start mt-1" id="paymentMethod">
+				  				카카오페이
+				  		
 				  		</div>
 				  		
+				  		<div class="fs-6 text-start mt-4 fw-medium">충전일자</div>
+				  		<div class="fs-5 fw-light text-start mt-1">
+				  		<fmt:formatDate value="${map.chargeCoinHistory.reg_date}"  pattern="yyyy-MM-dd a hh:mm" />
 				  		
-			  			
+				  		</div>					  		
+				  		
+				  		<div class="fs-6 text-start mt-4 fw-medium">충전 금액</div>
+				  		<div class="fs-4 fw-light text-start mt-1 fw-bold" id="amount"
+				  		style="color:#ff6f0f;">
+				  		<fmt:formatNumber value="${map.chargeCoinHistory.coin_transaction}" pattern="#,###"/>원
+				  		
+				  		</div>				  		
+					  		
 						<div class="row mt-3">
 				  			<div class="d-grid">
 				  				
-				  				<a class="btn btn-dark" href="/safari/auction/successBidList" >확인</a>
+				  				<a class="btn orangeButton" href="/safari/user/myCoinPage" >확인</a>
 				  			</div>
 				  		</div>	  		
 				  		

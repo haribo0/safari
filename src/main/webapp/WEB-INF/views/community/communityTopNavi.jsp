@@ -16,6 +16,7 @@
 <body>
    <!-- 커뮤니티 메뉴바 -->
    <div class="container main_box">
+   	  
       <h1 class="text-center fs-3 mt-2"><b>커뮤니티</b> 페이지</h1>
          <ul class="nav justify-content-center pb-3 mb-3">
             <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">공동구매</a></li>

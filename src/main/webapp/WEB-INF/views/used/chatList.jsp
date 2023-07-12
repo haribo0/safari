@@ -779,7 +779,7 @@
 	 	            img.alt = 'review';
 	 	            img.height = '180';
 	 	            img.id = 'reviewImg2';
-	            	
+	 	            img.className = 'object-fit-cover';
 	            	img.src = '/safari/resources/img/used/review2.jpeg';
 	            	col4.appendChild(img);
 		            row4.appendChild(col4);
@@ -837,6 +837,7 @@
 	 	            img.height = '180';
 	 	            img.id = 'reviewImg2';
 	            	img.src = '/safarifile/' + response.map.usedPurchaseReviewDto.review_img_link;
+	            	img.className = 'object-fit-cover';
 	            	
 	            	col4.appendChild(img);
 		            row4.appendChild(col4);
@@ -893,6 +894,7 @@
 	 	            img.height = '180';
 	 	            img.id = 'reviewImg2';
 	            	img.src = '/safari/resources/img/used/review2.jpeg';
+	            	img.className = 'object-fit-cover';
 	            	col4.appendChild(img);
 		            row4.appendChild(col4);
 		            
@@ -953,6 +955,8 @@
 	 	            img.height = '180';
 	 	            img.id = 'reviewImg2';
 	            	img.src = '/safarifile/' + response.map.usedPurchaseReviewDto.review_img_link;
+	            	img.className = 'object-fit-cover';
+	            	
 	            	
 	            	col4.appendChild(img);
 		            row4.appendChild(col4);
@@ -1105,6 +1109,7 @@
 	 	            img.alt = 'review';
 	 	            img.height = '180';
 	 	            img.id = 'reviewImg2';
+	 	            img.className = 'object-fit-cover';
 	            	
 	            	img.src = '/safari/resources/img/used/review2.jpeg';
 	            	col4.appendChild(img);
@@ -1146,6 +1151,7 @@
 	 	            img.height = '180';
 	 	            img.id = 'reviewImg2';
 	            	img.src = '/safarifile/' + response.map.usedPurchaseReviewDto.review_img_link;
+	            	img.className = 'object-fit-cover';
 	            	
 	            	col4.appendChild(img);
 		            row4.appendChild(col4);
@@ -1184,6 +1190,7 @@
 	 	            img.height = '180';
 	 	            img.id = 'reviewImg2';
 	            	img.src = '/safari/resources/img/used/review2.jpeg';
+	            	img.className = 'object-fit-cover';
 	            	col4.appendChild(img);
 		            row4.appendChild(col4);
 		            
@@ -1225,6 +1232,7 @@
 	 	            img.height = '180';
 	 	            img.id = 'reviewImg2';
 	            	img.src = '/safarifile/' + response.map.usedPurchaseReviewDto.review_img_link;
+	            	img.className = 'object-fit-cover';
 	            	
 	            	col4.appendChild(img);
 		            row4.appendChild(col4);
@@ -1340,7 +1348,7 @@
 	  			  row1.className = 'row align-items-center';
 	  			  
 	  			  const row1col1 = document.createElement('div');
-	  			  row1col1.className = 'col-1 p-0 fw-bold fs-4';
+	  			  row1col1.className = 'col p-0 fw-bold';
 	  			  row1col1.textContent = data.userDto.nickname;
 	  			
 	  			  const row1col2 = document.createElement('div');
@@ -1348,7 +1356,7 @@
 	  			  row1col2.textContent = data.productTownDto.product_town_name;
 	  			  
 	  			  const row1col3 = document.createElement('div');
-	  			  row1col3.className = 'col text-secondary';
+	  			  row1col3.className = 'col-2 text-secondary';
 	  			  if(data.lastChatDate == ""){
 	  				const regDate = data.productRequestDto.reg_date;
 		  			const formattedDate = new Date(regDate).toLocaleDateString('ko-KR', { month: 'short', day: '2-digit' });

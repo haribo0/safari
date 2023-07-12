@@ -10,92 +10,48 @@
 <!-- 메타 섹션 -->
 <jsp:include page="../common/meta.jsp"></jsp:include>
 <!-- 메타 섹션 -->
-
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
-<link rel="stylesheet" href="/safari/resources/style/common.css" type="text/css">
 <link rel="stylesheet" href="/safari/resources/style/auction.css" type="text/css">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
-
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
 </head>
+
+<style>
+.overflow {
+  white-space: nowrap; /* 텍스트를 한 줄로 표시 */
+  overflow: hidden; /* 넘친 텍스트를 숨김 */
+  text-overflow: ellipsis; /* 넘친 텍스트를 "..."으로 표시 */
+}
+</style>
 <body>
 
 	<!-- 헤더 섹션 -->
 	<jsp:include page="../common/header.jsp"></jsp:include>
 	<!-- 헤더 섹션 -->
-	<div class="container d-flex mt-5">
-	<div style="width: 24%;">
-		<h2 class="fw-bold">마이페이지</h2>
-		
-		<ul class="list-group mt-4">
-		<li class="list-group-item border border-0 pb-0"><a class="btn fs-5 text fw-bold py-1" href="#">회원정보</a></li>
-		  	<div class="" id="">
-				<ul class="list-group ms-4">
-					<li class="list-group-item border-0"><a href="#" class="btn py-0 text-body-secondary">회원정보수정</a></li>
-					<li class="list-group-item border-0"><a href="#" class="btn py-0 text-body-secondary">배송지관리</a></li>
-					<li class="list-group-item border-0"><a href="#" class="btn py-0 text-body-secondary">찜</a></li>
-					<li class="list-group-item border-0"><a href="#" class="btn py-0 text-body-secondary">1:1문의</a></li>
-					<li class="list-group-item border-0"><a href="#" class="btn py-0 text-body-secondary">리뷰관리</a></li>
-				</ul>
+	
+	<!-- 마이페이지 상단 블럭 -->
+	<jsp:include page="../common/myPageTop.jsp"></jsp:include>
+	<!-- 마이페이지 상단 블럭 -->
+
+	<div class="container d-flex mt-5 px-0">
+		<div class="row w-100">
+		<!-- 마이페이지 nav -->
+		<jsp:include page="../common/myPageNav.jsp"></jsp:include>
+		<!-- 마이페이지 nav -->
+			
+		<div class="col ms-4">
+			<div class="row" style="border-bottom: 2px solid #222; height: 48px;">
+				<div class="col p-0">
+					<h5>찜 목록</h5>						
+				</div>
 			</div>
 			
-		
-		  <li class="list-group-item border border-0 pb-0"><a class="btn fs-5 text fw-bold py-1" href="#collapse1">중고</a></li>
-		  	<div class="" id="">
-				<ul class="list-group ms-4">
-					<li class="list-group-item border-0"><a href="../used/chatList" class="btn py-0 text-body-secondary">채팅방 목록</a></li>
-					<li class="list-group-item border-0"><a href="#" class="btn py-0 text-body-secondary">리스트제목</a></li>
-					<li class="list-group-item border-0"><a href="#" class="btn py-0 text-body-secondary">리스트제목</a></li>
-					<li class="list-group-item border-0"><a href="#" class="btn py-0 text-body-secondary">리스트제목</a></li>
-				</ul>
-			</div>
+			<div class="row me-5" style="position: relative; right: 10px;">
+				<div class="col">
 			
-		  <li class="list-group-item border border-0 pb-0"><a class="btn fs-5 text fw-bold py-1" href="#">대여</a></li>
-		  	<div class="" id="">
-				<ul class="list-group ms-4">
-					<li class="list-group-item border-0"><a href="./myOrderListPage" class="btn py-0 text-body-secondary">오더리스트</a></li>
-					<li class="list-group-item border-0"><a href="#" class="btn py-0 text-body-secondary">리스트제목</a></li>
-					<li class="list-group-item border-0"><a href="#" class="btn py-0 text-body-secondary">리스트제목</a></li>
-					<li class="list-group-item border-0"><a href="#" class="btn py-0 text-body-secondary">리스트제목</a></li>
-				</ul>
-			</div>
-			
-		  <li class="list-group-item border border-0 pb-0"><a class="btn fs-5 text fw-bold py-1" href="/safari/auction/myPage" >경매</a></li>
-		  	<div class="" id="">
-				<ul class="list-group ms-4">
-					<li class="list-group-item border-0"><a href="/safari/auction/bidList" class="btn py-0 text-body-secondary">입찰목록</a></li>
-					<li class="list-group-item border-0"><a href="/safari/auction/successBidList" class="btn py-0 text-body-secondary">낙찰목록</a></li>
-					<li class="list-group-item border-0"><a href="/safari/auction/wishList" class="btn py-0 text-body-secondary">찜</a></li>
-					<li class="list-group-item border-0"><a href="#" class="btn py-0 text-body-secondary">구매한 상품</a></li>
-				</ul>
-			</div>
-			
-		  <li class="list-group-item border border-0 pb-0"><a class="btn fs-5 text fw-bold py-1" href="#" >커뮤니티</a></li>
-		  	<div class="" id="">
-				<ul class="list-group ms-4">
-					<li class="list-group-item border-0"><a href="#" class="btn py-0 text-body-secondary">리스트제목</a></li>
-					<li class="list-group-item border-0"><a href="#" class="btn py-0 text-body-secondary">리스트제목</a></li>
-					<li class="list-group-item border-0"><a href="#" class="btn py-0 text-body-secondary">리스트제목</a></li>
-					<li class="list-group-item border-0"><a href="#" class="btn py-0 text-body-secondary">리스트제목</a></li>
-				</ul>
-			</div>
-		</ul>
-	</div>
-		
-	<div class="pt-2 w-100">
-		
-		<div class="row">
-			<div class="col ms-4">
-			
-				<div class="row">
+				<div class="row mt-4">
 					<div class="col">
 						<span>
 							<img class="mb-1" src="/safari/resources/img/auction/notice.png"
 								style="max-width: 25px; max-height: 25px;"></span>
 								<span class="fw-bold fs-5">참고사항</span>
-					
 					</div>
 				</div>
 				
@@ -103,19 +59,20 @@
 					<div class="col">
 						찜한 경매 중에서 준비중이거나 진행중인 경매만 표시됩니다.
 					</div>
-				</div>
-				
-				<div class="row">
+				</div>			
+		
+			    <div class="row">
 					<div class="col">
 						진행중인 경매의 <span class="fw-bold">현재가는 <span class="text-danger">실시간으로</span> 업데이트</span> 되고 있습니다.
 					</div>
-				</div>				
+				</div>		
 				
 				<div class="row mt-4">
 					<div class="col fw-bold fs-5">
 					 	 관심 있는 경매 목록
 					</div>
-				</div>
+				</div>			
+				
 				
 				<c:if test="${empty auctionWishList}">
 					<div class="row mt-3">
@@ -124,67 +81,54 @@
 						</div>
 					</div>	
 				</c:if>
-				
-				<div class="row mt-3">
-					<div class="col">
-
-					<div class="row flex-wrap pt-2">
-			 				<c:forEach items="${auctionWishList}" var="wish">
-								<div class="col-3 me-5" style="cursor: pointer;">
-									<div class="card border border-0 " style="width: 20rem;">
-										<div class="row px-3">
-											<div class="col pe-3">
-												<a href="/safari/auction/productDetail/${wish.id}" class="text-decoration-none d-inline-block">
-												  <img src="/auctionFiles/${wish.auction_item_img_link}" class="img-fluid card-img-top object-fit-cover" alt="..." 
-												  	style="max-width: 220px; max-height: 220px;" >
-												</a>
-											</div>
-										</div>
-										
-										
-									  <div class="card-body ps-0">
-									  	<div class="d-flex justify-content-between">
-									    	<p class="text-dark mb-0 fw-bold">
-									    		<a href="/safari/auction/productDetail/${wish.id}" class="text-decoration-none d-inline-block text-dark">
-									    			${wish.title}</a>   <span id="auctionStatus_${wish.id}" class="ms-2"> </span></p>
-									  		<%--<p class="mb-0" style="position: relative; bottom: 260px;"><span class="fw-bold" id="totalLikeCount"></span><i id="heartBox" onclick="toggleLike(${map.rentalItemDto.id})" class="text-danger bi bi-heart heart_box" data-item-id="${map.rentalItemDto.id}" style="font-size: 18px;"></i></p> --%>
-									  	</div>
-									  	
-									  	<p class="mb-0">
-									  		${wish.main_category_name} > ${wish.sub_category_name}
-									  	</p>
- 										<p class="mb-0">
-									    	현재가&nbsp;<span class="fs-5 text-danger fw-bold" id="currentPrice_${wish.id}"></span>
-									    </p>									  	
-									  	
-									    <p id="remainTime_${wish.id}">
-									  
-									    </p>
-									    								    
-									    <p>
-									  </div>
-									 </div>
-								</div>
-							</c:forEach>
-						</div>
-
-
-
 					
-					</div>
+				<div class="row mt-3">
+					<c:forEach items="${auctionWishList}" var="wish">
+						<div class="col-3">
+							
+							<div class="row">
+								<div class="col">
+									<a href="/safari/auction/productDetail/${wish.id}" class="text-decoration-none d-inline-block">
+											  <img src="/auctionFiles/${wish.auction_item_img_link}" class="img-fluid" alt="..." 
+											  	 style="height: 220px;">
+									</a>
+								</div>
+							</div>
+							
+							
+							<div class="row mt-2">
+								<div class="col fw-medium overflow" style="width: 200px;">
+									<a href="/safari/auction/productDetail/${wish.id}">
+									   ${wish.title}</a>
+								</div>
+							</div>
+							
+							
+							
+							<div class="row">
+								<div class="col text-secondary">
+									현재가&nbsp;<span class="text-danger fw-bold" id="currentPrice_${wish.id}"></span>
+								</div>
+							</div>
+							
+							<div class="row mt-1 mb-0">
+								<div class="col">
+									<p id="remainTime_${wish.id}" class="mb-1">
+									 </p>
+								</div>
+							</div>
+							<p><span id="auctionStatus_${wish.id}"> </span></p>
+														
+							
+							
+						</div>
+					</c:forEach>
 				</div>
-			
-			
-			
-			
+				</div>	
 			</div>
 		</div>
-		
-		
-		
 	</div>
 </div>
-
 	
 	<!-- 푸터 섹션 -->
 	<jsp:include page="../common/footer.jsp"></jsp:include>
@@ -306,6 +250,12 @@ function updateAuctionCountDown(id) {
       let countDownTableBox = document.getElementById("remainTime_" + id);
       countDownTableBox.innerHTML = "";
       
+      const timeIcon = document.createElement("i");
+      timeIcon.classList.add("bi", "bi-clock", "me-2");
+      timeIcon.style.position = "relative";
+    
+     
+      
 	  	// 경매가 종료된 경우
 	  	if (auctionEndDate <= nowDate || response.auctionItem.auctionDto.auction_status == '종료') {
 	  		return;
@@ -326,9 +276,9 @@ function updateAuctionCountDown(id) {
 	        //remainTimeRow.classList.add("mt-1");
 	        
 	        const remainTimeCol = document.createElement("div");
-	        remainTimeCol.classList.add("col", "fs-5");
-	        remainTimeCol.innerText = "남은 시간 : "
-	        
+	        remainTimeCol.classList.add("col");
+	        	        
+	        remainTimeCol.appendChild(timeIcon);
  
 	         if (auctionCountDown.days > 0) {
 		            const spanTime1 = document.createElement("span");

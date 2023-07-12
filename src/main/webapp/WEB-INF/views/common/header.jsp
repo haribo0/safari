@@ -32,6 +32,10 @@
 		          <li class="me-4"><a href="${pageContext.request.contextPath}/rental/mainPage" class="nav-link px-2 link-body-emphasis">대여</a></li>
 		          <li class="me-4"><a href="${pageContext.request.contextPath}/auction/mainPage" class="nav-link px-2 link-body-emphasis">경매</a></li>
 		          <li class="me-3"><a href="${pageContext.request.contextPath}/community/mainPage" class="nav-link px-2 link-body-emphasis">커뮤니티</a></li>
+		          <c:if test="${!empty sessionUser}">
+		          <li class="me-3"><a href="${pageContext.request.contextPath}/user/myPage" class="nav-link px-2 link-body-emphasis">마이페이지</a></li>
+		          <li class="me-3"><a href="${pageContext.request.contextPath}/user/userLogoutProcess" class="nav-link px-2 link-body-emphasis">로그아웃</a></li>
+		          </c:if>	
 		        </ul>
 		
 		         <c:choose>

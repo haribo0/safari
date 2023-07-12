@@ -27,118 +27,92 @@
     font-size: 15px;
   }
   
+   .orangeButton{
+	background: #ff6f0f;
+	font-weight: bold;
+	color: white;
+}
 </style>
 
 </head>
 <body>
+	
+	
 	<!-- 헤더 섹션 -->
-	<jsp:include page="../common/headerB.jsp"></jsp:include>
+	<jsp:include page="../common/header.jsp"></jsp:include>
 	<!-- 헤더 섹션 -->
+	
+	<!-- 마이페이지 상단 블럭 -->
+	<jsp:include page="../common/myPageTop.jsp"></jsp:include>
+	<!-- 마이페이지 상단 블럭 -->
 
-	<div class="container main_box">
-		<div class="row">
+	<div class="container d-flex mt-5 px-0">
+		<div class="row w-100">
+		<!-- 마이페이지 nav -->
+		<jsp:include page="../common/myPageNav.jsp"></jsp:include>
+		<!-- 마이페이지 nav -->
 		
-			<div class="col-2">
-				<div class="list-group list-group-flush">
-					
-					<!-- 왼쪽 카테고리 리스트 -->
-					<jsp:include page="../common/navLeft.jsp"></jsp:include>
-					<!-- 왼쪽 카테고리 리스트 -->
-					
-				</div>
-				
-				<div class="row mt-5 mb-5">
-					<div class="col"> </div>
-				</div>
-			
-			</div>
-			
-			
-			<div class="col ms-5">
-		    	
-		    	<h4 class="row mt-3 mb-4 fw-regular">결제 완료</h4>
-
-				<div class="row mt-4">
-					<div class="col">
-					
-						<div class="card">
-						  <div class="card-body">
-						  	<div class="row mt-4">
-						  		<div class="col">
-							  	
-							  	</div>
-						  		<div class="col-4 text-center">
-							  		<span class="fs-2"><i class="bi bi-lg bi-check-circle"></i></span>
-							  		<div class="fs-4 fw-medium mt-1">결제 완료</div>
-							  		
-							  		<div class="fs-6 text-start mt-5">결제 ID</div>
-							  		<div class="fs-5 fw-light text-start mt-1" id="orderId">${map.auctionPayment.id}</div>
-							  		
-							  		<div class="fs-6 text-start mt-4">결제 수단</div>
-							  		<div class="fs-5 fw-light text-start mt-1" id="paymentMethod">${map.auctionPayment.payment_method_type}</div>
-							  		
-							  		<div class="fs-6 text-start mt-4">결제 금액</div>
-							  		<div class="fs-5 fw-light text-start mt-1" id="amount">${map.auctionPayment.amount}</div>
-							  		
-							  		
-							  		<div class="fs-6 text-start mt-5"> </div>
-							  		<div class="fs-5 fw-light text-start mb-5"> </div>
-							  		
-							  		<div class=" row">
-							  			<div class="  d-grid">
-<!-- 							  				<a href="./productListPage" class="btn btn-dark" >확인</a> -->
-							  				<a class="btn btn-dark" href="/safari/auction/successBidList" >확인</a>
-							  			</div>
-							  		</div>
-							  		
-							  		
-							  		<div class="fs-5 text-start mt-4"> </div>
-							  		<div class="fs-5 text-start mb-5"> </div>
-							  		
-							  	</div>
-						  		<div class="col">
-							  	
-							  	</div>
-						  	</div>
-						  </div>
-						</div>
-
-					
+			<div class="col ms-4">
+				<div class="row" style="border-bottom: 2px solid #222; height: 48px;">
+					<div class="col p-0">
+						<h5>마이 페이지</h5>						
 					</div>
 				</div>
-			
-			</div>
-			
-			
-		
-		
-		</div>
+				
+				<div class="row mt-5">
+					<div class="col"></div>
+					<div class="col-5 text-center">
+						<span class="fs-2">
+							<i class="bi bi-lg bi-check-circle"></i>
+						</span>
+				  		<div class="fs-4 fw-medium mt-1">결제 완료</div>
+				  		
+				  		
+				  		
+			  			<div class="fs-6 text-start mt-5 fw-medium">결제 ID</div>
+				  		<div class="fs-5 fw-light text-start mt-1" id="orderId">${map.auctionPayment.id}</div>
+				  		
+						<div class="fs-6 text-start mt-4 fw-medium">상품명</div>
+				  		<div class="fs-5 fw-light text-start mt-1 fw-bold">${map.auctionPayment.item_name}</div>				  		
+				  		
+				  		<div class="fs-6 text-start mt-4 fw-medium">결제 수단</div>
+				  		<div class="fs-5 fw-light text-start mt-1" id="paymentMethod">
+				  			<c:if test="${map.auctionPayment.payment_method_type == 'MONEY'}">
+				  				카카오페이
+				  			</c:if>
+				  		</div>
+				  		
+				  		<div class="fs-6 text-start mt-4 fw-medium">결제완료일</div>
+				  		<div class="fs-5 fw-light text-start mt-1">
+				  		<fmt:formatDate value="${map.auctionPayment.reg_date}"  pattern="yyyy-MM-dd a hh:mm" />
+				  		
+				  		</div>					  		
+				  		
+				  		<div class="fs-6 text-start mt-4 fw-medium">결제 금액</div>
+				  		<div class="fs-4 fw-light text-start mt-1 fw-bold" id="amount"
+				  		style="color:#ff6f0f;">
+				  		<fmt:formatNumber value="${map.auctionPayment.amount}" pattern="#,###"/>원
+				  		
+				  		</div>				  		
+					  		
+						<div class="row mt-3">
+				  			<div class="d-grid">
+				  				
+				  				<a class="btn orangeButton" href="/safari/auction/successBidList" >확인</a>
+				  			</div>
+				  		</div>	  		
+				  		
+					</div>
+					<div class="col"></div>
+				</div>
+
 	</div>
-	
-	
-	
-	
+	</div>
+</div>
 
-
-
-
-
-
-
-
-
-<script>
-
-
-
-
-
-
-
-
-</script>
-
-
+<!-- 푸터 섹션 -->
+	<jsp:include page="../common/footer.jsp"></jsp:include>
+	<!-- 푸터 섹션 -->
 
 
 
