@@ -10,6 +10,7 @@ import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -28,9 +29,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ja.safari.dto.RentalBusinessDto;
 import com.ja.safari.dto.RentalItemReturnDto;
 import com.ja.safari.dto.RentalOrderDto;
+import com.ja.safari.dto.RentalOrderKakaopayAmount;
+import com.ja.safari.dto.RentalOrderKakaopayApprove;
+import com.ja.safari.dto.RentalOrderKakaopayReady;
+import com.ja.safari.dto.RentalReturnKakaopayAmount;
+import com.ja.safari.dto.RentalReturnKakaopayApprove;
 import com.ja.safari.dto.RentalReviewDto;
 import com.ja.safari.dto.RentalReviewImgDto;
 import com.ja.safari.dto.UserAddressDto;
@@ -55,7 +62,6 @@ public class RentalController {
 	@RequestMapping("mainPage")
 	public String main(Model model, Integer sub_category_id, Integer main_category_id) {
 		//System.out.println("sub_category_id:: " + sub_category_id);
-		
 		List<Map<String, Object>> categoryList = rentalService.getCategoryList();
 		List<Map<String, Object>> rentalItemList = rentalService.getRentalItemList(sub_category_id, main_category_id);
 		
@@ -161,16 +167,11 @@ public class RentalController {
 		return "redirect:./mainPage";
 	}
 	
-	// 대여 반납 프로세스
-	@RequestMapping("rentalReturnProcess")
-	public String rentalReturnProcess(int rental_order_id) {
-		RentalItemReturnDto rentalItemReturnDto = new RentalItemReturnDto();
-		rentalItemReturnDto.setRental_order_id(rental_order_id);
-		
-		rentalService.rentalReturn(rentalItemReturnDto);
-		
-		return "redirect:../user/myOrderListPage";
-	}
+	
+	
+	
+	
+	
 	
 	// 대여 리뷰 프로세스
 	@RequestMapping("writeRentalReviewProcess")

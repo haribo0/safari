@@ -1,5 +1,6 @@
 package com.ja.safari.rental.mapper;
 
+import java.util.Date;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
@@ -12,6 +13,8 @@ import com.ja.safari.dto.RentalOrderKakaopayApprove;
 import com.ja.safari.dto.RentalOrderKakaopayInactivation;
 import com.ja.safari.dto.RentalOrderKakaopayReady;
 import com.ja.safari.dto.RentalPeriodDiscDto;
+import com.ja.safari.dto.RentalReturnKakaopayAmount;
+import com.ja.safari.dto.RentalReturnKakaopayApprove;
 import com.ja.safari.dto.RentalReviewDto;
 import com.ja.safari.dto.RentalReviewImgDto;
 import com.ja.safari.dto.RentalSubCategoryDto;
@@ -91,20 +94,39 @@ public interface RentalSqlMapper {
 
 	// 대여 appove pk 가져오기
 	public int getRentalOrderKakaopayApprovePk();
+	// 대여 반납 appove pk
+	public int getRentalReturnKakaopayApprovePk();
+
 
 	// 카카오 페이 준비
 	public void insertRentalKakaoReady(RentalOrderKakaopayReady rentalOrderKakaopayReady);
 
 	// 카카오 페이 준비 dto 가져오기
 	public RentalOrderKakaopayReady getRentalOrderKakaopay(int id);
+	// 카카오 페이 반납 dto 가져오기
+	public RentalOrderKakaopayReady getRentalReturnKakaopay(int id);
 
-	// 카카오 페이 approve & amount
+	// 카카오 페이 approve & amount 정보저장
 	public void insertRentalKakaoApprove(RentalOrderKakaopayApprove rentalOrderKakaopayApprove);
 	public void insertRentalKakaoApproveAmount(RentalOrderKakaopayAmount rentalOrderKakaopayAmount);
 
+	// 대여 반납 approve & amount 정보저장
+	public void insertReturnKakaoApprove(RentalReturnKakaopayApprove rentalReturnKakaopayApprove);
+	public void insertReturnKakaoApproveAmount(RentalReturnKakaopayAmount rentalReturnKakaopayAmount);
+	
 	// 카카오 페이 구독취소	
 	public String getSidbyId(int id);
 	public void insertRentalOrderKakaoInactivation(RentalOrderKakaopayInactivation rentalOrderKakaopayInactivation);
+
+	// 카카오 정기결제 approve 없을시
+	public Date getFirstApproveAt(String sid);
+
+	// 대여 프로세스 완료 되었는지
+	public String selectIsCompletedById(int id);
+
+	// 대여 반납 신청pk
+	public int getRentalOrderReturnPk();
+
 
 
 

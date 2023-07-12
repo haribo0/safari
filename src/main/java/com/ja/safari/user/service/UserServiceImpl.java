@@ -66,9 +66,12 @@ public class UserServiceImpl {
 		
 		for(RentalOrderDto item: RentalOrderDtolist) {
 			Map<String, Object> map = new HashMap<String, Object>();
+			String isCompleted = rentalSqlMapper.selectIsCompletedById(item.getId());
+			System.out.println("isCompleted:: " + isCompleted);
 			
 			RentalItemDto rentalItem = rentalSqlMapper.selectById(item.getItem_id());
 			
+			map.put("isCompleted", isCompleted);
 			map.put("orderedItem", item);
 			map.put("product", rentalItem);
 		

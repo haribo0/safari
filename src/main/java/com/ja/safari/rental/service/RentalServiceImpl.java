@@ -11,13 +11,17 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.apache.taglibs.standard.lang.jstl.Literal;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ja.safari.dto.RentalBusinessDto;
@@ -32,6 +36,8 @@ import com.ja.safari.dto.RentalOrderKakaopayApprove;
 import com.ja.safari.dto.RentalOrderKakaopayInactivation;
 import com.ja.safari.dto.RentalOrderKakaopayReady;
 import com.ja.safari.dto.RentalPeriodDiscDto;
+import com.ja.safari.dto.RentalReturnKakaopayAmount;
+import com.ja.safari.dto.RentalReturnKakaopayApprove;
 import com.ja.safari.dto.RentalReviewDto;
 import com.ja.safari.dto.RentalReviewImgDto;
 import com.ja.safari.dto.RentalSubCategoryDto;
@@ -40,6 +46,7 @@ import com.ja.safari.rental.mapper.RentalSqlMapper;
 import com.ja.safari.user.mapper.UserSqlMapper;
 import com.ja.safari.user.service.UserServiceImpl;
 
+@Transactional
 @Service
 public class RentalServiceImpl {
 	
@@ -148,11 +155,18 @@ public class RentalServiceImpl {
 		rentalSqlMapper.insertRentalOrder(rentalOrderDto);
 		return;
 	}
+	
+	// 대여 반납시 pk 생성
+	public int getRentalOrderReturnPk() {
+		int returnPk = rentalSqlMapper.getRentalOrderReturnPk();
+		return returnPk;
+	}
 
 	// 대여 반납
 	public void rentalReturn(RentalItemReturnDto rentalItemReturnDto) {
+		
 		rentalSqlMapper.insertRentalReturn(rentalItemReturnDto);
-		System.out.println("오더 아이디:: "+rentalItemReturnDto.getRental_order_id() );
+		
 		//카카오 취소 진행
 		String sid = rentalSqlMapper.getSidbyId(rentalItemReturnDto.getRental_order_id());
 		System.out.println(" SID 아이디:: "+sid );
@@ -186,10 +200,16 @@ public class RentalServiceImpl {
 				BufferedReader bfrd = new BufferedReader(reader); // 바이트를 읽기 위해 형변환 버퍼리더 생성
 				String input = bfrd.readLine();
 				
-				System.out.println("취소 결과:: " + input);
-				
 				ObjectMapper objectMapper = new ObjectMapper();
 				RentalOrderKakaopayInactivation rentalOrderKakaopayInactivation = objectMapper.readValue(input, RentalOrderKakaopayInactivation.class);
+				if(rentalOrderKakaopayInactivation.getLast_approved_at() == null) {
+					// 최초 결제만 하고 정기결제 미진행 상태일 경우 approve_at이 null값이기에 최초 결제시 approve 값을 넣음
+					Date lastApproveAt = rentalSqlMapper.getFirstApproveAt(rentalOrderKakaopayInactivation.getSid());
+					System.out.println("최초결제 승인:: " + lastApproveAt);
+					rentalOrderKakaopayInactivation.setLast_approved_at(lastApproveAt);
+				}
+				System.out.println(rentalOrderKakaopayInactivation.toString());
+				
 				rentalSqlMapper.insertRentalOrderKakaoInactivation(rentalOrderKakaopayInactivation);
 				
 			} catch (IOException e) {
@@ -269,6 +289,11 @@ public class RentalServiceImpl {
 	public int getApprovePk() {
 		return rentalSqlMapper.getRentalOrderKakaopayApprovePk();
 	}
+	
+	// 대여 카카오페이 return pk 생성
+	public int getReturnApprovePk() {
+		return rentalSqlMapper.getRentalReturnKakaopayApprovePk();
+	}
 
 	// 카카오페이 준비 dto 생성
 	public void saveKakaoReady(RentalOrderKakaopayReady rentalOrderKakaopay) {
@@ -276,23 +301,43 @@ public class RentalServiceImpl {
 		return;
 	}
 	
-	// 카카오페이 준비 다음 단계를 위한 dto 다시 가져오기
+	// 카카오페이 준비 다음 단계를 위한 dto 가져오기
 	public RentalOrderKakaopayReady getKakaoPayReady(int id) {
 		RentalOrderKakaopayReady kakaoPayReady = rentalSqlMapper.getRentalOrderKakaopay(id);
 		return kakaoPayReady;
 	}
+	// 카카오페이 반납 준비 다음단계를 위한 dto 가져오기
+	public RentalOrderKakaopayReady getKakaoPayReturnReady(int returnPk) {
+		RentalOrderKakaopayReady kakaopayReturnReady = rentalSqlMapper.getRentalReturnKakaopay(returnPk);
+		System.out.println("TID??:: " + kakaopayReturnReady);
+		return kakaopayReturnReady;
+	}
 
-	// 정기결제 주문 완료
+	// 정기결제 주문 정보 저장
 	public void saveKakaoApprove(RentalOrderKakaopayApprove rentalOrderKakaopayApprove) {
 		rentalSqlMapper.insertRentalKakaoApprove(rentalOrderKakaopayApprove);
 		return;
 	}
-
 	// 정기결제 주문시 amount 
 	public void saveKakaoApproveAmount(RentalOrderKakaopayAmount rentalOrderKakaopayAmount) {
 		rentalSqlMapper.insertRentalKakaoApproveAmount(rentalOrderKakaopayAmount);
 		return;
 	}
+
+	// 반납시 단기결제 정보 저장
+	public void saveReturnKakaoApprove(RentalReturnKakaopayApprove rentalReturnKakaopayApprove) {
+		rentalSqlMapper.insertReturnKakaoApprove(rentalReturnKakaopayApprove);
+		return;
+	}
+	// 반납시 amount
+	public void saveReturnKakaoApproveAmount(RentalReturnKakaopayAmount rentalReturnKakaopayAmount) {
+		rentalSqlMapper.insertReturnKakaoApproveAmount(rentalReturnKakaopayAmount);
+		return;
+	}
+
+	
+
+
 
 
 	
