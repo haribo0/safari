@@ -83,7 +83,7 @@ select option[value=""][disabled] {
 					</div>
 					<div class="col">
 						<div class="slidecontainer">
-						  <input type="range" value="6" class="slider optionPeriod" id="myRange">
+						  <input type="range" value="12" class="slider optionPeriod" id="myRange">
 						  <p><span id="monthly"></span>개월</p>
 						</div>
 					</div>
@@ -142,7 +142,7 @@ select option[value=""][disabled] {
 					<input type="hidden" value="" name="price" id="hidden_price">
 					<div class="row justify-content-end">
 						<!-- <button class="btn btn-success mt-5 w-25 pe-0">주문신청</button> -->				
-					 	<span class="btn btn-success mt-5 w-25 pe-0" onclick="onReadyRentalKakaoPay()">주문신청</span>
+					 	<span class="btn btn-success mt-5 w-25 pe-0" onclick="checkVali()">주문신청</span>
 					</div>
 				</div>
 			</form>
@@ -175,9 +175,34 @@ select option[value=""][disabled] {
 		xhr.send();		
 	}
 	
+	function checkVali() {
+		const calendarStart = document.querySelector('#calendar_start').value
+		const myRange = document.querySelector('#myRange').value
+		let myAddress = document.querySelectorAll('[name=address]')
+		let selectedAddr =''
+		
+		for(let i = 0; i<myAddress.length; i++) {
+			let radioAddr = myAddress[i]
+			if(radioAddr.checked) {
+				selectedAddr = myAddress[i]
+			}
+		}
+		
+		console.log('calendarStart 길이:: ',calendarStart.length )
+		console.log(myRange)
+		console.log(selectedAddr.value)
+		
+		if(calendarStart.length > 1 && myRange != null && selectedAddr.value != null) {
+			console.log('다 채워짐!!!')
+			onReadyRentalKakaoPay()
+		} else {
+			alert('모든 칸을 채워주세요!')
+		}
+	}
+	
 	// 카카오페이 결제 ID 와 대여오더 ID 를 같이 쓸 pk 생성
 	function onReadyRentalKakaoPay() {
-		const xhr = new XMLHttpRequest();
+		const xhr = new XMLHttpRequest()
 
 		xhr.onreadystatechange = function() {
 			if(xhr.readyState == 4 && xhr.status == 200){
@@ -263,7 +288,7 @@ select option[value=""][disabled] {
 	      document.getElementById('calendar_start').setAttribute('min', formattedDate);
 	  };
 	
-	  setDateInput();
+	 
 	  
 	// 종료일 및 할인가격
 		// console.log(new Date('2023-06-22'))
@@ -470,7 +495,7 @@ select option[value=""][disabled] {
 	window.addEventListener("DOMContentLoaded", function(){
 		getSessionId()
 		getMyaddressList()
-		
+		setDateInput();
 	});
 	</script>
 </body>

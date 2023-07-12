@@ -27,6 +27,12 @@
 	    padding: 0;
 	    margin: 0;
 	    cursor: pointer;
+	}
+	/* 버튼 색깔 */
+   .orangeButton{
+	background: #ff6f0f;
+	color: white;
+    }   
 </style>
 
 </head>
@@ -64,7 +70,6 @@ let cityId = -1;
 let townId = -1;
 let statusId = -1;
 let orderId = -1;
-
 const listParent = document.getElementById("listParent");
 
 function getViewAll(mainId2,subId2,cityId2,townId2,statusId2,orderId2){
@@ -91,7 +96,6 @@ function getViewAll(mainId2,subId2,cityId2,townId2,statusId2,orderId2){
         	const response = JSON.parse(xhr.responseText);
         	listParent.innerHTML = ""; 
         	if(response.result == "success"){
-        		
         		const recentOrderBox = document.getElementById("recentOrder");
         		const bestOrderBox = document.getElementById("bestOrder");
         		const lowOrderrBox = document.getElementById("lowOrder");
@@ -211,7 +215,7 @@ function getViewAll(mainId2,subId2,cityId2,townId2,statusId2,orderId2){
                       fmtNumber.classList.add("p-0")
                       const number = map.productDto.price;
                       const formattedNumber = number.toLocaleString();
-                      fmtNumber.textContent = formattedNumber;
+                      fmtNumber.textContent = formattedNumber+'원';
                       divRow3.appendChild(fmtNumber);
                     }
                   
@@ -221,18 +225,25 @@ function getViewAll(mainId2,subId2,cityId2,townId2,statusId2,orderId2){
                     divRow4.classList.add("row", "ms-1");
                   
                     const divCol3 = document.createElement("div");
-                    divCol3.classList.add("col", "ms-0", "p-0", "w-0", "smaller-text");
-                    divCol3.textContent = map.productCityDto.product_city_name + ' ' + map.productTownDto.product_town_name;
-                  
+                    divCol3.classList.add("col", "ms-0", "p-0", "w-0", "smaller-text", "text-secondary");
+                    divCol3.textContent = map.productCityDto.product_city_name + ' ' + map.productTownDto.product_town_name + ' | ';
+                    const timeSpan = document.createElement("span");
+                    timeSpan.classList.add("ms-0", "p-0", "w-0", "smaller-text", "text-secondary");
+                    timeSpan.id = 'timeSpan';
+                    timeSpan.innerText = dateToTimeDifference(map.productDto.reg_date);
+                    divCol3.appendChild(timeSpan);
+                  	
+                	
+                    
                     divRow4.appendChild(divCol3);
                     divCol.appendChild(divRow4);
                   
                     const divRow5 = document.createElement("div");
                     divRow5.classList.add("row", "mb-5");
-                  
+                    
                     const divCol4 = document.createElement("div");
                     divCol4.classList.add("col", "ms-1", "text-secondary");
-
+   
                     const heartIcon = document.createElement("i");
                     heartIcon.classList.add("bi", "bi-heart-fill");
 
@@ -354,6 +365,44 @@ townBox.addEventListener("change", function() {
 	  getViewAll(0, 0, -1, townValue, 0, 0);
 });
 
+
+//몇 시간/분/초 전 
+function dateToTimeDifference(date) {
+
+	// 자바스크립트 날짜로 변환 
+	const dateFromDatabase = new Date(date);
+
+	// 현재와 시간차 (밀리초)
+	const timeDifference = Date.now() - dateFromDatabase.getTime();
+	
+	 // 초, 분, 시간, 일, 월, 년 계산 (integer)
+	const seconds = Math.floor(timeDifference / 1000);
+	const minutes = Math.floor(seconds / 60);
+	const hours = Math.floor(minutes / 60);
+	const days = Math.floor(hours / 24);
+	const months = Math.floor(days / 30);
+	const years = Math.floor(months / 12);
+
+	let formattedTime;
+
+	// 시/분/초 중 하나 정해서 표시 
+	if (years >= 1) {
+	  formattedTime = `\${years}년 전`;
+	} else if (months >= 1) {
+	  formattedTime = `\${months}개월 전`;
+	} else if (days >= 1) {
+	  formattedTime = `\${days}일 전`;
+	} else if (hours >= 1) {
+	  formattedTime = `\${hours}시간 전`;
+	} else if (minutes >= 1) {
+	  formattedTime = `\${minutes}분 전`;
+	} else {
+	  formattedTime = `\${seconds}초 전`;
+	}
+
+	return formattedTime;
+	
+}
 // 로드할때
 window.addEventListener("DOMContentLoaded", function() {
 	getViewAll(-1,-1,-1,-1,-1,-1);

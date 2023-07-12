@@ -350,6 +350,85 @@
 	WHERE partner_order_id = #{orderId}
 </select>
 
+<!-- 리뷰 평가 카테고리  dto -->
+<select id="selectUsedReviewRateCategory" resultType="com.ja.safari.dto.UsedReviewRateCategoryDto">
+	SELECT * FROM used_review_rate_category order by id
+</select>
+
+<!-- 리뷰 평가 카테고리  dto - 평가 id에 따른 -->
+<select id="selectUsedReviewRateCategoryById" resultType="com.ja.safari.dto.UsedReviewRateCategoryDto">
+	SELECT * FROM used_review_rate_category WHERE id=#{id}
+</select>
+
+<!-- 리뷰 체크박스 카테고리  dto- 평가 id에 따른 -->
+<select id="selectUsedReviewCheckboxCategoryByRateId" resultType="com.ja.safari.dto.UsedReviewCheckboxCategoryDto">
+	SELECT * FROM used_review_checkbox_category WHERE review_rate_category_id=#{rateId}
+</select>
+
+<select id="selectPurchaseReviewPk" resultType="int">
+	SELECT used_purchase_review_seq.nextval FROM DUAL
+</select>
+
+<!-- 거래 리뷰 저장  -->
+<insert id="insertUsedPurchaseReview">
+	INSERT INTO used_purchase_review VALUES(
+	#{id},
+	#{purchase_request_id},
+	#{sender_id},
+	#{receiver_id},
+	#{review_comment},
+	#{review_img_link},
+	SYSDATE
+)
+</insert>	
+
+<!-- 거래 리뷰 checkbox 저장  -->
+<insert id="insertUsedCheckboxSelectedReview">
+	INSERT INTO used_checkbox_selected_review VALUES(
+	used_checkbox_selected_review_seq.nextval,
+	#{product_review_id},
+	#{review_checkbox_category_id}
+)
+</insert>	
+
+<!-- 내가 쓴 해당 거래에서 리뷰를 썼는지 개수 확인  -->
+<select id="selectMyWroteReviewCount" resultType="int">
+	SELECT count(*) FROM used_purchase_review WHERE purchase_request_id=#{requestId} AND sender_id=#{senderId}
+</select>
+
+<!-- 내가 쓴 해당 거래에서 리뷰 가져오기  -->
+<select id="selectPurchaseReviewByRequestIdAndSenderId" resultType="com.ja.safari.dto.UsedPurchaseReviewDto">
+	SELECT * FROM used_purchase_review 
+	WHERE purchase_request_id=#{requestId} AND sender_id=#{senderId}
+</select>
+
+<!-- 내가 쓴 해당 거래에서 리뷰 체크박스 가져오기  -->
+<select id="selectCheckboxSelectedReviewByRequestIdAndSenderId" resultType="com.ja.safari.dto.UsedReviewCheckboxCategoryDto">
+	SELECT * FROM used_review_checkbox_category WHERE id IN 
+	(SELECT review_checkbox_category_id FROM used_checkbox_selected_review WHERE product_review_id in 
+	(SELECT id FROM used_purchase_review WHERE purchase_request_id=#{requestId} AND sender_id=#{senderId}))
+	order by id
+</select>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

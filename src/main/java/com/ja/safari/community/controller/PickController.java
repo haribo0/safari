@@ -53,7 +53,7 @@ public class PickController {
 			
 			return "/community/pick/mainPage";
 		}
-		
+/*		
 		//골라줘요 글쓰기 페이지
 		@RequestMapping("pick/writeContentPage")
 		public String pickWriteContentPage() {
@@ -75,6 +75,33 @@ public class PickController {
 			//중고거래 옵션 insert
 			pickService.registerPickOption(pickOptionDto);
 			
+			
+			return "redirect:/community/pick/mainPage";
+		}
+*/
+		
+		//골라줘요 글쓰기 페이지
+		@RequestMapping("pick/writeContentPage")
+		public String pickWriteContentPage() {
+			
+			return "/community/pick/writeContentPage";
+		}
+		
+		//골라줘요 글쓰기 프로세스 //골라줘요 옵션 추가.
+		@RequestMapping("pick/writeContentProcess")
+		public String pickWriteContentProcess(HttpSession session, PickDto pickDto, PickOptionDto pickOptionDto, Model model) {
+			
+			UserDto sessionUser = (UserDto)session.getAttribute("sessionUser");
+			
+			int user_id = sessionUser.getId();
+			pickDto.setUser_id(user_id);
+			
+			
+			//골라줘요 옵션 추가.
+			List<Map<String, Object>> showProductByproductIdList = pickService.showProductByproductIdList();
+			model.addAttribute("showProductByproductIdList", showProductByproductIdList);
+			
+			System.out.printf("1 컨트롤러 showProductByproductIdList: ", showProductByproductIdList);//확인용
 			
 			return "redirect:/community/pick/mainPage";
 		}

@@ -18,7 +18,7 @@
 				</select>
 			</div>
 			<div class="col"></div>
-			<div class="col-2 text-center"><a href="./productRegister" type="button" class="btn btn-dark btn-sm">상품 등록</a></div>
+			<div class="col-2 text-center align-items-center d-flex justify-content-center"><a href="./productRegister" type="button" class="btn orangeButton">상품 등록</a></div>
 		</div>
 		<div class="row mt-1" style="display: flex; flex-direction: row;">
 			<div class="col-2"></div>
@@ -30,7 +30,7 @@
 				<li class="order_item" data-sort-method="MaxPrice"><div class="btn" id="highOrder" onclick="getViewAll(0,0,0,0,0,3)">높은가격순</div></li>
 			</ul>
 			</div>
-			<div class="col mt-2">
+			<div class="col mt-2 m-0">
 				<div class="form-check form-check-inline">
 				  <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
 				  <label class="form-check-label" for="inlineCheckbox1">거래가능</label>

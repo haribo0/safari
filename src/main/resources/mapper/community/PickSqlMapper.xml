@@ -129,10 +129,16 @@
 		    #{product_id}
 		)
 	</insert>
+
 	
-	<!-- productDto 받아오기 : 없어도 될 듯???-->
-	<select id="selectproductDtoByproductId" resultType="com.ja.safari.dto.ProductDto">
-		select * from product where id=#{id}
+	<!-- 골라줘요 : 중고 상품 테이블에서 받아오기. (이름, 가격, 좋아요 수, 이미지) productDto 받아오기-->
+	<select id="showProductByproductId" resultType="com.ja.safari.dto.ProductDto">
+		SELECT p.title, p.price, COUNT(*), pimg.product_img_link 
+		FROM product p
+		JOIN product_like pLike ON p.id = pLike.product_id
+		JOIN product_img pIMG ON p.id = pIMG.product_id
+		WHERE p.id = #{id}
+		GROUP BY p.title, p.price, pimg.product_img_link
 	</select>
 	
 </mapper>

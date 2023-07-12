@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 import com.ja.safari.dto.AuctionBidDto;
+import com.ja.safari.dto.AuctionDeliveryDto;
 import com.ja.safari.dto.AuctionItemChatroomDto;
 import com.ja.safari.dto.AuctionItemDto;
 import com.ja.safari.dto.AuctionItemImgDto;
@@ -12,6 +13,7 @@ import com.ja.safari.dto.AuctionItemLikeDto;
 import com.ja.safari.dto.AuctionKakaoPayApproveDto;
 import com.ja.safari.dto.ProductMainCategoryDto;
 import com.ja.safari.dto.ProductSubCategoryDto;
+import com.ja.safari.dto.UserCoinDto;
 
 public interface AuctionSqlMapper {
 	
@@ -174,6 +176,9 @@ public interface AuctionSqlMapper {
 	// 마이페이지 - 낙찰 기록 조회
 	public List<AuctionBidDto> getMySueecssfulBidList(int userBuyerId);
 	
+	// 마이페이지 - 낙찰된 건 (배송 조회)
+	public List<AuctionBidDto> getMySuccessfulBidPayAndDeliveryStatusList(int userBuyerId);
+	
 	// 마이페이지 - 찜 목록 조회
 	public List<AuctionItemDto> getMyAuctionWishList(int userBuyerId);
 	
@@ -183,4 +188,40 @@ public interface AuctionSqlMapper {
 	// 경매 낙찰 건에 대한 카카오페이 결제 정보 조회 
 	public AuctionKakaoPayApproveDto getAuctionKakaoPayInfo(Integer id);
 	
+	// 경매 낙찰 후 결제하여 코인 차감
+	public void reduceUserCoinByAuction(UserCoinDto userCoinDto);
+	
+	
+	//  결제 정보 삭제 (테스트 데이터 삭제 위함 !! 사실 절대 사용하면 안됨)
+	public void removePayData(int auctionItemId);
+	
+	// 경매 업로더 입장에서 입찰정보가 없을 경우 제품 정보 조회
+	public List<AuctionItemDto> getAuctionInfoByUploader(int userSellerId);
+	
+	// 경매 업로더 입장에서 낙찰자 정보와 경매 물품 정보 조회
+	public List<AuctionBidDto> getAuctionAndBidInfoByUploader(int userSellerId);
+	
+	// 경매 업로더 입장에서 결제 여부 조회
+	public List<AuctionBidDto> getPayYnByUploader(int userSellerId);
+	
+	// 경매 업로더 - 최고 입찰자, 낙찰자 조회
+	public AuctionBidDto getMaxBiderNickname(@Param("userSellerId") int userSellerId, @Param("auctionItemId") int auctionItemId);
+	
+	// 경매 업로더 - 종료된 경매에서 상품 정보와 결제 상태 확인
+	public List<AuctionBidDto> getEndedAuctionAndPayYnInfoByUploader(int userSellerId);
+	
+	// 경매 업로더의 입장에서 종료된 경매 리스트 상태 조회
+	public List<AuctionBidDto> getEndedAuctionlist(int userSellerId);
+	
+	// 배송 시작 (낙찰자가 결제하면 배송준비중, 판매자가 배송처리 누르는순간 배송중)
+	public void startAuctionDelivery(int partnerOrderId);
+	
+	// 판매자가 배송 시작 누르면 배송 상태 yes 처리
+	
+	
+	// 배송 조회
+	public AuctionDeliveryDto checkAutionDeliveryStatus(int partnerOrderId);
+	
+	// 배송 3일 지나면 배송완료 처리
+	public void completeAuctionDelivery(int partnerOrderId);
 }

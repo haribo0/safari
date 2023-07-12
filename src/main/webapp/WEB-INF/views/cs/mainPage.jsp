@@ -27,11 +27,13 @@
 		
 		<div class="col-11">
 			<div class="row">
-				<div class="col" id="workBox">
+				<%-- <div class="col" id="workBox">
 					${workState}   
 					<div class="ms-3 btn btn-outline-dark" onclick="startWorking()">출근</div>
 					<div class="ms-3 btn btn-outline-dark" onclick="stopWorking()">퇴근</div>
-				</div>
+				</div> --%>
+				
+				
 				
 			</div>
 		</div>
@@ -53,7 +55,7 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
 
 <script>
-
+/* 
 function startWorking() {
 
 	const xhr = new XMLHttpRequest();
@@ -140,7 +142,7 @@ window.addEventListener("DOMContentLoaded",function(){
 	
 
 });
-
+ */
 
 
 

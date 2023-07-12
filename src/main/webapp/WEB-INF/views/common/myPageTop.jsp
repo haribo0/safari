@@ -22,7 +22,43 @@
 			<div class="col-4 d-flex flex-column justify-content-center align-items-center coin-box">
 				<p class="mb-0"><i class="bi bi-coin"></i></p>
 				<p class="mb-0">보유 코인 </p>
-				<p class="fw-bold mb-0 fs-4">5,000</p> 
+				<p class="fw-bold mb-0 fs-4" id="userCoinBalance"></p> 
 			</div>
 		</div>
 	</div>
+	
+<script>
+
+// 회원의 현재 보유 코인 조회
+function getUserCoinBalance() {
+	
+		const xhr = new XMLHttpRequest();
+		
+		const coinBalance = document.getElementById("userCoinBalance");
+	
+		xhr.onreadystatechange = function(){
+			if(xhr.readyState == 4 && xhr.status == 200){
+				const response = JSON.parse(xhr.responseText);
+				if(response.result == "success"){
+					
+					
+					coinBalance.innerText = new Intl.NumberFormat('ko-KR').format(response.coins);
+				}
+			}
+		}
+		
+		xhr.open("get", "/safari/user/getUserCoinBalance");
+		xhr.send();		
+	
+}
+
+
+
+window.addEventListener("DOMContentLoaded", function(){
+	//getSessionId();
+	getUserCoinBalance(); 
+	
+});
+
+
+</script>	

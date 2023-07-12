@@ -112,8 +112,25 @@ public class AuctionController {
 		
 	}
 	
+	// 마이 페이지 - 경매 업로드 조회
+	@RequestMapping("uploadAuctionList")
+	public String getMyUploadAuctionList(HttpSession session, Model model) {
+		
+		UserDto sessionUser = (UserDto) session.getAttribute("sessionUser");
+		
+		model.addAttribute("uploadAuctionList", auctionService.getAuctionAndBidInfoByUploader(sessionUser.getId()));
+		
+		model.addAttribute("endedAuctionList", auctionService.getEndedAuctionAndPayYnInfoByUploader(sessionUser.getId()));
+		
+		model.addAttribute("noBidAuctionList", auctionService.getAuctionInfoByUploader(sessionUser.getId()));
+		
+		return "auction/uploadAuctionList";		
+		
+	}
 	
-	// 결제 실패 
+
+	
+	   // 결제 실패 
 		@RequestMapping("paymentFailed")
 		public String paymentFailed(HttpSession session) {
 			
@@ -146,12 +163,14 @@ public class AuctionController {
 		
 		// 결제 성공     
 		@RequestMapping("paymentSucceed")
-		public String paymentSucceeded(HttpSession session, Model model, Integer id) {
+		public String paymentSucceeded(HttpSession session, Model model, Integer id)
+		{
 			
 			UserDto userDto = (UserDto) session.getAttribute("sessionUser");
 			if(userDto == null) return "redirect:/user/loginPage"; 		
 			
 			session.removeAttribute("auctionkakaoPay");
+			
 			
 			model.addAttribute("map", auctionService.getAuctionKakaoPayInfo(id));
 			

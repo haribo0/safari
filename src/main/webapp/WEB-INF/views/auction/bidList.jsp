@@ -10,15 +10,7 @@
 <!-- 메타 섹션 -->
 <jsp:include page="../common/meta.jsp"></jsp:include>
 <!-- 메타 섹션 -->
-
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
-<link rel="stylesheet" href="/safari/resources/style/common.css" type="text/css">
 <link rel="stylesheet" href="/safari/resources/style/auction.css" type="text/css">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
-
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
 <style>
    @keyframes blink {
      0% { opacity: 1; }
@@ -29,200 +21,174 @@
    .blink-text {
      animation: blink 2s infinite;
    }
-</style>
+   
+   a {
+   	list-style: none;
+   }
+.overflow {
+  white-space: nowrap; /* 텍스트를 한 줄로 표시 */
+  overflow: hidden; /* 넘친 텍스트를 숨김 */
+  text-overflow: ellipsis; /* 넘친 텍스트를 "..."으로 표시 */
+}      
+.btn-sm {
 
+} 
+</style>
 </head>
 <body>
 
 	<!-- 헤더 섹션 -->
 	<jsp:include page="../common/header.jsp"></jsp:include>
 	<!-- 헤더 섹션 -->
-	<div class="container d-flex mt-5">
-	<div style="width: 24%;">
-		<h2 class="fw-bold">마이페이지</h2>
-		
-		<ul class="list-group mt-4">
-		<li class="list-group-item border border-0 pb-0"><a class="btn fs-5 text fw-bold py-1" href="#">회원정보</a></li>
-		  	<div class="" id="">
-				<ul class="list-group ms-4">
-					<li class="list-group-item border-0"><a href="#" class="btn py-0 text-body-secondary">회원정보수정</a></li>
-					<li class="list-group-item border-0"><a href="#" class="btn py-0 text-body-secondary">배송지관리</a></li>
-					<li class="list-group-item border-0"><a href="#" class="btn py-0 text-body-secondary">찜</a></li>
-					<li class="list-group-item border-0"><a href="#" class="btn py-0 text-body-secondary">1:1문의</a></li>
-					<li class="list-group-item border-0"><a href="#" class="btn py-0 text-body-secondary">리뷰관리</a></li>
-				</ul>
-			</div>
-			
-		
-		  <li class="list-group-item border border-0 pb-0"><a class="btn fs-5 text fw-bold py-1" href="#collapse1">중고</a></li>
-		  	<div class="" id="">
-				<ul class="list-group ms-4">
-					<li class="list-group-item border-0"><a href="../used/chatList" class="btn py-0 text-body-secondary">채팅방 목록</a></li>
-					<li class="list-group-item border-0"><a href="#" class="btn py-0 text-body-secondary">리스트제목</a></li>
-					<li class="list-group-item border-0"><a href="#" class="btn py-0 text-body-secondary">리스트제목</a></li>
-					<li class="list-group-item border-0"><a href="#" class="btn py-0 text-body-secondary">리스트제목</a></li>
-				</ul>
-			</div>
-			
-		  <li class="list-group-item border border-0 pb-0"><a class="btn fs-5 text fw-bold py-1" href="#">대여</a></li>
-		  	<div class="" id="">
-				<ul class="list-group ms-4">
-					<li class="list-group-item border-0"><a href="./myOrderListPage" class="btn py-0 text-body-secondary">오더리스트</a></li>
-					<li class="list-group-item border-0"><a href="#" class="btn py-0 text-body-secondary">리스트제목</a></li>
-					<li class="list-group-item border-0"><a href="#" class="btn py-0 text-body-secondary">리스트제목</a></li>
-					<li class="list-group-item border-0"><a href="#" class="btn py-0 text-body-secondary">리스트제목</a></li>
-				</ul>
-			</div>
-			
-		  <li class="list-group-item border border-0 pb-0"><a class="btn fs-5 text fw-bold py-1" href="/safari/auction/myPage" >경매</a></li>
-		  	<div class="" id="">
-				<ul class="list-group ms-4">
-					<li class="list-group-item border-0"><a href="/safari/auction/bidList" class="btn py-0 text-body-secondary">입찰목록</a></li>
-					<li class="list-group-item border-0"><a href="/safari/auction/successBidList" class="btn py-0 text-body-secondary">낙찰목록</a></li>
-					<li class="list-group-item border-0"><a href="/safari/auction/wishList" class="btn py-0 text-body-secondary">찜</a></li>
-					<li class="list-group-item border-0"><a href="#" class="btn py-0 text-body-secondary">구매한 상품</a></li>
-				</ul>
-			</div>
-			
-		  <li class="list-group-item border border-0 pb-0"><a class="btn fs-5 text fw-bold py-1" href="#" >커뮤니티</a></li>
-		  	<div class="" id="">
-				<ul class="list-group ms-4">
-					<li class="list-group-item border-0"><a href="#" class="btn py-0 text-body-secondary">리스트제목</a></li>
-					<li class="list-group-item border-0"><a href="#" class="btn py-0 text-body-secondary">리스트제목</a></li>
-					<li class="list-group-item border-0"><a href="#" class="btn py-0 text-body-secondary">리스트제목</a></li>
-					<li class="list-group-item border-0"><a href="#" class="btn py-0 text-body-secondary">리스트제목</a></li>
-				</ul>
-			</div>
-		</ul>
-	</div>
-		
-	<%-- 공간 --%>	
-	<div class="pt-2 w-100 ms-5 ">
 	
-		<div class="row">
-			<div class="col">
-				<span>
-					<img class="mb-1" src="/safari/resources/img/auction/notice.png"
-						style="max-width: 25px; max-height: 25px;"></span>
-						<span class="fw-bold fs-5">참고사항</span>
-			
-			</div>
-		</div>
-		
-		<div class="row">
-			<div class="col">
-				진행중인 경매의 <span class="fw-bold">현재가는 <span class="text-danger">실시간으로</span> 업데이트</span> 되고 있습니다.
-			</div>
-		</div>
-	
+	<!-- 마이페이지 상단 블럭 -->
+	<jsp:include page="../common/myPageTop.jsp"></jsp:include>
+	<!-- 마이페이지 상단 블럭 -->
 
-		<div class="row mt-3 mb-2">
-			<div class="col fw-bold fs-5">
-				내가 입찰한 경매 목록
-			</div>
-		</div>
-		
-		<c:forEach items="${userBidList}" var="bidItem">
+	<div class="container d-flex mt-5 px-0">
+		<div class="row w-100">
+		<!-- 마이페이지 nav -->
+		<jsp:include page="../common/myPageNav.jsp"></jsp:include>
+		<!-- 마이페이지 nav -->
 			
-			<div class="row mb-4">
-			<div class="col-11 rounded-3 border border-1" style="border-color: #e1e6ed">
-				
+		<div class="col ms-4">
+			<div class="row" style="border-bottom: 2px solid #222; height: 48px;">
+				<div class="col p-0">
+					<h5>입찰 목록</h5>						
+				</div>
+			</div>
+			
+			<div class="row mt-4">
+				<div class="col">
+					<span>
+						<img class="mb-1" src="/safari/resources/img/auction/notice.png"
+							style="max-width: 25px; max-height: 25px;"></span>
+							<span class="fw-bold fs-5">참고사항</span>
+				</div>
+			</div>
+			
+			<div class="row">
+				<div class="col">
+					진행중인 경매의 <span class="fw-bold">현재가는 <span class="text-danger">실시간으로</span> 업데이트</span> 되고 있습니다.
+				</div>
+			</div>
+		
+	
+			<div class="row mt-5">
+				<div class="col fw-bold fs-5">
+					내가 입찰한 경매 목록
+				</div>
+			</div>
+			
+			<c:if test="${empty userBidList}">
 				<div class="row">
-					<%-- 왼쪽 화면 시작 --%>
-					<div class="col-10 ms-3 mt-3 mb-3">	
-						<div class="row">
-						
-							<%--상품 이미지 --%>
-							<div class="col mx-auto text-center pt-2"> 
-								<a href="/safari/auction/productDetail/${bidItem.id}">
-									<img class="img-fluid align-middle" style="height: 120px;"
-									src="/auctionFiles/${bidItem.auction_item_img_link}">
-								</a>	
-							</div>  
-							<%--상품 이미지 --%>
-							
-							<div class="col-10">
-							
-								<div class="row">
-									<div class="col-10 fw-bold fs-5">
-										<a href="/safari/auction/productDetail/${bidItem.id}">
-										${bidItem.title}
-										<span id="statusLiveSpan_${bidItem.id}"></span>
-										</a>
-									</div>
-								</div>
-								
-								<div class="row mt-2">
-									<div class="col text-secondary fw-bold"> 	
-										현재가 &nbsp;
-										<span id="currentPrice_${bidItem.id}" class="text-danger fs-5 opacity-75"></span>
-										
-										즉시낙찰가
-										<span>
-							 				<fmt:formatNumber value="${bidItem.max_price}" pattern="#,###"/>원
-							 			</span> 
-
-									</div>										
-								</div>
-								
-								<div class="row mt-2">
-									<div class="col">
-										경매시작일 : <fmt:formatDate value="${bidItem.start_date}"  pattern="yyyy.MM.dd.  a hh:mm"  />
-						
-									</div>
-								</div>
-								
-								<div class="row mt-2">
-									<div class="col">
-										<span id="auctionEndDate_${bidItem.id}">경매종료일</span> 
-									</div>
-								</div>
-								
-								<div class="row mt-2">
-						 			<div class="col fw-bold fs-5" id="remainTime_${bidItem.id}">
-						 				
-						 		</div>
-						</div>
-		
-							</div>
-						</div>
-						
-
+					<div class="col text-center fs-5">
+						입찰한 경매가 없습니다.
 					</div>
-					<%-- 왼쪽 화면 끝 --%>
-					
-					<%-- 오른쪽 화면 시작 --%>
-					<div class="col ms-2 mt-3 mb-3">
-					
+				</div>	
+			</c:if>			
+			
+			
+			<div class="row mt-2">
+				<c:forEach items="${userBidList}" var="bidItem">
+					<div class="col-3 mt-4">
 						<div class="row">
-							<div class="col text-center" id="auctionStatus_${bidItem.id}">
+							<div class="col">
+								<a href="/safari/auction/productDetail/${bidItem.id}" class="text-decoration-none d-inline-block">
+									  <img src="/auctionFiles/${bidItem.auction_item_img_link}" class="img-fluid" alt="..." 
+									  	 style="height: 220px;">
+								</a>
 							</div>
 						</div>
-					 
-		
-					</div> 
-					<%-- 오른쪽 화면 끝 --%>
-					
-					
-				</div>		
+						
+						
+						<div class="row mt-2">
+							<div class="col fw-bold overflow" style="width: 200px; font-size: 17px;">
+								<a href="/safari/auction/productDetail/${bidItem.id}">
+								   ${bidItem.title}</a>
+							</div>
+						</div>
+			
+						
+						
+						<div class="row mt-1">
+							<div class="col-auto text-secondary">
+								현재가<span class="text-danger fw-bold opacity-75 ms-2" 
+											id="currentPrice_${bidItem.id}" style="font-size: 17px;"></span>
+							</div>
+							<div class="col">
+								<span id="auctionStatus_${bidItem.id}"
+								style="position: relative; right: 8px;"></span>
+								
+							</div>
+						</div>
+						
+						<div class="row">
+							<div class="col fw-medium">
+								즉시낙찰가
+								<span class="ms-2">
+					 				<fmt:formatNumber value="${bidItem.max_price}" pattern="#,###"/>원
+					 			</span> 
+							</div>
+						</div>	
+						
+						<div class="row mt-1">
+							<div class="col" style="font-size: 14px;">
+								경매시작일 : <fmt:formatDate value="${bidItem.start_date}"  pattern="yyyy. MM. dd. a hh:mm"  />
+							</div>
+							
+						</div>		
+						
+						<div class="row">
+							<div class="col" style="font-size: 14px;" id="auctionEndDate_${bidItem.id}">
+								
+							</div>
+							
+						</div>		
+						
+						<div class="row mt-1 mb-0">
+							<div class="col" style="font-size: 18px;">
+								<p id="remainTime_${bidItem.id}" class="mb-1">
+								 </p>
+							</div>
+						</div>							
+						
+	
+					</div>
+				</c:forEach>
 			</div>			
-			
-			
-			</div>			
-			
-			
-		</c:forEach>
+		
+	
 		
 		
+		</div>
 	</div>
-	<%-- 공간 --%>
-</div>
+	</div>
 	
 	<!-- 푸터 섹션 -->
 	<jsp:include page="../common/footer.jsp"></jsp:include>
 	<!-- 푸터 섹션 -->
 
 <script>
+// 로그인된 세션 초기화
+let mySessionId = null;
+// 세션가져오기
+function getSessionId(){
+	const xhr = new XMLHttpRequest();
+	
+	xhr.onreadystatechange = function(){
+		if(xhr.readyState == 4 && xhr.status == 200){
+			const response = JSON.parse(xhr.responseText);
+			if(response.result == "success"){
+				mySessionId = response.id; 
+			}
+		}
+	}
+	
+	xhr.open("get", "../user/getMyId", false);
+	xhr.send();		
+}
+
 //경매 종료일로부터의 카운트다운 함수
 function countdownFromEndDate(endDate) {
 	  // 현재 시간
@@ -310,7 +276,7 @@ function getCurrentPrice(auctionItemId) {
 function updateCurrentPrice(auctionItemId, currentPrice) {
   const currentPriceElement = document.getElementById("currentPrice_" + auctionItemId);
   	if (currentPriceElement) {
-  		 currentPriceElement.textContent =  new Intl.NumberFormat('ko-KR').format(currentPrice) + "원 \u00A0\u00A0\u00A0";
+  		 currentPriceElement.textContent =  new Intl.NumberFormat('ko-KR').format(currentPrice) + "원";
   }
 }
 
@@ -338,19 +304,19 @@ function updateAuctionCountDown(id) {
       statusButton.classList.add("fw-bold");
       statusButton.classList.add("disabled");
       if (auctionEndDate <= nowDate || response.auctionItem.auctionDto.auction_status == '종료') {  
-    	  statusButton.classList.add("btn-outline-danger");
+    	  statusButton.classList.add("btn-outline-secondary");
           statusButton.innerText = "경매 종료";
     	  
       } else if (auctionStartDate <= nowDate) {
     	  statusButton.classList.add("btn-outline-success");
           statusButton.innerText = "진행중";
           
-          const statusLiveSpan = document.getElementById("statusLiveSpan_" + id);
-          if (statusLiveSpan.innerText != 'LIVE ●') {
+        /*   const statusLiveSpan = document.getElementById("statusLiveSpan_" + id);
+          if (statusLiveSpan.innerText != 'LIVE') {
         	statusLiveSpan.classList.add("text-danger", "fw-bold", "ms-3", "fs-5", "blink-text");
-        	statusLiveSpan.innerText = "LIVE ●";
+        	statusLiveSpan.innerText = "LIVE";
         	  
-          }
+          } */
           
           
       } else {
@@ -394,48 +360,46 @@ function updateAuctionCountDown(id) {
 	  		}
 	  	
 
-	       	const remainTimeRow = document.createElement("div");
+	       	/* const remainTimeRow = document.createElement("div");
 	       	remainTimeRow.classList.add("row");
 	        remainTimeRow.classList.add("mt-1");
 	        
 	        const remainTimeCol = document.createElement("div");
 	        remainTimeCol.classList.add("col", "fs-4");
-	        remainTimeCol.innerText = "남은 시간 : "
-	        
-
+	         */
+	         
+	        const timeIcon = document.createElement("i");
+	        timeIcon.classList.add("bi", "bi-clock", "me-2");
+        
+	        countDownTableBox.appendChild(timeIcon);
+		        
 	         if (auctionCountDown.days > 0) {
 		            const spanTime1 = document.createElement("span");
 		            spanTime1.classList.add("fw-bold");
 		            spanTime1.innerText = auctionCountDown.days + "일 ";  
-		            remainTimeCol.appendChild(spanTime1);
+		            countDownTableBox.appendChild(spanTime1);
 	         	}
 	        
 	         if (auctionCountDown.hours > 0) {
 	              const spanTime2 = document.createElement("span");
 	              spanTime2.classList.add("fw-bold");
 	              spanTime2.innerText = auctionCountDown.hours + "시간 ";
-	              remainTimeCol.appendChild(spanTime2);
+	              countDownTableBox.appendChild(spanTime2);
 	            }
 	          if (auctionCountDown.minutes > 0) {
 	              const spanTime3  = document.createElement("span");
 	              spanTime3.classList.add("fw-bold");
 	              spanTime3.innerText = auctionCountDown.minutes + "분 ";
-	          	  remainTimeCol.appendChild(spanTime3);
+	              countDownTableBox.appendChild(spanTime3);
 	            }		         
 
 		       const spanTime4 = document.createElement("span");
 		       spanTime4.classList.add("fw-bold");
-		       spanTime4.innerText = auctionCountDown.seconds + "초 ";      
-		              
-
-		       	remainTimeCol.appendChild(spanTime4);
+		       spanTime4.innerText = auctionCountDown.seconds + "초 ";   
+	 
+		       countDownTableBox.appendChild(spanTime4);
 		        
-		       	remainTimeRow.appendChild(remainTimeCol);
-		       	
-		       
-		       	countDownTableBox.appendChild(remainTimeRow);	
-		       	
-		       	
+	
 		       	//const timeDiff = Math.abs(auctionEndDate - nowDate);  // 경매 시작까지 남은 시간 계산 (밀리초 단위)
                 //const minutesDiff = Math.floor(timeDiff / (1000 * 60));  // 분 단위로 변환
       	
@@ -476,20 +440,12 @@ function getUserBidList() {
 	
 } 
 
+
 window.addEventListener("DOMContentLoaded", function(){
-
-   
+	getSessionId();
 	getUserBidList();
-   
- 
-});
-
-</script>
-
-
-
-<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-
 	
-</body>
+});
+</script>
+</body>	
 </html>
