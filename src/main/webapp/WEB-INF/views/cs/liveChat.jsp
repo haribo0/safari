@@ -19,13 +19,14 @@
 
 
 .myContent {
-  background-color: rgba(75, 137, 220, 0.25);  /* 배경색 */
+  background-color: #F68942; /* rgba(75, 137, 220, 0.25);  */ /* 배경색 */
   color: #000000; /* 글자색 */
   padding: 10px; /* 여백 */
   border-radius: 10px; /* 테두리의 굴곡 정도 */
   text-align: end; /* 내용을 오른쪽 정렬 */
   width: auto;
   max-width: 320px;
+  color: white;
 }
 
 .otherContent {
@@ -70,6 +71,8 @@
 	font-size: 14px;
 }
 
+}
+
 </style>
 
 <style>
@@ -86,6 +89,16 @@
     color: white;
     font-weight: bold;
     line-height: 20px;
+}
+.orangeBtn {
+	background: #F68942;
+	color: white;
+}
+.orangeBtn2 {
+	border: 2px solid #F68942;
+	background : white;
+	color:  #F68942;
+	font-weight: 2px;
 }
 </style>
 
@@ -123,7 +136,7 @@
 				
 				<!-- count -->
 				<div class="col-2 text-end" id=""> 
-					<div class="btn btn-dark" id="chatCount">  </div>
+					<div class="btn orangeBtn fw-medium" id="chatCount">  </div>
 				</div>
 				<!-- count -->
 				
@@ -135,13 +148,13 @@
 			
 				<!-- LEFT COL -->
 				<div class="col-4">
-					<div class="row sticky-top">
+					<div class="row sticky-top" >
 						<div class="col">
-							<div class="row   bg-light text-center py-3 ">
-								<div class="col fw-bolder">실시간 문의 목록</div>
+							<div class="row  text-center bg-light " style="height: 60px">
+								<div class="col fw-bolder my-auto" >실시간 문의 목록</div>
 							</div>
 							
-							<div class="row" id="">
+							<div class="row overflow-y-scroll overflow-x-hidden" id="" style="height: 550px">
 								<div class="col" id="">
 									
 									
@@ -164,7 +177,7 @@
 				<!-- RIGHT COL -->
 				<div class="col">
 					
-					<div class="row  bg-light text-center py-3 ">
+					<div class="row  bg-light text-center " style="height: 60px">
 						<div class="col text-end" id="endLiveChat">
 							<!-- <div class="btn btn-dark btn-sm">상담 종료</div> -->
 						</div>
@@ -173,7 +186,7 @@
 					<!-- 글 상세보기 -->
 					<div class="row ps-5 pe-3 pt-5 pb-5  border-left">
 						<div class="col" id="">
-							<div class="chat-container overflow-y-scroll overflow-x-hidden" style="height:480px;" id="chatMsgContainer">
+							<div class="chat-container overflow-y-scroll overflow-x-hidden" style="height:500px;" id="chatMsgContainer">
 							
 							
 							
@@ -191,7 +204,7 @@
 								<textarea id="chatText" placeholder="메시지 보내기" rows="1" cols="20" class="form-control ms-2"></textarea>
 							</div>
 							<div class="col-2 d-grid">
-			    				<button class="send-button btn btn-dark ms-3 px-3" id="sendMsg" onclick="sendMsg()">전송</button>
+			    				<button class="send-button btn orangeBtn ms-3 px-3" id="sendMsg" onclick="sendMsg()">전송</button>
 							</div>
 						</div>
 					</div>
@@ -276,6 +289,7 @@ function getLiveChatList() {
 			
 			// 문의 count 
 			chatCountBox.innerHTML = "";
+			// chatCountBox.classList.add("orangeBg");
 			chatCountBox.innerText = "실시간 문의 : "+response.count+"건";
 			
 			let index = 0;
