@@ -20,6 +20,7 @@
 <style type="text/css">
 .productImg{
 	border-radius: 10px;
+	border: 1px solid rgba(128, 128, 128, 0.5);
 }
 .category{
 	font-size: 16px;
