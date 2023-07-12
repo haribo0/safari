@@ -232,6 +232,20 @@ public class UserController {
 		return "user/chargeCoinProcess";
 	}
 	
+	// 코인 충전 성공     
+	@RequestMapping("chargeCoinSucceed")
+	public String paymentSucceeded(HttpSession session, Model model, Integer id) {
+		
+		UserDto userDto = (UserDto) session.getAttribute("sessionUser");
+		if(userDto == null) return "redirect:/user/loginPage"; 		
+		
+		session.removeAttribute("userChargeCoinkakaoPay");
+		
+		model.addAttribute("map", userService.getChargeCoinSuccessHistory(id));
+		
+		return "user/chargeCoinSucceed";
+	}
+	
 	// 세연 마이페이지 - 커뮤니티 게시글 리스트
 	@RequestMapping("myAllCommunityPostListPage")
 	public String myAllCommunityPostListPage(Model model, HttpSession session, PromotionReviewDto promotionReviewDto) {
@@ -254,19 +268,6 @@ public class UserController {
 		
 	}
 	
-	// 코인 충전 성공     
-	@RequestMapping("chargeCoinSucceed")
-	public String paymentSucceeded(HttpSession session, Model model, Integer id) {
-		
-		UserDto userDto = (UserDto) session.getAttribute("sessionUser");
-		if(userDto == null) return "redirect:/user/loginPage"; 		
-		
-		session.removeAttribute("userChargeCoinkakaoPay");
-		
-		model.addAttribute("map", userService.getChargeCoinSuccessHistory(id));
-		
-		return "user/chargeCoinSucceed";
-	}
 
 	// 세연 마이페이지 - 커뮤니티 좋아요 리스트
 	@RequestMapping("myCommunityLikesListPage")
