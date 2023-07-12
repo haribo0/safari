@@ -29,7 +29,9 @@ public class HelpServiceImpl {
 	
 	@Autowired
 	private UserSqlMapper userSqlMapper;
+
 	
+	//해주세요 게시물 상세페이지
 	public void registerHelpBoard(HelpDto helpDto, List<HelpImgDto> helpImgDtoList) {
 
 		int helpId =  communitySqlMapper.createPk();
@@ -54,12 +56,13 @@ public class HelpServiceImpl {
 	
 	
 	//해주세요 메인페이지 리스트 조회 
-	public List<Map<String, Object>> selectAllHelpBoards(int helpPageNum){
+	public List<Map<String, Object>> selectAllHelpBoards(int helpPageNum, String help_searchType, String help_searchWord){
 		
 		//화면에 출력해주기 위한 그릇(리스트)
 		List<Map<String, Object>> helpBoardList = new ArrayList<>();
 		
-		List<HelpDto> helpDtoList = helpSqlMapper.selectAllHelpBoards(helpPageNum);
+		List<HelpDto> helpDtoList = helpSqlMapper.selectAllHelpBoards(helpPageNum, help_searchType, help_searchWord);
+		
 		
 		for(HelpDto helpDto : helpDtoList) {
 			
@@ -67,17 +70,21 @@ public class HelpServiceImpl {
 			
 			UserDto userDto = userSqlMapper.selectUserDtoById(helpDto.getUser_id());
 			
+			List<HelpImgDto> helpImgDtoList = helpSqlMapper.selectAllHelpImg(helpDto.getId());
+			
 			int helpCommentCount = helpSqlMapper.selectAllHelpCommentCountByBoardId(helpDto.getId());
 			
 			int helpLikeCount = helpSqlMapper.selectAllHelpLikeCountByBoardId(helpDto.getId());
 			
 			int helpImgCount = helpSqlMapper.selectAllHelpImgByBoardId(helpDto.getId());
 			
+			
 			map.put("helpImgCount", helpImgCount);
 			map.put("helpLikeCount", helpLikeCount);
 			map.put("helpCommentCount", helpCommentCount);
 			map.put("userDto", userDto);
 			map.put("helpDto", helpDto);
+			map.put("helpImgDtoList", helpImgDtoList);
 		
 			
 			helpBoardList.add(map);
@@ -86,6 +93,7 @@ public class HelpServiceImpl {
 		return helpBoardList; 
 	}
 	
+	
 	//해주세요 메인페이지 best 리스트 조회 
 	public List<Map<String, Object>> selectBestHelpBoards(){
 		
@@ -93,6 +101,7 @@ public class HelpServiceImpl {
 		List<Map<String, Object>> helpBoardList = new ArrayList<>();
 		
 		List<HelpDto> helpDtoList = helpSqlMapper.selectBestHelpBoard();
+		
 		
 		for(HelpDto helpDto : helpDtoList) {
 			

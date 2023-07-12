@@ -22,15 +22,20 @@
 	<div class="row mt-5">
 		<div class="col"></div>
 		
+		
 		<%-- 내용 공간 --%>
 		<div class="col-8">
+		<div class="container">
 			<div class="row" style="margin-bottom: 7px;">
 				<div class="col">
 					
 					<span class="fw-medium fs-5">${map.helpDto.title}</span> 
-					<span class="badge rounded-pill text-bg-warning" style="font-size: 80%; position: relative; bottom: 2px;">
-					<span class="text-black">${map.helpDto.points}</span>
-					</span>
+					
+					<c:if test="${map.helpDto.points>=1}">
+					<span class="badge rounded-pill text-bg-warning opacity-75" style="font-size: 80%; position: relative; bottom: 2px;">
+					<span class="text-black">${map.helpDto.points}p</span></span>
+					</c:if>
+					<c:if test="${map.helpDto.points==0}"></c:if>
 				</div>	
 			</div>
 			
@@ -70,7 +75,7 @@
 							<div class="row mt-2">
 								<div class="col">
 									<img src="/uploadFiles/${helpImgDto.help_img_link}"
-										style="width: 960px;">
+										style="width: 500px;">
 								</div>
 							</div>						
 						</c:forEach>
@@ -133,7 +138,7 @@
 			
 			<%-- 댓글 작성 글자 --%>
 			<div class="row">
-				<div class="col">
+				<div class="col fw-bold">
 				
 				<i class="bi bi-chat-dots"></i>&nbsp;<span style="font-size: 13px;">댓글</span>
 				</div>
@@ -148,7 +153,7 @@
 				<%-- 댓글 작성 박스 --%>
 				<div class="row mt-2">
 					<div class="col-11 d-grid ">
-						<textarea class="form-floating border p-2 mb-2 border-opacity" placeholder="댓글을 입력하세요" id="floatingTextarea2" style="height: 60px; width: 1180px; font-size: 13px;" name="content" ></textarea>
+						<textarea class="form-floating border p-2 mb-2 border-opacity" placeholder="댓글을 입력하세요" id="floatingTextarea2" style="height: 60px; font-size: 13px;" name="content" ></textarea>
 					
 					</div>
 					<div class="col d-flex justify-content-center ">
@@ -179,13 +184,14 @@
 	                            <div class="col fw-bold">
 	                            	<span style="font-size: 13px;">${helpComment.userDto.nickname }</span> 
 	                                <span class="text-secondary ms-2" style="font-size: 13px; font-weight: normal;">
-	                                <fmt:formatDate value="${helpComment.helpCommentDto.reg_date}" pattern="yyyy.MM.dd a hh:mm"/> 🚨
+	                                <fmt:formatDate value="${helpComment.helpCommentDto.reg_date}" pattern="yyyy.MM.dd a hh:mm"/> 
 	                                </span>
 	                                
 	                                  <c:if test="${sessionUser.id == helpComment.userDto.id }">
 	                                   <span class="text-secondary ms-2">
 	                                       <input type="button" class="btn btn-sm btn-primary" value="수정" onclick='location.href="/safari/community/help/updateContentPage/${map.helpDto.id}"' style="font-size: 13px; background-color: transparent; border: none; color: inherit;">
 	                                        <input type="button" class="btn btn-sm btn-primary" value="삭제" onclick='location.href="/safari/community/help/deleteCommentProcess/${helpComment.helpCommentDto.id}?boardId=${map.helpDto.id }"' style="font-size: 13px; background-color: transparent; border: none; color: inherit;">
+	                                       🚨
 	                                       </span> 
 	                                  </c:if>
 	                                
@@ -321,7 +327,8 @@
 			</div>
 			<%--댓글 끝 --%>
 			
-		</div>
+		</div></div>
+		
 		<%-- 내용 공간 --%>
 		
 		
@@ -378,7 +385,13 @@
 	<jsp:include page="../../common/footer.jsp"></jsp:include>
 	<!-- 푸터 섹션 -->
 
+<script>
+s
 
+
+
+
+</script>
 </body>	
 </html>	
 

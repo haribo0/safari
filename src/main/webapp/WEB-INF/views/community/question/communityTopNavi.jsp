@@ -24,7 +24,7 @@
             	<div class="row">
             		<div class="col">
             			<a href="${pageContext.request.contextPath}/community/pick/mainPage">
-            				<button type="button" class="btn btn-outline-secondary rounded-circle border-2  d-inline-flex justify-content-center align-items-center" style="width: 65px; height: 65px; ">
+            				<button type="button" class="btn btn-outline-secondary rounded-circle border-2 border-secondary d-inline-flex justify-content-center align-items-center" style="width: 65px; height: 65px; ">
             				<img class="mb-1" src="/safari/resources/img/community/pick.png" style="max-width: 36px; max-height: 36px;">
             				</button>
             			</a>

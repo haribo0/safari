@@ -2,12 +2,16 @@ package com.ja.safari.community.mapper;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.ja.safari.dto.QuestionDto;
+import com.ja.safari.dto.QuestionImgDto;
 import com.ja.safari.dto.QuestionLikeDto;
 import com.ja.safari.dto.QuestionReplyDto;
 
 public interface QuestionSqlMapper {
 
+	public int createPk();
 	
 	//궁금해요 게시물 등록 
 		public void registerQuestionBoard(QuestionDto questionDto);
@@ -16,7 +20,7 @@ public interface QuestionSqlMapper {
 		public QuestionDto getQuestionBoardByBoardId(int id);
 		
 		//궁금해요 게시물 전체 리스트 조회
-		public List<QuestionDto> selectAllQuestionBoards();
+		public List<QuestionDto> selectAllQuestionBoards(@Param("question_searchType") String question_searchType, @Param("question_searchWord") String question_searchWord);
 		
 		//궁금해요 게시물 수정
 		public void updateQuestionBoard(QuestionDto questionDto);
@@ -58,4 +62,10 @@ public interface QuestionSqlMapper {
 		
 		//궁금해요 게시물 채택 상태 변경 update
 		public void completeQuestionBoard(int id);
+		
+		//궁금해요 게시물 이미지 등록 
+		public void insertQuestionBoardImage(QuestionImgDto questionImgDto);
+		
+		//궁금해요 게시물 이미지 조회
+		public List<QuestionImgDto> selectQuestionBoardImageByQuestionId(int questionId);
 }

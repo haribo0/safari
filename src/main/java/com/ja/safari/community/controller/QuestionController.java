@@ -1,7 +1,12 @@
 package com.ja.safari.community.controller;
 
+import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import javax.servlet.http.HttpSession;
 
@@ -10,9 +15,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.ja.safari.community.service.QuestionServiceImpl;
+import com.ja.safari.dto.HelpImgDto;
 import com.ja.safari.dto.QuestionDto;
+import com.ja.safari.dto.QuestionImgDto;
 import com.ja.safari.dto.QuestionLikeDto;
 import com.ja.safari.dto.QuestionReplyCompleteDto;
 import com.ja.safari.dto.QuestionReplyDto;
@@ -32,9 +41,9 @@ public class QuestionController {
 	
 	// 궁금해요 메인 페이지
 		@RequestMapping("question/mainPage")
-		public String question(Model model) {
+		public String question(Model model, String question_searchType, String question_searchWord) {
 
-			List<Map<String, Object>> questionBoardList = questionService.getQuestionBoardList();
+			List<Map<String, Object>> questionBoardList = questionService.getQuestionBoardList(question_searchType, question_searchWord);
 
 			model.addAttribute("questionBoardList", questionBoardList);
 
@@ -49,10 +58,61 @@ public class QuestionController {
 
 		//궁금해요 게시물 작성 프로세스 
 		@RequestMapping("question/questionWriteContentProcess")
-		public String questionWriteContentProcess(QuestionDto questionDto) {
+		public String questionWriteContentProcess(HttpSession session, QuestionDto questionDto, MultipartFile[] questionBoardFiles) {
 
-			questionService.registerQuestionBoard(questionDto);
+			List<QuestionImgDto> questionImgDtoList = new ArrayList<>();
+			
+			// 파일 저장 로직
+			if (questionBoardFiles != null) {
 
+				for (MultipartFile multipartFile : questionBoardFiles) {
+
+					if (multipartFile.isEmpty()) {
+						continue;
+					}
+
+					System.out.println("파일명: " + multipartFile.getOriginalFilename());
+
+					String rootFolder = "C:/uploadFiles/";
+
+					// 날짜별 폴더 생성 로직
+					SimpleDateFormat qqq = new SimpleDateFormat("yyyy/MM/dd");
+					String today = qqq.format(new Date());
+
+					File targetFolder = new File(rootFolder + today);
+
+					if (!targetFolder.exists()) {
+						targetFolder.mkdirs();
+					}
+
+					// 저장 파일명 만들기(파일명 충돌 방지 = 랜덤값 + 시간)
+					String fileName = UUID.randomUUID().toString();
+					fileName += "_" + System.currentTimeMillis();
+
+					// 확장자 추출
+					String originalFileName = multipartFile.getOriginalFilename();
+
+					String ext = originalFileName.substring(originalFileName.lastIndexOf("."));
+
+					String saveFileName = today + "/" + fileName + ext;
+
+					// 문법 오류 피하기 위해 try-catch
+					try {
+						multipartFile.transferTo(new File(rootFolder + saveFileName));
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+
+					QuestionImgDto questionImgDto = new QuestionImgDto();
+					questionImgDto.setQuestion_original_filename(originalFileName);
+					questionImgDto.setQuestion_img_link(saveFileName);
+
+					questionImgDtoList.add(questionImgDto);
+				}
+				// 데이터 저장 로직
+			
+			questionService.registerQuestionBoard(questionDto, questionImgDtoList);
+			}
 			return "redirect:./mainPage";
 		}
 

@@ -8,8 +8,10 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.ja.safari.community.mapper.CommunitySqlMapper;
 import com.ja.safari.community.mapper.QuestionSqlMapper;
 import com.ja.safari.dto.QuestionDto;
+import com.ja.safari.dto.QuestionImgDto;
 import com.ja.safari.dto.QuestionLikeDto;
 import com.ja.safari.dto.QuestionReplyDto;
 import com.ja.safari.dto.UserDto;
@@ -18,7 +20,8 @@ import com.ja.safari.user.mapper.UserSqlMapper;
 @Service
 public class QuestionServiceImpl {
 
-
+	@Autowired
+	private CommunitySqlMapper communitySqlMapper;
 	
 	@Autowired
 	private UserSqlMapper userSqlMapper;
@@ -28,8 +31,17 @@ public class QuestionServiceImpl {
 	
 	
 	//궁금해요 게시물 등록 
-	public void registerQuestionBoard(QuestionDto questionDto) {
+	public void registerQuestionBoard(QuestionDto questionDto, List<QuestionImgDto> questionImgDtoList) {
+		
+		int questionId = communitySqlMapper.createPk();
+		
+		questionDto.setId(questionId);
 		questionSqlMapper.registerQuestionBoard(questionDto);
+		
+		for(QuestionImgDto questionImgDto: questionImgDtoList) {
+			questionImgDto.setQuestion_id(questionId);
+			questionSqlMapper.insertQuestionBoardImage(questionImgDto);
+		}
 	}
 	
 	//궁금해요 게시물 조회
@@ -41,12 +53,11 @@ public class QuestionServiceImpl {
 		
 		UserDto userDto = userSqlMapper.selectUserDtoById(questionDto.getUser_id());
 		
-		System.out.println("questionDto_status dddd: " + questionDto.getStatus());
-		System.out.println("questionDto_userid: ddddd" + questionDto.getUser_id());
-		
+		List<QuestionImgDto> questionImgDtoList = questionSqlMapper.selectQuestionBoardImageByQuestionId(id);
 		
 		map.put("userDto", userDto);
 		map.put("questionDto", questionDto);
+		map.put("questionImgDtoList", questionImgDtoList);
 		
 		return map;
 		
@@ -58,11 +69,11 @@ public class QuestionServiceImpl {
 	}
 	
 	//궁금해요 메인페이지 전체 조회
-	public List<Map<String, Object>> getQuestionBoardList(){
+	public List<Map<String, Object>> getQuestionBoardList(String question_searchType, String question_searchWord){
 		
 		List<Map<String, Object>> questionBoardList = new ArrayList<>();
 		
-		List<QuestionDto> questionDtoList = questionSqlMapper.selectAllQuestionBoards();
+		List<QuestionDto> questionDtoList = questionSqlMapper.selectAllQuestionBoards(question_searchType, question_searchWord);
 		
 		for(QuestionDto questionDto : questionDtoList) {
 			
@@ -120,9 +131,6 @@ public class QuestionServiceImpl {
 		
 		UserDto userDto = userSqlMapper.selectUserDtoById(questionReplyDto.getUser_id());
 		
-		System.out.println("reply_userid: " + userDto.getId());
-		System.out.println("reply_userid: " + questionReplyDto.getUser_id());
-		System.out.println("reply_status: " + questionReplyDto.getStatus());
 		
 		map.put("userDto", userDto);
 		map.put("questionReplyDto", questionReplyDto);

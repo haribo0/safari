@@ -58,7 +58,7 @@
 				  <option value="900">900</option>
 				  <option value="1000">1000</option>
 			</select>
- 			<input type="text" class="form-control"  name="location" maxlength="10" style="margin-top: 10px; max-width: 200px;" value="${map.helpDto.location }">
+ 			<input type="text" class="form-control"  name="location" maxlength="30" style="margin-top: 10px; max-width: 200px;" value="${map.helpDto.location }">
  			</div>
 		 	<label for="helpBoardFiles" class="file-upload-btn" style="margin-top: 10px;">
 			<i class="bi bi-paperclip"></i>

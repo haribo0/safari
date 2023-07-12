@@ -42,8 +42,25 @@
 	<select id="selectAllHelpBoards" resultType="com.ja.safari.dto.HelpDto">
 		select ht2.* from(
     		select ht1.*, rownum rnum from(
-        		select ht.* from help_table ht
-        		order by id desc
+	    		select ht.*
+				from help_table ht 
+				inner join user_table ut on ht.user_id = ut.id
+				where 1=1
+				<if test="help_searchType != null and help_searchWord != null">
+					<choose>
+						<when test="help_searchType == 'title'">
+						and ht.title like '%' || #{help_searchWord} || '%'
+						</when>
+						<when test="help_searchType == 'content'">
+						and ht.content like '%' || #{help_searchWord} || '%'
+						</when>
+						<when test="help_searchType == 'nickname'">
+						and ut.nickname like '%' || #{help_searchWord} || '%'
+						</when>
+					</choose>
+				</if>
+				order by ht.id desc
+    		
         	) ht1
      	)ht2
      	<![CDATA[ 
@@ -110,11 +127,17 @@
     )
   </insert>
   
-  <!--해주세요 게시물 이미지 조회  --> 
+  <!--해주세요 게시물 이미지 리스트 조회  --> 
+  <select id="selectAllHelpImg" resultType="com.ja.safari.dto.HelpImgDto">
+  select * from help_img_table where help_id=#{help_id} order by id desc
+  </select>
+  
+  <!--해주세요 게시물 이미지 상세 조회  --> 
   <select id="selectHelpBoardImageByHelpId" resultType="com.ja.safari.dto.HelpImgDto">
   	select * from help_img_table
 	where help_id = #{helpId}
   </select>
+	
 	
 	<!-- 해주세요 좋아요 등록 -->
 	<insert id="insertHelpLike">

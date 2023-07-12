@@ -2,7 +2,8 @@ package com.ja.safari.community.mapper;
 
 import java.util.List;
 
-import com.ja.safari.dto.HelpCommentCompleteDto;
+import org.apache.ibatis.annotations.Param;
+
 import com.ja.safari.dto.HelpCommentDto;
 import com.ja.safari.dto.HelpDto;
 import com.ja.safari.dto.HelpImgDto;
@@ -18,7 +19,7 @@ public interface HelpSqlMapper {
 	public void registerHelpBoard(HelpDto helpDto);
 	
 	//해주세요 게시글 조회
-	public List<HelpDto> selectAllHelpBoards(int helpPage);
+	public List<HelpDto> selectAllHelpBoards(@Param("helpPage") int helpPage, @Param("help_searchType") String help_searchType, @Param("help_searchWord") String help_searchWord);
 	
 	//해주세요 메인 페이징
 	public int getHelpBoardCount();
@@ -35,7 +36,12 @@ public interface HelpSqlMapper {
 
 	//해주세요 이미지 등록
 	public void insertHelpBoardImage(HelpImgDto helpImgDto);
+	
+	//해주세요 이미지 조회
 	public List<HelpImgDto> selectHelpBoardImageByHelpId(int helpId);
+	
+	//해주세요 이미지 리스트 조회
+	public List<HelpImgDto> selectAllHelpImg(int id);
 	
 	//해주세요 댓글 등록
 	public void registerHelpComment(HelpCommentDto helpCommentDto);
