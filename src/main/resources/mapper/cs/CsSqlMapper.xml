@@ -127,7 +127,7 @@
 					) lc ON e.id = lc.emp_id
 					WHERE al.time_out IS NULL
 					    AND al.time_in IS NOT NULL
-					    AND al.time_in > (SYSDATE-2)
+					    AND al.time_in > (SYSDATE-10)
 					ORDER BY open_live_chats, unanswered_qnas, e.id
 				) t1
 			) t2

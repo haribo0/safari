@@ -210,26 +210,11 @@ public class RentalBusinessServiceImpl {
 			map.put("user", userSqlMapper.selectUserDtoById(rentalOrderDto.getUser_id()));
 			map.put("product", rentalSqlMapper.selectRentalItemDto(rentalOrderDto.getItem_id()));
 			
-			
-			RentalCancelDto rentalCancelDto = rentalSqlMapper.getOrderCancelByOrderId(rentalOrderDto.getId());
 			RentalItemReturnDto rentalItemReturnDto = rentalSqlMapper.getItemReturnDtoByOrderId(rentalOrderDto.getId());
 			
-			if(rentalCancelDto!=null) {
-				if(rentalCancelDto.getIs_item_returned().equals("Y")) {
-					if(rentalSqlMapper.getOrderCancelBillByCancelId(rentalCancelDto.getId())!=null) {
-						if(rentalSqlMapper.getOrderCancelBillByCancelId(rentalCancelDto.getId()).getIs_completed().equals("Y")) {
-							status = "반납완료";
-						} 
-					} else status = "반납확인";
-				} else {
-					status = "반납신청";
-				}
-				
-			} else if (rentalItemReturnDto!=null) {
-				if(rentalSqlMapper.getSurchargeBillDtoByReturnId(rentalItemReturnDto.getId())!=null) {
-					if(rentalSqlMapper.getSurchargeBillDtoByReturnId(rentalItemReturnDto.getId()).getIs_completed().equals("Y")) {
+			if (rentalItemReturnDto!=null) {
+				if(rentalItemReturnDto.getIs_completed()=="Y") {
 						status = "정산완료";
-					}
 				} else if (rentalItemReturnDto.getIs_item_returned().equals("Y")) {
 					status = "회수완료";
 				} else {
@@ -262,33 +247,20 @@ public class RentalBusinessServiceImpl {
 			map.put("user", userSqlMapper.selectUserDtoById(rentalOrderDto.getUser_id()));
 			map.put("product", rentalSqlMapper.selectRentalItemDto(rentalOrderDto.getItem_id()));
 			
-			
-			RentalCancelDto rentalCancelDto = rentalSqlMapper.getOrderCancelByOrderId(rentalOrderDto.getId());
 			RentalItemReturnDto rentalItemReturnDto = rentalSqlMapper.getItemReturnDtoByOrderId(rentalOrderDto.getId());
 			
-			if(rentalCancelDto!=null) {
-				if(rentalCancelDto.getIs_item_returned().equals("Y")) {
-					if(rentalSqlMapper.getOrderCancelBillByCancelId(rentalCancelDto.getId())!=null) {
-						if(rentalSqlMapper.getOrderCancelBillByCancelId(rentalCancelDto.getId()).getIs_completed().equals("Y")) {
-							status = "반납완료";
-						} 
-					} else status = "반납확인";
-				} else {
-					status = "반납신청";
-				}
-				
-			} else if (rentalItemReturnDto!=null) {
-				if(rentalSqlMapper.getSurchargeBillDtoByReturnId(rentalItemReturnDto.getId())!=null) {
-					if(rentalSqlMapper.getSurchargeBillDtoByReturnId(rentalItemReturnDto.getId()).getIs_completed().equals("Y")) {
+			if (rentalItemReturnDto!=null) {
+				if(rentalItemReturnDto.getIs_completed()=="Y") {
 						status = "정산완료";
-					}
 				} else if (rentalItemReturnDto.getIs_item_returned().equals("Y")) {
 					status = "회수완료";
 				} else {
 					status = "반납신청";
 				}
 			} else {
+				// 시작일 이후면
 				if(rentalOrderDto.getStart_date().compareTo(currentDate) < 0 ) status = "대여중";
+				// 다 아니면 
 				else status = "주문완료";
 			}
 			

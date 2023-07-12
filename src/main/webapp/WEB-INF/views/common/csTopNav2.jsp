@@ -49,8 +49,8 @@
 		  <li class="nav-item">
 		    <a class="nav-link" href="#">
 		    	<div class="form-check form-switch">
-				  <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault" checked>
-				  <label class="form-check-label" for="flexSwitchCheckDefault" >근무</label>
+				  <input class="form-check-input" type="checkbox" role="switch" id="workStateCheckbox" checked>
+				  <label class="form-check-label" id="workStateText" for="workStateCheckbox" >근무</label>
 				</div>
 		    </a>
 		  </li>
@@ -102,3 +102,111 @@
 <div class="row  mb-5">
 <div class="col"> </div>
 </div>
+
+
+
+
+<script>
+
+const checkbox = document.getElementById("workStateCheckbox");
+const workStateBox = document.getElementById("workStateText");
+
+
+
+checkbox.addEventListener("change", function() {
+  if (checkbox.checked) {
+    // 출근 시간을 디비에 저장하는 로직을 작성합니다.
+    startWorking();
+  } else {
+    // 퇴근 시간을 디비에 저장하는 로직을 작성합니다.
+    stopWorking();
+  }
+});
+
+
+
+function startWorking() {
+
+	const xhr = new XMLHttpRequest();
+
+	xhr.onreadystatechange = function() {
+		if(xhr.readyState == 4 && xhr.status == 200){
+			const response = JSON.parse(xhr.responseText);
+			
+			getWorkStateByEmpId();
+		}
+	}
+
+	// post 방식 
+	xhr.open("post", "./startWorking");
+	xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+	xhr.send();
+
+}
+
+function stopWorking() {
+
+	const xhr = new XMLHttpRequest();
+
+	xhr.onreadystatechange = function() {
+		if(xhr.readyState == 4 && xhr.status == 200){
+			const response = JSON.parse(xhr.responseText);
+			
+			getWorkStateByEmpId();
+		}
+	}
+
+	// post 방식 
+	xhr.open("post", "./stopWorking");
+	xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+	xhr.send();
+
+}
+
+function getWorkStateByEmpId() {
+	
+
+	const xhr = new XMLHttpRequest();
+
+	xhr.onreadystatechange = function() {
+		if(xhr.readyState == 4 && xhr.status == 200){
+			const response = JSON.parse(xhr.responseText);
+			
+			console.log(response.workState);
+			
+			workStateBox.innerHTML = "";
+			workStateBox.innerText = response.workState;
+
+			if(response.workState != "근무") {
+				checkbox.checked = false;
+
+			} else {
+				checkbox.checked = true;
+
+			}
+			
+			
+		}
+	}
+
+	// get 방식 
+	xhr.open("get", "./getWorkStateByEmpId");
+	xhr.send();
+
+}
+
+
+
+window.addEventListener("DOMContentLoaded",function(){
+	getWorkStateByEmpId();
+	
+
+});
+
+
+
+
+
+
+
+</script>

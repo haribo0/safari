@@ -12,6 +12,7 @@ public class RentalOrderKakaopayInactivation {
 	private String sid;
 	private String status;
 	private Date created_at;
+	private Date last_approved_at;	
 	private Date inactivated_at;
 	
 	public RentalOrderKakaopayInactivation() {
@@ -19,13 +20,14 @@ public class RentalOrderKakaopayInactivation {
 	}
 
 	public RentalOrderKakaopayInactivation(int id, String cid, String sid, String status, Date created_at,
-			Date inactivated_at) {
+			Date last_approved_at, Date inactivated_at) {
 		super();
 		this.id = id;
 		this.cid = cid;
 		this.sid = sid;
 		this.status = status;
 		this.created_at = created_at;
+		this.last_approved_at = last_approved_at;
 		this.inactivated_at = inactivated_at;
 	}
 
@@ -69,6 +71,14 @@ public class RentalOrderKakaopayInactivation {
 		this.created_at = created_at;
 	}
 
+	public Date getLast_approved_at() {
+		return last_approved_at;
+	}
+
+	public void setLast_approved_at(Date last_approved_at) {
+		this.last_approved_at = last_approved_at;
+	}
+
 	public Date getInactivated_at() {
 		return inactivated_at;
 	}
@@ -76,6 +86,15 @@ public class RentalOrderKakaopayInactivation {
 	public void setInactivated_at(Date inactivated_at) {
 		this.inactivated_at = inactivated_at;
 	}
+
+	@Override
+	public String toString() {
+		return "RentalOrderKakaopayInactivation [id=" + id + ", cid=" + cid + ", sid=" + sid + ", status=" + status
+				+ ", created_at=" + created_at + ", last_approved_at=" + last_approved_at + ", inactivated_at="
+				+ inactivated_at + "]";
+	}
+
+	
 
 	
 }

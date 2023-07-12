@@ -1,8 +1,6 @@
 package com.ja.safari.used.service;
 
-import java.sql.Date;
 import java.text.DecimalFormat;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -39,6 +37,11 @@ public class UsedServiceImpl {
 	
 	@Autowired
 	UserSqlMapper userSqlMapper;
+	
+	//user id 에 대한 userDto
+	public UserDto selectUserDtoById(int id) {
+		return usedSqlMapper.selectUserDtoById(id);
+	}
 	
 	//상품 대분류 카테고리 
 	public List<ProductMainCategoryDto> selectMainCategory(){

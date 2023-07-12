@@ -79,16 +79,213 @@
 							<div class = "myPostList mt-3">
 							<div class="tab-content" id="myTabContent">
 								<div class="tab-pane fade show active" id="pick-tab-pane" role="tabpanel" aria-labelledby="pick-tab" tabindex="0">
-									골라줘요 내용	
+									
+									<!--  골라줘요 내용 (다 작성하면 주석 풀어주세요. 주소도 변경 부탁합니다~) -->
+									<div class= "row mt-1 ">
+							<!--  			<c:forEach items="${proreviewByMyPost}" var="map" varStatus="status"> -->
+										<div class = "col">
+											<div class = "row mb-4 mx-0 card border border-1">
+												<div class = "col">
+													<div class = "row">
+														<div class = "col">
+															<div class= "row mt-1">
+																<div class = "col">
+																	카테고리
+																</div>
+															</div>
+											<%-- 	 	<div class= "row mt-1"> 제목이 없어 고민..
+														 		<div class = "col fw-semibold fs-6" style="display: -webkit-box; -webkit-line-clamp: 1; -webkit-box-orient: vertical; overflow: hidden;">
+															 		<a href="../../safari/community/recruit/readContentPage?id=${map.RecruitDto.id }" style="text-decoration: none; color: inherit;">
+															 		<!--  	${map.PickDto.title } -->
+															 		</a>
+														 		</div>
+														 	</div>  --%>
+														 	<div class = "row">
+														 		<div class = "col" style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">
+															 		<a href="../../safari/community/recruit/readContentPage?id=${map.RecruitDto.id }" style="text-decoration: none; color: inherit;">
+															 		<!--  	${map.PickDto.content} -->
+															 		</a>			 		
+														 		</div>
+														 	</div>
+														 	<div class = "row mt-1 mb-1">
+														 		<div class = "col" style = "color:gray;">
+														 		<!--  	${map.userDto.nickname} -->
+														 		</div>
+														 		<div class = "col text-end text-secondary">
+														 			<i class="bi bi-chat-square-dots"></i>
+														 			&nbsp;
+														 			<i class="bi bi-heart"></i>
+														 		</div>
+														 	</div>
+														</div>								
+													</div>
+												</div>
+											</div>
+										</div>
+										<c:if test="${status.count % 2 == 0}">
+									</div>
+											<div class = "row">
+										</c:if>							
+								<!--	</c:forEach>   -->
+									</div>
+									
 								</div>
 								<div class="tab-pane fade" id="help-tab-pane" role="tabpanel" aria-labelledby="profile-tab" tabindex="0">
-									해주세요 내용
+									
+									<!--  해주세요 내용 (다 작성하면 주석 풀어주세요. 주소도 변경 부탁합니다~) -->
+									<div class= "row mt-1 ">
+							<!--  			<c:forEach items="${proreviewByMyPost}" var="map" varStatus="status"> -->
+										<div class = "col">
+											<div class = "row mb-4 mx-0 card border border-1">
+												<div class = "col">
+													<div class = "row">
+														<div class = "col">
+															<div class= "row mt-1">
+																<div class = "col">
+																	카테고리
+																</div>
+															</div>
+														 	<div class= "row mt-1">
+														 		<div class = "col fw-semibold fs-6" style="display: -webkit-box; -webkit-line-clamp: 1; -webkit-box-orient: vertical; overflow: hidden;">
+															 		<a href="../../safari/community/recruit/readContentPage?id=${map.RecruitDto.id }" style="text-decoration: none; color: inherit;">
+															 		<!--  	${map.HelpDto.title } -->
+															 		</a>
+														 		</div>
+														 	</div>
+														 	<div class = "row">
+														 		<div class = "col" style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">
+															 		<a href="../../safari/community/recruit/readContentPage?id=${map.RecruitDto.id }" style="text-decoration: none; color: inherit;">
+															 		<!--  	${map.HelpDto.content} -->
+															 		</a>			 		
+														 		</div>
+														 	</div>
+														 	<div class = "row mt-1 mb-1">
+														 		<div class = "col" style = "color:gray;">
+														 		<!--  	${map.userDto.nickname} -->
+														 		</div>
+														 		<div class = "col text-end text-secondary">
+														 			<i class="bi bi-chat-square-dots"></i>
+														 			&nbsp;
+														 			<i class="bi bi-heart"></i>
+														 		</div>
+														 	</div>
+														</div>								
+													</div>
+												</div>
+											</div>
+										</div>
+										<c:if test="${status.count % 2 == 0}">
+									</div>
+											<div class = "row">
+										</c:if>							
+								<!--	</c:forEach>   -->
+									</div>
+									
 								</div>
 								<div class="tab-pane fade" id="question-tab-pane" role="tabpanel" aria-labelledby="question-tab" tabindex="0">
-									궁금해요 내용
+									
+									<!--  궁금해요 내용 (다 작성하면 주석 풀어주세요. 주소도 변경 부탁합니다~) -->
+									<div class= "row mt-1 ">
+							<!--  			<c:forEach items="${proreviewByMyPost}" var="map" varStatus="status"> -->
+										<div class = "col">
+											<div class = "row mb-4 mx-0 card border border-1">
+												<div class = "col">
+													<div class = "row">
+														<div class = "col">
+															<div class= "row mt-1">
+																<div class = "col">
+																	카테고리
+																</div>
+															</div>
+														 	<div class= "row mt-1">
+														 		<div class = "col fw-semibold fs-6" style="display: -webkit-box; -webkit-line-clamp: 1; -webkit-box-orient: vertical; overflow: hidden;">
+															 		<a href="../../safari/community/recruit/readContentPage?id=${map.RecruitDto.id }" style="text-decoration: none; color: inherit;">
+															 		<!--  	${map.QuestionDto.title } -->
+															 		</a>
+														 		</div>
+														 	</div>
+														 	<div class = "row">
+														 		<div class = "col" style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">
+															 		<a href="../../safari/community/recruit/readContentPage?id=${map.RecruitDto.id }" style="text-decoration: none; color: inherit;">
+															 		<!--  	${map.QuestionDto.content} -->
+															 		</a>			 		
+														 		</div>
+														 	</div>
+														 	<div class = "row mt-1 mb-1">
+														 		<div class = "col" style = "color:gray;">
+														 		<!--  	${map.userDto.nickname} -->
+														 		</div>
+														 		<div class = "col text-end text-secondary">
+														 			<i class="bi bi-chat-square-dots"></i>
+														 			&nbsp;
+														 			<i class="bi bi-heart"></i>
+														 		</div>
+														 	</div>
+														</div>								
+													</div>
+												</div>
+											</div>
+										</div>
+										<c:if test="${status.count % 2 == 0}">
+									</div>
+											<div class = "row">
+										</c:if>							
+								<!--	</c:forEach>   -->
+									</div>
+									
 								</div>
 								<div class="tab-pane fade" id="recruit-tab-pane" role="tabpanel" aria-labelledby="recruit-tab" tabindex="0">
-									구인구직 내용
+									
+									<!--  구인구직 내용 (다 작성하면 주석 풀어주세요. 주소도 변경 부탁합니다~) -->
+									<div class= "row mt-1 ">
+							<!--  			<c:forEach items="${proreviewByMyPost}" var="map" varStatus="status"> -->
+										<div class = "col">
+											<div class = "row mb-4 mx-0 card border border-1">
+												<div class = "col">
+													<div class = "row">
+														<div class = "col">
+															<div class= "row mt-1">
+																<div class = "col">
+																	카테고리
+																</div>
+															</div>
+														 	<div class= "row mt-1">
+														 		<div class = "col fw-semibold fs-6" style="display: -webkit-box; -webkit-line-clamp: 1; -webkit-box-orient: vertical; overflow: hidden;">
+															 		<a href="../../safari/community/recruit/readContentPage?id=${map.RecruitDto.id }" style="text-decoration: none; color: inherit;">
+															 		<!--  	${map.RecruitDto.title } -->
+															 		</a>
+														 		</div>
+														 	</div>
+														 	<div class = "row">
+														 		<div class = "col" style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">
+															 		<a href="../../safari/community/recruit/readContentPage?id=${map.RecruitDto.id }" style="text-decoration: none; color: inherit;">
+															 		<!--  	${map.RecruitDto.content} -->
+															 		</a>			 		
+														 		</div>
+														 	</div>
+														 	<div class = "row mt-1 mb-1">
+														 		<div class = "col" style = "color:gray;">
+														 		<!--  	${map.userDto.nickname} -->
+														 		</div>
+														 		<div class = "col text-end text-secondary">
+														 			<i class="bi bi-chat-square-dots"></i>
+														 			&nbsp;
+														 			<i class="bi bi-heart"></i>
+														 		</div>
+														 	</div>
+														</div>								
+													</div>
+												</div>
+											</div>
+										</div>
+										<c:if test="${status.count % 2 == 0}">
+									</div>
+											<div class = "row">
+										</c:if>							
+								<!--	</c:forEach>   -->
+									</div>
+									
+									
 								</div>
 								<div class="tab-pane fade" id="proreview-tab-pane" role="tabpanel" aria-labelledby="proreview-tab" tabindex="0">
 									<!--  리워드 내용 (아직 틀만 잡음) -->
