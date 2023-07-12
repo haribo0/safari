@@ -50,6 +50,21 @@ public class UserRestController {
 
 		return map;
 	}
+	
+	// 회원정보 수정 - 현재 비밀번호 확인
+	@RequestMapping("checkUserPw") 
+	public Map<String, Object> checkUserPw(HttpSession session) {
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		UserDto sessionUser = (UserDto)session.getAttribute("sessionUser");
+		
+		map.put("userPw", userService.checkUserPw(sessionUser.getId()));
+		
+		map.put("result", "success");
+		
+		return map;
+	}
 
 	// 사용자 주소 추가
 	@RequestMapping("addUserAddress")

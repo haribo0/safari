@@ -56,6 +56,20 @@ public class UserController {
 		return "/main/loginPage";
 	}
 	
+	// 회원정보 수정 페이지
+	@RequestMapping("modifyProfile") 
+	public String modifyProfile(HttpSession session, Model model) {
+		
+		UserDto sessionUser = (UserDto)session.getAttribute("sessionUser");
+		if(sessionUser == null) {
+			return "redirect:/user/loginPage";
+		}
+		
+		model.addAttribute("userInfo", userService.selectUserDtoById(sessionUser.getId()));
+		
+		return "user/modifyProfile";
+	}
+	
 
 	
 	// 주소관리|마이페이지

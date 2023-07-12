@@ -484,7 +484,7 @@
 	
 	<!-- 경매 마이페이지 - 찜 목록 조회 -->
 	<select id="getMyAuctionWishList" resultType="com.ja.safari.dto.AuctionItemDto">
-		 SELECT at.id, title, 
+		 SELECT at.id, title, max_price, 
 		        main_category_name, sub_category_name,
 		        auction_item_img_link
 		        FROM
@@ -751,15 +751,17 @@
     		SYSDATE)
 	</insert>
 	
+	
+	<!--  배송 조회 -->
+	<select id="checkAutionDeliveryStatus" resultType="com.ja.safari.dto.AuctionDeliveryDto">
+		SELECT * FROM auction_delivery_after_payment WHERE partner_order_id = #{partnerOrderId}
+	</select>
+	
 	<!-- 배송 3일 지나면 배송완료 처리 -->
 	<update id="completeAuctionDelivery">
 		UPDATE auction_delivery_after_payment
 			SET delivery_status = '배송완료'
-			<![CDATA[	
-			WHERE reg_date <= SYSDATE - 3;
-			  ]]>
-			     AND partner_order_id = #{partnerOrderId}
-	
+			WHERE partner_order_id = #{partnerOrderId}
 	</update>
 
 

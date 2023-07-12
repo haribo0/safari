@@ -130,7 +130,7 @@ function saveChargeCoinData(cid, tid, partner_order_id,
 
 		    
 	         // 부모 창으로 이동하여 전체 화면으로 결제 완료 페이지 표시
-	       if (window.opener) {
+	        if (window.opener) {
 	            window.opener.location.href = "http://localhost:8181/safari/user/chargeCoinSucceed?id=" + partner_order_id;
 	         } else {
 	            // window.opener가 없을 경우에는 현재 창을 리다이렉트

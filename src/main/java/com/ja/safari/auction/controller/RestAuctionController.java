@@ -766,14 +766,26 @@ public class RestAuctionController {
 		return map;
 		
 	}
-	 
-	// 배송 완료 (쿼리 수정해야함)
-	@RequestMapping("completeAuctionDelivery")
-	public Map<String, Object> completeAuctionDelivery(int auctionItemId) {
+	
+	
+	// 배송 조회
+	@RequestMapping("checkAutionDeliveryStatus")
+	public Map<String, Object>  checkAutionDeliveryStatus(int partnerOrderId) {
 		
 		Map<String, Object> map = new HashMap<String, Object>();
 		
-		auctionService.completeAuctionDelivery(auctionItemId);
+		map.put("deliveryStatus", auctionService.checkAutionDeliveryStatus(partnerOrderId));
+		
+		return map;
+	}
+	 
+	// 배송 완료 (쿼리 수정해야함)
+	@RequestMapping("completeAuctionDelivery")
+	public Map<String, Object> completeAuctionDelivery(int partnerOrderId) {
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		auctionService.completeAuctionDelivery(partnerOrderId);
 		
 		map.put("result", "success");
 		

@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.ja.safari.auction.mapper.AuctionSqlMapper;
 import com.ja.safari.dto.AuctionBidDto;
+import com.ja.safari.dto.AuctionDeliveryDto;
 import com.ja.safari.dto.AuctionItemChatroomDto;
 import com.ja.safari.dto.AuctionItemDto;
 import com.ja.safari.dto.AuctionItemImgDto;
@@ -608,6 +609,11 @@ public class AuctionServiceImpl {
 		auctionSqlMapper.startAuctionDelivery(partnerOrderId);
 	}
 
+	// 배송 조회
+	public AuctionDeliveryDto checkAutionDeliveryStatus(int partnerOrderId) {
+		return auctionSqlMapper.checkAutionDeliveryStatus(partnerOrderId);
+	}
+	
 	// 배송 3일 지나면 배송완료 처리
 	public void completeAuctionDelivery(int partnerOrderId) {
 		auctionSqlMapper.completeAuctionDelivery(partnerOrderId);

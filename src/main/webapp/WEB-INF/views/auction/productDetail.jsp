@@ -194,7 +194,8 @@ input[id="tab03"]:checked ~ .con3 {
 										</div>
 										<div class="col text-end">
 										보유 코인
-										<span class="text-primary fw-bold" id="auctionCoin"> </span>
+										<span class="text-primary fw-bold ms-1" id="auctionCoin"
+										style="font-size: 18px;"> </span>
 										</div>
 									</div>
 									
@@ -248,10 +249,7 @@ input[id="tab03"]:checked ~ .con3 {
 						</div>
 					</div>				
 					<div class="row">
-						<div class="col ms-2 border border-1" id="chatMessageBox" style="height: 300px; overflow: auto">
-						
-						
-						</div>
+						<div class="col ms-2 border border-1" id="chatMessageBox" style="height: 300px; overflow: auto"></div>
 					</div>
 		  				
 					<div class="row mt-2">

@@ -24,6 +24,28 @@
 			SELECT * FROM user_table WHERE email = #{email} AND pw = #{pw}
 		</select>
 		
+		
+		<!-- 회원정보 수정 - 현재 비밀번호 확인 -->
+		<select id="checkUserPw" resultType="com.ja.safari.dto.UserDto">
+			SELECT pw FROM user_table WHERE id = #{id}
+		</select>
+		
+		<!-- 회원정보 수정 -->
+		<update id="modifyUserInfo">
+			UPDATE user_table
+				SET
+					email = #{email},
+					pw = #{pw},
+					nickname = #{nickname},
+					phone = #{phone},
+					gender = #{gender},
+					birth = #{birth},
+					profile_image_link = #{profile_image_link}
+				WHERE
+					id = #{id}		
+		</update>
+		
+		
 		<!-- 유저아이디로 유저 dto 가져오기  -->
 		<select id="selectUserDtoById" resultType="com.ja.safari.dto.UserDto">
 			SELECT * FROM user_table WHERE id = #{id}

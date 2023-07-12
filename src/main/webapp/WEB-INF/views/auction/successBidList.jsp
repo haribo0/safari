@@ -72,10 +72,95 @@
 						</div>
 					</div>										
 						
-				<div class="row mt-3">
+				<div class="row mt-3 ms-1">
 					<div class="col">
+					
+					
+						<div class="row fw-medium border-bottom border-black border-2 py-2">
+							<div class="col-5 text-center">상품정보</div>
+							<div class="col text-center">낙찰가</div>
+							<div class="col text-center">낙찰시간</div>
+							<div class="col text-center">경매종료일</div>
+							<div class="col text-center">상태</div>
+						</div>
 						
-						<table class="table align-middle">
+						  <c:if test="${empty successBidList}">
+						       <div class="row border-bottom py-2">
+							   <div class="col text-center" colspan="5">
+						            낙찰 정보가 없습니다.
+						        </div>
+						       </div>
+						    </c:if>	
+						
+						
+						 <c:forEach items="${successBidList}" var="bidDto">
+							<input type="hidden" id="user_id_${bidDto.auction_item_id}" value="${sessionUser.id}">
+								<div class="row border-bottom py-2">
+									<div class="col-5">
+										<div class="row">
+										
+											<input type="hidden" id="bid_${bidDto.auction_item_id}" value="${bidDto.id}">
+											<div class="col" id="aid_${bidDto.auction_item_id}" style="float: left;">
+												
+												<a href="/safari/auction/productDetail/${bidDto.auction_item_id}">
+												<img 
+												src="/auctionFiles/${bidDto.auction_item_img_link}" style="
+												width: 120px; height: 120px;"></a>
+											</div>
+											<div class="col-8" class="text-start">
+												<div class="row mt-4">
+													<div class="col" style="font-size: 14px;">
+														${bidDto.main_category_name} > ${bidDto.sub_category_name}
+													</div>
+												</div>
+												<div class="row">
+													<div class="col fw-bold">
+													<input type="hidden" value="${bidDto.auction_item_id}">
+														<span style="font-size: 16px;"><a href="/safari/auction/productDetail/${bidDto.auction_item_id}">
+														${bidDto.title}</a></span>
+													<input type="hidden" id="title_${bidDto.auction_item_id}" value="${bidDto.title}">	
+													</div>
+												</div>
+											</div>									
+										</div>
+									</div>	
+									
+									<div class="col mt-3 text-center fw-bold text-danger">
+										<div class="row mt-4">
+											<div class="col">
+												<fmt:formatNumber value="${bidDto.bid_price}"  pattern="#,###"/>원
+												<input type="hidden" id="bid_price_${bidDto.auction_item_id}" value="${bidDto.bid_price}">
+											</div>
+										</div>
+									</div>
+									
+									<div class="col mt-2 text-center">
+										<div class="row mt-4">
+											<div class="col">
+												<fmt:formatDate value="${bidDto.reg_date}" pattern="yyyy.MM.dd" />
+												<br>
+												<fmt:formatDate value="${bidDto.reg_date}" pattern="a hh:mm" />
+												</div>
+										</div>
+									</div>
+									
+									<div class="col mt-2 text-center">
+										<div class="row mt-4">
+											<div class="col">
+												<fmt:formatDate value="${bidDto.end_date}" pattern="yyyy.MM.dd" />
+												<br>
+												<fmt:formatDate value="${bidDto.end_date}" pattern="a hh:mm" />
+											</div>
+										</div>
+									</div>
+									
+									<div class="col mt-3 text-center" id="myStatus_${bidDto.id}">
+									</div>						
+								
+								</div>
+							</c:forEach>
+							
+<%-- 						<table class="table align-middle">
 							<thead class="table-secondary p-2">
 								<tr class="text-center">
 									<th>상품정보</th>
@@ -142,7 +227,7 @@
 										</tr>
 								</c:forEach>
 								</tbody>
-							</table>
+							</table> --%>
 						</div>
 					</div>						
 						
@@ -191,14 +276,6 @@
 
 <script>
 
-/* function popupCenter(href, w, h) {
-	var xPos = (document.body.offsetWidth/2) - (w/2); // 가운데 정렬
-	xPos += window.screenLeft; // 듀얼 모니터일 때
-	var yPos = (document.body.offsetHeight/2) - (h/2);
-
-	window.open(href, "popup", "width="+w+", height="+h+", left="+xPos+", top="+yPos+", menubar=yes, status=yes, titlebar=yes, resizable=yes");
-}
- */
 
 //새 창 띄우기 
  function openNewWindow(url) {
@@ -210,7 +287,7 @@
  	  
  	  // Add an event listener to the child window's unload event
  	  childWindow.addEventListener("unload", function() {
- 	     // getListUpdated();
+ 	     
  	  });
  		  
  	  
@@ -309,6 +386,7 @@ function kakaoPayModal(index) {
 
 function getMySuccessfulBidPayAndDeliveryStatusList() {
 	
+	
 	const xhr = new XMLHttpRequest();
 	  xhr.onreadystatechange = function() {
 	    if (xhr.readyState === 4 && xhr.status === 200) {
@@ -334,11 +412,105 @@ function getMySuccessfulBidPayAndDeliveryStatusList() {
 	              
     	          myStatus.appendChild(payButton);    
 	    	  } else {
+	    		  const deliveryRegDate = new Date(data.delivery_reg_date);
+	    		  const threeDaysLater = new Date(deliveryRegDate.setDate(deliveryRegDate.getDate() + 2));
+	    		  // 나중에 3일로 변경해야함. (임시로 2일로 설정)
+	    		  
+	    		  const nowDate = new Date();
 	    		  
 	    		  if (data.delivery_exists == 'No') {
-	    			  myStatus.innerText = "배송준비중";
-	    		  } else {
-	    			  myStatus.innerText = "배송중";
+	    			  	const row = document.createElement("div");
+    				  	row.classList.add("row", "mt-4");
+    				  	
+    				  	const col = document.createElement("div");
+    				  	col.classList.add("col");
+    				  	
+    				  	col.innerText = "배송준비중";
+    				  	
+    				  	row.appendChild(col);
+    				  	myStatus.appendChild(row);
+    				  	
+    				  	
+	    		  } else if (data.delivery_reg_date){
+	    			  if (nowDate > threeDaysLater) {
+	    				  
+	    				    selectAuctionDeliveryStatusBeforeComplete(data.id);
+	    				    
+	    				  	const row = document.createElement("div");
+	    				  	row.classList.add("row");
+	    				  	
+	    				  	const col = document.createElement("div");
+	    				  	col.classList.add("col");
+	    				  	
+	    				  	col.innerText = "배송완료";
+	    				  	
+	    				  	row.appendChild(col);
+	    				  	myStatus.appendChild(row);
+	    				  	
+	    				  	const row2 = document.createElement("div");
+	    				  	row2.classList.add("row", "mt-1");
+	    				  	
+	    				  	const col2 = document.createElement("div");
+	    				  	col2.classList.add("col");
+	    				  	
+	    					const buyButton = document.createElement("input");
+	    					buyButton.type = "button";
+	    					buyButton.classList.add("btn", "btn-sm", "btn-outline-secondary");
+	    					buyButton.value = "구매확정";
+	    					
+	    					col2.appendChild(buyButton);
+	    					
+	    					row2.appendChild(col2);
+	    					
+	    					myStatus.appendChild(row2);
+	    					
+	      				  	const row3 = document.createElement("div");
+	    				  	row3.classList.add("row", "mt-1");
+	    				  	
+	    				  	const col3 = document.createElement("div");
+	    				  	col3.classList.add("col");
+	    				  	
+	    					const refundButton = document.createElement("input");
+	    					refundButton.type = "button";
+	    					refundButton.classList.add("btn", "btn-sm", "btn-outline-secondary");
+	    					refundButton.value = "반품신청";
+	    					
+	    					col3.appendChild(refundButton);
+	    					
+	    					row3.appendChild(col3);
+	    					
+	    					myStatus.appendChild(row3);
+	    				  	
+	    				  	
+	    			        
+	    			    } else {
+	    			    	
+	    			    	const row = document.createElement("div");
+	    				  	row.classList.add("row", "mt-2");
+	    				  	
+	    				  	const col = document.createElement("div");
+	    				  	col.classList.add("col");
+	    				  	col.innerText = "배송중";
+	    				  	
+	    				  	row.appendChild(col);
+	    				  	
+	    				 	const row2 = document.createElement("div");
+	    				  	row2.classList.add("row", "mt-1");
+	    				  	
+	    				  	const col2 = document.createElement("div");
+	    				  	col2.classList.add("col");
+	    				  	
+	    					const selectButton = document.createElement("input");
+	    					selectButton.type = "button";
+	    					selectButton.classList.add("btn", "btn-sm", "btn-outline-secondary");
+	    					selectButton.value = "배송조회";
+	    					
+	    					col2.appendChild(selectButton);
+	    					row2.appendChild(col2);
+	    					
+	    					myStatus.appendChild(row);
+	    					myStatus.appendChild(row2);
+	    			    }
 	    		  }
 	    		  
 	    	  }
@@ -349,6 +521,42 @@ function getMySuccessfulBidPayAndDeliveryStatusList() {
 	  }
 	  xhr.open("get", "/safari/auction/getMySuccessfulBidPayAndDeliveryStatusList");
       xhr.send();
+	
+}
+
+// 배송완료 처리하기 전에 배송 상태 확인
+function selectAuctionDeliveryStatusBeforeComplete(id) {
+	
+	const xhr = new XMLHttpRequest();
+	  xhr.onreadystatechange = function() {
+	    if (xhr.readyState === 4 && xhr.status === 200) {
+	      const response = JSON.parse(xhr.responseText);
+	      
+	      if (response.deliveryStatus.delivery_status != '배송완료'){
+	    	  renewAuctionDeliveryComplete(id);
+	      }
+	      
+	    }
+	  }
+	  xhr.open("get", "/safari/auction/checkAutionDeliveryStatus?partnerOrderId=" +id);
+      xhr.send();
+	      
+	
+}
+
+// 배송완료 처리
+function renewAuctionDeliveryComplete(id) {
+	
+	const xhr = new XMLHttpRequest();
+	  xhr.onreadystatechange = function() {
+	    if (xhr.readyState === 4 && xhr.status === 200) {
+	      const response = JSON.parse(xhr.responseText);
+	      
+	    }
+	  }
+	  xhr.open("get", "/safari/auction/completeAuctionDelivery?partnerOrderId=" +id);
+      xhr.send();
+	      
 	
 }
 

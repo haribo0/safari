@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 import com.ja.safari.dto.AuctionBidDto;
+import com.ja.safari.dto.AuctionDeliveryDto;
 import com.ja.safari.dto.AuctionItemChatroomDto;
 import com.ja.safari.dto.AuctionItemDto;
 import com.ja.safari.dto.AuctionItemImgDto;
@@ -217,6 +218,9 @@ public interface AuctionSqlMapper {
 	
 	// 판매자가 배송 시작 누르면 배송 상태 yes 처리
 	
+	
+	// 배송 조회
+	public AuctionDeliveryDto checkAutionDeliveryStatus(int partnerOrderId);
 	
 	// 배송 3일 지나면 배송완료 처리
 	public void completeAuctionDelivery(int partnerOrderId);

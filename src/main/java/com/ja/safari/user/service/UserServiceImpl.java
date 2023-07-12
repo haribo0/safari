@@ -46,6 +46,16 @@ public class UserServiceImpl {
 		UserDto user = userSqlMapper.selectByIdAndPw(userDto);
 		return user;
 	}
+	
+	// 회원정보 수정 - 현재 비밀번호 확인
+	public UserDto checkUserPw(int id) {
+		return userSqlMapper.checkUserPw(id);
+	}
+	
+	// 회원정보 수정
+	public void modifyUserInfo(UserDto userDto) {
+		userSqlMapper.modifyUserInfo(userDto);
+	}
 
 	// 주소 추가
 	public void addUserAddress(UserAddressDto userAddressDto) {
