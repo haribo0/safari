@@ -10,13 +10,13 @@
 </c:if>
 
 <div class="container">
-	<header class="p-3">
-	    <div class="container">
+	<header class="p-3 ps-0">
+	    <div class="container ps-0">
 	      <!-- <div class="d-flex flex-wrap align-items-center justify-content-around justify-content-lg-start"> -->
 	      <div class="d-flex flex-wrap justify-content-lg-between align-items-center">
-	      	<div class="d-flex align-items-center">
-	      		<h1 class="me-5"><a href="${pageContext.request.contextPath}/main/mainPage" class="btn">
-	      		<img src="/safari/resources/img/logo0.png" width="100px">
+	      	<div class="d-flex align-items-center ps-0">
+	      		<h1 class="me-5"><a href="${pageContext.request.contextPath}/main/mainPage" class="btn ps-0">
+	      		<img src="/safari/resources/img/logo0.png" width="120px">
 	      		</a></h1>
 	      		
 	      		<form class="col-12 col-lg-auto me-lg-4" role="search">
@@ -27,7 +27,7 @@
 	      	<div class="d-flex flex-wrap">
 
 		        
-		        <ul class="nav justify-content-center mx-3">
+		        <ul class="nav justify-content-center mx-3"  style="font-size: 16px;">
 		          <li class="me-4"><a href="${pageContext.request.contextPath}/used/mainPage" class="nav-link px-2 link-body-emphasis">중고</a></li>
 		          <li class="me-4"><a href="${pageContext.request.contextPath}/rental/mainPage" class="nav-link px-2 link-body-emphasis">대여</a></li>
 		          <li class="me-4"><a href="${pageContext.request.contextPath}/auction/mainPage" class="nav-link px-2 link-body-emphasis">경매</a></li>

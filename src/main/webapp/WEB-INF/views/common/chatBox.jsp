@@ -62,8 +62,8 @@ body {
 
 
 .myContent {
-  background-color:  #ff6f0f; /*  rgba(75, 137, 220, 0.25) */;  /* 배경색 */
-  color: #000000; /* 글자색 */
+  background-color: #F68942; /*  rgba(75, 137, 220, 0.25) */;  /* 배경색 */
+  color: white; /* 글자색 */
   padding: 10px; /* 여백 */
   border-radius: 10px; /* 테두리의 굴곡 정도 */
   text-align: end; /* 내용을 오른쪽 정렬 */

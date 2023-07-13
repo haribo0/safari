@@ -11,6 +11,38 @@
 <jsp:include page="../common/meta.jsp"></jsp:include>
 <!-- 메타 섹션 -->
 <style>
+/* .btnOrange{
+	padding:9px 18px; 
+	background: rgba(246, 137, 66, 0.75);
+	border:none; 
+	color: white; 
+	border-radius:8px; 
+	font-size: 14px;
+	height: 24px;
+} */
+
+.btnOrange {
+    display: inline-block;
+    padding: 8px 14px;
+    border: 2px solid #F68942;
+    color: #F68942;
+    text-decoration: none;
+    border-radius:8px; 
+    transition: all 0.3s ease;
+    font-size: 14px;
+    
+}
+
+.btnOrange:hover {
+    background-color: #F68942;
+    color: white;
+}
+
+
+.textOrange {
+    color: #F68942;
+}
+
 
 /* 카테고리 버튼 round */
 .rnd{
@@ -93,7 +125,15 @@
 .orangeBtn {
 	background: #F68942;
 	color: white;
+	transition: background-color 0.3s ease;
 }
+
+.orangeBtn:hover {
+	background-color: rgba(246, 137, 66, 0.8);
+	/* background-color: #D5732D; */
+	color: white;
+}
+
 .orangeBtn2 {
 	border: 2px solid #F68942;
 	background : white;
@@ -253,11 +293,14 @@
  <script>
  
  
+ 
+// 전역변수 
 let liveChatId =  null;
 let lastChatMsgId = null;
 let intervalHandler = null;
 
 let chatMsgScrollTop = -1;
+
 
 
 
@@ -273,6 +316,10 @@ function enter() {
 	const textareaBox = document.getElementById("chatText");
 	textareaBox.addEventListener("keyup", keyUpEvent);
 }
+
+
+
+
 
 // 채팅방 리스트 불러오기 + 처리되지 않은 문의 개수 가져오기 
 function getLiveChatList() {
@@ -310,11 +357,11 @@ function getLiveChatList() {
 				});
 
 				const categoryDiv = document.createElement('div');
-				categoryDiv.classList.add('col-2','ms-1');
+				categoryDiv.classList.add('col-2','mx-2','me-3', 'text-secondary');
 				categoryDiv.textContent = dto.category;
 				
 				const col1Div = document.createElement('div');
-				col1Div.classList.add('col','ps-4', 'border-left', 'text-truncate');
+				col1Div.classList.add('col','ps-4', 'text-truncate');
 				col1Div.textContent = dto.chatMsg[0].msg;
 				
 				
