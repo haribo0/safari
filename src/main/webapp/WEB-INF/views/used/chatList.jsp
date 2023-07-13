@@ -187,7 +187,6 @@
 	<!-- 푸터 섹션 -->
 	<jsp:include page="../common/footer.jsp"></jsp:include>
 	<!-- 푸터 섹션 -->
-	
 		<!-- 채팅창 모달 -->
 	<div class="modal" id="chatModal" tabindex="-1" onclick="reloadChatRoomList()">
 	  <div class="modal-dialog">
