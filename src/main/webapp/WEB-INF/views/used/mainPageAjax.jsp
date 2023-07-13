@@ -51,7 +51,7 @@
 		<div class="row">
 		<div class="container main_box">
 			<jsp:include page="../used/categoryNavi.jsp"></jsp:include>
-			<div class="col mb-1 mt-4">
+			<div class="col">
 				<div class="row" id="listParent"></div>
 			</div>
 		</div>
@@ -70,8 +70,8 @@ let cityId = -1;
 let townId = -1;
 let statusId = -1;
 let orderId = -1;
-const listParent = document.getElementById("listParent");
 
+const listParent = document.getElementById("listParent");
 function getViewAll(mainId2,subId2,cityId2,townId2,statusId2,orderId2){
 	
 	
@@ -124,22 +124,30 @@ function getViewAll(mainId2,subId2,cityId2,townId2,statusId2,orderId2){
         		
         		const list = response.list;
                 list.forEach((map) => {
+                	const outCol = document.createElement("div");
+                	outCol.classList.add("col-3", "p-4");
+                	const outRow = document.createElement("div");
+                	outRow.classList.add("row");
+                	
+                	
                 	const divCol = document.createElement("div");
-                    divCol.classList.add("col-3");
+                    divCol.classList.add("col", "shadow");
                   
                     const divRow1 = document.createElement("div");
                     divRow1.classList.add("row", "mb-1");
                   
+                    const divRow1col = document.createElement("div");
+                    divRow1col.classList.add("col");
+                    
+                    
                     const link = document.createElement("a");
                     link.href = `./productDetail?productId=\${map.productDto.id}`;
-                    link.classList.add("text-decoration-none", "text-black");
+                    link.classList.add("text-decoration-none", "text-black", "p-0");
                   
                     const img = document.createElement("img");
                     img.alt = "img";
-                   
+                    img.classList.add("img-fluid");
                     img.src = "/safarifile/" + map.productImgDto.product_img_link;
-                    img.height = 210;
-                    img.width = 200;
                   
                     link.appendChild(img);
                     divRow1.appendChild(link);
@@ -157,18 +165,17 @@ function getViewAll(mainId2,subId2,cityId2,townId2,statusId2,orderId2){
                     link2.textContent = map.productDto.title;
                   
                     divCol1.appendChild(link2);
-                    divRow2.appendChild(divCol1);
+                    
                   
                     const divCol2 = document.createElement("div");
-                    divCol2.classList.add("col-5", "mt-0");
+                    divCol2.classList.add("span", "ms-2", "btn-group", "pb-1");
                   
                     if (map.reservationCount > 0) {
                     	const divReserve = document.createElement("div");
-                    	divReserve.classList.add("btn-group");
 
                     	const button = document.createElement("button");
                     	button.type = "button";
-                    	button.classList.add("btn", "btn-outline-success", "btn-sm", "p-1", "m-0", "btn-sm-custom");
+                    	button.classList.add("btn", "btn-outline-success", "btn-sm", "p-1", "btn-sm-custom");
                     	button.disabled = true;
                     	button.textContent = "예약중";
 
@@ -179,11 +186,10 @@ function getViewAll(mainId2,subId2,cityId2,townId2,statusId2,orderId2){
                   
                     if (map.completeCount > 0) {
                     	const divReserve = document.createElement("div");
-                    	divReserve.classList.add("btn-group");
 
                     	const button = document.createElement("button");
                     	button.type = "button";
-                    	button.classList.add("btn", "btn-outline-success", "btn-sm", "p-1", "m-0", "btn-sm-custom");
+                    	button.classList.add("btn", "btn-outline-success", "btn-sm", "p-1", "btn-sm-custom");
                     	button.disabled = true;
                     	button.textContent = "거래완료";
 
@@ -197,7 +203,8 @@ function getViewAll(mainId2,subId2,cityId2,townId2,statusId2,orderId2){
                       divCol2.appendChild(span);
                     }
                   
-                    divRow2.appendChild(divCol2);
+                    link2.appendChild(divCol2);
+                    divRow2.appendChild(divCol1);
                     divCol.appendChild(divRow2);
                   
                     const divRow3 = document.createElement("div");
@@ -254,6 +261,9 @@ function getViewAll(mainId2,subId2,cityId2,townId2,statusId2,orderId2){
 
                     const requestCount = document.createTextNode(map.requestCount);
 
+                    
+                    divRow1.appendChild(divRow1col);
+                    divRow1col.appendChild(link);
                     divCol4.appendChild(heartIcon);
                     divCol4.appendChild(likeCount);
                    
@@ -261,8 +271,12 @@ function getViewAll(mainId2,subId2,cityId2,townId2,statusId2,orderId2){
                     divCol4.appendChild(requestCount);                  
                     divRow5.appendChild(divCol4);
                     divCol.appendChild(divRow5);
+                    
+                    outRow.appendChild(divCol);
+                	outCol.appendChild(outRow);
+
                   
-                    listParent.appendChild(divCol);
+                    listParent.appendChild(outCol);
                   	
                     if ((idx+1) % 4 === 0) {
                       const divEndRow = document.createElement("div");

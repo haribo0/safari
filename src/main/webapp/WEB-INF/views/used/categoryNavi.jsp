@@ -18,7 +18,7 @@
 				</select>
 			</div>
 			<div class="col"></div>
-			<div class="col-2 text-center align-items-center d-flex justify-content-center"><a href="./productRegister" type="button" class="btn orangeButton">상품 등록</a></div>
+			<div class="col-2 text-end align-items-center"><a href="./productRegister" type="button" class="btn orangeButton">상품 등록</a></div>
 		</div>
 		<div class="row mt-1" style="display: flex; flex-direction: row;">
 			<div class="col-2"></div>
@@ -41,13 +41,13 @@
 			<div class="col-2">
 				<div class="col">
 				<ul class="list-group">
-				  <li class="list-group-item border border-0 py-2"><div class="btn fs-5 text fw-bold py-1" id="viewAll" onclick="getViewAll(-1,-1,-1,-1,-1,-1)">전체보기</div></li>
+				  <li class="list-group-item border border-0 p-0"><div class="btn fs-5 text fw-bold py-1 mt-3" id="viewAll" onclick="getViewAll(-1,-1,-1,-1,-1,-1)">전체보기</div></li>
 				  <c:forEach items="${categoryList }" var="map">
-				  <li class="list-group-item border border-0 py-2">
+				  <li class="list-group-item border border-0 p-0">
 				  	<div class="btn fs-5 text fw-bold py-1" onclick="getViewAll(${map.productMainCategoryDto.id},-1,0,0,0,0)">${map.productMainCategoryDto.main_category_name }</div>
 				  </li>
 				  	<div class="row">
-						<ul class="list-group ms-4">
+						<ul class="list-group me-0">
 						<c:forEach items="${map.subCategoryDtoList }" var="ProductSubCategoryDto">
 							<li class="list-group-item border-0">
 							<div class="btn py-0 text-body-secondary" onclick="getViewAll(${map.productMainCategoryDto.id},${ProductSubCategoryDto.id},0,0,0,0)">${ProductSubCategoryDto.sub_category_name }</div>
