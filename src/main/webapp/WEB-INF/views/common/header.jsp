@@ -9,13 +9,13 @@
 	</div>
 </c:if>
 
-<div class="container">
-	<header class="p-3">
-	    <div class="container">
+<div class="container px-0">
+	<header class="py-3">
+	    <div class="container px-0">
 	      <!-- <div class="d-flex flex-wrap align-items-center justify-content-around justify-content-lg-start"> -->
 	      <div class="d-flex flex-wrap justify-content-lg-between align-items-center">
 	      	<div class="d-flex align-items-center">
-	      		<h1 class="me-5"><a href="${pageContext.request.contextPath}/main/mainPage" class="btn">
+	      		<h1 class="me-5"><a href="${pageContext.request.contextPath}/main/mainPage" class="btn px-0">
 	      		<img src="/safari/resources/img/logo0.png" width="100px">
 	      		</a></h1>
 	      		

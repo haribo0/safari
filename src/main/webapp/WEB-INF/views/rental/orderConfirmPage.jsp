@@ -10,7 +10,7 @@ select option[value=""][disabled] {
 }
 
 .slidecontainer {
-  width: 32%;
+  width: 66%;
 }
 
 .slider {
@@ -18,7 +18,7 @@ select option[value=""][disabled] {
   width: 100%;
   height: 15px;
   border-radius: 5px;
-  background: #d3d3d3;
+  background: #e9e9e9;
   outline: none;
   opacity: 0.7;
   -webkit-transition: .2s;
@@ -35,7 +35,7 @@ select option[value=""][disabled] {
   width: 25px;
   height: 25px;
   border-radius: 50%;
-  background: #04AA6D;
+  background: #f68a42;
   cursor: pointer;
 }
 
@@ -43,7 +43,7 @@ select option[value=""][disabled] {
   width: 25px;
   height: 25px;
   border-radius: 50%;
-  background: #04AA6D;
+  background: #f68a42;
   cursor: pointer;
 }
 </style>
@@ -60,9 +60,101 @@ select option[value=""][disabled] {
 	<!-- 헤더 섹션 -->
 	
 	<div class="container my-5 py-4">
-		<div class="row">
-			<form action="./rentalOrderProcess" method="post">
-				<h3 class="mb-4 bg-light p-3 text-center">대여 주문 확인서</h3>
+		<div class="row mb-5">
+			<div class="col">
+				<div class="row">
+					<p class="mb-4 bg-light p-3 fs-6">대여 주문 확인서</p>				
+				</div>
+				<div class="row">
+					<div class="col-2">
+						<img alt="" src="/safariImg/${data.rentalItemDto.main_img_link}" class="rounded-1" style="width: 140px;">							
+					</div>
+					<div class="col">
+						<p class="fs-5">${data.rentalItemDto.title}</p>
+						<p class="">${data.rentalItemDto.item_description}</p>
+						<p class="">레이아웃 고민중...</p>
+					</div>
+				</div>
+				</div>
+			</div>
+			
+			<hr/>
+			
+			<div class="row mt-5 pb-3">
+				<div class="col">
+					<div class="row">
+						<div class="col-2">
+							<p class="me-5">시작일: </p>
+						</div>
+						<div class="col">
+							<input type="date" class="form-control" id="calendar_start" name="start_date" style="height: 40px; width: 32%;" required/>
+						</div>
+					</div>
+					
+					<div class="row mt-4">
+						<div class="col-2">
+							<p class="me-5">대여기간: </p>
+						</div>
+						<div class="col">
+							<div class="slidecontainer">
+								<input type="range" value="12" class="slider optionPeriod" id="myRange">
+								<p><span id="monthly"></span>개월 (대여 월 설정하는 ui고민중)</p>
+							</div>
+						</div>
+						<div class="col">
+							<span>반납 예정일은</span> <span class="fw-bold" id="return_box"></span> <span>입니다.</span>
+						</div>
+					</div>
+					
+					<div class="row mt-4">
+						<div class="col-2">
+							<p class="me-5">배송지: </p>
+						</div>
+						<div class="col">
+							<div class="row">
+								<div class="list_addr_box">
+								</div>							
+							</div>
+							<div class="row mt-3 ps-3">
+								<input type="text"  id="usr_address" name="prd_address" placeholder="주소입력" class="form-control w-50"/>							
+							</div>
+							<div class="row ps-3 mt-2">
+								<div class="col d-flex px-0">
+								 	<p onclick="searchAddr()" class="btn btn-outline-secondary mt-2 me-3">주소찾기</p>
+									<p class="btn btn-dark mt-2" onclick="addMyAddr()">추가</p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			<hr/>
+			
+			<div class="row mt-5">
+				<div class="col">
+					<div class="row">
+						<p class="fs-5"><span id="desc_price"></span>원 / <small>월</small></p>					
+				
+						<p class="fs-5">기본가격: <span class="fw-bold"><fmt:formatNumber value="${data.rentalItemDto.price }" pattern="#,##0" /></span>원 </p>					
+				
+						<p class="fs-5">보증금: <span class="fw-bold"><fmt:formatNumber value="${data.rentalItemDto.deposit }" pattern="#,##0" /></span>원</p>		
+					</div>
+					
+					<div class="row">
+						<input type="hidden" value="${data.rentalItemDto.deposit }" name="deposit">
+						<input type="hidden" value="" name="end_date" id="hiddin_date">
+						<input type="hidden" value="${data.rentalItemDto.price }" name="original_price">
+						<input type="hidden" value="${data.rentalItemDto.id }" name="item_id">
+						<input type="hidden" value="" name="price" id="hidden_price">
+						<span class="btn mt-5 w-25 pe-0 btn-dark" onclick="checkVali()">주문신청</span>
+					</div>
+				</div>
+			</div>
+			
+			
+			<%-- <form action="./rentalOrderProcess" method="post">
+				<p class="mb-4 bg-light p-3 fs-4">대여 주문 확인서</p>
 				
 				<div class="row pt-3">
 					<img alt="" src="/safariImg/${data.rentalItemDto.main_img_link}" class="rounded" style="width: 160px;">
@@ -140,13 +232,12 @@ select option[value=""][disabled] {
 					<input type="hidden" value="${data.rentalItemDto.price }" name="original_price">
 					<input type="hidden" value="${data.rentalItemDto.id }" name="item_id">
 					<input type="hidden" value="" name="price" id="hidden_price">
-					<div class="row justify-content-end">
-						<!-- <button class="btn btn-success mt-5 w-25 pe-0">주문신청</button> -->				
+					<div class="row justify-content-end">		
 					 	<span class="btn btn-success mt-5 w-25 pe-0" onclick="checkVali()">주문신청</span>
 					</div>
 				</div>
 			</form>
-		</div>
+			 --%>
 	</div>
 	
 	<!-- 푸터 섹션 -->
@@ -476,8 +567,8 @@ select option[value=""][disabled] {
 					p.appendChild(input)
 					p.appendChild(label)
 					
-					p.classList.add('border')
-					p.classList.add('p-2')
+					//p.classList.add('border')
+					//p.classList.add('p-2')
 					p.classList.add('w-75')
 					p.classList.add('rounded')
 					

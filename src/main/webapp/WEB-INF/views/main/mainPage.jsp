@@ -11,8 +11,8 @@
 <jsp:include page="../common/meta.jsp"></jsp:include>
 <!-- 메타 섹션 -->
 <style>
-.crs-1{height:600px; background: url("https://images.pexels.com/photos/17504246/pexels-photo-17504246.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"); background-size: contain;}
-.crs-2{height:600px; background: url("https://images.pexels.com/photos/16963896/pexels-photo-16963896.jpeg"); background-size: contain;}
+.crs-1{height:600px; background: url("https://images.pexels.com/photos/16963896/pexels-photo-16963896.jpeg"); background-size: contain;}
+.crs-2{height:600px; background: url("https://images.pexels.com/photos/17504246/pexels-photo-17504246.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1");  background-size: contain;}
 .crs-3{height:600px; background: url("https://images.pexels.com/photos/16573228/pexels-photo-16573228.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"); background-size: contain;}
 .crs-4{height:600px; background: url("https://images.pexels.com/photos/3647075/pexels-photo-3647075.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"); background-size: contain;}
 </style>
@@ -22,7 +22,7 @@
 	<jsp:include page="../common/header.jsp"></jsp:include>
 	<!-- 헤더 섹션 -->
 
-	<div class="container-fluid bg-light">
+	<div class="container bg-light">
 		<div id="carouselExampleCaptions" class="carousel slide">
 		  <div class="carousel-indicators">
 		    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>

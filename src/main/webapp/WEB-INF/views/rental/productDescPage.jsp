@@ -116,7 +116,7 @@ window.addEventListener("DOMContentLoaded", function(){
 				<img class="object-fit-cover img-fluid border rounded h-75" alt="" src="/safariImg/${data.rentalItemDto.main_img_link}">
 			</div>
 			<div class="col">
-				<p class="fw-bold fs-5 mb-3">카테고리이름</p>
+				<p class="fs-5 mb-3">카테고리이름<small>끌고올 예정</small></p>
 				<div class="pe-5">
 					<h3 class="fw-bold">${data.rentalItemDto.title}</h3>
 					<p class="py-2" style="line-height: 1.7; letter-spacing: -0.2px;">
@@ -127,7 +127,11 @@ window.addEventListener("DOMContentLoaded", function(){
  						<p>
 							<span class="me-2"><i class="bi bi-star-fill"></i> <i class="bi bi-star-fill"></i> <i class="bi bi-star-fill"></i> <i class="bi bi-star-fill"></i> <i class="bi bi-star-fill"></i></span> <span class="me-4">${reviewRating}</span> <span>리뷰 수: ${reviewCount}</span>
 						</p>
-						<p><span class="fw-bold" id="totalLikeCount"></span><i id="heartBox" onclick="toggleLike()" class="fs-1 text-danger bi bi-heart"></i></p>						
+						<p><span class="fs-6 me-2" id="totalLikeCount"></span><i id="heartBox" onclick="toggleLike()" class="fs-4 bi bi-heart" style="color: #f68a42;"></i></p>						
+					</div>
+					
+					<div>
+						<small>월별 기준표 여기에 만들기</small>
 					</div>
 					
 					<div class="d-flex justify-content-end">
@@ -135,7 +139,7 @@ window.addEventListener("DOMContentLoaded", function(){
 					</div>
 					
 					<div class="d-flex justify-content-between mt-4">
-						<p class="text-body-secondary">남은 수량 ${data.rentalItemDto.quantity}</p>
+						<%-- <p class="text-body-secondary">남은 수량 ${data.rentalItemDto.quantity}</p> --%>
 						<a href="./orderConfirmPage?id=${data.rentalItemDto.id}" class="btn btn-dark" style="width: 240px;">주문하기</a>	
 					</div>
 				</div>
@@ -149,7 +153,6 @@ window.addEventListener("DOMContentLoaded", function(){
 			  <div class="nav d-flex justify-content-center nav-pills mb-5 pb-4 border-bottom" id="v-pills-tab" role="tablist" aria-orientation="vertical">
 			    <button class="btn rounded-1 active" id="v-pills-home-tab" data-bs-toggle="pill" data-bs-target="#v-pills-home" type="button" role="tab" aria-controls="v-pills-home" aria-selected="true">상품상세</button>
 			    <button class="btn rounded-1" id="v-pills-profile-tab" data-bs-toggle="pill" data-bs-target="#v-pills-profile" type="button" role="tab" aria-controls="v-pills-profile" aria-selected="false">의견/리뷰</button>
-			    <button class="btn rounded-1" id="v-pills-messages-tab" data-bs-toggle="pill" data-bs-target="#v-pills-messages" type="button" role="tab" aria-controls="v-pills-messages" aria-selected="false">연관상품</button>
 			  </div>
 			  
 			  <div class="w-100 d-flex justify-content-center tab-content pt-4 mt-5" id="v-pills-tabContent">
@@ -180,7 +183,6 @@ window.addEventListener("DOMContentLoaded", function(){
 			    		</c:forEach> 
 			    	</ul>
 			    </div>
-			    <div class="tab-pane fade" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab" tabindex="0"></div>
 			  </div>
 			</div>
     	</div>

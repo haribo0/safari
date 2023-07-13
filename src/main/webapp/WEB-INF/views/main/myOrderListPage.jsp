@@ -83,6 +83,7 @@
 			
 			<div class="row">
 				<p class="me-5">${sessionUser.nickname }님이 대여한 리스트: </p>
+				<p>최근순으로 정렬예정, 상태확인 가능한 ui 넣기 </p>
 				<ul class="list-group myOrderedList d-flex flex-column-reverse">
 				<c:forEach items="${rentalOrderDtoList}" var="data">
 					<li class="list-group-item py-3">
