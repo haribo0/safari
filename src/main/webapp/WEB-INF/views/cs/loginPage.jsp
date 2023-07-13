@@ -32,7 +32,7 @@
 	<!-- 헤더 섹션 -->
 	
 	<div class="container d-flex justify-content-center content">
-		<form action="loginProcess" method="post">
+		<form action="loginProcess" method="post" id="loginForm">
 			
 		    <div class="row " >
 		        <div class="col">
@@ -138,21 +138,20 @@
 
 function ajaxTemplate() {
 
-	const xhr = new XMLHttpRequest();
-
-	xhr.onreadystatechange = function() {
-		if(xhr.readyState == 4 && xhr.status == 200){
-			const response = JSON.parse(xhr.responseText);
-			
-		}
+	const id = document.getElementById("uid").value.trim();
+	const pw = document.getElementById("upw").value.trim();
+	const loginForm = document.getElementById("loginForm");
+	
+	if(!id || ) {
+		id.focus();
+		return
 	}
-
-
-
-	// post 방식 
-	xhr.open("post", "url");
-	xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-	xhr.send("params");
+	if(!pw) {
+		pw.focus();
+		return
+	}
+	
+	
 
 }
 

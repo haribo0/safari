@@ -11,6 +11,38 @@
 <jsp:include page="../common/meta.jsp"></jsp:include>
 <!-- 메타 섹션 -->
 <style>
+/* .btnOrange{
+	padding:9px 18px; 
+	background: rgba(246, 137, 66, 0.75);
+	border:none; 
+	color: white; 
+	border-radius:8px; 
+	font-size: 14px;
+	height: 24px;
+} */
+
+.btnOrange {
+    display: inline-block;
+    padding: 8px 14px;
+    border: 2px solid #F68942;
+    color: #F68942;
+    text-decoration: none;
+    border-radius:8px; 
+    transition: all 0.3s ease;
+    font-size: 14px;
+    
+}
+
+.btnOrange:hover {
+    background-color: #F68942;
+    color: white;
+}
+
+
+.textOrange {
+    color: #F68942;
+}
+
 
 /* 카테고리 버튼 round */
 .rnd{
@@ -19,13 +51,14 @@
 
 
 .myContent {
-  background-color: rgba(75, 137, 220, 0.25);  /* 배경색 */
+  background-color: #F68942; /* rgba(75, 137, 220, 0.25);  */ /* 배경색 */
   color: #000000; /* 글자색 */
   padding: 10px; /* 여백 */
   border-radius: 10px; /* 테두리의 굴곡 정도 */
   text-align: end; /* 내용을 오른쪽 정렬 */
   width: auto;
   max-width: 320px;
+  color: white;
 }
 
 .otherContent {
@@ -70,6 +103,8 @@
 	font-size: 14px;
 }
 
+}
+
 </style>
 
 <style>
@@ -86,6 +121,24 @@
     color: white;
     font-weight: bold;
     line-height: 20px;
+}
+.orangeBtn {
+	background: #F68942;
+	color: white;
+	transition: background-color 0.3s ease;
+}
+
+.orangeBtn:hover {
+	background-color: rgba(246, 137, 66, 0.8);
+	/* background-color: #D5732D; */
+	color: white;
+}
+
+.orangeBtn2 {
+	border: 2px solid #F68942;
+	background : white;
+	color:  #F68942;
+	font-weight: 2px;
 }
 </style>
 
@@ -123,7 +176,7 @@
 				
 				<!-- count -->
 				<div class="col-2 text-end" id=""> 
-					<div class="btn btn-dark" id="chatCount">  </div>
+					<div class="btn orangeBtn fw-medium" id="chatCount">  </div>
 				</div>
 				<!-- count -->
 				
@@ -135,13 +188,13 @@
 			
 				<!-- LEFT COL -->
 				<div class="col-4">
-					<div class="row sticky-top">
+					<div class="row sticky-top" >
 						<div class="col">
-							<div class="row   bg-light text-center py-3 ">
-								<div class="col fw-bolder">실시간 문의 목록</div>
+							<div class="row  text-center bg-light " style="height: 60px">
+								<div class="col fw-bolder my-auto" >실시간 문의 목록</div>
 							</div>
 							
-							<div class="row" id="">
+							<div class="row overflow-y-scroll overflow-x-hidden" id="" style="height: 550px">
 								<div class="col" id="">
 									
 									
@@ -164,7 +217,7 @@
 				<!-- RIGHT COL -->
 				<div class="col">
 					
-					<div class="row  bg-light text-center py-3 ">
+					<div class="row  bg-light text-center " style="height: 60px">
 						<div class="col text-end" id="endLiveChat">
 							<!-- <div class="btn btn-dark btn-sm">상담 종료</div> -->
 						</div>
@@ -173,7 +226,7 @@
 					<!-- 글 상세보기 -->
 					<div class="row ps-5 pe-3 pt-5 pb-5  border-left">
 						<div class="col" id="">
-							<div class="chat-container overflow-y-scroll overflow-x-hidden" style="height:480px;" id="chatMsgContainer">
+							<div class="chat-container overflow-y-scroll overflow-x-hidden" style="height:500px;" id="chatMsgContainer">
 							
 							
 							
@@ -191,7 +244,7 @@
 								<textarea id="chatText" placeholder="메시지 보내기" rows="1" cols="20" class="form-control ms-2"></textarea>
 							</div>
 							<div class="col-2 d-grid">
-			    				<button class="send-button btn btn-dark ms-3 px-3" id="sendMsg" onclick="sendMsg()">전송</button>
+			    				<button class="send-button btn orangeBtn ms-3 px-3" id="sendMsg" onclick="sendMsg()">전송</button>
 							</div>
 						</div>
 					</div>
@@ -240,11 +293,14 @@
  <script>
  
  
+ 
+// 전역변수 
 let liveChatId =  null;
 let lastChatMsgId = null;
 let intervalHandler = null;
 
 let chatMsgScrollTop = -1;
+
 
 
 
@@ -261,6 +317,10 @@ function enter() {
 	textareaBox.addEventListener("keyup", keyUpEvent);
 }
 
+
+
+
+
 // 채팅방 리스트 불러오기 + 처리되지 않은 문의 개수 가져오기 
 function getLiveChatList() {
 	
@@ -276,6 +336,7 @@ function getLiveChatList() {
 			
 			// 문의 count 
 			chatCountBox.innerHTML = "";
+			// chatCountBox.classList.add("orangeBg");
 			chatCountBox.innerText = "실시간 문의 : "+response.count+"건";
 			
 			let index = 0;
@@ -296,11 +357,11 @@ function getLiveChatList() {
 				});
 
 				const categoryDiv = document.createElement('div');
-				categoryDiv.classList.add('col-2','ms-1');
+				categoryDiv.classList.add('col-2','mx-2','me-3', 'text-secondary');
 				categoryDiv.textContent = dto.category;
 				
 				const col1Div = document.createElement('div');
-				col1Div.classList.add('col','ps-4', 'border-left', 'text-truncate');
+				col1Div.classList.add('col','ps-4', 'text-truncate');
 				col1Div.textContent = dto.chatMsg[0].msg;
 				
 				

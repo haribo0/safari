@@ -476,7 +476,7 @@ function getItemReturnedList() {
 // 배송 처리 
 function changeReturnShippingStatus(e) {
 	
-	const returnId = e.getAttribute("data-return-id")
+	const returnId = e.getAttribute("data-return-id");
 	
 	const xhr = new XMLHttpRequest();
 

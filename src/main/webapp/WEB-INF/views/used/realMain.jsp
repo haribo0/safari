@@ -40,9 +40,6 @@
 	background: #ff6f0f;
 	color: white;
     }   
-    .bestImg{
-    	border-radius: 7px;
-    }
 </style>
 
 </head>
@@ -59,44 +56,24 @@
 	</div>
 	<div class="row">
 		<div class="col">
-			<img class="img-fluid" alt="banner1" src="/safari/resources/img/used/bannerTop.jpeg" height="370px">
+			<img alt="banner1" src= "/safari/resources/img/used/banner1.png" width="100%">
 		</div>
 	</div>
-	<div class="container mt-5 mb-5">
+	<div class="container">
 		<div class="row">
-			<div class="col-auto fw-bold fs-2 mb-3">요즘 뜨는 상품</div>
-		</div>
-		<div class="row mb-5" >
-			<div class="col-auto fw-bold fs-2">
-				<img alt="img1" src="/safari/resources/img/used/iphone.jpeg" class="bestImg" width="240" height="240">
-			</div>
-			<div class="col-auto fw-bold fs-2">
-				<img alt="img1" src="/safari/resources/img/used/perfume.jpeg" class="bestImg" width="240" height="240">
-			</div>
-			<div class="col-auto fw-bold fs-2">
-				<img alt="img1" src="/safari/resources/img/used/polo.jpeg" class="bestImg" width="240" height="240">
-			</div>
-			<div class="col-auto fw-bold fs-2">
-				<img alt="img1" src="/safari/resources/img/used/plant.jpeg" class="bestImg" width="240" height="240">
-			</div>
-			<div class="col-auto fw-bold fs-2">
-				<img alt="img1" src="/safari/resources/img/used/bike.jpeg" class="bestImg" width="240" height="240">
+		<div class="container main_box">
+			<jsp:include page="../used/categoryNavi.jsp"></jsp:include>
+			<div class="col">
+				<div class="row" id="listParent"></div>
 			</div>
 		</div>
-		
-			
-			
-		<div class="row">
-			<div class="col mx-5">
-				<img class="img-fluid" alt="banner2" src= "/safari/resources/img/used/bannerBottom.jpeg">
-			</div>
+			<div class="row mt-1"></div>
 		</div>
 	</div>
-	
 	<!-- 푸터 섹션 -->
 	<jsp:include page="../common/footer.jsp"></jsp:include>
 	<!-- 푸터 섹션 -->
-<!-- <script>
+<script>
 
 // 전체상품 클릭할 때 전체상품 보여주기
 let mainId = -1;
@@ -458,7 +435,7 @@ window.addEventListener("DOMContentLoaded", function() {
 	getViewAll(-1,-1,-1,-1,-1,-1);
 });
 
-</script> -->
+</script>
 
 
 </body>

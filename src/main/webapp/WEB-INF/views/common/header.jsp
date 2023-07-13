@@ -27,7 +27,7 @@
 	      	<div class="d-flex flex-wrap">
 
 		        
-		        <ul class="nav justify-content-center mx-3">
+		        <ul class="nav justify-content-center mx-3"  style="font-size: 16px;">
 		          <li class="me-4"><a href="${pageContext.request.contextPath}/used/mainPage" class="nav-link px-2 link-body-emphasis">중고</a></li>
 		          <li class="me-4"><a href="${pageContext.request.contextPath}/rental/mainPage" class="nav-link px-2 link-body-emphasis">대여</a></li>
 		          <li class="me-4"><a href="${pageContext.request.contextPath}/auction/mainPage" class="nav-link px-2 link-body-emphasis">경매</a></li>
