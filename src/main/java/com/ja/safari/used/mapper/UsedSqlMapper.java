@@ -142,6 +142,8 @@ public interface UsedSqlMapper {
 	public UsedPurchaseReviewDto selectPurchaseReviewByRequestIdAndSenderId(@Param("requestId")Integer requestId, @Param("senderId")Integer senderId);
 	// 해당 거래에 대한 내가 쓴 리뷰체크 박스 가져오기 
 	public List<UsedReviewCheckboxCategoryDto> selectCheckboxSelectedReviewByRequestIdAndSenderId(@Param("requestId")Integer requestId, @Param("senderId")Integer senderId);
+	// 메인에서 나눔 물건 리스트 
+	public List<ProductDto> selectFreePriceList();
 	
 	
 	

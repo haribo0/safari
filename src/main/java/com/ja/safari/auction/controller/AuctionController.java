@@ -84,6 +84,10 @@ public class AuctionController {
 	
 		UserDto sessionUser = (UserDto) session.getAttribute("sessionUser");
 		
+		if(sessionUser == null) {
+			return "redirect:/user/loginPage";
+		}
+		
 		model.addAttribute("userBidList", auctionService.getMyBidList(sessionUser.getId()));
 		
 		return "auction/bidList";
@@ -94,6 +98,10 @@ public class AuctionController {
 	public String getMySuccessBidList(HttpSession session, Model model) {
 	
 		UserDto sessionUser = (UserDto) session.getAttribute("sessionUser");
+		
+		if(sessionUser == null) {
+			return "redirect:/user/loginPage";
+		}
 		
 		model.addAttribute("successBidList", auctionService.getMySueecssfulBidList(sessionUser.getId()));
 		
@@ -106,6 +114,10 @@ public class AuctionController {
 		
 		UserDto sessionUser = (UserDto) session.getAttribute("sessionUser");
 		
+		if(sessionUser == null) {
+			return "redirect:/user/loginPage";
+		}
+		
 		model.addAttribute("auctionWishList", auctionService.getMyAuctionWishList(sessionUser.getId()));
 		
 		return "auction/wishList";		
@@ -117,6 +129,10 @@ public class AuctionController {
 	public String getMyUploadAuctionList(HttpSession session, Model model) {
 		
 		UserDto sessionUser = (UserDto) session.getAttribute("sessionUser");
+		
+		if(sessionUser == null) {
+			return "redirect:/user/loginPage";
+		}
 		
 		model.addAttribute("uploadAuctionList", auctionService.getAuctionAndBidInfoByUploader(sessionUser.getId()));
 		
@@ -177,11 +193,7 @@ public class AuctionController {
 			return "auction/paymentSucceed";
 		}
 	
-	
-	
 
-	
-	
 	
 	
 }

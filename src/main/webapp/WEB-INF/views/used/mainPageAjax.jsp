@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>  
 <!DOCTYPE html>
@@ -68,23 +67,55 @@
 		</div>
 		<div class="row mb-5" >
 			<div class="col-auto fw-bold fs-2">
-				<img alt="img1" src="/safari/resources/img/used/iphone.jpeg" class="bestImg" width="240" height="240">
+				<a href="#"><img alt="img1" src="/safari/resources/img/used/iphone.jpeg" class="bestImg" width="240" height="240"></a>
 			</div>
 			<div class="col-auto fw-bold fs-2">
-				<img alt="img1" src="/safari/resources/img/used/perfume.jpeg" class="bestImg" width="240" height="240">
+				<a href="#"><img alt="img1" src="/safari/resources/img/used/perfume.jpeg" class="bestImg" width="240" height="240"></a>
 			</div>
 			<div class="col-auto fw-bold fs-2">
-				<img alt="img1" src="/safari/resources/img/used/polo.jpeg" class="bestImg" width="240" height="240">
+				<a href="#"><img alt="img1" src="/safari/resources/img/used/polo.jpeg" class="bestImg" width="240" height="240"></a>
 			</div>
 			<div class="col-auto fw-bold fs-2">
-				<img alt="img1" src="/safari/resources/img/used/plant.jpeg" class="bestImg" width="240" height="240">
+				<a href="#"><img alt="img1" src="/safari/resources/img/used/plant.jpeg" class="bestImg" width="240" height="240"></a>
 			</div>
 			<div class="col-auto fw-bold fs-2">
-				<img alt="img1" src="/safari/resources/img/used/bike.jpeg" class="bestImg" width="240" height="240">
+				<a href="#"><img alt="img1" src="/safari/resources/img/used/bike.jpeg" class="bestImg" width="240" height="240"></a>
 			</div>
 		</div>
-		
-			
+		<div class="row mb-3">
+			<div class="col-auto fw-bold fs-2">놓치면 후회하는 무료 나눔</div>
+		</div>
+		<div class="row">
+			<c:forEach items="${freePriceList}" var="map">
+				<div class="col-3">
+					<div class="row">
+						<div class="col">
+						<a href="./productDetail?productId=${map.productDto.id }" class="text-decoration-none text-black p-0">
+						<img alt="img" class="img-fluid" src="/safarifile/${map.productImgDto.product_img_link }" >
+						</a>
+						</div>
+					</div>	
+					<div class="row">
+						<div class="col mt-2">
+						<a href="./productDetail?productId=${map.productDto.id }" class="ms-1 text-decoration-none text-black title">
+							${map.productDto.title }
+						</a>
+						</div>
+					</div>
+					<div class="row ms-1">
+						<div class="col ms-0 p-0 w-0 smaller-text text-secondary mb-3">
+						${map.productCityDto.product_city_name } ${map.productTownDto.product_town_name } | <span class="ms-0 p-0 w-0 smaller-text text-secondary" id="timeSpan">
+						1</span>
+						</div>
+					</div>
+					<div class="row mb-3">
+						<div class="col ms-1 text-secondary">
+						<i class="bi bi-heart"></i> 0 <i class="bi bi-chat-dots"></i> 0
+						</div>
+					</div>	
+				</div>
+			</c:forEach>
+		</div>	
 			
 		<div class="row">
 			<div class="col mx-5">

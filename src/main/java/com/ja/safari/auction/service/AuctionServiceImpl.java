@@ -16,6 +16,7 @@ import com.ja.safari.dto.AuctionItemDto;
 import com.ja.safari.dto.AuctionItemImgDto;
 import com.ja.safari.dto.AuctionItemLikeDto;
 import com.ja.safari.dto.AuctionKakaoPayApproveDto;
+import com.ja.safari.dto.AuctionPurchaseConfirmedDto;
 import com.ja.safari.dto.ProductMainCategoryDto;
 import com.ja.safari.dto.ProductSubCategoryDto;
 import com.ja.safari.dto.UserCoinDto;
@@ -618,5 +619,16 @@ public class AuctionServiceImpl {
 	public void completeAuctionDelivery(int partnerOrderId) {
 		auctionSqlMapper.completeAuctionDelivery(partnerOrderId);
 	}
+	
+	// 구매 확정
+	public void registerPurchaseConfirmed(AuctionPurchaseConfirmedDto auctionPurchaseConfirmedDto) {
+		auctionSqlMapper.registerPurchaseConfirmed(auctionPurchaseConfirmedDto);
+	}
+	
+	//  구매 확정 여부 조회
+	public int checkPurchaseConfirmedYn(int partnerOrderId) {
+		return auctionSqlMapper.checkPurchaseConfirmedYn(partnerOrderId);
+	}
+
 	
 }

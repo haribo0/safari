@@ -11,6 +11,7 @@ import com.ja.safari.dto.AuctionItemDto;
 import com.ja.safari.dto.AuctionItemImgDto;
 import com.ja.safari.dto.AuctionItemLikeDto;
 import com.ja.safari.dto.AuctionKakaoPayApproveDto;
+import com.ja.safari.dto.AuctionPurchaseConfirmedDto;
 import com.ja.safari.dto.ProductMainCategoryDto;
 import com.ja.safari.dto.ProductSubCategoryDto;
 import com.ja.safari.dto.UserCoinDto;
@@ -224,4 +225,11 @@ public interface AuctionSqlMapper {
 	
 	// 배송 3일 지나면 배송완료 처리
 	public void completeAuctionDelivery(int partnerOrderId);
+	
+	// 구매 확정
+	public void registerPurchaseConfirmed(AuctionPurchaseConfirmedDto auctionPurchaseConfirmedDto);
+	
+	//  구매 확정 여부 조회
+	public int checkPurchaseConfirmedYn(int partnerOrderId);
+	
 }

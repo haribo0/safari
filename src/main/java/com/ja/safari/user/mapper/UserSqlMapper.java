@@ -34,6 +34,18 @@ public interface UserSqlMapper {
 
 	//주소가져오기
 	public List<UserAddressDto> selectAddressListAllById(int id);
+	
+	// 등록되 주소 개수 가져오기
+	public int getUserAddressCount(int userId);
+	
+	// 주소 수정 - pk로 데이터 가져오기
+	public UserAddressDto getAddressInfoByPk(int id);
+	
+	// 주소 수정
+	public void modifyUserAddress(UserAddressDto userAddressDto);
+	
+	// 주소 삭제
+	public void removeUserAddress(int id);
 
 	//렌탈 리스트 불러오기
 	public List<RentalOrderDto> selectRentalOrderedListById(int id);

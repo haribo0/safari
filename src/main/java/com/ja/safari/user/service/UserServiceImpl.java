@@ -67,9 +67,30 @@ public class UserServiceImpl {
 
 	// 주소 불러오기
 	public List<UserAddressDto> getUserAddressList(int id) {
+		
 		List<UserAddressDto> userAddressDtolist = userSqlMapper.selectAddressListAllById(id);
 		
 		return userAddressDtolist;
+	}
+	
+	// 유저 당 등록된 주소 개수 가져오기
+	public int getUserAddressCount(int userId) {
+		return userSqlMapper.getUserAddressCount(userId);
+	}
+	
+	// 주소 수정 - pk로 데이터 가져오기
+	public UserAddressDto getAddressInfoByPk(int id) {
+		return userSqlMapper.getAddressInfoByPk(id);
+	}
+	
+	// 주소 수정
+	public void modifyUserAddress(UserAddressDto userAddressDto) {
+		userSqlMapper.modifyUserAddress(userAddressDto);
+	}
+	
+	// 주소 삭제
+	public void removeUserAddress(int id) {
+		userSqlMapper.removeUserAddress(id);
 	}
 	
 	// 대여한 리스트 불러오기
