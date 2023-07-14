@@ -78,8 +78,8 @@
 							<!--  내가 쓴 게시물(내용) -->
 							<div class = "myPostList mt-3">
 							<div class="tab-content" id="myTabContent">
+								<!--  골라줘요 내가 쓴 게시글 -->
 								<div class="tab-pane fade show active" id="pick-tab-pane" role="tabpanel" aria-labelledby="pick-tab" tabindex="0">		
-									<!--  골라줘요 내용 (다 작성하면 주석 풀어주세요. 주소도 변경 부탁합니다~) -->
 									<div class= "row mt-1 ">
 										<c:if test="${empty pickByMyPost}">
 											<div class = "col">
@@ -106,7 +106,7 @@
 														 	</div>  --%>
 														 	<div class = "row">
 														 		<div class = "col" style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">
-															 		<a href="../../safari/community/recruit/readContentPage?id=${map.RecruitDto.id }" style="text-decoration: none; color: inherit;">
+															 		<a href="/safari/community/pick/readContentPage/${map.pickDto.id}" style="text-decoration: none; color: inherit;">
 															 		  	${map.pickDto.content}
 															 		</a>			 		
 														 		</div>
@@ -134,8 +134,8 @@
 									</div>			
 								</div>
 								
+								<!--  해주세요 내가 쓴 게시글 -->
 								<div class="tab-pane fade" id="help-tab-pane" role="tabpanel" aria-labelledby="profile-tab" tabindex="0">	
-									<!--  해주세요 내용 (주소도 변경 부탁합니다~) -->
 									<div class= "row mt-1 ">
 										<c:if test="${empty helpByMyPost}">
 											<div class = "col">
@@ -155,14 +155,14 @@
 															</div>
 														 	<div class= "row mt-1">
 														 		<div class = "col fw-semibold fs-6" style="display: -webkit-box; -webkit-line-clamp: 1; -webkit-box-orient: vertical; overflow: hidden;">
-															 		<a href="../../safari/community/recruit/readContentPage?id=${map.RecruitDto.id }" style="text-decoration: none; color: inherit;">
+															 		<a href="/safari/community/help/readContentPage/${map.helpDto.id}" style="text-decoration: none; color: inherit;">
 															 		 	${map.helpDto.title } 
 															 		</a>
 														 		</div>
 														 	</div>
 														 	<div class = "row">
 														 		<div class = "col" style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">
-															 		<a href="../../safari/community/recruit/readContentPage?id=${map.RecruitDto.id }" style="text-decoration: none; color: inherit;">
+															 		<a href="/safari/community/help/readContentPage/${map.helpDto.id}" style="text-decoration: none; color: inherit;">
 															 		 	${map.helpDto.content} 
 															 		</a>			 		
 														 		</div>
@@ -190,15 +190,15 @@
 									</div>							
 								</div>
 								
+								<!--  궁금해요 내가 쓴 게시글 -->
 								<div class="tab-pane fade" id="question-tab-pane" role="tabpanel" aria-labelledby="question-tab" tabindex="0">
-									<!--  궁금해요 내용 (주소도 변경 부탁합니다~) -->
 									<div class= "row mt-1 ">
 										<c:if test="${empty questionByMyPost}">
 											<div class = "col">
 												아직 작성한 게시글이 없습니다.
 											</div>
 										</c:if>
-							<!-- 		<c:forEach items="${questionByMyPost}" var="map" varStatus="status">   -->  
+								<c:forEach items="${questionByMyPost}" var="map" varStatus="status">   
 										<div class = "col">
 											<div class = "row mb-4 mx-0 card border border-1" style = "width: 500px;" >
 												<div class = "col">
@@ -211,21 +211,21 @@
 															</div>
 														 	<div class= "row mt-1">
 														 		<div class = "col fw-semibold fs-6" style="display: -webkit-box; -webkit-line-clamp: 1; -webkit-box-orient: vertical; overflow: hidden;">
-															 		<a href="../../safari/community/recruit/readContentPage?id=${map.RecruitDto.id }" style="text-decoration: none; color: inherit;">
-															 		<!--  	${map.QuestionDto.title } -->
+															 		<a href="/safari/community/question/readContentPage/${map.recruitDto.id}" style="text-decoration: none; color: inherit;">
+															 		  	${map.questionDto.title }
 															 		</a>
 														 		</div>
 														 	</div>
 														 	<div class = "row">
 														 		<div class = "col" style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">
-															 		<a href="../../safari/community/recruit/readContentPage?id=${map.RecruitDto.id }" style="text-decoration: none; color: inherit;">
-															 		<!--  	${map.QuestionDto.content} -->
+															 		<a href="/safari/community/question/readContentPage/${map.recruitDto.id}" style="text-decoration: none; color: inherit;">
+															 		  	${map.questionDto.content} 
 															 		</a>			 		
 														 		</div>
 														 	</div>
 														 	<div class = "row mt-1 mb-1">
 														 		<div class = "col" style = "color:gray;">
-														 		<!--  	${map.userDto.nickname} -->
+														 		  	${map.userDto.nickname} 
 														 		</div>
 														 		<div class = "col text-end text-secondary">
 														 			<i class="bi bi-chat-square-dots"></i>
@@ -242,12 +242,12 @@
 									</div>
 											<div class = "row">
 										</c:if>							
-						<!--  		</c:forEach>    -->  
+							 		</c:forEach>     
 									</div>								
 								</div>
 								
+								<!--  구인구직 내가 쓴 게시글 -->
 								<div class="tab-pane fade" id="recruit-tab-pane" role="tabpanel" aria-labelledby="recruit-tab" tabindex="0">
-									<!--  구인구직 내용 (주소도 변경 부탁합니다~) -->
 									<div class= "row mt-1 ">
 										<c:if test="${empty recruitByMyPost}">
 											<div class = "col">
@@ -267,14 +267,14 @@
 															</div>
 														 	<div class= "row mt-1">
 														 		<div class = "col fw-semibold fs-6" style="display: -webkit-box; -webkit-line-clamp: 1; -webkit-box-orient: vertical; overflow: hidden;">
-															 		<a href="../../safari/community/recruit/readContentPage?id=${map.RecruitDto.id }" style="text-decoration: none; color: inherit;">
+															 		<a href="/safari/community/recruit/readContentPage/${map.recruitDto.id}" style="text-decoration: none; color: inherit;">
 															 		 	${map.recruitDto.title } 
 															 		</a>
 														 		</div>
 														 	</div>
 														 	<div class = "row">
 														 		<div class = "col" style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">
-															 		<a href="../../safari/community/recruit/readContentPage?id=${map.RecruitDto.id }" style="text-decoration: none; color: inherit;">
+															 		<a href="/safari/community/recruit/readContentPage/${map.recruitDto.id}" style="text-decoration: none; color: inherit;">
 															 			${map.recruitDto.content} 
 															 		</a>			 		
 														 		</div>
@@ -302,8 +302,8 @@
 									</div>
 								</div>
 								
+								<!--  리워드 내가 쓴 게시글 -->
 								<div class="tab-pane fade" id="proreview-tab-pane" role="tabpanel" aria-labelledby="proreview-tab" tabindex="0">
-									<!--  리워드 내용 (아직 틀만 잡음) -->
 									<div class= "row mt-1 ">
 										<c:if test="${empty proreviewByMyPost}">
 											<div class = "col">
