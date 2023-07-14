@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>  
 <!DOCTYPE html>
@@ -56,7 +55,7 @@
 	</div>
 	<div class="row">
 		<div class="col">
-			<img alt="banner1" src= "/safari/resources/img/used/banner1.png" width="100%">
+			<img alt="banner1" src= "/safari/resources/img/used/listBanner.jpeg" width="100%">
 		</div>
 	</div>
 	<div class="container">
@@ -242,7 +241,7 @@ function getViewAll(mainId2,subId2,cityId2,townId2,statusId2,orderId2){
                     if (map.productDto.price == 0) {
                       const btnShare = document.createElement("button");
                       btnShare.type = "button";
-                      btnShare.classList.add("btn", "btn-warning", "btn-sm", "col-2", "p-0", "text-black");
+                      btnShare.classList.add("btn", "btn-warning", "btn-sm", "col-auto");
                       btnShare.disabled = true;
                       btnShare.textContent = "나눔";
                       divRow3.appendChild(btnShare);
@@ -259,7 +258,7 @@ function getViewAll(mainId2,subId2,cityId2,townId2,statusId2,orderId2){
                   
                   
                     const divRow5 = document.createElement("div");
-                    divRow5.classList.add("row", "mb-5");
+                    divRow5.classList.add("row", "mb-3");
                     
                     const divCol4 = document.createElement("div");
                     divCol4.classList.add("col", "ms-1", "text-secondary");

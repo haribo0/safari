@@ -204,8 +204,8 @@ public class UsedServiceImpl {
 		Map<String, Object> map = new HashMap<>();
 		ProductDto productDto = usedSqlMapper.selectProductById(productId);
 		Integer townId = productDto.getProduct_town_id();
-		String content = productDto.getContent().replaceAll("\n", "<br>");
-		productDto.setContent(content);
+//		String content = productDto.getContent().replaceAll("\n", "<br>");
+//		productDto.setContent(content);
 		int productLikeCount = usedSqlMapper.selectProductLikeCountByProductId(productId);
 		map.put("productDto", productDto);
 		map.put("productLikeCount", productLikeCount);
@@ -549,6 +549,27 @@ public class UsedServiceImpl {
 		map.put("usedReviewCheckboxCategotyDtoList", usedSqlMapper.selectCheckboxSelectedReviewByRequestIdAndSenderId(requestId, senderId));
 		map.put("recevierReviewCount", usedSqlMapper.selectMyWroteReviewCount(requestId,receiverId));
 		return map;
+	}
+
+	// 메인 - 무료 나눔 리스트 
+	public List<Map<String, Object>> selectFreePriceList() {
+		List<Map<String, Object>> list = new ArrayList<Map<String,Object>>();
+		List<ProductDto> productDtoList = usedSqlMapper.selectFreePriceList();
+		
+		for(ProductDto productDto : productDtoList) {
+			Map<String, Object> map = new HashMap<>();
+			int productId = productDto.getId();
+			Integer townId = productDto.getProduct_town_id();
+			map.put("productDto", productDto);
+			map.put("likeCount", usedSqlMapper.selectProductLikeCountByProductId(productId));
+			map.put("requestCount", usedSqlMapper.countProductRequestByProductId(productId));
+			map.put("productImgDto", usedSqlMapper.selectProductImg(productId));
+			map.put("productTownDto", usedSqlMapper.selectProductTownById(townId));
+			map.put("productCityDto", usedSqlMapper.selectProductCityByTownId(townId));
+			
+			list.add(map);
+		}
+		return list;
 	}
 	
 	

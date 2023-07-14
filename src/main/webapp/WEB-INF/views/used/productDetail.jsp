@@ -138,7 +138,7 @@
 		    	<span class="mt-0"><button type="button" class="btn btn-outline-secondary btn-sm mb-1 ms-2" disabled>거래완료</button></span>
 		    	</c:if>
 		   	</div>
-		   	<div class="col text-end my-auto">
+		   	<div class="col-2 text-end my-auto">
 				<i id="heartBox" onclick="toggleLike()" class="fs-3 bi bi-heart"></i>
 			</div>
     	</div>
