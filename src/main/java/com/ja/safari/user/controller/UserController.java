@@ -272,9 +272,15 @@ public class UserController {
 			
 			int sessionId = 0;
 			sessionId = sessionUser.getId();
+			
+			List<Map<String, Object>> pickByMyPost = userService.getPickByMyPost(sessionId);
+			List<Map<String, Object>> helpByMyPost = userService.getHelpByMyPost(sessionId);
+			List<Map<String, Object>> recruitByMyPost = userService.getRecruitByMyPost(sessionId);
 			List<Map<String, Object>> proreviewByMyPost = userService.getProreviewByMyPost(sessionId);
 			
-			
+			model.addAttribute("pickByMyPost", pickByMyPost);
+			model.addAttribute("helpByMyPost", helpByMyPost);
+			model.addAttribute("recruitByMyPost", recruitByMyPost);
 			model.addAttribute("proreviewByMyPost", proreviewByMyPost);
 			
 			return "user/myAllCommunityPostListPage";

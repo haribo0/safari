@@ -146,15 +146,31 @@
 		</select>
 		
 		
-		
-		
-		
-		<!--  커뮤니티 리워드 내가 쓴 게시글 가져오기 -->
+		<!-- 커뮤니티 리워드 내가 쓴 게시글 가져오기 -->
 		<select id="selectProreviewByMyPost" resultType="com.ja.safari.dto.PromotionReviewDto">
 		SELECT *
 		FROM promotion_review
 		WHERE user_id = #{user_id}
 		</select>
 		
-
+		<!-- 커뮤니티 구인구직 내가 쓴 게시글 가져오기 -->
+		<select id="selectRecruitByMyPost" resultType="com.ja.safari.dto.RecruitDto">
+		SELECT *
+		FROM recruit_table
+		WHERE user_id = #{user_id}
+		</select>
+		
+		<!-- 커뮤니티 해주세요 내가 쓴 게시글 가져오기 -->
+		<select id="selectHelpByMyPost" resultType="com.ja.safari.dto.HelpDto">
+		SELECT *
+		FROM help_table
+		WHERE user_id = #{user_id}
+		</select>
+		
+		<!-- 커뮤니티 골라줘요 내가 쓴 게시글 가져오기 -->
+		<select id="selectPickByMyPost" resultType="com.ja.safari.dto.PickDto">
+		SELECT *
+		FROM pick_table
+		WHERE user_id = #{user_id}
+		</select>
 </mapper>

@@ -10,8 +10,11 @@ import org.springframework.stereotype.Service;
 
 import com.ja.safari.community.mapper.PromotionReviewCommentMapper;
 import com.ja.safari.community.mapper.PromotionReviewMapper;
+import com.ja.safari.dto.HelpDto;
+import com.ja.safari.dto.PickDto;
 import com.ja.safari.dto.PromotionReviewDto;
 import com.ja.safari.dto.PromotionReviewImgDto;
+import com.ja.safari.dto.RecruitDto;
 import com.ja.safari.dto.RentalItemDto;
 import com.ja.safari.dto.RentalOrderDto;
 import com.ja.safari.dto.UserAddressDto;
@@ -142,6 +145,22 @@ public class UserServiceImpl {
 		return userSqlMapper.getUserCoinAllHistoryCount(userId);
 	}
 	
+	// 리워드 코인 적립(보드id의 작성자를 조회를 해서 ~ 어쩌고저쩌고 해서~ 해야할ㄹ거같은데)
+	public void insertPromoCoin(UserCoinDto userCoinDto) {
+		
+		userCoinDto.setId(getOnChargeCoinPk()); 
+		
+		userCoinDto.setCoin_transaction(50);
+		userCoinDto.setTransaction_operand("P");
+		userCoinDto.setTransaction_detail("리워드 포인트 적립");
+		
+	    
+		userSqlMapper.insertUserCoin(userCoinDto);
+	   
+	  
+		
+	}
+	
 	// 세연 - 커뮤니티 내가 쓴 게시글(리워드) 불러오기
 	public List<Map<String, Object>> getProreviewByMyPost(int user_id) {
 
@@ -179,10 +198,88 @@ public class UserServiceImpl {
 	}
 	
 	
+	// 세연 - 커뮤니티 내가 쓴 게시글(구인구직) 불러오기
+	public List<Map<String, Object>> getRecruitByMyPost(int user_id) {
+
+		List<RecruitDto> recruitMyPostList = userSqlMapper.selectRecruitByMyPost(user_id);
+		
+		List<Map<String, Object>> recruitPostMyPostList = new ArrayList<>();	
+
+		for(RecruitDto recruitDto : recruitMyPostList) {
+			Map<String, Object> map = new HashMap<>();
+			
+			UserDto userDto = userSqlMapper.selectUserDtoById(recruitDto.getUser_id());
+			
+			int countPromotionReviewComment = promotionReviewCommentMapper.countPromotionReviewComment(recruitDto.getId());
+			
+			int countLikeByPromotionReview = promotionReviewMapper.countLikeByPromotionReviewId(recruitDto.getId());
+			
+			map.put("userDto", userDto);
+			map.put("recruitDto", recruitDto);
+			map.put("countPromotionReviewComment", countPromotionReviewComment);
+			map.put("countLikeByPromotionReview", countLikeByPromotionReview);
+			
+			recruitPostMyPostList.add(map);
+			
+		}
+		
+		return recruitPostMyPostList;
+	}
 	
+	// 세연 - 커뮤니티 내가 쓴 게시글(해주세요) 불러오기
+		public List<Map<String, Object>> getHelpByMyPost(int user_id) {
+
+			List<HelpDto> helpMyPostList = userSqlMapper.selectHelpByMyPost(user_id);
+			
+			List<Map<String, Object>> helpPostMyPostList = new ArrayList<>();
+			
+			for(HelpDto helpDto : helpMyPostList) {
+				Map<String, Object> map = new HashMap<>();
+				
+				UserDto userDto = userSqlMapper.selectUserDtoById(helpDto.getUser_id());
+				
+				int countPromotionReviewComment = promotionReviewCommentMapper.countPromotionReviewComment(helpDto.getId());
+				
+				int countLikeByPromotionReview = promotionReviewMapper.countLikeByPromotionReviewId(helpDto.getId());
+				
+				map.put("userDto", userDto);
+				map.put("helpDto", helpDto);
+				map.put("countPromotionReviewComment", countPromotionReviewComment);
+				map.put("countLikeByPromotionReview", countLikeByPromotionReview);
+				
+				helpPostMyPostList.add(map);
+				
+			}
+			
+			return helpPostMyPostList;
+		}
 	
-	
-	
-	
+	// 세연 - 커뮤니티 내가 쓴 게시글(골라줘요) 불러오기
+		public List<Map<String, Object>> getPickByMyPost(int user_id) {
+
+			List<PickDto> pickMyPostList = userSqlMapper.selectPickByMyPost(user_id);
+			
+			List<Map<String, Object>> pickPostMyPostList = new ArrayList<>();
+			
+			for(PickDto pickDto : pickMyPostList) {
+				Map<String, Object> map = new HashMap<>();
+				
+				UserDto userDto = userSqlMapper.selectUserDtoById(pickDto.getUser_id());
+				
+				int countPromotionReviewComment = promotionReviewCommentMapper.countPromotionReviewComment(pickDto.getId());
+				
+				int countLikeByPromotionReview = promotionReviewMapper.countLikeByPromotionReviewId(pickDto.getId());
+				
+				map.put("userDto", userDto);
+				map.put("pickDto", pickDto);
+				map.put("countPromotionReviewComment", countPromotionReviewComment);
+				map.put("countLikeByPromotionReview", countLikeByPromotionReview);
+				
+				pickPostMyPostList.add(map);
+				
+			}
+			
+			return pickPostMyPostList;
+		}
 
 }

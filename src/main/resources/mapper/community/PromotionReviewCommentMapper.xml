@@ -30,5 +30,21 @@
 	WHERE promotion_review_id = #{promotion_review_id}
 </select>
 
+<update id="updatePromoComment">
+	UPDATE promotion_review_comment
+	SET promotion_review_comment = #{promotion_review_comment}
+	WHERE id = #{id}
+</update>
+
+<delete id="deletePromotionReviewComment">
+	DELETE FROM promotion_review_comment
+	WHERE id = #{id}
+</delete>
+
+<select id="selectPromoCommentById" resultType="com.ja.safari.dto.PromotionReviewCommentDto">
+	SELECT *
+	FROM promotion_review_comment
+	WHERE id = #{id}
+</select>
 
 </mapper>

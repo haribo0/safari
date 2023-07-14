@@ -3,7 +3,10 @@ package com.ja.safari.user.mapper;
 import java.util.List;
 
 import com.ja.safari.dto.CsQnaDto;
+import com.ja.safari.dto.HelpDto;
+import com.ja.safari.dto.PickDto;
 import com.ja.safari.dto.PromotionReviewDto;
+import com.ja.safari.dto.RecruitDto;
 import com.ja.safari.dto.RentalOrderDto;
 import com.ja.safari.dto.UserAddressDto;
 import com.ja.safari.dto.UserCoinDto;
@@ -61,8 +64,18 @@ public interface UserSqlMapper {
 	
 	// 회원의 코인 전체 사용 내역 횟수
 	public int getUserCoinAllHistoryCount(int userId);
-
+	
 	// 커뮤니티 리워드 내가 쓴 게시글
 	public List<PromotionReviewDto> selectProreviewByMyPost(int user_id);
+	
+	// 커뮤니티 구인구직 내가 쓴 게시글
+	public List<RecruitDto> selectRecruitByMyPost(int user_id);
+	
+	// 커뮤니티 해주세요 내가 쓴 게시글
+	public List<HelpDto> selectHelpByMyPost(int user_id);
+	
+	// 커뮤니티 골라줘요 내가 쓴 게시글
+	public List<PickDto> selectPickByMyPost(int user_id);
+	
 	
 }
