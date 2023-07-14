@@ -8,9 +8,11 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.ja.safari.community.mapper.HelpSqlMapper;
 import com.ja.safari.community.mapper.PromotionReviewCommentMapper;
 import com.ja.safari.community.mapper.PromotionReviewMapper;
 import com.ja.safari.dto.HelpDto;
+import com.ja.safari.dto.HelpImgDto;
 import com.ja.safari.dto.PickDto;
 import com.ja.safari.dto.PromotionReviewDto;
 import com.ja.safari.dto.PromotionReviewImgDto;
@@ -38,6 +40,8 @@ public class UserServiceImpl {
 	@Autowired
 	private PromotionReviewCommentMapper promotionReviewCommentMapper;
 	
+	@Autowired
+	private HelpSqlMapper helpSqlMapper;
 	
 	//회원가입
 	public void joinUser(UserDto userDto) {
@@ -167,10 +171,10 @@ public class UserServiceImpl {
 	}
 	
 	// 리워드 코인 적립(보드id의 작성자를 조회를 해서 ~ 어쩌고저쩌고 해서~ 해야할ㄹ거같은데)
-	public void insertPromoCoin(UserCoinDto userCoinDto) {
+	public void insertPromoCoin(UserCoinDto userCoinDto, PromotionReviewDto promotionReviewDto) {
 		
 		userCoinDto.setId(getOnChargeCoinPk()); 
-		
+		userCoinDto.setUser_id(promotionReviewDto.getUser_id());
 		userCoinDto.setCoin_transaction(50);
 		userCoinDto.setTransaction_operand("P");
 		userCoinDto.setTransaction_detail("리워드 포인트 적립");
@@ -231,14 +235,14 @@ public class UserServiceImpl {
 			
 			UserDto userDto = userSqlMapper.selectUserDtoById(recruitDto.getUser_id());
 			
-			int countPromotionReviewComment = promotionReviewCommentMapper.countPromotionReviewComment(recruitDto.getId());
+			int countRecruitComment = promotionReviewCommentMapper.countPromotionReviewComment(recruitDto.getId());
 			
-			int countLikeByPromotionReview = promotionReviewMapper.countLikeByPromotionReviewId(recruitDto.getId());
+			int countLikeByRecruit = promotionReviewMapper.countLikeByPromotionReviewId(recruitDto.getId());
 			
 			map.put("userDto", userDto);
 			map.put("recruitDto", recruitDto);
-			map.put("countPromotionReviewComment", countPromotionReviewComment);
-			map.put("countLikeByPromotionReview", countLikeByPromotionReview);
+			map.put("countRecruitComment", countRecruitComment);
+			map.put("countLikeByRecruit", countLikeByRecruit);
 			
 			recruitPostMyPostList.add(map);
 			
@@ -259,14 +263,19 @@ public class UserServiceImpl {
 				
 				UserDto userDto = userSqlMapper.selectUserDtoById(helpDto.getUser_id());
 				
-				int countPromotionReviewComment = promotionReviewCommentMapper.countPromotionReviewComment(helpDto.getId());
+				List<HelpImgDto> helpImgList = helpSqlMapper.selectHelpBoardImageByHelpId(helpDto.getId());
 				
-				int countLikeByPromotionReview = promotionReviewMapper.countLikeByPromotionReviewId(helpDto.getId());
+
+				
+				int countHelpComment = promotionReviewCommentMapper.countPromotionReviewComment(helpDto.getId());
+				
+				int countLikeByHelp= promotionReviewMapper.countLikeByPromotionReviewId(helpDto.getId());
 				
 				map.put("userDto", userDto);
 				map.put("helpDto", helpDto);
-				map.put("countPromotionReviewComment", countPromotionReviewComment);
-				map.put("countLikeByPromotionReview", countLikeByPromotionReview);
+				map.put("helpImgList", helpImgList);
+				map.put("countHelpComment", countHelpComment);
+				map.put("countLikeByHelp", countLikeByHelp);
 				
 				helpPostMyPostList.add(map);
 				
@@ -287,14 +296,14 @@ public class UserServiceImpl {
 				
 				UserDto userDto = userSqlMapper.selectUserDtoById(pickDto.getUser_id());
 				
-				int countPromotionReviewComment = promotionReviewCommentMapper.countPromotionReviewComment(pickDto.getId());
+				int countPickComment = promotionReviewCommentMapper.countPromotionReviewComment(pickDto.getId());
 				
-				int countLikeByPromotionReview = promotionReviewMapper.countLikeByPromotionReviewId(pickDto.getId());
+				int countLikeByPick = promotionReviewMapper.countLikeByPromotionReviewId(pickDto.getId());
 				
 				map.put("userDto", userDto);
 				map.put("pickDto", pickDto);
-				map.put("countPromotionReviewComment", countPromotionReviewComment);
-				map.put("countLikeByPromotionReview", countLikeByPromotionReview);
+				map.put("countPickComment", countPickComment);
+				map.put("countLikeByPick", countLikeByPick);
 				
 				pickPostMyPostList.add(map);
 				
