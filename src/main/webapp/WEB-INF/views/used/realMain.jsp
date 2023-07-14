@@ -265,9 +265,12 @@ function getViewAll(mainId2,subId2,cityId2,townId2,statusId2,orderId2){
    
                     const heartIcon = document.createElement("i");
                     heartIcon.classList.add("bi", "bi-heart");
-
-                    const likeCount = document.createTextNode(" "+map.likeCount +" ");
-
+					
+                    const likeCount = document.createTextNode(" "+map.likeCount);
+					
+                    const span = document.createElement("span");
+                    span.classList.add("ms-2");
+                    
                     const chatIcon = document.createElement("i");
                     chatIcon.classList.add("bi", "bi-chat-dots");
 
@@ -279,7 +282,11 @@ function getViewAll(mainId2,subId2,cityId2,townId2,statusId2,orderId2){
                     divCol4.appendChild(heartIcon);
                     divCol4.appendChild(likeCount);
                    
-                    divCol4.appendChild(chatIcon);
+                    
+                    divCol4.appendChild(span);
+                    span.appendChild(chatIcon);
+                    span.appendChild(chatIcon);
+                    
                     divCol4.appendChild(requestCount);                  
                     divRow5.appendChild(divCol4);
                     divCol.appendChild(divRow5);

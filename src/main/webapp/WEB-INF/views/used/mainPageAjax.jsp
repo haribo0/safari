@@ -63,9 +63,9 @@
 	</div>
 	<div class="container mt-5 mb-5">
 		<div class="row">
-			<div class="col-auto fw-bold fs-2 mb-3">요즘 뜨는 상품</div>
+			<div class="col-auto fw-bold fs-3 mb-3">요즘 뜨는 상품</div>
 		</div>
-		<div class="row mb-5" >
+		<div class="row mb-5">
 			<div class="col-auto fw-bold fs-2">
 				<a href="#"><img alt="img1" src="/safari/resources/img/used/iphone.jpeg" class="bestImg" width="240" height="240"></a>
 			</div>
@@ -83,15 +83,50 @@
 			</div>
 		</div>
 		<div class="row mb-3">
-			<div class="col-auto fw-bold fs-2">놓치면 후회하는 무료 나눔</div>
+			<div class="col-auto fw-bold fs-3 mt-3">놓치면 후회하는 무료 나눔</div>
 		</div>
-		<div class="row">
+		<div class="row mb-5">
 			<c:forEach items="${freePriceList}" var="map">
 				<div class="col-3">
 					<div class="row">
 						<div class="col">
 						<a href="./productDetail?productId=${map.productDto.id }" class="text-decoration-none text-black p-0">
-						<img alt="img" class="img-fluid" src="/safarifile/${map.productImgDto.product_img_link }" >
+						<img alt="img" class="img-fluid bestImg" src="/safarifile/${map.productImgDto.product_img_link }" >
+						</a>
+						</div>
+					</div>	
+					<div class="row">
+						<div class="col mt-2">
+						<a href="./productDetail?productId=${map.productDto.id }" class="ms-1 text-decoration-none text-black title">
+							${map.productDto.title }
+						</a>
+						</div>
+					</div>
+					<div class="row ms-1">
+						<div class="col ms-0 p-0 w-0 smaller-text text-secondary mb-1">
+						${map.productCityDto.product_city_name } ${map.productTownDto.product_town_name } | <span class="ms-0 p-0 w-0 smaller-text text-secondary">${map.uploadTime }
+						</span>
+						</div>
+					</div>
+					<div class="row mb-3">
+						<div class="col ms-1 text-secondary">
+						<i class="bi bi-heart"></i> ${map.likeCount } &nbsp;&nbsp;<i class="bi bi-chat-dots"></i> ${map.requestCount }
+						</div>
+					</div>	
+				</div>
+			</c:forEach>
+		</div>	
+		<div class="row mb-3">
+			<div class="col-auto fw-bold fs-3">전체 상품</div>
+			<div class="col fw-bold fs-5 text-end my-auto"><a class="text-decoration-none text-black" href="./productList">더보기 ></a></div>
+		</div>
+		<div class="row mb-5">
+			<c:forEach items="${eightList}" var="map">
+				<div class="col-3 mb-3">
+					<div class="row">
+						<div class="col">
+						<a href="./productDetail?productId=${map.productDto.id }" class="text-decoration-none text-black p-0">
+						<img alt="img" class="img-fluid bestImg" src="/safarifile/${map.productImgDto.product_img_link }" >
 						</a>
 						</div>
 					</div>	
@@ -104,22 +139,29 @@
 					</div>
 					<div class="row ms-1">
 						<div class="col ms-0 p-0 w-0 smaller-text text-secondary mb-3">
-						${map.productCityDto.product_city_name } ${map.productTownDto.product_town_name } | <span class="ms-0 p-0 w-0 smaller-text text-secondary" id="timeSpan">
-						1</span>
+						${map.productCityDto.product_city_name } ${map.productTownDto.product_town_name } | <span class="ms-0 p-0 w-0 smaller-text text-secondary">${map.uploadTime }
+						</span>
 						</div>
 					</div>
+					<c:choose>
+						<c:when test="${map.productDto.price != 0 }">
+							<div class="row ms-1 fw-semibold price"><span class="p-0">100,000원</span></div>
+						</c:when>
+						<c:otherwise>
+							<div class="row ms-1 fw-semibold price"><button type="button" class="btn btn-warning btn-sm col-auto" disabled>나눔</button></div>
+						</c:otherwise>
+					</c:choose>
 					<div class="row mb-3">
-						<div class="col ms-1 text-secondary">
-						<i class="bi bi-heart"></i> 0 <i class="bi bi-chat-dots"></i> 0
-						</div>
-					</div>	
+				      <div class="col ms-1 text-secondary">
+				        <i class="bi bi-heart"></i> ${map.likeCount} &nbsp;&nbsp;<i class="bi bi-chat-dots"></i> ${map.requestCount}
+				      </div>
+				    </div>	
 				</div>
 			</c:forEach>
-		</div>	
-			
-		<div class="row">
-			<div class="col mx-5">
-				<img class="img-fluid" alt="banner2" src= "/safari/resources/img/used/bannerBottom.jpeg">
+		</div>
+		<div class="row mt-2">
+			<div class="col">
+				<img class="img-fluid" alt="banner2" src= "/safari/resources/img/used/bottomBanner3.png">
 			</div>
 		</div>
 	</div>
@@ -446,50 +488,7 @@ townBox.addEventListener("change", function() {
 	  getViewAll(0, 0, -1, townValue, 0, 0);
 });
 
-
-//몇 시간/분/초 전 
-function dateToTimeDifference(date) {
-
-	// 자바스크립트 날짜로 변환 
-	const dateFromDatabase = new Date(date);
-
-	// 현재와 시간차 (밀리초)
-	const timeDifference = Date.now() - dateFromDatabase.getTime();
-	
-	 // 초, 분, 시간, 일, 월, 년 계산 (integer)
-	const seconds = Math.floor(timeDifference / 1000);
-	const minutes = Math.floor(seconds / 60);
-	const hours = Math.floor(minutes / 60);
-	const days = Math.floor(hours / 24);
-	const months = Math.floor(days / 30);
-	const years = Math.floor(months / 12);
-
-	let formattedTime;
-
-	// 시/분/초 중 하나 정해서 표시 
-	if (years >= 1) {
-	  formattedTime = `\${years}년 전`;
-	} else if (months >= 1) {
-	  formattedTime = `\${months}개월 전`;
-	} else if (days >= 1) {
-	  formattedTime = `\${days}일 전`;
-	} else if (hours >= 1) {
-	  formattedTime = `\${hours}시간 전`;
-	} else if (minutes >= 1) {
-	  formattedTime = `\${minutes}분 전`;
-	} else {
-	  formattedTime = `\${seconds}초 전`;
-	}
-
-	return formattedTime;
-	
-}
-// 로드할때
-window.addEventListener("DOMContentLoaded", function() {
-	getViewAll(-1,-1,-1,-1,-1,-1);
-});
-
-</script> -->
+-->
 
 
 </body>

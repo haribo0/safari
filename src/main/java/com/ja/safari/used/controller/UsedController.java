@@ -42,7 +42,10 @@ public class UsedController {
 		// categoryList
 		model.addAttribute("categoryList", usedService.selectMainAndSubCategory());
 		model.addAttribute("cityList", usedService.selectProductCity());
+		// 무료나눔 리스트 
 		model.addAttribute("freePriceList", usedService.selectFreePriceList());
+		// 8개 전체리스트 
+		model.addAttribute("eightList", usedService.selectAllProductListByEight());
 		return "/used/mainPageAjax";
 	}
 	

@@ -151,9 +151,9 @@
 			</c:when>
 			<c:otherwise>
 				        <div class="fw-bold mb-1 fs-4 col"><fmt:formatNumber value="${map.productDto.price}" pattern="#,##0원" /></div>
-				        <div class="col-2 text-secondary text-end my-auto category" id="uploadTime"></div>
 			</c:otherwise>
 		</c:choose>
+			<div class="col text-secondary text-end my-auto category" id="uploadTime"></div>
 		</div>
 		<div class="row mt-3">
 			<div class="col gray-line"></div>

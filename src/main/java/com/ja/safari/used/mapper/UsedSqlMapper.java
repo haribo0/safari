@@ -144,6 +144,8 @@ public interface UsedSqlMapper {
 	public List<UsedReviewCheckboxCategoryDto> selectCheckboxSelectedReviewByRequestIdAndSenderId(@Param("requestId")Integer requestId, @Param("senderId")Integer senderId);
 	// 메인에서 나눔 물건 리스트 
 	public List<ProductDto> selectFreePriceList();
+	// 메인에서 전체리스트 -8개 
+	public List<ProductDto> selectAllProductListByEight();
 	
 	
 	

@@ -429,8 +429,23 @@ WHERE ROWNUM <= 4
 ]]>
 </select>
 
-
-
+<!-- 메인페이지 - 전체상품 8개  -->
+<select id="selectAllProductListByEight" resultType="com.ja.safari.dto.ProductDto">
+	<![CDATA[
+	SELECT *
+	FROM (
+    SELECT *
+    FROM PRODUCT
+        WHERE id NOT IN (
+            SELECT product_id
+            FROM product_request
+            WHERE status IN ('거래완료','예약중')
+        )
+    ORDER BY reg_date DESC
+	)
+	WHERE ROWNUM <= 8
+	]]>
+</select>
 
 
 
