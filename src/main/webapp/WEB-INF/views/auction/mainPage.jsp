@@ -31,6 +31,11 @@
   overflow: hidden; /* 넘친 텍스트를 숨김 */
   text-overflow: ellipsis; /* 넘친 텍스트를 "..."으로 표시 */
 }     
+.orangeButton{
+	background: #ff6f0f;
+	font-weight: bold;
+	color: white;
+}
 </style>
 <script>
 let sessionId = null;
@@ -332,7 +337,7 @@ function reloadAuctionList(mainCategoryId, subCategoryId) {
 	            	
 	            	
 	            	const col = document.createElement("div");
-	            	col.classList.add("col-4", "mt-4");
+	            	col.classList.add("col-3", "mt-4");
 	            	
 	            	
 	            	const imageRow = document.createElement("div");
@@ -346,9 +351,10 @@ function reloadAuctionList(mainCategoryId, subCategoryId) {
 	            	imageLink.href = "/safari/auction/productDetail/" + data.auctionDto.id;
 	            	
 	            	const imageInfo = document.createElement("img");
-	            	imageInfo.classList.add("img-fluid", "align-middle");
-	            	imageInfo.style.height = "220px";
-	            	imageInfo.style.width = "220px";
+	            	imageInfo.classList.add("img-fluid", "align-middle", "text-center");
+	            	imageInfo.style.height= "auto";
+	            	imageInfo.style.height = "220px"; 
+	            	/* imageInfo.style.width = "220px";  */
 	            	imageInfo.src = "/auctionFiles/" + data.auctionImgDto.auction_item_img_link;
 	            	
 	            	imageLink.appendChild(imageInfo);
@@ -414,9 +420,9 @@ function reloadAuctionList(mainCategoryId, subCategoryId) {
 		            immediatePriceCol.classList.add("col");
 		            
 		            const immediateSpan = document.createElement("span");
-		            immediateSpan.classList.add("fw-medium");
 		            //immediateSpan.style.position = "relative";
 		            //immediateSpan.style.top = "1.5px";
+		            immediateSpan.style.fontSize = "13px";
 		            immediateSpan.innerText = "즉시낙찰가 " + new Intl.NumberFormat('ko-KR').format(data.auctionDto.max_price) + "원";
 	                
 		            immediatePriceCol.appendChild(immediateSpan);
@@ -442,7 +448,7 @@ function reloadAuctionList(mainCategoryId, subCategoryId) {
 		               
 		             const startDateCol = document.createElement("div");
 		             startDateCol.classList.add("col");
-		             startDateCol.style.fontSize = "14px";
+		             startDateCol.style.fontSize = "13px";
 		             startDateCol.innerText = "경매시작일 : " + formattedauctionStartDate;
 		               
 		             startRow.appendChild(startDateCol);
@@ -466,7 +472,7 @@ function reloadAuctionList(mainCategoryId, subCategoryId) {
 		               
 		              const endDateCol = document.createElement("div");
 		              endDateCol.classList.add("col");
-		              endDateCol.style.fontSize = "14px";
+		              endDateCol.style.fontSize = "13px";
 		              endDateCol.innerText = "경매종료일 : " + formattedauctionEndDate;
 		              
 		              endRow.appendChild(endDateCol);
@@ -518,11 +524,14 @@ function registerProductPage() {
 window.onload = function() {
     // 대분류 카테고리의 기본 선택 값 설정
     const defaultMainCategoryId = 0; // 
+   // const defaultSubCategoryId = 0;
     
     // 대분류 카테고리 드롭다운을 기본 선택 값으로 설정
     const mainCategoryDropdown = document.getElementById('mainCategoryDropdown');
     mainCategoryDropdown.value = defaultMainCategoryId;
     
+/*     const subCategoryDropdown = document.getElementById('subCategoryDropdown');
+    subCategoryDropdown.value = defaultSubCategoryId; */
     // 초기 선택한 대분류 카테고리에 해당하는 소분류 카테고리 리스트 출력
     getProductSubcategories();
 }
@@ -702,13 +711,8 @@ window.addEventListener("DOMContentLoaded", function(){
 		
 		
 		<div class="row mt-5 mb-3">
-			<div class="col mt-3">
-			
-				<input type="button" onclick= "registerProductPage()"
-				  class="btn btn-dark" value="경매 물품 등록">				  
-			</div>
-			
-			<div class="col mt-4 d-flex justify-content-center me-5" style="position: relative; right: 50px;">
+		
+			<div class="col mt-4 d-flex justify-content-center" style="position: relative; right: 10px;">
 			
 			 <input class="form-check-input me-2" type="radio" id="radioStatus" name="radioStatus" value="">
 			  <label class="form-check-label me-4" for="radioStatus">
@@ -725,7 +729,15 @@ window.addEventListener("DOMContentLoaded", function(){
 				  <label class="form-check-label me-2" for="radioStatusReady">
 				    	준비중인 경매만 보기
 				  </label>				
+			</div>		
+		
+			<div class="col mt-3 text-end me-5">
+			
+				<input type="button" onclick= "registerProductPage()"
+				  class="btn orangeButton" value="경매 물품 등록">				  
 			</div>
+			
+			
 			
 		</div>
 		
@@ -877,7 +889,7 @@ window.addEventListener("DOMContentLoaded", function(){
 	        	<div class="col"></div>
 	        	<div class="col-4 text-center d-grid">
 	      
-	                <button class="btn btn-primary btn-block btn-dark text-center me-5"
+	                <button class="btn orangeButton text-center me-5"
 	                	onclick="return registerAuctionProduct()">등록</button>
 	           </div>    
 	        </div>

@@ -87,6 +87,30 @@
 		</form>
 	</div>
 	
+	
+<!-- 	<div class="d-none" id="templeteList">
+		<div class="row auction_item">
+			<div class="col">ddd</div>
+		</div>
+
+		<div class="row ">
+			<div class="col">ddd</div>
+		</div>
+
+		<div class="row ">
+			<div class="col">ddd</div>
+		</div>
+
+		<div class="row ">
+			<div class="col">ddd</div>
+		</div>
+
+	
+	</div> -->
+	
+	
+	
+	
 	<!-- 푸터 섹션 -->
 	<jsp:include page="../common/footer.jsp"></jsp:include>
 	<!-- 푸터 섹션 -->

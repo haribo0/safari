@@ -29,6 +29,8 @@ public class AuctionBidDto {
 	private Date payment_reg_date;
 	private Date delivery_reg_date;
 	
+	private String purchase_confirmed;
+	
 	
 	public AuctionBidDto() {
 	}
@@ -144,6 +146,12 @@ public class AuctionBidDto {
 	public void setDelivery_reg_date(Date delivery_reg_date) {
 		this.delivery_reg_date = delivery_reg_date;
 	}
-	
+	public String getPurchase_confirmed() {
+		return purchase_confirmed;
+	}
+	public void setPurchase_confirmed(String purchase_confirmed) {
+		this.purchase_confirmed = purchase_confirmed;
+	}
+
 
 }
