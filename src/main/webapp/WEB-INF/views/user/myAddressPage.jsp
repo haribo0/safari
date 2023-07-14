@@ -82,8 +82,7 @@
 				</div>
 			</div>
 			
-			
-			
+	
 			
 			<%-- <div class="row mt-3">
 				<p class="me-5">${sessionUser.nickname }님의 배송 주소 리스트: </p>
@@ -353,6 +352,7 @@
 
 let selectedAddressId = null;
 
+
 // 로그인된 세션 초기화
 let mySessionId = null;
 // 세션가져오기
@@ -483,7 +483,7 @@ function addUserAddress() {
 	}
 	xhr.open("post", "/safari/user/addUserAddress");
 	xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded;charset=utf-8");
-	xhr.send("address_name=" + address_name.value + "&phone=" + phone.value + "&address=" + address.value + "" + detail_address.value);	
+	xhr.send("address_name=" + address_name.value + "&phone=" + phone.value + "&address=" + address.value + "  " + detail_address.value);	
 }
 
 // 주소 수정

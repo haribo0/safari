@@ -148,15 +148,12 @@ input[id="tab03"]:checked ~ .con3 {
 	 				<div class="col">
 	 					
 	 					<div class="row">
-	 						<div class="col-9">
+	 						<div class="col text-center">
 	 							<img src="/auctionFiles/${productDetail.auctionMainImgDto.auction_item_img_link}"
 	 							class="img-fluid" onclick="auctionInfoPage()" style="cursor: pointer;">
 	 							
 	 						</div>
-	 						<div class="col">
-	 							
-	 							
-	 						</div>
+	 						
 	 					</div>
 	 					
 	 					<div class="row mt-5">
@@ -1097,10 +1094,17 @@ function showAuctionInfo() {
 	              //heartBox.style.position = "relative";
 	              //heartBox.style.top = "5px";
 	              refreshMyHeart();
+	              refreshTotalLikeCount();
 	        		//heartBox.classList.add("bi-heart-fill");//
 	        	  heartBox.onclick = toggleLikeAuctionProduct;
+	        	  heartBox.style = "cursor";
+	        		
+	        	  const heartCount = document.createElement("span");
+	        	  heartCount.classList.add("ms-1");
+	        	  heartCount.id = "totalLikeCount";
 	        		
 	              editCol.appendChild(heartBox);
+	              editCol.appendChild(heartCount);
 	       /*  } 
            */
            
@@ -2879,11 +2883,10 @@ window.addEventListener("DOMContentLoaded", function(){
     //setInterval(getTop3BidList, 100);
     
     setInterval(getAuctionEndTimeInRealTime, 20);
-    refreshMyHeart();
     
     
-    showAuctionInfo();
     showAuctionStatusTitle();
+    refreshTotalLikeCount();
     
     
 
