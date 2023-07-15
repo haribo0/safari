@@ -132,12 +132,17 @@
 
 	
 	<!-- 골라줘요 : 중고 상품 테이블에서 받아오기. (이름, 가격, 좋아요 수, 이미지) productDto 받아오기-->
-	<select id="showProductByproductId" resultType="com.ja.safari.dto.ProductDto">
-		SELECT p.title, p.price, COUNT(*), pimg.product_img_link 
+	<select id="showAllProduct" resultType="com.ja.safari.dto.PickShowCardDto">
+	<!-- 	SELECT p.title, p.price, COUNT(*) likeCount, pimg.product_img_link 
 		FROM product p
 		JOIN product_like pLike ON p.id = pLike.product_id
 		JOIN product_img pIMG ON p.id = pIMG.product_id
 		WHERE p.id = #{id}
+		GROUP BY p.title, p.price, pimg.product_img_link -->
+		SELECT p.title, p.price, COUNT(*) likeCount, pimg.product_img_link 
+		FROM product p
+		LEFT JOIN product_like pLike ON p.id = pLike.product_id
+		LEFT JOIN product_img pIMG ON p.id = pIMG.product_id
 		GROUP BY p.title, p.price, pimg.product_img_link
 	</select>
 	

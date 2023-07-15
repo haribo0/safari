@@ -14,6 +14,7 @@ import com.ja.safari.dto.PickCommentDto;
 import com.ja.safari.dto.PickDto;
 import com.ja.safari.dto.PickLikeDto;
 import com.ja.safari.dto.PickOptionDto;
+import com.ja.safari.dto.PickShowCardDto;
 import com.ja.safari.dto.ProductDto;
 import com.ja.safari.dto.UserDto;
 import com.ja.safari.used.mapper.UsedSqlMapper;
@@ -50,31 +51,9 @@ public class PickServiceImpl {
 	
 	
 	//골라줘요 옵션.
-	public List<Map<String, Object>> showProductByproductIdList() {
+	public List<PickShowCardDto> showAllProduct() {
 
-		//골라줘요 옵션
-		int product_id = usedSqlMapper.createProductPk();
-		List<Map<String, Object>> productBoardList = new ArrayList<>();
-		List<ProductDto> productDtoList = usedSqlMapper.selectProduct();
-		
-		System.out.printf("1 서비스 product_id: ", product_id);//확인용
-		System.out.printf("2 서비스 productDtoList: ", productDtoList);//확인용
-		
-		for(ProductDto productDto : productDtoList ) {
-			
-			Map<String, Object> map = new HashMap<>();
-			
-			productDto.setId(product_id); //productId
-			pickSqlMapper.showProductByproductId(productDto);
-			
-			map.put("productDto", productDto);
-			
-			System.out.printf("3 서비스 productDto: ", productDto);//확인용
-			
-			productBoardList.add(map);
-		}
-		
-		return productBoardList;
+		return pickSqlMapper.showAllProduct();
 	}
 	
 	

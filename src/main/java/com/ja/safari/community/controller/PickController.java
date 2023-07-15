@@ -17,6 +17,7 @@ import com.ja.safari.dto.PickCommentDto;
 import com.ja.safari.dto.PickDto;
 import com.ja.safari.dto.PickLikeDto;
 import com.ja.safari.dto.PickOptionDto;
+import com.ja.safari.dto.PickShowCardDto;
 import com.ja.safari.dto.ProductDto;
 import com.ja.safari.dto.UserDto;
 import com.ja.safari.user.service.UserServiceImpl;
@@ -80,29 +81,28 @@ public class PickController {
 		}
 */
 		
-		//골라줘요 글쓰기 페이지
+		//골라줘요 글쓰기 페이지 //골라줘요 옵션 추가.
 		@RequestMapping("pick/writeContentPage")
-		public String pickWriteContentPage() {
+		public String pickWriteContentPage(Model model) {
+			
+			//골라줘요 옵션 추가. (여기부터)
+			List<PickShowCardDto> showAllProductList = pickService.showAllProduct();
+			model.addAttribute("showAllProductList", showAllProductList);
+			
+			//System.out.printf("*1 컨트롤러 showProductByproductIdList: ", showProductByproductIdList);//확인용
 			
 			return "/community/pick/writeContentPage";
 		}
 		
-		//골라줘요 글쓰기 프로세스 //골라줘요 옵션 추가.
+		//골라줘요 글쓰기 프로세스 
 		@RequestMapping("pick/writeContentProcess")
-		public String pickWriteContentProcess(HttpSession session, PickDto pickDto, PickOptionDto pickOptionDto, Model model) {
+		public String pickWriteContentProcess(HttpSession session, PickDto pickDto) {
 			
 			UserDto sessionUser = (UserDto)session.getAttribute("sessionUser");
 			
 			int user_id = sessionUser.getId();
 			pickDto.setUser_id(user_id);
-			
-			
-			//골라줘요 옵션 추가.
-			List<Map<String, Object>> showProductByproductIdList = pickService.showProductByproductIdList();
-			model.addAttribute("showProductByproductIdList", showProductByproductIdList);
-			
-			System.out.printf("1 컨트롤러 showProductByproductIdList: ", showProductByproductIdList);//확인용
-			
+
 			return "redirect:/community/pick/mainPage";
 		}
 		
