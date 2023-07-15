@@ -50,6 +50,21 @@ public class UserRestController {
 
 		return map;
 	}
+	
+	// 회원정보 수정 - 현재 비밀번호 확인
+	@RequestMapping("checkUserPw") 
+	public Map<String, Object> checkUserPw(HttpSession session) {
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		UserDto sessionUser = (UserDto)session.getAttribute("sessionUser");
+		
+		map.put("userPw", userService.checkUserPw(sessionUser.getId()));
+		
+		map.put("result", "success");
+		
+		return map;
+	}
 
 	// 사용자 주소 추가
 	@RequestMapping("addUserAddress")
@@ -57,6 +72,7 @@ public class UserRestController {
 		Map<String, Object> map = new HashMap<String, Object>();
 
 		UserDto sessionUser = (UserDto)session.getAttribute("sessionUser");
+		
 		params.setUser_id(sessionUser.getId());
 		userService.addUserAddress(params);
 
@@ -73,9 +89,72 @@ public class UserRestController {
 		  List<UserAddressDto> userAddressDtoList = userService.getUserAddressList(sessionUser.getId()); 
 		  map.put("result", "success"); 
 		  map.put("addressList",userAddressDtoList);
+		  
+		  map.put("addressCount", userService.getUserAddressCount(sessionUser.getId()));
 	  
 	  
 		  return map; 
+	  }
+	  
+	// 주소 수정 - pk로 데이터 가져오기
+	  @RequestMapping("getAddressInfoByPk")
+	  public Map<String, Object> getAddressInfoByPk(HttpSession session, int id) {
+		  
+		  Map<String, Object> map = new HashMap<String, Object>();
+		  UserDto sessionUser = (UserDto)session.getAttribute("sessionUser");
+		  
+		  if (sessionUser == null) {
+			  map.put("result", "fail");
+			  map.put("reason", "로그인이 되어 있지 않습니다.");
+			  return map;
+		  }
+		  
+		  map.put("addrInfo", userService.getAddressInfoByPk(id));
+		  
+		  return map;
+		  
+	  }
+	  
+	  // 주소 수정
+	  @RequestMapping("modifyUserAddress")
+	  public Map<String, Object>  modifyUserAddress(HttpSession session, UserAddressDto params) {
+		  
+		  Map<String, Object> map = new HashMap<String, Object>();	  
+		  UserDto sessionUser = (UserDto)session.getAttribute("sessionUser");
+		  
+		  if (sessionUser == null) {
+			  map.put("result", "fail");
+			  map.put("reason", "로그인이 되어 있지 않습니다.");
+			  return map;
+		  }
+		  
+			params.setUser_id(sessionUser.getId());
+			userService.modifyUserAddress(params);
+			
+			map.put("result", "success");
+		   return map;
+		  
+	  }
+	  
+	  // 주소 삭제
+	  @RequestMapping("removeUserAddress")
+	  public Map<String, Object>  removeUserAddress(HttpSession session, int id) {
+		  
+		  Map<String, Object> map = new HashMap<String, Object>();	  
+		  UserDto sessionUser = (UserDto)session.getAttribute("sessionUser");
+		  
+		  if (sessionUser == null) {
+			  map.put("result", "fail");
+			  map.put("reason", "로그인이 되어 있지 않습니다.");
+			  return map;
+		  }
+		  
+		   userService.removeUserAddress(id);
+			
+			map.put("result", "success");
+			
+		   return map;
+		  
 	  }
 	  
 	  // 1대1문의 포스트 - RequestBody
@@ -344,6 +423,39 @@ public class UserRestController {
 			map.put("result", "success");
 			
 			return map;
+		}
+		
+		
+		// 회원의 코인 충전, 사용 내역 확인
+		@RequestMapping("getCoinUsageHistory")
+		public  Map<String, Object> getCoinUsageHistory(String type, HttpSession session) {
+			
+			Map<String, Object> map = new HashMap<String, Object>();
+			
+			UserDto userDto = (UserDto) session.getAttribute("sessionUser");
+			
+			if(userDto == null) {
+				map.put("result", "fail");
+				map.put("reason", "login required");
+				return map;
+			}
+
+			   List<UserCoinDto> coinHistoryList;
+			   
+			    if (type.equals("all")) {
+			        coinHistoryList = userService.getUserCoinAllHistoryList(userDto.getId());
+			    } else if (type.equals("charge")) {
+			        coinHistoryList = userService.getCoinChargeHistoryList(userDto.getId());
+			    } else {
+			        coinHistoryList = userService.getCoinUsageHistoryList(userDto.getId());
+			    }
+			    
+			    map.put("coinHistoryCount", userService.getUserCoinAllHistoryCount(userDto.getId()));
+			    
+			    map.put("coinHistoryList", coinHistoryList);
+			    
+			    return map;
+
 		}
 	  
 	  

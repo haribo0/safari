@@ -93,7 +93,7 @@ function getProductSubCategoriesForMenu(productMainCategoryId, subCategoryDiv) {
  
             const response = JSON.parse(xhr.responseText);
             
-            const subCategoryBox = document.getElementById("mainCategories_" + productMainㅠCategoryId);
+            const subCategoryBox = document.getElementById("mainCategories_" + productMainCategoryId);
             subCategoryBox.innerHTML = "";
             
             for(data of response.subCategories) {

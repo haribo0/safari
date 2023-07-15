@@ -128,7 +128,7 @@ function submitForm(){
 	const title = document.getElementById("qnaTitle").value.trim();
 	const content = document.getElementById("qnaContent").value.trim();
 	
-	if( categoryId<1 || categoryId > 4) {
+	if( categoryId<1 || categoryId > 5) {
 		document.getElementById("categoryId").focus();
 		return;
 	}

@@ -84,6 +84,10 @@ public class AuctionController {
 	
 		UserDto sessionUser = (UserDto) session.getAttribute("sessionUser");
 		
+		if(sessionUser == null) {
+			return "redirect:/user/loginPage";
+		}
+		
 		model.addAttribute("userBidList", auctionService.getMyBidList(sessionUser.getId()));
 		
 		return "auction/bidList";
@@ -95,6 +99,10 @@ public class AuctionController {
 	
 		UserDto sessionUser = (UserDto) session.getAttribute("sessionUser");
 		
+		if(sessionUser == null) {
+			return "redirect:/user/loginPage";
+		}
+		
 		model.addAttribute("successBidList", auctionService.getMySueecssfulBidList(sessionUser.getId()));
 		
 		return "auction/successBidList";
@@ -105,6 +113,10 @@ public class AuctionController {
 	public String MyAuctionWishList(HttpSession session, Model model) {
 		
 		UserDto sessionUser = (UserDto) session.getAttribute("sessionUser");
+		
+		if(sessionUser == null) {
+			return "redirect:/user/loginPage";
+		}
 		
 		model.addAttribute("auctionWishList", auctionService.getMyAuctionWishList(sessionUser.getId()));
 		
@@ -118,6 +130,10 @@ public class AuctionController {
 		
 		UserDto sessionUser = (UserDto) session.getAttribute("sessionUser");
 		
+		if(sessionUser == null) {
+			return "redirect:/user/loginPage";
+		}
+		
 		model.addAttribute("uploadAuctionList", auctionService.getAuctionAndBidInfoByUploader(sessionUser.getId()));
 		
 		model.addAttribute("endedAuctionList", auctionService.getEndedAuctionAndPayYnInfoByUploader(sessionUser.getId()));
@@ -130,7 +146,7 @@ public class AuctionController {
 	
 
 	
-	// 결제 실패 
+	   // 결제 실패 
 		@RequestMapping("paymentFailed")
 		public String paymentFailed(HttpSession session) {
 			
@@ -163,23 +179,21 @@ public class AuctionController {
 		
 		// 결제 성공     
 		@RequestMapping("paymentSucceed")
-		public String paymentSucceeded(HttpSession session, Model model, Integer id) {
+		public String paymentSucceeded(HttpSession session, Model model, Integer id)
+		{
 			
 			UserDto userDto = (UserDto) session.getAttribute("sessionUser");
 			if(userDto == null) return "redirect:/user/loginPage"; 		
 			
 			session.removeAttribute("auctionkakaoPay");
 			
+			
 			model.addAttribute("map", auctionService.getAuctionKakaoPayInfo(id));
 			
 			return "auction/paymentSucceed";
 		}
 	
-	
-	
 
-	
-	
 	
 	
 }

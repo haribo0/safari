@@ -37,12 +37,17 @@ public class HelpController {
 
 	// 해주세요 메인 페이지
 	@RequestMapping("help/mainPage")
-	public String mainPage(Model model, @RequestParam(value = "helpPage", defaultValue = "1") int helpPage) {
+	public String mainPage(Model model, 
+			@RequestParam(value = "helpPage", defaultValue = "1") int helpPage,
+			String help_searchType,
+			String help_searchWord
+			) {
 
-		List<Map<String, Object>> helpBoardList = helpService.selectAllHelpBoards(helpPage);
+		List<Map<String, Object>> helpBoardList = helpService.selectAllHelpBoards(helpPage, help_searchType, help_searchWord);
 		int helpBoardCount = helpService.getHelpBoardCount();
 		int totalHelpPage = (int) Math.ceil(helpBoardCount / 10.0);
 
+		
 		model.addAttribute("helpBoardList", helpBoardList);
 		model.addAttribute("totalHelpPage", totalHelpPage);
 		model.addAttribute("currentHelpPage", helpPage);

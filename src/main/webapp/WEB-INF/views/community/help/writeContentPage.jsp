@@ -63,7 +63,7 @@
 				  <option value="900">900</option>
 				  <option value="1000">1000</option>
 				</select>
-				<input type="text" class="form-control" placeholder="위치"  name="location" maxlength="10" style="margin-top: 10px; max-width: 200px">
+				<input type="text" class="form-control" placeholder="위치"  name="location" maxlength="30" style="margin-top: 10px; max-width: 200px">
 				 </div>
 				  <!--  <input type="text" class="form-control" placeholder="포인트"  name="points" maxlength="10" style="margin-top: 10px;">-->
 				  <label for="helpBoardFiles" class="file-upload-btn" style="margin-top: 10px;">
@@ -77,7 +77,7 @@
 			<div class="row">
 			<div class="col text-center">
 				<br>
-				<button class="btn btn-primary">작성완료</button> 
+				<button class="btn btn-dark">작성완료</button> 
 			</div>
 			</div>
 			</form>

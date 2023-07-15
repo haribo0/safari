@@ -10,7 +10,7 @@
 			<a class="btn text fw-bolder py-1 ps-0" href="#">회원정보</a></li>
 		  	<div class="" id="">
 				<ul class="list-group">
-					<li class="list-group-item border-0 py-1 ps-0"><a href="#" class="btn py-0 text-body-secondary ps-0 fs-nav-small">회원정보수정</a></li>
+					<li class="list-group-item border-0 py-1 ps-0"><a href="../user/modifyProfile" class="btn py-0 text-body-secondary ps-0 fs-nav-small">회원정보수정</a></li>
 					<li class="list-group-item border-0 py-1 ps-0"><a href="../user/myCoinPage" class="btn py-0 text-body-secondary ps-0 fs-nav-small">코인관리</a></li>
 					<li class="list-group-item border-0 py-1 ps-0"><a href="../user/myAddressPage" class="btn py-0 text-body-secondary ps-0 fs-nav-small">배송지관리</a></li>
 					<li class="list-group-item border-0 py-1 ps-0"><a href="#" class="btn py-0 text-body-secondary ps-0 fs-nav-small">찜</a></li>

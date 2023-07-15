@@ -10,13 +10,16 @@ import org.springframework.stereotype.Service;
 
 import com.ja.safari.auction.mapper.AuctionSqlMapper;
 import com.ja.safari.dto.AuctionBidDto;
+import com.ja.safari.dto.AuctionDeliveryDto;
 import com.ja.safari.dto.AuctionItemChatroomDto;
 import com.ja.safari.dto.AuctionItemDto;
 import com.ja.safari.dto.AuctionItemImgDto;
 import com.ja.safari.dto.AuctionItemLikeDto;
 import com.ja.safari.dto.AuctionKakaoPayApproveDto;
+import com.ja.safari.dto.AuctionPurchaseConfirmedDto;
 import com.ja.safari.dto.ProductMainCategoryDto;
 import com.ja.safari.dto.ProductSubCategoryDto;
+import com.ja.safari.dto.UserCoinDto;
 import com.ja.safari.dto.UserDto;
 import com.ja.safari.user.mapper.UserSqlMapper;
 
@@ -589,6 +592,13 @@ public class AuctionServiceImpl {
 		return map;
 	}
 	
+	
+	// 경매 낙찰 후 결제하여 코인 차감
+	public void reduceUserCoinByAuction(UserCoinDto userCoinDto) {
+		auctionSqlMapper.reduceUserCoinByAuction(userCoinDto);
+	}
+	
+	
 	// 경매 업로더의 입장에서 종료된 경매 리스트 상태 조회
 	public List<AuctionBidDto> getEndedAuctionlist(int userSellerId) {
 		return auctionSqlMapper.getEndedAuctionlist(userSellerId);
@@ -600,9 +610,25 @@ public class AuctionServiceImpl {
 		auctionSqlMapper.startAuctionDelivery(partnerOrderId);
 	}
 
+	// 배송 조회
+	public AuctionDeliveryDto checkAutionDeliveryStatus(int partnerOrderId) {
+		return auctionSqlMapper.checkAutionDeliveryStatus(partnerOrderId);
+	}
+	
 	// 배송 3일 지나면 배송완료 처리
 	public void completeAuctionDelivery(int partnerOrderId) {
 		auctionSqlMapper.completeAuctionDelivery(partnerOrderId);
 	}
+	
+	// 구매 확정
+	public void registerPurchaseConfirmed(AuctionPurchaseConfirmedDto auctionPurchaseConfirmedDto) {
+		auctionSqlMapper.registerPurchaseConfirmed(auctionPurchaseConfirmedDto);
+	}
+	
+	//  구매 확정 여부 조회
+	public int checkPurchaseConfirmedYn(int partnerOrderId) {
+		return auctionSqlMapper.checkPurchaseConfirmedYn(partnerOrderId);
+	}
+
 	
 }

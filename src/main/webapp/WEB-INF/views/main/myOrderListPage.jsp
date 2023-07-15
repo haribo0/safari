@@ -27,7 +27,7 @@
 	      </div>
 	      <div class="modal-footer">
 	        <span class="btn btn-secondary" data-bs-dismiss="modal">취소</span>
-	        <button type="submit" class="btn btn-primary">반납신청</button>
+	        <span class="btn btn-primary" id="submitReturn">반납신청</span>
 	      </div>
 	    </div>
     </form>
@@ -82,28 +82,48 @@
 			</div>
 			
 			<div class="row">
-				<p class="me-5">${sessionUser.nickname }님이 대여한 리스트: </p>
-				<ul class="list-group myOrderedList d-flex flex-column-reverse">
-				<c:forEach items="${rentalOrderDtoList}" var="data">
-					<li class="list-group-item py-3">
-						<div class="d-flex justify-content-between">
-							<div>
-								<h5>${data.product.title }</h5>
-								<p>시작일: <fmt:formatDate pattern="yyyy-MM-dd" value="${data.orderedItem.start_date }" /></p>
-								<p>반납예정일: <fmt:formatDate pattern="yyyy-MM-dd" value="${data.orderedItem.end_date }" /></p>
-								<p>배송지:${data.orderedItem.address} </p>
-								<p class="mb-0">배송여부: ${data.orderedItem.is_shipped}</p>
+				<p>최근순으로 정렬예정, 상태확인 가능한 ui 넣기, 안쪽 레이아웃 고민 해보기 '찜' 은 카드형식으로</p>
+				<ul class="list-group myOrderedList">
+					<c:forEach items="${rentalOrderDtoList}" var="data">
+						<li class="list-group-item pt-2 pb-4 my-2 border-0 border-bottom">
+							<div class="row">
+								<div class="col">
+									<p class="fw-bold mb-2">${data.product.title }</p>
+									<p><span>시작 | <fmt:formatDate pattern="yyyy-MM-dd" value="${data.orderedItem.start_date }" /></span> <span class="ms-2">종료 | <fmt:formatDate pattern="yyyy-MM-dd" value="${data.orderedItem.end_date }" /></span></p>
+									<p class="mb-0">배송여부: ${data.orderedItem.is_shipped}</p>
+								</div>
+								
+								<div class="col d-flex align-items-center">
+									<p>주문완료</p>
+<!-- 												if (rentalItemReturnDto!=null) {
+													if(rentalItemReturnDto.getIs_completed()=="Y") {
+															status = "정산완료";
+													} else if (rentalItemReturnDto.getIs_item_returned().equals("Y")) {
+														status = "회수완료";
+													} else {
+														status = "반납신청";
+													}
+												} else {
+													// 시작일 이후면
+													if(rentalOrderDto.getStart_date().compareTo(currentDate) < 0 ) status = "대여중";
+													// 다 아니면 
+													else status = "주문완료";
+												}
+												map.put -->
+								</div>
+								
+								<div class="col-3">
+									<c:if test="${data.orderedItem.is_shipped == 'Y'}">
+										<button type="button" class="btn btn-primary" data-product-title="${data.product.title}" data-order-id="${data.orderedItem.id}" data-original-price="${data.orderedItem.original_price}" data-rego-price="${data.orderedItem.price }" data-enddate="${data.orderedItem.end_date }" data-deposit="${data.orderedItem.deposit}" data-bs-toggle="modal" data-bs-target="#modalReturn">대여반납신청</button>
+									</c:if>
+									<c:if test="${data.isCompleted == 'Y'}">
+										<button type="button" class="btn btn-success my-2" data-order-id="${data.orderedItem.id}" data-bs-toggle="modal" data-bs-target="#modalReview"> 대여리뷰작성</button>																
+									</c:if>
+								</div>	
 							</div>
 							
-							<div class="d-flex flex-column">
-								<c:if test="${data.orderedItem.is_shipped == 'Y'}">
-									<button type="button" class="btn btn-primary" data-order-id="${data.orderedItem.id}" data-original-price="${data.orderedItem.original_price}" data-rego-price="${data.orderedItem.price }" data-enddate="${data.orderedItem.end_date }" data-deposit="${data.orderedItem.deposit}" data-bs-toggle="modal" data-bs-target="#modalReturn">대여반납신청</button>
-									<button type="button" class="btn btn-success my-2" data-order-id="${data.orderedItem.id}" data-bs-toggle="modal" data-bs-target="#modalReview"> 대여리뷰작성</button>								
-								</c:if>
-							</div>	
-						</div>
-					</li>
-				</c:forEach>
+						</li>
+					</c:forEach>
 				</ul>
 			</div>
 		</div>
@@ -116,6 +136,7 @@
 
 
 <script>
+	let formattedDate
 	//로그인된 세션 초기화
 	let mySessionId = null;
 	// 세션가져오기
@@ -135,12 +156,6 @@
 		xhr.send();		
 	}
 	
-	window.addEventListener("DOMContentLoaded", function(){
-		getSessionId()
-		
-	});
-
-let formattedDate
 
 // 반납하게되는 날(오늘)
 const setRegDate = () => {
@@ -168,7 +183,8 @@ if (modalReturn) {modalReturn.addEventListener('show.bs.modal', event => {
     const originalPrice= button.getAttribute('data-original-price')
     const price = button.getAttribute('data-rego-price')
     const deposit = button.getAttribute('data-deposit')
-    
+    const productTitle = button.getAttribute('data-product-title')
+    const submitReturn = document.getElementById("submitReturn")
     const form = modalReturn.querySelector('form')
     
 	let endDateObj = new Date(endDate.replace('KST', 'GMT+0900'));
@@ -178,20 +194,23 @@ if (modalReturn) {modalReturn.addEventListener('show.bs.modal', event => {
     const dd = String(endDateObj.getDate()).padStart(2, '0');
     formattedEndDate = `\${yyyy}-\${mm}-\${dd}`;
     
-    form.setAttribute('action', `../rental/rentalReturnProcess?rental_order_id=\${orderId}`)
-    
     setRegDate()
     
     const remainMonth = getMonthDiffer(new Date(formattedDate),new Date(formattedEndDate))
-    console.log('deposit:: ', deposit)
-    console.log('내야할 돈:: ', ((originalPrice - price) * remainMonth))
+    const refundMoney = (originalPrice - price) * remainMonth
     
+    //returnProcess(orderId,refundMoney,productTitle)
+    
+    //form.setAttribute('action', `../rental/rentalReturnProcess?rental_order_id=\${orderId}&discount_revocation=\${refundMoney}&product_title=\${productTitle}`)
     
     const span = document.createElement('span')
-    span.innerText = `남은 결제 비용은 기존가격(\${originalPrice}) - 계약된 가격(\${price}) * 남은 개월수(\${remainMonth}) 그리고 보증금(\${deposit})에서 계산되어 \${(originalPrice - price) * remainMonth - deposit}원 입니다`
+    
+    span.innerText = `남은 결제 비용은 기존가격(\${originalPrice}) - 계약된 가격(\${price}) * 남은 개월수(\${remainMonth}) 계산되어 \${(originalPrice - price) * remainMonth}원 입니다`
     
     returnDesc.appendChild(span)
     
+    //submitReturn.setAttribute("onclick",`returnProcess(\${orderId},\${refundMoney},\${productTitle})`)
+    submitReturn.setAttribute('onclick', 'returnProcess(' + orderId + ',' + refundMoney + ', "'+ productTitle + '")')
     
   })
 }
@@ -210,7 +229,7 @@ if (modalReview) {
   })
 }
 
-	
+
 function getMonthDiffer(startMonth, endMonth) {
 	  return (
 	    endMonth.getMonth() -
@@ -218,16 +237,39 @@ function getMonthDiffer(startMonth, endMonth) {
 	    12 * (endMonth.getFullYear() - startMonth.getFullYear())
 	  );
 }
+
+function returnProcess(orderId,refundMoney,productTitle) {
+	console.log('리턴프로세스 매개변수 orderId:: ',orderId )
+	console.log('리턴프로세스 매개변수 refundMoney:: ',refundMoney )
+	console.log('리턴프로세스 매개변수 productTitle:: ',productTitle )
+	const xhr = new XMLHttpRequest()
+	console.log(orderId,refundMoney,productTitle)
+
+	xhr.onreadystatechange = function() {
+		if(xhr.readyState == 4 && xhr.status == 200){
+			const response = JSON.parse(xhr.responseText);
+			if(response.result == "success"){
+				mySessionId = response.id; 
+				const kakaoResult = JSON.parse(response.kakaoResult)
+				
+				console.log(kakaoResult.tid)
+				
+				location.href = kakaoResult.next_redirect_pc_url
+				
+			}
+			
+			
+		}
+	}
 	
+	xhr.open("get", "../rental/rentalReturnProcess?rental_order_id="+orderId+"&discount_revocation="+refundMoney+"&product_title="+productTitle);
+	xhr.send();	
+}
+
+window.addEventListener("DOMContentLoaded", function(){
+	getSessionId()
 	
-	
-
-
-
-
-
-
-
+});
 
 </script>
 </body>	

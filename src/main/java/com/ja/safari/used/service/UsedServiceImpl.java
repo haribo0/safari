@@ -1,10 +1,9 @@
 package com.ja.safari.used.service;
 
-import java.sql.Date;
 import java.text.DecimalFormat;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -39,6 +38,11 @@ public class UsedServiceImpl {
 	
 	@Autowired
 	UserSqlMapper userSqlMapper;
+	
+	//user id 에 대한 userDto
+	public UserDto selectUserDtoById(int id) {
+		return usedSqlMapper.selectUserDtoById(id);
+	}
 	
 	//상품 대분류 카테고리 
 	public List<ProductMainCategoryDto> selectMainCategory(){
@@ -116,7 +120,6 @@ public class UsedServiceImpl {
 			map.put("productImgDto", usedSqlMapper.selectProductImg(productId));
 			map.put("productTownDto", usedSqlMapper.selectProductTownById(townIdTwo));
 			map.put("productCityDto", usedSqlMapper.selectProductCityByTownId(townIdTwo));
-			
 			list.add(map);
 		}
 		return list;
@@ -142,7 +145,6 @@ public class UsedServiceImpl {
 			map.put("productImgDto", usedSqlMapper.selectProductImg(productId));
 			map.put("productTownDto", usedSqlMapper.selectProductTownById(townId));
 			map.put("productCityDto", usedSqlMapper.selectProductCityByTownId(townId));
-			
 			list.add(map);
 		}
 		return list;
@@ -201,8 +203,8 @@ public class UsedServiceImpl {
 		Map<String, Object> map = new HashMap<>();
 		ProductDto productDto = usedSqlMapper.selectProductById(productId);
 		Integer townId = productDto.getProduct_town_id();
-		String content = productDto.getContent().replaceAll("\n", "<br>");
-		productDto.setContent(content);
+//		String content = productDto.getContent().replaceAll("\n", "<br>");
+//		productDto.setContent(content);
 		int productLikeCount = usedSqlMapper.selectProductLikeCountByProductId(productId);
 		map.put("productDto", productDto);
 		map.put("productLikeCount", productLikeCount);
@@ -547,12 +549,101 @@ public class UsedServiceImpl {
 		map.put("recevierReviewCount", usedSqlMapper.selectMyWroteReviewCount(requestId,receiverId));
 		return map;
 	}
+
+	// 메인 - 무료 나눔 리스트 
+	public List<Map<String, Object>> selectFreePriceList() {
+		List<Map<String, Object>> list = new ArrayList<Map<String,Object>>();
+		List<ProductDto> productDtoList = usedSqlMapper.selectFreePriceList();
+		
+		for(ProductDto productDto : productDtoList) {
+			Map<String, Object> map = new HashMap<>();
+			int productId = productDto.getId();
+			Integer townId = productDto.getProduct_town_id();
+			map.put("productDto", productDto);
+			map.put("likeCount", usedSqlMapper.selectProductLikeCountByProductId(productId));
+			map.put("requestCount", usedSqlMapper.countProductRequestByProductId(productId));
+			map.put("productImgDto", usedSqlMapper.selectProductImg(productId));
+			map.put("productTownDto", usedSqlMapper.selectProductTownById(townId));
+			map.put("productCityDto", usedSqlMapper.selectProductCityByTownId(townId));
+			map.put("uploadTime", dateToTimeDifference(productDto.getReg_date()));
+			list.add(map);
+		}
+		return list;
+	}
+	
+	// 자바로 날짜 구하기 
+	 public static String dateToTimeDifference(Date regDate) {
+	        // 현재 시간을 가져옵니다.
+        Date currentTime = new Date();
+
+        // 현재 시간과 regDate 사이의 시간 차이를 계산합니다.
+        long timeDifference = currentTime.getTime() - regDate.getTime();
+
+        // 초, 분, 시간, 일, 월, 년 단위로 차이를 계산합니다.
+        long seconds = timeDifference / 1000;
+        long minutes = seconds / 60;
+        long hours = minutes / 60;
+        long days = hours / 24;
+        long months = days / 30;
+        long years = months / 12;
+
+        String formattedTime;
+
+        // 시/분/초 중 하나를 선택하여 표시합니다.
+        if (years >= 1) {
+            formattedTime = years + "년 전";
+        } else if (months >= 1) {
+            formattedTime = months + "개월 전";
+        } else if (days >= 1) {
+            formattedTime = days + "일 전";
+        } else if (hours >= 1) {
+            formattedTime = hours + "시간 전";
+        } else if (minutes >= 1) {
+            formattedTime = minutes + "분 전";
+        } else {
+            formattedTime = seconds + "초 전";
+        }
+
+        return formattedTime;
+    }
+	
+	// 메인페이지에서 전체상품리스트 8개 
+	 public List<Map<String, Object>> selectAllProductListByEight() {
+		List<Map<String, Object>> list = new ArrayList<Map<String,Object>>();
+		List<ProductDto> productDtoList = usedSqlMapper.selectAllProductListByEight();
+		
+		for(ProductDto productDto : productDtoList) {
+			Map<String, Object> map = new HashMap<>();
+			int productId = productDto.getId();
+			Integer townId = productDto.getProduct_town_id();
+			map.put("productDto", productDto);
+			map.put("likeCount", usedSqlMapper.selectProductLikeCountByProductId(productId));
+			map.put("requestCount", usedSqlMapper.countProductRequestByProductId(productId));
+			map.put("productImgDto", usedSqlMapper.selectProductImg(productId));
+			map.put("productTownDto", usedSqlMapper.selectProductTownById(townId));
+			map.put("productCityDto", usedSqlMapper.selectProductCityByTownId(townId));
+			map.put("uploadTime", dateToTimeDifference(productDto.getReg_date()));
+			list.add(map);
+		}
+		return list;
+	}
 	
 	
-	
-	
-	
-	
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
 	
 	
 	

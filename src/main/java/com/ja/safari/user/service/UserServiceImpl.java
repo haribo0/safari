@@ -8,11 +8,15 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.ja.safari.community.mapper.HelpSqlMapper;
 import com.ja.safari.community.mapper.PromotionReviewCommentMapper;
 import com.ja.safari.community.mapper.PromotionReviewMapper;
-import com.ja.safari.dto.CsQnaDto;
+import com.ja.safari.dto.HelpDto;
+import com.ja.safari.dto.HelpImgDto;
+import com.ja.safari.dto.PickDto;
 import com.ja.safari.dto.PromotionReviewDto;
 import com.ja.safari.dto.PromotionReviewImgDto;
+import com.ja.safari.dto.RecruitDto;
 import com.ja.safari.dto.RentalItemDto;
 import com.ja.safari.dto.RentalOrderDto;
 import com.ja.safari.dto.UserAddressDto;
@@ -36,6 +40,8 @@ public class UserServiceImpl {
 	@Autowired
 	private PromotionReviewCommentMapper promotionReviewCommentMapper;
 	
+	@Autowired
+	private HelpSqlMapper helpSqlMapper;
 	
 	//회원가입
 	public void joinUser(UserDto userDto) {
@@ -47,6 +53,16 @@ public class UserServiceImpl {
 		UserDto user = userSqlMapper.selectByIdAndPw(userDto);
 		return user;
 	}
+	
+	// 회원정보 수정 - 현재 비밀번호 확인
+	public UserDto checkUserPw(int id) {
+		return userSqlMapper.checkUserPw(id);
+	}
+	
+	// 회원정보 수정
+	public void modifyUserInfo(UserDto userDto) {
+		userSqlMapper.modifyUserInfo(userDto);
+	}
 
 	// 주소 추가
 	public void addUserAddress(UserAddressDto userAddressDto) {
@@ -55,9 +71,30 @@ public class UserServiceImpl {
 
 	// 주소 불러오기
 	public List<UserAddressDto> getUserAddressList(int id) {
+		
 		List<UserAddressDto> userAddressDtolist = userSqlMapper.selectAddressListAllById(id);
 		
 		return userAddressDtolist;
+	}
+	
+	// 유저 당 등록된 주소 개수 가져오기
+	public int getUserAddressCount(int userId) {
+		return userSqlMapper.getUserAddressCount(userId);
+	}
+	
+	// 주소 수정 - pk로 데이터 가져오기
+	public UserAddressDto getAddressInfoByPk(int id) {
+		return userSqlMapper.getAddressInfoByPk(id);
+	}
+	
+	// 주소 수정
+	public void modifyUserAddress(UserAddressDto userAddressDto) {
+		userSqlMapper.modifyUserAddress(userAddressDto);
+	}
+	
+	// 주소 삭제
+	public void removeUserAddress(int id) {
+		userSqlMapper.removeUserAddress(id);
 	}
 	
 	// 대여한 리스트 불러오기
@@ -68,9 +105,12 @@ public class UserServiceImpl {
 		
 		for(RentalOrderDto item: RentalOrderDtolist) {
 			Map<String, Object> map = new HashMap<String, Object>();
+			String isCompleted = rentalSqlMapper.selectIsCompletedById(item.getId());
+			System.out.println("isCompleted:: " + isCompleted);
 			
 			RentalItemDto rentalItem = rentalSqlMapper.selectById(item.getItem_id());
 			
+			map.put("isCompleted", isCompleted);
 			map.put("orderedItem", item);
 			map.put("product", rentalItem);
 		
@@ -115,9 +155,35 @@ public class UserServiceImpl {
 		return userSqlMapper.getCoinChargeHistoryList(userId);
 	}
 	
-	// 회원의 코인 사용 내역 조회
-	public List<UserCoinDto> getCoinTransactions(int userId) {
-		return userSqlMapper.getCoinTransactions(userId);
+	// 회원의 코인 지출 내역 조회
+	public List<UserCoinDto> getCoinUsageHistoryList(int userId) {
+		return userSqlMapper.getCoinUsageHistoryList(userId);
+	}
+	
+	// 회원의 코인 전체 사용 내역 조회
+	public List<UserCoinDto> getUserCoinAllHistoryList(int userId) {
+		return userSqlMapper.getUserCoinAllHistoryList(userId);
+	}
+	
+	// 회원의 코인 전체 사용 내역 횟수
+	public int getUserCoinAllHistoryCount(int userId) {
+		return userSqlMapper.getUserCoinAllHistoryCount(userId);
+	}
+	
+	// 리워드 코인 적립(보드id의 작성자를 조회를 해서 ~ 어쩌고저쩌고 해서~ 해야할ㄹ거같은데)
+	public void insertPromoCoin(UserCoinDto userCoinDto, PromotionReviewDto promotionReviewDto) {
+		
+		userCoinDto.setId(getOnChargeCoinPk()); 
+		userCoinDto.setUser_id(promotionReviewDto.getUser_id());
+		userCoinDto.setCoin_transaction(50);
+		userCoinDto.setTransaction_operand("P");
+		userCoinDto.setTransaction_detail("리워드 포인트 적립");
+		
+	    
+		userSqlMapper.insertUserCoin(userCoinDto);
+	   
+	  
+		
 	}
 	
 	// 세연 - 커뮤니티 내가 쓴 게시글(리워드) 불러오기
@@ -157,10 +223,93 @@ public class UserServiceImpl {
 	}
 	
 	
+	// 세연 - 커뮤니티 내가 쓴 게시글(구인구직) 불러오기
+	public List<Map<String, Object>> getRecruitByMyPost(int user_id) {
+
+		List<RecruitDto> recruitMyPostList = userSqlMapper.selectRecruitByMyPost(user_id);
+		
+		List<Map<String, Object>> recruitPostMyPostList = new ArrayList<>();	
+
+		for(RecruitDto recruitDto : recruitMyPostList) {
+			Map<String, Object> map = new HashMap<>();
+			
+			UserDto userDto = userSqlMapper.selectUserDtoById(recruitDto.getUser_id());
+			
+			int countRecruitComment = promotionReviewCommentMapper.countPromotionReviewComment(recruitDto.getId());
+			
+			int countLikeByRecruit = promotionReviewMapper.countLikeByPromotionReviewId(recruitDto.getId());
+			
+			map.put("userDto", userDto);
+			map.put("recruitDto", recruitDto);
+			map.put("countRecruitComment", countRecruitComment);
+			map.put("countLikeByRecruit", countLikeByRecruit);
+			
+			recruitPostMyPostList.add(map);
+			
+		}
+		
+		return recruitPostMyPostList;
+	}
 	
+	// 세연 - 커뮤니티 내가 쓴 게시글(해주세요) 불러오기
+		public List<Map<String, Object>> getHelpByMyPost(int user_id) {
+
+			List<HelpDto> helpMyPostList = userSqlMapper.selectHelpByMyPost(user_id);
+			
+			List<Map<String, Object>> helpPostMyPostList = new ArrayList<>();
+			
+			for(HelpDto helpDto : helpMyPostList) {
+				Map<String, Object> map = new HashMap<>();
+				
+				UserDto userDto = userSqlMapper.selectUserDtoById(helpDto.getUser_id());
+				
+				List<HelpImgDto> helpImgList = helpSqlMapper.selectHelpBoardImageByHelpId(helpDto.getId());
+				
+
+				
+				int countHelpComment = promotionReviewCommentMapper.countPromotionReviewComment(helpDto.getId());
+				
+				int countLikeByHelp= promotionReviewMapper.countLikeByPromotionReviewId(helpDto.getId());
+				
+				map.put("userDto", userDto);
+				map.put("helpDto", helpDto);
+				map.put("helpImgList", helpImgList);
+				map.put("countHelpComment", countHelpComment);
+				map.put("countLikeByHelp", countLikeByHelp);
+				
+				helpPostMyPostList.add(map);
+				
+			}
+			
+			return helpPostMyPostList;
+		}
 	
-	
-	
-	
+	// 세연 - 커뮤니티 내가 쓴 게시글(골라줘요) 불러오기
+		public List<Map<String, Object>> getPickByMyPost(int user_id) {
+
+			List<PickDto> pickMyPostList = userSqlMapper.selectPickByMyPost(user_id);
+			
+			List<Map<String, Object>> pickPostMyPostList = new ArrayList<>();
+			
+			for(PickDto pickDto : pickMyPostList) {
+				Map<String, Object> map = new HashMap<>();
+				
+				UserDto userDto = userSqlMapper.selectUserDtoById(pickDto.getUser_id());
+				
+				int countPickComment = promotionReviewCommentMapper.countPromotionReviewComment(pickDto.getId());
+				
+				int countLikeByPick = promotionReviewMapper.countLikeByPromotionReviewId(pickDto.getId());
+				
+				map.put("userDto", userDto);
+				map.put("pickDto", pickDto);
+				map.put("countPickComment", countPickComment);
+				map.put("countLikeByPick", countLikeByPick);
+				
+				pickPostMyPostList.add(map);
+				
+			}
+			
+			return pickPostMyPostList;
+		}
 
 }

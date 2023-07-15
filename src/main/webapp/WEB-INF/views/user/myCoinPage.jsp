@@ -50,7 +50,8 @@
 				<div class="row mt-2">
 					<div class="col fs-5">
 						<div>
-							<span>회원님이 보유하신 코인은 <span id="coinBalance" style="color:#ff6f0f"> </span>원입니다.</span>
+							<span>회원님이 보유하신 코인은 
+							<span id="coinBalance" class="fw-bold" style="color:#ff6f0f"> </span>원입니다.</span>
 							<span></span>
 						</div>
 						
@@ -63,140 +64,54 @@
 				<div class="row mt-1">
 					<div class="col"></div>
 				</div>
-				
+			
 				<div class="row mt-5">
-					<div class="col fs-5 fw-bold">
-						코인 충전 내역
-					</div>
-				</div>
-				
-				<div class="row mt-2">
-					<div class="col">
-						
-				<div class="row mt-3 mb-2 fw-medium">
-					<div class="col text-center">
-						번호
-					</div>
-					<div class="col">
-						충전금액
-					</div>
-					<div class="col-4">
-						상세설명
-					</div>
-					<div class="col">
-						충전일자
-					</div>
-				</div>
-				
-				<hr class="border border-black border-1 opacity-100">
-				
-				      <c:if test="${empty chargeCoinHistoryList}">
-				            <div class="row mt-3 mb-1">
-				                <div class="col text-center colspan="4">
-				                    충전하신 내역이 없습니다.
-				                </div>
-				            </div>
-				            <hr class="border border-1 opacity-50">
-				        </c:if>
-
-				
-					<c:forEach var="map" items="${chargeCoinHistoryList}">
-							
-						<div class="row mt-3 mb-1">
-							
-							<div class="col text-center">
-								${map.id}
-							</div>
-							<div class="col">
-							<fmt:formatNumber value="${map.coin_transaction}"  pattern="#,###"/>원
-								
-							</div>
-							<div class="col-4">
-								${map.transaction_detail}
-							</div>
-							<div class="col">
-								<fmt:formatDate value="${map.reg_date}" pattern="yyyy-MM-dd  a  hh:mm" />
-								
-							</div>
-		
-						</div>
-						
-						<hr class="border border-1 opacity-50">
-						
-					
-					</c:forEach>						
-							
-						
-					</div>
-				</div>
-				
-				
-				<div class="row mt-5">
-					<div class="col fs-5 fw-bold">
+					<div class="col fw-bold fs-5">
 						코인 사용 내역
 					</div>
 				</div>
 				
-				
+				<div class="row mt-2 text-secondary opacity-75" >
+					<div class="col-auto" id="allCoinHistory" style="cursor: pointer; font-size: 18px;">
+						전체
+					</div>
+					<div class="col-auto" id="chargeCoinHistory" style="cursor: pointer; font-size: 18px;">
+						충전
+					</div>
+					<div class="col-auto" id="usageCoinHistory" style="cursor: pointer; font-size: 18px;">
+						사용
+					</div>
+					
+				</div>
+				 
 				<div class="row mt-2">
 					<div class="col">
-						
-				<div class="row mt-3 mb-3 fw-medium">
-					<div class="col text-center">
-						번호
-					</div>
-					<div class="col">
-						사용금액
-					</div>
-					<div class="col-4">
-						상세설명
-					</div>
-					<div class="col">
-						사용일자
-					</div>
-				</div>
-				
-				<hr class="border border-black border-1 opacity-100">
-				
-				      <c:if test="${empty coinTransactions}">
-				            <div class="row mt-3 mb-1">
-				                <div class="col text-center colspan="4">
-				                    사용 내역이 존재하지 않습니다.
-				                </div>
-				            </div>
-				            <hr class="border border-1 opacity-50">
-				        </c:if>
-
-				
-					<c:forEach var="map" items="${coinTransactions}">
-							
-						<div class="row mt-3 mb-1">
-							
+					
+						<div class="row mt-2 fw-medium border-bottom border-black border-2 py-2">
 							<div class="col text-center">
-								${map.id}
+								상태
 							</div>
-							<div class="col">
-							<fmt:formatNumber value="${map.coin_transaction}"  pattern="#,###"/>원
-								
+							<div class="col text-center">
+								금액
 							</div>
-							<div class="col-4">
-								${map.transaction_detail}
+							<div class="col-4 text-center">
+								사용 내역
 							</div>
-							<div class="col">
-								<fmt:formatDate value="${map.reg_date}" pattern="yyyy-MM-dd  a  hh:mm" />
-								
+							<div class="col text-center">
+								적용일자
 							</div>
-		
 						</div>
 						
-						<hr class="border border-1 opacity-50">
+						<div class="row">
+							<div class="col" id="coinHistory"></div>
 						
+						</div>
 					
-					</c:forEach>						
-							
+					
 						
+						</div>
+					
 					</div>
-				</div>
 				
 				
 			</div>
@@ -222,11 +137,11 @@
       		<div class="col">
 		        <select class="form-select form-select-lg mb-3" id="inputCoin" aria-label=".form-select-lg example">
 				  <option selected>금액 선택</option>
-				  <option value="5000">5000</option>
-				  <option value="10000">10000</option>
-				  <option value="30000">30000</option>
-				  <option value="50000">50000</option>
-				  <option value="100000">100000</option>
+				  <option value="5000">5,000원</option>
+				  <option value="10000">10,000원</option>
+				  <option value="30000">30,000원</option>
+				  <option value="50000">50,000원</option>
+				  <option value="100000">100,000원</option>
 				</select>
 			</div>
 		</div>
@@ -325,7 +240,7 @@ function chargeCoinProcess(orderId){
    const total_amount = document.querySelector('#inputCoin').value; // 충전 금액
    const tax_free_amount = 0;
    
-   const item_name = "사파리 코인 " + new Intl.NumberFormat('ko-KR').format(total_amount) + "원 충전하기";
+   const item_name = "사파리 코인 " + new Intl.NumberFormat('ko-KR').format(total_amount) + "원 충전";
    
    const approval_url = "http://localhost:8181/safari/user/chargeCoinProcess";
    const cancel_url = "http://localhost:8181/safari/user/myCoinPage";
@@ -432,6 +347,181 @@ function getCoinBalance() {
 	
 }
 
+// 코인 사용 내역 메뉴
+
+const allCoinHistory = document.querySelector("#allCoinHistory");
+const chargeCoinHistory = document.querySelector("#chargeCoinHistory");
+const usageCoinHistory = document.querySelector("#usageCoinHistory");
+
+allCoinHistory.style.fontWeight = "bold";
+allCoinHistory.style.color = "black";
+
+// 선택된 요소 스타일 초기화
+function resetHistoryStyle() {
+    allCoinHistory.style.fontWeight = "normal";
+    allCoinHistory.style.color = "initial";
+ 
+}
+
+
+// 전체 메뉴 클릭 
+document.querySelector("#allCoinHistory").addEventListener("click", function() {
+    getCoinUsageHistory("all");
+    allCoinHistory.style.fontWeight = "bold";
+    allCoinHistory.style.color = "black";
+    chargeCoinHistory.style.fontWeight = "normal";
+    chargeCoinHistory.style.color = "initial";
+    usageCoinHistory.style.fontWeight = "normal";
+    usageCoinHistory.style.color = "initial";
+});
+
+// 충전 클릭 이벤트 처리
+document.querySelector("#chargeCoinHistory").addEventListener("click", function() {
+    getCoinUsageHistory("charge");
+    document.querySelector("#chargeCoinHistory").style.font.weight = "bold";
+    chargeCoinHistory.style.fontWeight = "bold";
+    chargeCoinHistory.style.color = "black";
+    allCoinHistory.style.fontWeight = "normal";
+    allCoinHistory.style.color = "initial";
+    usageCoinHistory.style.fontWeight = "normal";
+    usageCoinHistory.style.color = "initial";
+});
+
+// 사용 클릭 이벤트 처리
+document.querySelector("#usageCoinHistory").addEventListener("click", function() {
+    getCoinUsageHistory("usage");
+    document.querySelector("#usageCoinHistory").style.font.weight = "bold";
+    usageCoinHistory.style.fontWeight = "bold";
+    usageCoinHistory.style.color = "black";
+    
+    allCoinHistory.style.fontWeight = "normal";
+    allCoinHistory.style.color = "initial";
+    chargeCoinHistory.style.fontWeight = "normal";
+    chargeCoinHistory.style.color = "initial";
+    
+});
+
+
+// 날짜 변환 함수	
+function formatTime(timestamp) {
+	  const date = new Date(timestamp);
+	  const year = date.getFullYear();
+	  const month = String(date.getMonth() + 1).padStart(2, '0');
+	  const day = String(date.getDate()).padStart(2, '0');
+	  let hours = date.getHours();
+	  let period = '오전';
+
+	  if (hours >= 12) {
+	    hours -= 12;
+	    period = '오후';
+	  }
+
+	  if (hours === 0) {
+	    hours = 12;
+	  }
+
+	  const minutes = String(date.getMinutes()).padStart(2, '0');
+	  const formattedDate = year + '-' + month + '-' + day + "\u00a0\u00a0" + period + ' ' + hours + ':' + minutes;
+	  return formattedDate;
+	}
+
+// 코인 사용 내역 조회
+function getCoinUsageHistory(type) {
+   
+    const xhr = new XMLHttpRequest();
+    const url = "/safari/user/getCoinUsageHistory?type=" + type; 
+
+    // 응답 처리
+    xhr.onreadystatechange = function() {
+        if (xhr.readyState === XMLHttpRequest.DONE) {
+            if (xhr.status === 200) {
+                const response = JSON.parse(xhr.responseText);
+                
+                const coinHistorySpace = document.querySelector("#coinHistory");
+                coinHistorySpace.innerHTML = "";
+                
+            	if (response.coinHistoryCount == 0) {
+            	     
+                	const row = document.createElement("div");
+                	row.classList.add("row", "border-bottom",  'py-2');
+                	
+                	const col = document.createElement("div");
+                	col.classList.add("col", "text-center");
+                	col.setAttribute("colspan", "4");
+                	col.innerText = "코인 사용 내역이 없습니다.";
+                	
+                	row.appendChild(col);
+         
+                	coinHistorySpace.appendChild(row);
+                	
+               	} else {
+                
+	                for(const data of response.coinHistoryList) {
+	                	
+	                	const row = document.createElement("div");
+	                	row.classList.add("row", 'border-bottom', "py-2", "mb-1");
+	                	
+	                	const statusCol = document.createElement("div");
+	                	statusCol.classList.add("col", "text-center");
+	                	
+	                	if (data.transaction_operand == 'P') {
+	                		statusCol.innerText = "적립";
+	                		statusCol.style.color = "#0377fc";
+	                	} else {
+	                		statusCol.innerText = "사용";
+	                		statusCol.style.color = "#fc3503";
+	                	}
+	                	
+	                	row.appendChild(statusCol);
+	                	
+	                	const priceCol = document.createElement("div");
+	                	priceCol.classList.add("col", "text-center");
+	                	
+	                 	if (data.transaction_operand == 'P') {
+	                 		
+	                 		priceCol.innerText = 
+	                				"+ " + new Intl.NumberFormat('ko-KR').format(data.coin_transaction) + " 원";
+	                 		priceCol.style.color = "#0377fc";
+	                		
+	                	} else {
+	                		priceCol.innerText = 
+	                			"- " + new Intl.NumberFormat('ko-KR').format(data.coin_transaction) + " 원";
+	                		priceCol.style.color = "#fc3503";
+	                	}
+	                 	
+	                 	row.appendChild(priceCol);
+	                 	
+	                  	const detailCol = document.createElement("div");
+	                  	detailCol.classList.add("col-4" , "text-center");
+	                  	
+	                  	detailCol.innerText = data.transaction_detail;
+	                  	
+	                  	row.appendChild(detailCol);
+	                  	
+	                 	
+	                  	const regdateCol = document.createElement("div");
+	                  	regdateCol.classList.add("col", "text-center");
+	                  	
+	                  	regdateCol.innerText = formatTime(data.reg_date);
+	                  	
+	                  	row.appendChild(regdateCol);
+	                  	
+	                  	coinHistorySpace.append(row);
+                	}
+               	}
+                
+            } else {
+                // 에러 처리
+                console.error("Error: " + xhr.status);
+            }
+        }
+    };
+    
+    xhr.open("get", url);
+    xhr.send();
+}
+
+
 
 	
 function openModal() {
@@ -442,6 +532,7 @@ function openModal() {
 window.addEventListener("DOMContentLoaded", function(){
 	getSessionId();
 	getCoinBalance(); 
+	getCoinUsageHistory("all");
 	
 });
 </script>

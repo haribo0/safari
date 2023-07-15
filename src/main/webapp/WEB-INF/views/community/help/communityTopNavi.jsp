@@ -24,14 +24,14 @@
             	<div class="row">
             		<div class="col">
             			<a href="${pageContext.request.contextPath}/community/pick/mainPage">
-            				<button type="button" class="btn btn-outline-secondary rounded-circle border border-secondary d-inline-flex justify-content-center align-items-center" style="width: 65px; height: 65px;">
+            				<button type="button" class="btn btn-outline-secondary rounded-circle border-2  d-inline-flex justify-content-center align-items-center" style="width: 65px; height: 65px; ">
             				<img class="mb-1" src="/safari/resources/img/community/pick.png" style="max-width: 36px; max-height: 36px;">
             				</button>
             			</a>
             		</div>
             	</div>
             	<div class="row">
-            		<div class="col mt-2" style="font-size: 13px; ">골라줘요</div>
+            		<div class="col fw-bold mt-2" style="font-size: 13px; ">골라줘요</div>
             	</div>
            
             
@@ -40,14 +40,14 @@
             	<div class="row">
             		<div class="col ">
             			<a href="${pageContext.request.contextPath}/community/help/mainPage">
-            			<button type="button" class="btn btn-outline-secondary rounded-circle border border-secondary d-inline-flex justify-content-center align-items-center" style="width: 65px; height: 65px;">
+            			<button type="button" class="btn btn-outline-secondary rounded-circle border-2 border-secondary d-inline-flex justify-content-center align-items-center" style="width: 65px; height: 65px;">
             				<img class="mb-1" src="/safari/resources/img/community/help.png" style="max-width: 38px; max-height: 38px;">
             			</button>
             			</a>
             		</div>
             	</div>
             	<div class="row">
-            		<div class="col mt-2" style="font-size: 13px; ">해주세요</div>
+            		<div class="col fw-bold mt-2" style="font-size: 13px; ">해주세요</div>
             	</div>
             </li>
             
@@ -55,14 +55,14 @@
             	<div class="row">
             		<div class="col">
 			            <a href="${pageContext.request.contextPath}/community/question/mainPage">
-			            <button class="btn btn-outline-secondary rounded-circle border border-secondary d-inline-flex justify-content-center align-items-center" style="width: 65px; height: 65px;">
+			            <button class="btn btn-outline-secondary rounded-circle border-2 border-secondary d-inline-flex justify-content-center align-items-center" style="width: 65px; height: 65px;">
 			            	 <img class="mb-1" src="/safari/resources/img/community/question.png" style="max-width: 37px; max-height: 37px;">           		
             			</button>
             			</a>
             		</div>
             	</div>
             	<div class="row">
-            		<div class="col mt-2" style="font-size: 13px; margin-left:-2px">궁금해요</div>
+            		<div class="col fw-bold mt-2" style="font-size: 13px; margin-left:-2px">궁금해요</div>
             	</div>
 			</li>
 			
@@ -70,14 +70,14 @@
             	<div class="row">
             		<div class="col">
             			<a href="${pageContext.request.contextPath}/community/recruit/mainPage">
-            			<button type="button" class="btn btn-outline-secondary rounded-circle border border-secondary d-inline-flex justify-content-center align-items-center" style="width: 65px; height: 65px;">
+            			<button type="button" class="btn btn-outline-secondary rounded-circle border-2 border-secondary d-inline-flex justify-content-center align-items-center" style="width: 65px; height: 65px;">
             				<img class="mb-1" src="/safari/resources/img/community/recruit.png" style="max-width: 38px; max-height: 38px;">
             			</button>
             			</a>
             		</div>
             	</div>
             	<div class="row">
-            		<div class="col mt-2" style="font-size: 13px; ">구인구직</div>
+            		<div class="col fw-bold mt-2" style="font-size: 13px; ">구인구직</div>
             	</div>
             </li>
 			 
@@ -85,14 +85,14 @@
             	<div class="row">
             		<div class="col">
             			<a href="${pageContext.request.contextPath}/community/promotion/mainPage">
-            			<button type="button" class="btn btn-outline-secondary rounded-circle border border-secondary d-inline-flex justify-content-center align-items-center" style="width: 65px; height: 65px;">
+            			<button type="button" class="btn btn-outline-secondary rounded-circle border-2 border-secondary d-inline-flex justify-content-center align-items-center" style="width: 65px; height: 65px;">
             				<img class="mb-1" src="/safari/resources/img/community/promotion2.png" style="max-width: 38px; max-height: 38px;">
             			</button>
             			</a>
             		</div>
             	</div>
             	<div class="row">
-            		<div class="col mt-2" style="font-size: 13px; ">써봤어요</div>
+            		<div class="col fw-bold mt-2" style="font-size: 13px; ">써봤어요</div>
             	</div>
             </li>
            

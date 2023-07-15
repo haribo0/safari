@@ -14,6 +14,7 @@ import org.apache.commons.text.StringEscapeUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
@@ -23,7 +24,9 @@ import com.ja.safari.community.service.PromotionReviewServiceImpl;
 import com.ja.safari.dto.PromotionReviewCommentDto;
 import com.ja.safari.dto.PromotionReviewDto;
 import com.ja.safari.dto.PromotionReviewImgDto;
+import com.ja.safari.dto.UserCoinDto;
 import com.ja.safari.dto.UserDto;
+import com.ja.safari.user.service.UserServiceImpl;
 
 @Controller
 @RequestMapping("/community/*")
@@ -33,6 +36,8 @@ public class PromotionReviewController {
 	private PromotionReviewServiceImpl promotionReviewService;
 	@Autowired
 	private PromotionReviewCommentServiceImpl promotionReviewCommentService;
+	@Autowired
+	private UserServiceImpl userService;
 	
 	////////////
 	// 써봤어요 //
@@ -185,8 +190,6 @@ public class PromotionReviewController {
 	public String updatePromotionReviewProcess(HttpSession session, PromotionReviewDto params, 
 											   MultipartFile [] promoFiles) {
 		
-
-		System.out.println("controller : " + params.getId());
 		
 		// 이미지 삭제
 		    promotionReviewService.deletePromotionReviewImg(params.getId());
@@ -324,7 +327,7 @@ public class PromotionReviewController {
 	}
 	
 	
-	// 댓글 버튼 process
+	// 댓글 작성 process
 	@RequestMapping("promotion/writePromotionReivewCommentProcess")
 	public String writePromotionReivewCommentProcess(HttpSession session, PromotionReviewCommentDto params) {
 		
@@ -333,24 +336,39 @@ public class PromotionReviewController {
 		int userId = sessionUser.getId();	
 		params.setUser_id(userId);
 		
-		System.out.println(params.getPromotion_review_id());
-		System.out.println(params.getUser_id());
-		
-		
 		promotionReviewCommentService.writePromotionReivewComment(params);
 		
 		return "redirect:/community/promotion/contentPromotionReviewPage?id=" + params.getPromotion_review_id();
 	}
 	
+	// 댓글 수정 
+//	@RequestMapping
+//	public String updatePromoComment(Model model, int id) {
+//		Map<String, Object> map = promotionReviewCommentService.updatePromoComment(id);
+//		
+//		return ;
+//	}
 	
+	// 댓글 삭제 process
+	@RequestMapping("promotion/deletePromotionReivewCommentProcess")
+	public String deletePromotionReivewCommentProcess(int id) {
+		
+		PromotionReviewCommentDto promotionReviewCommentDto = promotionReviewCommentService.selectPromoCommentById(id);
+		int boardId = promotionReviewCommentDto.getPromotion_review_id();
+				
+		promotionReviewCommentService.deletePromotionReviewComment(id);				
+		
+		return "redirect:/community/promotion/contentPromotionReviewPage?id=" + boardId;
+	}
 	
 	
 	// 리워드 적립 페이지(거쳐가는 페이지=> 여기서 포인트 적립이 되야 함.)(이거 머리 안돌아가서 이상할걸 다시 수정하길)
 	@RequestMapping("promotion/rewardPromotionReviewPage")
-	public String rewardPromotionReviewPage() {
+	public String rewardPromotionReviewPage(UserCoinDto userCoinDto) {
 		
-		System.out.println("리워드 적립 거쳐가는 페이지 ");
+		System.out.println("리워드 적립 되니? " + userCoinDto);
 		
+		userService.insertPromoCoin(userCoinDto);
 		
 		return "redirect:/community/promotion/rentalProductPage";
 	}

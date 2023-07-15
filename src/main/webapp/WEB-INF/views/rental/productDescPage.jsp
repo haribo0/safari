@@ -97,11 +97,43 @@
 			xhr.open("get", "./isLiked?item_id="+itemId);
 			xhr.send();
 		}
+	
+	function setStarBox() {
+		const starBox = document.querySelector('.star-box')
+		const ratingNum = 3
+		
+		for(let i = 0; i < ratingNum; i++) {
+			let starIco = document.createElement('i')
+			starIco.className ='bi bi-star-fill me-1'
+			
+			console.log(starIco)
+			
+			starBox.appendChild(starIco)
+		}
+	}
+	
+	function setRewviewStarBox() {
+		const reviewStarBox = document.querySelectorAll('.reviewStarBox')
+		
+		for(let i = 0; i < reviewStarBox.length; i++) {
+			let numberOfStar = reviewStarBox[i].getAttribute('data-numberof')
+				for(let j =0; j<numberOfStar; j++) {
+					let starIco = document.createElement('i')
+					starIco.className ='bi bi-star-fill me-1'
+					starIco.style.fontSize='14px'
+					
+					reviewStarBox[i].appendChild(starIco)
+				}
+			console.log({numberOfStar})
+		}
+	}
 
 window.addEventListener("DOMContentLoaded", function(){
 	getSessionId();
  	refreshTotalLikeCount();
 	refreshMyHeart();
+	setStarBox();
+	setRewviewStarBox();
 });
 </script>
 </head>
@@ -116,7 +148,7 @@ window.addEventListener("DOMContentLoaded", function(){
 				<img class="object-fit-cover img-fluid border rounded h-75" alt="" src="/safariImg/${data.rentalItemDto.main_img_link}">
 			</div>
 			<div class="col">
-				<p class="fw-bold fs-5 mb-3">카테고리이름</p>
+				<small class="mb-2 text-secondary">${data.mainCategoryName} &#47; ${data.subCategoryName}</small>
 				<div class="pe-5">
 					<h3 class="fw-bold">${data.rentalItemDto.title}</h3>
 					<p class="py-2" style="line-height: 1.7; letter-spacing: -0.2px;">
@@ -125,17 +157,41 @@ window.addEventListener("DOMContentLoaded", function(){
 					
 					<div class="d-flex justify-content-between">
  						<p>
-							<span class="me-2"><i class="bi bi-star-fill"></i> <i class="bi bi-star-fill"></i> <i class="bi bi-star-fill"></i> <i class="bi bi-star-fill"></i> <i class="bi bi-star-fill"></i></span> <span class="me-4">${reviewRating}</span> <span>리뷰 수: ${reviewCount}</span>
+							<span class="me-2 star-box">
+								
+							</span> <span class="me-4">${reviewRating}</span> <span>리뷰 ${reviewCount}</span>
 						</p>
-						<p><span class="fw-bold" id="totalLikeCount"></span><i id="heartBox" onclick="toggleLike()" class="fs-1 text-danger bi bi-heart"></i></p>						
+						<p><span class="fs-6 me-2" id="totalLikeCount"></span><i id="heartBox" onclick="toggleLike()" class="fs-4 bi bi-heart text-danger"></i></p>						
 					</div>
 					
 					<div class="d-flex justify-content-end">
-						<p class="mb-4 fs-4 fw-bold">${data.rentalItemDto.price} 원 <small class="text-secondary">/ 월</small></p>
+						<p class="mb-4 fs-4 fw-bold"> <fmt:formatNumber value="${data.rentalItemDto.price}" pattern="#,##0" />원 <small class="text-secondary">/ 월</small></p>
 					</div>
 					
-					<div class="d-flex justify-content-between mt-4">
-						<p class="text-body-secondary">남은 수량 ${data.rentalItemDto.quantity}</p>
+					<div>
+						<div>
+							<small class="text-black-50">*보증금 <fmt:formatNumber value="${data.rentalItemDto.deposit}" pattern="#,##0" />원</small>
+						</div>
+						<table class="table table-bordered">
+						  <thead>
+						    <tr>
+						    	<c:forEach items="${data.rentalPeriodDiscDtoList}" var="periodItem">
+							      <td class="text-center bg-body-tertiary" scope="col">${periodItem.rental_period }개월</td>
+						    	</c:forEach>
+						    </tr>
+						  </thead>
+						  <tbody>
+						    <tr>
+						      	<c:forEach items="${data.rentalPeriodDiscDtoList}" var="periodItem">
+							      <td class="text-center fw-bold" scope="col"><fmt:formatNumber value="${periodItem.discounted_price }" pattern="#,##0" />원</td>
+						    	</c:forEach>
+						    </tr>
+						  </tbody>
+						</table>
+					</div>
+					
+					<div class="d-flex justify-content-end mt-5">
+						<%-- <p class="text-body-secondary">남은 수량 ${data.rentalItemDto.quantity}</p> --%>
 						<a href="./orderConfirmPage?id=${data.rentalItemDto.id}" class="btn btn-dark" style="width: 240px;">주문하기</a>	
 					</div>
 				</div>
@@ -149,7 +205,6 @@ window.addEventListener("DOMContentLoaded", function(){
 			  <div class="nav d-flex justify-content-center nav-pills mb-5 pb-4 border-bottom" id="v-pills-tab" role="tablist" aria-orientation="vertical">
 			    <button class="btn rounded-1 active" id="v-pills-home-tab" data-bs-toggle="pill" data-bs-target="#v-pills-home" type="button" role="tab" aria-controls="v-pills-home" aria-selected="true">상품상세</button>
 			    <button class="btn rounded-1" id="v-pills-profile-tab" data-bs-toggle="pill" data-bs-target="#v-pills-profile" type="button" role="tab" aria-controls="v-pills-profile" aria-selected="false">의견/리뷰</button>
-			    <button class="btn rounded-1" id="v-pills-messages-tab" data-bs-toggle="pill" data-bs-target="#v-pills-messages" type="button" role="tab" aria-controls="v-pills-messages" aria-selected="false">연관상품</button>
 			  </div>
 			  
 			  <div class="w-100 d-flex justify-content-center tab-content pt-4 mt-5" id="v-pills-tabContent">
@@ -162,25 +217,32 @@ window.addEventListener("DOMContentLoaded", function(){
 			    </div>
 			    
 			    <div class="tab-pane fade w-100" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab" tabindex="0">
-			    <p>리뷰 수: ${reviewCount}</p>
+			    <p>리뷰 ${reviewCount}</p>
 			    	<ul class="list-group list-group-flush px-5" id="review_list">
 	 		    		<c:forEach items="${reviewData}" var="review">
-			    			<li class="list-group-item py-3 d-flex justify-content-between border border-0">
-			    				<div>
-				    				<p>${review.reviewList.rental_review_title}</p>
-				    				<p>${review.reviewList.rental_review_content}</p>
-				    				<p>${review.reviewList.rental_review_rating}</p>
+			    			<li class="list-group-item py-3 border border-0">
+			    				<div class="row text-end px-4">
+						    		<p class="mb-1"><small class="text-black-50">8개월 사용</small><small>기간 로직 정리중</small></p>		    				
 			    				</div>
-			    				<div>
-			    					<c:forEach items="${review.reviewImgList}" var="imgList">
-			    					 	<img alt="" src="/safariImg/${imgList.rental_review_img}" width="80px;">			    					
-			    					</c:forEach>
+			    				<div class="row w-100">
+			    					<div class="col-1">
+				    					<div class="rounded-circle bg-secondary-subtle" style="width: 48px; height: 48px;"></div>
+			    					</div>
+				    				<div class="col">
+					    				<p class="fw-bold mb-2">${review.reviewList.rental_review_title}</p>
+					    				<p>${review.reviewList.rental_review_content}</p>
+					    				<p class="reviewStarBox mb-0" data-numberof="${review.reviewList.rental_review_rating}"></p>
+				    				</div>
+				    				<div class="col d-flex justify-content-end">
+				    					<c:forEach items="${review.reviewImgList}" var="imgList">
+				    					 	<img alt="" src="/safariImg/${imgList.rental_review_img}" class="ms-2" style="width: 100px;">			    					
+				    					</c:forEach>
+				    				</div>			    				
 			    				</div>
 							</li>
 			    		</c:forEach> 
 			    	</ul>
 			    </div>
-			    <div class="tab-pane fade" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab" tabindex="0"></div>
 			  </div>
 			</div>
     	</div>

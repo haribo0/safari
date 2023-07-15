@@ -26,12 +26,43 @@
   .f-sm2  {
     font-size: 15px;
   }
+.orangeButton{
+	background: #ff6f0f;
+	font-weight: bold;
+	color: white;
+}  
   
 </style>
 
 </head>
 <body>
-	
+
+
+<%-- 코인 보유 금액 < 결제금액 --%>
+<div class="modal" id="payFailureLowerCoinModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered"> 
+    <div class="modal-content">
+      <div class="modal-header">
+      	
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div> 
+      <div class="modal-body">
+      	
+      	<div class="row text-center">
+    		<div class="col">코인이 부족하여 결제하실 수 없습니다.</div>
+       </div>
+  
+      </div>
+      
+      <div class="modal-footer">
+      	<input type="button" class="btn orangeButton" value="충전하기" onclick="location.href='/safari/user/myCoinPage'">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">창닫기</button>
+      </div>      
+   
+    </div>
+  </div>
+</div>
+<%-- 코인 보유 금액 < 결제금액 --%>	
 	
 
 
@@ -39,6 +70,7 @@
 
 <script>
 
+let userCoinBalance = null;
 
 //카카오페이 결제 ready 정보 보내주기
 function getAuctionKakaoPayReadyInfo() {
@@ -118,6 +150,20 @@ function saveAuctionPaymentData(cid, tid, partner_order_id,
 		   						partner_user_id, pg_token, item_name,
 		   						amount, payment_method_type) {
 	
+	// 현재 보유 코인이 amount보다 작으면 결제 정보 저장 막기
+	if (userCoinBalance < amount) {
+		
+		const failModal = bootstrap.Modal.getOrCreateInstance("#payFailureLowerCoinModal");
+		failModal.show();
+		
+		setTimeout(function() { // 3초 뒤 모달 창 삭제
+			failModal.hide();
+		}, 3000);
+		
+		window.close();
+		return;
+	}
+	
 
 	const xhr = new XMLHttpRequest();
 
@@ -150,7 +196,36 @@ function saveAuctionPaymentData(cid, tid, partner_order_id,
 
 }
 
+//회원의 현재 보유 코인 조회
+function getUserCoinBalance() {
+	
+		const xhr = new XMLHttpRequest();
+		
+		const coinBalance = document.getElementById("userCoinBalance");
+	
+		xhr.onreadystatechange = function(){
+			if(xhr.readyState == 4 && xhr.status == 200){
+				const response = JSON.parse(xhr.responseText);
+				if(response.result == "success"){
+					
+					userCoinBalance = response.coins;
+					
+				}
+			}
+		}
+		
+		xhr.open("get", "/safari/user/getUserCoinBalance");
+		xhr.send();		
+	
+}
 
+
+
+window.addEventListener("DOMContentLoaded", function(){
+	//getSessionId();
+	getUserCoinBalance(); 
+	
+});
 
 
 

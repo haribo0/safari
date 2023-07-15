@@ -12,9 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.ja.safari.auction.service.AuctionServiceImpl;
 import com.ja.safari.cs.service.CsServiceImpl;
-import com.ja.safari.dto.UserChargeCoinKakaoPayApproveDto;
-import com.ja.safari.dto.CsEmpDto;
 import com.ja.safari.dto.PromotionReviewDto;
+import com.ja.safari.dto.UserChargeCoinKakaoPayApproveDto;
 import com.ja.safari.dto.UserDto;
 import com.ja.safari.user.service.UserServiceImpl;
 
@@ -55,6 +54,20 @@ public class UserController {
 	public String loginPage() {
 		
 		return "/main/loginPage";
+	}
+	
+	// 회원정보 수정 페이지
+	@RequestMapping("modifyProfile") 
+	public String modifyProfile(HttpSession session, Model model) {
+		
+		UserDto sessionUser = (UserDto)session.getAttribute("sessionUser");
+		if(sessionUser == null) {
+			return "redirect:/user/loginPage";
+		}
+		
+		model.addAttribute("userInfo", userService.selectUserDtoById(sessionUser.getId()));
+		
+		return "user/modifyProfile";
 	}
 	
 
@@ -98,7 +111,7 @@ public class UserController {
 		}
 		
 		model.addAttribute("chargeCoinHistoryList" ,userService.getCoinChargeHistoryList(sessionUser.getId()));
-		model.addAttribute("coinTransactions", userService.getCoinTransactions(sessionUser.getId()));
+		model.addAttribute("coinTransactions", userService.getCoinUsageHistoryList(sessionUser.getId()));
 		
 		
 		return "/user/myCoinPage";
@@ -233,28 +246,6 @@ public class UserController {
 		return "user/chargeCoinProcess";
 	}
 	
-	// 세연 마이페이지 - 커뮤니티 게시글 리스트
-	@RequestMapping("myAllCommunityPostListPage")
-	public String myAllCommunityPostListPage(Model model, HttpSession session, PromotionReviewDto promotionReviewDto) {
-
-		UserDto sessionUser = (UserDto)session.getAttribute("sessionUser");
-		
-		if(sessionUser==null) {
-			return "redirect:../user/loginPage";
-		}else {
-			
-			int sessionId = 0;
-			sessionId = sessionUser.getId();
-			List<Map<String, Object>> proreviewByMyPost = userService.getProreviewByMyPost(sessionId);
-			
-			
-			model.addAttribute("proreviewByMyPost", proreviewByMyPost);
-			
-			return "user/myAllCommunityPostListPage";
-		}
-		
-	}
-	
 	// 코인 충전 성공     
 	@RequestMapping("chargeCoinSucceed")
 	public String paymentSucceeded(HttpSession session, Model model, Integer id) {
@@ -268,6 +259,35 @@ public class UserController {
 		
 		return "user/chargeCoinSucceed";
 	}
+	
+	// 세연 마이페이지 - 커뮤니티 게시글 리스트
+	@RequestMapping("myAllCommunityPostListPage")
+	public String myAllCommunityPostListPage(Model model, HttpSession session, PromotionReviewDto promotionReviewDto) {
+
+		UserDto sessionUser = (UserDto)session.getAttribute("sessionUser");
+		
+		if(sessionUser==null) {
+			return "redirect:../user/loginPage";
+		}else {
+			
+			int sessionId = 0;
+			sessionId = sessionUser.getId();
+			
+			List<Map<String, Object>> pickByMyPost = userService.getPickByMyPost(sessionId);
+			List<Map<String, Object>> helpByMyPost = userService.getHelpByMyPost(sessionId);
+			List<Map<String, Object>> recruitByMyPost = userService.getRecruitByMyPost(sessionId);
+			List<Map<String, Object>> proreviewByMyPost = userService.getProreviewByMyPost(sessionId);
+			
+			model.addAttribute("pickByMyPost", pickByMyPost);
+			model.addAttribute("helpByMyPost", helpByMyPost);
+			model.addAttribute("recruitByMyPost", recruitByMyPost);
+			model.addAttribute("proreviewByMyPost", proreviewByMyPost);
+			
+			return "user/myAllCommunityPostListPage";
+		}
+		
+	}
+	
 
 	// 세연 마이페이지 - 커뮤니티 좋아요 리스트
 	@RequestMapping("myCommunityLikesListPage")

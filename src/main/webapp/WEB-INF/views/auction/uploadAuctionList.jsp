@@ -87,13 +87,13 @@
 					<div class="row mt-2">
 						<div class="col">
 							<table class="table align-middle">
-								<thead class="table-secondary">
+								<thead class="table-light">
 									<tr class="text-center">
-										<th>상품정보</th>
-										<th>낙찰자</th>
-										<th>낙찰가</th>
-										<th>경매종료일</th>
-										<th>상태</th>
+										<td>상품정보</td>
+										<td>낙찰자</td>
+										<td>낙찰가</td>
+										<td>경매종료일</td>
+										<td>상태</td>
 									</tr>
 								</thead>
 							<tbody>
@@ -342,7 +342,7 @@ function reloadPayAndDeliveryStatus() {
 	    		  // 배송 미처리
 	    		  if (data.delivery_exists == 'No') {
 	    			  payStatus.innerText = "결제완료"
-	    			  statusButton.classList.add("btn-dark", "opacity-50");
+	    			  statusButton.classList.add("btn-outline-secondary");
 					  statusButton.value = "배송하기";
 	    			  
 	    	           statusButton.onclick = function (id) {
@@ -355,8 +355,19 @@ function reloadPayAndDeliveryStatus() {
 	    			 
 	    		  } 
 	    		  // 배송 처리
-	    		  else {
-	    			 payStatus.innerText = "배송중";
+	    		  else  {
+	    			  
+	    			 const deliveryRegDate = new Date(data.delivery_reg_date);
+		    		 const threeDaysLater = new Date(deliveryRegDate.setDate(deliveryRegDate.getDate() + 2));
+		    		 
+		    		 const nowDate = new Date();
+		    		 
+		    		 if (nowDate > threeDaysLater) {
+		    			 payStatus.innerText = "배송완료";
+		    		 } else {
+		    			 payStatus.innerText = "배송중";
+		    		 }
+	    			 
 	    		  }
 	    		  
 	    	  }

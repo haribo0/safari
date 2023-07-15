@@ -24,6 +24,28 @@
 			SELECT * FROM user_table WHERE email = #{email} AND pw = #{pw}
 		</select>
 		
+		
+		<!-- 회원정보 수정 - 현재 비밀번호 확인 -->
+		<select id="checkUserPw" resultType="com.ja.safari.dto.UserDto">
+			SELECT pw FROM user_table WHERE id = #{id}
+		</select>
+		
+		<!-- 회원정보 수정 -->
+		<update id="modifyUserInfo">
+			UPDATE user_table
+				SET
+					email = #{email},
+					pw = #{pw},
+					nickname = #{nickname},
+					phone = #{phone},
+					gender = #{gender},
+					birth = #{birth},
+					profile_image_link = #{profile_image_link}
+				WHERE
+					id = #{id}		
+		</update>
+		
+		
 		<!-- 유저아이디로 유저 dto 가져오기  -->
 		<select id="selectUserDtoById" resultType="com.ja.safari.dto.UserDto">
 			SELECT * FROM user_table WHERE id = #{id}
@@ -36,14 +58,42 @@
 			INSERT INTO user_address_table VALUES(
 				user_address_table_seq.nextval,
 				#{user_id},
-				#{address}
+				#{address},
+				#{address_name},
+				#{phone}
 			)
 		</insert>
 		
 		<!-- 주소가져오기 -->
  		<select id="selectAddressListAllById" resultType="com.ja.safari.dto.UserAddressDto">
-			SELECT * FROM user_address_table WHERE #{user_id} = #{id}
+			SELECT * FROM user_address_table WHERE user_id = #{id} ORDER BY id DESC
 		</select>
+		
+		<!--  유저 당 등록된 주소 개수 -->
+		<select id="getUserAddressCount" resultType="int">
+			SELECT COUNT(*) FROM user_address_table WHERE user_id = #{userId}
+		</select>
+		
+		<!-- 주소 수정 - pk로 데이터 가져오기 -->
+		<select id="getAddressInfoByPk" resultType="com.ja.safari.dto.UserAddressDto">
+			SELECT * FROM user_address_table WHERE id = #{id}
+		</select>
+		
+		<!-- 주소 수정 -->
+		<update id="modifyUserAddress">
+			UPDATE
+			  user_address_table 
+			  SET 
+			    address = #{address},
+			    address_name = #{address_name},
+			    phone = #{phone}
+			 WHERE id = #{id}   
+		</update>
+		
+		<!--  주소 삭제 -->
+		<delete id="removeUserAddress">
+			DELETE FROM user_address_table WHERE id = #{id}
+		</delete>
 		
 		<!-- 렌탈리스트 가져오기 -->
  		<select id="selectRentalOrderedListById" resultType="com.ja.safari.dto.RentalOrderDto">
@@ -99,8 +149,8 @@
 			    ORDER BY reg_date DESC      
 		</select>
 		
-		<!-- 회원의 코인 사용 내역 조회 -->
-		<select id="getCoinTransactions" resultType="com.ja.safari.dto.UserCoinDto">
+		<!-- 회원의 코인 지출 내역 조회 -->
+		<select id="getCoinUsageHistoryList" resultType="com.ja.safari.dto.UserCoinDto">
  			SELECT * 
 			    FROM coin_table 
 			    WHERE user_id = #{userId}
@@ -108,13 +158,47 @@
 			    ORDER BY reg_date DESC   		
 		</select>
 		
+		<!-- 회원의 코인 전체 사용 내역 조회 -->
+		<select id="getUserCoinAllHistoryList" resultType="com.ja.safari.dto.UserCoinDto">
+			SELECT * 
+		      FROM coin_table
+		      WHERE user_id = #{userId}
+		      ORDER BY reg_date DESC
+		</select>
 		
-		<!--  커뮤니티 리워드 내가 쓴 게시글 가져오기 -->
+		<!-- 회원의 코인 전체 사용 내역 횟수 -->
+		<select id="getUserCoinAllHistoryCount" resultType="int">
+			SELECT COUNT(*) 
+		      FROM coin_table
+		      WHERE user_id = #{userId}
+		</select>
+		
+		
+		<!-- 커뮤니티 리워드 내가 쓴 게시글 가져오기 -->
 		<select id="selectProreviewByMyPost" resultType="com.ja.safari.dto.PromotionReviewDto">
 		SELECT *
 		FROM promotion_review
 		WHERE user_id = #{user_id}
 		</select>
 		
-
+		<!-- 커뮤니티 구인구직 내가 쓴 게시글 가져오기 -->
+		<select id="selectRecruitByMyPost" resultType="com.ja.safari.dto.RecruitDto">
+		SELECT *
+		FROM recruit_table
+		WHERE user_id = #{user_id}
+		</select>
+		
+		<!-- 커뮤니티 해주세요 내가 쓴 게시글 가져오기 -->
+		<select id="selectHelpByMyPost" resultType="com.ja.safari.dto.HelpDto">
+		SELECT *
+		FROM help_table
+		WHERE user_id = #{user_id}
+		</select>
+		
+		<!-- 커뮤니티 골라줘요 내가 쓴 게시글 가져오기 -->
+		<select id="selectPickByMyPost" resultType="com.ja.safari.dto.PickDto">
+		SELECT *
+		FROM pick_table
+		WHERE user_id = #{user_id}
+		</select>
 </mapper>

@@ -30,7 +30,7 @@
 	
 	<!-- 만약 파일 보내는 경우 - enctype="multipart/form-data" 꼭 변경해야 함, 무조건 post방식-->
 	<%--글쓰기 폼 시작 --%>
-	<form action="/safari/community/question/questionWriteContentProcess" method="post">
+	<form action="/safari/community/question/questionWriteContentProcess" method="post" enctype="multipart/form-data">
 		
 		<div class="row">
 			<div class="col">
@@ -54,6 +54,11 @@
 				  <tr> 
 				  	<td><input type="text" class="form-control" placeholder="포인트"  name="points" maxlength="10"></td>
 				  </tr>
+				  <label for="questionBoardFiles" class="file-upload-btn" style="margin-top: 10px;">
+				  <i class="bi bi-paperclip"></i>
+				  <span class="sr-only">파일 선택</span>
+				  </label>
+				  <input name="questionBoardFiles" type="file" onchange="readURLContent(this)" id="questionBoardFiles" style= "display: none;"  multiple accept= "image/*">
 				</tbody>
 				</table>
 				<!-- <input name="helpBoardFiles" type="file" onchange="readURLContent(this)" id="helpBoardFiles" multiple accept="image/*">-->

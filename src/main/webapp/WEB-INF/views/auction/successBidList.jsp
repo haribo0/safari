@@ -72,77 +72,95 @@
 						</div>
 					</div>										
 						
-				<div class="row mt-3">
+				<div class="row mt-3 ms-1">
 					<div class="col">
+					
+					
+						<div class="row fw-medium border-bottom border-black border-2 py-2">
+							<div class="col-5 text-center">상품정보</div>
+							<div class="col text-center">낙찰가</div>
+							<div class="col text-center">낙찰시간</div>
+							<div class="col text-center">경매종료일</div>
+							<div class="col text-center">상태</div>
+						</div>
 						
-						<table class="table align-middle">
-							<thead class="table-secondary p-2">
-								<tr class="text-center">
-									<th>상품정보</th>
-									<th>낙찰가</th>
-									<th>낙찰시간</th>
-									<th>경매종료일</th>
-									<th>상태</th>
-								</tr>
-							</thead>
-							<tbody>
-							   <c:if test="${empty successBidList}">
-							        <tr>
-							            <td colspan="5" class="text-center">낙찰한 정보가 없습니다.</td>
-							        </tr>
-							    </c:if>					
-								<c:forEach items="${successBidList}" var="bidDto">
-									<input type="hidden" id="user_id_${bidDto.auction_item_id}" value="${sessionUser.id}">
-										<tr>
-											<td>
-												<div class="row">
-													<input type="hidden" id="bid_${bidDto.auction_item_id}" value="${bidDto.id}">
-													<div class="col" id="aid_${bidDto.auction_item_id}">
-														
-														<a href="/safari/auction/productDetail/${bidDto.auction_item_id}">
-														<img class="me-3"
-														src="/auctionFiles/${bidDto.auction_item_img_link}" style="
-														position: relative; left: 30px; max-width: 120px; max-height: 120px;"></a>
+						  <c:if test="${empty successBidList}">
+						       <div class="row border-bottom py-2">
+							   <div class="col text-center" colspan="5">
+						            낙찰 정보가 없습니다.
+						        </div>
+						       </div>
+						    </c:if>	
+						
+						
+						 <c:forEach items="${successBidList}" var="bidDto">
+							<input type="hidden" id="user_id_${bidDto.auction_item_id}" value="${sessionUser.id}">
+								<div class="row border-bottom py-2">
+									<div class="col-5">
+										<div class="row">
+										
+											<input type="hidden" id="bid_${bidDto.auction_item_id}" value="${bidDto.id}">
+											<div class="col" id="aid_${bidDto.auction_item_id}" style="float: left;">
+												
+												<a href="/safari/auction/productDetail/${bidDto.auction_item_id}">
+												<img 
+												src="/auctionFiles/${bidDto.auction_item_img_link}" style="
+												width: 120px; height: 120px;"></a>
+											</div>
+											<div class="col-8" class="text-start">
+												<div class="row mt-4">
+													<div class="col" style="font-size: 14px;">
+														${bidDto.main_category_name} > ${bidDto.sub_category_name}
 													</div>
-													<div class="col-8" class="text-start">
-														<div class="row mt-4">
-															<div class="col" style="font-size: 14px;">
-																${bidDto.main_category_name} > ${bidDto.sub_category_name}
-															</div>
-														</div>
-														<div class="row">
-															<div class="col fw-bold">
-															<input type="hidden" value="${bidDto.auction_item_id}">
-																<span style="font-size: 16px;"><a href="/safari/auction/productDetail/${bidDto.auction_item_id}">
-																${bidDto.title}</a></span>
-															<input type="hidden" id="title_${bidDto.auction_item_id}" value="${bidDto.title}">	
-															</div>
-														</div>
-													</div>									
 												</div>
-											</td>
-											<td class="text-center fw-bold text-danger">
+												<div class="row">
+													<div class="col fw-bold">
+													<input type="hidden" value="${bidDto.auction_item_id}">
+														<span style="font-size: 16px;"><a href="/safari/auction/productDetail/${bidDto.auction_item_id}">
+														${bidDto.title}</a></span>
+													<input type="hidden" id="title_${bidDto.auction_item_id}" value="${bidDto.title}">	
+													</div>
+												</div>
+											</div>									
+										</div>
+									</div>	
+									
+									<div class="col mt-3 text-center fw-bold text-danger">
+										<div class="row mt-4">
+											<div class="col">
 												<fmt:formatNumber value="${bidDto.bid_price}"  pattern="#,###"/>원
 												<input type="hidden" id="bid_price_${bidDto.auction_item_id}" value="${bidDto.bid_price}">
-											</td>
-											<td class="text-center">
+											</div>
+										</div>
+									</div>
+									
+									<div class="col mt-2 text-center">
+										<div class="row mt-4">
+											<div class="col">
 												<fmt:formatDate value="${bidDto.reg_date}" pattern="yyyy.MM.dd" />
 												<br>
 												<fmt:formatDate value="${bidDto.reg_date}" pattern="a hh:mm" />
-											</td>
-											<td class="text-center">
+												</div>
+										</div>
+									</div>
+									
+									<div class="col mt-2 text-center">
+										<div class="row mt-4">
+											<div class="col">
 												<fmt:formatDate value="${bidDto.end_date}" pattern="yyyy.MM.dd" />
 												<br>
 												<fmt:formatDate value="${bidDto.end_date}" pattern="a hh:mm" />
-											</td>
-											<td class="text-center" id="myStatus_${bidDto.id}">
-											
-												
-											</td>							
-										</tr>
-								</c:forEach>
-								</tbody>
-							</table>
+											</div>
+										</div>
+									</div>
+									
+									<div class="col mt-3 text-center" id="myStatus_${bidDto.id}">
+									</div>						
+								
+								</div>
+							</c:forEach>
+							
+
 						</div>
 					</div>						
 						
@@ -191,14 +209,6 @@
 
 <script>
 
-/* function popupCenter(href, w, h) {
-	var xPos = (document.body.offsetWidth/2) - (w/2); // 가운데 정렬
-	xPos += window.screenLeft; // 듀얼 모니터일 때
-	var yPos = (document.body.offsetHeight/2) - (h/2);
-
-	window.open(href, "popup", "width="+w+", height="+h+", left="+xPos+", top="+yPos+", menubar=yes, status=yes, titlebar=yes, resizable=yes");
-}
- */
 
 //새 창 띄우기 
  function openNewWindow(url) {
@@ -210,7 +220,7 @@
  	  
  	  // Add an event listener to the child window's unload event
  	  childWindow.addEventListener("unload", function() {
- 	     // getListUpdated();
+ 	     
  	  });
  		  
  	  
@@ -309,6 +319,7 @@ function kakaoPayModal(index) {
 
 function getMySuccessfulBidPayAndDeliveryStatusList() {
 	
+	
 	const xhr = new XMLHttpRequest();
 	  xhr.onreadystatechange = function() {
 	    if (xhr.readyState === 4 && xhr.status === 200) {
@@ -316,10 +327,18 @@ function getMySuccessfulBidPayAndDeliveryStatusList() {
 	      
 	      for (data of response.myStatusList) {
 	    	  
-	    	  const myStatus = document.getElementById("myStatus_" + data.id);
+	    	  let myStatus = document.getElementById("myStatus_" + data.id);
 	    	  myStatus.innerHTML = "";
 	    	  
+	    	  // 결제를 하지 않았을 경우
 	    	  if (data.payment_exists == 'No') {
+	    		  
+	    		  
+	    		  const row  = document.createElement("div");
+	    		  row.classList.add("row", "mt-4");
+	    		  
+	    		  const col  = document.createElement("div");
+	    		  col.classList.add("col");
 	    		  
 	    		  const payButton = document.createElement("input");
 	    		  payButton.type = "button";
@@ -331,14 +350,148 @@ function getMySuccessfulBidPayAndDeliveryStatusList() {
     	                	kakaoPayModal(id);
     	                };
     	              }(data.auction_item_id);
+    	          
+    	          col.appendChild(payButton);
+    	          
+    	          row.appendChild(col);
 	              
-    	          myStatus.appendChild(payButton);    
-	    	  } else {
+    	          myStatus.appendChild(row);    
+	    	  } 
+	    	  // 결제를 하였을 경우
+	    	  else {
+	    		  const deliveryRegDate = new Date(data.delivery_reg_date);
+	    		  const threeDaysLater = new Date(deliveryRegDate.setDate(deliveryRegDate.getDate() + 2));
+	    		  // 나중에 3일로 변경해야함. (임시로 2일로 설정)
 	    		  
+	    		  const nowDate = new Date();
+	    		  
+	    		  // 배송처리가 되지 않았을 경우
 	    		  if (data.delivery_exists == 'No') {
-	    			  myStatus.innerText = "배송준비중";
-	    		  } else {
-	    			  myStatus.innerText = "배송중";
+	    			  	const row = document.createElement("div");
+    				  	row.classList.add("row", "mt-4");
+    				  	
+    				  	const col = document.createElement("div");
+    				  	col.classList.add("col");
+    				  	
+    				  	col.innerText = "배송준비중";
+    				  	
+    				  	row.appendChild(col);
+    				  	myStatus.appendChild(row);
+    				  	
+    				  	
+	    		  } 
+	    		  // 배송처리가 되었을 경우
+	    		  else if (data.delivery_reg_date){
+	    			  // 배송한지 3일이 지났을 때
+	    			  if (nowDate > threeDaysLater) {
+							
+	    				  	// 배송완료 처리하기 전에 db에 배송완료 여부 확인 (중복 insert 방지하기 위함)
+	    				    selectAuctionDeliveryStatusBeforeComplete(data.id);
+	    				    
+	    				    // 구매확정이 되었을 때
+	    				    if (data.purchase_confirmed == 'Yes') {
+	    				    	
+	    				    	
+	    				    	const row = document.createElement("div");
+		    				  	row.classList.add("row", "mt-4");
+		    				  	
+		    				  	const col = document.createElement("div");
+		    				  	col.classList.add("col");
+		    				  	
+		    				  	col.innerText = "구매확정";
+		    				  	
+		    				  	row.appendChild(col);
+		    				  	myStatus.appendChild(row);
+	    				    } 
+	    				    // 구매확정이 아직 되지 않았을 때
+	    				    else {
+	    				    
+	    				    
+	    				  	const row = document.createElement("div");
+	    				  	row.classList.add("row");
+	    				  	
+	    				  	const col = document.createElement("div");
+	    				  	col.classList.add("col");
+	    				  	
+	    				  	col.innerText = "배송완료";
+	    				  	
+	    				  	row.appendChild(col);
+	    				  	myStatus.appendChild(row);
+	    				  	
+	    				  	const row2 = document.createElement("div");
+	    				  	row2.classList.add("row", "mt-1");
+	    				  	
+	    				  	const col2 = document.createElement("div");
+	    				  	col2.classList.add("col");
+	    				  	
+	    					const buyButton = document.createElement("input");
+	    					buyButton.type = "button";
+	    					buyButton.classList.add("btn", "btn-sm", "btn-outline-secondary");
+	    					buyButton.value = "구매확정";
+	    				
+	    					
+	    					buyButton.onclick = function (id) {
+		    	                return function () {
+		    	                	getDeliverypkByBidpk(id);
+		    	                };
+		    	              }(data.id);
+		    	              
+	    					
+	    					col2.appendChild(buyButton);
+	    					
+	    					row2.appendChild(col2);
+	    					
+	    					myStatus.appendChild(row2);
+	    					
+	      				  	const row3 = document.createElement("div");
+	    				  	row3.classList.add("row", "mt-1");
+	    				  	
+	    				  	const col3 = document.createElement("div");
+	    				  	col3.classList.add("col");
+	    				  	
+	    					const refundButton = document.createElement("input");
+	    					refundButton.type = "button";
+	    					refundButton.classList.add("btn", "btn-sm", "btn-outline-secondary");
+	    					refundButton.value = "반품신청";
+	    					
+	    					col3.appendChild(refundButton);
+	    					
+	    					row3.appendChild(col3);
+	    					
+	    					myStatus.appendChild(row3);
+	    				   }
+	    				  	
+	    			        
+	    			    } 
+	    			  // 배송처리는 되었지만 아직 배송완료 x
+	    			  else {
+	    			    	
+	    			    	const row = document.createElement("div");
+	    				  	row.classList.add("row", "mt-2");
+	    				  	
+	    				  	const col = document.createElement("div");
+	    				  	col.classList.add("col");
+	    				  	col.innerText = "배송중";
+	    				  	
+	    				  	row.appendChild(col);
+	    				  	
+	    				 	const row2 = document.createElement("div");
+	    				  	row2.classList.add("row", "mt-1");
+	    				  	
+	    				  	const col2 = document.createElement("div");
+	    				  	col2.classList.add("col");
+	    				  	
+	    					const selectButton = document.createElement("input");
+	    					selectButton.type = "button";
+	    					selectButton.classList.add("btn", "btn-sm", "btn-outline-secondary");
+	    					selectButton.value = "배송조회";
+	    					
+	    					col2.appendChild(selectButton);
+	    					row2.appendChild(col2);
+	    					
+	    					myStatus.appendChild(row);
+	    					myStatus.appendChild(row2);
+	    			    }
 	    		  }
 	    		  
 	    	  }
@@ -351,6 +504,139 @@ function getMySuccessfulBidPayAndDeliveryStatusList() {
       xhr.send();
 	
 }
+
+// 배송완료 처리하기 전에 배송 상태 확인
+function selectAuctionDeliveryStatusBeforeComplete(id) {
+	
+	const xhr = new XMLHttpRequest();
+	  xhr.onreadystatechange = function() {
+	    if (xhr.readyState === 4 && xhr.status === 200) {
+	      const response = JSON.parse(xhr.responseText);
+	      
+	      if (response.deliveryStatus.delivery_status != '배송완료'){
+	    	  renewAuctionDeliveryComplete(id);
+	      }
+	      
+	    }
+	  }
+	  xhr.open("get", "/safari/auction/checkAutionDeliveryStatus?partnerOrderId=" +id);
+      xhr.send();
+	      
+	
+}
+
+// 배송완료 처리
+function renewAuctionDeliveryComplete(id) {
+	
+	const xhr = new XMLHttpRequest();
+	  xhr.onreadystatechange = function() {
+	    if (xhr.readyState === 4 && xhr.status === 200) {
+	      if(response.result == "success") {
+	      	const response = JSON.parse(xhr.responseText);
+	      }
+	      
+	    }
+	  }
+	  xhr.open("get", "/safari/auction/completeAuctionDelivery?partnerOrderId=" +id);
+      xhr.send();
+	      
+	
+}
+
+// 낙찰 pk로 배송 pk 받아서 구매확정 처리
+/* function getDeliverypkByBidpkByPurchageCheck(id) {
+	
+	const xhr = new XMLHttpRequest();
+	  xhr.onreadystatechange = function() {
+	    if (xhr.readyState === 4 && xhr.status === 200) {
+	      const response = JSON.parse(xhr.responseText);
+	      
+	      // 배송 pk 받고 구매 확정 처리
+	      purchageConfirmed(id, response.deliveryStatus.id);
+	    }
+	  } 
+	
+      xhr.open("get", "/safari/auction/checkAutionDeliveryStatus?partnerOrderId=" +id);
+      xhr.send();
+}
+  */
+
+
+// 구매확정 - 낙찰 pk를 받아와서 배송 pk 받아오기
+function getDeliverypkByBidpk(id) {
+	
+	const xhr = new XMLHttpRequest();
+	  xhr.onreadystatechange = function() {
+	    if (xhr.readyState === 4 && xhr.status === 200) {
+	      const response = JSON.parse(xhr.responseText);
+	      
+	      // 배송 pk 받고 구매 확정 처리
+	      purchageConfirmed(id, response.deliveryStatus.id);
+	    }
+	  } 
+	
+      xhr.open("get", "/safari/auction/checkAutionDeliveryStatus?partnerOrderId=" +id);
+      xhr.send();
+}
+
+
+// 구매 확정 여부 조회
+/* function checkPurchaseConfirmed(id) {
+	
+	const xhr = new XMLHttpRequest();
+	  xhr.onreadystatechange = function() {
+	    if (xhr.readyState === 4 && xhr.status === 200) {
+	    
+	    	const response = JSON.parse(xhr.responseText);
+	    	
+	    	if (response.checkYn >= 1) {
+	    		
+	    	} else {
+	    		
+	    	}
+	    	
+	    }
+	  } 
+	
+	  xhr.open("get", "/safari/auction/checkPurchaseConfirmed?partnerOrderId=" + id);
+	  xhr.send();
+} */
+
+
+// 구매 확정 처리
+function purchageConfirmed(id, deliveryId) {
+	
+	const xhr = new XMLHttpRequest();
+	  xhr.onreadystatechange = function() {
+	    if (xhr.readyState === 4 && xhr.status === 200) {
+	    
+	      	
+	        let myStatusNew = document.getElementById("myStatus_" + id);
+	        myStatusNew.innerHTML = ""; 
+
+	        const buyRow = document.createElement("div");
+	        buyRow.classList.add("row", "mt-4");
+	        
+	        const buyCol = document.createElement("div");
+	        buyCol.classList.add("col");
+	        
+	        
+	        buyCol.innerText = "구매확정";
+	        
+	        buyRow.appendChild(buyCol);
+	        
+	        myStatusNew.appendChild(buyRow);
+	      	
+	      	
+	      
+	    }
+	  }
+	  
+     xhr.open("get", "/safari/auction/registerPurchaseConfirmed?auctionDeliveryAfterPaymentId=" + deliveryId + "&id="+id);
+     xhr.send();
+}
+
+
 
 window.addEventListener("DOMContentLoaded", function(){
 

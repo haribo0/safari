@@ -25,6 +25,15 @@
    a {
    	list-style: none;
    }
+.overflow {
+  white-space: nowrap; /* 텍스트를 한 줄로 표시 */
+  overflow: hidden; /* 넘친 텍스트를 숨김 */
+  text-overflow: ellipsis; /* 넘친 텍스트를 "..."으로 표시 */
+}      
+.btn_delivered{padding:4px 12px; background: #e9ecef; border:none; color: black; border-radius:8px; font-size: 14px;}
+.btn_canceled{padding:4px 12px; background: #e6edfe; border:none; color: #789efd; border-radius:8px; font-size: 14px;}
+.btn_ordered{padding:4px 12px; background: #dff5ea; border:none; color: #6db590; border-radius:8px; font-size: 14px;}
+
 </style>
 </head>
 <body>
@@ -66,83 +75,91 @@
 			</div>
 		
 	
-			<div class="row mt-3 mb-4">
+			<div class="row mt-5">
 				<div class="col fw-bold fs-5">
 					내가 입찰한 경매 목록
 				</div>
 			</div>
-				
-			<c:forEach items="${userBidList}" var="bidItem">
-				<div class="row mt-2 mb-4">
-				
-				    <!--  이미지 -->
-					<div class="col">
-						<a href="/safari/auction/productDetail/${bidItem.id}">
-							<img class="img-fluid align-middle" style="height: 120px;"
-							src="/auctionFiles/${bidItem.auction_item_img_link}">
-						</a>						
+			
+			<c:if test="${empty userBidList}">
+				<div class="row">
+					<div class="col text-center fs-5">
+						입찰한 경매가 없습니다.
 					</div>
-					<!--  이미지 -->
-					
-					<!-- 둘째창 -->
-					<div class="col-10">
-						
+				</div>	
+			</c:if>			
+			
+			
+			<div class="row mt-2">
+				<c:forEach items="${userBidList}" var="bidItem">
+					<div class="col-3 mt-4">
 						<div class="row">
-							<div class="col-auto fw-bold fs-5 me-0">
-								<a href="/safari/auction/productDetail/${bidItem.id}">
-										${bidItem.title}
-										<span id="statusLiveSpan_${bidItem.id}"></span>
+							<div class="col">
+								<a href="/safari/auction/productDetail/${bidItem.id}" class="text-decoration-none d-inline-block">
+									  <img src="/auctionFiles/${bidItem.auction_item_img_link}" class="img-fluid" alt="..." 
+									  	 style="height: 220px;">
 								</a>
 							</div>
-							<div class="col" id="liveButton">
-								
-							</div>
-							<div class="col d-flex justify-content-end" id="auctionStatus_${bidItem.id}">
-								
-							</div>
 						</div>
 						
-						<div class="row mt-1 text-secondary fw-bold">
-							<div class="col-auto">
-								현재가 &nbsp;
-								<span id="currentPrice_${bidItem.id}" class="text-danger fs-5 opacity-75"> </span>								
-							</div>
-							<div class="col" style="position: relative; top: 3px;">
-								즉시낙찰가
-								<span>
-					 				<fmt:formatNumber value="${bidItem.max_price}" pattern="#,###"/>원
-					 			</span> 								
-							</div>
-						</div>
 						
 						<div class="row mt-2">
-							<div class="col">
-								경매시작일 : <fmt:formatDate value="${bidItem.start_date}"  pattern="yyyy. MM. dd. a hh:mm"  />
+							<div class="col fw-bold overflow" style="width: 200px; font-size: 17px;">
+								<a href="/safari/auction/productDetail/${bidItem.id}">
+								   ${bidItem.title}</a>
 							</div>
-							<div class="col-auto">
-							 	
+						</div>
+			
+						
+						
+						<div class="row mt-1">
+							<div class="col-auto text-secondary">
+								현재가<span class="text-danger fw-bold opacity-75 ms-2 fs-5" 
+											id="currentPrice_${bidItem.id}"></span>
+							</div>
+							<div class="col">
+								<span id="auctionStatus_${bidItem.id}"
+								style="position: relative; right: 8px;"></span>
+								
 							</div>
 						</div>
 						
 						<div class="row">
-							<div class="col">
-								<span id="auctionEndDate_${bidItem.id}">경매종료일</span> 
+							<div class="col" style="font-size: 13px;">
+								즉시낙찰가
+								<span class="ms-2">
+					 				<fmt:formatNumber value="${bidItem.max_price}" pattern="#,###"/>원
+					 			</span> 
 							</div>
-							<div class="col-auto fw-bold fs-5" id="remainTime_${bidItem.id}">
+						</div>	
+						
+						<div class="row mt-1" >
+							<div class="col" style="font-size: 13px;">
+								경매시작일 : <fmt:formatDate value="${bidItem.start_date}"  pattern="yyyy. MM. dd. a hh:mm"  />
+							</div>
+							
+						</div>		
+						
+						<div class="row">
+							<div class="col" style="font-size: 13px;" id="auctionEndDate_${bidItem.id}">
 								
 							</div>
-						</div>
+							
+						</div>		
 						
+						<div class="row mt-1 mb-0">
+							<div class="col" style="font-size: 18px;">
+								<p id="remainTime_${bidItem.id}" class="mb-1">
+								 </p>
+							</div>
+						</div>							
+						
+	
 					</div>
-					<!-- 둘째창 -->
-				</div>
 				</c:forEach>
-			<!--  foreach -->	
-			
+			</div>			
 		
-		<%-- 공간 --%>
-			
-			
+	
 		
 		
 		</div>
@@ -284,27 +301,28 @@ function updateAuctionCountDown(id) {
       
       const statusButton = document.createElement("button");
       statusButton.classList.add("btn");
-      statusButton.classList.add("btn-sm");
-      statusButton.classList.add("fw-bold");
-      statusButton.classList.add("disabled");
+      
+      //statusButton.classList.add("fw-bold");
+      
       if (auctionEndDate <= nowDate || response.auctionItem.auctionDto.auction_status == '종료') {  
-    	  statusButton.classList.add("btn-outline-secondary");
+    	
+    	  statusButton.classList.add("btn_delivered", "fw-light");
           statusButton.innerText = "경매 종료";
     	  
       } else if (auctionStartDate <= nowDate) {
-    	  statusButton.classList.add("btn-outline-success");
+    	  statusButton.classList.add("btn_ordered", "fw-bold");
           statusButton.innerText = "진행중";
           
-          const statusLiveSpan = document.getElementById("statusLiveSpan_" + id);
+        /*   const statusLiveSpan = document.getElementById("statusLiveSpan_" + id);
           if (statusLiveSpan.innerText != 'LIVE') {
         	statusLiveSpan.classList.add("text-danger", "fw-bold", "ms-3", "fs-5", "blink-text");
         	statusLiveSpan.innerText = "LIVE";
         	  
-          }
+          } */
           
           
       } else {
-      	 statusButton.classList.add("btn-outline-primary");
+      	 statusButton.classList.add("btn_canceled", "fw-bold");
       	 statusButton.innerText = "준비중";
       }
       

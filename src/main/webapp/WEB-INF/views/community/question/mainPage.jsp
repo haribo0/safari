@@ -17,10 +17,10 @@
 	 <!-- 커뮤니티 메뉴바 -->
       <div class="row">
          <div class="col">
-            <jsp:include page="../communityTopNavi.jsp"></jsp:include>
+            <jsp:include page="./communityTopNavi.jsp"></jsp:include>
          </div>
       </div>
-      <!-- 커뮤니티 메뉴바 -->
+      <!-- 커뮤니티 메뉴바 --> 
       
     <div class="container text-center mt-2">
 	<h2 class="text-center fw-bold fs-3"> 궁금해요 게시판 </h2>
@@ -32,29 +32,33 @@
 	<%--QuestionBoardList--%>
 	<div class="row">
 	
-	<div class="col text-center">
+	<div class="col text mt-2">
 		<table class="table">
+			<thead class="table-secondary">
 			<thead>
 			  <tr>
-				<th>글번호</th>
-				<th>제목</th>
+				<th>번호</th>
 				<th>작성자</th>
+				<th>제목</th>
 				<th>조회수</th>
 				<th>좋아요</th>
-				<th>등록일</th>
+				<th>작성일</th>
 			  </tr>
 			</thead>
 			<tbody>
 			<c:forEach items="${questionBoardList}" var="map">
 
 				<tr>
-				  <td><a class="text-black text-decoration-none" href="/safari/community/question/questionReadContentPage/${map.questionDto.id}">${map.questionDto.id}</a></td>
+				  	<td><a class="text-black text-decoration-none" href="/safari/community/question/questionReadContentPage/${map.questionDto.id}">${map.questionDto.id}</a></td>
+					<td>${map.userDto.nickname}</td>
 					<td style="text-align: left;">
-				  	<c:if test="${map.questionDto.points>=1}">
-				  	<span class="badge text-bg-secondary">${map.questionDto.points}</span>
-				  	</c:if>
+					<div style="display: inline-block;">
 				  	<a class="text-black text-decoration-none" href="/safari/community/question/questionReadContentPage/${map.questionDto.id}">${map.questionDto.title}</a>
-				  	</td>
+				  	<c:if test="${map.questionDto.points>=1}">
+				  	<span class="badge text-bg-secondary">${map.questionDto.points}p</span>
+				  	</c:if>
+				  	</div>
+				  	
 				 <%--  	<c:if test="${map.helpCommentCount>=1}">
 				  	<span style="font-size: 15px; color: red;">[${map.helpCommentCount}]</span>
 				  	</c:if>
@@ -65,7 +69,7 @@
 				  
 				  	
 				  
-				  <td>${map.userDto.nickname}</td>
+				  
 				  <td>${map.questionDto.views}</td>
 				  <td>${map.questionLikeCount}</td>
 				  <td><fmt:formatDate value="${map.questionDto.reg_date}" pattern="yyyy.MM.dd"/></td>
@@ -84,6 +88,29 @@
 	</div>
 	<%--글쓰기 버튼 끝 --%>	
 	
+	<%-- 검색--%>	
+	<form action="./mainPage" method="get">
+				<div class="row"> 
+					<div class="col-2">
+						<select name="question_searchType" class="form-select">
+							<option value="title" selected>제목</option>
+							<option value="content">내용</option>
+							<!-- <option value="content">제목+내용</option> -->
+							<option value="nickname">작성자</option>
+						</select>				
+					</div>
+					<div class="col-3">
+						<input name="question_searchWord" type="text" class="form-control">
+					</div>
+					<div class="col-1 ms-3" style="position:relative; right: 30px;">
+						 <button type="submit" class="btn btn-outline-dark">
+						  	<span class="bi bi-search"></span>
+						</button>
+					</div>
+				</div>
+	</form>
+		<%-- 검색--%>	
+		
 	</div>
 	</div>
 	</div>

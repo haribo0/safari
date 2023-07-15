@@ -23,65 +23,94 @@
 		<div class="col"></div>
 		
 		<%-- 내용 공간 --%>
-		<div class="col-6">
-			<div class="row">
-				<div class="col fw-bold fs-2">
-					<span style="font-size: 70%;" class="badge bg-secondary">${map.questionDto.points}</span>
-					${map.questionDto.title} 
+		<div class="col-8">
+		<div class="container">
+			<div class="row" style="margin-bottom: 7px;">
+				<div class="col">
+					<span class="fw-medium fs-5">${map.questionDto.title}</span>
+					<c:if test="${map.questionDto.points>=1}">
+					<span class="badge rounded-pill text-bg-warning opacity-75" style="font-size: 80%; position: relative; bottom: 2px;">
+					<span class="text-black">${map.questionDto.points}p</span></span>
+					</c:if>
+					<c:if test="${map.helpDto.points==0}"></c:if>
 				</div>	
 			</div>
 		
 			
-			<hr>
-			
 			<div class="row">
-				<div class="col">
-				 ${map.userDto.nickname }  <fmt:formatDate value="${map.questionDto.reg_date}" pattern="yyyy.MM.dd HH:mm"/>
+				<div class="col ms-1">
+				<span style="font-size: 0.9rem; color: gray;" > ${map.userDto.nickname}  &nbsp;  <i class="bi bi-eye"></i> ${map.questionDto.views} &nbsp;
 				 ${map.questionDto.status}
-				</div>
-				<div class="col">
-				</div>
-				<div class="col text-end">
-					조회수: ${map.questionDto.views}
+				 </span>
+				 </div>
+				 <div class="col">
+				 </div>
+				 <div class="col text-end">
+				 	<span style="font-size: 0.9rem; color: gray;"><i class="bi bi-clock"></i> <fmt:formatDate value="${map.questionDto.reg_date}" pattern="yyyy-MM-dd HH:mm"/></span>
 				</div>
 			</div>
 			
-			
 			<hr>
 			
-			
-			<div class="row">
-				<div class="col">
-					${map.questionDto.content }
+			<%--게시물 공간 --%>
+			<div class="container">
+				<div class="row">
+					<div class="col">
 					
-				<div class="row mt-5 text-center">
+					<%-- 글 내용/이미지 영역 --%>
+					<div class="row mb-5">
 					<div class="col">
-						<div class="row">
-							<div class="col text-center" style="text-align: center;">
-							 <c:if test="${QuestionBoardLikeCount == 0 }">
-							 	<a class="bi bi-heart text-danger" style="font-size: 48px;" href= "/safari/community/question/insertQuestionLikeProcess/${map.questionDto.id}"></a>${QuestionBoardLikeCount}
-							 </c:if>
-							 <c:if test="${QuestionBoardLikeCount >= 1 }">
-							 	<a class="bi bi-heart-fill text-danger" style="font-size: 48px;" href= "/safari/community/question/insertQuestionLikeProcess/${map.questionDto.id}"></a>${QuestionBoardLikeCount}
-							 </c:if> 
-						    </div>
-					    </div>
-				   </div>
-				</div>
-				
-					<hr>
-				<div class="row mt-5 text-center" style="text-align: center;">
-					<div class="col">
-					<c:if test="${sessionUser.id == map.userDto.id }">
-						<input type="button" class="btn btn-primary" onclick='location.href="/safari/community/question/updateQuestionContentPage/${map.questionDto.id}"' value="수정"/>
-						<input type="button" class="btn btn-primary" onclick='location.href="/safari/community/question/deleteQuestionContentProcess/${map.questionDto.id}"' value="삭제"/>
-					</c:if>
-						<input type="button" class="btn btn-primary" onclick='location.href="/safari/community/question/mainPage"' value="목록으로"/>
-					<c:if test="${sessionUser.id != map.userDto.id}">
-						<input type="button" class="btn btn-primary" onclick='location.href="/safari/community/question/replyQuestionContentPage/${map.questionDto.id}"' value="답변하기"/>
-					</c:if>
+					${map.questionDto.content }
+					</div>
+					</div>
+					
+					<c:forEach items="${map.questionImgDtoList}" var="questionImgDto">
+							<div class="row mt-2">
+								<div class="col">
+									<img src="/uploadFiles/${questionImgDto.question_img_link}"
+										style="width: 500px;">
+								</div>
+							</div>						
+					</c:forEach>
+					<%-- 글 내용/이미지 영역 --%>
+					
 					</div>
 				</div>
+			</div>
+			<%--게시물 공간 --%>
+			
+			<%--좋아요/수정/삭제/목록 --%>
+			<div class="row mt-4 text-end">
+			<div class="col d-flex align-items-center">
+			
+			 <c:choose>
+				<c:when test="${QuestionBoardLikeCount >= 1}">
+		        	<a class="bi bi-heart-fill text-danger" style="font-size: 21px;" href="/safari/community/question/insertQuestionLikeProcess/${map.questionDto.id}"></a>
+			        &nbsp;${QuestionBoardLikeCount} 
+				</c:when>
+				<c:otherwise>
+			        <a class="bi bi-heart text-danger" style="font-size: 21px;" href="/safari/community/question/insertQuestionLikeProcess/${map.questionDto.id}"></a>
+			        &nbsp;${QuestionBoardLikeCount}
+			    </c:otherwise>
+			</c:choose> 
+			&nbsp;<c:if test="${sessionUser.id == map.userDto.id }">
+						<input type="button" class="btn btn-secondary" style="background-color: transparent; border: none; color: inherit; font-size: 14px" onclick='location.href="/safari/community/question/updateQuestionContentPage/${map.questionDto.id}"' value="수정"/>
+						<input type="button" class="btn btn-secondary" style="background-color: transparent; border: none; color: inherit; font-size: 14px" onclick='location.href="/safari/community/question/deleteQuestionContentProcess/${map.questionDto.id}"' value="삭제"/>
+				  </c:if>
+						<input type="button" class="btn btn-secondary" style="background-color: transparent; border: none; color: inherit; font-size: 14px" onclick='location.href="/safari/community/question/mainPage"' value="목록으로"/>
+				  <c:if test="${sessionUser.id != map.userDto.id}">
+						<input type="button" class="btn btn-secondary" style="background-color: transparent; border: none; color: inherit; font-size: 14px" onclick='location.href="/safari/community/question/replyQuestionContentPage/${map.questionDto.id}"' value="답변하기"/>
+				  </c:if>
+			</div>
+			</div>
+			<%--수정/삭제/목록 --%>
+			
+			<hr>
+					
+				
+				
+				
+				
 				</div>
 			</div>
 			
@@ -208,12 +237,11 @@
 			</div>
 			</div>
 			</div>
-				   	
-		 
-			<!-- 내용 끝 -->
+			</div>
+			<!-- 내용 공간 -->
+			
 			
 			<div class="col">
-			
 			</div>
 			
 

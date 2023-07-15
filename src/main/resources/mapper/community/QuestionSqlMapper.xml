@@ -39,7 +39,29 @@
 	
 	<!-- 궁금해요 게시물 전체 select -->
 	<select id="selectAllQuestionBoards" resultType="com.ja.safari.dto.QuestionDto" >
-	select * from question_table order by id desc
+	select qt2.* from(
+    		select qt1.*, rownum rnum from(
+	    		select qt.*
+				from question_table qt 
+				inner join user_table ut on qt.user_id = ut.id
+				where 1=1
+				<if test="question_searchType != null and question_searchWord != null">
+					<choose>
+						<when test="question_searchType == 'title'">
+						and qt.title like '%' || #{question_searchWord} || '%'
+						</when>
+						<when test="question_searchType == 'content'">
+						and qt.content like '%' || #{question_searchWord} || '%'
+						</when>
+						<when test="question_searchType == 'nickname'">
+						and ut.nickname like '%' || #{question_searchWord} || '%'
+						</when>
+					</choose>
+				</if>
+				order by qt.id desc
+    		
+        	) qt1
+     	)qt2
 	</select>
 	
 	<!-- 궁금해요 게시물 update -->
@@ -131,5 +153,27 @@
     	set status = '채택 완료'
      		 where id = #{id}
 	</update>
+	
+	<!-- 궁금해요 게시물 이미지 등록 -->
+	<insert id="insertQuestionBoardImage">
+	  insert into question_img_table values(
+	  	question_img_table_seq.nextval,
+	    #{question_id},
+	    #{question_img_link},
+	    #{question_original_filename}
+	  )
+	</insert>
+	
+	<!-- 궁금해요 게시물 이미지 상세 조회 -->
+	<select id="selectQuestionBoardImageByQuestionId" resultType="com.ja.safari.dto.QuestionImgDto">
+	select * from question_img_table
+	where question_id = #{questionId}
+	
+	
+	</select>
+	
+	
+	
+	
 	
 </mapper>

@@ -97,7 +97,7 @@
 							
 							
 							<div class="row mt-2">
-								<div class="col fw-medium overflow" style="width: 200px;">
+								<div class="col fw-bold overflow" style="width: 200px; font-size:17px;">
 									<a href="/safari/auction/productDetail/${wish.id}">
 									   ${wish.title}</a>
 								</div>
@@ -105,19 +105,34 @@
 							
 							
 							
-							<div class="row">
-								<div class="col text-secondary">
-									현재가&nbsp;<span class="text-danger fw-bold" id="currentPrice_${wish.id}"></span>
+							<div class="row mt-1">
+								<div class="col-auto text-secondary">
+									현재가 <span style="font-size: 18px;"
+									 class="text-danger fw-bold ms-1" id="currentPrice_${wish.id}"></span>
 								</div>
+								<div class="col" style="position: relative; right:20px;">
+									<span id="auctionStatus_${wish.id}"> </span>
+								</div>
+								
 							</div>
+							
+							<div class="row">
+								<div class="col fw-medium">
+									즉시낙찰가
+									<span class="ms-2">
+						 				<fmt:formatNumber value="${wish.max_price}" pattern="#,###"/>원
+						 			</span> 
+								</div>
+							</div>	
 							
 							<div class="row mt-1 mb-0">
 								<div class="col">
-									<p id="remainTime_${wish.id}" class="mb-1">
+									<p id="remainTime_${wish.id}" class="mb-1"
+									style="font-size:17px;">
 									 </p>
 								</div>
 							</div>
-							<p><span id="auctionStatus_${wish.id}"> </span></p>
+							
 														
 							
 							

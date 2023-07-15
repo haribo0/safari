@@ -27,6 +27,11 @@
     font-size: 15px;
   }
   
+   .orangeButton{
+	background: #ff6f0f;
+	font-weight: bold;
+	color: white;
+}
 </style>
 
 </head>
@@ -85,7 +90,7 @@
 				  		
 				  		<div class="fs-6 text-start mt-4 fw-medium">결제 금액</div>
 				  		<div class="fs-4 fw-light text-start mt-1 fw-bold" id="amount"
-				  		style="color:#6f42c1;">
+				  		>
 				  		<fmt:formatNumber value="${map.auctionPayment.amount}" pattern="#,###"/>원
 				  		
 				  		</div>				  		
@@ -93,7 +98,7 @@
 						<div class="row mt-3">
 				  			<div class="d-grid">
 				  				
-				  				<a class="btn btn-dark" href="/safari/auction/successBidList" >확인</a>
+				  				<a class="btn orangeButton" href="/safari/auction/successBidList" >확인</a>
 				  			</div>
 				  		</div>	  		
 				  		

@@ -9,13 +9,13 @@
 	</div>
 </c:if>
 
-<div class="container">
-	<header class="p-3">
-	    <div class="container">
+<div class="container px-0">
+	<header class="py-3">
+	    <div class="container px-0">
 	      <!-- <div class="d-flex flex-wrap align-items-center justify-content-around justify-content-lg-start"> -->
 	      <div class="d-flex flex-wrap justify-content-lg-between align-items-center">
 	      	<div class="d-flex align-items-center">
-	      		<h1 class="me-5"><a href="${pageContext.request.contextPath}/main/mainPage" class="btn">
+	      		<h1 class="me-5"><a href="${pageContext.request.contextPath}/main/mainPage" class="btn px-0">
 	      		<img src="/safari/resources/img/logo0.png" width="100px">
 	      		</a></h1>
 	      		
@@ -27,11 +27,15 @@
 	      	<div class="d-flex flex-wrap">
 
 		        
-		        <ul class="nav justify-content-center mx-3">
+		        <ul class="nav justify-content-center mx-3"  style="font-size: 16px;">
 		          <li class="me-4"><a href="${pageContext.request.contextPath}/used/mainPage" class="nav-link px-2 link-body-emphasis">중고</a></li>
 		          <li class="me-4"><a href="${pageContext.request.contextPath}/rental/mainPage" class="nav-link px-2 link-body-emphasis">대여</a></li>
 		          <li class="me-4"><a href="${pageContext.request.contextPath}/auction/mainPage" class="nav-link px-2 link-body-emphasis">경매</a></li>
 		          <li class="me-3"><a href="${pageContext.request.contextPath}/community/mainPage" class="nav-link px-2 link-body-emphasis">커뮤니티</a></li>
+		          <c:if test="${!empty sessionUser}">
+		          <li class="me-3"><a href="${pageContext.request.contextPath}/user/myPage" class="nav-link px-2 link-body-emphasis">마이페이지</a></li>
+		          <li class="me-3"><a href="${pageContext.request.contextPath}/user/userLogoutProcess" class="nav-link px-2 link-body-emphasis">로그아웃</a></li>
+		          </c:if>	
 		        </ul>
 		
 		         <c:choose>
