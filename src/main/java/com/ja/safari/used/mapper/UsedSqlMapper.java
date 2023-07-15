@@ -146,7 +146,8 @@ public interface UsedSqlMapper {
 	public List<ProductDto> selectFreePriceList();
 	// 메인에서 전체리스트 -8개 
 	public List<ProductDto> selectAllProductListByEight();
-	
+	// 상세페이지에서 연관상품 5개 
+	public List<ProductDto> selectRelatedProductByFive(@Param("id")Integer id, @Param("subId")Integer subId);
 	
 	
 	
