@@ -66,25 +66,56 @@ select option[value=""][disabled] {
 					<p class="mb-4 bg-light p-3 fs-6">대여 주문 확인서</p>				
 				</div>
 				<div class="row">
-					<div class="col-2">
-						<img alt="" src="/safariImg/${data.rentalItemDto.main_img_link}" class="rounded-1" style="width: 140px;">							
+					<p class="fs-5 text-body-secondary pb-2 border-bottom" style="font-weight: 600"><i class="bi bi-archive"></i> 상품 정보</p>					
+				</div>
+				<div class="row mt-2" >
+					<div class="row">
+						<div class="col-2">
+							<img alt="" src="/safariImg/${data.rentalItemDto.main_img_link}" class="rounded-1" style="width: 140px;">							
+						</div>
+						<div class="col">
+							<p class="fs-5">${data.rentalItemDto.title}</p>
+							<p>${data.rentalItemDto.item_description}</p>
+							<p>기본 대여비 <span class="fw-bold"><fmt:formatNumber value="${data.rentalItemDto.price }" pattern="#,##0" /></span>원 </p>
+						</div>
 					</div>
-					<div class="col">
-						<p class="fs-5">${data.rentalItemDto.title}</p>
-						<p class="">${data.rentalItemDto.item_description}</p>
-						<p class="">레이아웃 고민중...</p>
+					
+					<div class="row mt-4 py-2">
+						<div class="col">
+							<table class="table table-bordered">
+							  <thead>
+							    <tr>
+							    	<c:forEach items="${data.rentalPeriodDiscDtoList}" var="periodItem">
+								      <td class="text-center bg-body-tertiary" scope="col">${periodItem.rental_period }개월</td>
+							    	</c:forEach>
+							    </tr>
+							  </thead>
+							  <tbody>
+							    <tr>
+							      	<c:forEach items="${data.rentalPeriodDiscDtoList}" var="periodItem">
+								      <td class="text-center fw-bold" scope="col"><fmt:formatNumber value="${periodItem.discounted_price }" pattern="#,##0" />원</td>
+							    	</c:forEach>
+							    </tr>
+							  </tbody>
+							</table>
+						</div>
 					</div>
+
 				</div>
 				</div>
 			</div>
 			
-			<hr/>
+
 			
-			<div class="row mt-5 pb-3">
+			
+			<div class="row mt-5">
+				<p class="fs-5 text-body-secondary pb-2 border-bottom" style="font-weight: 600"><i class="bi bi-file-earmark-text"></i> 계약 정보</p>
+			</div>
+			<div class="row pb-3 mt-2">
 				<div class="col">
 					<div class="row">
 						<div class="col-2">
-							<p class="me-5">시작일: </p>
+							<p class="me-5">시작일 </p>
 						</div>
 						<div class="col">
 							<input type="date" class="form-control" id="calendar_start" name="start_date" style="height: 40px; width: 32%;" required/>
@@ -93,12 +124,12 @@ select option[value=""][disabled] {
 					
 					<div class="row mt-4">
 						<div class="col-2">
-							<p class="me-5">대여기간: </p>
+							<p class="me-5">대여기간 </p>
 						</div>
 						<div class="col">
 							<div class="slidecontainer">
 								<input type="range" value="12" class="slider optionPeriod" id="myRange">
-								<p><span id="monthly"></span>개월 (대여 월 설정하는 ui고민중)</p>
+								<p><span id="monthly"></span>개월</p>
 							</div>
 						</div>
 						<div class="col">
@@ -108,7 +139,7 @@ select option[value=""][disabled] {
 					
 					<div class="row mt-4">
 						<div class="col-2">
-							<p class="me-5">배송지: </p>
+							<p class="me-5">배송지 </p>
 						</div>
 						<div class="col">
 							<div class="row">
@@ -116,7 +147,10 @@ select option[value=""][disabled] {
 								</div>							
 							</div>
 							<div class="row mt-3 ps-3">
-								<input type="text"  id="usr_address" name="prd_address" placeholder="주소입력" class="form-control w-50"/>							
+								<div class="col">
+									<input type="text" id="usr_address" name="prd_address" placeholder="주소입력" class="form-control w-50" onclick="searchAddr()"/>
+									<input type="text" id="sub-address" placeholder="상세주소" class="form-control w-25 mt-1"/>								
+								</div>
 							</div>
 							<div class="row ps-3 mt-2">
 								<div class="col d-flex px-0">
@@ -129,16 +163,15 @@ select option[value=""][disabled] {
 				</div>
 			</div>
 			
-			<hr/>
-			
 			<div class="row mt-5">
+				<p class="fs-5 text-body-secondary pb-2 border-bottom" style="font-weight: 600"><i class="bi bi-wallet2"></i> 결제 정보</p>
+			</div>
+			<div class="row">
 				<div class="col">
 					<div class="row">
-						<p class="fs-5"><span id="desc_price"></span>원 / <small>월</small></p>					
+						<p class="fs-5"><span id="desc_price"></span>원 / <small>월</small></p>				
 				
-						<p class="fs-5">기본가격: <span class="fw-bold"><fmt:formatNumber value="${data.rentalItemDto.price }" pattern="#,##0" /></span>원 </p>					
-				
-						<p class="fs-5">보증금: <span class="fw-bold"><fmt:formatNumber value="${data.rentalItemDto.deposit }" pattern="#,##0" /></span>원</p>		
+						<p class="fs-5">보증금 <span class="fw-bold"><fmt:formatNumber value="${data.rentalItemDto.deposit }" pattern="#,##0" /></span>원</p>		
 					</div>
 					
 					<div class="row">
@@ -506,7 +539,9 @@ select option[value=""][disabled] {
 			if(periodValue >= ${list.rental_period} ){
 				console.log(${list.discounted_price})
 				let descPrice = document.querySelector("#desc_price")
-				descPrice.innerText = ${list.discounted_price}
+				let calcPrice = ${list.discounted_price}
+				console.log(calcPrice.toLocaleString('ko-KR'))
+				descPrice.innerText = calcPrice.toLocaleString('ko-KR')
 				hiddenPrice.value =${list.discounted_price}
 			}
 			</c:forEach>
@@ -515,8 +550,9 @@ select option[value=""][disabled] {
 
 	// 배송지 주소 추가
 	function addMyAddr() {
-		let inputAddr = document.querySelector("#usr_address");
-		let usrAddress = inputAddr.value.trim();
+        let subAddr = document.querySelector('#sub-address').value
+		let inputAddr = document.querySelector("#usr_address").value + ' ' + subAddr;
+		let usrAddress = inputAddr.trim();
 
 		if(!usrAddress) return;
 		
@@ -530,6 +566,7 @@ select option[value=""][disabled] {
 				getMyaddressList()
 				console.log(response.result)
 				usrAddress = ''
+				subAddr = ''
 			}
 		}
 		

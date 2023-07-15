@@ -127,6 +127,12 @@ public interface RentalSqlMapper {
 	// 대여 반납 신청pk
 	public int getRentalOrderReturnPk();
 
+	// 서브 카테고리 가져오기
+	public RentalSubCategoryDto selectSubCatName(int id);
+
+	// 메인 카테고리 이름 가져오기
+	public String selectMainCatName(int main_category_id);
+
 
 
 

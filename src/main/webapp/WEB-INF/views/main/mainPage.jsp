@@ -23,48 +23,51 @@
 	<!-- 헤더 섹션 -->
 
 	<div class="container bg-light">
-		<div id="carouselExampleCaptions" class="carousel slide">
-		  <div class="carousel-indicators">
-		    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-		    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
-		    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
-		    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="3" aria-label="Slide 4"></button>
-		  </div>
-		  <div class="carousel-inner">
-		    <div class="carousel-item cr-1 active">
-		      <div class="carousel-caption d-none d-md-block">
-		        <h5>중고</h5>
-		        <p>이웃들과 함께 저탄소 운동을 해요!</p>
-		      </div>
-		    </div>
-		    <div class="carousel-item crs-2">
-		      <div class="carousel-caption d-none d-md-block">
-		        <h5>대여</h5>
-		        <p>값비싼 물건 손 쉽게 대여하세요!</p>
-		      </div>
-		    </div>
-		    <div class="carousel-item crs-3">
-		      <div class="carousel-caption d-none d-md-block">
-		        <h5>경매</h5>
-		        <p>평소 가지고 싶었던 물건 꼭 get하세요!</p>
-		      </div>
-		    </div>
-		   	<div class="carousel-item crs-4">
-		      <div class="carousel-caption d-none d-md-block">
-		        <h5>커뮤니티</h5>
-		        <p>즐겁게 정보를 공유해요!</p>
-		      </div>
-		    </div>
-		  </div>
-		  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
-		    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-		    <span class="visually-hidden">Previous</span>
-		  </button>
-		  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
-		    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-		    <span class="visually-hidden">Next</span>
-		  </button>
+		<div class="row">
+			<div id="carouselExampleCaptions" class="carousel slide">
+			  <div class="carousel-indicators">
+			    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+			    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
+			    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
+			    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="3" aria-label="Slide 4"></button>
+			  </div>
+			  <div class="carousel-inner">
+			    <div class="carousel-item crs-1 active">
+			      <div class="carousel-caption d-none d-md-block">
+			        <h5>중고</h5>
+			        <p>이웃들과 함께 저탄소 운동을 해요!</p>
+			      </div>
+			    </div>
+			    <div class="carousel-item crs-2">
+			      <div class="carousel-caption d-none d-md-block">
+			        <h5>대여</h5>
+			        <p>값비싼 물건 손 쉽게 대여하세요!</p>
+			      </div>
+			    </div>
+			    <div class="carousel-item crs-3">
+			      <div class="carousel-caption d-none d-md-block">
+			        <h5>경매</h5>
+			        <p>평소 가지고 싶었던 물건 꼭 get하세요!</p>
+			      </div>
+			    </div>
+			   	<div class="carousel-item crs-4">
+			      <div class="carousel-caption d-none d-md-block">
+			        <h5>커뮤니티</h5>
+			        <p>즐겁게 정보를 공유해요!</p>
+			      </div>
+			    </div>
+			  </div>
+			  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+			    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+			    <span class="visually-hidden">Previous</span>
+			  </button>
+			  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+			    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+			    <span class="visually-hidden">Next</span>
+			  </button>
+			</div>
 		</div>
+		
 	</div>
 	
 	<div class="container mt-5 pt-5 pb-3">

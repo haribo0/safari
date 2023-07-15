@@ -82,33 +82,48 @@
 			</div>
 			
 			<div class="row">
-				<p class="me-5">${sessionUser.nickname }님이 대여한 리스트: </p>
-				<p>최근순으로 정렬예정, 상태확인 가능한 ui 넣기 </p>
-				<ul class="list-group myOrderedList d-flex flex-column-reverse">
-				<c:forEach items="${rentalOrderDtoList}" var="data">
-					<li class="list-group-item py-3">
-						<div class="d-flex justify-content-between">
-							<div>
-								<h1></h1>
-								<h5>${data.product.title }</h5>
-								<p>시작일: <fmt:formatDate pattern="yyyy-MM-dd" value="${data.orderedItem.start_date }" /></p>
-								<p>반납예정일: <fmt:formatDate pattern="yyyy-MM-dd" value="${data.orderedItem.end_date }" /></p>
-								<p>배송지:${data.orderedItem.address} </p>
-								<p class="mb-0">배송여부: ${data.orderedItem.is_shipped}</p>
+				<p>최근순으로 정렬예정, 상태확인 가능한 ui 넣기, 안쪽 레이아웃 고민 해보기 '찜' 은 카드형식으로</p>
+				<ul class="list-group myOrderedList">
+					<c:forEach items="${rentalOrderDtoList}" var="data">
+						<li class="list-group-item pt-2 pb-4 my-2 border-0 border-bottom">
+							<div class="row">
+								<div class="col">
+									<p class="fw-bold mb-2">${data.product.title }</p>
+									<p><span>시작 | <fmt:formatDate pattern="yyyy-MM-dd" value="${data.orderedItem.start_date }" /></span> <span class="ms-2">종료 | <fmt:formatDate pattern="yyyy-MM-dd" value="${data.orderedItem.end_date }" /></span></p>
+									<p class="mb-0">배송여부: ${data.orderedItem.is_shipped}</p>
+								</div>
+								
+								<div class="col d-flex align-items-center">
+									<p>주문완료</p>
+<!-- 												if (rentalItemReturnDto!=null) {
+													if(rentalItemReturnDto.getIs_completed()=="Y") {
+															status = "정산완료";
+													} else if (rentalItemReturnDto.getIs_item_returned().equals("Y")) {
+														status = "회수완료";
+													} else {
+														status = "반납신청";
+													}
+												} else {
+													// 시작일 이후면
+													if(rentalOrderDto.getStart_date().compareTo(currentDate) < 0 ) status = "대여중";
+													// 다 아니면 
+													else status = "주문완료";
+												}
+												map.put -->
+								</div>
+								
+								<div class="col-3">
+									<c:if test="${data.orderedItem.is_shipped == 'Y'}">
+										<button type="button" class="btn btn-primary" data-product-title="${data.product.title}" data-order-id="${data.orderedItem.id}" data-original-price="${data.orderedItem.original_price}" data-rego-price="${data.orderedItem.price }" data-enddate="${data.orderedItem.end_date }" data-deposit="${data.orderedItem.deposit}" data-bs-toggle="modal" data-bs-target="#modalReturn">대여반납신청</button>
+									</c:if>
+									<c:if test="${data.isCompleted == 'Y'}">
+										<button type="button" class="btn btn-success my-2" data-order-id="${data.orderedItem.id}" data-bs-toggle="modal" data-bs-target="#modalReview"> 대여리뷰작성</button>																
+									</c:if>
+								</div>	
 							</div>
 							
-							<div class="d-flex flex-column">
-								<c:if test="${data.orderedItem.is_shipped == 'Y'}">
-									<button type="button" class="btn btn-primary" data-product-title="${data.product.title}" data-order-id="${data.orderedItem.id}" data-original-price="${data.orderedItem.original_price}" data-rego-price="${data.orderedItem.price }" data-enddate="${data.orderedItem.end_date }" data-deposit="${data.orderedItem.deposit}" data-bs-toggle="modal" data-bs-target="#modalReturn">대여반납신청</button>
-								</c:if>
-								${data.isCompleted}
-								<c:if test="${data.isCompleted == 'Y'}">
-									<button type="button" class="btn btn-success my-2" data-order-id="${data.orderedItem.id}" data-bs-toggle="modal" data-bs-target="#modalReview"> 대여리뷰작성</button>																
-								</c:if>
-							</div>	
-						</div>
-					</li>
-				</c:forEach>
+						</li>
+					</c:forEach>
 				</ul>
 			</div>
 		</div>
