@@ -10,6 +10,8 @@ import org.springframework.stereotype.Service;
 
 import com.ja.safari.community.mapper.PromotionReviewCommentMapper;
 import com.ja.safari.dto.PromotionReviewCommentDto;
+import com.ja.safari.dto.PromotionReviewDto;
+import com.ja.safari.dto.PromotionReviewImgDto;
 import com.ja.safari.dto.UserDto;
 import com.ja.safari.user.mapper.UserSqlMapper;
 
@@ -53,10 +55,35 @@ public class PromotionReviewCommentServiceImpl {
 	// 댓글 작성
 	public void writePromotionReivewComment(PromotionReviewCommentDto promotionReviewCommentDto) {
 		
-		System.out.println("댓글작성 service");
 		
 		promotionReviewCommentMapper.insertPromotionReviewComment(promotionReviewCommentDto);
 		
 		
 	}
+	
+	// 게시글에서 댓글 삭제
+	public void deletePromotionReviewComment(Integer id) {
+		
+
+		System.out.println("댓글서비스 : " + id);
+		
+		promotionReviewCommentMapper.deletePromotionReviewComment(id);
+	}
+	
+	// 댓글 id 조회
+	public PromotionReviewCommentDto selectPromoCommentById(int id) {
+		
+		return promotionReviewCommentMapper.selectPromoCommentById(id);
+	}
+	
+	// 댓글 수정
+	public void updatePromoComment(PromotionReviewCommentDto promotionReviewCommentDto) {
+		
+		promotionReviewCommentMapper.updatePromoComment(promotionReviewCommentDto);
+		
+		
+	}
+	
+	
+	
 }

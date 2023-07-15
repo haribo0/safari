@@ -105,23 +105,12 @@ public class PromotionReviewServiceImpl {
 		
 		Map<String, Object> map = new HashMap<>();
 		
-		
 		PromotionReviewDto promotionReviewDto = promotionReviewMapper.selectByPromoReviewId(id);
-		
-		
+
 		UserDto userDto = userSqlMapper.selectUserDtoById(promotionReviewDto.getUser_id());
-		
-		
-		List<PromotionReviewImgDto> promotionReviewImgDtoList = promotionReviewMapper.selectByPromoReviewImgId(id);
-		
-		
-		// List 나오는지 확인용 출력(상세페이지로 넘어갈 때)
-		for(PromotionReviewImgDto p : promotionReviewImgDtoList) {
 			
-			System.out.println(p.getPromotion_review_id());
-		}
-		
-		
+		List<PromotionReviewImgDto> promotionReviewImgDtoList = promotionReviewMapper.selectByPromoReviewImgId(id);
+			
 		map.put("userDto", userDto);
 		map.put("promotionReviewDto", promotionReviewDto);
 		map.put("promotionReviewImgDtoList", promotionReviewImgDtoList);
@@ -137,7 +126,6 @@ public class PromotionReviewServiceImpl {
 	// 프로모션 리뷰 게시물 수정
 	public void updatePromotionReview(PromotionReviewDto promotionReviewDto, List<PromotionReviewImgDto> promotionReviewImgDtoList) {
 		
-
 		promotionReviewMapper.updatePromotionReview(promotionReviewDto);
 		
 		promotionReviewMapper.deletePromotionReviewImg(promotionReviewDto.getId());
@@ -148,7 +136,6 @@ public class PromotionReviewServiceImpl {
 			promotionReviewMapper.insertPromotionReviewImg(promotionReviewImgDto);
 			
 		}
-		
 		
 	}
 	

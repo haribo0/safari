@@ -87,13 +87,13 @@
 					<div class="row mt-2">
 						<div class="col">
 							<table class="table align-middle">
-								<thead class="table-secondary">
+								<thead class="table-light">
 									<tr class="text-center">
-										<th>상품정보</th>
-										<th>낙찰자</th>
-										<th>낙찰가</th>
-										<th>경매종료일</th>
-										<th>상태</th>
+										<td>상품정보</td>
+										<td>낙찰자</td>
+										<td>낙찰가</td>
+										<td>경매종료일</td>
+										<td>상태</td>
 									</tr>
 								</thead>
 							<tbody>

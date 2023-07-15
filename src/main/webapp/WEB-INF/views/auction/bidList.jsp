@@ -30,9 +30,10 @@
   overflow: hidden; /* 넘친 텍스트를 숨김 */
   text-overflow: ellipsis; /* 넘친 텍스트를 "..."으로 표시 */
 }      
-.btn-sm {
+.btn_delivered{padding:4px 12px; background: #e9ecef; border:none; color: black; border-radius:8px; font-size: 14px;}
+.btn_canceled{padding:4px 12px; background: #e6edfe; border:none; color: #789efd; border-radius:8px; font-size: 14px;}
+.btn_ordered{padding:4px 12px; background: #dff5ea; border:none; color: #6db590; border-radius:8px; font-size: 14px;}
 
-} 
 </style>
 </head>
 <body>
@@ -113,8 +114,8 @@
 						
 						<div class="row mt-1">
 							<div class="col-auto text-secondary">
-								현재가<span class="text-danger fw-bold opacity-75 ms-2" 
-											id="currentPrice_${bidItem.id}" style="font-size: 17px;"></span>
+								현재가<span class="text-danger fw-bold opacity-75 ms-2 fs-5" 
+											id="currentPrice_${bidItem.id}"></span>
 							</div>
 							<div class="col">
 								<span id="auctionStatus_${bidItem.id}"
@@ -124,7 +125,7 @@
 						</div>
 						
 						<div class="row">
-							<div class="col fw-medium">
+							<div class="col" style="font-size: 13px;">
 								즉시낙찰가
 								<span class="ms-2">
 					 				<fmt:formatNumber value="${bidItem.max_price}" pattern="#,###"/>원
@@ -132,15 +133,15 @@
 							</div>
 						</div>	
 						
-						<div class="row mt-1">
-							<div class="col" style="font-size: 14px;">
+						<div class="row mt-1" >
+							<div class="col" style="font-size: 13px;">
 								경매시작일 : <fmt:formatDate value="${bidItem.start_date}"  pattern="yyyy. MM. dd. a hh:mm"  />
 							</div>
 							
 						</div>		
 						
 						<div class="row">
-							<div class="col" style="font-size: 14px;" id="auctionEndDate_${bidItem.id}">
+							<div class="col" style="font-size: 13px;" id="auctionEndDate_${bidItem.id}">
 								
 							</div>
 							
@@ -300,15 +301,16 @@ function updateAuctionCountDown(id) {
       
       const statusButton = document.createElement("button");
       statusButton.classList.add("btn");
-      statusButton.classList.add("btn-sm");
-      statusButton.classList.add("fw-bold");
-      statusButton.classList.add("disabled");
+      
+      //statusButton.classList.add("fw-bold");
+      
       if (auctionEndDate <= nowDate || response.auctionItem.auctionDto.auction_status == '종료') {  
-    	  statusButton.classList.add("btn-outline-secondary");
+    	
+    	  statusButton.classList.add("btn_delivered", "fw-light");
           statusButton.innerText = "경매 종료";
     	  
       } else if (auctionStartDate <= nowDate) {
-    	  statusButton.classList.add("btn-outline-success");
+    	  statusButton.classList.add("btn_ordered", "fw-bold");
           statusButton.innerText = "진행중";
           
         /*   const statusLiveSpan = document.getElementById("statusLiveSpan_" + id);
@@ -320,7 +322,7 @@ function updateAuctionCountDown(id) {
           
           
       } else {
-      	 statusButton.classList.add("btn-outline-primary");
+      	 statusButton.classList.add("btn_canceled", "fw-bold");
       	 statusButton.innerText = "준비중";
       }
       

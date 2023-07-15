@@ -138,7 +138,7 @@
 		    	<span class="mt-0"><button type="button" class="btn btn-outline-secondary btn-sm mb-1 ms-2" disabled>거래완료</button></span>
 		    	</c:if>
 		   	</div>
-		   	<div class="col text-end my-auto">
+		   	<div class="col-2 text-end my-auto">
 				<i id="heartBox" onclick="toggleLike()" class="fs-3 bi bi-heart"></i>
 			</div>
     	</div>
@@ -151,9 +151,9 @@
 			</c:when>
 			<c:otherwise>
 				        <div class="fw-bold mb-1 fs-4 col"><fmt:formatNumber value="${map.productDto.price}" pattern="#,##0원" /></div>
-				        <div class="col-2 text-secondary text-end my-auto category" id="uploadTime"></div>
 			</c:otherwise>
 		</c:choose>
+			<div class="col text-secondary text-end my-auto category" id="uploadTime"></div>
 		</div>
 		<div class="row mt-3">
 			<div class="col gray-line"></div>

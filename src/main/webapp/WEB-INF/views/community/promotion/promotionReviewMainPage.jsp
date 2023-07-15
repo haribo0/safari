@@ -336,7 +336,7 @@ window.addEventListener("DOMContentLoaded", function(){
 										     	<span class="comment-count">[${map.countPromotionReviewComment}]</span>
 										    </h5>
 									  	  </div>
-									  	  <!--  공감버튼. 내가 누른 하트 유무  밥 먹고와서 하세요-->
+									  	  <!-- 공감버튼 -->
 									  	  <div class = "col-1 text-end">
 									  		<c:choose>
 									  			<c:when test="${!empty sessionUser && (map.realCheck != 0)}">

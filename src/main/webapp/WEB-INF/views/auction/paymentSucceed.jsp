@@ -90,7 +90,7 @@
 				  		
 				  		<div class="fs-6 text-start mt-4 fw-medium">결제 금액</div>
 				  		<div class="fs-4 fw-light text-start mt-1 fw-bold" id="amount"
-				  		style="color:#ff6f0f;">
+				  		>
 				  		<fmt:formatNumber value="${map.auctionPayment.amount}" pattern="#,###"/>원
 				  		
 				  		</div>				  		

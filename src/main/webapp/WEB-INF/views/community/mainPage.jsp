@@ -23,7 +23,7 @@
 	
 	<!--  body -->
 	<div class = "container main_box">
-	<div class = "row mt-3">
+	<div class = "row mt-5">
 		<div class = "col">
 			커뮤니티 메인 페이지 내용
 		</div>
