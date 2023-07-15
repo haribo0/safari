@@ -15,6 +15,7 @@ import com.ja.safari.dto.AuctionPurchaseConfirmedDto;
 import com.ja.safari.dto.ProductMainCategoryDto;
 import com.ja.safari.dto.ProductSubCategoryDto;
 import com.ja.safari.dto.UserCoinDto;
+import com.ja.safari.dto.UserDto;
 
 public interface AuctionSqlMapper {
 	
@@ -174,6 +175,10 @@ public interface AuctionSqlMapper {
 	// 마이페이지 - 내가 입찰한 기록 조회
 	public List<AuctionItemDto> getMyBidList(int userBuyerId);
 	
+	// 마이페이지 - 낙찰된 경매 하나하나 결제하기 위해 주문 창 조회
+	public AuctionBidDto getOrderPageBySuccessBidPk(AuctionBidDto auctionBidDto);
+	
+	
 	// 마이페이지 - 낙찰 기록 조회
 	public List<AuctionBidDto> getMySueecssfulBidList(int userBuyerId);
 	
@@ -191,6 +196,12 @@ public interface AuctionSqlMapper {
 	
 	// 경매 낙찰 후 결제하여 코인 차감
 	public void reduceUserCoinByAuction(UserCoinDto userCoinDto);
+	
+	// 결제 시 경매 판매자 정보 조회
+	public UserDto getUserSellerInfoByAuctionPay(int partnerOrderId);
+	
+	// 구매자가 경매 낙찰 후 결제하면 판매자는 코인 획득
+	public void increaseUserCoinByAuction(UserCoinDto userCoinDto);
 	
 	
 	//  결제 정보 삭제 (테스트 데이터 삭제 위함 !! 사실 절대 사용하면 안됨)

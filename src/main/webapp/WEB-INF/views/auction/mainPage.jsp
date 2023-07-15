@@ -149,7 +149,7 @@ function getCurrentPrice(auctionItemId) {
 function updateCurrentPrice(auctionItemId, currentPrice) {
   const currentPriceElement = document.getElementById("currentPrice_" + auctionItemId);
   	if (currentPriceElement) {
-  		 currentPriceElement.textContent =  new Intl.NumberFormat('ko-KR').format(currentPrice) + "원";
+  		 currentPriceElement.textContent =  new Intl.NumberFormat('ko-KR').format(currentPrice);
   }
 }
 
@@ -388,7 +388,7 @@ function reloadAuctionList(mainCategoryId, subCategoryId) {
 	                priceRow.classList.add("row", "mt-1");
 	                
 	                const priceCol = document.createElement("div");
-	                priceCol.classList.add("col-auto", "text-secondary");
+	                priceCol.classList.add("col-auto");
 	                
 	                priceCol.innerText = "현재가 ";
 	                
@@ -396,18 +396,24 @@ function reloadAuctionList(mainCategoryId, subCategoryId) {
 		            nowSpan.classList.add("text-danger", "opacity-90", "fw-bold", "fs-5", "ms-1");
 		            nowSpan.id = "currentPrice_" + data.auctionDto.id;
 		            
+		            const wonSpan = document.createElement("span");
+		            wonSpan.classList.add("ms-1");
+		            wonSpan.innerText = "원";
+		            
 		            const buttonCol = document.createElement("div");
-		            buttonCol.classList.add("col");
-
+		            buttonCol.classList.add("col", "px-1");
+		
 		            
 		            const statusButton = document.createElement("span");
+		            
 		            statusButton.style.position = "relative";
-		            statusButton.style.right = "8px";
+		            statusButton.style.right = "10px";
 		            statusButton.id = "auctionStatus_" + data.auctionDto.id;
 		            
 		            buttonCol.appendChild(statusButton);
 		            
 		            priceCol.appendChild(nowSpan);
+		            priceCol.appendChild(wonSpan);
 		            priceRow.appendChild(priceCol);
 		            priceRow.appendChild(buttonCol);
 		            
@@ -650,14 +656,16 @@ window.addEventListener("DOMContentLoaded", function(){
 	<!-- 헤더 섹션 -->
 
 	<div class="container main_box">
-		<h1 class="text-center fs-3"></h1>
+		<h1 class="text-center fs-3">
+			<img class="img-fluid" src="/safari/resources/img/auction/auctionBanner.jpg">
+		</h1>
 		
-	<div class="row mt-5">
+	<div class="row mt-3">
 		<jsp:include page="./sidemenu.jsp"></jsp:include>
 	
 	<%-- 메인 페이지 시작 --%>
 
-	<div class="col-10 justify-content-center ps-5">
+	<div class="col-10 justify-content-end ps-5 px-0 pe-2" >
 	
 	
 	

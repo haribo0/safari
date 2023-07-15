@@ -20,7 +20,11 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
 <style>
-
+.orangeButton{
+	background: #ff6f0f;
+	font-weight: bold;
+	color: white;
+}
 </style>
 
 </head>
@@ -66,11 +70,14 @@
 						</div>
 					</div>		
 					
+					
 					<div class="row mt-4 mb-2">
 						<div class="col fw-bold fs-5">
 						    내가 낙찰한 경매 목록
 						</div>
-					</div>										
+					</div>	
+					
+										
 						
 				<div class="row mt-3 ms-1">
 					<div class="col">
@@ -206,8 +213,233 @@
 	<!-- 푸터 섹션 -->
 	
 
+<div class="modal" id="payOrderModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-centered"> 
+    <div class="modal-content">
+      <div class="modal-header bg-light">
+     	 <div class="row mb-0">
+      			<div class="col ms-4 fs-5 fw-bold">주문/결제</div>
+      		</div>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div> 
+      <div class="modal-body">
+      	
+      	
+      	<div class="row">
+      		<div class="col"></div>
+      		<div class="col-11">
+      		
+      			<div class="row">
+      				<div class="col">
+      				
+      				
+      					<div class="row">
+      					
+      						<div class="col">
+      						
+      							<div class="row">
+		      						<div class="col fw-medium fs-5 px-0">
+		      							배송지 정보
+		      						</div>
+	      						</div>
+	      						
+	      						<div class="row mt-3 me-3">
+	      							<div class="col px-0">
+	      								<table class="table">
+	      									<tr>
+	      										<td class="table-light align-middle text-center" style="width: 150px;"> 배송지선택 </td>
+	      										<td>
+	      											<div class="row mt-1 ms-2">
+	      												<div class="col">
+	      													
+	      													<input class="form-check-input me-2" type="radio" id="radioStatus" name="radioStatus" value="">
+																  <label class="form-check-label me-4" for="radioStatus">
+																    	기존 배송지
+																  </label>	
+																  
+	      													<input class="form-check-input me-2" type="radio" id="radioStatus" name="radioStatus" value="">
+																  <label class="form-check-label me-4" for="radioStatus">
+																    	신규 배송지
+																  </label>																	  
+	      													
+	      												</div>
+	      											</div>
+	      											
+	      											<div class="row mt-2 ms-2">
+	      												<div class="col-4">
+	      													<select class="form-select" aria-label="Default select example">
+															  <option selected>배송지</option>
+															  <option value="1">One</option>
+															  <option value="2">Two</option>
+															  <option value="3">Three</option>
+															</select>
+	      												</div>
+	      											</div>
+	      											
+	      											
+	      										</td>
+	      									</tr>
+	      									
+	      									<tr>
+	      										<td class="table-light align-middle text-center" style="width: 150px;"> 배송지명 </td>
+	      										<td>
+	      											<div class="row mt-1 ms-2">
+	      												<div class="col">
+	      													집
+	      												</div>
+	      											</div>
+	      										</td>
+	      									</tr>
+	      									
+	      									<tr>
+	      										<td class="table-light align-middle text-center" style="width: 150px;"> 연락처 </td>
+	      										<td>
+	      											<div class="row mt-1">
+	      												<div class="col-auto">
+	      													<span class="text-danger">• </span>
+	      												</div>
+	      												<div class="col px-0">
+	      													 <input type="text" class="form-control" oninput="oninputPhone(this)" maxlength="14" id="phone"
+				                     						style="width: 200px; height: 30px;">
+	      												</div>
+	      											</div>
+	      										</td>
+	      									</tr>
+	      									
+	      									<tr>
+	      										<td class="table-light align-middle text-center" style="width: 150px;"> 주소 </td>
+	      										<td>
+	      										<div class="row">
+	      												<div class="col-auto">
+	      													<span class="text-danger mt-1">• </span>
+	      												</div>
+			      										<div class="col px-0">
+			      											<div class="row mt-1">
+									       						<div class="col-auto">
+									       							<input type="text" class="form-control" id="postcode" style="width: 150px; height: 30px;">
+									       						</div>
+									       						<div class="col px-0">
+									       							<input type="button" class="btn btn-sm btn-outline-success" value="우편번호 찾기"
+									       							onclick="daumPost()" > 
+									       						</div>
+									       					</div>
+									       					
+									       					<div class="row mt-2">
+									       						<div class="col">
+									       							<input type="text" id="address" class="form-control" style= "height: 50px;">
+									       						</div>
+									       					</div>
+									       					
+									       					<div class="row mt-2">
+									       						<div class="col">
+									       							<input type="text" id="detail_address" class="form-control" style="height: 30px;">
+									       						</div>
+									       					</div>
+									       				  </div>
+								       					</div>
+	      										
+	      										</td>
+	      									</tr>
+	      									
+	      									
+	      								</table>
+	      							</div>
+	      						</div>
+	      						
+	      						<div class="row mt-1">
+	      							<div class="col-7">
+			      						<div class="row mt-1">
+			      							<div class="col fw-medium fs-5">
+			      								주문 상품 정보
+			      							</div>
+			      						</div>
+		      						
+			      						<div class="row mt-1">
+			      							<div class="col">
+			      								상품 이미지랑 구매가
+			      							</div>
+			      						</div>
+			      						
+	      						</div>
+	      						
+	      						<div class="col">
+	      						
+	      							<div class="row mt-1">
+		      							<div class="col fw-medium fs-5 px-0">
+		      								최종 결제 정보
+		      							</div>
+		      						</div>
+		      						
+		      						<div class="row mt-1">
+		      							<div class="col border border-1" style="border-color: black;" >
+		      								
+		      								<div class="row p-2">
+		      									<div class="col">
+		      										
+	      											<div class="row">
+	      												<div class="col">
+	      													총 상품 금액
+	      												</div>
+	      											</div>
+		      										
+		      										
+		      									</div>
+		      									<div class="col text-end">
+		      										
+		      										<div class="row">
+		      											<div class="col fw-bold">
+		      												30000원
+		      											</div>
+		      										</div>
+		      									
+		      									</div>
+		      								
+		      								</div>
+		      								
+		      								
+		      								
+		      							</div>
+		      						</div>
+	      						
+	      						</div>
+	      						
+	      						</div>
+      						</div>
+      					
+      					
+      					</div>
+      				
+    	
+      				</div>
+      			</div>
+      		
+      		</div>
+      		<div class="col"></div>
+      	
+      	</div>
+      	
+      	
+      
+      <div class="modal-footer">
+      	<input type="button" class="btn orangeButton" value="결제하기" onclick="addUserAddress()">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">창닫기</button>
+      </div>      
+   
+    </div>
+  </div>
+</div>
+</div>
+
+
 
 <script>
+//전화번호 형식 변경 함수
+function oninputPhone(target) {
+    target.value = target.value
+        .replace(/[^0-9]/g, '')
+        .replace(/(^02.{0}|^01.{1}|[0-9]{3,4})([0-9]{3,4})([0-9]{4})/g, "$1-$2-$3");
+}
+
 
 
 //새 창 띄우기 
@@ -344,12 +576,16 @@ function getMySuccessfulBidPayAndDeliveryStatusList() {
 	    		  payButton.type = "button";
 	    		  payButton.classList.add("btn", "btn-sm", "btn-dark", "opacity-50");
 	    		  payButton.value = "결제하기";
+	    		  
+	    		  payButton.onclick = function() {
+	    			  location.href = "/safari/auction/getOrderPage?id=" + data.id;
+	    			};
 	   
-	    		  payButton.onclick = function (id) {
+	    		 /*  payButton.onclick = function (id) {
     	                return function () {
     	                	kakaoPayModal(id);
     	                };
-    	              }(data.auction_item_id);
+    	              }(data.auction_item_id); */
     	          
     	          col.appendChild(payButton);
     	          

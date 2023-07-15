@@ -645,7 +645,7 @@ public class RestAuctionController {
 	// 카카오페이 결제 후 정보 저장
 	@RequestMapping("saveAuctionPaymentInfo")
 	public  Map<String, Object> saveAuctionPaymentInfo(HttpSession session, AuctionKakaoPayApproveDto auctionKakaoPayApproveDto,
-																								UserCoinDto userCoinDto) {
+																								UserCoinDto buyerCoinDto, UserCoinDto sellerCoinDto) {
 		
 		Map<String, Object> map = new HashMap<String, Object>();
 		
@@ -658,15 +658,20 @@ public class RestAuctionController {
 		
 		auctionService.saveAuctionKakaoPayInfo(auctionKakaoPayApproveDto);
 		
-		System.out.println(auctionKakaoPayApproveDto.getPartner_user_id());
-		System.out.println(auctionKakaoPayApproveDto.getAmount());
+		buyerCoinDto.setUser_id(auctionKakaoPayApproveDto.getPartner_user_id());
+		buyerCoinDto.setCoin_transaction(auctionKakaoPayApproveDto.getAmount());
 		
-		userCoinDto.setUser_id(auctionKakaoPayApproveDto.getPartner_user_id());
-
-		userCoinDto.setCoin_transaction(auctionKakaoPayApproveDto.getAmount());
+		// 구매자 코인 차감
+		auctionService.reduceUserCoinByAuction(buyerCoinDto);
 		
-		// 코인 차감
-		auctionService.reduceUserCoinByAuction(userCoinDto);
+		// 판매자 코인 획득
+		UserDto sellerDto = auctionService.getUserSellerInfoByAuctionPay(auctionKakaoPayApproveDto.getPartner_order_id());
+		
+		sellerCoinDto.setUser_id(sellerDto.getId());
+		sellerCoinDto.setCoin_transaction(auctionKakaoPayApproveDto.getAmount());
+		
+		auctionService.increaseUserCoinByAuction(sellerCoinDto);
+		
 		
 		map.put("result", "success");
 		
@@ -808,7 +813,7 @@ public class RestAuctionController {
 		
 		return map;
 	}
-	
+
 	
 	
 }

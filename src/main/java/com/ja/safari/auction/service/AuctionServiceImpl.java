@@ -527,6 +527,13 @@ public class AuctionServiceImpl {
 		return auctionSqlMapper.getMyBidList(userBuyerId);
 	}
 	
+	// 마이페이지 - 낙찰된 경매 하나하나 결제하기 위해 주문 창 조회
+	public AuctionBidDto getOrderPageBySuccessBidPk(AuctionBidDto auctionBidDto) {
+		
+		return auctionSqlMapper.getOrderPageBySuccessBidPk(auctionBidDto);
+	}
+	
+	
 	// 마이페이지 - 낙찰 기록 조회
 	public List<AuctionBidDto> getMySueecssfulBidList(int userBuyerId) {
 		
@@ -598,6 +605,15 @@ public class AuctionServiceImpl {
 		auctionSqlMapper.reduceUserCoinByAuction(userCoinDto);
 	}
 	
+	// 결제 시 경매 판매자 정보 조회
+	public UserDto getUserSellerInfoByAuctionPay(int partnerOrderId) {
+		return auctionSqlMapper.getUserSellerInfoByAuctionPay(partnerOrderId);
+	}
+	
+	// 구매자가 경매 낙찰 후 결제하면 판매자는 코인 획득
+	public void increaseUserCoinByAuction(UserCoinDto userCoinDto) {
+		auctionSqlMapper.increaseUserCoinByAuction(userCoinDto);
+	}
 	
 	// 경매 업로더의 입장에서 종료된 경매 리스트 상태 조회
 	public List<AuctionBidDto> getEndedAuctionlist(int userSellerId) {

@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.ja.safari.auction.service.AuctionServiceImpl;
+import com.ja.safari.dto.AuctionBidDto;
 import com.ja.safari.dto.AuctionKakaoPayApproveDto;
 import com.ja.safari.dto.ProductMainCategoryDto;
 import com.ja.safari.dto.ProductSubCategoryDto;
@@ -106,6 +107,27 @@ public class AuctionController {
 		model.addAttribute("successBidList", auctionService.getMySueecssfulBidList(sessionUser.getId()));
 		
 		return "auction/successBidList";
+	}
+	
+	// 마이페이지 - 결제 창 
+	@RequestMapping("getOrderPage")
+	public String getOrderPage(HttpSession session, Model model, int id, AuctionBidDto auctionBidDto) {
+		
+		UserDto sessionUser = (UserDto) session.getAttribute("sessionUser");
+		
+		if(sessionUser == null) {
+			return "redirect:/user/loginPage";
+		}
+		
+		auctionBidDto.setUser_buyer_id(sessionUser.getId());
+		auctionBidDto.setId(id);
+		
+		model.addAttribute("orderInfo", auctionService.getOrderPageBySuccessBidPk(auctionBidDto));
+		
+		
+		
+		
+		return "auction/getOrderPage";
 	}
 	
 	// 마이페이지 - 찜 목록 조회

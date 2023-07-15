@@ -76,7 +76,7 @@
 						전체
 					</div>
 					<div class="col-auto" id="chargeCoinHistory" style="cursor: pointer; font-size: 18px;">
-						충전
+						적립
 					</div>
 					<div class="col-auto" id="usageCoinHistory" style="cursor: pointer; font-size: 18px;">
 						사용

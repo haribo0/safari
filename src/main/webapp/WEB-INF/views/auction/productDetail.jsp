@@ -81,7 +81,7 @@ input[type="radio"] + label {
 	display: inline-block;
 	padding: 10px;
 	background: white;
-	width: 250px;
+	width: 230px;
 	border: 0.4px solid #E2E3E5;
 	color: black;
 	font-weight: bold;
@@ -500,7 +500,7 @@ style="position: absolute; transform: translateX(70%);right: 50%;">
       
 		<div class="row">
 			<%-- 상품 화면 시작 --%>
-			<div class="col ms-2 mt-3 mb-3 me-2">	
+			<div class="col ms-4 mt-3 mb-3 ">	
 				<div class="row">
 				
 					<%--상품 이미지 --%>
@@ -557,63 +557,63 @@ style="position: absolute; transform: translateX(70%);right: 50%;">
 		<%--탭바 --%>   
 		<%-- 탭 바 시작 --%>	
 		<div class="row mt-3">
-		
-			<div class="col text-center nav-pills nav-fill">
-			<ul class="nav nav-tabs" id="myTab" role="tablist">
-				<li class="nav-item" role="presentation">
-					<button class="nav-link active text-dark fw-bold" id="auctioninfo-tab" data-bs-toggle="tab"
-						data-bs-target="#auctioninfo" type="button" role="tab" aria-controls="auctioninfo"
-						aria-selected="true">상품정보</button>
-				</li>	
-				<li class="nav-item" role="presentation">
-					<button class="nav-link text-dark fw-bold" id="review-tab" data-bs-toggle="tab"
-						data-bs-target="#review" type="button" role="tab"
-						aria-controls="review" aria-selected="false">구매후기</button>
-				</li>
-				<li class="nav-item" role="presentation">
-					<button class="nav-link text-dark fw-bold" id="question-tab" data-bs-toggle="tab"
-						data-bs-target="#question" type="button" role="tab"
-						aria-controls="question" aria-selected="false">상품문의</button>
-				</li>
-			</ul>	
+			
+				<div class="col text-center nav-pills nav-fill">
+					<ul class="nav nav-tabs" id="myTab" role="tablist">
+						<li class="nav-item" role="presentation">
+							<button class="ms-5 nav-link active text-dark fw-bold" id="auctioninfo-tab" data-bs-toggle="tab"
+								data-bs-target="#auctioninfo" type="button" role="tab" aria-controls="auctioninfo"
+								aria-selected="true">상품정보</button>
+						</li>	
+						<li class="nav-item" role="presentation">
+							<button class="nav-link text-dark fw-bold" id="review-tab" data-bs-toggle="tab"
+								data-bs-target="#review" type="button" role="tab"
+								aria-controls="review" aria-selected="false">입금/배송정보</button>
+						</li>
+						<li class="nav-item" role="presentation">
+							<button class="nav-link text-dark fw-bold" id="question-tab" data-bs-toggle="tab"
+								data-bs-target="#question" type="button" role="tab"
+								aria-controls="question" aria-selected="false">상품문의</button>
+						</li>
+					</ul>	
 			
 				<%-- 내용 --%>
-			<div class="tab-content" id="myTabContent">
-				<div class="tab-pane fade show active" id="auctioninfo" role="tabpanel"
-					aria-labelledby="auctioninfo-tab">
-					<div class="row mt-4">
+				<div class="tab-content" id="myTabContent">
+					<div class="tab-pane fade show active" id="auctioninfo" role="tabpanel"
+						aria-labelledby="auctioninfo-tab">
+						<div class="row mt-4">
+							<div class="col"></div>
+							<%--이미지 --%>
+							<div class="col-10">
+								<div id="carouselExampleFade" class="carousel slide carousel-fade" data-bs-ride="carousel">
+	  								<div class="carousel-inner">
+	  									<c:forEach items="${productDetail.auctionImgDtoList}" var="auctionImgDto">
+										   <div class="carousel-item active">
+										      <img  width="300" height="600"
+										      src="/auctionFiles/${auctionImgDto.auction_item_img_link}" class="d-block w-100 mt-2" alt="...">
+										    </div>  								
+										</c:forEach>							
+									</div>	
+									 <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="prev">
+									    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+									    <span class="visually-hidden">Previous</span>
+									  </button>
+									  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="next">
+									    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+									    <span class="visually-hidden">Next</span>
+									  </button>								
+								</div>					
+							</div>
+							<%--이미지 --%>
 						<div class="col"></div>
-						<%--이미지 --%>
-						<div class="col-10">
-							<div id="carouselExampleFade" class="carousel slide carousel-fade" data-bs-ride="carousel">
-  								<div class="carousel-inner">
-  									<c:forEach items="${productDetail.auctionImgDtoList}" var="auctionImgDto">
-									   <div class="carousel-item active">
-									      <img  width="300" height="800"
-									      src="/auctionFiles/${auctionImgDto.auction_item_img_link}" class="d-block w-100 mt-2" alt="...">
-									    </div>  								
-									</c:forEach>							
-								</div>	
-								 <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="prev">
-								    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-								    <span class="visually-hidden">Previous</span>
-								  </button>
-								  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="next">
-								    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-								    <span class="visually-hidden">Next</span>
-								  </button>								
-							</div>					
-						</div>
-						<%--이미지 --%>
-					<div class="col"></div>
-				</div>
+					</div>
 					
 					
-				<div class="tab-pane fade" id="review" role="tabpanel"
-					aria-labelledby="review-tab">내리뷰리스트 탭</div>
-				<div class="tab-pane fade" id="question" role="tabpanel"
-					aria-labelledby="question-tab">위시리스트 탭</div>
-			</div>		
+					<div class="tab-pane fade" id="review" role="tabpanel"
+						aria-labelledby="review-tab">내리뷰리스트 탭</div>
+					<div class="tab-pane fade" id="question" role="tabpanel"
+						aria-labelledby="question-tab">위시리스트 탭</div>
+				</div>		
 					
 			
 			
@@ -621,6 +621,7 @@ style="position: absolute; transform: translateX(70%);right: 50%;">
 			<%-- 탭 내용 끝 --%>
 		
 		</div>	
+		
 	
 		<%-- 탭 바 끝 --%>
 
@@ -1291,9 +1292,9 @@ function forbidInputBidBoxByMaxBider() {
    		 button.innerHTML = "";
    		 
          const statusText = document.createElement("span");
-         statusText.innerText = "최고 입찰자";
+         statusText.innerText = "회원님은 현재 최고 입찰자입니다.";
 
-         const awardSpan = document.createElement("span");
+        /*  const awardSpan = document.createElement("span");
          awardSpan.classList.add("award-container");
 
          const awardIcon1 = document.createElement("i");
@@ -1309,12 +1310,13 @@ function forbidInputBidBoxByMaxBider() {
          awardSpan.appendChild(document.createTextNode(" ")); // 공백 추가
          awardSpan.appendChild(document.createTextNode(" ")); // 공백 추가
          awardSpan.appendChild(awardIcon2);
+ */
 
          currentStatusBox.style.backgroundColor = "#fcdf03";
          //currentStatusBox.style.animation = "blink 2s infinite";
 
    		 
-   		 currentStatusBox.appendChild(awardSpan);
+   		  currentStatusBox.appendChild(statusText);
    		 
    		 
    		 //button.classList.add("disabled");  (나중에 수정)
@@ -1376,9 +1378,9 @@ function renewInputBidBoxIng() {
 	   button.innerHTML = "";
 	   
        const statusText = document.createElement("span");
-       statusText.innerText = "낙찰에 도전하세요";
+       statusText.innerText = "낙찰에 도전하여 갖고 싶은 상품을 받아가세요";
 
-       const trySpan = document.createElement("span");
+      /*  const trySpan = document.createElement("span");
        trySpan.classList.add("award-container", "placeholder-glow");
 
        const tryIcon1 = document.createElement("i");
@@ -1396,13 +1398,13 @@ function renewInputBidBoxIng() {
        trySpan.appendChild(statusText);
        trySpan.appendChild(document.createTextNode(" ")); // 공백 추가
        trySpan.appendChild(document.createTextNode(" ")); // 공백 추가
-       trySpan.appendChild(tryIcon2);
+       trySpan.appendChild(tryIcon2); */
 
        currentStatusBox.style.backgroundColor = "#d4f542";
        //currentStatusBox.style.animation = "blink 2s infinite";
 
  		 
- 	   currentStatusBox.appendChild(trySpan);	   
+ 	   currentStatusBox.appendChild(statusText);	   
 	   
 	   inputBidBox.placeholder = "현재가보다 낮은 가격으로 입찰하실 수 없습니다.";
 	   button.classList.remove('disabled');
@@ -2130,6 +2132,10 @@ function reloadBidList() {
             	nicknameCol.classList.add("col", "text-center");
             	
             	nicknameCol.innerText =  data.userDto.nickname;
+            	
+            	if (sessionId == data.userDto.id) {
+            		nicknameCol.style.color = "#ff6f0f";
+            	}
             	
             	const bidPrice = data.auctionBidDto.bid_price; 
             	const formattedbidPrice = new Intl.NumberFormat('ko-KR').format(bidPrice);
