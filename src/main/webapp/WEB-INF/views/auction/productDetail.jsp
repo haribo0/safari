@@ -1843,6 +1843,23 @@ function reloadInquiryList() {
             const response = JSON.parse(xhr.responseText);
             
             inquiryList.innerHTML = "";
+            
+            console.log(response.qnaList);
+            if(!response.qnaList || response.qnaList.length == 0) {
+            	const borderRow = document.createElement("div");
+            	borderRow.classList.add("row", "border-bottom", "py-2");
+            	
+            	
+            	const borderCol = document.createElement("div");
+            	borderCol.classList.add("col", "text-center");
+            	
+            	borderCol.innerText = "등록된 문의가 없습니다.";
+            	borderRow.appendChild(borderCol);
+            	
+            	inquiryList.appendChild(borderRow);
+            	
+            }
+            else {
             for(data of response.qnaList) {
             	
             	const borderRow = document.createElement("div");
@@ -1932,13 +1949,12 @@ function reloadInquiryList() {
 			        };
 			    })(data.inquiryId);
 
-            	 	
-	            const replyButton = document.createElement("input");
+                
+       
+	            const replyButton = document.createElement("i");
 	            if (sessionId == sellerId && !data.replyId) {
-				    replyButton.type = "button";
-				    replyButton.classList.add("btn", "btn_canceled", "ms-2");
-				    replyButton.value = "답변하기";
-				    
+	            	replyButton.classList.add("bi", "bi-pencil-square", "ms-2");
+	            	replyButton.style.cursor = "pointer";
 				    replyButton.onclick = (function(inquiryId) {
 				        return function() {
 
@@ -2142,6 +2158,7 @@ function reloadInquiryList() {
    
             	
             }
+        }
             
             
         }
@@ -3386,15 +3403,10 @@ window.addEventListener("DOMContentLoaded", function(){
     showInputBidBox();
     showAuctionInfo();
    
-    //setInterval(getTop3BidList, 100);
-    
     setInterval(getAuctionEndTimeInRealTime, 20);
-    
     
     showAuctionStatusTitle();
     refreshTotalLikeCount();
-    
-    
 
     setInterval(reloadBidList, 100);
  
@@ -3403,17 +3415,10 @@ window.addEventListener("DOMContentLoaded", function(){
     setInterval(getCurrentPrice, 100);
  
     setInterval(getBidCount, 100);
-   
 
     showInputBidBox();  
     
     setInterval(reloadChatList,100);
-    
-    
-	
-    
-
- 
 });
 
 
