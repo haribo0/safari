@@ -14,6 +14,11 @@
 .item-box-img, .item-box-img-ad{transition: 0.3s ease;}	
 .item-box-img:hover{transform: scale(1.05);}
 .item-box-img-ad:hover{transform: scale(1.02);}
+
+.carousel-item{height: 240px;}
+.carousel-item-1{background: url("${pageContext.request.contextPath}/resources/img/rental/rental-banner-2.jpg") 50% 50% no-repeat;}
+.carousel-item-2{background: url("${pageContext.request.contextPath}/resources/img/rental/rental-banner-1.jpg") 50% 50% no-repeat;}
+
 </style>
 </head>
 <body>
@@ -32,7 +37,7 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-2 mt-4">
-				<ul class="list-group sticky-top">
+				<ul class="list-group sticky-top" style="top: 115.23px; z-index: 50;">
 				  <li class="list-group-item border border-0 ps-0 pt-2 pb-0"><a href="${pageContext.request.contextPath}/rental/mainPage" class="btn ps-0 text fw-bold py-1" href="#" style="font-size: 17px;">전체보기</a></li>
 				  <c:forEach items="${categoryList}" var="map" varStatus="status">
 					  <li class="list-group-item border border-0 ps-0 pb-0 pt-3"><a href="${pageContext.request.contextPath}/rental/mainPage/?main_category_id=${map.categoryItem.id}" class="btn text fw-bold ps-0 py-1" style="font-size: 17px;">${map.categoryItem.main_category_name}</a></li>			  
@@ -48,63 +53,84 @@
 			</div>
 			
 			<div class="col mt-4 px-4">
-			
-			<div class="row border-bottom pb-2">
-				<p class="mb-0 mt-3 text-body-tertiary text-end">파워광고상품 <small>로드 로직 정리중</small></p>	
-			</div>
-			<!-- 광고 대여 물품 row 작업중 -->
-			<div class="row flex-wrap justify-content-between py-2 my-2">
- 				<c:forEach items="${rentalItemList}" var="map">
-					<div class="col-2" style="cursor: pointer;">
-						<div class="card border border-0">
-							<a href="${pageContext.request.contextPath}/rental/productDescPage?id=${map.rentalItemDto.id}" class="text-decoration-none d-inline-block">
-							  <img src="/safariImg/${map.rentalItemDto.main_img_link}" class="card-img-top object-fit-cover item-box-img-ad" alt="..." style="min-height: 200px;" >
-							</a>
-						  <div class="card-body p-0 mt-2">
-						  	<div class="d-flex justify-content-between">
-						    	<p class="text-dark mb-0"><a href="${pageContext.request.contextPath}/rental/productDescPage?id=${map.rentalItemDto.id}" class="text-decoration-none d-inline-block text-dark fw-bold" style="font-size: 16px;">${map.rentalItemDto.title}</a></p>
-						  	</div>
-						    <p class="mb-0"><a href="${pageContext.request.contextPath}/rental/productDescPage?id=${map.rentalItemDto.id}" class="w-100 text-decoration-none d-inline-block text-body-secondary" style="overflow:hidden; text-overflow:ellipsis; white-space:nowrap; font-size: 14px;">${map.rentalItemDto.item_description}</a></p>
-						    <div class="d-flex justify-content-between">
-							    <p><b class="text-dark"><a href="${pageContext.request.contextPath}/rental/productDescPage?id=${map.rentalItemDto.id}" class="text-decoration-none d-inline-block text-dark" style="font-size: 14px;"><fmt:formatNumber value="${map.rentalItemDto.price}" pattern="#,##0" /> 원 </a></b><span style="font-size: 13px;">/ 월</span></p>
-						  		<p class="mb-0"><span class="fw-bold" id="totalLikeCount"></span><i id="heartBox" onclick="toggleLike(${map.rentalItemDto.id})" class="bi bi-heart heart_box text-danger" data-item-id="${map.rentalItemDto.id}" style="font-size: 18px;"></i></p>						    
+				<div class="row">
+					<div class="col">
+						<div id="carouselExample" class="carousel slide">
+						  <div class="carousel-inner">
+						    <div class="carousel-item active carousel-item carousel-item-1">
+						    </div>
+						    <div class="carousel-item carousel-item carousel-item-2">
 						    </div>
 						  </div>
-						 </div>
+						  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+						    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+						    <span class="visually-hidden">Previous</span>
+						  </button>
+						  <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+						    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+						    <span class="visually-hidden">Next</span>
+						  </button>
+						</div>
 					</div>
-				</c:forEach>
-			</div>
-			<!-- 광고 대여 물품 row 작업중 -->
-			
-			<div class="row justify-content-end py-2 border-bottom">
-				<div class="col-3 d-flex justify-content-end align-items-center">
-					<span class="p-2 mx-3 fw-bold" style="cursor: pointer;">찜</span> |
-					<span class="p-2 mx-3" style="cursor: pointer;">리뷰</span> |
-					<span class="p-2 ms-3" style="cursor: pointer;">구매</span>
 				</div>
-			</div>
-			
-			<div class="row flex-wrap pt-2 mt-3">
- 				<c:forEach items="${rentalItemList}" var="map">
-					<div class="col-3 item-box mt-4" style="cursor: pointer;">
-						<div class="card border border-0">
-							<a href="${pageContext.request.contextPath}/rental/productDescPage?id=${map.rentalItemDto.id}" class="text-decoration-none d-inline-block">
-							  <img src="/safariImg/${map.rentalItemDto.main_img_link}" class="card-img-top object-fit-cover item-box-img" alt="..." style="min-height: 260px;" >
-							</a>
-						  <div class="card-body p-0 pt-2">
-						  	<div class="d-flex justify-content-between">
-						    	<p class="text-dark mb-0"><a href="${pageContext.request.contextPath}/rental/productDescPage?id=${map.rentalItemDto.id}" class="text-decoration-none d-inline-block text-dark fw-bold" style="font-size: 20px;">${map.rentalItemDto.title}</a></p>
-						  	</div>
-						    <p class="mb-1"><a href="${pageContext.request.contextPath}/rental/productDescPage?id=${map.rentalItemDto.id}" class="w-100 text-decoration-none d-inline-block text-body-secondary" style="overflow:hidden; text-overflow:ellipsis; white-space:nowrap; font-size: 15px;">${map.rentalItemDto.item_description}</a></p>
-						    <div class="d-flex  justify-content-between">
-							    <p><b class="text-dark"><a href="${pageContext.request.contextPath}/rental/productDescPage?id=${map.rentalItemDto.id}" class="text-decoration-none d-inline-block text-dark"><fmt:formatNumber value="${map.rentalItemDto.price}" pattern="#,##0" /> 원 </a></b><span style="font-size: 13px;">/ 월</span></p>
-						  		<p class="mb-0"><span class="fw-bold" id="totalLikeCount"></span><i id="heartBox" onclick="toggleLike(${map.rentalItemDto.id})" class="bi bi-heart heart_box text-danger" data-item-id="${map.rentalItemDto.id}" style="font-size: 18px;"></i></p>
-						    </div>
-						  </div>
-						 </div>
+				
+				<div class="row border-bottom pb-2">
+					<p class="mb-0 mt-3 text-body-tertiary text-end">파워광고상품</p>	
+				</div>
+				
+				<!-- 광고 대여 물품 row 작업중 -->
+				<div class="row flex-wrap justify-content-between py-2 my-2">
+	 				<c:forEach items="${rentalItemList}" var="map">
+						<div class="col-2" style="cursor: pointer;">
+							<div class="card border border-0">
+								<a href="${pageContext.request.contextPath}/rental/productDescPage?id=${map.rentalItemDto.id}" class="text-decoration-none d-inline-block">
+								  <img src="/safariImg/${map.rentalItemDto.main_img_link}" class="card-img-top object-fit-cover item-box-img-ad" alt="..." style="min-height: 200px;" >
+								</a>
+							  <div class="card-body p-0 mt-2">
+							  	<div class="d-flex justify-content-between">
+							    	<p class="text-dark mb-0"><a href="${pageContext.request.contextPath}/rental/productDescPage?id=${map.rentalItemDto.id}" class="text-decoration-none d-inline-block text-dark fw-bold" style="font-size: 16px;">${map.rentalItemDto.title}</a></p>
+							  	</div>
+							    <p class="mb-0"><a href="${pageContext.request.contextPath}/rental/productDescPage?id=${map.rentalItemDto.id}" class="w-100 text-decoration-none d-inline-block text-body-secondary" style="overflow:hidden; text-overflow:ellipsis; white-space:nowrap; font-size: 14px;">${map.rentalItemDto.item_description}</a></p>
+							    <div class="d-flex justify-content-between">
+								    <p><b class="text-dark"><a href="${pageContext.request.contextPath}/rental/productDescPage?id=${map.rentalItemDto.id}" class="text-decoration-none d-inline-block text-dark" style="font-size: 14px;"><fmt:formatNumber value="${map.rentalItemDto.price}" pattern="#,##0" /> 원 </a></b><span style="font-size: 13px;">/ 월</span></p>
+							  		<p class="mb-0"><span class="fw-bold" id="totalLikeCount"></span><i id="heartBox" onclick="toggleLike(${map.rentalItemDto.id})" class="bi bi-heart heart_box text-danger" data-item-id="${map.rentalItemDto.id}" style="font-size: 18px;"></i></p>						    
+							    </div>
+							  </div>
+							 </div>
+						</div>
+					</c:forEach>
+				</div>
+				<!-- 광고 대여 물품 row 작업중 -->
+				
+				<div class="row justify-content-end py-2 border-bottom">
+					<div class="col-3 d-flex justify-content-end align-items-center">
+						<span class="p-2 mx-3 fw-bold" style="cursor: pointer;">찜</span> |
+						<span class="p-2 mx-3" style="cursor: pointer;">리뷰</span> |
+						<span class="p-2 ms-3" style="cursor: pointer;">구매</span>
 					</div>
-				</c:forEach>
-			</div>
+				</div>
+				
+				<div class="row flex-wrap pt-2 mt-3">
+	 				<c:forEach items="${rentalItemList}" var="map">
+						<div class="col-3 item-box mt-4" style="cursor: pointer;">
+							<div class="card border border-0">
+								<a href="${pageContext.request.contextPath}/rental/productDescPage?id=${map.rentalItemDto.id}" class="text-decoration-none d-inline-block">
+								  <img src="/safariImg/${map.rentalItemDto.main_img_link}" class="card-img-top object-fit-cover item-box-img" alt="..." style="min-height: 260px;" >
+								</a>
+							  <div class="card-body p-0 pt-2">
+							  	<div class="d-flex justify-content-between">
+							    	<p class="text-dark mb-0"><a href="${pageContext.request.contextPath}/rental/productDescPage?id=${map.rentalItemDto.id}" class="text-decoration-none d-inline-block text-dark fw-bold" style="font-size: 20px;">${map.rentalItemDto.title}</a></p>
+							  	</div>
+							    <p class="mb-1"><a href="${pageContext.request.contextPath}/rental/productDescPage?id=${map.rentalItemDto.id}" class="w-100 text-decoration-none d-inline-block text-body-secondary" style="overflow:hidden; text-overflow:ellipsis; white-space:nowrap; font-size: 15px;">${map.rentalItemDto.item_description}</a></p>
+							    <div class="d-flex  justify-content-between">
+								    <p><b class="text-dark"><a href="${pageContext.request.contextPath}/rental/productDescPage?id=${map.rentalItemDto.id}" class="text-decoration-none d-inline-block text-dark"><fmt:formatNumber value="${map.rentalItemDto.price}" pattern="#,##0" /> 원 </a></b><span style="font-size: 13px;">/ 월</span></p>
+							  		<p class="mb-0"><span class="fw-bold" id="totalLikeCount"></span><i id="heartBox" onclick="toggleLike(${map.rentalItemDto.id})" class="bi bi-heart heart_box text-danger" data-item-id="${map.rentalItemDto.id}" style="font-size: 18px;"></i></p>
+							    </div>
+							  </div>
+							 </div>
+						</div>
+					</c:forEach>
+				</div>
 			
 			</div>
 		</div>

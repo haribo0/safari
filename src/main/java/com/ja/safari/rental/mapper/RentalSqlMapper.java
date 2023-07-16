@@ -2,6 +2,7 @@ package com.ja.safari.rental.mapper;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
 
@@ -132,6 +133,13 @@ public interface RentalSqlMapper {
 
 	// 메인 카테고리 이름 가져오기
 	public String selectMainCatName(int main_category_id);
+
+	// 대여 반납 아이템 가져오기
+	public RentalItemReturnDto selectRentalItemRetrunById(int id);
+
+	// 대여 찜 리스트 가져오기
+	public List<RentalItemLikeDto> selectRentalItemLikeAll(int id);
+
 
 
 

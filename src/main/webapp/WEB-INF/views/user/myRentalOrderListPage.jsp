@@ -10,6 +10,10 @@
 <!-- 메타 섹션 -->
 <jsp:include page="../common/meta.jsp"></jsp:include>
 <!-- 메타 섹션 -->
+<style>
+.btn-ordered{padding: 4px 12px; background:#dff5ea; color:#6db590; border-radius: 8px; font-size:14px; font-weight: bold;}
+.btn-shipping{padding: 4px 12px; background:#dfebf5; color:#689cdd; border-radius: 8px; font-size:14px; font-weight: bold;}
+</style>
 </head>
 <body>
 <!-- 반납 모달 -->
@@ -82,43 +86,72 @@
 			</div>
 			
 			<div class="row">
-				<p>최근순으로 정렬예정, 상태확인 가능한 ui 넣기, 안쪽 레이아웃 고민 해보기 '찜' 은 카드형식으로</p>
 				<ul class="list-group myOrderedList">
+					<c:if test="${rentalOrderDtoList.size() == 0}">
+						<h3 class="text-center mt-5">주문한 대여 상품이 없습니다!</h3>
+					</c:if>
 					<c:forEach items="${rentalOrderDtoList}" var="data">
 						<li class="list-group-item pt-2 pb-4 my-2 border-0 border-bottom">
 							<div class="row">
+								<div class="col-2">
+									<img alt="" src="/safariImg/${data.product.main_img_link}" class="rounded-1" style="width: 140px;">
+								</div>
 								<div class="col">
-									<p class="fw-bold mb-2">${data.product.title }</p>
+									<p class="fw-bold mb-2 fs-5">${data.product.title }</p>
 									<p><span>시작 | <fmt:formatDate pattern="yyyy-MM-dd" value="${data.orderedItem.start_date }" /></span> <span class="ms-2">종료 | <fmt:formatDate pattern="yyyy-MM-dd" value="${data.orderedItem.end_date }" /></span></p>
-									<p class="mb-0">배송여부: ${data.orderedItem.is_shipped}</p>
+									<p><fmt:formatNumber value="${data.orderedItem.price }" pattern="#,##0" />원 <small>/월</small></p>
 								</div>
 								
-								<div class="col d-flex align-items-center">
-									<p>주문완료</p>
-<!-- 												if (rentalItemReturnDto!=null) {
-													if(rentalItemReturnDto.getIs_completed()=="Y") {
-															status = "정산완료";
-													} else if (rentalItemReturnDto.getIs_item_returned().equals("Y")) {
-														status = "회수완료";
-													} else {
-														status = "반납신청";
-													}
-												} else {
-													// 시작일 이후면
-													if(rentalOrderDto.getStart_date().compareTo(currentDate) < 0 ) status = "대여중";
-													// 다 아니면 
-													else status = "주문완료";
-												}
-												map.put -->
+								<div class="col-2 d-flex align-items-center justify-content-center">
+									<c:choose>
+										<c:when test="${data.isCompleted == 'Y'}">
+											<button type="button" class="btn btn-secondary" disabled="disabled">대여종료</button>				
+									    </c:when>
+									    
+										<c:when test="${data.isCompleted != 'Y'}">
+											<c:choose>
+												<c:when test="${data.orderedItem.is_shipped == 'N' }">
+													<p class="btn-shipping mb-0">주문완료</p>										
+												</c:when>
+												<c:when test="${data.orderedItem.is_shipped == 'Y'}">
+													<p class="btn-ordered mb-0">대여중</p>
+												</c:when>
+												<c:when test="${data.rentalItemReturnDto.is_item_returned == 'N'}">
+													<p class="btn-ordered mb-0">회수중</p>
+												</c:when>
+											</c:choose>
+										</c:when>
+									    
+									</c:choose>
 								</div>
 								
-								<div class="col-3">
-									<c:if test="${data.orderedItem.is_shipped == 'Y'}">
-										<button type="button" class="btn btn-primary" data-product-title="${data.product.title}" data-order-id="${data.orderedItem.id}" data-original-price="${data.orderedItem.original_price}" data-rego-price="${data.orderedItem.price }" data-enddate="${data.orderedItem.end_date }" data-deposit="${data.orderedItem.deposit}" data-bs-toggle="modal" data-bs-target="#modalReturn">대여반납신청</button>
-									</c:if>
-									<c:if test="${data.isCompleted == 'Y'}">
-										<button type="button" class="btn btn-success my-2" data-order-id="${data.orderedItem.id}" data-bs-toggle="modal" data-bs-target="#modalReview"> 대여리뷰작성</button>																
-									</c:if>
+								<div class="col-3 d-flex justify-content-center align-items-center">
+									<c:choose>
+									    <c:when test="${data.isCompleted == 'Y'}">
+									        <button type="button" class="btn btn-outline-dark my-2" data-order-id="${data.orderedItem.id}" data-bs-toggle="modal" data-bs-target="#modalReview">대여리뷰작성</button>																				
+									    </c:when>
+									    <c:when test="${data.isCompleted != 'Y'}">
+									        <c:choose>
+									            <c:when test="${data.orderedItem.is_shipped != 'Y'}">
+									                <button type="button" class="btn btn-outline-secondary" disabled>배송중</button>
+									            </c:when>
+									            <c:otherwise>
+									            	<c:choose>
+									            		<c:when test="${data.rentalItemReturnDto.is_item_returned != 'Y'}">
+											                <button type="button" class="btn btn-primary" data-product-title="${data.product.title}" data-order-id="${data.orderedItem.id}" data-original-price="${data.orderedItem.original_price}" data-rego-price="${data.orderedItem.price}" data-enddate="${data.orderedItem.end_date}" data-deposit="${data.orderedItem.deposit}" data-bs-toggle="modal" data-bs-target="#modalReturn">대여반납신청</button>
+									            		</c:when>
+									            		<c:when test="${data.rentalItemReturnDto.is_item_returned == 'Y' && data.isCompleted != 'Y' }">
+									            			<button type="button" class="btn btn-outline-secondary" disabled>최종 정산중</button>
+									            		</c:when>
+									            		<c:otherwise>
+									            			<button type="button" class="btn btn-outline-secondary" disabled>회수중</button>
+									            		</c:otherwise>
+									            	</c:choose>
+									            </c:otherwise>
+									        </c:choose>
+									    </c:when>
+									</c:choose>
+
 								</div>	
 							</div>
 							

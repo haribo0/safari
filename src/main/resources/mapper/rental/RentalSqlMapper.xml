@@ -154,6 +154,13 @@
 		WHERE item_id = #{id} order by id
 	</select>
 	
+	
+	<!-- 대여 찜 리스트  -->
+	<select id="selectRentalItemLikeAll" resultType="com.ja.safari.dto.RentalItemLikeDto">
+		SELECT * FROM rental_item_like_table WHERE user_id= #{id}
+	</select>
+	
+	
 	<!-- 대여 오더 신청 -->
 	<insert id="insertRentalOrder">
 	INSERT INTO rental_order_table values(
@@ -182,6 +189,11 @@
     	SYSDATE
 		)
 	</insert>
+	
+	<!-- 반납 아이템 가져오기  -->
+	<select id="selectRentalItemRetrunById" resultType="com.ja.safari.dto.RentalItemReturnDto">
+		SELECT * FROM rental_item_return_table WHERE rental_order_id = #{id}
+	</select>
 	
 	<!-- 대여 리뷰 작성 -->
 	<insert id="insertRentalReview">
