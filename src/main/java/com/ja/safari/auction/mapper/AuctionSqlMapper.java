@@ -9,9 +9,12 @@ import com.ja.safari.dto.AuctionDeliveryDto;
 import com.ja.safari.dto.AuctionItemChatroomDto;
 import com.ja.safari.dto.AuctionItemDto;
 import com.ja.safari.dto.AuctionItemImgDto;
+import com.ja.safari.dto.AuctionItemInquiryDto;
 import com.ja.safari.dto.AuctionItemLikeDto;
+import com.ja.safari.dto.AuctionItemReplyDto;
 import com.ja.safari.dto.AuctionKakaoPayApproveDto;
 import com.ja.safari.dto.AuctionPurchaseConfirmedDto;
+import com.ja.safari.dto.AuctionQnADto;
 import com.ja.safari.dto.ProductMainCategoryDto;
 import com.ja.safari.dto.ProductSubCategoryDto;
 import com.ja.safari.dto.UserCoinDto;
@@ -76,6 +79,16 @@ public interface AuctionSqlMapper {
 	
 	// 경매 물품 상세페이지 (이미지)
 	public List<AuctionItemImgDto> getAuctionProductImages(int auctionItemId);
+	
+	// 경매 상품 문의 등록
+	public void registerAuctionInquiry(AuctionItemInquiryDto auctionItemInquiryDto);
+	
+	// 경매 상품 문의 답변 등록 
+	public void registerAuctionReply(AuctionItemReplyDto auctionItemReplyDto);
+	
+	// 경매 상품 당 문의 리스트 조회 
+	public List<AuctionQnADto> getAuctionQnAList(int auctionItemId);
+	
 	
 	// 경매 종료 시간 실시간으로 받아오기
 	public AuctionItemDto getAuctionEndTimeInRealTime(int auctionItemId);

@@ -170,6 +170,43 @@
 		SELECT * FROM product_sub_category WHERE id = #{id}
 	</select>
 	
+	
+	<!-- 경매 상품 문의 등록 -->
+	<insert id="registerAuctionInquiry">
+		INSERT INTO auction_item_inquiry VALUES(
+			  auction_item_inquiry_seq.nextval,
+			  #{auction_item_id},
+			  #{user_buyer_id},
+			  #{content},
+			  SYSDATE)
+	</insert>
+
+	<!-- 경매 상품 문의 답변 등록 -->
+	<insert id="registerAuctionReply">
+		INSERT INTO auction_item_reply VALUES(
+		  auction_item_reply_seq.nextval,
+		  #{auction_item_inquiry_id},
+		  #{user_seller_id},
+		  #{content},
+		  SYSDATE)
+	</insert>
+	
+	<!-- 경매 상품 당 문의 리스트 조회 -->
+	<select id="getAuctionQnAList" resultType="com.ja.safari.dto.AuctionQnADto">
+	  SELECT ati.id AS inquiryId, ut_buyer.id AS buyer_id, ut_buyer.nickname AS buyer_nickname,
+	       	 ati.content AS inquiry_content, ati.reg_date AS inquiry_reg_date,
+	         atr.id AS replyId, ut_seller.id AS seller_id, ut_seller.nickname AS seller_nickname,
+	         atr.content AS reply_content, atr.reg_date AS reply_reg_date
+		  FROM auction_item_inquiry ati
+		    LEFT JOIN auction_item_reply atr ON ati.id = atr.auction_item_inquiry_id
+		    JOIN user_table ut_buyer ON ut_buyer.id = ati.user_buyer_id
+		    LEFT JOIN user_table ut_seller ON ut_seller.id = atr.user_seller_id
+		  WHERE ati.auction_item_id = #{auctionItemId}
+		  ORDER BY inquiry_reg_date DESC
+	</select>
+	
+	
+	
 	<!--  경매 종료 시간 실시간으로 받아오기 -->
 	<select id="getAuctionEndTimeInRealTime" resultType="com.ja.safari.dto.AuctionItemDto">
 		SELECT end_date FROM auction_item WHERE id = #{auctionItemId}

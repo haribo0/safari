@@ -22,7 +22,9 @@ import com.ja.safari.dto.AuctionBidDto;
 import com.ja.safari.dto.AuctionItemChatroomDto;
 import com.ja.safari.dto.AuctionItemDto;
 import com.ja.safari.dto.AuctionItemImgDto;
+import com.ja.safari.dto.AuctionItemInquiryDto;
 import com.ja.safari.dto.AuctionItemLikeDto;
+import com.ja.safari.dto.AuctionItemReplyDto;
 import com.ja.safari.dto.AuctionKakaoPayApproveDto;
 import com.ja.safari.dto.AuctionPurchaseConfirmedDto;
 import com.ja.safari.dto.UserCoinDto;
@@ -300,6 +302,51 @@ public class RestAuctionController {
 		Map<String, Object> map  =  new HashMap<>();
 		
 		map.put("auctionItem", auctionService.getAuctionProductDetail(id));
+		
+		return map;
+	}
+	
+	// 경매 상품 문의 등록 
+	@RequestMapping("registerAuctionInquiry")
+	public Map<String, Object> registerAuctionInquiry(HttpSession session, AuctionItemInquiryDto auctionItemInquiryDto) {
+		
+		Map<String, Object> map  =  new HashMap<>();
+
+		UserDto sessionUser = (UserDto)session.getAttribute("sessionUser");
+
+		auctionItemInquiryDto.setUser_buyer_id(sessionUser.getId());
+		auctionService.registerAuctionInquiry(auctionItemInquiryDto); 
+		map.put("result", "success");
+		
+		return map;
+	}
+	
+	
+	
+	// 경매 상품 문의 답변
+		@RequestMapping("registerAuctionReply")
+		public Map<String, Object> registerAuctionReply(HttpSession session, AuctionItemReplyDto auctionItemReplyDto) {
+			
+			Map<String, Object> map  =  new HashMap<>();
+
+			UserDto sessionUser = (UserDto)session.getAttribute("sessionUser");
+
+			auctionItemReplyDto.setUser_seller_id(sessionUser.getId());
+			auctionService.registerAuctionReply(auctionItemReplyDto);
+			map.put("result", "success");
+			
+			return map;
+		}
+	
+	
+	
+	// 경매 문의 리스트 조회
+	@RequestMapping("getAuctionQnAList")
+	public Map<String, Object> getAuctionQnAList(int auctionItemId) {
+	
+		Map<String, Object> map  =  new HashMap<>();
+		
+		map.put("qnaList", auctionService.getAuctionQnAList(auctionItemId));
 		
 		return map;
 	}
