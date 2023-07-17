@@ -16,7 +16,17 @@
         color: darkgray;
     }
     
+ /* 버튼 색깔 */
+.orangeButton{
+	background: #ff6f0f;
+	font-weight: bold;
+	color: white;
+}
 
+.orangeButton:hover {
+      outline: 2px solid orange;
+      /* hover 상태일 때의 스타일 */
+  }
 </style>
 <script>
 //좋아요 토글
@@ -40,25 +50,6 @@ function getSessionId(){
 	xhr.open("get", "../../user/getMyId", false);
 	xhr.send();
 }
-
-
-//function refreshTotalLikeCount(){
-//	const xhr = new XMLHttpRequest();
-	
-//	xhr.onreadystatechange = function(){
-	//	if(xhr.readyState == 4 && xhr.status == 200){
-	//		const response = JSON.parse(xhr.responseText);
-		
-	//		const totalLikeCountBox = document.getElementById("totalPromoReviewLikeCount");
-	//		totalLikeCountBox.innerText = response.count;
-	//	}
-//	}
-	
-
-	
-//	xhr.open("get", "./getTotalPromoReviewLikeCount?reviewId=" + promotionReviewId);
-//	xhr.send();
-// }
 
 
 function togglePromotionReviewLike(reviewId){
@@ -155,17 +146,17 @@ window.addEventListener("DOMContentLoaded", function(){
 				<!-- 검색 -->
 			<form action="./allPromotionReviewPage" method="get">
 				<div class="row"> 
-					<div class="col-4">
+					<div class="col-4 pe-1">
 						<select name="promoReview_searchType" class="form-select">
 							<option value="promotion_review_title" selected>제목</option>
 							<option value="promotion_review_content">내용</option>
 							<option value="nickname">작성자</option>
 						</select>				
 					</div>
-					<div class="col-5">
+					<div class="col-5 px-0">
 						<input name="promoReview_searchWord" type="text" class="form-control">
 					</div>
-					<div class="col-2 d-grid mx-1">
+					<div class="col-1 d-grid px-1">
 						 <button type="submit" class="btn btn-outline-dark">
 						  	<span class="bi bi-search"></span>
 						</button>
@@ -178,7 +169,7 @@ window.addEventListener("DOMContentLoaded", function(){
 			<div class = "col-1">
 				<c:if test="${!empty sessionUser }">
 					<form action="writePromotionReviewPage" method = "post"> <!--  그냥 상시로 보이고 로그인안하면 로그인창으로 보내버릴까? -->
-						<button class = "form-control btn btn-dark">글쓰기</button>
+						<button class = "form-control btn orangeButton">글쓰기</button>
 					</form>
 				</c:if>
 			</div>
@@ -236,7 +227,7 @@ window.addEventListener("DOMContentLoaded", function(){
 			
 				<!--  조회수 타이틀 -->
 				<div class = "row mt-3">
-					<div class = "col fs-5 fw-semibold fst-italic text-end">
+					<div class = "col fs-5 fw-semibold fst-italic text-start">
 						현재 사람들이 많이 보고 있는 게시물이에요
 						<hr class="my-1 mb-2" style="border-color: gray;">
 					</div>
@@ -244,18 +235,17 @@ window.addEventListener("DOMContentLoaded", function(){
 
 				
 				<!--  조회수 높은거 4개 -->
-				<div class = "row mt-3">
+				<div class = "row mt-3 mb-5">
 					<div class = "col">
 						<div class = "row">
 						<c:forEach items="${topViewCount}" var="map" varStatus="status" begin="0" end="3"> 
 							<div class = "col">
-							<div class="card border border-1" style="width:15rem; height: 450px; background-color: #FAFAFA;">
+							<a href="./contentPromotionReviewPage?id=${map.promotionReviewDto.id}" style="text-decoration: none; color: inherit;">
+							<div class="card border border-1 shadow-sm" style="width:15rem; height: 450px; background-color: #FAFAFA;">
 								<div class = "row">
-									<div class = "col">
-										<a href="./contentPromotionReviewPage?id=${map.promotionReviewDto.id }">
-											<img src="/uploadPromoFiles/${map.promotionReviewImgList[0].rental_review_img }"
-										  	   class="card-img-top" alt="리워드게시물사진" height="200" width="200" >
-										</a>
+									<div class = "col">					
+										<img src="/uploadPromoFiles/${map.promotionReviewImgList[0].rental_review_img }"
+									  	   class="card-img-top" alt="리워드게시물사진" height="200" width="200" >
 									</div>
 								</div>
 								<div class = "row mt-1 mx-1">
@@ -273,27 +263,25 @@ window.addEventListener("DOMContentLoaded", function(){
 									</div>
 								</div>
 								<div class = "row">
-									<div class = "col text-center">
+									<div class = "col text-start mx-2">
 										카테고리
 									</div>
 								</div>
 								<div class = "row">
-									<div class = "col text-center">
-										<h5 class="card-title fs-5 mt-1 fw-semibold">
-										    <a href="./contentPromotionReviewPage?id=${map.promotionReviewDto.id }" style="text-decoration: none; color: inherit;">
-										    ${map.promotionReviewDto.promotion_review_title }
-										    </a>
+									<div class = "col text-start mx-2">
+										<h5 class="card-title fs-5 mt-1 fw-semibold">		    
+										    ${map.promotionReviewDto.promotion_review_title }   
 									     	<span class="comment-count">[${map.countPromotionReviewComment}]</span>
 										</h5>
 									</div>
 								</div>
-								<div class = "row mt-1">
-									<div class = "col d-flex align-items-center">
+								<div class = "row mt-1 mx-0">
+									<div class = "col d-flex align-items-start">
 										<img src="${data.userDto.profile_img_link}" class="rounded-circle" style="width: 25px; height: 25px;" alt="프로필사진">
 										<p class="card-text fs-6 mt-2 ms-2 text-center">${map.userDto.nickname}</p>
 									</div>
 								</div>
-								<div class = "row mt-1 fs-6 text-secondary">
+								<div class = "row mt-1 mx-0 fs-6 text-secondary">
 									<div class = "col">
 										<p class="card-text fs-6 mt-2 text-secondary" style="display: -webkit-box; -webkit-line-clamp: 3;
 									       -webkit-box-orient: vertical; overflow: hidden;">
@@ -302,23 +290,27 @@ window.addEventListener("DOMContentLoaded", function(){
 									</div>
 								</div>
 								</div>
+								</a>
 							</div>
 						</c:forEach>	
 						</div>
 					</div>
 				</div>
 				
+				<div class = "row mt-3"></div>
+				
 				<!--  조회수 높은 순과 게시물 리스트의 선 -->
-					<div class = "row mt-3 mb-3">
-						<div class = "col">
-							<hr class="my-4" style="border-color: gray;">
-						</div>
+					<div class = "row mt-5 mb-3">
+						<div class = "col fs-5 fw-semibold fst-italic text-start">
+						모든 게시물
+						<hr class="my-1 mb-2" style="border-color: gray;">
+					</div>
 					</div>
 				
 				<!--  정렬 -->
 				<div class = "row">
 					<div class = "col">
-						<div class="d-flex justify-content-start">
+						<div class="d-flex justify-content-end">
 							<div class="btn-group">
 							  <button type="button" class="btn btn-secondary dropdown-toggle py-1" data-bs-toggle="dropdown" data-bs-display="static" aria-expanded="false">
 							  	최신순
@@ -336,29 +328,23 @@ window.addEventListener("DOMContentLoaded", function(){
 				
 				
 				<!--  어쩜조아... 리뷰 게시글들 -->
-				<div class = "row mt-5">			
+				<div class = "row mt-3">			
 				<c:forEach items="${promoReviewList}" var="map" varStatus="status">
 					<div class = "col mb-3 mt-1"> 
+					<a href="./contentPromotionReviewPage?id=${map.promotionReviewDto.id}" style="text-decoration: none; color: inherit;">
 						<div class="card border border-0" style="width:30rem; height: 150px;">
 						<div class = "row">
-							<div class = "col-4">
-							<a href="./contentPromotionReviewPage?id=${map.promotionReviewDto.id }">
-						  <img src="/uploadPromoFiles/${map.promotionReviewImgList[0].rental_review_img }"
-						  	   class="card-img-top" alt="리워드게시물사진" height="150" width="100" >
-						  </a>
+							<div class = "col-4">			
+						  		<img src="/uploadPromoFiles/${map.promotionReviewImgList[0].rental_review_img }"
+						  	   	class="card-img-top" alt="리워드게시물사진" height="150" width="100" >	  
 						 	</div>
 						 	<div class = "col">
 						  <div class="card-body">
-						  
 							<div class = "row">
 							 	<div class = "col">			  		
-							  		<h5 class="card-title fs-5 mt-1 fw-semibold">
-								  	<a href="./contentPromotionReviewPage?id=${map.promotionReviewDto.id}" style="text-decoration: none; color: inherit;">
+							  		<h5 class="card-title fs-5 fw-semibold">	
 								   		${map.promotionReviewDto.promotion_review_title} 
-								    </a>
-								    <a href="./contentPromotionReviewPage?id=${map.promotionReviewDto.id}" style="text-decoration: none; color: inherit;">
-								   		<span class="comment-count">[${map.countPromotionReviewComment}]</span>
-								    </a>	  	
+								   		<span class="comment-count">[${map.countPromotionReviewComment}]</span>	    	  	
 							    	</h5>
 							 	</div>
 							 	<!--  공감버튼. 내가 누른 하트 유무-->
@@ -388,7 +374,8 @@ window.addEventListener("DOMContentLoaded", function(){
 						  	</div>
 						</div>
 						</div>
-					</div>	<!-- col-4 mb-3 -->		
+						</a>
+					</div>	
 				<c:if test="${status.count % 2 == 0}">
 			</div>
 					<div class = "row mt-3">

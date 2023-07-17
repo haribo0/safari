@@ -10,8 +10,6 @@ import org.springframework.stereotype.Service;
 
 import com.ja.safari.community.mapper.PromotionReviewCommentMapper;
 import com.ja.safari.dto.PromotionReviewCommentDto;
-import com.ja.safari.dto.PromotionReviewDto;
-import com.ja.safari.dto.PromotionReviewImgDto;
 import com.ja.safari.dto.UserDto;
 import com.ja.safari.user.mapper.UserSqlMapper;
 
