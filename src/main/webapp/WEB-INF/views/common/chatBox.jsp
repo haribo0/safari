@@ -193,33 +193,36 @@ body {
 <div class="modal" id="usedChatModal" tabindex="-1">
 	  <div class="modal-dialog">
 	    <div class="modal-content">
-	      <div class="modal-header position-relative">
- 	        <div class="modal-title" id="modalTitle">
+	      <div class="modal-header position-relative" style="background: #EAEAEA;">
+ 	        <div class="modal-title">
 	        	<h5 class="modal-title ms-1">
 					채팅방 목록
 	        	</h5>
  	        </div>
 	        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 	      </div>
-	      <div class="modal-body px-0 pt-0" style="height: 500px; width: 470px;">
+	      <div class="modal-body px-0 pb-0 pt-0" style="height: 490px; width: 460px;">
 			<!-- Messages -->
 			<div class="chat-container overflow-y-scroll overflow-x-hidden" style="height:480px; width:480px" id="usedChatListBox">
-
-
 			</div>
 	      </div>
-
+	      <div class="modal-footer p-0">
+	      	<img class="img-fluid m-0" alt="chatAds" src="/safari/resources/img/used/usedChatAds.png">
+	      </div>
 	    </div>
 	  </div>
 </div>
 <!-- useChatModal -->
 <!--  -->
 <!-- 채팅창 모달 -->
-<div class="modal" id="chatModal" tabindex="-1" onclick="reloadChatRoomList()">
+<div class="modal" id="chatModal" tabindex="-1">
   <div class="modal-dialog">
     <div class="modal-content">
-      <div class="modal-header position-relative">
-	        <div class="modal-title position-absolute top-50 start-50 translate-middle fw-bold fs-3" id="modalTitle"></div>
+      <div class="modal-header position-relative px-3" style="background: #EAEAEA; padding: 10px 0px;">
+      		<i class="bi bi-chevron-left fs-4 p-0"></i>
+      		<h5 class="modal-title ms-1 position-absolute top-50 start-50 translate-middle" id="modalTitle">
+	        	</h5>
+	        <!--<div class="modal-title position-absolute top-50 start-50 translate-middle fw-bold fs-3" id="modalTitle"></div> -->
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-header ms-2" id="modalHeader">
@@ -246,10 +249,10 @@ body {
 		<div class="chat-container overflow-y-scroll overflow-x-hidden" style="height:380px;" id="getChatList">
 		</div>
       </div>
-      <div class="modal-footer justify-content-start">
+      <div class="modal-footer justify-content-start" style="background: #EAEAEA;">
       		<textarea id="chatContent" placeholder="메시지 보내기" rows="1" cols="20" class="form-control" style="width: 80%;"></textarea>
 
-		    <button class="send-button btn btn-primary ms-3 px-3" id="sendContent">전송</button>
+		    <button class="send-button btn btn-dark ms-3 px-3" id="sendContent">전송</button>
       </div>
     </div>
   </div>
@@ -470,7 +473,7 @@ body {
 	  <div class="modal-dialog">
 	    <div class="modal-content">
 	      <div class="modal-header  position-relative" style="background: #EAEAEA;">
- 	        <div class="modal-title" id="modalTitle">
+ 	        <div class="modal-title">
 	        	<h5 class="modal-title ms-1">
 
 	        		실시간 문의
@@ -1777,14 +1780,20 @@ function getProductInformation(requestId) {
             row1col2row1 = document.createElement('div');
             row1col2row1.classList.add('row', 'mt-2');
             row1col2row1col1 = document.createElement('div');
-            row1col2row1col1.classList.add('col', 'ms-1');
+            row1col2row1col1.classList.add('col', 'ms-1', 'text-start');
             row1col2row1col1.innerText = response.map.productDto.title;
             row1col2row1col1.setAttribute('id', 'aTagrow1col2row1col1');
             row1col2row1col2 = document.createElement('span');
-            row1col2row1col2.classList.add('btn', 'py-0', 'btn-outline-success', 'btn-sm', 'ms-2');
-	            row1col2row1col2.disabled = true;
+	        row1col2row1col2.disabled = true;
             row1col2row1col2.setAttribute('id', 'statusButton');
             row1col2row1col2.innerText = response.map.status;
+            if(response.map.status == '거래완료'){
+            	row1col2row1col2.classList.add('btn', 'py-0', 'btn-outline-secondary', 'btn-sm', 'ms-2');
+            }else if(response.map.status == '예약중'){
+            	row1col2row1col2.classList.add('btn', 'py-0', 'btn-outline-primary', 'btn-sm', 'ms-2');
+            }else{
+            	row1col2row1col2.classList.add('btn', 'py-0', 'btn-outline-success', 'btn-sm', 'ms-2');
+            }
 
 
             row1col2row2 = document.createElement('div');
@@ -2094,14 +2103,14 @@ function getProductInformation(requestId) {
 
             aTagImg.addEventListener('click', function() {
                 // href로 이동할 페이지 URL
-                const url = './productDetail?productId='+response.map.productDto.id;
+                const url = '../used/productDetail?productId='+response.map.productDto.id;
 
                 // 페이지 이동
                 window.location.href = url;
             });
             aTagrow1col2row1col1.addEventListener('click', function() {
                 // href로 이동할 페이지 URL
-                const url = './productDetail?productId='+response.map.productDto.id;
+                const url = '../used/productDetail?productId='+response.map.productDto.id;
 
                 // 페이지 이동
                 window.location.href = url;
