@@ -105,9 +105,6 @@ public class UserRestController {
 			  return map;
 		  }
 		  
-		  System.out.println(inquiry.getQna_title());
-		  System.out.println(inquiry.getQna_content());
-		  
 		  map.put("result", "success"); 
 		  inquiry.setUser_id(sessionUser.getId());
 		  // 담당 직원 배정 및 1대1문의 저장 

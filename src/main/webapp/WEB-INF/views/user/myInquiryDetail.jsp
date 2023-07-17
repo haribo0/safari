@@ -223,14 +223,14 @@ body {
 								<div class="row pt-3 mb-2 text-start">
 									<div class="col-auto" >
 										<div class="row pt-4 mb-2">
-										<div class="col-auto fw-medium ms-3 me-0 pe-0" >
-											답변 완료
-										</div>
-										<div class="col" >
-
-										</div>
+											<div class="col-auto fw-medium ms-3 me-0 pe-0" >
+												답변 완료
+											</div>
+											<div class="col" >
+	
+											</div>
 										
-									</div>
+										</div>
 									</div>
 									
 								</div>

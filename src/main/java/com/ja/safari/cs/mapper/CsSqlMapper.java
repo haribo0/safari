@@ -10,6 +10,7 @@ import com.ja.safari.dto.CsChatListDto;
 import com.ja.safari.dto.CsChatResponseDto;
 import com.ja.safari.dto.CsChatResponseDto2;
 import com.ja.safari.dto.CsEmpDto;
+import com.ja.safari.dto.CsEmpRatingResponseDto;
 import com.ja.safari.dto.CsLiveChatDto;
 import com.ja.safari.dto.CsLiveChatMsgDto;
 import com.ja.safari.dto.CsLiveChatRating;
@@ -153,6 +154,11 @@ public interface CsSqlMapper {
 
 	// 채팅 아이디로 직원 찾아오기 
 	public CsEmpDto getEmpDtoByChatId(Integer chatId);
+	
+	
+	// 직원별 실시간 채팅 평균 별점 리스트 
+	public List<CsEmpRatingResponseDto> getEmpChatRatingList();
+	
 	
 
 	

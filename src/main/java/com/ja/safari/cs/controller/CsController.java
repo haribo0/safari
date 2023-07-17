@@ -53,12 +53,37 @@ public class CsController {
 	
 	// 대시 보드 - 팀장용 
 	@RequestMapping("dashboard") 
-	public String dashboard(HttpSession session){
+	public String dashboard(HttpSession session, Model model){
 		
 		CsEmpDto empUser = (CsEmpDto) session.getAttribute("empUser");
 		if(empUser==null) return "redirect:./loginPage";
 		
+		// 실시간 채팅 직원별 별점 
+		model.addAttribute("chatRatingList", csService.getEmpChatRatingList() );
+		
 		return "cs/dashboard2";
+	}
+	
+	
+	// 실시간 채팅 현황 - 팀장용 
+	@RequestMapping("liveChatStatus") 
+	public String liveChatStatus(HttpSession session){
+		
+		CsEmpDto empUser = (CsEmpDto) session.getAttribute("empUser");
+		if(empUser==null) return "redirect:./loginPage";
+		
+		return "cs/liveChatStatus";
+	}
+	
+	
+	// 1대1문의 현황 - 팀장용 
+	@RequestMapping("inquiryStatus") 
+	public String inquiryStatus(HttpSession session){
+		
+		CsEmpDto empUser = (CsEmpDto) session.getAttribute("empUser");
+		if(empUser==null) return "redirect:./loginPage";
+		
+		return "cs/inquiryStatus";
 	}
 	
 	// 테스트용 - 안 씀 

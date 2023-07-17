@@ -31,7 +31,7 @@
 		    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="3" aria-label="Slide 4"></button>
 		  </div>
 		  <div class="carousel-inner">
-		    <div class="carousel-item cr-1 active">
+		    <div class="carousel-item crs-1 active">
 		      <div class="carousel-caption d-none d-md-block">
 		        <h5>중고</h5>
 		        <p>이웃들과 함께 저탄소 운동을 해요!</p>

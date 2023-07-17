@@ -469,7 +469,7 @@ body {
 <div class="modal" id="liveChatModal" tabindex="-1" onclick="">
 	  <div class="modal-dialog">
 	    <div class="modal-content">
-	      <div class="modal-header position-relative">
+	      <div class="modal-header  position-relative" style="background: #EAEAEA;">
  	        <div class="modal-title" id="modalTitle">
 	        	<h5 class="modal-title ms-1">
 
@@ -510,7 +510,7 @@ body {
 
 	      <div class="modal-body" style="height: 400px">
 			<!-- Messages -->
-			<div class="chat-container overflow-y-scroll overflow-x-hidden" style="height:380px;" id="chatMsgBox">
+			<div class="chat-container overflow-y-scroll overflow-x-hidden mb-1 pb-1" style="height:380px;" id="chatMsgBox">
 
 				<!-- <div class="row">
 					<div class="col text-secondary text-center"> 상담이 종료되었습니다 </div>
@@ -521,10 +521,10 @@ body {
 			<!-- Messages -->
 	      </div>
 
-	      <div class="modal-footer justify-content-start">
+	      <div class="modal-footer justify-content-start" style="background: #EAEAEA;">
 	      		<textarea id="chatText" placeholder="메시지 보내기" rows="1" cols="20" class="form-control" style="width: 80%;"></textarea>
 
-			    <button class="send-button btn btn-primary ms-3 px-3" id="sendMsg" onclick="sendMsg()">전송</button>
+			    <button class="send-button btn btn-dark ms-3 px-3" id="sendMsg" onclick="sendMsg()">전송</button>
 	      </div>
 	    </div>
 	  </div>
@@ -546,7 +546,7 @@ body {
   <div class="modal-dialog">
     <div class="modal-content selector-for-some-widget px-3 pb-2 pt-3" style="box-sizing: content-box;">
       <div class="modal-header">
-        <h5 class="modal-title">실시간 문의 평가</h5>
+        <h5 class="modal-title bg-light">실시간 문의 평가</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
@@ -594,7 +594,7 @@ body {
 
 
       </div>
-      <div class="modal-footer">
+      <div class="modal-footer ">
         <button type="button" class="btn btn-outline-dark" data-bs-dismiss="modal">닫기</button>
         <button type="button" class="btn btn-dark" onclick="saveFeedback()">평가 남기기</button>
       </div>
