@@ -16,29 +16,6 @@
 .crs-3{height:600px; background: url("https://images.pexels.com/photos/16573228/pexels-photo-16573228.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"); background-size: cover; background-repeat: no-repeat;}
 .crs-4{height:600px; background: url("https://images.pexels.com/photos/3647075/pexels-photo-3647075.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"); background-size: cover; background-repeat: no-repeat;}
 
-/* common */
-.wrap {position:relative;}
-.inner {max-width:1100px; height: 100%;  margin: 0 auto;}
-.img{width:100%;}
-
-/* main */
-.motion-section {background:#fff;}
-.motion-section .motion-wrap {position:relative;}
-.motion-section .motion-wrap:after {clear:both; display:block; content:'';}
-.motion-section .motion-wrap .text-box {float:left; width:50%; padding-top:600px;}
-.motion-section .motion-wrap .text-box p {max-width:90%; font-size:36px; color:#5e5e5e; transition: all .25s;}
-.motion-section .motion-wrap .text-box p.active {color:#fff; transform: scale(1.125);}
-.motion-section .motion-wrap .text-box p.para02 {margin-top:600px;}
-.motion-section .motion-wrap .text-box p.para03 {margin-top:600px;}
-.motion-section .motion-wrap .text-box p.para04 {margin-top:600px; margin-bottom:500px;}
-
-.motion-section .motion-wrap .image-box {position: sticky; position: -webkit-sticky; top:calc(50vh - 204px); left: 0; z-index: 40; float:left; width:50%;}
-.motion-section .motion-wrap .image-box .image-inner {position:relative; width: 420px; height:409px; margin:0 auto; }
-.motion-section .motion-wrap .image-box .image-inner .img_device {position:absolute; left:0; top:0; right:0; bottom:0; z-index:20;}
-.motion-section .motion-wrap .image-box .image-inner .slide_wrap {overflow:hidden; position: absolute; left:15px; top:16px; z-index:10; width:390px; height:237px;}
-.motion-section .motion-wrap .image-box .image-inner .slide_wrap .slide {width: 1540px; height: 100%; transition:transform .5s;}
-.motion-section .motion-wrap .image-box .image-inner .slide_wrap .slide figure {float:left; width:385px;}
-
 </style>
 </head>
 <body>
@@ -131,57 +108,6 @@
 		</div>
 	</div>
 	
-	<div class="container py-5 my-5">
-		<h2 class="text-center fs-2 py-3 my-3" >사파리를 소개 합니다</h2>
-		<div class="wrap mt-5">
-			<section class="motion-section">
-				<article class="motion-wrap inner">
-					<div class="text-box">
-						<p class="para01">
-							중고<br>
-							쉽고 간편하게 이웃과 거래해요
-						</p>
-						<p class="para02">
-							대여<br>
-							필요한 물건을 값싸게 이용해요
-						</p>
-						<p class="para03">
-							경매<br>
-							평소에 가지고픈 물건을 구매해요
-						</p>
-						<p class="para04">
-							커뮤니티<br>
-							이것저것 정보를 공유해요
-						</p>
-					</div>
-					<div class="image-box">
-						<div class="image-inner">
-							<figure class="img_device">
-								<img class="img" src="/safari/resources/img/bg_device.png" alt="">
-							</figure>
-							<div class="slide_wrap">
-								<div class="slide">
-									<figure>
-										<img class="img" src="https://img1.cgtrader.com/items/3612740/52e6cc7120/grid/cinnamoroll-3d-modeling-blend-file-3d-model-blend.jpg">
-									</figure>
-									<figure>
-										<img class="img" src="https://img-new.cgtrader.com/items/4209238/ae2b7d2dd7/grid/oso-kawaii-3d-model-ae2b7d2dd7.jpg">
-									</figure>
-									<figure>
-										<img class="img" src="https://img2.cgtrader.com/items/2227421/20dc440563/grid/sea-seal-3d-model-stl.jpg">
-									</figure>
-									<figure>
-										<img class="img" src="https://img-new.cgtrader.com/items/4057207/6c0878d2bc/grid/chick-trio-3d-model-6c0878d2bc.jpg">
-									</figure>
-								</div>
-							</div>
-						</div>
-					</div>
-				</article>
-			</section>
-		</div>
-		<div style="height: 400px;"></div>
-	</div>
 	
 	
 	<div class="container mt-5 pt-5 pb-3">
@@ -346,14 +272,14 @@ window.onload = function() {
 
 		}
 
-		if(percent >= 90 && percent < 120) {
+		if(percent >= 80 && percent < 120) {
 
 			imageChange(imgWidth * 2);
 			document.querySelector('.motion-section .text-box .para03').classList.add('active');
 
 		}
 
-		if(percent >= 120) {
+		if(percent >= 110) {
 
 			imageChange(imgWidth * 3);
 			document.querySelector('.motion-section .text-box .para04').classList.add('active');
