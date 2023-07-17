@@ -33,8 +33,8 @@
 			<h5 class="fw-bolder">직원 관리</h5>
 			
 			<div class="row">
-				<div class="col text-end d-grid"></div>
-				<div class="col-2 text-end ">
+				<div class="col text-end d-grid "></div>
+				<div class="col-2 text-end me-0 pe-0">
 					<div class="btn btn-sm btn-dark px-4 py-1" onclick="openModal()">직원 추가</div>
 				</div>
 			</div>
@@ -52,7 +52,7 @@
 			
 			
 			<div class="row mt-3 mb-3 text-center bg-secondary-subtle py-2 fw-bolder">
-				<div class="col-1">#</div>
+				<div class="col-1">사번</div>
 				<div class="col">직급</div>
 				<div class="col">이름</div>
 				<div class="col">닉네임</div>

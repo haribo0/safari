@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>  
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -68,9 +68,9 @@
 			  </button>
 			</div>
 		</div>
-		
+
 	</div>
-	
+
 	<div class="container mt-5 pt-5 pb-3">
 		<div class="row justify-content-between">
 			<div class="col d-flex justify-content-center">
@@ -125,7 +125,7 @@
 		  </div>
 		</div>
 	</div>
-	
+
 	<div class="container mt-5 pt-5 pb-3">
 		<div id="carouselExampleFade" class="carousel slide carousel-fade">
 		  <div class="carousel-inner">
@@ -149,8 +149,8 @@
 		  </button>
 		</div>
 	</div>
-	
-	
+
+
 	<div class="container mt-5 pt-5 pb-3">
 		<div class="row">
 			<div class="col d-flex justify-content-center">
@@ -173,7 +173,7 @@
 			</div>
 		</div>
 	</div>
-	
+
 	<div class="container mt-5 pt-5 pb-3">
 		<div class="accordion" id="accordionPanelsStayOpenExample">
 		  <div class="accordion-item">
@@ -214,11 +214,11 @@
 		  </div>
 		</div>
 	</div>
-	
+
 	<!-- 푸터 섹션 -->
 	<jsp:include page="../common/footer.jsp"></jsp:include>
 	<!-- 푸터 섹션 -->
-	
+
 	<script>
 window.onload = function() {
 	/*
@@ -240,7 +240,7 @@ window.onload = function() {
 
 		setProperty();
 		doAnim();
-		
+
 	};
 
 	function setProperty() {
@@ -317,5 +317,5 @@ window.onload = function() {
 	init();
 };
 </script>
-</body>	
+</body>
 </html>
