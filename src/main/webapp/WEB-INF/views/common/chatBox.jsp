@@ -196,7 +196,7 @@ body {
 	      <div class="modal-header position-relative">
  	        <div class="modal-title" id="modalTitle">
 	        	<h5 class="modal-title ms-1">
-					a님의 채팅방 목록
+					채팅방 목록
 	        	</h5>
  	        </div>
 	        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>

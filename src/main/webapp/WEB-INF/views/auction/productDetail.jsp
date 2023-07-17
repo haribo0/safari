@@ -26,8 +26,32 @@
 <jsp:include page="../common/meta.jsp"></jsp:include>
 <!-- 메타 섹션 -->
 <style>
+.myContent {
+  background-color: rgba(75, 137, 220, 0.25);  /* 배경색 */
+  color: #000000; /* 글자색 */
+  padding: 10px; /* 여백 */
+  border-radius: 10px; /* 테두리의 굴곡 정도 */
+  text-align: end; /* 내용을 오른쪽 정렬 */
+  width: auto;
+  max-width: 320px;
+}
+
+.otherContent {
+  background-color: #EAEAEA; /* 배경색 */
+  color: #000000; /* 글자색 */
+  padding: 10px; /* 여백 */
+  border-radius: 10px; /* 테두리의 굴곡 정도 */
+  text-align: start; /* 내용을 왼쪽 정렬 */
+  width: auto;
+  max-width: 320px;
+}
 thead > tr > td {
 	color: #dbdbd9;
+}
+
+a {
+	color: inherit;
+	text-decoration: none;
 }
 
 
@@ -57,7 +81,7 @@ input[type="radio"] + label {
 	display: inline-block;
 	padding: 10px;
 	background: white;
-	width: 250px;
+	width: 230px;
 	border: 0.4px solid #E2E3E5;
 	color: black;
 	font-weight: bold;
@@ -94,6 +118,13 @@ input[id="tab03"]:checked ~ .con3 {
 	font-weight: bold;
 	color: white;
 }
+.chatTime {
+    font-size: 12px;
+}
+
+.btn_delivered{padding:4px 12px; background: #e9ecef; border:none; color: black; border-radius:8px; font-size: 14px;}
+.btn_canceled{padding:4px 12px; background: #e6edfe; border:none; color: #789efd; border-radius:8px; font-size: 14px;}
+.btn_ordered{padding:4px 12px; background: #dff5ea; border:none; color: #6db590; border-radius:8px; font-size: 14px;}
 </style>
 </head>
 <body>
@@ -101,289 +132,360 @@ input[id="tab03"]:checked ~ .con3 {
 	<jsp:include page="../common/header.jsp"></jsp:include>
 	<!-- 헤더 섹션 -->
 	
-	<div class="row mt-4">
-		<div class="col"></div>
-		<div class="col-11">
-		
-			<%-- 첫번째 행 --%>
-			<div class="row">
-				<%-- 상품 정보 --%>
-				<div class="col">	
-					<%-- 카테고리 --%>		
-					<div class="row mb-2">
-						<div class="col">
-							<ul>
-								<li>
-									<a href="/safari/auction/mainPage">홈</a>
-								</li>
-								<li>></li>
-								<li>
-									${productDetail.productMainCategoryDto.main_category_name}
-								</li>
-								<li>></li>
-								<li>
-									${productDetail.productSubCategoryDto.sub_category_name}
-								</li>
-							</ul>               						
-						</div>
-					</div>
-					<%-- 카테고리 --%>		
-					
-					<div class="row mt-1">
-						<div class="col">
-							<table class="table" style="border-top: 1px solid #E2E3E5;">
-								<tr>
-									<td class="col-3 table-secondary text-center align-middle">상품명</td>
-									<td id="auctionTitle" class="fw-medium col-9"></td>
-								</tr>
-								<tr>
-									<td class="col-3 table-secondary text-center align-middle">진행상태</td>
-									<td id="auctionStatus" class="col-9"></td>
-								</tr>
-								<tr>
-									<td class="col-3 table-secondary text-center align-middle">경매시작일</td>
-									<td id="auctionStartDate" class="col-9"></td>
-								</tr>				
-								<tr>
-									<td class="col-3 table-secondary text-center align-middle">경매종료일</td>
-									<td id="auctionEndDate" class="col-9"></td>
-								</tr>
-								<tr>
-									<td class="col-3 table-secondary text-center align-middle ms-0">시작가</td>
-									<td id="auctionStartPrice" class="col-9"></td>
-																	
-								</tr>
-								<tr>
-									<td class="col-3 table-secondary text-center align-middle">즉시낙찰가</td>
-									<td id="auctionImmediatePrice" class="text-danger col-9"></td>	
-								</tr>								
-							</table>
-						</div>
-					</div>
-					
-					<div class="row mt-1">
-						<div class="col-auto">
-							<button class="btn btn-dark" onclick="auctionInfoPage()">상품정보 확인</button>	
-						</div>
-						<div class="col" id="editBar">
-							
-						</div>
-					</div>
-					
-					
-				</div>	
-				<%-- 상품 정보 --%>
-				
-				<%-- 경매 --%>
-				<div class="col">	
-					<div class="row mt-4">
-						<div class="col"></div>
-						<div class="col-10">
-						
-							<div class="row mt-2">
-								<div class="col fs-5 rounded-2 fw-bold text-center align-middle" id="currentStatus" 
-								style="height: 30px;"></div>
-							</div>
-							
-							<div class="row mt-2" style="font-size: 16px;">
-								<div class="col border border-1 rounded-4 p-2">
-									<div class="row mt-1 mb-1 me-1">
-										<div class="col ms-1">
-										 즉시낙찰가 
-										 <span class="fw-bold" id="immediateBidPrice"> </span>
-										</div>
-										<div class="col text-end">
-										보유 코인
-										<span class="text-primary fw-bold ms-1" id="auctionCoin"
-										style="font-size: 18px;"> </span>
-										</div>
-									</div>
+	 <div class="row">
+	 	<div class="col"></div>
+	 	<%-- 공간 시작 --%>
+	 	<div class="col-8">
+	 	
+	 	<div class="row">
+	 		<div class="col">
+	 			<img class="img-fluid" src="/safari/resources/img/auction/auctionBanner.jpg">
+	 		</div>
+	 	</div>
+	 	
+	 	<div class="row mt-4">
+	 	
+	 		<div class="col">
+	 			
+	 			<div class="row">
+	 				<%-- 1열 --%>
+	 				<div class="col">
+	 					
+	 					<div class="row">
+	 						<div class="col text-center">
+	 							<img src="/auctionFiles/${productDetail.auctionMainImgDto.auction_item_img_link}"
+	 							class="img-fluid" onclick="auctionInfoPage()" style="cursor: pointer;">
+	 							
+	 						</div>
+	 						
+	 					</div>
+	 					
+	 					<div class="row mt-5">
+	 						<div class="col">
+	 						
+	 							<div class="row">
+	 								<div class="col fs-5 fw-bold">
+	 									입찰 안내
+	 								</div>
+	 							</div>
+	 							
+	 							<div class="row mt-2">
+	 								<div class="col">
+	 									
+	 									 <div class="row">
+	 									 	<div class="col">
+	 									 		• 현재 보유하신 코인보다 더 높은 금액은 입찰하실 수 없습니다.
+	 									 	</div>
+	 									 </div>
+	 									 
+	 									 <div class="row">
+	 									 	<div class="col" style="color: #ff6f0f;">
+	 									 		• 경매 종료 시간 30초 이전 입찰 시, 경매 종료시간이 30초씩 자동연장됩니다.
+	 									 	</div>
+	 									 </div>	 									 
+	 									
+	 									<div class="row">
+	 										<div class="col">
+	 											• 같은 경매에 다른 회원과 동시에 입찰하였을 경우, 입찰에 실패하실 수 있습니다.
+	 										</div>
+	 									</div>
+	 									
+ 										<div class="row">
+	 										<div class="col">
+	 											• 낙찰하신 후, 7일 이내에 결제하지 않으실 경우 유찰 처리되오니 주의하세요.
+	 										</div>
+	 									</div>	 									
+	 				
+	 								</div>
+	 							</div>
+	 
+	 						</div>
+	 					</div>
+	 					
+	 					
+	 					<div class="row mt-5">
+	 						<div class="col">
+	 						
+	 							<div class="row">
+	 								<div class="col fw-bold fs-5">
+	 									실시간 입찰 현황
+	 								</div>
+	 							</div>
+	 						
+	 							<%-- 입찰 표 --%>
+								<div class="row mt-2">
 									
-									<div class="row mt-2 mb-1 me-1">
-										<div class="col ms-1">
-										 현재가 
-										 <span class="ms-2 fw-bold text-danger fs-5" id="currentPrice"> </span>
-										</div>
-										<div class="col text-end">
-										 
-										</div>								
-									</div>
-																
-									
-								</div>
-							</div>
-							
-		
-							
-							<div class="row mt-3">
-								<div class="col">
-									<div class="row" id="auctionBidBox">
-												
-									</div>	
-								</div>
-							</div>
-							
-							<div class="row">
-								<div class="col" id="countDownTable">
-								
-								</div>
-							</div>
-							
-							
-						</div>
-						<div class="col"></div>
-					
-					</div>
-				
-				
-				</div>
-				<%-- 경매 --%>
-				
-				
-				
-				<%-- 채팅 --%>
-				<div class="col">
-					<div class="row mb-1">
-						<div class="col fw-bold fs-5 me-4">
-							실시간 채팅
-						</div>
-					</div>				
-					<div class="row">
-						<div class="col ms-2 border border-1" id="chatMessageBox" style="height: 300px; overflow: auto"></div>
-					</div>
-		  				
-					<div class="row mt-2">
-						<div class="col-10">
-							<input type="text" 
-							id="chatContentBox" class="form-control" placeholder="실시간 채팅에 참여해보세요!"
-							onkeydown="checkSendMessage(event)">
-						</div>
-						<div class="col d-grid">
-							<input type="button" class="btn btn-dark" value="입력" onclick="sendMessage()">
-						</div>
-					</div>								
-				</div>
-				<%-- 채팅 --%>
-			
-			</div>	
-			<%-- 첫번째 행 --%>
-			
-			<div class="row mt-4">
-				<div class="col"></div>
-			</div>
-			
-			<%-- 두번째 행 --%>	
-			<div class="row mt-4">
-				<%-- 입찰 현황 col --%>
-				<div class="col">			
-					
-					<div class="row">
-						<div class="col fw-bold fs-5">
-							실시간 입찰 현황
-						</div>
-					</div>
-			
-					<div class="row mt-2">
-					 	<div class="col">
-					 	
-						 	<div class="row mt-2 fw-medium border-bottom border-black border-2 py-2">
-								<div class="col text-center">
-									닉네임
-								</div>
-								<div class="col text-center">
-									입찰가
-								</div>
-								
-								<div class="col text-center">
-									거래일
-								</div>
-							</div>
+								 	<div class="col-11">
 								 	
-					 		
-					 			<div class="row">
-					 				<div class="col" id="bidListBox">
-					 					
-					 				</div>
-					 			</div>
-					 	
-					 	</div>
-				   </div>	    			
-				</div>
-				<%-- 입찰 현황 col --%>
-				
-				
-				<div class="col">	
-					<div class="row">
-					<div class="col"></div>
-					<div class="col-10 ms-2">
-					
-					<div class="row fw-bold fs-5">
-						<div class="col">
-							입찰안내
-						</div>
-					</div> 
-					
-					<div class="row mt-2">
-						<div class="col ms-2 border border-1">
-						
-							<div class="row mt-2">
-								<div class="col">
-									• 현재 보유하신 코인보다 더 높은 금액은 입찰하실 수 없습니다.
-								</div>
-							</div>
-									
-							<div class="row mt-2 text-danger">
-								<div class="col">
-									• 경매 <span class="fw-bold">종료 시간 30초 이전</span> 입찰 시, 경매 종료시간이 30초씩 자동연장됩니다.
-								</div>
-							</div>
-							
-							<div class="row mt-2">
-								<div class="col">
-									• 같은 경매에 다른 회원과 동시에 입찰하였을 경우, 입찰에 실패하실 수 있습니다.
-								</div>
-							</div>		
-							
-						<div class="row mt-2">
-							<div class="col">
-								• 낙찰하신 후, 7일 이내에 결제하지 않으실 경우 유찰 처리되오니 주의하세요.
-							</div>
-							</div>												
-						</div>
-					</div>  
-					
-					
-					</div>
-					<div class="col"></div>
-					</div>
-				
-				</div>
-				<div class="col">			
-					
-					<div class="row fw-bold fs-5">
-						<div class="col">
-							실시간 입찰 순위
-						</div>
-					</div> 
-					<div class="row mt-1">
-						<div class="col" id="bidRanking">
-						
-						</div>
-					</div>
-        										
-				
-				</div>
+									 	<div class="row mt-2 fw-medium border-bottom border-black border-2 py-2">
+											<div class="col text-center">
+												닉네임
+											</div>
+											<div class="col text-center">
+												입찰가
+											</div>
+											
+											<div class="col text-center">
+												거래일
+											</div>
+										</div>
+												 	
+									 		
+							 			<div class="row">
+							 				<div class="col" id="bidListBox">
+							 					
+							 				</div>
+							 			</div>
+									 </div>
+								   </div>	 	 						
+	 								<%-- 입찰 표 --%>
+	 							
+	 						
+	 						</div>
+	 					
+	 					</div>
+	 			
+	 				</div>
+	 				<%-- 1열 --%>
+	 				
+	 				<%-- 2열 --%>
+	 				<div class="col">
+	 				
+	 					<div class="row">
+	 						<div class="col">
+	 							
+	 							<%-- 카테고리 --%>
+	 							<div class="row">
+	 								<div class="col">
+	 								    <ul>
+											<li>
+												<a href="/safari/auction/mainPage">홈</a>
+											</li>
+											<li>></li>
+											<li>
+												${productDetail.productMainCategoryDto.main_category_name}
+											</li>
+											<li>></li>
+											<li>
+												${productDetail.productSubCategoryDto.sub_category_name}
+											</li>
+										</ul>             
+	 								</div>
+	 							</div>
+	 							<%-- 카테고리 --%>
+	 							
+	 							<%-- 상태 --%>
+	 							<div class="row mt-2">
+	 								<div class="col" id="auctionStatus">
+	 									
+	 								</div>
+	 							</div>
+	 							<%-- 상태 --%>
+	 							
+	 							<%-- 제목 --%>
+	 							<div class="row mt-1">
+	 								<div class="col fs-4 fw-bold">
+	 									${productDetail.auctionDto.title}
+	 								</div>
+	 							</div>
+	 							<%-- 제목 --%>
+	 							
+	 							<%-- 하트 --%>
+	 							<div class="row mt-1">
+	 								<div class="col" id="editBar">
+	 									<!-- i id="heartBox" class="bi bi-heart text-danger fs-5"></i> -->
+	 								</div>
+	 							</div>
+	 							<%-- 하트 --%>
+	 							
+	 							<%-- 가격 --%>
+	 							<div class="row mt-3">
+	 								<div class="col">
+	 									
+	 									<div class="row">
+	 										<div class="col fs-5 mt-2" id="priceTitle"> </div>
+	 										<div class="col text-end">
+	 										
+	 											<span style="color: #ff6f0f;" class="fw-bold fs-2 me-1" id="currentPrice"></span>원
+	 										</div>
+	 									</div>
+	 									
+	 									<div class="row mt-2" style="border-bottom: 0.8px solid black;">
+	 										<div class="col"></div>
+	 									</div>
+	 									
+	 									
+	 									<%-- 행 --%>
+	 									<div class="row mt-2">
+	 										<div class="col">
+	 											<div class="row">
+	 												<div class="col">
+	 													즉시 낙찰가
+	 													
+	 												</div>
+	 											</div>
+	 											<div class="row">
+	 												<div class="col">경매 시작일</div>
+	 											</div>
+	 											<div class="row">
+	 												<div class="col">경매 종료일</div>
+	 											</div>	 											
+	 											
+	 										</div>
+	 										
+	 										
+	 										<div class="col text-end">
+	 											<div class="row">
+	 												<div class="col">
+	 													<span class="fw-bold" id="auctionImmediatePrice"></span> 원
+	 												</div>
+	 											</div>
+	 											<div class="row">
+	 												<div class="col">
+	 													<span id="auctionStartDate"></span>
+	 												</div>
+	 											</div>
+	 											<div class="row">
+	 												<div class="col">
+	 													<span id="auctionEndDate"></span>
+	 												</div>
+	 											</div>	 												 											
+	 										</div>
+	 									</div>
+	 									<%-- 행 --%>
+	 									
+	 									<%-- 행 --%>
+	 									<div class="row mt-2">
+	 										<div class="col fw-bold fs-4">
+	 											
+	 											<div class="row">
+													<div class="col" id="countDownTable">
+													
+													</div>
+												</div>
+	 										</div>
+	 									</div>
+	 									<%-- 행 --%>
+	 									
+	 									<div class="row mt-1">
+	 										<div class="col">
+ 												<div class="row mt-2">
+													<div class="col fs-5 rounded-2 fw-bold text-center align-middle" id="currentStatus" 
+													style="height: 30px;"></div>
+												</div>
+	 										</div>
+	 									</div>
+	 									
+	 									
+	 									<div class="row mt-4">
+	 										<div class="col">
+	 											
+	 											<div class="row">
+	 												<div class="col ms-2 border border-radius rounded bg-light">
+	 													
+	 													<div class="row mt-2">
+	 														<div class="col ms-1">
+	 															<c:choose>
+		 															<c:when test="${!empty sessionUser }">
+		 																내 코인 <span class="fw-bold fs-5 text-primary ms-1 me-1" id="auctionCoin"></span>원
+		 															</c:when>
+		 															<c:otherwise>
+		 																<a href="/safari/user/loginPage" class="ms-1 me-1">로그인하여 나의 보유 코인을 확인하세요.</a>
+		 															</c:otherwise>	
+	 															</c:choose>
+	 														</div>
+	 													</div>
+	 													
+	 													<div class="row mt-2" id="auctionBidBox">
+	 														
+	 														<!-- <div class="col-9">
+	 															<input type="text" class="form-control">
+	 														
+	 														</div>
+	 														<div class="col">
+	 															<input type="button" class="btn orangeButton" value="입찰하기">
+	 														</div> -->
+	 													
+	 													</div>
+	 													
+	 													<div class="row mt-3">
+	 														<div class="col"></div>
+	 													</div>
+	 													
+	 												</div>
+	 											</div>
+	 											
+	 										</div>
+	 									</div>
+	 									
 			
-			
-			</div>	
-			<%-- 두번째 행 --%>
-		
-		
-		
-		
-		</div>
-		<div class="col"></div>
-	</div>
+	 								</div>
+	 							</div>
+	 							<%-- 가격 --%>
+	 							
+	 								<!-- <div class="row mt-5">
+	 									<div class="col"></div>
+	 								</div> -->
+	 							
+	 								<div class="row mt-5">
+ 										<div class="col fw-bold fs-5">
+ 											실시간 채팅
+ 										</div>
+ 									</div>
+ 									
+ 									<div class="row mt-3">
+ 										<div class="col">
+ 											<div class="row">
+	 											<div class="col ms-2 border border-1" id="chatMessageBox" style="height: 500px; overflow: auto">
+	 											
+	 											</div>
+ 											</div>
+ 											
+ 											<div class="row mt-2">
+ 												<div class="col-10 pe-2 ps-1" style="width:">
+ 													<input type="text" class="form-control" id="chatContentBox" placeholder="실시간 채팅에 참여해보세요!"
+													onkeydown="checkSendMessage(event)">
+ 												</div>
+ 												<div class="col px-0 d-grid">
+ 													<input type="button" class="btn btn-dark" value="입력"  onclick="sendMessage()">
+ 												</div>
+ 											</div>
+ 										</div>
+ 									</div>
+ 									
+ 		
+	 							
+	 							
+	 							
+	 						</div>
+	 					</div>
+	 				
+	 				
+	 				
+	 				
+	 				
+	 				</div>
+	 				<%-- 2열 --%>
+	 			
+	 			</div>
+	 			
+	 			
+	 		</div>
+	 	</div>
+	 	
+	 	
+	 	
+	 	
+	 	</div>
+	 	<%-- 공간 끝 --%>
+	 	<div class="col"></div>
+	 
+	 
+	 </div>
+	
+	
+	
+	
 	
 	
 
@@ -402,7 +504,7 @@ style="position: absolute; transform: translateX(70%);right: 50%;">
       
 		<div class="row">
 			<%-- 상품 화면 시작 --%>
-			<div class="col ms-2 mt-3 mb-3 me-2">	
+			<div class="col ms-4 mt-3 mb-3 ">	
 				<div class="row">
 				
 					<%--상품 이미지 --%>
@@ -424,7 +526,7 @@ style="position: absolute; transform: translateX(70%);right: 50%;">
 								현재가 
 								<span class="text-danger fw-bold" id="currentPrice_modal">
 									
-								</span>
+								</span> 원
 								&nbsp;&nbsp;
 								즉시낙찰가
 								<span class="fw-bold">
@@ -437,14 +539,14 @@ style="position: absolute; transform: translateX(70%);right: 50%;">
 						
 						<div class="row mt-2">
 							<div class="col">
-								경매시작일 <fmt:formatDate value="${productDetail.auctionDto.start_date}"  pattern="yyyy-MM-dd a hh:mm"  />
+								경매시작일 <span id="auctionStartDate_Modal"> </span>
 				
 							</div>
 						</div>
 						
 						<div class="row mt-2">
 							<div class="col">
-								<span class="fw-bold" id="auctionEndDate_Modal"> </span> <%-- <fmt:formatDate value="${productDetail.auctionDto.end_date}"  pattern="yyyy-MM-dd HH:mm"  />--%>
+								경매종료일 <span class="fw-bold" id="auctionEndDate_Modal"> </span> <%-- <fmt:formatDate value="${productDetail.auctionDto.end_date}"  pattern="yyyy-MM-dd HH:mm"  />--%>
 							</div>
 						</div>
 					</div>
@@ -459,63 +561,128 @@ style="position: absolute; transform: translateX(70%);right: 50%;">
 		<%--탭바 --%>   
 		<%-- 탭 바 시작 --%>	
 		<div class="row mt-3">
-		
-			<div class="col text-center nav-pills nav-fill">
-			<ul class="nav nav-tabs" id="myTab" role="tablist">
-				<li class="nav-item" role="presentation">
-					<button class="nav-link active text-dark fw-bold" id="auctioninfo-tab" data-bs-toggle="tab"
-						data-bs-target="#auctioninfo" type="button" role="tab" aria-controls="auctioninfo"
-						aria-selected="true">상품정보</button>
-				</li>	
-				<li class="nav-item" role="presentation">
-					<button class="nav-link text-dark fw-bold" id="review-tab" data-bs-toggle="tab"
-						data-bs-target="#review" type="button" role="tab"
-						aria-controls="review" aria-selected="false">구매후기</button>
-				</li>
-				<li class="nav-item" role="presentation">
-					<button class="nav-link text-dark fw-bold" id="question-tab" data-bs-toggle="tab"
-						data-bs-target="#question" type="button" role="tab"
-						aria-controls="question" aria-selected="false">상품문의</button>
-				</li>
-			</ul>	
+			
+				<div class="col nav-pills nav-fill">
+					<ul class="nav nav-tabs" id="myTab" role="tablist">
+						<li class="nav-item" role="presentation">
+							<button class="ms-5 nav-link active text-dark fw-bold" id="auctioninfo-tab" data-bs-toggle="tab"
+								data-bs-target="#auctioninfo" type="button" role="tab" aria-controls="auctioninfo"
+								aria-selected="true">상품정보</button>
+						</li>	
+					   <li class="nav-item" role="presentation">
+		                <button class="nav-link text-dark fw-bold" id="review-tab" data-bs-toggle="tab"
+		                    data-bs-target="#review" type="button" role="tab"
+		                    aria-controls="review" aria-selected="false">입금/배송정보</button>
+	            		</li>
+			            <li class="nav-item" role="presentation">
+			                <button class="nav-link text-dark fw-bold" id="question-tab" data-bs-toggle="tab"
+			                    data-bs-target="#question" type="button" role="tab"
+			                    aria-controls="question" aria-selected="false">Q&A</button>
+			            </li>
+					</ul>	
 			
 				<%-- 내용 --%>
-			<div class="tab-content" id="myTabContent">
-				<div class="tab-pane fade show active" id="auctioninfo" role="tabpanel"
-					aria-labelledby="auctioninfo-tab">
-					<div class="row mt-4">
+				<div class="tab-content" id="myTabContent">
+					<div class="tab-pane fade show active" id="auctioninfo" role="tabpanel"
+						aria-labelledby="auctioninfo-tab">
+						<div class="row mt-4">
+							<div class="col"></div>
+							<%--이미지 --%>
+							<div class="col-10">
+								<div id="carouselExampleFade" class="carousel slide carousel-fade" data-bs-ride="carousel">
+	  								<div class="carousel-inner">
+	  									<c:forEach items="${productDetail.auctionImgDtoList}" var="auctionImgDto">
+										   <div class="carousel-item active">
+										      <img  width="300" height="600"
+										      src="/auctionFiles/${auctionImgDto.auction_item_img_link}" class="d-block w-100 mt-2" alt="...">
+										    </div>  								
+										</c:forEach>							
+									</div>	
+									 <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="prev">
+									    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+									    <span class="visually-hidden">Previous</span>
+									  </button>
+									  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="next">
+									    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+									    <span class="visually-hidden">Next</span>
+									  </button>								
+								</div>					
+							</div>
+							<%--이미지 --%>
 						<div class="col"></div>
-						<%--이미지 --%>
-						<div class="col-10">
-							<div id="carouselExampleFade" class="carousel slide carousel-fade" data-bs-ride="carousel">
-  								<div class="carousel-inner">
-  									<c:forEach items="${productDetail.auctionImgDtoList}" var="auctionImgDto">
-									   <div class="carousel-item active">
-									      <img  width="300" height="800"
-									      src="/auctionFiles/${auctionImgDto.auction_item_img_link}" class="d-block w-100 mt-2" alt="...">
-									    </div>  								
-									</c:forEach>							
-								</div>	
-								 <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="prev">
-								    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-								    <span class="visually-hidden">Previous</span>
-								  </button>
-								  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="next">
-								    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-								    <span class="visually-hidden">Next</span>
-								  </button>								
-							</div>					
+					</div>
+					</div>
+					
+		
+					<div class="tab-pane fade" id="review" role="tabpanel"
+						aria-labelledby="review-tab">
+						
+						
 						</div>
-						<%--이미지 --%>
-					<div class="col"></div>
-				</div>
+						
 					
-					
-				<div class="tab-pane fade" id="review" role="tabpanel"
-					aria-labelledby="review-tab">내리뷰리스트 탭</div>
-				<div class="tab-pane fade" id="question" role="tabpanel"
-					aria-labelledby="question-tab">위시리스트 탭</div>
-			</div>		
+					<%-- 상품문의 --%>	
+					<div class="tab-pane fade" id="question" role="tabpanel"
+						aria-labelledby="question-tab">
+						
+						<div class="row mt-4">
+							
+							<div class="col-11 ms-3">
+							
+								<div class="row">
+									<div class="col-auto text-start mt-2 ms-1" style="font-size: 17px;">
+										※ 상품 문의사항이 아닌 반품관련 문의는 고객센터 1:1 문의를 이용해주시기 바랍니다.
+									</div>
+									<div class="col text-end">
+										<button class="btn orangeButton" onclick="toggleInquiryInputBox()">
+											  상품문의
+											  <i class="bi bi-pencil-square"></i>
+											</button>
+										
+									</div>
+								</div>
+								
+								<div id="inquiryInputBox" class="row mt-3" style="display: none;">
+								    <div class="col">
+								        <div class="d-flex">
+								            <textarea id="inquiryTextarea" class="form-control flex-grow-1 ms-1" rows="3" placeholder="문의 내용을 입력하세요"
+								            onkeydown="checkSendInquiry(event)"></textarea>
+								            <input type="button" class="btn btn-dark ms-2" value="등록"
+								            onclick="registerAuctionInquiry()">
+								        </div>
+								    </div>
+								</div>
+								
+							
+								
+								<div class="row mt-3">
+									<div class="col fw-bold fs-5 ms-1">
+									 문의 목록
+									</div>
+								</div>
+								
+								<div class="row mt-2 border-bottom"></div>
+								
+								<div class="row">
+									<div class="col" id="inquiryList">
+									
+										
+									
+										
+									
+									
+									</div>
+								</div>
+								
+								
+							
+							
+							</div>
+							<div class="col"></div>
+						</div>
+						
+					</div> 
+					<%-- 상품문의 --%>	
 					
 			
 			
@@ -523,6 +690,7 @@ style="position: absolute; transform: translateX(70%);right: 50%;">
 			<%-- 탭 내용 끝 --%>
 		
 		</div>	
+		
 	
 		<%-- 탭 바 끝 --%>
 
@@ -810,7 +978,31 @@ style="position: absolute; transform: translateX(70%);right: 50%;">
 
 
 
-
+<%-- 내용 입력 알림 --%>
+<div class="modal" id="inquiryFailModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered"> 
+    <div class="modal-content">
+      <div class="modal-header">
+      	
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div> 
+      <div class="modal-body">
+      	
+      	<div class="row text-center">
+    		<div class="col">내용을 입력하세요.</div>
+       </div>
+  
+      </div>
+      
+      <div class="modal-footer">
+      	
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">창닫기</button>
+      </div>      
+   
+    </div>
+  </div>
+</div>
+<%-- 내용 입력 알림 --%>
 
 
 
@@ -855,7 +1047,21 @@ function checkSendMessage(event) {
   }
 }
 
-//접속한 유저의 pk 받아오기
+//문의 입력 시 enter 키 이벤트 처리
+function checkSendInquiry(event) {
+  if (event.key === "Enter") {
+	  registerAuctionInquiry();
+  }
+}  
+
+//답변 입력 시 Enter 키 이벤트 처리
+function checkSendReply(event, inquiryId) {
+    if (event.key === "Enter") {
+        registerAuctionReply(inquiryId);
+    }
+}
+
+//접속한 유저의 pk 받아오기 (완료)
 function getSessionId() {
 		
     const xhr = new XMLHttpRequest();
@@ -866,7 +1072,7 @@ function getSessionId() {
 
             if(response.result == "success") {
                 sessionId = response.id;
-                console.log("현재 접속한 pk는 " + sessionId);
+              
             }
             
         }
@@ -875,7 +1081,7 @@ function getSessionId() {
     xhr.send();
 }
 
-// 경매 물품 판매자의 pk 받아오기 
+// 경매 물품 판매자의 pk 받아오기 (완료)
 function getSellerId() {
 	
     const xhr = new XMLHttpRequest();
@@ -930,26 +1136,17 @@ function getAuctionEndTimeInRealTime() {
  	        // 경매 종료일 선언
             endDate = new Date(response.auctionEndTime.end_date); 
 
-            const formattedEndDate = endDate.toLocaleString('ko-KR', {
-              year: 'numeric',
-              month: '2-digit',
-              day: '2-digit',
-              hour: '2-digit',
-              minute: '2-digit',
-              //second: '2-digit',
-              hour12: true
-            });
-            
+            const formattedEndDate = formatTime(endDate);
             
             endDateBox.innerText = formattedEndDate;
-            endDateModalBox.innerText = "경매종료일 " + formattedEndDate;
+            endDateModalBox.innerText = formattedEndDate;
         }
    	};
     xhr.open("get", "/safari/auction/getAuctionEndTimeInRealTime/" +auctionItemId);
     xhr.send(); 	
 }
 
-// 경매 물품 정보 보여주기 (완료)
+// 경매 물품 정보 보여주기 
 function showAuctionInfo() {
  
 	const xhr = new XMLHttpRequest();
@@ -961,83 +1158,106 @@ function showAuctionInfo() {
  
             const response = JSON.parse(xhr.responseText);
             
-            // 판매자가 본인이 업로드한 경매 게시물에 접속 시 입찰 입력 폼 비활성화
-          	if (sellerId == sessionId) {
-            	forbidInputBidBox();
-            } 
-             
+        
             const item = response.auctionItem; //  rest controller에서 받아온 것
             
-            // 제목 row //
-         	const titleRow = document.getElementById("auctionTitle");
-            titleRow.innerText = item.auctionDto.title;
-         	// 제목 row //
-         	
-
+    
             // 경매시작일 선언
             startDate = new Date(item.auctionDto.start_date); 
   
-            const formattedStartDate = startDate.toLocaleString('ko-KR', {
-              year: 'numeric',
-              month: '2-digit',
-              day: '2-digit',
-              hour: '2-digit',
-              minute: '2-digit',
-              
-              hour12: true
-            });           
+            const formattedStartDate = formatTime(startDate);
             
             // 경매시작일 row 시작//
          	const startDateRow = document.getElementById("auctionStartDate");
             startDateRow.innerText = formattedStartDate;
             // 경매시작일 row 끝 //
             
+            const startDateModal = document.getElementById("auctionStartDate_Modal");
+            startDateModal.innerText = formattedStartDate;
+            
             // 시작가 row  //
-            const startPriceRow = document.getElementById("auctionStartPrice");
-            startPriceRow.innerText = new Intl.NumberFormat('ko-KR').format(item.auctionDto.start_price) + "원";
+           /*  const startPriceRow = document.getElementById("auctionStartPrice");
+            startPriceRow.innerText = new Intl.NumberFormat('ko-KR').format(item.auctionDto.start_price) + "원"; */
             
             
             const bidPriceRows = document.querySelectorAll("#auctionImmediatePrice, #immediateBidPrice");
 
             bidPriceRows.forEach(row => {
-              row.innerText = new Intl.NumberFormat('ko-KR').format(item.auctionDto.max_price) + "원";
+              row.innerText = new Intl.NumberFormat('ko-KR').format(item.auctionDto.max_price);
             });
             
         	const editCol = document.getElementById("editBar");
+        	editCol.innerHTML = "";
      
-	        if (sessionId != item.auctionDto.user_seller_id) {
+	       /*  if (sessionId != item.auctionDto.user_seller_id) { */
 	              const heartBox = document.createElement("i");
 	              heartBox.id = "heartBox";
-	              heartBox.classList.add("fs-5", "text-danger", "bi");
-	              heartBox.style.position = "relative";
-	              heartBox.style.top = "5px";
+	              heartBox.classList.add("fs-4", "text-danger", "bi");
+	              //heartBox.style.position = "relative";
+	              //heartBox.style.top = "5px";
 	              refreshMyHeart();
+	              refreshTotalLikeCount();
 	        		//heartBox.classList.add("bi-heart-fill");//
 	        	  heartBox.onclick = toggleLikeAuctionProduct;
+	        	  heartBox.style = "cursor";
+	        		
+	        	  const heartCount = document.createElement("span");
+	        	  heartCount.classList.add("ms-1");
+	        	  heartCount.id = "totalLikeCount";
 	        		
 	              editCol.appendChild(heartBox);
-	        } 
-          
+	              editCol.appendChild(heartCount);
+	       /*  } 
+           */
+           
+           	const bidCountIcon = document.createElement("i");
+            bidCountIcon.classList.add("bi", "bi-people", "fs-4", "ms-2");
+            
+            const bidCount = document.createElement("span");
+            bidCount.classList.add("ms-1");
+            
+            bidCount.id = "bidCount";
+            
+            
+            editCol.appendChild(bidCountIcon);
+            editCol.appendChild(bidCount);
+            
+            
+           
+           
 	          // 경매 판매자의 pk와 현재 접속한 유저의 pk가 일치할 경우 수정, 삭제 버튼 보이게 하기
-	          else if (sessionId == item.auctionDto.user_seller_id  /*&& nowDate < threeDaysBeforeStartDate*/) { 
+	          if (sessionId == item.auctionDto.user_seller_id  /*&& nowDate < threeDaysBeforeStartDate*/) { 
 	       	   
 	        	 const threeDaysBeforeStartDate = new Date(startDate);
 	             threeDaysBeforeStartDate.setDate(startDate.getDate() - 3);
 	             
-	             const modifyButton = document.createElement("input");
+	             const modifyButton = document.createElement("i");
+				 modifyButton.classList.add("bi", "bi-pencil-square", "fs-4", "text-secondary", "ms-4");
+				 modifyButton.style.cursor = "pointer";
+				 modifyButton.onclick = modifyProductPage;
+				 
+	             
+	 /*             const modifyButton = document.createElement("input");
 	             modifyButton.type = "button";
 	             modifyButton.classList.add("btn", "btn-secondary", "me-1");
 	             modifyButton.onclick = modifyProductPage;
 	             
-	             modifyButton.value = "수정";
+	             modifyButton.value = "수정"; */
+	             
+	         	const deleteButton = document.createElement("i");
+				deleteButton.classList.add("bi", "bi-trash3", "ms-1", "fs-4", "text-secondary");
+				deleteButton.style.cursor = "pointer";
+				deleteButton.onclick = function() {
+	                 location.href = "/safari/auction/removeProductProcess/" + auctionItemId;
+	               };   
 	
-	             const deleteButton = document.createElement("input");
+	            /*  const deleteButton = document.createElement("input");
 	             deleteButton.type = "button";
 	             deleteButton.classList.add("btn", "btn-secondary");
 	             deleteButton.onclick = function() {
 	                 location.href = "/safari/auction/removeProductProcess/" + auctionItemId;
 	               };   
-	             deleteButton.value = "삭제";             
+	             deleteButton.value = "삭제";    */          
 	             
 	             editCol.appendChild(modifyButton);
 	             editCol.appendChild(deleteButton);
@@ -1046,7 +1266,13 @@ function showAuctionInfo() {
             
            else if (nowDate >= startDate && nowDate <= endDate) {
        	   
-          } 
+          }
+           
+          // 판매자가 본인이 업로드한 경매 게시물에 접속 시 입찰 입력 폼 비활성화
+          	if (sellerId == sessionId) {
+            	forbidInputBidBox();
+            } 
+	             
         }
    	
    	}
@@ -1054,8 +1280,28 @@ function showAuctionInfo() {
     xhr.send();   		
 }
 
+// 입찰 수 실시간으로 갱신
+function getBidCount() {
+	
+	const xhr = new XMLHttpRequest();
 
-// 입찰하기 입력 폼 생성
+   	xhr.onreadystatechange = function() {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+ 
+            const response = JSON.parse(xhr.responseText);
+            
+            const auctionBidCount = document.querySelector("#bidCount");
+            auctionBidCount.innerText = response.bidCount;
+            
+        }
+        
+   	}  
+    xhr.open("get", "/safari/auction/getBidCount?auctionItemId=" + auctionItemId);
+    xhr.send();   	
+}
+
+
+// 입찰하기 입력 폼 생성 (완료)
 function showInputBidBox() {
 	
     const auctionBidBox = document.getElementById("auctionBidBox");
@@ -1083,7 +1329,7 @@ function showInputBidBox() {
     bidEnterCol.classList.add("col", "d-grid");
     
     const button = document.createElement("input");
-    button.classList.add("btn", "text-white", "fw-bold", "btn-dark");
+    button.classList.add("btn", "text-white", "fw-bold", "orangeButton");
 	button.type = "button";
 	button.value = "입찰하기";
 	// 입찰하기 버튼에 id 부여
@@ -1106,13 +1352,13 @@ function forbidInputBidBox() {
 	 const button = document.getElementById("inputBidButton");
 	 
  
-   	  if(!button.classList.contains("disabled") && inputBidBox.placeholder != "판매자는 입찰하실 수 없습니다." ) {
+   	  if(/* !button.classList.contains("disabled") && */ inputBidBox.placeholder != "판매자는 입찰하실 수 없습니다." ) {
    		  
    		 currentStatusBox.innerHTML = ""; 
    		 inputBidBox.innerHTML = "";
    		 button.innerHTML = "";
    		 
-   		 button.classList.add("disabled");  
+   		 //button.classList.add("disabled");   바꿔야함
    		 inputBidBox.placeholder = "판매자는 입찰하실 수 없습니다."
    		 inputBidBox.setAttribute("readonly", "readonly"); 
    		 
@@ -1137,9 +1383,8 @@ function forbidInputBidBoxByMaxBider() {
 	 const inputBidBox = document.getElementById("bidPrice");
 	 const button = document.getElementById("inputBidButton");
 	 
-	 currentStatusBox.style.animation = "";
 	 
-  	  if(!button.classList.contains("disabled") && inputBidBox.placeholder != "회원님은 현재 최고입찰자입니다." ) {
+  	  if(/* !button.classList.contains("disabled") &&  */inputBidBox.placeholder != "회원님은 현재 최고입찰자입니다." ) {
     		 
   		 currentStatusBox.innerHTML = "";
   
@@ -1148,33 +1393,17 @@ function forbidInputBidBoxByMaxBider() {
    		 button.innerHTML = "";
    		 
          const statusText = document.createElement("span");
-         statusText.innerText = "최고 입찰자";
+         statusText.innerText = "회원님은 현재 최고 입찰자입니다.";
 
-         const awardSpan = document.createElement("span");
-         awardSpan.classList.add("award-container");
-
-         const awardIcon1 = document.createElement("i");
-         awardIcon1.classList.add("bi", "bi-trophy");
-
-         const awardIcon2 = document.createElement("i");
-         awardIcon2.classList.add("bi", "bi-trophy");
-
-         awardSpan.appendChild(awardIcon1);
-         awardSpan.appendChild(document.createTextNode(" ")); // 공백 추가
-         awardSpan.appendChild(document.createTextNode(" ")); // 공백 추가
-         awardSpan.appendChild(statusText);
-         awardSpan.appendChild(document.createTextNode(" ")); // 공백 추가
-         awardSpan.appendChild(document.createTextNode(" ")); // 공백 추가
-         awardSpan.appendChild(awardIcon2);
-
+ 
          currentStatusBox.style.backgroundColor = "#fcdf03";
          //currentStatusBox.style.animation = "blink 2s infinite";
 
    		 
-   		 currentStatusBox.appendChild(awardSpan);
+   		  currentStatusBox.appendChild(statusText);
    		 
    		 
-   		 button.classList.add("disabled");  
+   		 //button.classList.add("disabled");  (나중에 수정)
    		 inputBidBox.placeholder = "회원님은 현재 최고입찰자입니다.";
    		 inputBidBox.setAttribute("readonly", "readonly");
 
@@ -1192,13 +1421,13 @@ function renewInputBidBoxEnd() {
 	 const button = document.getElementById("inputBidButton");
 	 
 	 currentStatusBox.style.animation = "";
-   	 if (inputBidBox.placeholder != "경매가 종료되었습니다." || !button.classList.contains('disabled')) {
+   	 if (inputBidBox.placeholder != "경매가 종료되었습니다." || !button.classList.contains('disabled') ) {
    		   
    		   currentStatusBox.innerHTML = ""
 		   inputBidBox.innerHTML = "";	   
 		   button.innerHTML = "";
 		   
-	       button.classList.add("disabled");
+	      // button.classList.add("disabled"); ()
 	       
 	       inputBidBox.placeholder = "경매가 종료되었습니다."
 	       inputBidBox.setAttribute("readonly", "readonly");
@@ -1233,9 +1462,9 @@ function renewInputBidBoxIng() {
 	   button.innerHTML = "";
 	   
        const statusText = document.createElement("span");
-       statusText.innerText = "낙찰에 도전하세요";
+       statusText.innerText = "낙찰에 도전하여 갖고 싶은 상품을 받아가세요";
 
-       const trySpan = document.createElement("span");
+      /*  const trySpan = document.createElement("span");
        trySpan.classList.add("award-container", "placeholder-glow");
 
        const tryIcon1 = document.createElement("i");
@@ -1253,13 +1482,13 @@ function renewInputBidBoxIng() {
        trySpan.appendChild(statusText);
        trySpan.appendChild(document.createTextNode(" ")); // 공백 추가
        trySpan.appendChild(document.createTextNode(" ")); // 공백 추가
-       trySpan.appendChild(tryIcon2);
+       trySpan.appendChild(tryIcon2); */
 
        currentStatusBox.style.backgroundColor = "#d4f542";
        //currentStatusBox.style.animation = "blink 2s infinite";
 
  		 
- 	   currentStatusBox.appendChild(trySpan);	   
+ 	   currentStatusBox.appendChild(statusText);	   
 	   
 	   inputBidBox.placeholder = "현재가보다 낮은 가격으로 입찰하실 수 없습니다.";
 	   button.classList.remove('disabled');
@@ -1275,11 +1504,11 @@ function renewInputBidBoxBefore() {
 	 const inputBidBox = document.getElementById("bidPrice");
 	 const button = document.getElementById("inputBidButton");
 	 
-	 if (inputBidBox.placeholder != "경매 준비중입니다." || !button.classList.contains('disabled')) {
+	 if (inputBidBox.placeholder != "경매 준비중입니다." /* || !button.classList.contains('disabled') */) {
       	
 		currentStatusBox.innerHTML = ""; 
 		 
-		button.classList.add("disabled");  
+		//button.classList.add("disabled");  
 
       	inputBidBox.placeholder = "경매 준비중입니다.";
    	    inputBidBox.setAttribute("readonly", "readonly");
@@ -1377,7 +1606,7 @@ function updateAuctionCountDown() {
    // 경매 종료
    if(endDate <= nowDate) {
  	  renewInputBidBoxEnd(); // 입찰버튼 업데이트, 한번만 갱신 (o)
- 	  showCountDownTableEnd(); // 카운트다운 제목 업데이트, 한번만 갱신 (o)
+ 	  //showCountDownTableEnd(); // 카운트다운 제목 업데이트, 한번만 갱신 (o)
  	  renewAuctionButtonStatusEnd(); // 제품 정보 버튼 업데이트 (o)
  	  renewAuctionItemStatusEnd();
  	  
@@ -1400,6 +1629,9 @@ function updateAuctionCountDown() {
    }
    else {
 	   
+	 const priceTitle = document.querySelector("#priceTitle"); 
+	 priceTitle.innerText = "현재가";
+	 
 	 const remainTitleRow = document.createElement("div"); 
 	 remainTitleRow.classList.add("row", "mt-2");
 	 
@@ -1432,7 +1664,7 @@ function updateAuctionCountDown() {
    	  }
    	  
 		
-   	  showCountDownTableIng(); //(o)
+   	  //showCountDownTableIng(); //(o)
    	  renewAuctionButtonStatusIng(); // (o)
    	  renewAuctionItemStatusIng();
    	  
@@ -1446,7 +1678,7 @@ function updateAuctionCountDown() {
  	  } else {
  		  forbidInputBidBox();
  	  }
- 	  showCountDownTableBefore();//(o)
+ 	  //showCountDownTableBefore();//(o)
  	  renewAuctionButtonStatusBefore();
  	  
  	  countdownResult = countdownFromStartDate(startDate);
@@ -1505,15 +1737,469 @@ function auctionInfoPage() {
 	auctionInfoModal.show();
 }
 
+var inquiryInputBox = document.getElementById('inquiryInputBox');
+var isOpen = false;
+
+function toggleInquiryInputBox() {
+    isOpen = !isOpen;
+    if (isOpen) {
+        inquiryInputBox.style.display = 'block';
+    } else {
+        inquiryInputBox.style.display = 'none';
+    }
+}
+
+
+
+// 경매 상품 문의 등록 
+function registerAuctionInquiry() {
+
+	const content = document.querySelector("#inquiryTextarea");
+	
+	const trimContent = content.value.trim(); // 앞뒤 공백 제거
+
+	if (trimContent == "") {
+		const inquiryFailModal = bootstrap.Modal.getOrCreateInstance("#inquiryFailModal");
+		inquiryFailModal.show();
+
+		setTimeout(function() {
+			inquiryFailModal.hide();
+		}, 1000);
+
+		content.value = '';
+		content.focus();
+		return;
+	}
+	
+	if(sessionId == null) {
+		location.href = "/safari/user/loginPage";
+		return;
+	}
+
+	const xhr = new XMLHttpRequest();
+   	xhr.onreadystatechange = function() {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+            const response = JSON.parse(xhr.responseText);
+            content.value = "";
+            reloadInquiryList();
+            
+            
+        }
+   	}
+	xhr.open("post", "/safari/auction/registerAuctionInquiry");
+	xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+	xhr.send("&content=" + content.value + "&auction_item_id=" + auctionItemId);	
+}
+
+function toggleReplyInputBox(inquiryId) {
+    var replyInputBox = document.getElementById('replyInputBox_' + inquiryId);
+    if (replyInputBox.style.display === 'none') {
+        replyInputBox.style.display = 'block';
+    } else {
+        replyInputBox.style.display = 'none';
+    }
+}
+
+
+// 경매 상품 문의 답변
+function registerAuctionReply(inquiryId) {
+	
+
+    const replyTextareaId = "replyTextarea_" + inquiryId; 
+    const replyTextarea = document.getElementById(replyTextareaId); 
+    const replyContent = replyTextarea.value; 
+    console.log(replyContent);
+    
+
+	if(sessionId == null) {
+		location.href = "/safari/user/loginPage";
+		return;
+	}
+		
+	const xhr = new XMLHttpRequest();
+   	xhr.onreadystatechange = function() {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+            const response = JSON.parse(xhr.responseText);
+            replyTextarea.value = ""; // 답변 등록 후에 textarea 초기화
+            reloadInquiryList(); // 문의 목록을 다시 조회하여 업데이트
+            
+            
+        }
+   	}
+   	xhr.open("post", "/safari/auction/registerAuctionReply");
+	xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+	xhr.send("&content=" + replyContent + "&auction_item_inquiry_id=" + inquiryId);
+}
+
+
+// 문의 목록 조회
+function reloadInquiryList() {
+	
+	const inquiryList = document.querySelector("#inquiryList");
+	
+	const xhr = new XMLHttpRequest();
+   	xhr.onreadystatechange = function() {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+            const response = JSON.parse(xhr.responseText);
+            
+            inquiryList.innerHTML = "";
+            
+            console.log(response.qnaList);
+            if(!response.qnaList || response.qnaList.length == 0) {
+            	const borderRow = document.createElement("div");
+            	borderRow.classList.add("row", "border-bottom", "py-2");
+            	
+            	
+            	const borderCol = document.createElement("div");
+            	borderCol.classList.add("col", "text-center");
+            	
+            	borderCol.innerText = "등록된 문의가 없습니다.";
+            	borderRow.appendChild(borderCol);
+            	
+            	inquiryList.appendChild(borderRow);
+            	
+            }
+            else {
+            for(data of response.qnaList) {
+            	
+            	const borderRow = document.createElement("div");
+            	borderRow.classList.add("row", "border-bottom", "py-2");
+            	borderRow.id = "inquiryRow_" + data.inquiryId;
+            	
+            	const borderCol = document.createElement("div");
+            	borderCol.classList.add("col");
+            	
+            	const row = document.createElement("div");
+            	row.classList.add("row");
+            	
+  
+            	// 답변 완료 여부 상태 //
+            	const statusCol = document.createElement("div");
+            	statusCol.classList.add("col");
+            	
+            	const buttonRow = document.createElement("div");
+            	buttonRow.classList.add("row");
+            	
+               	const buttonCol = document.createElement("div");
+            	buttonCol.classList.add("col");
+            	
+            	const button = document.createElement("input");
+            	button.type = "button";
+            	
+            	button.id = "inquiryStatus_" + data.inquiryId;
+            	
+            	if(!data.replyId) {
+            		button.classList.add("btn", "btn_delivered");
+                	button.value = "답변대기중";
+            	} else {
+            		button.classList.add("btn", "btn_ordered");
+                	button.value = "답변완료";
+            	}
+            	
+            	buttonCol.appendChild(button);
+            	buttonRow.appendChild(buttonCol);
+            	
+            	statusCol.appendChild(buttonRow);
+            	// 답변 완료 여부 상태 //
+            	
+            	// 문의 내용 //
+            	const contentCol = document.createElement("div");
+            	contentCol.classList.add("col-7", "px-0");
+            	
+            	const cRow = document.createElement("div");
+            	cRow.classList.add("row");
+            	
+            	const cCol = document.createElement("div");
+            	cCol.classList.add("col");
+            	
+            	cCol.innerText = data.inquiry_content;
+            	
+            	
+   
+            	 // 답변 box //
+                const replyInputBox = document.createElement("div");
+                replyInputBox.classList.add("row", "mt-3");
+                replyInputBox.style.display = "none";
+                replyInputBox.id = "replyInputBox_" + data.inquiryId; 
+
+                const replyCol = document.createElement("div");
+                replyCol.classList.add("col");
+
+                const dflex = document.createElement("div");
+                dflex.classList.add("d-flex");
+
+                const replyArea = document.createElement("textarea");
+                replyArea.classList.add("form-control", "flex-grow-1", "ms-1");
+                replyArea.id = "replyTextarea_" + data.inquiryId; 
+                replyArea.rows = "3";
+                replyArea.placeholder = "답변내용을 입력하세요";
+                replyArea.onkeydown = function(event) {
+                    checkSendReply(event, data.inquiryId);
+                };
+
+                const replyRegisterButton = document.createElement("input");
+                replyRegisterButton.type = "button";
+                replyRegisterButton.classList.add("btn", "btn-dark", "ms-2");
+                replyRegisterButton.value = "등록";
+           
+                replyRegisterButton.onclick = (function(inquiryId) {
+			        return function() {
+
+			        	registerAuctionReply(inquiryId);
+			        };
+			    })(data.inquiryId);
+
+                
+       
+	            const replyButton = document.createElement("i");
+	            if (sessionId == sellerId && !data.replyId) {
+	            	replyButton.classList.add("bi", "bi-pencil-square", "ms-2");
+	            	replyButton.style.cursor = "pointer";
+				    replyButton.onclick = (function(inquiryId) {
+				        return function() {
+
+				            toggleReplyInputBox(inquiryId);
+				        };
+				    })(data.inquiryId);
+				    
+				    cCol.appendChild(replyButton);
+				}
+			            	
+            	cRow.appendChild(cCol);
+            	
+            	contentCol.appendChild(cRow);
+            	// 문의 내용 //
+            	
+            	// 작성자 //
+            	const userCol = document.createElement("div");
+            	userCol.classList.add("col");
+            	
+            	const uRow = document.createElement("div");
+            	uRow.classList.add("row");
+            	
+            	const uCol = document.createElement("div");
+            	uCol.classList.add("col");
+            	
+            	if (sessionId == data.buyer_id) {
+            		uCol.style.color = "#ff6f0f";
+            	}
+            	
+            	uCol.innerText = data.buyer_nickname;
+            	
+            	uRow.appendChild(uCol);
+            	userCol.appendChild(uRow);
+            	// 작성자 //
+            	
+            	// 작성일 //
+            	const dateCol = document.createElement("div");
+            	dateCol.classList.add("col");
+            	
+            	const dRow = document.createElement("div");
+            	dRow.classList.add("row");
+            	
+            	const dCol = document.createElement("div");
+            	dCol.classList.add("col");
+            	
+            	//dCol.innerText = formatTime(data.inquiry_reg_date);
+            	dCol.innerText = formatDateTime(data.inquiry_reg_date);
+            	
+            	
+            	dRow.appendChild(dCol);
+            	dateCol.appendChild(dRow);
+            	// 작성일 //
+            	
+              	row.appendChild(statusCol);
+            	row.appendChild(contentCol);
+            	row.appendChild(userCol);
+            	row.appendChild(dateCol);
+			
+            	borderCol.appendChild(row);
+            	borderRow.appendChild(borderCol);
+            
+            	inquiryList.appendChild(borderRow);
+            	
+
+            	dflex.appendChild(replyArea);
+            	dflex.appendChild(replyRegisterButton);
+            	
+            	replyCol.appendChild(dflex);
+            	replyInputBox.appendChild(replyCol);
+            	
+			    replyButton.onclick = (function(inquiryId) {
+			        return function() {
+
+			            toggleReplyInputBox(inquiryId);
+			        };
+			    })(data.inquiryId);
+			    
+			    
+			    borderRow.onclick = (function(inquiryId) {
+			        return function() {
+
+			        	toggleReplyRow(data.inquiryId);
+			        };
+			    })(data.inquiryId);
+            	
+
+            	inquiryList.appendChild(replyInputBox);
+            	
+
+            	
+            	if (data.replyId) {
+                   	const replyBorderRow = document.createElement("div");
+                   	replyBorderRow.classList.add("row", "border-bottom", "py-2");
+                   	replyBorderRow.id = "replyRow_" + data.inquiryId;
+                	
+                	const replyBorderCol = document.createElement("div");
+                	replyBorderCol.classList.add("col");
+                	
+                	const Rrow = document.createElement("div");
+                	Rrow.classList.add("row");
+                	
+
+                	
+                	// 답변 완료 여부 상태 //
+                	const RCol = document.createElement("div");
+                	RCol.classList.add("col");
+                	
+                	const bRow = document.createElement("div");
+                	bRow.classList.add("row");
+                	
+                   	const bCol = document.createElement("div");
+                	bCol.classList.add("col", "text-end", "me-2");
+                	
+                	
+                	const rIcon = document.createElement("i");
+                	rIcon.classList.add("bi", "bi-arrow-return-right", "fs-5");
+                	
+                	bCol.appendChild(rIcon);
+                	
+                
+                	bRow.appendChild(bCol);
+                	
+                	RCol.appendChild(bRow);
+                	
+               
+                	// 답변 완료 여부 상태 //
+                	
+
+                	
+                	// 문의 내용 //
+                	const rbcCol = document.createElement("div");
+                	rbcCol.classList.add("col-7", "px-0");
+                	
+                	const rRow = document.createElement("div");
+                	rRow.classList.add("row");
+                	
+                	const rCol = document.createElement("div");
+                	rCol.classList.add("col");
+                	
+                	rCol.innerText = data.reply_content;
+                	
+                	rRow.appendChild(rCol);
+                	rbcCol.appendChild(rRow);
+                	
+                 	// 작성자 //
+                	const sellerCol = document.createElement("div");
+                	sellerCol.classList.add("col");
+                	
+                	const sellerReplyRow = document.createElement("div");
+                	sellerReplyRow.classList.add("row");
+                	
+                	const sellerReplyCol = document.createElement("div");
+                	sellerReplyCol.classList.add("col");
+                	
+                	//sellerReplyCol.innerText = data.seller_nickname;
+                	
+                	sellerReplyRow.appendChild(sellerReplyCol);
+                	sellerCol.appendChild(sellerReplyRow);
+                	// 작성자 //
+                	
+                	// 작성일 //
+                	const sdateCol = document.createElement("div");
+                	sdateCol.classList.add("col");
+                	
+                	const sdRow = document.createElement("div");
+                	sdRow.classList.add("row");
+                	
+                	const sdCol = document.createElement("div");
+                	sdCol.classList.add("col");
+                	
+                	//dCol.innerText = formatTime(data.inquiry_reg_date);
+                	//sdCol.innerText = formatDateTime(data.reply_reg_date);
+                	
+                	sdRow.appendChild(sdCol);
+                	sdateCol.appendChild(sdRow);
+                	
+	          	    Rrow.appendChild(RCol);
+	          	    Rrow.appendChild(rbcCol);
+	          	    Rrow.appendChild(sellerCol);
+	          	    Rrow.appendChild(sdateCol);
+                	
+	          	    replyBorderCol.appendChild(Rrow);
+	          	    replyBorderRow.appendChild(replyBorderCol);
+	          	    
+	          	// 클릭 이벤트 리스너 추가
+	          	  replyBorderRow.onclick = (function(inquiryId) {
+				        return function() {
+
+				        	toggleReplyRow(data.inquiryId);
+				        };
+				    })(data.inquiryId);
+	            	
+ 
+	          	  
+                    //replyBorderRow.style.display = "none"; // 답변이 달린 row를 숨김
+	          	    
+	          	    inquiryList.appendChild(replyBorderRow);
+            	}
+            	
+            	
+   
+            	
+            }
+        }
+            
+            
+        }
+   	}
+   	xhr.open("get", "/safari/auction/getAuctionQnAList?auctionItemId=" + auctionItemId);
+	xhr.send();
+}
+
+
+//답변이 달린 row toggle 함수
+function toggleReplyRow(inquiryId) {
+    const replyRowId = "replyRow_" + inquiryId;
+    const replyRow = document.getElementById(replyRowId);
+
+    if (replyRow) {
+        if (replyRow.style.display === "none" || replyRow.style.display === "") {
+            replyRow.style.display = "block";
+        } else {
+            replyRow.style.display = "none";
+        }
+    }
+}
+
+// 문의 답변 상태 확인
+
+
 
 
 // 경매 종료 시, 제품 정보에서 경매 상태를 종료로 표시
 function renewAuctionButtonStatusEnd() {
 	
 	const auctionStatusBox = document.getElementById("auctionStatus");
-
+	const statusButton = document.createElement("button");
+	
+	
 	if (auctionStatusBox.innerText != '경매 종료') {
-		auctionStatusBox.innerText = "경매 종료";
+		
+		auctionStatusBox.innerHTML = "";
+		statusButton.classList.add("btn", "btn-sm", "btn-outline-secondary", "disabled", "fw-bold");
+		statusButton.innerText = "경매 종료"
+		auctionStatusBox.appendChild(statusButton);
 	}
 	
 }
@@ -1522,9 +2208,14 @@ function renewAuctionButtonStatusEnd() {
 function renewAuctionButtonStatusIng() {
 	
 	const auctionStatusBox = document.getElementById("auctionStatus");
+	const statusButton = document.createElement("button");
 	
 	if (auctionStatusBox.innerText != '진행중') {
-		auctionStatusBox.innerText = "진행중";
+		
+		auctionStatusBox.innerHTML = "";
+		statusButton.classList.add("btn", "btn-sm", "btn-outline-success", "disabled", "fw-bold");
+		statusButton.innerText = "진행중"
+		auctionStatusBox.appendChild(statusButton);
 	}
 	
 }
@@ -1533,9 +2224,14 @@ function renewAuctionButtonStatusIng() {
 function renewAuctionButtonStatusBefore() {
 
 	const auctionStatusBox = document.getElementById("auctionStatus");
+	const statusButton = document.createElement("button");
 	
 	if (auctionStatusBox.innerText != '준비중') {
-		auctionStatusBox.innerText = "준비중";
+		
+		auctionStatusBox.innerHTML = "";
+		statusButton.classList.add("btn", "btn-sm", "btn-outline-primary", "disabled", "fw-bold");
+		statusButton.innerText = "준비중"
+		auctionStatusBox.appendChild(statusButton);
 	}
 	
 }
@@ -1548,10 +2244,14 @@ function renewAuctionItemStatusEnd() {
 	
 	 const xhr = new XMLHttpRequest();
 	 
+	 const priceTitle = document.querySelector("#priceTitle");
 	 xhr.onreadystatechange = function() {
 	    if (xhr.readyState === 4 && xhr.status === 200) {
 	      const response = JSON.parse(xhr.responseText);
-			
+		  
+	      priceTitle.innerHTML = "";
+	      
+	      priceTitle.innerText = "낙찰가";
 	      
 		  }
 	 }
@@ -1583,7 +2283,7 @@ function showAuctionStatusTitle() {
    
    // 남은 시간 카운트 공간
    const remainTimeRow = document.createElement("div");
-   remainTimeRow.classList.add("row","mt-2","fs-4", "text-center");
+   remainTimeRow.classList.add("row","fs-4", "text-center");
   
   
    const remainTimeCol = document.createElement("div");
@@ -1600,7 +2300,7 @@ function showAuctionStatusTitle() {
    
    countDownTableBox.innerHTML = "";
     
-   const statusRow = document.createElement("div");
+   /* const statusRow = document.createElement("div");
    statusRow.classList.add("row");
 
     
@@ -1614,7 +2314,7 @@ function showAuctionStatusTitle() {
    statusRow.appendChild(statusCol);
    
   
-   countDownTableBox.appendChild(statusRow);
+   countDownTableBox.appendChild(statusRow); */
    countDownTableBox.appendChild(remainTimeRow);
    
 
@@ -1627,8 +2327,8 @@ function showCountDownTableEnd() {
     const statusCol = document.getElementById("statusTitle");
     if (statusCol.innerText !== "경매 종료") { // 현재 텍스트와 동일한 경우에는 업데이트하지 않음
         statusCol.innerHTML = "";
-    	statusCol.style.backgroundColor = "red";
-    	statusCol.classList.add("text-white", "fs-5");
+    	statusCol.style.backgroundColor = "#E2E3E5";
+    	statusCol.classList.add("fs-5");
         statusCol.innerText = "경매 종료";
     } 
 	
@@ -1755,7 +2455,7 @@ function bidRequest() {
 					// 현재가 업데이트 (나중에 낙찰가로 변경)   
 					getCurrentPrice();
 					
-					
+										
 					
 					// 즉시 낙찰 로직 처리
 					renewSuccessfulImmediateBid(auctionItemId); 
@@ -1777,6 +2477,8 @@ function bidRequest() {
 									auctionInfoButtonBox.innerHTML = "";
 									showAuctionInfo();
 									updateAuctionCountDown();
+									
+									
 								}
 							};
 							xhrUpdateEndTime.open("get", "/safari/auction/renewEndTimeAuctionItem/" + auctionItemId);
@@ -1834,23 +2536,30 @@ function renewSuccessfulImmediateBid(auctionItemId) {
     xhr.send();
 }
 
+//날짜 변환 함수	
+function formatTime(timestamp) {
+	  const date = new Date(timestamp);
+	  const year = date.getFullYear();
+	  const month = String(date.getMonth() + 1).padStart(2, '0');
+	  const day = String(date.getDate()).padStart(2, '0');
+	  let hours = date.getHours();
+	  let period = '오전';
 
-/* 날짜 변경 함수*/
-function formatDate(date) {
-    
-    var d = new Date(date),
-    
-    month = '' + (d.getMonth() + 1) , 
-    day = '' + d.getDate(), 
-    year = d.getFullYear();
-    
-    if (month.length < 2) month = '0' + month; 
-    if (day.length < 2) day = '0' + day; 
-    
-    return [year, month, day].join('/');
-    
-    }
-    
+	  if (hours >= 12) {
+	    hours -= 12;
+	    period = '오후';
+	  }
+
+	  if (hours === 0) {
+	    hours = 12;
+	  }
+
+	  const minutes = String(date.getMinutes()).padStart(2, '0');
+	  const formattedDate = year + '-' + month + '-' + day + "\u00a0\u00a0" + period + ' ' + hours + ':' + minutes;
+	  return formattedDate;
+	}
+
+
 // 날짜 변경    
 function formatDateTime(dateTimeString) {
 	
@@ -1939,6 +2648,10 @@ function reloadBidList() {
             	nicknameCol.classList.add("col", "text-center");
             	
             	nicknameCol.innerText =  data.userDto.nickname;
+            	
+            	if (sessionId == data.userDto.id) {
+            		nicknameCol.style.color = "#ff6f0f";
+            	}
             	
             	const bidPrice = data.auctionBidDto.bid_price; 
             	const formattedbidPrice = new Intl.NumberFormat('ko-KR').format(bidPrice);
@@ -2073,11 +2786,11 @@ function updateCurrentPrice(currentPrice) {
   const currentPriceModalElement = document.getElementById("currentPrice_modal");
   
   if (currentPriceElement) {
-    	currentPriceElement.textContent = currentPrice.toString() + "원";
+    	currentPriceElement.textContent = currentPrice.toString();
   }
   
   if (currentPriceModalElement) {
-	    currentPriceModalElement.textContent = currentPrice.toString() + "원";
+	    currentPriceModalElement.textContent = currentPrice.toString();
   }
   
   
@@ -2331,11 +3044,149 @@ function sendMessage() {
 	xhr.send("&content=" + chatContentValue);
 }
 
+// 채팅조회
+function reloadChatList() {
 
+	   const msgBox = document.getElementById("chatMessageBox");
+	   const xhr = new XMLHttpRequest();
+	   
+	   xhr.onreadystatechange = function () {
+	       if(xhr.readyState == 4 && xhr.status == 200){
+	           const response = JSON.parse(xhr.responseText);
+
+	           const shouldAutoScroll = isScrolledToBottom(msgBox); // 스크롤 여부 확인
+	           msgBox.innerHTML = "";
+	           let yearMonthDay = null;
+	            
+	           
+				// 메세지 생성 반복 시작 
+				response.chatList.forEach(function(msg){
+					
+					  const entireRegDate = new Date(msg.chatDto.reg_date);  
+					  const year = entireRegDate.getFullYear();
+					  const month = entireRegDate.getMonth() + 1;
+					  const day = entireRegDate.getDate();
+					  const formattedDateHappen = year + '년 ' + month + '월 ' + day + '일';
+					  /* console.log(yearMonthDay);
+					  console.log(formattedDateHappen);
+					   */
+					  if(yearMonthDay != formattedDateHappen){
+						  const yearMonthDayRow = document.createElement('div');
+						  yearMonthDayRow.classList.add('row', 'justify-content-center', 'mt-4', 'mb-4');
+						  yearMonthDayRow.innerText = formattedDateHappen;
+						  msgBox.appendChild(yearMonthDayRow);
+						  yearMonthDay = formattedDateHappen;
+					  }
+					
+					
+					  const row1 = document.createElement('div');
+					  row1.classList.add('row', 'mt-1', 'py-1');
+					  
+					  // 내가 보낸 메세지 
+					  if(msg.userDto.id == sessionId){
+						  const col1 = document.createElement('div');
+						  col1.classList.add('col', 'd-flex', 'flex-column', 'justify-content-end');
+				
+						  const col1row1 = document.createElement('div');
+						  col1row1.classList.add('row', 'justify-content-end', 'mx-1', 'chatTime');
+						  const regDate = new Date(msg.chatDto.reg_date);
+						  const formattedDate = regDate.toLocaleTimeString('ko-KR', { hour: 'numeric', minute: '2-digit' });
+						  col1row1.innerText = formattedDate;
+						  
+						  const col2 = document.createElement('div');
+						  col2.classList.add('col-7', 'me-3', 'myContent', 'text-start', 'text-break');
+						  col2.innerText = msg.chatDto.content;
+						  
+						  row1.appendChild(col1);
+						  row1.appendChild(col2);
+						  col1.appendChild(col1row1);
+						  
+						  msgBox.appendChild(row1);
+						  
+					  }else {
+						 
+						  // 프사 
+						  const colIcon = document.createElement('div');
+						  colIcon.classList.add('col-auto', 'my-auto', 'ms-2', 'text-left');
+						  const outerDiv2 = document.createElement('div');
+						  outerDiv2.className = 'row my-auto';
+						  const innerDiv2 = document.createElement('div');
+						  innerDiv2.className = 'col text-start ps-1 pt-1';
+						  const imageElement = document.createElement('img');
+						  imageElement.className = 'img-fluid rounded-circle';
+						  imageElement.style.filter = "grayscale(1)";
+						  if(true) {
+							  imageElement.src = '/safari/resources/img/user.jpg';
+						  } else {
+							  // imageElement.src = '/safariImg/'+response.user.profile_img_link;
+						  }
+						  imageElement.style.width = '46px';
+						  imageElement.style.height = '46px';
+						  innerDiv2.appendChild(imageElement);
+						  outerDiv2.appendChild(innerDiv2);
+						  colIcon.appendChild(outerDiv2);
+						  
+						  
+						  // 메세지 
+						  const colOuterDiv = document.createElement('div');
+						  colOuterDiv.classList.add('col');
+						  const rowInnerDiv1 = document.createElement('div');
+						  rowInnerDiv1.classList.add('row');
+						  const innerDiv1 = document.createElement('div');
+						  innerDiv1.className = 'col text-secondary text-start';
+						  innerDiv1.style.fontSize = "14px";
+						  innerDiv1.innerText = msg.userDto.nickname;
+						  rowInnerDiv1.appendChild(innerDiv1);
+						  
+						  const rowInnerDiv2 = document.createElement('div');
+						  rowInnerDiv2.classList.add('row');
+						  const col3 = document.createElement('div');
+						  col3.classList.add('col-7', 'ms-2', 'text-left', 'text-break', 'otherContent');
+						  col3.innerText = msg.chatDto.content;
+						  rowInnerDiv2.appendChild(col3);
+							  
+					
+						  
+						  const col4 = document.createElement('div');
+						  col4.classList.add('col', 'd-flex', 'flex-column','text-start', 'justify-content-end');
+				
+						  const col4row2 = document.createElement('div');
+						  col4row2.classList.add('row', 'justify-content-start', 'mx-1', 'chatTime', 'text-start');
+						  const regDate = new Date(msg.chatDto.reg_date);
+						  const formattedDate = regDate.toLocaleTimeString('ko-KR', { hour: 'numeric', minute: '2-digit' });
+						  col4row2.innerText = formattedDate;
+						  
+						
+						  col4.appendChild(col4row2);
+						  rowInnerDiv2.appendChild(col4);
+						  colOuterDiv.appendChild(rowInnerDiv1);
+						  colOuterDiv.appendChild(rowInnerDiv2);
+						  
+						  
+					
+						  row1.appendChild(colIcon);
+						  row1.appendChild(colOuterDiv);
+						
+						  
+						  msgBox.appendChild(row1);
+					  }
+					  
+					
+				});
+				// 메세지 생성 반복문 종료 
+
+				if (shouldAutoScroll) {
+               		msgBox.scrollTop = msgBox.scrollHeight;
+             }
+       }
+   }
+   xhr.open("get", "/safari/auction/getChatHistoryInAuctionChatroom?auctionItemId=" + auctionItemId);
+   xhr.send();
+} 
 
 
 //채팅 기록 조회
-function reloadChatList() {
+/* function reloadChatList() {
 
    const xhr = new XMLHttpRequest();
    
@@ -2440,12 +3291,11 @@ function reloadChatList() {
 
                    const col3 = document.createElement("div");
                    col3.classList.add("col");
-                   //col3.style.display = "flex";
-                   //col3.style.justifyContent = "end";
+                 
                    col3.classList.add("my-speech-bubble", "me-2", "d-flex", "justify-content-end");
-                   //col3.style.width = "auto";
                    
-                   /*col3.classList.add("text-end");*/
+                   
+                   
                    col3.innerText = data.chatDto.content;
                    
     
@@ -2459,7 +3309,7 @@ function reloadChatList() {
                    const col4 = document.createElement("div");
                    col4.classList.add("col");
                    col4.style.fontSize = "12px";
-                   //col4.style.color = "#929693";
+                   
                    col4.innerText = formatDateTime(data.chatDto.reg_date);
                    
                    
@@ -2485,7 +3335,7 @@ function reloadChatList() {
    }
    xhr.open("get", "/safari/auction/getChatHistoryInAuctionChatroom?auctionItemId=" + auctionItemId);
    xhr.send();
-} 
+} */
 
 
 //스크롤이 맨 아래에 있는지 확인하는 함수
@@ -2528,7 +3378,7 @@ function getAuctionCoinBalance() {
 			if(xhr.readyState == 4 && xhr.status == 200){
 				const response = JSON.parse(xhr.responseText);
 				if(response.result == "success"){
-					coinBalance.innerText = new Intl.NumberFormat('ko-KR').format(response.coins) + "원";
+					coinBalance.innerText = new Intl.NumberFormat('ko-KR').format(response.coins);
 					userCoinBalance = response.coins;
 					//console.log(userCoinBalance);
 				}
@@ -2544,19 +3394,19 @@ window.addEventListener("DOMContentLoaded", function(){
     //사실상 시작 시점...
  
     getSessionId();
-    getSellerId();
     getAuctionCoinBalance();
-    setInterval(getNowMaxBiderId, 10);
-    
-   
-    setInterval(getTop3BidList, 100);
-    
-
-    setInterval(getAuctionEndTimeInRealTime, 20);
-    showAuctionInfo();
-    showAuctionStatusTitle();
+    getSellerId();
+    reloadInquiryList();
     
     setInterval(updateAuctionCountDown, 100);
+    setInterval(getNowMaxBiderId, 20);
+    showInputBidBox();
+    showAuctionInfo();
+   
+    setInterval(getAuctionEndTimeInRealTime, 20);
+    
+    showAuctionStatusTitle();
+    refreshTotalLikeCount();
 
     setInterval(reloadBidList, 100);
  
@@ -2564,11 +3414,11 @@ window.addEventListener("DOMContentLoaded", function(){
 
     setInterval(getCurrentPrice, 100);
  
-    setInterval(reloadChatList,100);
+    setInterval(getBidCount, 100);
 
-    showInputBidBox(); 
-	
- 
+    showInputBidBox();  
+    
+    setInterval(reloadChatList,100);
 });
 
 

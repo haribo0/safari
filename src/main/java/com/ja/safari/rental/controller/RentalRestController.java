@@ -435,7 +435,7 @@ public class RentalRestController {
 					RentalItemReturnDto rentalItemReturnDto = (RentalItemReturnDto)session.getAttribute("rentalItemReturnDto");
 					rentalService.rentalReturn(rentalItemReturnDto);
 					
-					
+					session.removeAttribute("rentalItemReturnDto");
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();

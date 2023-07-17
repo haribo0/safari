@@ -22,8 +22,11 @@ import com.ja.safari.dto.AuctionBidDto;
 import com.ja.safari.dto.AuctionItemChatroomDto;
 import com.ja.safari.dto.AuctionItemDto;
 import com.ja.safari.dto.AuctionItemImgDto;
+import com.ja.safari.dto.AuctionItemInquiryDto;
 import com.ja.safari.dto.AuctionItemLikeDto;
+import com.ja.safari.dto.AuctionItemReplyDto;
 import com.ja.safari.dto.AuctionKakaoPayApproveDto;
+import com.ja.safari.dto.AuctionPurchaseConfirmedDto;
 import com.ja.safari.dto.UserCoinDto;
 import com.ja.safari.dto.UserDto;
 import com.ja.safari.user.service.UserServiceImpl;
@@ -299,9 +302,55 @@ public class RestAuctionController {
 		Map<String, Object> map  =  new HashMap<>();
 		
 		map.put("auctionItem", auctionService.getAuctionProductDetail(id));
-			
+		
 		return map;
 	}
+	
+	// 경매 상품 문의 등록 
+	@RequestMapping("registerAuctionInquiry")
+	public Map<String, Object> registerAuctionInquiry(HttpSession session, AuctionItemInquiryDto auctionItemInquiryDto) {
+		
+		Map<String, Object> map  =  new HashMap<>();
+
+		UserDto sessionUser = (UserDto)session.getAttribute("sessionUser");
+
+		auctionItemInquiryDto.setUser_buyer_id(sessionUser.getId());
+		auctionService.registerAuctionInquiry(auctionItemInquiryDto); 
+		map.put("result", "success");
+		
+		return map;
+	}
+	
+	
+	
+	// 경매 상품 문의 답변
+		@RequestMapping("registerAuctionReply")
+		public Map<String, Object> registerAuctionReply(HttpSession session, AuctionItemReplyDto auctionItemReplyDto) {
+			
+			Map<String, Object> map  =  new HashMap<>();
+
+			UserDto sessionUser = (UserDto)session.getAttribute("sessionUser");
+
+			auctionItemReplyDto.setUser_seller_id(sessionUser.getId());
+			auctionService.registerAuctionReply(auctionItemReplyDto);
+			map.put("result", "success");
+			
+			return map;
+		}
+	
+	
+	
+	// 경매 문의 리스트 조회
+	@RequestMapping("getAuctionQnAList")
+	public Map<String, Object> getAuctionQnAList(int auctionItemId) {
+	
+		Map<String, Object> map  =  new HashMap<>();
+		
+		map.put("qnaList", auctionService.getAuctionQnAList(auctionItemId));
+		
+		return map;
+	}
+	
 	
 	
 	// 경매 종료 시간 실시간으로 받아오기
@@ -315,34 +364,7 @@ public class RestAuctionController {
 		return map;
 	}
 
-	
-	
-	/*// 입찰요청
-	@RequestMapping("bidRequest/{auctionItemId}")
-	public Map<String, Object> bidRequest(HttpSession session, @PathVariable int auctionItemId,
-																	AuctionBidDto auctionBidDto) {
-		
-		Map<String, Object> map  =  new HashMap<>();
-		
-		UserDto sessionUser = (UserDto) session.getAttribute("sessionUser");
-		
-		auctionBidDto.setAuction_item_id(auctionItemId);
-		auctionBidDto.setUser_buyer_id(sessionUser.getId());
-		
-		
-		AuctionItemDto auctionItemDto = auctionService.getAuctionItem(auctionBidDto.getAuction_item_id());
-		map.put("auctionItemDto", auctionItemDto);
-		
-		// 입찰한 유저의 정보
-		UserDto userDto = userService.selectUserDtoById(sessionUser.getId());
-		map.put("userDto", userDto);
-		
-		auctionService.submitBidRequest(auctionBidDto);
-		map.put("result", "success");
 
-		return map;
-		
-	}*/
 	
 	//입찰요청
 	@RequestMapping("bidRequest/{auctionItemId}")
@@ -399,7 +421,7 @@ public class RestAuctionController {
 		
 		map.put("bidList", auctionService.getBidList(auctionItemId));
 		
-		map.put("bidCount", auctionService.getBidCount(auctionItemId));
+		//map.put("bidCount", auctionService.getBidCount(auctionItemId));
 		
 		return map;
 		
@@ -416,6 +438,19 @@ public class RestAuctionController {
 		return map;
 		
 	}
+	
+	// 경매 당 입찰 수 실시간으로 출력
+	@RequestMapping("getBidCount")
+	public Map<String, Object> getBidCountByAuction(int auctionItemId) {
+		
+		Map<String, Object> map = new HashMap<>();
+		
+		map.put("bidCount", auctionService.getBidCount(auctionItemId));
+		
+		return map;
+		
+	}
+	
 	
 	// 현 시간 각 경매의 최고 입찰자가 누구인지 회원pk로 출력하기
 	@RequestMapping("checkNowMaxBiderByAuctionItemId/{auctionItemId}") 
@@ -657,7 +692,7 @@ public class RestAuctionController {
 	// 카카오페이 결제 후 정보 저장
 	@RequestMapping("saveAuctionPaymentInfo")
 	public  Map<String, Object> saveAuctionPaymentInfo(HttpSession session, AuctionKakaoPayApproveDto auctionKakaoPayApproveDto,
-																								UserCoinDto userCoinDto) {
+																								UserCoinDto buyerCoinDto, UserCoinDto sellerCoinDto) {
 		
 		Map<String, Object> map = new HashMap<String, Object>();
 		
@@ -670,15 +705,20 @@ public class RestAuctionController {
 		
 		auctionService.saveAuctionKakaoPayInfo(auctionKakaoPayApproveDto);
 		
-		System.out.println(auctionKakaoPayApproveDto.getPartner_user_id());
-		System.out.println(auctionKakaoPayApproveDto.getAmount());
+		buyerCoinDto.setUser_id(auctionKakaoPayApproveDto.getPartner_user_id());
+		buyerCoinDto.setCoin_transaction(auctionKakaoPayApproveDto.getAmount());
 		
-		userCoinDto.setUser_id(auctionKakaoPayApproveDto.getPartner_user_id());
-
-		userCoinDto.setCoin_transaction(auctionKakaoPayApproveDto.getAmount());
+		// 구매자 코인 차감
+		auctionService.reduceUserCoinByAuction(buyerCoinDto);
 		
-		// 코인 차감
-		auctionService.reduceUserCoinByAuction(userCoinDto);
+		// 판매자 코인 획득
+		UserDto sellerDto = auctionService.getUserSellerInfoByAuctionPay(auctionKakaoPayApproveDto.getPartner_order_id());
+		
+		sellerCoinDto.setUser_id(sellerDto.getId());
+		sellerCoinDto.setCoin_transaction(auctionKakaoPayApproveDto.getAmount());
+		
+		auctionService.increaseUserCoinByAuction(sellerCoinDto);
+		
 		
 		map.put("result", "success");
 		
@@ -793,6 +833,34 @@ public class RestAuctionController {
 		
 	}
 	
+	// 구매 확정
+	@RequestMapping("registerPurchaseConfirmed")
+	public Map<String, Object> registerPurchaseConfirmed(AuctionPurchaseConfirmedDto auctionPurchaseConfirmedDto, 
+			int auctionDeliveryAfterPaymentId, int id) {
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		auctionPurchaseConfirmedDto.setAuction_delivery_after_payment_id(auctionDeliveryAfterPaymentId);
+		auctionPurchaseConfirmedDto.setPartner_order_id(id);
+		auctionService.registerPurchaseConfirmed(auctionPurchaseConfirmedDto);
+		
+	    map.put("result", "success");
+		
+		return map;
+		
+	}
+	
+	// 구매 확정 여부 조회
+	@RequestMapping("checkPurchaseConfirmed")
+	public Map<String, Object> checkPurchaseConfirmed(int partnerOrderId) {
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		map.put("checkYn", auctionService.checkPurchaseConfirmedYn(partnerOrderId));
+		
+		return map;
+	}
+
 	
 	
 }

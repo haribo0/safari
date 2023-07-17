@@ -116,11 +116,19 @@ public class RentalServiceImpl {
 		Map<String, Object> map = new HashMap<String, Object>();
 		
 		RentalItemDto rentalItemDto = rentalSqlMapper.selectById(id);
+		RentalSubCategoryDto rentalSubCategoryDto =  rentalSqlMapper.selectSubCatName(id);
+		
+		String mainCategoryName = rentalSqlMapper.selectMainCatName(rentalSubCategoryDto.getMain_category_id());
+		String subCategoryName = rentalSubCategoryDto.getSub_category_name();
+		
+		
 		List<RentalPeriodDiscDto> rentalPeriodDiscDtoList = rentalSqlMapper.selectPeriodDiscById(id);
 		
 		List<RentalItemImgDto> rentalItemImgDtoList = rentalSqlMapper.selectItemImageByItemId(id);
 		
 		map.put("rentalItemDto", rentalItemDto);
+		map.put("mainCategoryName", mainCategoryName);
+		map.put("subCategoryName", subCategoryName);
 		map.put("rentalItemImgDtoList", rentalItemImgDtoList);
 		map.put("rentalPeriodDiscDtoList", rentalPeriodDiscDtoList);
 		

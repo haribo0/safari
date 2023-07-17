@@ -108,9 +108,10 @@
 							<div class="row mt-1">
 								<div class="col-auto text-secondary">
 									현재가 <span style="font-size: 18px;"
-									 class="text-danger fw-bold ms-1" id="currentPrice_${wish.id}"></span>
+									 class="text-danger fw-bold ms-1 fs-5" id="currentPrice_${wish.id}"></span>
+									 <span>원</span>
 								</div>
-								<div class="col" style="position: relative; right:20px;">
+								<div class="col px-0" >
 									<span id="auctionStatus_${wish.id}"> </span>
 								</div>
 								
@@ -373,7 +374,7 @@ function getCurrentPrice(auctionItemId) {
 function updateCurrentPrice(auctionItemId, currentPrice) {
   const currentPriceElement = document.getElementById("currentPrice_" + auctionItemId);
   	if (currentPriceElement) {
-  		 currentPriceElement.textContent =  new Intl.NumberFormat('ko-KR').format(currentPrice) + "원 \u00A0\u00A0\u00A0";
+  		 currentPriceElement.textContent =  new Intl.NumberFormat('ko-KR').format(currentPrice);
   }
 }
  

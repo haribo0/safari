@@ -20,7 +20,11 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
 <style>
-
+.orangeButton{
+	background: #ff6f0f;
+	font-weight: bold;
+	color: white;
+}
 </style>
 
 </head>
@@ -66,11 +70,14 @@
 						</div>
 					</div>		
 					
+					
 					<div class="row mt-4 mb-2">
 						<div class="col fw-bold fs-5">
 						    내가 낙찰한 경매 목록
 						</div>
-					</div>										
+					</div>	
+					
+										
 						
 				<div class="row mt-3 ms-1">
 					<div class="col">
@@ -160,74 +167,7 @@
 								</div>
 							</c:forEach>
 							
-<%-- 						<table class="table align-middle">
-							<thead class="table-secondary p-2">
-								<tr class="text-center">
-									<th>상품정보</th>
-									<th>낙찰가</th>
-									<th>낙찰시간</th>
-									<th>경매종료일</th>
-									<th>상태</th>
-								</tr>
-							</thead>
-							<tbody>
-							   <c:if test="${empty successBidList}">
-							        <tr>
-							            <td colspan="5" class="text-center">낙찰한 정보가 없습니다.</td>
-							        </tr>
-							    </c:if>					
-								<c:forEach items="${successBidList}" var="bidDto">
-									<input type="hidden" id="user_id_${bidDto.auction_item_id}" value="${sessionUser.id}">
-										<tr>
-											<td>
-												<div class="row">
-													<input type="hidden" id="bid_${bidDto.auction_item_id}" value="${bidDto.id}">
-													<div class="col" id="aid_${bidDto.auction_item_id}">
-														
-														<a href="/safari/auction/productDetail/${bidDto.auction_item_id}">
-														<img class="me-3"
-														src="/auctionFiles/${bidDto.auction_item_img_link}" style="
-														position: relative; left: 30px; max-width: 120px; max-height: 120px;"></a>
-													</div>
-													<div class="col-8" class="text-start">
-														<div class="row mt-4">
-															<div class="col" style="font-size: 14px;">
-																${bidDto.main_category_name} > ${bidDto.sub_category_name}
-															</div>
-														</div>
-														<div class="row">
-															<div class="col fw-bold">
-															<input type="hidden" value="${bidDto.auction_item_id}">
-																<span style="font-size: 16px;"><a href="/safari/auction/productDetail/${bidDto.auction_item_id}">
-																${bidDto.title}</a></span>
-															<input type="hidden" id="title_${bidDto.auction_item_id}" value="${bidDto.title}">	
-															</div>
-														</div>
-													</div>									
-												</div>
-											</td>
-											<td class="text-center fw-bold text-danger">
-												<fmt:formatNumber value="${bidDto.bid_price}"  pattern="#,###"/>원
-												<input type="hidden" id="bid_price_${bidDto.auction_item_id}" value="${bidDto.bid_price}">
-											</td>
-											<td class="text-center">
-												<fmt:formatDate value="${bidDto.reg_date}" pattern="yyyy.MM.dd" />
-												<br>
-												<fmt:formatDate value="${bidDto.reg_date}" pattern="a hh:mm" />
-											</td>
-											<td class="text-center">
-												<fmt:formatDate value="${bidDto.end_date}" pattern="yyyy.MM.dd" />
-												<br>
-												<fmt:formatDate value="${bidDto.end_date}" pattern="a hh:mm" />
-											</td>
-											<td class="text-center" id="myStatus_${bidDto.id}">
-											
-												
-											</td>							
-										</tr>
-								</c:forEach>
-								</tbody>
-							</table> --%>
+
 						</div>
 					</div>						
 						
@@ -273,8 +213,233 @@
 	<!-- 푸터 섹션 -->
 	
 
+<div class="modal" id="payOrderModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-centered"> 
+    <div class="modal-content">
+      <div class="modal-header bg-light">
+     	 <div class="row mb-0">
+      			<div class="col ms-4 fs-5 fw-bold">주문/결제</div>
+      		</div>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div> 
+      <div class="modal-body">
+      	
+      	
+      	<div class="row">
+      		<div class="col"></div>
+      		<div class="col-11">
+      		
+      			<div class="row">
+      				<div class="col">
+      				
+      				
+      					<div class="row">
+      					
+      						<div class="col">
+      						
+      							<div class="row">
+		      						<div class="col fw-medium fs-5 px-0">
+		      							배송지 정보
+		      						</div>
+	      						</div>
+	      						
+	      						<div class="row mt-3 me-3">
+	      							<div class="col px-0">
+	      								<table class="table">
+	      									<tr>
+	      										<td class="table-light align-middle text-center" style="width: 150px;"> 배송지선택 </td>
+	      										<td>
+	      											<div class="row mt-1 ms-2">
+	      												<div class="col">
+	      													
+	      													<input class="form-check-input me-2" type="radio" id="radioStatus" name="radioStatus" value="">
+																  <label class="form-check-label me-4" for="radioStatus">
+																    	기존 배송지
+																  </label>	
+																  
+	      													<input class="form-check-input me-2" type="radio" id="radioStatus" name="radioStatus" value="">
+																  <label class="form-check-label me-4" for="radioStatus">
+																    	신규 배송지
+																  </label>																	  
+	      													
+	      												</div>
+	      											</div>
+	      											
+	      											<div class="row mt-2 ms-2">
+	      												<div class="col-4">
+	      													<select class="form-select" aria-label="Default select example">
+															  <option selected>배송지</option>
+															  <option value="1">One</option>
+															  <option value="2">Two</option>
+															  <option value="3">Three</option>
+															</select>
+	      												</div>
+	      											</div>
+	      											
+	      											
+	      										</td>
+	      									</tr>
+	      									
+	      									<tr>
+	      										<td class="table-light align-middle text-center" style="width: 150px;"> 배송지명 </td>
+	      										<td>
+	      											<div class="row mt-1 ms-2">
+	      												<div class="col">
+	      													집
+	      												</div>
+	      											</div>
+	      										</td>
+	      									</tr>
+	      									
+	      									<tr>
+	      										<td class="table-light align-middle text-center" style="width: 150px;"> 연락처 </td>
+	      										<td>
+	      											<div class="row mt-1">
+	      												<div class="col-auto">
+	      													<span class="text-danger">• </span>
+	      												</div>
+	      												<div class="col px-0">
+	      													 <input type="text" class="form-control" oninput="oninputPhone(this)" maxlength="14" id="phone"
+				                     						style="width: 200px; height: 30px;">
+	      												</div>
+	      											</div>
+	      										</td>
+	      									</tr>
+	      									
+	      									<tr>
+	      										<td class="table-light align-middle text-center" style="width: 150px;"> 주소 </td>
+	      										<td>
+	      										<div class="row">
+	      												<div class="col-auto">
+	      													<span class="text-danger mt-1">• </span>
+	      												</div>
+			      										<div class="col px-0">
+			      											<div class="row mt-1">
+									       						<div class="col-auto">
+									       							<input type="text" class="form-control" id="postcode" style="width: 150px; height: 30px;">
+									       						</div>
+									       						<div class="col px-0">
+									       							<input type="button" class="btn btn-sm btn-outline-success" value="우편번호 찾기"
+									       							onclick="daumPost()" > 
+									       						</div>
+									       					</div>
+									       					
+									       					<div class="row mt-2">
+									       						<div class="col">
+									       							<input type="text" id="address" class="form-control" style= "height: 50px;">
+									       						</div>
+									       					</div>
+									       					
+									       					<div class="row mt-2">
+									       						<div class="col">
+									       							<input type="text" id="detail_address" class="form-control" style="height: 30px;">
+									       						</div>
+									       					</div>
+									       				  </div>
+								       					</div>
+	      										
+	      										</td>
+	      									</tr>
+	      									
+	      									
+	      								</table>
+	      							</div>
+	      						</div>
+	      						
+	      						<div class="row mt-1">
+	      							<div class="col-7">
+			      						<div class="row mt-1">
+			      							<div class="col fw-medium fs-5">
+			      								주문 상품 정보
+			      							</div>
+			      						</div>
+		      						
+			      						<div class="row mt-1">
+			      							<div class="col">
+			      								상품 이미지랑 구매가
+			      							</div>
+			      						</div>
+			      						
+	      						</div>
+	      						
+	      						<div class="col">
+	      						
+	      							<div class="row mt-1">
+		      							<div class="col fw-medium fs-5 px-0">
+		      								최종 결제 정보
+		      							</div>
+		      						</div>
+		      						
+		      						<div class="row mt-1">
+		      							<div class="col border border-1" style="border-color: black;" >
+		      								
+		      								<div class="row p-2">
+		      									<div class="col">
+		      										
+	      											<div class="row">
+	      												<div class="col">
+	      													총 상품 금액
+	      												</div>
+	      											</div>
+		      										
+		      										
+		      									</div>
+		      									<div class="col text-end">
+		      										
+		      										<div class="row">
+		      											<div class="col fw-bold">
+		      												30000원
+		      											</div>
+		      										</div>
+		      									
+		      									</div>
+		      								
+		      								</div>
+		      								
+		      								
+		      								
+		      							</div>
+		      						</div>
+	      						
+	      						</div>
+	      						
+	      						</div>
+      						</div>
+      					
+      					
+      					</div>
+      				
+    	
+      				</div>
+      			</div>
+      		
+      		</div>
+      		<div class="col"></div>
+      	
+      	</div>
+      	
+      	
+      
+      <div class="modal-footer">
+      	<input type="button" class="btn orangeButton" value="결제하기" onclick="addUserAddress()">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">창닫기</button>
+      </div>      
+   
+    </div>
+  </div>
+</div>
+</div>
+
+
 
 <script>
+//전화번호 형식 변경 함수
+function oninputPhone(target) {
+    target.value = target.value
+        .replace(/[^0-9]/g, '')
+        .replace(/(^02.{0}|^01.{1}|[0-9]{3,4})([0-9]{3,4})([0-9]{4})/g, "$1-$2-$3");
+}
+
 
 
 //새 창 띄우기 
@@ -394,30 +559,49 @@ function getMySuccessfulBidPayAndDeliveryStatusList() {
 	      
 	      for (data of response.myStatusList) {
 	    	  
-	    	  const myStatus = document.getElementById("myStatus_" + data.id);
+	    	  let myStatus = document.getElementById("myStatus_" + data.id);
 	    	  myStatus.innerHTML = "";
 	    	  
+	    	  // 결제를 하지 않았을 경우
 	    	  if (data.payment_exists == 'No') {
+	    		  
+	    		  
+	    		  const row  = document.createElement("div");
+	    		  row.classList.add("row", "mt-4");
+	    		  
+	    		  const col  = document.createElement("div");
+	    		  col.classList.add("col");
 	    		  
 	    		  const payButton = document.createElement("input");
 	    		  payButton.type = "button";
 	    		  payButton.classList.add("btn", "btn-sm", "btn-dark", "opacity-50");
 	    		  payButton.value = "결제하기";
+	    		  
+	    		  payButton.onclick = function() {
+	    			  location.href = "/safari/auction/getOrderPage?id=" + data.id;
+	    			};
 	   
-	    		  payButton.onclick = function (id) {
+	    		 /*  payButton.onclick = function (id) {
     	                return function () {
     	                	kakaoPayModal(id);
     	                };
-    	              }(data.auction_item_id);
+    	              }(data.auction_item_id); */
+    	          
+    	          col.appendChild(payButton);
+    	          
+    	          row.appendChild(col);
 	              
-    	          myStatus.appendChild(payButton);    
-	    	  } else {
+    	          myStatus.appendChild(row);    
+	    	  } 
+	    	  // 결제를 하였을 경우
+	    	  else {
 	    		  const deliveryRegDate = new Date(data.delivery_reg_date);
 	    		  const threeDaysLater = new Date(deliveryRegDate.setDate(deliveryRegDate.getDate() + 2));
 	    		  // 나중에 3일로 변경해야함. (임시로 2일로 설정)
 	    		  
 	    		  const nowDate = new Date();
 	    		  
+	    		  // 배송처리가 되지 않았을 경우
 	    		  if (data.delivery_exists == 'No') {
 	    			  	const row = document.createElement("div");
     				  	row.classList.add("row", "mt-4");
@@ -431,10 +615,33 @@ function getMySuccessfulBidPayAndDeliveryStatusList() {
     				  	myStatus.appendChild(row);
     				  	
     				  	
-	    		  } else if (data.delivery_reg_date){
+	    		  } 
+	    		  // 배송처리가 되었을 경우
+	    		  else if (data.delivery_reg_date){
+	    			  // 배송한지 3일이 지났을 때
 	    			  if (nowDate > threeDaysLater) {
-	    				  
+							
+	    				  	// 배송완료 처리하기 전에 db에 배송완료 여부 확인 (중복 insert 방지하기 위함)
 	    				    selectAuctionDeliveryStatusBeforeComplete(data.id);
+	    				    
+	    				    // 구매확정이 되었을 때
+	    				    if (data.purchase_confirmed == 'Yes') {
+	    				    	
+	    				    	
+	    				    	const row = document.createElement("div");
+		    				  	row.classList.add("row", "mt-4");
+		    				  	
+		    				  	const col = document.createElement("div");
+		    				  	col.classList.add("col");
+		    				  	
+		    				  	col.innerText = "구매확정";
+		    				  	
+		    				  	row.appendChild(col);
+		    				  	myStatus.appendChild(row);
+	    				    } 
+	    				    // 구매확정이 아직 되지 않았을 때
+	    				    else {
+	    				    
 	    				    
 	    				  	const row = document.createElement("div");
 	    				  	row.classList.add("row");
@@ -457,6 +664,14 @@ function getMySuccessfulBidPayAndDeliveryStatusList() {
 	    					buyButton.type = "button";
 	    					buyButton.classList.add("btn", "btn-sm", "btn-outline-secondary");
 	    					buyButton.value = "구매확정";
+	    				
+	    					
+	    					buyButton.onclick = function (id) {
+		    	                return function () {
+		    	                	getDeliverypkByBidpk(id);
+		    	                };
+		    	              }(data.id);
+		    	              
 	    					
 	    					col2.appendChild(buyButton);
 	    					
@@ -480,10 +695,12 @@ function getMySuccessfulBidPayAndDeliveryStatusList() {
 	    					row3.appendChild(col3);
 	    					
 	    					myStatus.appendChild(row3);
-	    				  	
+	    				   }
 	    				  	
 	    			        
-	    			    } else {
+	    			    } 
+	    			  // 배송처리는 되었지만 아직 배송완료 x
+	    			  else {
 	    			    	
 	    			    	const row = document.createElement("div");
 	    				  	row.classList.add("row", "mt-2");
@@ -550,7 +767,9 @@ function renewAuctionDeliveryComplete(id) {
 	const xhr = new XMLHttpRequest();
 	  xhr.onreadystatechange = function() {
 	    if (xhr.readyState === 4 && xhr.status === 200) {
-	      const response = JSON.parse(xhr.responseText);
+	      if(response.result == "success") {
+	      	const response = JSON.parse(xhr.responseText);
+	      }
 	      
 	    }
 	  }
@@ -559,6 +778,101 @@ function renewAuctionDeliveryComplete(id) {
 	      
 	
 }
+
+// 낙찰 pk로 배송 pk 받아서 구매확정 처리
+/* function getDeliverypkByBidpkByPurchageCheck(id) {
+	
+	const xhr = new XMLHttpRequest();
+	  xhr.onreadystatechange = function() {
+	    if (xhr.readyState === 4 && xhr.status === 200) {
+	      const response = JSON.parse(xhr.responseText);
+	      
+	      // 배송 pk 받고 구매 확정 처리
+	      purchageConfirmed(id, response.deliveryStatus.id);
+	    }
+	  } 
+	
+      xhr.open("get", "/safari/auction/checkAutionDeliveryStatus?partnerOrderId=" +id);
+      xhr.send();
+}
+  */
+
+
+// 구매확정 - 낙찰 pk를 받아와서 배송 pk 받아오기
+function getDeliverypkByBidpk(id) {
+	
+	const xhr = new XMLHttpRequest();
+	  xhr.onreadystatechange = function() {
+	    if (xhr.readyState === 4 && xhr.status === 200) {
+	      const response = JSON.parse(xhr.responseText);
+	      
+	      // 배송 pk 받고 구매 확정 처리
+	      purchageConfirmed(id, response.deliveryStatus.id);
+	    }
+	  } 
+	
+      xhr.open("get", "/safari/auction/checkAutionDeliveryStatus?partnerOrderId=" +id);
+      xhr.send();
+}
+
+
+// 구매 확정 여부 조회
+/* function checkPurchaseConfirmed(id) {
+	
+	const xhr = new XMLHttpRequest();
+	  xhr.onreadystatechange = function() {
+	    if (xhr.readyState === 4 && xhr.status === 200) {
+	    
+	    	const response = JSON.parse(xhr.responseText);
+	    	
+	    	if (response.checkYn >= 1) {
+	    		
+	    	} else {
+	    		
+	    	}
+	    	
+	    }
+	  } 
+	
+	  xhr.open("get", "/safari/auction/checkPurchaseConfirmed?partnerOrderId=" + id);
+	  xhr.send();
+} */
+
+
+// 구매 확정 처리
+function purchageConfirmed(id, deliveryId) {
+	
+	const xhr = new XMLHttpRequest();
+	  xhr.onreadystatechange = function() {
+	    if (xhr.readyState === 4 && xhr.status === 200) {
+	    
+	      	
+	        let myStatusNew = document.getElementById("myStatus_" + id);
+	        myStatusNew.innerHTML = ""; 
+
+	        const buyRow = document.createElement("div");
+	        buyRow.classList.add("row", "mt-4");
+	        
+	        const buyCol = document.createElement("div");
+	        buyCol.classList.add("col");
+	        
+	        
+	        buyCol.innerText = "구매확정";
+	        
+	        buyRow.appendChild(buyCol);
+	        
+	        myStatusNew.appendChild(buyRow);
+	      	
+	      	
+	      
+	    }
+	  }
+	  
+     xhr.open("get", "/safari/auction/registerPurchaseConfirmed?auctionDeliveryAfterPaymentId=" + deliveryId + "&id="+id);
+     xhr.send();
+}
+
+
 
 window.addEventListener("DOMContentLoaded", function(){
 

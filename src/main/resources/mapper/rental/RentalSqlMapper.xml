@@ -95,6 +95,21 @@
 		WHERE id = #{id}
 	</select>
 	
+	<!-- 메인카테고리 이름 가져오기 -->
+	<select id="selectMainCatName" resultType="String">
+		SELECT main_category_name 
+		FROM rental_main_category_table 
+		WHERE id = #{main_category_id}
+	</select>
+	
+	
+	<!-- 서브카테고리 가져오기 -->
+	<select id="selectSubCatName" resultType="com.ja.safari.dto.RentalSubCategoryDto">
+	SELECT *
+	FROM rental_sub_category_table
+	WHERE id = (SELECT sub_category_id FROM rental_item_table WHERE id = #{id})
+	</select>
+	
 	<!-- 상품 상세 이미지 가져오기 -->
 	<select id="selectItemImageByItemId" resultType="com.ja.safari.dto.RentalItemImgDto">
 		SELECT * 
@@ -136,8 +151,15 @@
 	<!-- 기간별 할인 리스트  -->
 	<select id="selectPeriodDiscById" resultType="com.ja.safari.dto.RentalPeriodDiscDto">
 		SELECT * FROM rental_period_disc_table
-		WHERE item_id = #{id}
+		WHERE item_id = #{id} order by id
 	</select>
+	
+	
+	<!-- 대여 찜 리스트  -->
+	<select id="selectRentalItemLikeAll" resultType="com.ja.safari.dto.RentalItemLikeDto">
+		SELECT * FROM rental_item_like_table WHERE user_id= #{id}
+	</select>
+	
 	
 	<!-- 대여 오더 신청 -->
 	<insert id="insertRentalOrder">
@@ -167,6 +189,11 @@
     	SYSDATE
 		)
 	</insert>
+	
+	<!-- 반납 아이템 가져오기  -->
+	<select id="selectRentalItemRetrunById" resultType="com.ja.safari.dto.RentalItemReturnDto">
+		SELECT * FROM rental_item_return_table WHERE rental_order_id = #{id}
+	</select>
 	
 	<!-- 대여 리뷰 작성 -->
 	<insert id="insertRentalReview">

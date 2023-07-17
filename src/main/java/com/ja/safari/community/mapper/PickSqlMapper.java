@@ -6,6 +6,7 @@ import com.ja.safari.dto.PickCommentDto;
 import com.ja.safari.dto.PickDto;
 import com.ja.safari.dto.PickLikeDto;
 import com.ja.safari.dto.PickOptionDto;
+import com.ja.safari.dto.PickShowCardDto;
 import com.ja.safari.dto.ProductDto;
 
 public interface PickSqlMapper {
@@ -68,6 +69,6 @@ public interface PickSqlMapper {
 	public void registerPickOption(PickOptionDto pickOptionDto);
 	
 	//골라줘요 : 중고 상품 테이블에서 조회해서 받아오기. (이름, 가격, 좋아요 수, 이미지) productDto 받아오기
-	public ProductDto showProductByproductId(ProductDto productDto);
+	public List<PickShowCardDto> showAllProduct();
 
 }

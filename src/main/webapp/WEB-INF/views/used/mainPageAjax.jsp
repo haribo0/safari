@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>  
 <!DOCTYPE html>
@@ -10,6 +9,13 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
 <jsp:include page="../common/meta.jsp"></jsp:include>
 <style>
+	.title{
+		font-size: 18px;
+    	font-weight: 500;
+	}
+	.price{
+		font-size: 18px;
+	}
     .smaller-text {
         font-size: 13px;
     }
@@ -33,6 +39,9 @@
 	background: #ff6f0f;
 	color: white;
     }   
+    .bestImg{
+    	border-radius: 7px;
+    }
 </style>
 
 </head>
@@ -40,28 +49,127 @@
 	<!-- 헤더 섹션 -->
 	<jsp:include page="../common/header.jsp"></jsp:include>
 	<!-- 헤더 섹션 -->
-	<div class="container-fluid d-flex align-items-center justify-content-between p-3 px-5 mb-3 bg-light">
+	<div class="container-fluid d-flex align-items-center justify-content-between p-3 px-5 bg-light">
 		<div class="container">
 			<div class="row px-4">
 				<p class="mb-0 text-body-secondary"><span class="mx-2" style="font-size: 15px;">중고</span> &gt; <span class="mx-2" style="font-size: 15px;">패션의류</span> &gt;<span class="mx-2" style="font-size: 15px;">상의</span> </p>
 			</div>
 		</div>
 	</div>
-	<div class="container">
-		<div class="row">
-		<div class="container main_box">
-			<jsp:include page="../used/categoryNavi.jsp"></jsp:include>
-			<div class="col mb-1 mt-4">
-				<div class="row" id="listParent"></div>
-			</div>
-		</div>
-			<div class="row mt-1"></div>
+	<div class="row">
+		<div class="col">
+			<img class="img-fluid" alt="banner1" src="/safari/resources/img/used/bannerTop.jpeg" height="370px">
 		</div>
 	</div>
+	<div class="container mt-5 mb-5">
+		<div class="row">
+			<div class="col-auto fw-bold fs-3 mb-3">요즘 뜨는 상품</div>
+		</div>
+		<div class="row mb-5">
+			<div class="col-auto fw-bold fs-2">
+				<a href="#"><img alt="img1" src="/safari/resources/img/used/iphone.jpeg" class="bestImg" width="240" height="240"></a>
+			</div>
+			<div class="col-auto fw-bold fs-2">
+				<a href="#"><img alt="img1" src="/safari/resources/img/used/perfume.jpeg" class="bestImg" width="240" height="240"></a>
+			</div>
+			<div class="col-auto fw-bold fs-2">
+				<a href="#"><img alt="img1" src="/safari/resources/img/used/polo.jpeg" class="bestImg" width="240" height="240"></a>
+			</div>
+			<div class="col-auto fw-bold fs-2">
+				<a href="#"><img alt="img1" src="/safari/resources/img/used/plant.jpeg" class="bestImg" width="240" height="240"></a>
+			</div>
+			<div class="col-auto fw-bold fs-2">
+				<a href="#"><img alt="img1" src="/safari/resources/img/used/bike.jpeg" class="bestImg" width="240" height="240"></a>
+			</div>
+		</div>
+		<div class="row mb-3">
+			<div class="col-auto fw-bold fs-3 mt-3">놓치면 후회하는 무료 나눔</div>
+		</div>
+		<div class="row mb-5">
+			<c:forEach items="${freePriceList}" var="map">
+				<div class="col-3">
+					<div class="row">
+						<div class="col">
+						<a href="./productDetail?productId=${map.productDto.id }" class="text-decoration-none text-black p-0">
+						<img alt="img" class="img-fluid bestImg" src="/safarifile/${map.productImgDto.product_img_link }" >
+						</a>
+						</div>
+					</div>	
+					<div class="row">
+						<div class="col mt-2">
+						<a href="./productDetail?productId=${map.productDto.id }" class="ms-1 text-decoration-none text-black title">
+							${map.productDto.title }
+						</a>
+						</div>
+					</div>
+					<div class="row ms-1">
+						<div class="col ms-0 p-0 w-0 smaller-text text-secondary mb-1">
+						${map.productCityDto.product_city_name } ${map.productTownDto.product_town_name } | <span class="ms-0 p-0 w-0 smaller-text text-secondary">${map.uploadTime }
+						</span>
+						</div>
+					</div>
+					<div class="row mb-3">
+						<div class="col ms-1 text-secondary">
+						<i class="bi bi-heart"></i> ${map.likeCount } &nbsp;&nbsp;<i class="bi bi-chat-dots"></i> ${map.requestCount }
+						</div>
+					</div>	
+				</div>
+			</c:forEach>
+		</div>	
+		<div class="row mb-3">
+			<div class="col-auto fw-bold fs-3">전체 상품</div>
+			<div class="col fw-bold fs-5 text-end my-auto"><a class="text-decoration-none text-black" href="./productList">더보기 ></a></div>
+		</div>
+		<div class="row mb-5">
+			<c:forEach items="${eightList}" var="map">
+				<div class="col-3 mb-3">
+					<div class="row">
+						<div class="col">
+						<a href="./productDetail?productId=${map.productDto.id }" class="text-decoration-none text-black p-0">
+						<img alt="img" class="img-fluid bestImg" src="/safarifile/${map.productImgDto.product_img_link }" >
+						</a>
+						</div>
+					</div>	
+					<div class="row">
+						<div class="col mt-2">
+						<a href="./productDetail?productId=${map.productDto.id }" class="ms-1 text-decoration-none text-black title">
+							${map.productDto.title }
+						</a>
+						</div>
+					</div>
+					<div class="row ms-1">
+						<div class="col ms-0 p-0 w-0 smaller-text text-secondary mb-3">
+						${map.productCityDto.product_city_name } ${map.productTownDto.product_town_name } | <span class="ms-0 p-0 w-0 smaller-text text-secondary">${map.uploadTime }
+						</span>
+						</div>
+					</div>
+					<c:choose>
+						<c:when test="${map.productDto.price != 0 }">
+							<div class="row ms-1 fw-semibold price"><span class="p-0">100,000원</span></div>
+						</c:when>
+						<c:otherwise>
+							<div class="row ms-1 fw-semibold price"><button type="button" class="btn btn-warning btn-sm col-auto" disabled>나눔</button></div>
+						</c:otherwise>
+					</c:choose>
+					<div class="row mb-3">
+				      <div class="col ms-1 text-secondary">
+				        <i class="bi bi-heart"></i> ${map.likeCount} &nbsp;&nbsp;<i class="bi bi-chat-dots"></i> ${map.requestCount}
+				      </div>
+				    </div>	
+				</div>
+			</c:forEach>
+		</div>
+		<div class="row mt-2">
+			<div class="col">
+				<img class="img-fluid" alt="banner2" src= "/safari/resources/img/used/bottomBanner3.png">
+			</div>
+		</div>
+	</div>
+	
 	<!-- 푸터 섹션 -->
 	<jsp:include page="../common/footer.jsp"></jsp:include>
 	<!-- 푸터 섹션 -->
-<script>
+<!-- <script>
 
 // 전체상품 클릭할 때 전체상품 보여주기
 let mainId = -1;
@@ -70,8 +178,8 @@ let cityId = -1;
 let townId = -1;
 let statusId = -1;
 let orderId = -1;
-const listParent = document.getElementById("listParent");
 
+const listParent = document.getElementById("listParent");
 function getViewAll(mainId2,subId2,cityId2,townId2,statusId2,orderId2){
 	
 	
@@ -124,22 +232,30 @@ function getViewAll(mainId2,subId2,cityId2,townId2,statusId2,orderId2){
         		
         		const list = response.list;
                 list.forEach((map) => {
+                	const outCol = document.createElement("div");
+                	outCol.classList.add("col-3", "p-4");
+                	const outRow = document.createElement("div");
+                	outRow.classList.add("row");
+                	
+                	
                 	const divCol = document.createElement("div");
-                    divCol.classList.add("col-3");
+                    divCol.classList.add("col", "shadow");
                   
                     const divRow1 = document.createElement("div");
                     divRow1.classList.add("row", "mb-1");
                   
+                    const divRow1col = document.createElement("div");
+                    divRow1col.classList.add("col");
+                    
+                    
                     const link = document.createElement("a");
                     link.href = `./productDetail?productId=\${map.productDto.id}`;
-                    link.classList.add("text-decoration-none", "text-black");
+                    link.classList.add("text-decoration-none", "text-black", "p-0");
                   
                     const img = document.createElement("img");
                     img.alt = "img";
-                   
+                    img.classList.add("img-fluid");
                     img.src = "/safarifile/" + map.productImgDto.product_img_link;
-                    img.height = 210;
-                    img.width = 200;
                   
                     link.appendChild(img);
                     divRow1.appendChild(link);
@@ -149,26 +265,25 @@ function getViewAll(mainId2,subId2,cityId2,townId2,statusId2,orderId2){
                     divRow2.classList.add("row");
                   
                     const divCol1 = document.createElement("div");
-                    divCol1.classList.add("col");
+                    divCol1.classList.add("col", "mt-2");
                   
                     const link2 = document.createElement("a");
                     link2.href = `./productDetail?productId=\${map.productDto.id}`;
-                    link2.classList.add("ms-1", "text-decoration-none", "text-black");
+                    link2.classList.add("ms-1", "text-decoration-none", "text-black", "title");
                     link2.textContent = map.productDto.title;
                   
                     divCol1.appendChild(link2);
-                    divRow2.appendChild(divCol1);
+                    
                   
                     const divCol2 = document.createElement("div");
-                    divCol2.classList.add("col-5", "mt-0");
+                    divCol2.classList.add("span", "ms-2", "btn-group", "pb-1");
                   
                     if (map.reservationCount > 0) {
                     	const divReserve = document.createElement("div");
-                    	divReserve.classList.add("btn-group");
 
                     	const button = document.createElement("button");
                     	button.type = "button";
-                    	button.classList.add("btn", "btn-outline-success", "btn-sm", "p-1", "m-0", "btn-sm-custom");
+                    	button.classList.add("btn", "btn-outline-success", "btn-sm", "p-1", "btn-sm-custom");
                     	button.disabled = true;
                     	button.textContent = "예약중";
 
@@ -179,11 +294,10 @@ function getViewAll(mainId2,subId2,cityId2,townId2,statusId2,orderId2){
                   
                     if (map.completeCount > 0) {
                     	const divReserve = document.createElement("div");
-                    	divReserve.classList.add("btn-group");
 
                     	const button = document.createElement("button");
                     	button.type = "button";
-                    	button.classList.add("btn", "btn-outline-success", "btn-sm", "p-1", "m-0", "btn-sm-custom");
+                    	button.classList.add("btn", "btn-outline-success", "btn-sm", "p-1", "btn-sm-custom");
                     	button.disabled = true;
                     	button.textContent = "거래완료";
 
@@ -197,11 +311,29 @@ function getViewAll(mainId2,subId2,cityId2,townId2,statusId2,orderId2){
                       divCol2.appendChild(span);
                     }
                   
-                    divRow2.appendChild(divCol2);
+                    link2.appendChild(divCol2);
+                    divRow2.appendChild(divCol1);
                     divCol.appendChild(divRow2);
                   
+                    const divRow4 = document.createElement("div");
+                    divRow4.classList.add("row", "ms-1");
+                  
+                    const divCol3 = document.createElement("div");
+                    divCol3.classList.add("col", "ms-0", "p-0", "w-0", "smaller-text", "text-secondary", "mb-3");
+                    divCol3.textContent = map.productCityDto.product_city_name + ' ' + map.productTownDto.product_town_name + ' | ';
+                    const timeSpan = document.createElement("span");
+                    timeSpan.classList.add("ms-0", "p-0", "w-0", "smaller-text", "text-secondary");
+                    timeSpan.id = 'timeSpan';
+                    timeSpan.innerText = dateToTimeDifference(map.productDto.reg_date);
+                    divCol3.appendChild(timeSpan);
+                  	
+                	
+                    
+                    divRow4.appendChild(divCol3);
+                    divCol.appendChild(divRow4);
+                    
                     const divRow3 = document.createElement("div");
-                    divRow3.classList.add("row", "ms-1", "fw-semibold");
+                    divRow3.classList.add("row", "ms-1", "fw-semibold", "price");
                   
                     if (map.productDto.price == 0) {
                       const btnShare = document.createElement("button");
@@ -221,22 +353,6 @@ function getViewAll(mainId2,subId2,cityId2,townId2,statusId2,orderId2){
                   
                     divCol.appendChild(divRow3);
                   
-                    const divRow4 = document.createElement("div");
-                    divRow4.classList.add("row", "ms-1");
-                  
-                    const divCol3 = document.createElement("div");
-                    divCol3.classList.add("col", "ms-0", "p-0", "w-0", "smaller-text", "text-secondary");
-                    divCol3.textContent = map.productCityDto.product_city_name + ' ' + map.productTownDto.product_town_name + ' | ';
-                    const timeSpan = document.createElement("span");
-                    timeSpan.classList.add("ms-0", "p-0", "w-0", "smaller-text", "text-secondary");
-                    timeSpan.id = 'timeSpan';
-                    timeSpan.innerText = dateToTimeDifference(map.productDto.reg_date);
-                    divCol3.appendChild(timeSpan);
-                  	
-                	
-                    
-                    divRow4.appendChild(divCol3);
-                    divCol.appendChild(divRow4);
                   
                     const divRow5 = document.createElement("div");
                     divRow5.classList.add("row", "mb-5");
@@ -245,15 +361,18 @@ function getViewAll(mainId2,subId2,cityId2,townId2,statusId2,orderId2){
                     divCol4.classList.add("col", "ms-1", "text-secondary");
    
                     const heartIcon = document.createElement("i");
-                    heartIcon.classList.add("bi", "bi-heart-fill");
+                    heartIcon.classList.add("bi", "bi-heart");
 
-                    const likeCount = document.createTextNode(map.likeCount +" ");
+                    const likeCount = document.createTextNode(" "+map.likeCount +" ");
 
                     const chatIcon = document.createElement("i");
-                    chatIcon.classList.add("bi", "bi-chat-dots-fill");
+                    chatIcon.classList.add("bi", "bi-chat-dots");
 
-                    const requestCount = document.createTextNode(map.requestCount);
+                    const requestCount = document.createTextNode(" "+map.requestCount);
 
+                    
+                    divRow1.appendChild(divRow1col);
+                    divRow1col.appendChild(link);
                     divCol4.appendChild(heartIcon);
                     divCol4.appendChild(likeCount);
                    
@@ -261,8 +380,12 @@ function getViewAll(mainId2,subId2,cityId2,townId2,statusId2,orderId2){
                     divCol4.appendChild(requestCount);                  
                     divRow5.appendChild(divCol4);
                     divCol.appendChild(divRow5);
+                    
+                    outRow.appendChild(divCol);
+                	outCol.appendChild(outRow);
+
                   
-                    listParent.appendChild(divCol);
+                    listParent.appendChild(outCol);
                   	
                     if ((idx+1) % 4 === 0) {
                       const divEndRow = document.createElement("div");
@@ -365,50 +488,7 @@ townBox.addEventListener("change", function() {
 	  getViewAll(0, 0, -1, townValue, 0, 0);
 });
 
-
-//몇 시간/분/초 전 
-function dateToTimeDifference(date) {
-
-	// 자바스크립트 날짜로 변환 
-	const dateFromDatabase = new Date(date);
-
-	// 현재와 시간차 (밀리초)
-	const timeDifference = Date.now() - dateFromDatabase.getTime();
-	
-	 // 초, 분, 시간, 일, 월, 년 계산 (integer)
-	const seconds = Math.floor(timeDifference / 1000);
-	const minutes = Math.floor(seconds / 60);
-	const hours = Math.floor(minutes / 60);
-	const days = Math.floor(hours / 24);
-	const months = Math.floor(days / 30);
-	const years = Math.floor(months / 12);
-
-	let formattedTime;
-
-	// 시/분/초 중 하나 정해서 표시 
-	if (years >= 1) {
-	  formattedTime = `\${years}년 전`;
-	} else if (months >= 1) {
-	  formattedTime = `\${months}개월 전`;
-	} else if (days >= 1) {
-	  formattedTime = `\${days}일 전`;
-	} else if (hours >= 1) {
-	  formattedTime = `\${hours}시간 전`;
-	} else if (minutes >= 1) {
-	  formattedTime = `\${minutes}분 전`;
-	} else {
-	  formattedTime = `\${seconds}초 전`;
-	}
-
-	return formattedTime;
-	
-}
-// 로드할때
-window.addEventListener("DOMContentLoaded", function() {
-	getViewAll(-1,-1,-1,-1,-1,-1);
-});
-
-</script>
+-->
 
 
 </body>

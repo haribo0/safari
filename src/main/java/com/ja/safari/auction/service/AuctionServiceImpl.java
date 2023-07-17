@@ -14,8 +14,12 @@ import com.ja.safari.dto.AuctionDeliveryDto;
 import com.ja.safari.dto.AuctionItemChatroomDto;
 import com.ja.safari.dto.AuctionItemDto;
 import com.ja.safari.dto.AuctionItemImgDto;
+import com.ja.safari.dto.AuctionItemInquiryDto;
 import com.ja.safari.dto.AuctionItemLikeDto;
+import com.ja.safari.dto.AuctionItemReplyDto;
 import com.ja.safari.dto.AuctionKakaoPayApproveDto;
+import com.ja.safari.dto.AuctionPurchaseConfirmedDto;
+import com.ja.safari.dto.AuctionQnADto;
 import com.ja.safari.dto.ProductMainCategoryDto;
 import com.ja.safari.dto.ProductSubCategoryDto;
 import com.ja.safari.dto.UserCoinDto;
@@ -287,6 +291,21 @@ public class AuctionServiceImpl {
 	}
 	
 	
+	// 경매 상품 문의 등록
+	public void registerAuctionInquiry(AuctionItemInquiryDto auctionItemInquiryDto) {
+		auctionSqlMapper.registerAuctionInquiry(auctionItemInquiryDto);
+	}
+
+	// 경매 상품 문의 답변 등록 
+	public void registerAuctionReply(AuctionItemReplyDto auctionItemReplyDto) {
+		auctionSqlMapper.registerAuctionReply(auctionItemReplyDto);
+	}
+	
+	// 경매 상품 당 문의 리스트 조회 
+	public List<AuctionQnADto> getAuctionQnAList(int auctionItemId) {
+		return auctionSqlMapper.getAuctionQnAList(auctionItemId);
+	}
+	
 	
 	// 경매 종료 시간 실시간으로 받아오기
 	public AuctionItemDto getAuctionEndTimeInRealTime(int auctionItemId) {
@@ -526,6 +545,13 @@ public class AuctionServiceImpl {
 		return auctionSqlMapper.getMyBidList(userBuyerId);
 	}
 	
+	// 마이페이지 - 낙찰된 경매 하나하나 결제하기 위해 주문 창 조회
+	public AuctionBidDto getOrderPageBySuccessBidPk(AuctionBidDto auctionBidDto) {
+		
+		return auctionSqlMapper.getOrderPageBySuccessBidPk(auctionBidDto);
+	}
+	
+	
 	// 마이페이지 - 낙찰 기록 조회
 	public List<AuctionBidDto> getMySueecssfulBidList(int userBuyerId) {
 		
@@ -597,6 +623,15 @@ public class AuctionServiceImpl {
 		auctionSqlMapper.reduceUserCoinByAuction(userCoinDto);
 	}
 	
+	// 결제 시 경매 판매자 정보 조회
+	public UserDto getUserSellerInfoByAuctionPay(int partnerOrderId) {
+		return auctionSqlMapper.getUserSellerInfoByAuctionPay(partnerOrderId);
+	}
+	
+	// 구매자가 경매 낙찰 후 결제하면 판매자는 코인 획득
+	public void increaseUserCoinByAuction(UserCoinDto userCoinDto) {
+		auctionSqlMapper.increaseUserCoinByAuction(userCoinDto);
+	}
 	
 	// 경매 업로더의 입장에서 종료된 경매 리스트 상태 조회
 	public List<AuctionBidDto> getEndedAuctionlist(int userSellerId) {
@@ -618,5 +653,16 @@ public class AuctionServiceImpl {
 	public void completeAuctionDelivery(int partnerOrderId) {
 		auctionSqlMapper.completeAuctionDelivery(partnerOrderId);
 	}
+	
+	// 구매 확정
+	public void registerPurchaseConfirmed(AuctionPurchaseConfirmedDto auctionPurchaseConfirmedDto) {
+		auctionSqlMapper.registerPurchaseConfirmed(auctionPurchaseConfirmedDto);
+	}
+	
+	//  구매 확정 여부 조회
+	public int checkPurchaseConfirmedYn(int partnerOrderId) {
+		return auctionSqlMapper.checkPurchaseConfirmedYn(partnerOrderId);
+	}
+
 	
 }

@@ -38,6 +38,12 @@ input[type=file]::file-selector-button:hover {
   border-right: 1px solid #e5e5e5;
   order-radius: 4px;
 }
+
+.secondaryButton{
+	background : #c0c0c0;
+	color: white;
+}
+
 </style>
 </head>
 <body>
@@ -127,6 +133,12 @@ input[type=file]::file-selector-button:hover {
 		
         <div class="row mb-4">
         	<div class="col"></div>
+        	<div class="col-2 me-0 d-grid">
+   				<div class="btn btn-block secondaryButton">
+   					<a href="./productList" class="text-decoration-none text-white">이전</a>
+   				</div>
+   			</div>
+   			
             <div class="col-2 me-0 d-grid">
                 <div class="btn btn-block orangeButton" id="registerButton">등록</div>
             </div>

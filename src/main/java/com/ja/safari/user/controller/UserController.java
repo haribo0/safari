@@ -84,7 +84,7 @@ public class UserController {
 		return "user/myAddressPage";
 	}
 	
-	// 대여|마이페이지
+	// 대여주문리스트|마이페이지
 	@RequestMapping("myOrderListPage")
 	public String myOrderListPage(HttpSession session, Model model) {
 		
@@ -97,7 +97,19 @@ public class UserController {
 		
 		model.addAttribute("rentalOrderDtoList",rentalOrderDtoList);
 		
-		return "/main/myOrderListPage";
+		return "/user/myRentalOrderListPage";
+	}
+	
+	// 대여찜|마이페이지
+	@RequestMapping("myRentalLikePage")
+	public String myRentalLikePage(HttpSession session, Model model) {
+
+		UserDto sessionUser = (UserDto)session.getAttribute("sessionUser");
+		List<Map<String, Object>> rentalItemLikeList = userService.getRentalItemLikeList(sessionUser.getId());
+		
+		model.addAttribute("rentalItemLikeList",rentalItemLikeList);
+		
+		return "/user/myRentalLikePage";
 	}
 	
 	// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -273,9 +285,15 @@ public class UserController {
 			
 			int sessionId = 0;
 			sessionId = sessionUser.getId();
+			
+			List<Map<String, Object>> pickByMyPost = userService.getPickByMyPost(sessionId);
+			List<Map<String, Object>> helpByMyPost = userService.getHelpByMyPost(sessionId);
+			List<Map<String, Object>> recruitByMyPost = userService.getRecruitByMyPost(sessionId);
 			List<Map<String, Object>> proreviewByMyPost = userService.getProreviewByMyPost(sessionId);
 			
-			
+			model.addAttribute("pickByMyPost", pickByMyPost);
+			model.addAttribute("helpByMyPost", helpByMyPost);
+			model.addAttribute("recruitByMyPost", recruitByMyPost);
 			model.addAttribute("proreviewByMyPost", proreviewByMyPost);
 			
 			return "user/myAllCommunityPostListPage";
