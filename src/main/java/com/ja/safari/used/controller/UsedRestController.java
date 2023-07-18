@@ -11,6 +11,7 @@ import java.util.UUID;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
@@ -20,6 +21,7 @@ import com.ja.safari.dto.ProductDto;
 import com.ja.safari.dto.ProductLikeDto;
 import com.ja.safari.dto.UsedKaKaoPayApproveDto;
 import com.ja.safari.dto.UsedPurchaseReviewDto;
+import com.ja.safari.dto.UserCoinDto;
 import com.ja.safari.dto.UserDto;
 import com.ja.safari.used.service.UsedServiceImpl;
 
@@ -192,6 +194,7 @@ public class UsedRestController {
 			return map;
 		}else {
 			map.put("chatRoomList", usedService.selectProductRequestAllByUserId(sessionUser.getId()));
+			map.put("coinBalance", usedService.getUserCoinBalance(sessionUser.getId()));
 			map.put("result", "success");
 			return map;
 		}
@@ -312,66 +315,82 @@ public class UsedRestController {
 		}
 	}
 	
-	
-	// 카카오페이 결제 ready 정보를 세션에 저장 
-	@RequestMapping("saveTidToSession")
-	public  Map<String, Object> saveTidToSession(HttpSession session, UsedKaKaoPayApproveDto usedkakaoPayApproveDto) {
+	// 코인 결제 후 구매자 마이너스, 판매자 플러스 헤주기
+	@RequestMapping("reduceAndPlusUserCoinByUsed")
+	public Map<String, Object> reduceUserCoinByUsed(HttpSession session, UserCoinDto userCoinDto, Integer productId) {
+		Map<String, Object> map = new HashMap<>();
+		UserDto sessionUser = (UserDto)session.getAttribute("sessionUser");
+		if(sessionUser == null) {
+			map.put("result", "fail");
+			map.put("reason", "로그인되어있지않습니다.");
+			return map;
+		}else {
+			usedService.reduceAndPlusUserCoinByUsed(userCoinDto, productId);
 			
-		Map<String, Object> map = new HashMap<String, Object>();
-		
-		UserDto sessionUser = (UserDto)session.getAttribute("sessionUser");
-		if(sessionUser == null) {
-			map.put("result", "fail");
-			map.put("reason", "login required");
+			map.put("result", "success");
 			return map;
 		}
-		
-		session.setAttribute("usedKakaoPay", usedkakaoPayApproveDto);
-		
-		map.put("result", "success");
-		
-		
-		return map;
 	}
 	
-
-	// 카카오페이 결제 ready 정보 보내주기 
-	@RequestMapping("getKakaoPayReadyInfo")
-	public Map<String, Object> getKakaoPayReadyInfo(HttpSession session) {
-		
-		Map<String, Object> map = new HashMap<String, Object>();
-		
-		UserDto sessionUser = (UserDto)session.getAttribute("sessionUser");
-		if(sessionUser == null) {
-			map.put("result", "fail");
-			map.put("reason", "login required");
-			return map;
-		}
-		
-		UsedKaKaoPayApproveDto usedkakaoPayApproveDto = (UsedKaKaoPayApproveDto) session.getAttribute("usedKakaoPay");
-
-		map.put("result", "success");
-		map.put("readyInfo", usedkakaoPayApproveDto);
-		
-		return map;
-	}
-	
-	// 카카오페이 결제 후 정보 저장  
-	@RequestMapping("saveOrderAndPaymentInfo")
-	public  Map<String, Object> saveOrderAndPaymentInfo(HttpSession session, UsedKaKaoPayApproveDto usedKakaoApproveDto) {
-		Map<String, Object> map = new HashMap<String, Object>();
-		
-		UserDto sessionUser = (UserDto) session.getAttribute("sessionUser");
-		if(sessionUser == null) {
-			map.put("result", "fail");
-			map.put("reason", "login required");
-			return map;
-		}
-		
-	    usedService.saveOrderAndPaymentInfo(usedKakaoApproveDto);
-		
-		return map;
-	}
+//	// 카카오페이 결제 ready 정보를 세션에 저장 
+//	@RequestMapping("saveTidToSession")
+//	public  Map<String, Object> saveTidToSession(HttpSession session, UsedKaKaoPayApproveDto usedkakaoPayApproveDto) {
+//			
+//		Map<String, Object> map = new HashMap<String, Object>();
+//		
+//		UserDto sessionUser = (UserDto)session.getAttribute("sessionUser");
+//		if(sessionUser == null) {
+//			map.put("result", "fail");
+//			map.put("reason", "login required");
+//			return map;
+//		}
+//		
+//		session.setAttribute("usedKakaoPay", usedkakaoPayApproveDto);
+//		
+//		map.put("result", "success");
+//		
+//		
+//		return map;
+//	}
+//	
+//
+//	// 카카오페이 결제 ready 정보 보내주기 
+//	@RequestMapping("getKakaoPayReadyInfo")
+//	public Map<String, Object> getKakaoPayReadyInfo(HttpSession session) {
+//		
+//		Map<String, Object> map = new HashMap<String, Object>();
+//		
+//		UserDto sessionUser = (UserDto)session.getAttribute("sessionUser");
+//		if(sessionUser == null) {
+//			map.put("result", "fail");
+//			map.put("reason", "login required");
+//			return map;
+//		}
+//		
+//		UsedKaKaoPayApproveDto usedkakaoPayApproveDto = (UsedKaKaoPayApproveDto) session.getAttribute("usedKakaoPay");
+//
+//		map.put("result", "success");
+//		map.put("readyInfo", usedkakaoPayApproveDto);
+//		
+//		return map;
+//	}
+//	
+//	// 카카오페이 결제 후 정보 저장  
+//	@RequestMapping("saveOrderAndPaymentInfo")
+//	public  Map<String, Object> saveOrderAndPaymentInfo(HttpSession session, UsedKaKaoPayApproveDto usedKakaoApproveDto) {
+//		Map<String, Object> map = new HashMap<String, Object>();
+//		
+//		UserDto sessionUser = (UserDto) session.getAttribute("sessionUser");
+//		if(sessionUser == null) {
+//			map.put("result", "fail");
+//			map.put("reason", "login required");
+//			return map;
+//		}
+//		
+//	    usedService.saveOrderAndPaymentInfo(usedKakaoApproveDto);
+//		
+//		return map;
+//	}
 	
 	// 리뷰 모달창 정보 가져오기 
 	@RequestMapping("getReviewHeaderAndBody")
@@ -475,7 +494,22 @@ public class UsedRestController {
 		}
 	}
 	
-	
+	// 송금 요청하기
+	@RequestMapping("productRequestTransfer")
+	public Map<String, Object> productRequestTransfer(HttpSession session, Integer requestId) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		UserDto sessionUser = (UserDto) session.getAttribute("sessionUser");
+		if(sessionUser == null) {
+			map.put("result", "fail");
+			map.put("reason", "login required");
+			return map;
+		}else {
+			usedService.productRequestTransfer(requestId,sessionUser.getId());
+			map.put("result", "success");
+			return map;
+		}
+	}
 	
 	
 	

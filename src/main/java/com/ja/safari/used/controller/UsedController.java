@@ -342,44 +342,43 @@ public class UsedController {
 		}
 	}
 	
-	// 결제 실패 
-	@RequestMapping("paymentFailed")
-	public String paymentFailed(HttpSession session) {
-		
-		UserDto userDto = (UserDto) session.getAttribute("sessionUser");
-		if(userDto == null) return "redirect:../user/loginPage"; 		
-		
-		return "used/paymentFailed";
-	}
-	
-	// 결제 중 
-	@RequestMapping("paymentProcess")
-	public String paymentProcess(HttpSession session, String pg_token) {
-		
-		UserDto userDto = (UserDto) session.getAttribute("sessionUser");
-		if(userDto == null) return "redirect:../user/loginPage";	
-		
-		System.out.println(pg_token);
-		UsedKaKaoPayApproveDto usedKakaoPagApproveDto = (UsedKaKaoPayApproveDto) session.getAttribute("usedKakaoPay");
-		usedKakaoPagApproveDto.setPg_token(pg_token);
-		session.setAttribute("usedKakaoPay", usedKakaoPagApproveDto);
-		
-		return "used/paymentProcess";
-	}
-		
-	// 결제 성공     
-	@RequestMapping("paymentSucceeded")
-	public String paymentSucceeded(HttpSession session, Model model, Integer orderId) {
-		
-		UserDto userDto = (UserDto) session.getAttribute("sessionUser");
-		if(userDto == null) return "redirect:../user/loginPage"; 		
-		
-		session.removeAttribute("usedKakaoPay");
-		
-		model.addAttribute("map", usedService.getOrderAndPaymentInfo(orderId));
-		
-		return "used/paymentSucceeded";
-	}
+//	// 결제 실패 
+//	@RequestMapping("paymentFailed")
+//	public String paymentFailed(HttpSession session) {
+//		
+//		UserDto userDto = (UserDto) session.getAttribute("sessionUser");
+//		if(userDto == null) return "redirect:../user/loginPage"; 		
+//		
+//		return "used/paymentFailed";
+//	}
+//	
+//	// 결제 중 
+//	@RequestMapping("paymentProcess")
+//	public String paymentProcess(HttpSession session, String pg_token) {
+//		
+//		UserDto userDto = (UserDto) session.getAttribute("sessionUser");
+//		if(userDto == null) return "redirect:../user/loginPage";	
+//		
+//		UsedKaKaoPayApproveDto usedKakaoPagApproveDto = (UsedKaKaoPayApproveDto) session.getAttribute("usedKakaoPay");
+//		usedKakaoPagApproveDto.setPg_token(pg_token);
+//		session.setAttribute("usedKakaoPay", usedKakaoPagApproveDto);
+//		
+//		return "used/paymentProcess";
+//	}
+//		
+//	// 결제 성공     
+//	@RequestMapping("paymentSucceeded")
+//	public String paymentSucceeded(HttpSession session, Model model, Integer orderId) {
+//		
+//		UserDto userDto = (UserDto) session.getAttribute("sessionUser");
+//		if(userDto == null) return "redirect:../user/loginPage"; 		
+//		
+//		session.removeAttribute("usedKakaoPay");
+//		
+//		model.addAttribute("map", usedService.getOrderAndPaymentInfo(orderId));
+//		
+//		return "used/paymentSucceeded";
+//	}
 	
 	
 	
