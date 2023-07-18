@@ -298,4 +298,7 @@ public interface AuctionSqlMapper {
 	//  구매 확정 여부 조회
 	public int checkPurchaseConfirmedYn(int partnerOrderId);
 	
+	
+	
+	
 }

@@ -135,7 +135,7 @@
 		<select id="getUserCoinBalance" resultType="int">
 			SELECT NVL(SUM(CASE WHEN transaction_operand = 'P' 
 			            THEN coin_transaction 
-			            ELSE -coin_transaction END),0) total_coin
+			            ELSE -coin_transaction END), 0) total_coin
 				   FROM coin_table
 				   WHERE user_id = #{userId}	
 		</select>
