@@ -28,7 +28,7 @@ a {
         flex-basis: 100%;
         align-items: center;
         color: rgba(0, 0, 0, 0.35);
-        font-size: 16px;
+        font-size: 18px;
         margin: 8px 0px;
       }
   .hr-sect::before,

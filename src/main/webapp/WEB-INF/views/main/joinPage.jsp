@@ -103,7 +103,7 @@
 								<div class="col">
 									<label for="phone" class="form-label fw-medium">전화번호 <span class="text-danger fw-bold">＊</span></label>
 									<input type="text" class="form-control" id="phone" oninput="oninputPhone(this)" maxlength="13" name="phone"
-									placeholder="숫자만 입력하시면 전화번호 형식으로 변환됩니다">
+									placeholder="01000000000">
 								</div>
 							</div>		
 							
@@ -118,11 +118,11 @@
 									
 									<div class="row mt-3">
 										<div class="col">
-											 <input class="form-check-input me-2" type="radio" id="gender" name="gender" value="m" style="cursor:pointer";>
+											 <input class="form-check-input me-2" type="radio" id="gender_M" name="gender" value="m" style="cursor:pointer";>
 											  <label class="form-check-label me-4" for="gender">
 											    	남
 											  </label>	
-											   <input class="form-check-input me-2" type="radio" id="gender" name="gender" value="w" style="cursor:pointer";>
+											   <input class="form-check-input me-2" type="radio" id="gender_W" name="gender" value="w" style="cursor:pointer";>
 											  <label class="form-check-label me-4" for="gender">
 											    	여
 											  </label>	
@@ -364,7 +364,8 @@ function checkValueAndSubmit() {
 	const pwCheck = document.getElementById("pwCheck");
 	const nickname = document.getElementById("nickname");
 	const phone = document.getElementById("phone");
-	const gender = document.getElementById("gender");
+	const gender_m = document.getElementById("gender_M");
+	const gender_w = document.getElementById("gender_W");
 	const birth = document.getElementById("birth");
 	
 	if (email.value == "") {
@@ -383,10 +384,9 @@ function checkValueAndSubmit() {
 		alert("전화번호를 입력해주세요");
 		phone.focus();
 		return;
-	} else if (gender.value == "") {
-		alert("성별을 입력해주세요");
-		gender.focus();
-		return;
+	} else if (!gender_m.checked && !gender_w.checked) {
+	    alert("성별을 선택해주세요");
+	    return;
 	} else if (birth.value == "") {
 		alert("생년월일을 입력해주세요");
 		birth.focus();
