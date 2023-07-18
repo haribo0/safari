@@ -223,22 +223,59 @@ function getSessionId(){
 	}
 	
  	function setOrderLink() {
+ 		const orderlyObj = [
+ 			{orderly: "likes"},
+ 			{orderly: "reviews"},
+ 			{orderly: "purchase"}
+ 		]
 	
 		const btnLikesOrder = document.querySelector('.btnLikesOrder')
 		const btnReviewOrder = document.querySelector('.btnReviewOrder')
 		const btnRentOrder = document.querySelector('.btnRentOrder')
-		let currentUrl = window.location.href
 		
-		if(currentUrl.includes('sub_category_id') || currentUrl.includes('main_category_id')) {
-			btnLikesOrder.setAttribute('href', currentUrl + '&likesOrder=true')
-			btnReviewOrder.setAttribute('href',  currentUrl + '&btnReviewOrder=true')
-			btnRentOrder.setAttribute('href',  currentUrl + '&btnRentOrder=true')
-		}else{
-			btnLikesOrder.setAttribute('href', currentUrl + '?likesOrder=true')
-			btnReviewOrder.setAttribute('href', currentUrl + '?btnReviewOrder=true')
-			btnRentOrder.setAttribute('href', currentUrl + '?btnRentOrder=true')	
-			
-		}
+		let url = new URL(window.location.href)
+ 		console.log(url)
+ 		let isIncludeMainCat = url.search.includes('main_category_id')
+ 		let isIncludeSubCat = url.search.includes('sub_category_id')
+ 		let originUrl
+ 		let querySign
+ 		
+  		if(isIncludeMainCat || isIncludeSubCat) {
+  			let urlSearch = url.search
+  			let queryString = urlSearch.split("?")[1];
+  			let firstQuery = queryString.split("&")[0];
+  			let firstParam = "?" + firstQuery;
+
+ 			originUrl = url.origin + url.pathname + firstParam
+
+			querySign ="&"
+			console.log(originUrl) 			
+ 		}else {
+	 		originUrl = url.origin + url.pathname 			
+			console.log(originUrl)
+			querySign ="?"
+ 		} 
+ 
+
+		btnLikesOrder.addEventListener('click',(e) => {
+			const oderlyParams = new URLSearchParams(orderlyObj[0])
+			e.preventDefault();
+			window.location.href = originUrl + querySign + oderlyParams
+		})
+		
+		btnReviewOrder.addEventListener('click',(e) => {
+			const oderlyParams = new URLSearchParams(orderlyObj[1])
+			e.preventDefault();
+			window.location.href = originUrl + querySign + oderlyParams		
+		})
+				
+		btnRentOrder.addEventListener('click',(e) => {
+			const oderlyParams = new URLSearchParams(orderlyObj[2])
+			e.preventDefault();
+			window.location.href = originUrl + querySign + oderlyParams		
+		})
+		
+
 	}
 
 window.addEventListener("DOMContentLoaded", function(){

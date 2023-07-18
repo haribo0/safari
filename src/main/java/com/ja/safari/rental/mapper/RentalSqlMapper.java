@@ -44,7 +44,7 @@ public interface RentalSqlMapper {
 	public List<RentalSubCategoryDto> selectSubCategoryList(int mainCategoryId);
 
 	// 상품리스트 가져오기
-	public List<RentalItemDto> selectRentalItemListAll(@Param("sub_category_id") Integer sub_category_id, @Param("main_category_id") Integer main_category_id);
+	public List<RentalItemDto> selectRentalItemListAll(@Param("sub_category_id") Integer sub_category_id, @Param("main_category_id") Integer main_category_id, @Param("orderly") String orderly);
 
 	// 상품 하나 가져오기
 	public RentalItemDto selectById(int id);
