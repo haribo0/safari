@@ -100,8 +100,8 @@ a {
 						</div>
 					
 						
-						<div class="row mt-3 text-center">
-							<div class="col">
+						<div class="row mt-3">
+							<div class="col-auto">
 								아이디 찾기
 							</div>
 							
@@ -109,7 +109,7 @@ a {
 								비밀번호 찾기
 							</div>
 							
-							<div class="col">
+							<div class="col text-end me-1">
 								<a href="./joinPage">회원가입</a>
 							</div>
 						</div>
