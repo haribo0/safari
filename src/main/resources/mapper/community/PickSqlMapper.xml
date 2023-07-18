@@ -83,6 +83,13 @@
 		where id = #{id}
 	</delete>
 	
+	<!-- 골라줘요 댓글 수정 -->
+	<update id="updatePickcomment" >
+	update pick_comment_table
+	set content = #{content}
+	where id = #{id}
+	</update>
+	
 	<!-- 골라줘요 좋아요 insert : like-->
 	<insert id="insertPickLike">
 		insert into pick_like_table values(
@@ -133,17 +140,65 @@
 	
 	<!-- 골라줘요 : 중고 상품 테이블에서 받아오기. (이름, 가격, 좋아요 수, 이미지) productDto 받아오기-->
 	<select id="showAllProduct" resultType="com.ja.safari.dto.PickShowCardDto">
-	<!-- 	SELECT p.title, p.price, COUNT(*) likeCount, pimg.product_img_link 
-		FROM product p
-		JOIN product_like pLike ON p.id = pLike.product_id
-		JOIN product_img pIMG ON p.id = pIMG.product_id
-		WHERE p.id = #{id}
-		GROUP BY p.title, p.price, pimg.product_img_link -->
 		SELECT p.title, p.price, COUNT(*) likeCount, pimg.product_img_link 
 		FROM product p
 		LEFT JOIN product_like pLike ON p.id = pLike.product_id
 		LEFT JOIN product_img pIMG ON p.id = pIMG.product_id
 		GROUP BY p.title, p.price, pimg.product_img_link
 	</select>
+	
+		<!-- 	SELECT p.title, p.price, COUNT(*) likeCount, pimg.product_img_link 
+		FROM product p
+		JOIN product_like pLike ON p.id = pLike.product_id
+		JOIN product_img pIMG ON p.id = pIMG.product_id
+		WHERE p.id = #{id}
+		GROUP BY p.title, p.price, pimg.product_img_link -->
+	<!-- 강사 코드 -->
+	<!-- 글 쓰기용 중고 거래 상품 리스트 뽑기 -->
+	<select id="getProductPickOptionList" resultType="com.ja.safari.dto.ProductDto">
+		SELECT * FROM product p 
+		ORDER BY p.title ASC
+	</select>	
+	
+	<select id="getPickOptionValues" resultType="com.ja.safari.dto.PickOptionValuesForVoteDto">
+		SELECT 
+		    pot.pick_id as pick_id,
+		    pot.id as option_id, 
+		    pot.product_id as product_id,
+		    p.title as title,
+		    p.price as price,
+		    (
+		        SELECT COUNT(*) 
+		        FROM pick_option_vote_table pov 
+		        WHERE pot.id = pov.pick_option_id
+		    ) as vote_cnt,
+		    (
+		        SELECT pi.product_img_link FROM product_img pi
+		        WHERE pi.product_id = 1
+		        AND ROWNUM = 1
+		    ) as img,
+		    (
+		        SELECT COUNT(*) FROM product_like pl WHERE pl.product_id = p.id
+		    ) as product_zzim_count
+		FROM pick_option_table pot 
+		INNER JOIN product p on p.id = pot.product_id
+		WHERE pot.pick_id = #{pick_id}
+	</select>
+	
+	<insert id="insertPickOptionVote">
+		INSERT INTO pick_option_vote_table VALUES(
+			pick_option_vote_table_seq.nextval,
+			#{user_id},
+			#{pick_option_id},
+			SYSDATE
+		)
+	</insert>
+		
+	<delete id="resetVote">
+		DELETE FROM pick_option_vote_table povt WHERE povt.user_id = #{user_id} AND povt.pick_option_id IN (
+		    SELECT pot.id FROM pick_option_table pot WHERE pot.pick_id = #{pick_id}    
+		)	
+	</delete>	
+		
 	
 </mapper>
