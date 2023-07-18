@@ -14,7 +14,9 @@ import com.ja.safari.dto.PromotionReviewCommentDto;
 import com.ja.safari.dto.PromotionReviewDto;
 import com.ja.safari.dto.PromotionReviewImgDto;
 import com.ja.safari.dto.PromotionReviewLikeDto;
+import com.ja.safari.dto.RentalItemDto;
 import com.ja.safari.dto.RentalMainCategoryDto;
+import com.ja.safari.dto.RentalSubCategoryDto;
 import com.ja.safari.dto.UserDto;
 import com.ja.safari.rental.mapper.RentalSqlMapper;
 import com.ja.safari.user.mapper.UserSqlMapper;
@@ -49,8 +51,6 @@ public class PromotionReviewServiceImpl {
 		int countPromotionReviewComment = promotionReviewCommentMapper.countPromotionReviewComment(promotionReviewDto.getId());
 
 		
-		
-		// 이건 그 게시물의 공감수가 몇개인지잖아...
 		int countLikeByPromotionReview = promotionReviewMapper.countLikeByPromotionReviewId(promotionReviewDto.getId());
 		int checkPromotionReviewMyLike = promotionReviewMapper.checkPromotionReviewMyLike(promotionReviewDto.getUser_id());
 		
@@ -271,6 +271,15 @@ public class PromotionReviewServiceImpl {
 		}		
 		
 		return topViewPromoReivewList;
+	}
+	
+	
+	public List<RentalItemDto> getRentalItems(int m, int s){
+		return promotionReviewMapper.getRentalItemList(m, s);
+	}
+	
+	public List<RentalSubCategoryDto> getRentalSubCategoryList(int m){
+		return promotionReviewMapper.getSubCategoryList(m);
 	}
 	
 	

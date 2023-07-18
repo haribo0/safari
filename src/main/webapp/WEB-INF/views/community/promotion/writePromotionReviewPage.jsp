@@ -10,6 +10,107 @@
 <jsp:include page="../../common/meta.jsp"></jsp:include>
 <!-- 메타 섹션 -->
 </head>
+<style>
+/* 버튼 색깔 */
+.orangeButton{
+	background: #ff6f0f;
+	font-weight: bold;
+	color: white;
+}
+.orangeButton:hover {
+      outline: 2px solid orange;
+      /* hover 상태일 때의 스타일 */
+  }
+</style>
+
+<script>
+function selectSubCategory(targetElement) {
+    // 대분류 카테고리 선택값 가져오기
+    
+	const mainCategoryId = targetElement.selectedOptions[0].value;
+    
+	const xhr = new XMLHttpRequest();
+	
+	xhr.onreadystatechange = function(){
+		if(xhr.readyState == 4 && xhr.status == 200){
+			const response = JSON.parse(xhr.responseText);
+			
+			const rentalProReview_sub_category = document.getElementById("rentalProReview_sub_category");
+			
+			rentalProReview_sub_category.innerHTML = "";
+
+			
+			const baseOption = document.createElement("option");
+			baseOption.value = 0;
+			baseOption.innerText = "소분류 카테고리 선택";
+			
+			rentalProReview_sub_category.appendChild(baseOption);
+			
+			for(x of response.subCategoryList){
+				const option = document.createElement("option");
+				option.value = x.id;
+				option.innerText = x.sub_category_name;
+				rentalProReview_sub_category.appendChild(option);
+			}
+			
+			reloadRentalItemList();
+			
+		}
+	}
+	
+	xhr.open("get", "./getSubCategoryList?mainCategoryId=" + mainCategoryId);
+	xhr.send();		    
+    
+    
+}
+
+function reloadRentalItemList(){
+	const mainCategoryId = document.getElementById("rentalProReview_main_category").selectedOptions[0].value;
+	const subCategoryId = document.getElementById("rentalProReview_sub_category").selectedOptions[0].value;
+	
+	console.log("mainCategoryId: " + mainCategoryId);
+	console.log("subCategoryId: " + subCategoryId);
+	
+	const xhr = new XMLHttpRequest();
+	
+	xhr.onreadystatechange = function(){
+		if(xhr.readyState == 4 && xhr.status == 200){
+			const response = JSON.parse(xhr.responseText);
+			
+			const rental_item_id = document.getElementById("rental_item_id");
+			rental_item_id.innerHTML = "";
+
+			const baseOption = document.createElement("option");
+			baseOption.value = 0;
+			baseOption.innerText = "제품 선택?";
+			
+			rental_item_id.appendChild(baseOption);
+			
+			for(x of response.rentalItemCategoryList){
+				
+				const option = document.createElement("option");
+				option.value = x.id;
+				option.innerText = x.title;
+				
+				rental_item_id.appendChild(option);
+			}
+			
+		}
+	}
+	
+	xhr.open("get", "./getRentalItemList?mainCategoryId=" + mainCategoryId + "&subCategoryId=" + subCategoryId);
+	xhr.send();	
+}
+
+
+window.addEventListener("DOMContentLoaded" , () => {
+	reloadRentalItemList();
+});
+
+
+</script>
+
+
 <body>
 	<!-- 헤더 섹션 -->
 	<jsp:include page="../../common/header.jsp"></jsp:include>
@@ -17,18 +118,21 @@
 
 	<div class="container main_box">
 	<div class = "row mt-5">
-		<div class = "col"></div>
-		<div class = "col-6">
-		<form action="./writePromotionReviewProcess" method = "post" enctype = "multipart/form-data">
-			
+		<div class = "col">
 			<div class = "row mt-5">
 				<div class = "col fs-6 text-center text-secondary">리워드 리뷰</div>
 			</div>
 			<div class = "row mt-2">
 				<div class = "col fw-semibold fs-3 text-center">게시글 작성 </div>
 			</div>
+		<hr class="my-1 mt-3" style="border-color: gray;">
+		</div>
+	<div class = "row">
+		<div class = "col-6">
+		<form action="./writePromotionReviewProcess" method = "post" enctype = "multipart/form-data">
 			
-			<hr class="my-1 mt-3" style="border-color: gray;">
+			<!--  전체적인 레이어 수정, 찜 목록 연결 -->
+			
 			
 			<div class = "row mt-5">
 				<div class = "col fw-semibold">제목</div>
@@ -39,9 +143,7 @@
 			<div class = "row mt-5">
 				<div class = "col fw-semibold">작성자</div>
 				<div class = "col">
-				
-				  	${sessionUser.email}
-	
+				  	${sessionUser.nickname }
 				</div>
 			</div>
 			<div class = "row mt-5">
@@ -59,33 +161,46 @@
 			</div>
 			
 			<!--  대분류 카테고리 (대여 카테고리를 가져와서 리워드 카테고리에 입력) -->
-			<div class = "row mt-3">
+			<div class = "row mt-5">
 				<div class = "col">
-					
+					<select class="form-select" id="rentalProReview_main_category" name="rentalProReview_main_category" onchange="selectSubCategory(this)">
+	            		<option value="0" selected="selected">대분류 카테고리 선택</option>
+	            		<c:forEach items="${mainCategoryList}" var="rentalProReviewMain">
+	                    	<option value="${rentalProReviewMain.id }">${rentalProReviewMain.main_category_name }</option>
+	                    </c:forEach>
+               		</select>	
 				</div>
-			</div>
-			
-			<!--  소분류 카테고리 -->
-			<div class = "row mt-3">
+				<!--  소분류 카테고리 -->
 				<div class = "col">
-					
+		  			<select class="form-select" id="rentalProReview_sub_category" onchange="reloadRentalItemList()">
+					    <option value="0">소분류 카테고리 선택</option>
+					</select>
 				</div>
-			</div>
+			</div>			
 			<!--  리워드 제품 끌어오기  -->
 			<div class = "row mt-5">
 				<div class = "col fw-semibold">프로모션 제품 등록 </div>
 				<div class = "col">
-					<input class = "form-control" name="rental_item_id" placeholder="임시로 이렇게 만듬">
+					<select name="rental_item_id" id="rental_item_id" class="form-select">
+						<c:forEach items="${rentalItemList }" var="item">
+							<option value="${item.id }">${item.title }</option>
+						</c:forEach>
+						
+					</select>
 				</div>
 			</div>
+			
+
+			
 			<div class = "row mt-5">
 				<div class = "col"></div>
 				<div class = "col-3">
-					<button class = "form-control btn btn-dark me-2">등록하기</button>
+					<button class = "form-control btn orangeButton me-2">등록하기</button>
 				</div>
 			</div>
 		</form>
 		</div>
+	</div>
 		<div class = "col"></div>
 	</div>
 
@@ -109,5 +224,7 @@
 	<!-- 푸터 섹션 -->
 		</div>
 	</div>
+<script>
+</script>
 </body>
 </html>

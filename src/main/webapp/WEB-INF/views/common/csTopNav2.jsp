@@ -24,19 +24,28 @@
       </c:if> --%>
       
       
+      	<c:if test="${!empty empUser && empUser.master == 0}">
+		    <li class="nav-item ms-3">
+			  <a class="nav-link" href="./inquiries"> 1대1 문의</a>
+			</li>
+			
+			<li class="nav-item ms-3">
+			  <a class="nav-link" href="./liveChat"> 실시간 채팅</a>
+			</li>
+		</c:if>
+      
     
-		<li class="nav-item ms-3">
-		  <a class="nav-link" href="./inquiries"> 1대1 문의</a>
-		</li>
-		
-		<li class="nav-item ms-3">
-		  <a class="nav-link" href="./liveChat"> 실시간 채팅</a>
-		</li>
 		
 		<c:if test="${!empty empUser && empUser.master == 1}">
-		  <li class="nav-item ms-3">
-		    <a class="nav-link" href="./employees">직원 관리</a>
-		  </li>
+			<li class="nav-item ms-3">
+			  <a class="nav-link" href="./employees">직원 관리</a>
+			</li>
+			<li class="nav-item ms-3">
+			  <a class="nav-link" href="./inquiryStatus">1대1 문의 현황</a>
+			</li>
+			<li class="nav-item ms-3">
+			  <a class="nav-link" href="./liveChatStatus">실시간 문의 현황</a>
+			</li>
 		</c:if>
     
     </ul>

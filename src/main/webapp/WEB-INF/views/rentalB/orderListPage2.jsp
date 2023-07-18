@@ -23,8 +23,13 @@
 	color: #F68942;
 }
 
-.btn_search{padding:9px 18px; background: #e6edfe; border:none; color: #789efd; border-radius:8px; font-size: 14px;}
-.btn_delivered{padding:4px 12px; background: #f9e2e5; border:none; color: #dd7c7e; border-radius:8px; font-size: 14px;}
+.btn_search{
+padding:9px 18px; background: #e6edfe; border:none; color: #789efd; border-radius:8px; font-size: 14px;
+}
+.btn_delivered{
+padding:4px 12px; background: #f9e2e5; border:none; color: #dd7c7e; border-radius:8px; font-size: 14px;
+
+}
 .btn_canceled{padding:4px 12px; background: #e6edfe; border:none; color: #789efd; border-radius:8px; font-size: 14px;}
 .btn_ordered{padding:4px 12px; background: #dff5ea; border:none; color: #6db590; border-radius:8px; font-size: 14px;}
 .c_pointer{cursor: poniter;}
@@ -64,7 +69,7 @@
 			<div class="col ms-4 mt-5">
 			    <h4 class="ps-4  mt-3 mb-4 fw-regular">주문 관리</h4>
 				
-				<div class="row mt-5 ms-4">
+				<div class="row mt-5 ms-4 ">
 					<!-- <form action="#" method="GET" class="d-flex" role="search"> -->
 					
 					<div class="col-auto me-1 text-end col-form-label">
@@ -96,6 +101,12 @@
 						</select>
 					</div>
 					
+					<div class="col-3 me-2">
+					      <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+					</div>
+					<div class="col-1 me-3 d-grid">
+					      <button class="btn btn-dark" type="submit">Search</button>
+					</div>
 					
 					
 				    

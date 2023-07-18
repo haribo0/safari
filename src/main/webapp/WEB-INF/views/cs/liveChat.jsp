@@ -176,7 +176,7 @@
 				
 				<!-- count -->
 				<div class="col-2 text-end" id=""> 
-					<div class="btn orangeBtn fw-medium" id="chatCount">  </div>
+					<div class="btn btn-dark fw-medium" id="chatCount">  </div>
 				</div>
 				<!-- count -->
 				
@@ -218,7 +218,7 @@
 				<div class="col">
 					
 					<div class="row  bg-light text-center " style="height: 60px">
-						<div class="col text-end" id="endLiveChat">
+						<div class="col text-end my-auto" id="endLiveChat">
 							<!-- <div class="btn btn-dark btn-sm">상담 종료</div> -->
 						</div>
 					</div>
@@ -244,7 +244,7 @@
 								<textarea id="chatText" placeholder="메시지 보내기" rows="1" cols="20" class="form-control ms-2"></textarea>
 							</div>
 							<div class="col-2 d-grid">
-			    				<button class="send-button btn orangeBtn ms-3 px-3" id="sendMsg" onclick="sendMsg()">전송</button>
+			    				<button class="send-button btn btn-dark ms-3 px-3" id="sendMsg" onclick="sendMsg()">전송</button>
 							</div>
 						</div>
 					</div>
@@ -298,6 +298,7 @@
 let liveChatId =  null;
 let lastChatMsgId = null;
 let intervalHandler = null;
+let isChatEnded = null;
 
 let chatMsgScrollTop = -1;
 
@@ -443,11 +444,12 @@ function dateToTimeDifference(date) {
  
 
 
-// 채팅 메세지  상세보기 
+// 채팅 메세지 - 상세보기 (채팅방 리스트에서 채팅을 선택했을 때 ) 
 function getChatMsg(dto) {
 
 	// 전역변수 저장 
 	liveChatId = dto.id;
+	isChatEnded = false;
 	
 	// 메세지 가져오기 
 	reloadChatMsg();
@@ -460,8 +462,12 @@ function getChatMsg(dto) {
 	button.textContent = '상담 종료';
 	button.addEventListener('click', endLiveChat);
 	btnBox.appendChild(button);
-	
 
+	// 메세지 전송 버튼 활성화 
+	const msgBtn = document.getElementById("sendMsg");
+	msgBtn.className = "send-button btn btn-dark ms-3 px-3" ;
+
+	
 	// 3초마다 채팅 업로드 
 	if(intervalHandler != null){
 		clearInterval(intervalHandler);
@@ -542,8 +548,15 @@ function endLiveChat() {
 			/* const chatMsgContainer = document.getElementById("chatMsgContainer");
 			chatMsgContainer.innerHTML = ""; */
 			
+			// 전역 변수 저장 
+			isChatEnded = true;
+			
+			// 메세지 전송 버튼 disabled 추가 
+			const msgBtn = document.getElementById("sendMsg");
+			msgBtn.className = "send-button btn btn-dark disabled ms-3 px-3" ;
+			
 			getLiveChatList();
-
+			reloadChatMsg();
 			
 		}
 	}
@@ -568,6 +581,11 @@ function sendMsg() {
 		return;
 	}
 	
+	if(isChatEnded){
+		return;
+	}
+	
+	
 	const xhr = new XMLHttpRequest();
 
 	xhr.onreadystatechange = function() {
@@ -577,6 +595,7 @@ function sendMsg() {
 			chatInputBox.value="";
 			// 새로고침 
 			reloadChatMsg();
+			
 		}
 	}
 
@@ -749,17 +768,21 @@ function reloadChatMsg() {
 				
 			});
 			
+			// 전역변수 저장 
+			isChatEnded = response.isChatEnded;
+			
 			// 만약 채팅 상담이 종료 되었을 경우 
 			if(response.isChatEnded) {
 				
 				// 상담이 종료되었습니다. 
-				const rowDiv = document.createElement('div');
-				rowDiv.classList.add('row py-2');
-				const colDiv = document.createElement('div');
-				colDiv.classList.add('col', 'text-secondary', 'text-center');
-				colDiv.textContent = '상담이 종료되었습니다';
-				rowDiv.appendChild(colDiv);
-				chatMsgContainer.appendChild(rowDiv);
+				const rowEndDiv = document.createElement('div');
+				rowEndDiv.classList.add('row','py-2');
+				const colEndDiv = document.createElement('div');
+				colEndDiv.classList.add('col', 'text-secondary', 'text-center');
+				colEndDiv.textContent = '상담이 종료되었습니다';
+				rowEndDiv.appendChild(colEndDiv);
+				chatMsgContainer.appendChild(rowEndDiv);
+				
 			}
 			
 			

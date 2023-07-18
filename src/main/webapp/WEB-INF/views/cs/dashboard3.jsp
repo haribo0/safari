@@ -76,7 +76,7 @@
   .fc-scrollgrid-sync-table tr td { 
   	overflow: hidden;
   }
-  
+  /* 
   .event-dot {
   width: 10px;
   height: 10px;
@@ -87,7 +87,7 @@
   border-radius: 4px;
   padding: 5px;
   margin-bottom: 2px;
-}
+} */
   
  
 </style>
@@ -107,22 +107,126 @@
 
 <div class="container-fluid">
 	<div class="row ">
-		<div class="col-6"></div>
 		
-		<div class="col-6">
+		<!-- LEFT COL -->
+		<div class="col" >
 			
-			
-			<div id='wrap'>
-				<!-- calendar 태그 -->
-				<div id='calendar-wrap'>
-				  <div id='calendar'></div>
+			<div class="card ">
+				<div class="row px-2 py-2">
+					<div class="col px-2 py-2 border-bottom fs-5 fw-medium ms-3">
+						주간 스케줄
+					</div>
+				</div>
+				<div class="row  py-2 px-2">
+					<div class="col ">
+						<div id='wrap'  >
+							<!-- calendar 태그 -->
+							<div id='calendar-wrap'>
+							  <div id='calendar'></div>
+							</div>
+						</div>
+					</div>
 				</div>
 			</div>
 			
-			
 		</div>
+		<!-- LEFT COL -->
 		
-		<div class="col"></div>
+		<%-- 
+		<!-- RIGHT COL -->
+		<div class="col-6">
+			<div class="row">
+			    <div class="col-3 mt-2 fs-5 fw-medium  ">
+		    		1대1 문의 평점 
+			    </div>
+			    <div class="col-3 mt-2 fs-5 fw-medium  ">
+		    		실시간 문의 평점 
+			    </div>
+		    </div>
+			<div class="row mt-2">
+				
+				<div class="col-3">
+					<c:forEach var="dto" items="${chatRatingList}">
+						<div class="card my-2 px-3 py-2">
+						   
+						    <div class="row">
+							    <div class="col">
+						    		${dto.emp_id} ${dto.name} ${dto.avg_rating}
+							    </div>
+						    </div>
+						    <div class="row">
+							   <div class="col text-warning">
+							    
+								<c:set var="avgRating" value="${dto.avg_rating}" /> <!-- 가져온 평균 평점 (예시) -->
+								<c:set var="maxRating" value="5" /> <!-- 최대 평점 -->
+															    
+							    <c:set var="wholeStars" value="${avgRating - avgRating % 1}" /> <!-- 정수 부분 (예: 4.6 -> 4) -->
+								<c:set var="halfStar" value="${avgRating - wholeStars}" /> <!-- 소수 부분 (예: 4.6 -> 0.6) -->
+									
+									<c:forEach begin="1" end="${maxRating}" varStatus="loop">
+									  <c:choose>
+									    <c:when test="${loop.index le wholeStars}">
+									      <i class="bi bi-star-fill"></i> <!-- 평점의 정수 부분만큼 채워진 별 아이콘을 출력 -->
+									    </c:when>
+									    <c:when test="${loop.index eq wholeStars + 1 and halfStar gt 0}">
+									      <i class="bi bi-star-half"></i> <!-- 평점의 정수 부분에 반개짜리 별 아이콘을 출력 -->
+									    </c:when>
+									    <c:otherwise>
+									      <i class="bi bi-star"></i> <!-- 나머지 빈 별 아이콘을 출력 -->
+									    </c:otherwise>
+									  </c:choose>
+									</c:forEach>
+
+							    </div>
+						    </div>
+						</div>
+					
+					
+					</c:forEach>
+				</div>
+				
+				<div class="col-3">
+					<c:forEach var="dto" items="${chatRatingList}">
+						<div class="card my-2 px-3 py-2">
+						    <div class="row">
+							    <div class="col">
+						    		${dto.emp_id} ${dto.name} ${dto.avg_rating}
+							    </div>
+						    </div>
+						    <div class="row">
+							    <div class="col text-warning">
+							    
+								<c:set var="avgRating" value="${dto.avg_rating}" /> <!-- 가져온 평균 평점 (예시) -->
+								<c:set var="maxRating" value="5" /> <!-- 최대 평점 -->
+															    
+							    <c:set var="wholeStars" value="${avgRating - avgRating % 1}" /> <!-- 정수 부분 (예: 4.6 -> 4) -->
+								<c:set var="halfStar" value="${avgRating - wholeStars}" /> <!-- 소수 부분 (예: 4.6 -> 0.6) -->
+									
+									<c:forEach begin="1" end="${maxRating}" varStatus="loop">
+									  <c:choose>
+									    <c:when test="${loop.index le wholeStars}">
+									      <i class="bi bi-star-fill"></i> <!-- 평점의 정수 부분만큼 채워진 별 아이콘을 출력 -->
+									    </c:when>
+									    <c:when test="${loop.index eq wholeStars + 1 and halfStar gt 0}">
+									      <i class="bi bi-star-half"></i> <!-- 평점의 정수 부분에 반개짜리 별 아이콘을 출력 -->
+									    </c:when>
+									    <c:otherwise>
+									      <i class="bi bi-star"></i> <!-- 나머지 빈 별 아이콘을 출력 -->
+									    </c:otherwise>
+									  </c:choose>
+									</c:forEach>
+
+							    </div>
+						    </div>
+						</div>
+					
+					</c:forEach>
+				</div>
+				
+			</div>
+		</div>
+		<!-- RIGHT COL -->
+		 --%>
 	</div>
 </div>
 
@@ -271,7 +375,7 @@ function formatDate(date) {
 	return year + '-' + month + '-' + day;
 }
 
-/* 
+
 let colorCount = 0;
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -286,7 +390,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
     headerToolbar: {
       left: 'prev,next today',
-      center: 'title',
+      /* center: 'title', */
       right: 'listWeek,dayGridMonth,timeGridWeek,timeGridDay'
     },
     
@@ -297,10 +401,10 @@ document.addEventListener('DOMContentLoaded', function() {
         type: 'timeGrid',
         duration: { days: 31 } // 주간 보기 설정
       }, */
-      /*timeGridWeek: {
+      /* timeGridWeek: {
         type: 'timeGrid',
         duration: { days: 7 } // 주간 보기 설정
-      },
+      }, */
       timeGridDay: {
         type: 'timeGrid',
         duration: { days: 1 } // 일간 보기 설정
@@ -356,7 +460,7 @@ document.addEventListener('DOMContentLoaded', function() {
 		 /* for (var i = 0; i < employees.length; i++) {
 		  if(eventTitle===employees[i]) eventBlock.style.backgroundColor =  pastelColors[i]; // Apply custom CSS class for the event block
 		} */
-		/* eventBlock.style.backgroundColor =  pastelColors[colorCount++ % pastelColors.length]; // Apply custom CSS class for the event block
+		 eventBlock.style.backgroundColor =  pastelColors[colorCount++ % pastelColors.length]; // Apply custom CSS class for the event block
 		 eventBlock.className = eventTitle;
 		 eventBlock.classList.add('row');
 		
@@ -382,18 +486,19 @@ document.addEventListener('DOMContentLoaded', function() {
 		 
 		 eventBlock.style.backgroundColor = arg.event.color; // Set the background color based on the assigned color
 		 
-		  return { domNodes: [eventBlock, eventDot] };
+		  //return { domNodes: [eventBlock, eventDot] };
+		  return { domNodes: [eventBlock] };
     }
   });
   
   calendar.render();
 });
 
- */
 
 
-/* 
-function formatDate(date) {
+
+
+/* function formatDate(date) {
 	var formattedDate = new Date(date);
 	
 	var year = formattedDate.getFullYear();
@@ -401,51 +506,13 @@ function formatDate(date) {
 	var day = String(formattedDate.getDate()).padStart(2, '0');
 	
 	return year + '-' + month + '-' + day;
-} */
+}
 
 
 document.addEventListener('DOMContentLoaded', function() {
   	var calendarEl = document.getElementById('calendar');
  	var calendar = new FullCalendar.Calendar(calendarEl, {
     // Other FullCalendar options...
-    
-    headerToolbar: {
-      left: 'prev,next today',
-      center: 'title',
-      right: 'listWeek,dayGridMonth,timeGridWeek,timeGridDay'
-    },
-    
-    initialView: 'listWeek', // 초기 뷰 설정 (월간 보기)
-    
-    views: {
-      /* timeGridWeek: {
-        type: 'timeGrid',
-        duration: { days: 31 } // 주간 보기 설정
-      }, */
-      timeGridWeek: {
-        type: 'timeGrid',
-        duration: { days: 7 } // 주간 보기 설정
-      },
-      timeGridDay: {
-        type: 'timeGrid',
-        duration: { days: 1 } // 일간 보기 설정
-      }
-    },
-    
-    eventRender: function(info) {
-        var eventElement = info.el;
-        var eventTitle = info.event.title;
-        
-        // Check if the view is 'listWeek' or 'dayGridMonth'
-        if (info.view.type === 'listWeek' || info.view.type === 'dayGridMonth') {
-          // Create a div element to hold the employee name and set the background color
-          var divElement = document.createElement('div');
-          divElement.style.backgroundColor = getEmployeeColor(eventTitle);
-          divElement.textContent = eventTitle;
-          
-          // Append the div element to the event element
-          eventElement.appendChild(divElement);
-        }
 
     events: function(info, successCallback, failureCallback) {
       var start = info.startStr; // Start date of the visible range
@@ -480,7 +547,7 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 
   calendar.render();
-}); 
+}); */
 
 
 

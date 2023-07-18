@@ -47,6 +47,11 @@
 	font-weight: bold;
 	color: white;
 }
+.orangeButton:hover {
+     background: #ff6f0f;
+	font-weight: bold;
+	color: white;
+  }
 </style>
 <script>
 // 좋아요 토글
@@ -233,7 +238,7 @@ window.addEventListener("DOMContentLoaded", function(){
 					<div class = "reviewlist container border border-1 mt-3" style="border-radius: 10px;">
 						<div class = "row mt-2">
 							<div class = "col">
-								상호명 ...
+								상호명 business_name...
 							</div>
 						</div>
 					</div>	
@@ -298,9 +303,15 @@ window.addEventListener("DOMContentLoaded", function(){
 				<div class = "col">
 					<div class = "row mt-2">
 						<div class = "col">
-						
-						<span class="badge text-bg-warning">BEST</span>
-							
+							<!--  공감수 + 조회수 top5 -->
+							<c:choose>
+								<c:when test="">
+									<span class="badge text-bg-warning">BEST</span>
+								</c:when>
+								<c:otherwise>
+									
+								</c:otherwise>
+							</c:choose>
 						</div>
 						<div class = "col"></div>
 					</div>
@@ -487,12 +498,11 @@ window.addEventListener("DOMContentLoaded", function(){
 												<!--  수정/삭제 버튼 -->
 												<div class = "col text-end text-secondary fs-5"> 
 													<div class="dropdown">
-													  <span class="bi bi-three-dots-vertical" data-bs-toggle="dropdown" aria-expanded="false"></span>
-													  
+													  <span class="bi bi-three-dots-vertical" data-bs-toggle="dropdown" aria-expanded="false"></span>		  
 													  <c:choose>
 													  	<c:when test="${!empty sessionUser}">
 														  	 <ul class="dropdown-menu">
-															  <li><a class="dropdown-item" href="#">수정</a></li>
+															  <li><a class="dropdown-item" href="./updatePromoCommentProcess?id=${mapPromoComment.promotionReviewCommentDto.id}">수정</a></li>
 															  <li><a class="dropdown-item" href="./deletePromotionReivewCommentProcess?id=${mapPromoComment.promotionReviewCommentDto.id}">삭제</a></li>
 														  </ul>
 													  	</c:when>
@@ -526,10 +536,23 @@ window.addEventListener("DOMContentLoaded", function(){
 					 							</c:if>
 					 							 --%>
 					 							
-					 							
-					 								${mapPromoComment.promotionReviewCommentDto.promotion_review_comment }
+					 							 <c:choose>
+								                    <c:when test="${mapPromoComment.editMode}">
+								                      <form action="./updatePromoCommentProcess" method="post">
+								                        <input type="hidden" name="commentId" value="${mapPromoComment.promotionReviewCommentDto.id}">
+								                        <textarea name="newComment" >${mapPromoComment.promotionReviewCommentDto.promotion_review_comment}</textarea>
+								                        <button type="submit">저장</button>
+								                      </form>
+								                    </c:when>
+								                    <c:otherwise>
+								                      <span>${mapPromoComment.promotionReviewCommentDto.promotion_review_comment}</span>
+								                    </c:otherwise>
+								                  </c:choose>	
+					 								
+					 								
+					 								
+					 							<!--  내용 	${mapPromoComment.promotionReviewCommentDto.promotion_review_comment } -->
 					 							</div>
-					 						</div>
 										</div>
 										
 									</div>

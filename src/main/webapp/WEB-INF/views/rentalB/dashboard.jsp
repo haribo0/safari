@@ -53,11 +53,19 @@
 				<h4 class="ps-4 ms-4 mt-3 mb-4 fw-regular">대시보드 </h4> <!-- 2023-07-01 시욱수정 -->
 
 
-				<div class="row mt-5 ms-4"> <!-- 2023-07-01 시욱수정 -->
+				<div class="row ms-4">
+					<div class="col" >
+						<div class="bg-light py-2 text-center fs-5 fw-medium" style="background: #3D3E41" ><!-- style="background: #2F3135" -->
+							월간 통계 그래프 
+						</div>
+					</div>
+				</div>
+
+				<div class="row mt-4 ms-4"> <!-- 2023-07-01 시욱수정 -->
 					<div class="col">
 						<div class="card shadow-sm" >
 						  <div class="card-body">
-						    <h5 class="fs-5 ms-2 fw-bold"> 월별 주문 </h5>
+						  	<div class="fw-bold">상품별 주문</div>
 						    <hr class="border">
 						    <canvas id="barChart"></canvas>
 						  </div>
@@ -69,7 +77,7 @@
 					<div class="col">
 						<div class="card shadow-sm" >
 						  <div class="card-body">
-						    <h5 class="fs-5 ms-2 fw-bold"> 월간 매출액 </h5>
+						  	<div class="fw-bold">월별 매출 추이</div>
 						    <hr class="border">
 						    <canvas id="lineChart"></canvas>
 						  </div>
@@ -80,7 +88,7 @@
 					<div class="col-3" >
 						<div class="card shadow-sm" >
 						  <div class="card-body">
-						    <h5 class="fs-5 ms-2 fw-bold">고객 성별 비율 </h5>
+						  	<div class="fw-bold">대여 비율</div>
 						    <hr class="border">
 						    <canvas id="pieChart" style="max-height: 253px"></canvas>
 						  </div>
@@ -88,55 +96,29 @@
 					</div>
 					
 					
-					
 				</div>
 				
 				
-				
+				<div class="row ms-4 mt-4">
+					<div class="col" >
+						<div class="bg-light py-2 text-center fs-5 fw-medium " style="background: #3D3E41;" >
+							최근 주문 현황 
+						</div>
+					</div>
+				</div>
 				
 				
 				<div class="row mt-4 ms-4"> <!-- 2023-07-01 시욱수정 -->
-				
-					<div class="col-2">
-						<div class="card shadow-sm" >
-						  <div class="card-body ms-2">
-						    <h5 class="fs-5  fw-bold" id="lastMonth"> 최근 </h5>
-						    <hr class="border">
-						    <div class="fw-bolder fs-6 text-dark mt-2">
-						    	주문
-						    </div>
-						    <div class="fw-light fs-5 text-dark mt-1">
-						    	5 건 
-						    	<span class="fw-light font-smaller text-secondary"> &nbsp; / 일주일</span>
-						    </div>
-						    <div class="fw-light fs-5 text-dark mt-1">
-						    	24 건 
-						    	<span class="fw-light font-smaller text-secondary"> &nbsp; / 한달</span>
-						    </div>
-						    <div class="fw-bolder fs-6 text-dark mt-3">
-						    	매출
-						    </div>
-						    <div class="fw-light fs-5 text-dark mt-1">
-						    	129,000 원 
-						    	<span class="fw-light font-smaller text-secondary"> &nbsp; / 일주일</span>
-						    </div>
-						    <div class="fw-light fs-5 text-dark mt-1">
-						    	1,322,600 원
-						    	<span class="fw-light font-smaller text-secondary"> &nbsp; / 한달</span>
-						    </div>
-						  </div>
-						</div>
 					
-					</div>
 					
 					<div class="col">
 						<div class="card shadow-sm" >
 						  <div class="card-body">
 						  	<div class="row">
-						    	<h5 class="fs-5 col ms-2 fw-bold"> 주문 </h5>
-						    	<div class="text-end col text-end fw-lighht fs-6 text-secondary me-2">
-						    		<a href="./orderListPage2" class="text-secondary text-decoration-none">
-						    		+ 더보기
+						  		<div class="fw-bold col-6">주문 리스트</div>
+						    	<div class="text-end col-6 text-end fw-light  text-secondary ">
+						    		<a href="./orderListPage2" class="text-secondary text-decoration-none mb-0 pb-0 " style="font-size: 15px;">
+						    			+ 더보기
 						    		</a>
 						    	</div>
 						    </div>
@@ -157,10 +139,10 @@
 						<div class="card shadow-sm" >
 						  <div class="card-body">
 						  	<div class="row">
-						   	 	<h5 class="fs-5 col ms-2 fw-bold"> 반품 </h5>
-					    		<div class="text-end col text-end fw-lighht fs-6 text-secondary me-2">
-						    		<a href="./orderReturnPage" class="text-secondary text-decoration-none">
-						    		+ 더보기
+						  		<div class="fw-bold col-6">반품 리스트</div>
+					    		<div class="text-end col-6 text-end fw-light fs-6 text-secondary">
+						    		<a href="./orderReturnPage" class="text-secondary text-decoration-none mb-0 pb-0" style="font-size: 15px;">
+						    			+ 더보기
 						    		</a>
 						    	</div>
 						    </div>
@@ -191,9 +173,41 @@
 					
 					</div> -->
 					
+					
 				</div>
 			
-			
+				
+				<div class="col-2">
+						<div class="card shadow-sm" >
+						  <div class="card-body ms-2">
+						    <h5 class="fs-5  fw-bold" id="lastMonth"> 이번 달 </h5>
+						    <hr class="border">
+						    <div class="fw-bolder fs-6 text-dark mt-2">
+						    	주문
+						    </div>
+						    <div class="fw-light fs-5 text-dark mt-1">
+						    	5 건 
+						    	<span class="fw-light font-smaller text-secondary"> &nbsp; / 일주일</span>
+						    </div>
+						    <div class="fw-light fs-5 text-dark mt-1">
+						    	24 건 
+						    	<span class="fw-light font-smaller text-secondary"> &nbsp; / 한달</span>
+						    </div>
+						    <div class="fw-bolder fs-6 text-dark mt-3">
+						    	매출
+						    </div>
+						    <div class="fw-light fs-5 text-dark mt-1">
+						    	129,000 원 
+						    	<span class="fw-light font-smaller text-secondary"> &nbsp; / 일주일</span>
+						    </div>
+						    <div class="fw-light fs-5 text-dark mt-1">
+						    	1,322,600 원
+						    	<span class="fw-light font-smaller text-secondary"> &nbsp; / 한달</span>
+						    </div>
+						  </div>
+						</div>
+					
+					</div>
 			
 			
 			

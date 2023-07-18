@@ -88,8 +88,9 @@
   padding: 5px;
   margin-bottom: 2px;
 } */
-  
  
+ .height100{height: 174vh !important;}
+ a{text-decoration: none; color: #555;}
 </style>
 
 </head>
@@ -106,23 +107,163 @@
 
 
 <div class="container-fluid">
-	<div class="row ">
-		<div class="col"></div>
+	<div class="row mb-5">
 		
-		<div class="col-9">
+		<!-- LEFT COL -->
+		<div class="col-1" ></div>
+		<div class="col-4" >
 			
-			
-			<div id='wrap'>
-				<!-- calendar 태그 -->
-				<div id='calendar-wrap'>
-				  <div id='calendar'></div>
+			<div class="card ">
+			<div class="card-body ">
+				<div class="row  border-bottom fs-5 fw-medium pb-2">
+					<div class="col ">
+						주간 스케줄
+					</div>
+				</div>
+				<div class="row mt-3">
+					<div class="col ">
+						<div id='wrap'  >
+							<!-- calendar 태그 -->
+							<div id='calendar-wrap'>
+							  <div id='calendar'></div>
+							</div>
+						</div>
+					</div>
 				</div>
 			</div>
+			</div>
+			
+		</div>
+		<!-- LEFT COL -->
+		
+		
+		<!-- RIGHT COL -->
+		<div class="col-4">
+			<div class="row">
+			    <div class="col">
+		    		
+		    		<div class="card ">
+		    		<div class="card-body ">
+		    			<div class="row ">
+			    			<div class="col border-bottom fs-5 fw-medium pb-2">
+		    					1대1 문의 평점 
+			    			</div>
+		    			</div>
+
+
+		    			
+		    			
+		    			<c:forEach var="dto" items="${chatRatingList}">
+		    			<div class="row py-2 border-bottom" >
+			    			<div class="col ">
+							    <div class="row">
+								    <div class="col">
+							    		${dto.name} ${dto.avg_rating}
+								    </div>
+							    </div>
+							    <div class="row">
+								   <div class="col text-warning">
+								    
+									<c:set var="avgRating" value="${dto.avg_rating}" /> <!-- 가져온 평균 평점 (예시) -->
+									<c:set var="maxRating" value="5" /> <!-- 최대 평점 -->
+																    
+								    <c:set var="wholeStars" value="${avgRating - avgRating % 1}" /> <!-- 정수 부분 (예: 4.6 -> 4) -->
+									<c:set var="halfStar" value="${avgRating - wholeStars}" /> <!-- 소수 부분 (예: 4.6 -> 0.6) -->
+										
+										<c:forEach begin="1" end="${maxRating}" varStatus="loop">
+										  <c:choose>
+										    <c:when test="${loop.index le wholeStars}">
+										      <i class="bi bi-star-fill"></i> <!-- 평점의 정수 부분만큼 채워진 별 아이콘을 출력 -->
+										    </c:when>
+										    <c:when test="${loop.index eq wholeStars + 1 and halfStar gt 0}">
+										      <i class="bi bi-star-half"></i> <!-- 평점의 정수 부분에 반개짜리 별 아이콘을 출력 -->
+										    </c:when>
+										    <c:otherwise>
+										      <i class="bi bi-star"></i> <!-- 나머지 빈 별 아이콘을 출력 -->
+										    </c:otherwise>
+										  </c:choose>
+										</c:forEach>
+	
+								    </div>
+							    </div>
+					
+		    			</div>
+	    			</div>
+					</c:forEach>
+		    			
+		    		</div>
+		    		</div>
+		    		
+			    </div>
+			    
+			    
+			    <div class="col">
+		    		
+		    		<div class="card ">
+		    		<div class="card-body ">
+		    			<div class="row ">
+			    			<div class="col border-bottom fs-5 fw-medium pb-2">
+		    					실시간 문의 평점 
+			    			</div>
+		    			</div>
+
+
+		    			
+		    			
+		    			<c:forEach var="dto" items="${chatRatingList}">
+		    			<div class="row  py-2 border-bottom">
+			    			<div class="col">
+							    <div class="row">
+								    <div class="col">
+							    		${dto.name} ${dto.avg_rating}
+								    </div>
+							    </div>
+							    <div class="row">
+								   <div class="col text-warning">
+								    
+									<c:set var="avgRating" value="${dto.avg_rating}" /> <!-- 가져온 평균 평점 (예시) -->
+									<c:set var="maxRating" value="5" /> <!-- 최대 평점 -->
+																    
+								    <c:set var="wholeStars" value="${avgRating - avgRating % 1}" /> <!-- 정수 부분 (예: 4.6 -> 4) -->
+									<c:set var="halfStar" value="${avgRating - wholeStars}" /> <!-- 소수 부분 (예: 4.6 -> 0.6) -->
+										
+										<c:forEach begin="1" end="${maxRating}" varStatus="loop">
+										  <c:choose>
+										    <c:when test="${loop.index le wholeStars}">
+										      <i class="bi bi-star-fill"></i> <!-- 평점의 정수 부분만큼 채워진 별 아이콘을 출력 -->
+										    </c:when>
+										    <c:when test="${loop.index eq wholeStars + 1 and halfStar gt 0}">
+										      <i class="bi bi-star-half"></i> <!-- 평점의 정수 부분에 반개짜리 별 아이콘을 출력 -->
+										    </c:when>
+										    <c:otherwise>
+										      <i class="bi bi-star"></i> <!-- 나머지 빈 별 아이콘을 출력 -->
+										    </c:otherwise>
+										  </c:choose>
+										</c:forEach>
+	
+								    </div>
+							    </div>
+					
+		    			</div>
+	    			</div>
+					</c:forEach>
+		    			
+		    		</div>
+		    		</div>
+		    		
+		    		
+		    		
+			    </div>
+			    
+			    
+		    </div>
+			
 			
 			
 		</div>
+		<div class="col-1" ></div>
+		<!-- RIGHT COL -->
 		
-		<div class="col"></div>
 	</div>
 </div>
 
@@ -284,11 +425,11 @@ document.addEventListener('DOMContentLoaded', function() {
   var calendar = new FullCalendar.Calendar(calendarEl, {
     // Other FullCalendar options...
     
-    headerToolbar: {
+    /* headerToolbar: {
       left: 'prev,next today',
       center: 'title',
       right: 'listWeek,dayGridMonth,timeGridWeek,timeGridDay'
-    },
+    }, */
     
     initialView: 'listWeek', // 초기 뷰 설정 (월간 보기)
     
@@ -297,10 +438,10 @@ document.addEventListener('DOMContentLoaded', function() {
         type: 'timeGrid',
         duration: { days: 31 } // 주간 보기 설정
       }, */
-      timeGridWeek: {
+      /* timeGridWeek: {
         type: 'timeGrid',
         duration: { days: 7 } // 주간 보기 설정
-      },
+      }, */
       timeGridDay: {
         type: 'timeGrid',
         duration: { days: 1 } // 일간 보기 설정
@@ -382,7 +523,8 @@ document.addEventListener('DOMContentLoaded', function() {
 		 
 		 eventBlock.style.backgroundColor = arg.event.color; // Set the background color based on the assigned color
 		 
-		  return { domNodes: [eventBlock, eventDot] };
+		  //return { domNodes: [eventBlock, eventDot] };
+		  return { domNodes: [eventBlock] };
     }
   });
   
@@ -546,7 +688,18 @@ document.addEventListener('DOMContentLoaded', function() {
     	});
  */
    
-
+	window.addEventListener('DOMContentLoaded', function() {
+		let fcViewHarness = document.querySelector('.fc-view-harness')
+		fcViewHarness.classList.add('height100')
+		
+	})
+    
+   
+	window.addEventListener('resize', function() {
+		let fcViewHarness = document.querySelector('.fc-view-harness')
+		fcViewHarness.classList.add('height100')
+		
+	})
     
     
  </script>

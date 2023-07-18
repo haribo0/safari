@@ -138,14 +138,14 @@
 						</div>
 					</div>
 					<div class="row ms-1">
-						<div class="col ms-0 p-0 w-0 smaller-text text-secondary mb-3">
+						<div class="col ms-0 p-0 w-0 smaller-text text-secondary mb-2">
 						${map.productCityDto.product_city_name } ${map.productTownDto.product_town_name } | <span class="ms-0 p-0 w-0 smaller-text text-secondary">${map.uploadTime }
 						</span>
 						</div>
 					</div>
 					<c:choose>
 						<c:when test="${map.productDto.price != 0 }">
-							<div class="row ms-1 fw-semibold price"><span class="p-0">100,000원</span></div>
+							<div class="row ms-1"><span class="p-0 fw-semibold price"><fmt:formatNumber value="${map.productDto.price}" pattern="#,##0원" /></span></div>
 						</c:when>
 						<c:otherwise>
 							<div class="row ms-1 fw-semibold price"><button type="button" class="btn btn-warning btn-sm col-auto" disabled>나눔</button></div>
