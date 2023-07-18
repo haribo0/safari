@@ -19,14 +19,17 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.ja.safari.auction.service.AuctionServiceImpl;
 import com.ja.safari.dto.AuctionBidDto;
+import com.ja.safari.dto.AuctionDeliveryTrackingDto;
 import com.ja.safari.dto.AuctionItemChatroomDto;
 import com.ja.safari.dto.AuctionItemDto;
 import com.ja.safari.dto.AuctionItemImgDto;
 import com.ja.safari.dto.AuctionItemInquiryDto;
 import com.ja.safari.dto.AuctionItemLikeDto;
+import com.ja.safari.dto.AuctionItemOrderAddressDto;
 import com.ja.safari.dto.AuctionItemReplyDto;
 import com.ja.safari.dto.AuctionKakaoPayApproveDto;
 import com.ja.safari.dto.AuctionPurchaseConfirmedDto;
+import com.ja.safari.dto.UserAddressDto;
 import com.ja.safari.dto.UserCoinDto;
 import com.ja.safari.dto.UserDto;
 import com.ja.safari.user.service.UserServiceImpl;
@@ -321,22 +324,46 @@ public class RestAuctionController {
 		return map;
 	}
 	
-	
+	// 경매 상품 문의 답변 삭제
+	@RequestMapping("removeAuctionInquiry")
+	public Map<String, Object> removeAuctionInquiry(int id) {
+		
+		Map<String, Object> map  =  new HashMap<>();
+		
+		auctionService.removeAuctionInquiry(id);
+		
+		return map;
+		
+	}
+		
+
 	
 	// 경매 상품 문의 답변
-		@RequestMapping("registerAuctionReply")
-		public Map<String, Object> registerAuctionReply(HttpSession session, AuctionItemReplyDto auctionItemReplyDto) {
-			
-			Map<String, Object> map  =  new HashMap<>();
+	@RequestMapping("registerAuctionReply")
+	public Map<String, Object> registerAuctionReply(HttpSession session, AuctionItemReplyDto auctionItemReplyDto) {
+		
+		Map<String, Object> map  =  new HashMap<>();
 
-			UserDto sessionUser = (UserDto)session.getAttribute("sessionUser");
+		UserDto sessionUser = (UserDto)session.getAttribute("sessionUser");
 
-			auctionItemReplyDto.setUser_seller_id(sessionUser.getId());
-			auctionService.registerAuctionReply(auctionItemReplyDto);
-			map.put("result", "success");
-			
-			return map;
-		}
+		auctionItemReplyDto.setUser_seller_id(sessionUser.getId());
+		auctionService.registerAuctionReply(auctionItemReplyDto);
+		map.put("result", "success");
+		
+		return map;
+	}
+		
+	// 경매 상품 문의 답변 삭제
+	@RequestMapping("removeAuctionReply")
+	public Map<String, Object> removeAuctionReply(int id) {
+		
+		Map<String, Object> map  =  new HashMap<>();
+		
+		auctionService.removeAuctionReply(id);
+		
+		return map;
+		
+	}
 	
 	
 	
@@ -360,6 +387,19 @@ public class RestAuctionController {
 		Map<String, Object> map  =  new HashMap<>();
 
 		map.put("auctionEndTime", auctionService.getAuctionEndTimeInRealTime(auctionItemId));
+		
+		return map;
+	}
+	
+	// 미이페이지 - 입찰 목록에서 상태에 따른 경매 조회 
+	@RequestMapping("getMyBidListIng")
+	public Map<String, Object> getBidListByStatus(HttpSession session) {
+		
+		Map<String, Object> map  =  new HashMap<>();
+		
+		UserDto sessionUser = (UserDto) session.getAttribute("sessionUser");
+		
+		map.put("getAuctionList", auctionService.getMyBidListIng(sessionUser.getId()));
 		
 		return map;
 	}
@@ -422,6 +462,20 @@ public class RestAuctionController {
 		map.put("bidList", auctionService.getBidList(auctionItemId));
 		
 		//map.put("bidCount", auctionService.getBidCount(auctionItemId));
+		
+		return map;
+		
+	}
+	
+	// 마이페이지 - 내가 입찰한 기록 조회 (시간 업데이트 용도, id값만 필요함)
+	@RequestMapping("getMyBidListForRealTime")
+	public  Map<String, Object> getMyBidListForRealTime(HttpSession session) {
+		
+		Map<String, Object> map = new HashMap<>();
+		
+		UserDto sessionUser = (UserDto) session.getAttribute("sessionUser");
+		
+		map.put("getBidList", auctionService.getMyBidListForRealTime(sessionUser.getId()));
 		
 		return map;
 		
@@ -594,6 +648,8 @@ public class RestAuctionController {
 
 	}
 	
+	
+	
 	// 경매물품 당 좋아요 개수 
 	@RequestMapping("countLikeAuctionProduct")
 	public Map<String, Object> countLikeAuctionProduct(int auctionItemId) {
@@ -607,6 +663,19 @@ public class RestAuctionController {
 		return map;
 	}
 	
+	// 마이페이지 - 찜 목록 (시간 업데이트용)
+	@RequestMapping("getMyWishListForRealTime")
+	public Map<String, Object> getMyWishListForRealTime(HttpSession session) {
+		
+		Map<String, Object> map = new HashMap<>();
+
+		UserDto sessionUser = (UserDto) session.getAttribute("sessionUser");
+		
+		map.put("getWishList", auctionService.getMyWishListForRealTime(sessionUser.getId()));
+		
+		return map;
+		
+	}
 
 	
 	// 경매 채팅방에서 채팅 입력
@@ -643,6 +712,34 @@ public class RestAuctionController {
 		
 		return map;
 	}
+	
+	// 주문화면에서 배송지 변경 버튼 클릭 후 설정된 조회 
+	@RequestMapping("getMyAddressListInOrderPage")
+	public Map<String, Object> getMyAddressListInOrderPage(int userId) {
+		
+		Map<String, Object> map = new HashMap<>();
+		
+		map.put("addressList", auctionService.getMyAddressListInOrderPage(userId));
+		
+		return map;
+	}
+	
+	// 주문화면에서 배송지 변경 모달에서 주소 선택
+	@RequestMapping("changeAddressInOrderPage") 
+	public Map<String, Object> changeAddressInOrderPage(HttpSession session, UserAddressDto userAddressDto) {
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		UserDto sessionUser = (UserDto) session.getAttribute("sessionUser");
+		
+		userAddressDto.setUser_id(sessionUser.getId());
+		
+		map.put("selectedAddress", auctionService.changeAddressInOrderPage(userAddressDto));
+		
+		return map;
+		
+	}
+	
 	
 	
 	// 카카오페이 결제 준비 정보를 세션에 저장하기 (o)
@@ -725,6 +822,18 @@ public class RestAuctionController {
 		return map;
 	}
 	
+	// 결제 시 배송정보 저장
+	@RequestMapping("registerAddressInfoInPayment")
+	public  Map<String, Object> registerAddressInfoInPayment(AuctionItemOrderAddressDto auctionItemOrderAddressDto) {
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		auctionService.registerAddressInfoInPayment(auctionItemOrderAddressDto);
+		
+		return map;
+	}
+	
+	
    // 마이페이지 - 낙찰된 건 (배송 조회)
 	@RequestMapping("getMySuccessfulBidPayAndDeliveryStatusList")
 	public Map<String, Object> getMySuccessfulBidAndDeliveryStatusList(HttpSession session) {
@@ -793,6 +902,22 @@ public class RestAuctionController {
 		return map;
 	}
 	
+	// 경매 업로더 입장에서 물품 당 주문 내역, 배송 조회 모달 확인
+	@RequestMapping("getEndedAuctionOrderAndDeliveryInfo")
+	public Map<String, Object> getEndedAuctionOrderAndDeliveryInfo(HttpSession session, AuctionBidDto auctionBidDto) {
+		
+		UserDto sessionUser = (UserDto) session.getAttribute("sessionUser");
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		auctionBidDto.setUser_seller_id(sessionUser.getId());
+		
+		map.put("orderDeliveryInfo",auctionService.getEndedAuctionOrderAndDeliveryInfo(auctionBidDto));
+		
+		return map;
+	}
+	
+	
 	// 배송 시작
 	@RequestMapping("startAuctionDelivery")
 	public  Map<String, Object> startAuctionDelivery(int partnerOrderId) {
@@ -817,6 +942,34 @@ public class RestAuctionController {
 		map.put("deliveryStatus", auctionService.checkAutionDeliveryStatus(partnerOrderId));
 		
 		return map;
+	}
+	
+	// 배송 조회 (모달)
+	@RequestMapping("getDeliveryStatusInSuccessfulBid")
+	public Map<String, Object>  getDeliveryStatusInSuccessfulBid(HttpSession session, int id, AuctionDeliveryTrackingDto auctionDeliveryTrackingDto) {
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		UserDto sessionUser = (UserDto) session.getAttribute("sessionUser");
+		
+		auctionDeliveryTrackingDto.setUser_buyer_id(sessionUser.getId());
+		auctionDeliveryTrackingDto.setId(id);
+		
+		map.put("deliveryStatusDto", auctionService.getDeliveryStatusInSuccessfulBid(auctionDeliveryTrackingDto));
+		
+		return map;
+	}
+	
+	// 배송 상세정보 조회
+	@RequestMapping("getAddressInfoInPaymentAndDelivery")
+	public Map<String, Object> getAddressInfoInPaymentAndDelivery(int id) {
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		map.put("addressDetail", auctionService.getAddressInfoInPaymentAndDelivery(id));
+		
+		return map;
+		
 	}
 	 
 	// 배송 완료 (쿼리 수정해야함)

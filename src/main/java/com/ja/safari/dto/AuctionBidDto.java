@@ -19,7 +19,10 @@ public class AuctionBidDto {
 	private String sub_category_name;
 	private String title;
 	private String nickname;
+	private String email;
+	private String phone;
 	@DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
+	private Date start_date;
 	private Date end_date;
 	private String auction_item_img_link;
 	private String payment_exists;
@@ -30,6 +33,8 @@ public class AuctionBidDto {
 	private Date delivery_reg_date;
 	
 	private String purchase_confirmed;
+	private String purchase_confirmed_exists;
+	private String delivery_status;
 	
 	
 	public AuctionBidDto() {
@@ -152,6 +157,37 @@ public class AuctionBidDto {
 	public void setPurchase_confirmed(String purchase_confirmed) {
 		this.purchase_confirmed = purchase_confirmed;
 	}
+	public String getPurchase_confirmed_exists() {
+		return purchase_confirmed_exists;
+	}
+	public void setPurchase_confirmed_exists(String purchase_confirmed_exists) {
+		this.purchase_confirmed_exists = purchase_confirmed_exists;
+	}
+	public Date getStart_date() {
+		return start_date;
+	}
+	public void setStart_date(Date start_date) {
+		this.start_date = start_date;
+	}
+	public String getEmail() {
+		return email;
+	}
+	public void setEmail(String email) {
+		this.email = email;
+	}
+	public String getPhone() {
+		return phone;
+	}
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+	public String getDelivery_status() {
+		return delivery_status;
+	}
+	public void setDelivery_status(String delivery_status) {
+		this.delivery_status = delivery_status;
+	}
+	
 
 
 }
