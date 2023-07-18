@@ -145,6 +145,12 @@ body1 {
     border-radius: 0 0 10px 10px; /* 둥근 보더 */
 }
 
+.reviewContent2{
+	background-color: #ffefd5; /* 연한 핑크색 배경색 */
+    padding: 10px;
+    border-radius: 0 0 10px 10px; /* 둥근 보더 */
+}
+
 #reviewImg3{
 	border-radius: 10px 10px 10px 10px;
 }
@@ -335,7 +341,7 @@ body1 {
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header position-relative px-3" style="background: #EAEAEA; padding: 10px 0px;">
-      	<i class="bi bi-chevron-left fs-4 p-0" onclick="modalOnById()"></i>
+      	<i class="bi bi-chevron-left fs-4 p-0" onclick="receiverCloseAndMyOpen()"></i>
         <h5 class="modal-title ms-1 position-absolute top-50 start-50 translate-middle">받은 거래 후기</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
@@ -532,6 +538,12 @@ let requestId2 = null;
 let receiverId2 = null;
 let userNickname2 = null;
 
+// 받은 거래 후기 닫고, 내가 쓴 리뷰 보이게 하기 
+function receiverCloseAndMyOpen() {
+	getMyWroteReviewHideAndShow(mySessionId, receiverId2, requestId2, 'receiverWroteReviewModal');
+}
+
+// 현재 모달창 닫고 채팅창 보이게 하기 
 function modalOnById() {
 	modalOn(requestId2,receiverId2,userNickname2);
 }
@@ -1208,12 +1220,12 @@ function getReceiverWroteReviewHideAndShow(senderId, receiverId, requestId) {
  	            img.id = 'reviewImg2';
  	            img.className = 'object-fit-cover';
 
-            	img.src = '/safari/resources/img/used/review2.jpeg';
+            	img.src = '/safari/resources/img/used/review3.PNG';
             	col4.appendChild(img);
 	            row4.appendChild(col4);
 
 	            const reviewContentDiv = document.createElement('div');
-	            reviewContentDiv.className = 'reviewContent mb-3';
+	            reviewContentDiv.className = 'reviewContent2 mb-3';
 
 	            const row5 = document.createElement('div');
 	            row5.className = 'row mt-3 mb-1';
@@ -1254,7 +1266,7 @@ function getReceiverWroteReviewHideAndShow(senderId, receiverId, requestId) {
 	            row4.appendChild(col4);
 
 	            const reviewContentDiv = document.createElement('div');
-	            reviewContentDiv.className = 'reviewContent mb-3';
+	            reviewContentDiv.className = 'reviewContent2 mb-3';
 
 	            const row5 = document.createElement('div');
 	            row5.className = 'row mt-3 mb-1';
@@ -1286,13 +1298,13 @@ function getReceiverWroteReviewHideAndShow(senderId, receiverId, requestId) {
  	            img.alt = 'review';
  	            img.height = '180';
  	            img.id = 'reviewImg2';
-            	img.src = '/safari/resources/img/used/review2.jpeg';
+            	img.src = '/safari/resources/img/used/review3.PNG';
             	img.className = 'object-fit-cover';
             	col4.appendChild(img);
 	            row4.appendChild(col4);
 
 	            const reviewContentDiv = document.createElement('div');
-	            reviewContentDiv.className = 'reviewContent mb-3';
+	            reviewContentDiv.className = 'reviewContent2 mb-3';
 
 	            const row5 = document.createElement('div');
 	            row5.className = 'row mt-3 mb-1';
@@ -1335,7 +1347,7 @@ function getReceiverWroteReviewHideAndShow(senderId, receiverId, requestId) {
 	            row4.appendChild(col4);
 
 	            const reviewContentDiv = document.createElement('div');
-	            reviewContentDiv.className = 'reviewContent mb-3';
+	            reviewContentDiv.className = 'reviewContent2 mb-3';
 
 	            const row5 = document.createElement('div');
 	            row5.className = 'row mt-3 mb-1';
@@ -1557,6 +1569,7 @@ function reloadChatRoomList() {
 
   		      }
             modalHide('chatModal');
+            modalHide('chatModal');
         	const modal = bootstrap.Modal.getOrCreateInstance("#usedChatModal");
         	modal.show();
         }
@@ -1594,6 +1607,7 @@ function  modalOn(requestId, receiverId, userNickname) {
 	// 닫을 때
 	modalHide('usedChatModal');
 	modalHide('myWroteReviewModal');
+	modalHide('writeReviewModal');
 	// 열 때
 	myModal.show();
 	// 채팅방 리로딩
