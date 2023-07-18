@@ -25,6 +25,13 @@ public interface UserSqlMapper {
 	
 	// 회원정보 수정
 	public void modifyUserInfo(UserDto userDto);
+
+	// 아이디 중복 체크 
+	public int existsUserId(String email);
+	
+	
+
+	
 	
 	// 유저아이디로 유저 dto 찾아오기
 	public UserDto selectUserDtoById(int id);

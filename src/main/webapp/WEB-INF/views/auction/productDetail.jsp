@@ -8,16 +8,11 @@
 <head>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
 <link rel="stylesheet" href="/safari/resources/style/common.css" type="text/css">
-<link rel="stylesheet" href="/safari/resources/style/auction.css" type="text/css">
-<script type="text/javascript" src="/safari/resources/js/bid.js" ></script>
+
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
 
+<link rel="stylesheet" href="/safari/resources/style/auction.css" type="text/css">
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
-<link href='//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSansNeo.css' rel='stylesheet' type='text/css'>
 
 
 <meta charset="UTF-8">
@@ -111,13 +106,9 @@ input[id="tab03"]:checked ~ .con3 {
   display: inline-block;
   width: auto;
 }
-
-@keyframes blink {
-  0% { opacity: 1; }
-  50% { opacity: 0.3; } /* 연해진 색상을 표현하기 위해 opacity 값을 줄여줍니다 */
-  100% { opacity: 1; }
+body {
+    font-family: 'SUIT Variable';
 }
-
 .orangeButton{
 	background: #ff6f0f;
 	font-weight: bold;
@@ -2084,7 +2075,7 @@ function removeAuctionInquiry() {
 
 function toggleReplyInputBox(inquiryId) {
     var replyInputBox = document.getElementById('replyInputBox_' + inquiryId);
-    if (replyInputBox.style.display === 'none') {
+    if (replyInputBox.style.display == 'none') {
         replyInputBox.style.display = 'block';
     } else {
         replyInputBox.style.display = 'none';

@@ -46,6 +46,25 @@
 		</update>
 		
 		
+		
+		<!-- 회원가입 유효성 검사 -->
+		
+		<!-- 아이디 중복 체크  -->
+		<select id="existsUserId" resultType="int">
+			SELECT COUNT(*) FROM user_table WHERE email = #{email}
+		</select>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		<!-- 회원가입 유효성 검사 -->
+		
+		
 		<!-- 유저아이디로 유저 dto 가져오기  -->
 		<select id="selectUserDtoById" resultType="com.ja.safari.dto.UserDto">
 			SELECT * FROM user_table WHERE id = #{id}

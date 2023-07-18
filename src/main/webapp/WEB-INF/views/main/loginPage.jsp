@@ -11,6 +11,7 @@
 <jsp:include page="../common/meta.jsp"></jsp:include>
 <!-- 메타 섹션 -->
 </head>
+<link rel="stylesheet" href="/safari/resources/style/auction.css" type="text/css">
 <style>
 .orangeButton{
 	background: #ff6f0f;
@@ -56,7 +57,7 @@ a {
 				<div class="row">
 					<div class="col"></div>
 					<div class="col text-center">
-					  	 <img src="/safari/resources/img/user/loginlogo.png">
+					  	 <a href="/safari/user/loginPage"><img src="/safari/resources/img/user/loginlogo.png"></a>
 					</div>
 					<div class="col">
 					
@@ -70,13 +71,13 @@ a {
 					
 						<div class="row">
 							<div class="col">
-								<input type="text" class="form-control p-3" placeholder="이메일을 입력하세요" id="email">
+								<input type="text" class="form-control p-3" placeholder="아이디 또는 이메일" id="email">
 							</div>
 						</div>
 						
 						<div class="row mt-2">
 							<div class="col">
-								<input type="password" class="form-control p-3" placeholder="비밀번호를 입력하세요"
+								<input type="password" class="form-control p-3" placeholder="비밀번호"
 								id="pw" onkeydown="checkSendLogin(event)">
 							</div>
 						</div>

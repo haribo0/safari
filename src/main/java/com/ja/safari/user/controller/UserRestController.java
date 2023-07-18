@@ -81,6 +81,20 @@ public class UserRestController {
 		
 		return map;
 	}
+	
+	// 아이디 중복 체크
+	@RequestMapping("existsUserId") 
+	public Map<String, Object> existsUserId(String email)  {
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		boolean exists = userService.existsUserId(email);
+		
+		map.put("exists", exists);
+		
+		return map;
+	}
+	
 
 	// 사용자 주소 추가
 	@RequestMapping("addUserAddress")
