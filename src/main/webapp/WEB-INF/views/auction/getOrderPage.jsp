@@ -11,15 +11,19 @@
 <!-- 메타 섹션 -->
 <jsp:include page="../common/meta.jsp"></jsp:include>
 <!-- 메타 섹션 -->
+<link rel="stylesheet" href="/safari/resources/style/auction.css" type="text/css">
 <style>
 .orangeButton{
 	background: #ff6f0f;
 	font-weight: bold;
 	color: white;
 }
-a {
+/* a {
 	list-style: none;
 	color: inherit;
+} */
+.custom-table-secondary {
+  background-color: #f4f4f4!important; /* 원하는 연한 색상으로 변경 */
 }
 </style>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
@@ -67,9 +71,126 @@ a {
    						
    						
    						
-   						   <div class="row mt-3">
+   						   <div class="row mt-2">
     							<div class="col">
-		      						<div class="row mt-1">
+    							
+    								<div class="row">
+    									<div class="col fw-bold fs-5">
+		      								구매자 정보
+		      							</div>
+		      							<div class="col fw-bold fs-5">
+		      								판매자 정보
+		      							</div>
+    								</div> 
+    								
+    								<div class="row mt-2">
+    									<div class="col">
+    										<table class="table">
+    											<tr>
+    												<td class="custom-table-secondary text-center border-top" style="width: 150px;"> 이름</td>
+    												<td class="border-top">
+	    												<div class="row">
+		    												<div class="col ms-2">
+		    													${sessionUser.nickname}
+		    												</div>
+	    												</div>
+    												</td>
+    											</tr>
+    											<tr>
+    												<td class="custom-table-secondary text-center" style="width: 150px;"> 이메일 </td>
+    												<td>
+    													<div class="row">
+		    												<div class="col ms-2">
+		    													${sessionUser.email}
+		    												</div>
+	    												</div>
+    												</td>
+    											</tr>
+    											<tr>
+    												<td class="custom-table-secondary text-center" style="width: 150px;"> 휴대폰 번호</td>
+    												<td>
+    													<div class="row">
+		    												<div class="col ms-2">
+		    													${sessionUser.phone}
+		    												</div>
+	    												</div>
+    												</td>
+    											</tr>
+    										
+    										</table>
+    									
+    									</div>
+    									
+										<div class="col">
+    										<table class="table">
+    											<tr>
+    												<td class="custom-table-secondary text-center border-top" style="width: 150px;"> 이름</td>
+    												<td class="border-top">
+	    												<div class="row">
+		    												<div class="col ms-2">
+		    													${orderInfo.nickname}
+		    												</div>
+	    												</div>
+    												</td>
+    											</tr>
+    											<tr>
+    												<td class="custom-table-secondary text-center" style="width: 150px;"> 이메일 </td>
+    												<td>
+    													<div class="row">
+		    												<div class="col ms-2">
+		    													${orderInfo.email}
+		    												</div>
+	    												</div>
+    												</td>
+    											</tr>
+    											<tr>
+    												<td class="custom-table-secondary text-center" style="width: 150px;"> 휴대폰 번호</td>
+    												<td>
+    													<div class="row">
+		    												<div class="col ms-2">
+		    													${orderInfo.phone}
+		    												</div>
+	    												</div>
+    												</td>
+    											</tr>
+    										
+    										</table>
+    									
+    									</div>    									
+    									
+    								
+    									
+    									
+    								
+    								</div>
+    								
+    								<div class="row mt-3">
+    									<div class="col fw-bold fs-5">
+    										낙찰 정보
+    									</div>
+    								</div>
+    								
+    								<div class="row mt-2">
+    									<div class="col">
+    										<table class="table">
+    											<tr class="text-center">
+    												<td class="custom-table-secondary">입찰시간</td>
+    												<td class="custom-table-secondary">경매종료일</td>
+    												<td class="custom-table-secondary">참고사항</td>
+    											</tr>
+    											<tr class="text-center">
+    											
+    												<td><fmt:formatDate value="${orderInfo.reg_date}" pattern="yyyy.MM.dd a hh:mm" /></td>
+    												<td> <fmt:formatDate value="${orderInfo.end_date}" pattern="yyyy.MM.dd a hh:mm" /></td>
+    												<td><span class="fw-medium">경매종료일부터 <span class="text-danger">7일 이내</span></span>에 결제하셔야 유찰처리되지 않습니다.</td>
+    											</tr>
+    										
+    										</table>
+    									</div>
+    								</div>
+    							
+    							
+		      						<div class="row mt-3">
 		      							<div class="col fw-bold fs-5">
 		      								주문 상품 정보
 		      							</div>
@@ -85,12 +206,12 @@ a {
 		      								
 		      								
 		      								<table class="table">
-		      									<thead class="table-light">
+		      									<thead>
 		      										<tr class="text-center">
-		      											<td>상품정보</td>
-		      											<td>낙찰가</td>
-		      											<td>수량</td>
-		      											<td>구매가</td>
+		      											<td class="custom-table-secondary">상품정보</td>
+		      											<td class="custom-table-secondary">낙찰가</td>
+		      											<td class="custom-table-secondary">수량</td>
+		      											<td class="custom-table-secondary">구매가</td>
 		      										</tr>
 		      									</thead>
 		      									<tbody>
@@ -103,7 +224,7 @@ a {
 																		src="/auctionFiles/${orderInfo.auction_item_img_link}" style="
 																		width: 120px; height: 120px;"></a>
 		      													</div>
-		      													<div class="col-8">
+		      													<div class="col-8 ms-3">
 		      														<div class="row mt-3">
 		      															<div class="col">
 		      																${orderInfo.main_category_name} > ${orderInfo.sub_category_name}
@@ -157,8 +278,12 @@ a {
    						<div class="row mt-3">
 	   						<div class="col-8">
 	   							<div class="row">
-		     						<div class="col fw-bold fs-5">
+		     						<div class="col-auto fw-bold fs-5">
 		     							배송지 정보
+		     						</div>
+		     						<div class="col">
+		     							<input type="button" class="btn btn-sm btn-outline-dark" value="배송지 변경"
+		     							onclick="modifyAddressModal()">
 		     						</div>
 	    						</div>
     						
@@ -166,102 +291,144 @@ a {
 	    							<div class="col">
 	    								<table class="table">
 	    									<tr>
-	    										<td class="table-light align-middle text-center" style="width: 150px;"> 배송지선택 </td>
-	    										<td>
-	    											<div class="row mt-1 ms-1">
-	    												<div class="col">
-	    													
-	    													<input class="form-check-input me-2" type="radio" id="radioAddress" name="radioAddress" value="existingAddress">
-														  <label class="form-check-label me-4" for="radioAddress">
-														    	기존 배송지
-														  </label>	
-														  
-	    													<input class="form-check-input me-2" type="radio" id="radioAddress" name="radioAddress" value="newAddress">
-														  <label class="form-check-label me-4" for="radioAddress">
-														    	신규 배송지
-														  </label>																	  
-	    													
-	    												</div>
-	    											</div>
+	    										<td class="custom-table-secondary align-middle text-center border-top" style="width: 150px;"> 배송지명 </td>
+	    										<td class="border-top">
 	    											
-	    											<div class="row mt-2 ms-1">
-	    												<div class="col-4">
-	    													<select class="form-select" aria-label="Default select example" id="addressListDropdown">
-															 
-															</select>
-	    												</div>
-	    											</div>
-	    											
-	    											
+	    											<span class="ms-2" id="addressName"></span>
 	    										</td>
 	    									</tr>
 	    									
 	    									<tr>
-	    										<td class="table-light align-middle text-center" style="width: 150px;"> 배송지명 </td>
+	    										<td class="custom-table-secondary align-middle text-center" style="width: 150px;"> 배송주소 </td>
 	    										<td>
-	    											<div class="row mt-1 ms-2">
-	    												<div class="col" id="addressName">
-	    													
-	    												</div>
-	    											</div>
+	    											<span class="ms-2" id="deliveryAddress"></span>
 	    										</td>
 	    									</tr>
 	    									
 	    									<tr>
-	    										<td class="table-light align-middle text-center" style="width: 150px;"> 연락처 </td>
+	    										<td class="custom-table-secondary align-middle text-center" style="width: 150px;"> 연락처 </td>
 	    										<td>
-	    											<div class="row mt-1">
-	    												<div class="col-auto">
-	    													<span class="text-danger"
-	    													style="position: relative; left: 3px;">•</span>
-	    												</div>
-	    												<div class="col px-0">
-	    													 <input type="text" class="form-control" oninput="oninputPhone(this)" maxlength="14" id="phone"
-		                     						style="width: 200px; height: 30px;" id="addressPhone">
-	    												</div>
-	    											</div>
-	    										</td>
+	    											<span class="ms-2" id="addressPhone"></span>
+	    										</td>	
 	    									</tr>
 	    									
 	    									<tr>
-	    										<td class="table-light align-middle text-center" style="width: 150px;"> 주소 </td>
-	    										<td>
-	    										<div class="row">
-	    												<div class="col-auto">
-	    													<span class="text-danger" style="position: relative; left: 3px; top:3px;">• </span>
-	    												</div>
-	      										<div class="col px-0">
-	      											<div class="row mt-1">
-							       						<div class="col-auto">
-							       							<input type="text" class="form-control" id="postcode" style="width: 150px; height: 30px;">
-							       						</div>
-							       						<div class="col px-0">
-							       							<input type="button" class="btn btn-sm btn-outline-success" value="우편번호 찾기"
-							       							onclick="daumPost()" > 
-							       						</div>
-							       					</div>
-							       					
-							       					<div class="row mt-2">
-							       						<div class="col">
-							       							<input type="text" id="address" class="form-control" style= "height: 50px;">
-							       						</div>
-							       					</div>
-							       					
-							       					<div class="row mt-2">
-							       						<div class="col">
-							       							<input type="text" id="detail_address" class="form-control" style="height: 30px;">
-							       						</div>
-							       					</div>
-							       				  </div>
-						       					</div>
-	    										
-	    										</td>
+	    										<td class="custom-table-secondary align-middle text-center" style="width: 150px;"> 배송 요청사항 </td>
+	    										<td >
+	    											<input type="text" class="form-control" id="addressMessage">
+	    										</td>	
 	    									</tr>
+	    									
 	    									
 	    									
 	    								</table>
 	    							</div>
 	    						</div>
+	    						
+	    						<div class="row mt-1">
+	    							<div class="col-11 ms-2 py-5 border border-1 rounded-2 bg-light">
+	    								
+	    								<div class="row">
+	    									<div class="col ms-1">
+	    										<div class="row">
+	    											<div class="col-3">
+	    												
+	    												<div class="row">
+	    													<div class="col text-center">
+	    														현재 보유 코인
+	    													</div>
+	    												</div>
+	    												
+	    												<div class="row mt-2">
+	    													<div class="col text-center">
+	    														<span class="fs-5 fw-bold" id="nowMyCoin"></span> 원 
+	    													</div> 
+	    												</div>
+			    									
+			    									</div>
+			    									<div class="col px-0">
+	    												<div class="row mt-4">
+	    													<div class="col fs-4 ms-2">
+	    														-
+	    													</div>
+	    												</div>
+			    								
+			    									</div>
+			    									<div class="col-2 px-0">
+	    									
+			    										<div class="row">
+	    													<div class="col ms-1">
+	    														결제 예정 금액
+	    													</div>
+	    												</div>
+	    												
+	    												
+	    												<div class="row mt-2">
+	    													<div class="col ms-1">
+	    														<span class="fw-bold fs-5 text-danger" id="payCoin">
+				      													<fmt:formatNumber value="${orderInfo.bid_price}"  pattern="#,###"/>
+				      												</span>	원
+	    													</div>
+	    												</div>
+	    												
+			    									</div>
+			    									<div class="col px-0">
+	    												<div class="row mt-4">
+	    													<div class="col fs-4 ms-3">
+	    														-
+	    													</div>
+	    												</div>
+			    								
+			    									</div>
+			    									<div class="col-2 px-0">
+	    												<div class="row">
+	    													<div class="col ms-2">
+	    														배송비
+	    													</div>
+	    												</div>
+	    												
+	    												<div class="row mt-2">
+	    													<div class="col ms-3">
+	    														<span class="fw-bold fs-5">0</span> 원
+	    													</div>
+	    												</div>
+			    										
+			    									</div>
+			    									
+			    									<div class="col px-0">
+	    												<div class="row mt-4">
+	    													<div class="col fs-4 px-0 me-2">
+	    														=
+	    													</div>
+	    												</div>
+			    								
+			    									</div>
+			    									
+			    									
+			    									   									
+			    									<div class="col-2 px-0">
+	    												<div class="row">
+	    													<div class="col me-1 px-0">
+	    													  잔여 코인
+	    													</div>
+	    												</div>
+	    												
+	    												<div class="row mt-2">
+	    													<div class="col px-0">
+	    														<span id="remainCoin" class= "fs-5 fw-bold"></span> 원
+	    													</div>
+	    												</div>
+			    										
+			    									</div>
+	    										</div>
+	    									</div>
+	    								</div>
+	    								
+	    							</div>
+	    							
+	    						</div>
+	    						
+	    						
     						</div>
     						<%-- 결제 창 --%>
     						<div class="col">
@@ -278,7 +445,7 @@ a {
     									<div class="row mt-2">
     										<div class="col border border-1" style="border-color: black!important;" >
     										
-    											<div class="row p-2">
+    											<div class="row p-2 mb-2 ">
     											
     												<div class="col">
     												<div class="row">
@@ -289,13 +456,13 @@ a {
     														
     															<div class="row mt-1">
     																<div class="col">
-    																	총 상품금액
+    																	보유 코인
     																</div>
     															</div>
     															
     															<div class="row mt-1">
     																<div class="col">
-    																	포인트 할인금액
+    																	총 상품금액
     																</div>
     															</div>
     															
@@ -319,28 +486,28 @@ a {
     														<div class="col text-end">
     														
     															<div class="row mt-1">
-    																<div class="col fw-bold">
+    																<div class="col">
+    																	<span style="font-size: 18px;"  id="coinBalance"></span> 원
+    																</div>
+    															</div>
+    															
+    															<div class="row mt-1">
+    																<div class="col">
     																	<span class="fw-bold" style="font-size: 18px;">
 				      													<fmt:formatNumber value="${orderInfo.bid_price}"  pattern="#,###"/>
 				      												</span>	원
     																</div>
     															</div>
     															
-    															<div class="row mt-1">
-    																<div class="col text-danger opacity-75">
-    																	0원
+    															<div class="row mt-3">
+    																<div class="col">
+    																	<span class="fw-bold">0</span> 원
     																</div>
     															</div>
     															
     															<div class="row mt-3">
-    																<div class="col fw-bold">
-    																	0원
-    																</div>
-    															</div>
-    															
-    															<div class="row mt-3">
-    																<div class="col fw-bold">
-    																	<span class=" fs-4 text-danger">
+    																<div class="col">
+    																	<span class="fs-4 text-danger fw-bold">
 				      													<fmt:formatNumber value="${orderInfo.bid_price}"  pattern="#,###"/>
 				      												</span>	원
     																</div>
@@ -373,7 +540,7 @@ a {
     										</div>
     									</div>
     									
-    									<div class="row mt-2">
+    									<div class="row mt-2 mb-2">
     										<div class="col bg-light p-2">
     											
     											<div class="row">
@@ -694,7 +861,7 @@ a {
   <div class="modal-dialog modal-dialog-centered"> 
     <div class="modal-content">
       <div class="modal-header">
-      		<h5 class="modal-title"></h5>
+      		<h5 class="modal-title">결제 안내</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div> 
       <div class="modal-body">
@@ -716,12 +883,50 @@ a {
 </div>
 <%-- alert --%>
 
+<%-- 배송지 변경 모달 --%>
+<div class="modal" id="modifyAddressModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered"> 
+    <div class="modal-content">
+      <div class="modal-header bg-light">
+      		<h5 class="modal-title">배송지 변경</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div> 
+      <div class="modal-body">
+      	
+      	<div class="row mt-2">
+      		<div class="col-11 ms-2" id="myAddressList" style="height: 400px; overflow:auto;">
+      			
+      		
+      			
+      			
+      			
+      		
+      			
+      		</div>
+      	</div>
+
+  
+      </div>
+      
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">창닫기</button>
+      </div>      
+   
+    </div>
+  </div>
+</div>
+
+<%-- 배송지 변경 모달 --%>
 
 
 
+
+
+<%-- 배송지 변경 모달 --%>
 <script>
 
 let selectedAddressId = null;
+let userCoinBalance = null;
 
 
 // 로그인된 세션 초기화
@@ -743,17 +948,45 @@ function getSessionId(){
 	xhr.send();		
 }
 
+
+// 예정 잔여 코인
+function getRemainCoinBalance() {
+	
+	const remainCoinBox =  document.querySelector("#remainCoin");
+	const nowMyCoin = document.querySelector("#nowMyCoin");
+	
+	const bidPrice = document.querySelector("#bid_price");
+	
+	
+	nowMyCoin.innerText = new Intl.NumberFormat('ko-KR').format(userCoinBalance);
+	remainCoinBox.innerText =  new Intl.NumberFormat('ko-KR').format(userCoinBalance - bidPrice.value);
+	
+}
+
 //주문 시 기본 배송지 정보들 가져오기
-function getMyAddressListInOrderPage() {
+function getMyAddressInfoInOrderPage() {
 	
 	const xhr = new XMLHttpRequest();
+	
+	const addressName = document.querySelector("#addressName");
+	const deliveryAddress = document.querySelector("#deliveryAddress");
+	const addressPhone = document.querySelector("#addressPhone");
+	const addressMessage = document.querySelector("#addressMessage");
+	
 	
 	xhr.onreadystatechange = function(){
 		if(xhr.readyState == 4 && xhr.status == 200){
 			const response = JSON.parse(xhr.responseText);
 	
-			
-			getMyAddressList(response.addressList);
+			if (response.addressList && response.addressList.length > 0) {
+				// 가장 최근에 등록한 주소 가져오기
+		        const firstAddressDto = response.addressList[0];
+		       
+		        addressName.innerText = firstAddressDto.address_name; 
+		        deliveryAddress.innerText = firstAddressDto.address;
+		        addressPhone.innerText = firstAddressDto.phone;
+		        
+		      }
 	
 		}
 	}
@@ -761,42 +994,10 @@ function getMyAddressListInOrderPage() {
 	xhr.send();	
 }
 
-// 주소 리스트 가져오기
-function getMyAddressList(addressList) {
+
+
+
 	
-    const addressListDropdown = document.getElementById('addressListDropdown');
-    addressListDropdown.innerHTML = '';
-
-    addressList.forEach(function(addr) {
-        const option = document.createElement('option');
-        option.value = addr.id;
-        option.text = addr.address_name;
-        option.text1 = addr.phone;
-        option.text2 = addr.address;
-        
-        console.log(option.text1);
-  
-
-        // 옵션 선택 시 주소명 설정
-        addressListDropdown.addEventListener('change', function() {
-            const selectedOption = addressListDropdown.options[addressListDropdown.selectedIndex];
-            
-            const selectedAddressName = document.querySelector("#addressName");
-            selectedAddressName.textContent = selectedOption.text;
-            
-            /* const phone = document.querySelector("#addressPhone");
-            phone.value = selectedOption.text1;
-            
-            const address = document.querySelector("#address");
-            address.value = selectedOption.text2; */
-        });
-        
-        
-        
-        addressListDropdown.appendChild(option);
-    });
-}
-
 // 다음 주소 api
 function daumPost(){
     new daum.Postcode({
@@ -817,33 +1018,162 @@ function daumPost(){
     }).open();
 }
 
+// 배송지 변경 모달 열기
+function modifyAddressModal() {
+	
+	const addressListBox = document.querySelector("#myAddressList");
+	addressListBox.innerHTML = "";
+	
+	const xhr = new XMLHttpRequest();	
+	xhr.onreadystatechange = function(){
+		if(xhr.readyState == 4 && xhr.status == 200){
+			const response = JSON.parse(xhr.responseText);
+			const shouldAutoScroll = isScrolledToBottom(addressListBox); 
 
-// 주소 등록 모달 열기
-function registerAddrPage() {
-	
-	const registerAddrModal = bootstrap.Modal.getOrCreateInstance("#registerAddrModal");
-	
-	registerAddrModal.show();
+			for (data of response.addressList) {
+				
+				//console.log(response.addressList[0]);
+				const row = document.createElement("div");
+				row.classList.add("row", "mb-2", "p-1");
+				
+				const col = document.createElement("div");
+				col.classList.add("col", "border", "border-1", "rounded-2");
+				
+				const addressNameRow = document.createElement("div");
+				addressNameRow.classList.add("row", "mt-2");
+				
+				const addressNameCol = document.createElement("div");
+				addressNameCol.classList.add("col", "fw-bold");
+				addressNameCol.style.fontSize = "18px";
+				addressNameCol.innerText = data.address_name;
+				
+				addressNameRow.appendChild(addressNameCol);
+				
+				
+				const selectedRow = document.createElement("div");
+				selectedRow.classList.add("row", "mt-1");
+				
+				const selectedCol = document.createElement("div");
+				selectedCol.classList.add("col");
+				
+				
+				if (data == response.addressList[0]) {
+					const button = document.createElement("button");
+					button.classList.add("btn", "btn-outline-primary", "btn-sm", "disabled", "fw-bold");
+					button.innerText = "기본배송지";
+					
+					selectedCol.appendChild(button);
+				}
+				selectedRow.appendChild(selectedCol);
+				
+				const addressRow = document.createElement("div");
+				addressRow.classList.add("row", "mt-2");
+				
+				const addressCol = document.createElement("div");
+				addressCol.classList.add("col");
+				
+				addressCol.innerText = data.address;
+				
+				addressRow.appendChild(addressCol);
+				
+				const finalRow = document.createElement("div");
+				finalRow.classList.add("row", "mt-1", "mb-2");
+				
+				const phoneCol = document.createElement("div");
+				phoneCol.classList.add("col");
+				phoneCol.innerText = data.phone;
+				
+				const buttonCol = document.createElement("div");
+				buttonCol.classList.add("col", "text-end");
+				
+				const selectButton = document.createElement("input");
+				selectButton.type = "button";
+				selectButton.classList.add("btn", "orangeButton");
+				selectButton.value = "선택";
+				selectButton.style.position = "relative";
+				selectButton.style.bottom = "7px";
+				selectButton.setAttribute("onclick", "modifyAddress("+ data.id +")");
+				
+				buttonCol.appendChild(selectButton);
+				
+				finalRow.appendChild(phoneCol);
+				finalRow.appendChild(buttonCol);
+				
+				col.appendChild(addressNameRow);
+				col.appendChild(selectedRow);
+				col.appendChild(addressRow);
+				col.appendChild(finalRow);
+				
+				row.appendChild(col);
+
+				addressListBox.appendChild(row);
+				
+			}
+			
+			const addRow = document.createElement("div");
+			addRow.classList.add("row", "mt-3");
+			
+			const addCol = document.createElement("div");
+			addCol.classList.add("col", "d-grid", "ps-0", "pe-0");
+			
+			const addButton = document.createElement("input");
+			addButton.type = "button";
+			addButton.classList.add("btn", "btn-outline-primary");
+			addButton.value = "+  배송지 추가";
+			
+			addCol.appendChild(addButton);
+			addRow.appendChild(addCol);	
+			
+			//const addInputRow = document.createElement("")
+			// 이건 나중애....
+			
+			
+			addressListBox.appendChild(addRow);
+			
+			if (shouldAutoScroll) {
+				addressListBox.scrollTop = addressListBox.scrollHeight;
+         	}
+			
+			const modifyAddressModal = bootstrap.Modal.getOrCreateInstance("#modifyAddressModal");
+			
+			modifyAddressModal.show();
+			
+		}
+	}
+	xhr.open("get", "/safari/auction/getMyAddressListInOrderPage?userId=" + mySessionId);
+	xhr.send();	
 }
 
 
-//주소 수정 모달 열기
-function modifyAddrPage(id) {
+// 주소 수정
+function modifyAddress(id) {
+
+	const addressName = document.querySelector("#addressName");
+	const deliveryAddress = document.querySelector("#deliveryAddress");
+	const addressPhone = document.querySelector("#addressPhone");
+	const addressMessage = document.querySelector("#addressMessage");
 	
 	const xhr = new XMLHttpRequest();	
 	xhr.onreadystatechange = function(){
 		if(xhr.readyState == 4 && xhr.status == 200){
 			const response = JSON.parse(xhr.responseText);
 			
-	
-	
-			const modifyAddrModal = bootstrap.Modal.getOrCreateInstance("#modifyAddrModal");
-			modifyAddrModal._element.dataset.id = id; // id 값을 data-id 속성에 설정
-			modifyAddrModal.show();
+			  addressName.innerText = response.selectedAddress.address_name; 
+		      deliveryAddress.innerText = response.selectedAddress.address;
+		      addressPhone.innerText = response.selectedAddress.phone;
+		      
+			 const modifyAddressModal = bootstrap.Modal.getOrCreateInstance("#modifyAddressModal");
+			 modifyAddressModal.hide();
+			/*  setTimeout(function() {
+				 modifyAddressModal.hide();
+				}, 1000);
+ */
+			
 		}
 	}
-	xhr.open("get", "/safari/user/getAddressInfoByPk?id=" +id);
-	xhr.send();	
+	
+	xhr.open("get", "/safari/auction/changeAddressInOrderPage?id=" + id);
+	xhr.send();
 	
 }
 
@@ -1174,9 +1504,7 @@ function kakaoPayModal() {
                // 팝업이 차단되었을 경우
                alert("팝업 차단이 감지되었습니다. 결제를 진행하려면 팝업 차단을 해제해주세요.");
             }
-         	
-      
-         	
+         
             // tid를 세션에 저장
             saveAuctionTidToSession(cid, partner_order_id, partner_user_id, tid, item_name, response.next_redirect_pc_url);
            
@@ -1200,14 +1528,17 @@ function kakaoPayModal() {
 
 // tid 세션에 저장
  function saveAuctionTidToSession(cid, partner_order_id, partner_user_id, tid, item_name, 
-		 next_redirect_pc_url) {
+		 next_redirect_pc_url, paymentWindow) {
 	
 	 	const xhr = new XMLHttpRequest();
 
 
 	    xhr.onreadystatechange = function() {
 	        if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
-	            
+
+	        	// 에러 있음 고쳐야함 @@@@@@@@@@@@@@@@@@@
+	              registerAddressInfoInPayment(partner_order_id);
+
 	        	
 	        }
 	    };
@@ -1219,22 +1550,63 @@ function kakaoPayModal() {
 }
 
 
+// 결제 시 배송 정보 저장
+function registerAddressInfoInPayment(partner_order_id) {
+	
+	const addressName = document.querySelector("#addressName").innerText;
+	const deliveryAddress = document.querySelector("#deliveryAddress").innerText;
+	const addressPhone = document.querySelector("#addressPhone").innerText;
+	const addressMessage = document.querySelector("#addressMessage").value;
+	
+
+	const xhr = new XMLHttpRequest();
+	
+	xhr.onreadystatechange = function(){
+		if(xhr.readyState == 4 && xhr.status == 200){
+			const response = JSON.parse(xhr.responseText);
+			
+		}
+	}
+   xhr.open("post", "/safari/auction/registerAddressInfoInPayment");
+   xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+   xhr.send("id=" + partner_order_id + "&address=" + deliveryAddress + "&phone=" + addressPhone + "&delivery_message=" + addressMessage);	
+}
+
+//회원의 현재 보유 코인 조회
+function getNowCoinBalance() {
+ 	
+ 		const xhr = new XMLHttpRequest();
+ 		
+ 		const coinBalance = document.querySelector("#coinBalance");
+ 	
+ 		xhr.onreadystatechange = function(){
+ 			if(xhr.readyState == 4 && xhr.status == 200){
+ 				const response = JSON.parse(xhr.responseText);
+ 				if(response.result == "success"){
+ 					coinBalance.innerText = new Intl.NumberFormat('ko-KR').format(response.coins);
+ 					userCoinBalance = response.coins;
+ 					getRemainCoinBalance(); 
+ 				}
+ 			}
+ 		}
+ 		
+ 		xhr.open("get", "/safari/user/getUserCoinBalance");
+ 		xhr.send();		
+ 	
+ }
+
+//스크롤이 맨 아래에 있는지 확인하는 함수
+function isScrolledToBottom(element) {
+  return element.scrollHeight - element.clientHeight <= element.scrollTop + 1;
+}
+
+
 
 window.addEventListener("DOMContentLoaded", function(){
 	getSessionId();
-	getMyAddressListInOrderPage();
-	
-	
-	 const existingAddressRadio = document.querySelector('input[name="radioAddress"][value="existingAddress"]');
-	  const addressListDropdown = document.getElementById('addressListDropdown');
-	  const addressName = document.getElementById('addressName');
-	  
-	  // 기존 배송지 라디오 버튼 체크
-	  existingAddressRadio.checked = true;
-	  
-	  // 선택된 주소명 설정
-	  //addressName.textContent = addressListDropdown.options[addressListDropdown.selectedIndex].text;
-	//getMyaddressList();
+	getMyAddressInfoInOrderPage();
+	getNowCoinBalance();
+
 });
 </script>
 </body>	

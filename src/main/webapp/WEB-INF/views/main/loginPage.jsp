@@ -11,61 +11,221 @@
 <jsp:include page="../common/meta.jsp"></jsp:include>
 <!-- 메타 섹션 -->
 </head>
+<style>
+.orangeButton{
+	background: #ff6f0f;
+	font-weight: bold;
+	color: white;
+}
+a {
+	color: inherit;
+	text-decoration: none;
+}
+
+ .hr-sect {
+        display: flex;
+        flex-basis: 100%;
+        align-items: center;
+        color: rgba(0, 0, 0, 0.35);
+        font-size: 16px;
+        margin: 8px 0px;
+      }
+  .hr-sect::before,
+  .hr-sect::after {
+    content: "";
+    flex-grow: 1;
+    background: rgba(0, 0, 0, 0.35);
+    height: 1px;
+    font-size: 0px;
+    line-height: 0px;
+    margin: 0px 16px;
+  }
+</style>
+
 <body>
 	<!-- 헤더 섹션 -->
 	<jsp:include page="../common/header.jsp"></jsp:include>
 	<!-- 헤더 섹션 -->
 	
-	<div class="container d-flex justify-content-center">
-		<form action="userLoginProcess" method="post">
-		    <div class="row g-3 pb-5" style="max-width: 480px;">
-		        <div class="col-sm-12">
-		          <label for="uid" class="form-label">아이디(이메일)</label>
-		          <input type="text" class="form-control" id="uid" placeholder="" value="" required="" name="email">
-		          <div class="invalid-feedback">
-		            아이디를 입력해주세요.
-		          </div>
-		        </div>
-		
-		        <div class="col-sm-12 mt-4">
-		          <label for="upw" class="form-label">비밀번호</label>
-		          <input type="password" class="form-control" id="upw" placeholder="" value="" required="" name="pw">
-		          <div class="invalid-feedback">
-		            비밀번호를 입력해주세요.
-		          </div>
-		        </div>
-		        
-		      </div>
-		      <div class="row" style="max-width: 480px;">
-		        <button class="btn btn-secondary">로그인</button>
-		      </div>
-		</form>		
-		
+	
+	<div class="container justify-content-center mb-5">
+		<div class="row mt-5 mb-5">
+			<div class="col">
+				
+				
+				<div class="row">
+					<div class="col"></div>
+					<div class="col text-center">
+					  	 <img src="/safari/resources/img/user/loginlogo.png">
+					</div>
+					<div class="col">
+					
+					</div>
+				</div>
+				
+				<div class="row mt-3">
+					<div class="col"></div>
+					<div class="col-5">
+					
+					
+						<div class="row">
+							<div class="col">
+								<input type="text" class="form-control p-3" placeholder="이메일을 입력하세요" id="email">
+							</div>
+						</div>
+						
+						<div class="row mt-2">
+							<div class="col">
+								<input type="password" class="form-control p-3" placeholder="비밀번호를 입력하세요"
+								id="pw" onkeydown="checkSendLogin(event)">
+							</div>
+						</div>
+						
+						<div class="row mt-3 mb-1">
+							
+							<div class="col">
+								 <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+								  <label class="form-check-label ms-1" for="flexCheckDefault" >
+								    아이디 저장
+								  </label>
+							</div>
+						
+						</div>
+						
+						<div class="row mt-3">
+							<div class="col d-grid">
+								<input type="button" class="btn orangeButton p-2 fs-5" value="로그인" onclick="loginProcess()">
+								
+							</div>
+						</div>
+					
+						
+						<div class="row mt-3 text-center">
+							<div class="col">
+								아이디 찾기
+							</div>
+							
+							<div class="col">
+								비밀번호 찾기
+							</div>
+							
+							<div class="col">
+								<a href="./joinPage">회원가입</a>
+							</div>
+						</div>
+						
+						<div class="row mt-4">
+							<div class="col text-secondary text-center d-grid">
+								<div class="hr-sect">간편로그인</div> 
+							</div>
+						</div>
+						
+						<div class="row">
+							<div class="col d-flex justify-content-center">
+								<div class="row mt-3">
+									<div class="col-auto">
+										<img src="/safari/resources/img/user/kakao.png">
+									</div>
+									<div class="col-auto">
+										<img src="/safari/resources/img/user/naver.png">
+									</div>
+									<div class="col">
+										<img src="/safari/resources/img/user/facebook.png">
+									</div>
+								</div>
+							</div>
+						</div>
+						
+					
+					</div>
+					<div class="col"></div>
+				</div>
+				
 
-	      
+				
+			</div>
+		
+		</div>
 	</div>
 	
-			
-	<div class="row mt-5 justify-content-center">
-
-        <div class="col-sm-6" style="max-width: 320px; cursor: pointer;">
-        	<a href="#">
-        		<img class="img-fluid" src="/safari/resources/img/kakao_login_large_wide.png"  alt="">
-        	</a>
-        </div>
-
-        
-    </div>
 	
 	
-	<div class="d-flex justify-content-center my-5">
-		<a href="./joinPage" class="btn btn-primary text-center">회원가입</a>	
-	</div>
 	
-	<p>${sessionUser.email}</p>
+	
 	<!-- 푸터 섹션 -->
 	<jsp:include page="../common/footer.jsp"></jsp:include>
 	<!-- 푸터 섹션 -->
+
+<%-- 아이디 Modal --%>
+<div class="modal" id="emailInputModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered"> 
+    <div class="modal-content">
+      <div class="modal-header bg-light">
+      	<h5></h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div> 
+      <div class="modal-body">
+    	<div class="row mt-2">
+    		<div class="col text-center">
+    			아이디를 입력해주세요.
+    		</div>
+    	</div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">창닫기</button>
+      </div>      
+   
+    </div>
+  </div>
+</div>
+<%--  Modal --%>
+
+<%-- 비밀번호 Modal --%>
+<div class="modal" id="pwInputModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered"> 
+    <div class="modal-content">
+      <div class="modal-header bg-light">
+      	<h5></h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div> 
+      <div class="modal-body">
+    	<div class="row mt-2 text-center">
+    		<div class="col">
+    			비밀번호를 입력해주세요.
+    		</div>
+    	</div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">창닫기</button>
+      </div>      
+    </div>
+  </div>
+</div>
+<%--  Modal --%>
+
+<%-- 로그인 실패 Modal --%>
+<div class="modal" id="loginFailModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered"> 
+    <div class="modal-content">
+      <div class="modal-header bg-light">
+      	<h5></h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div> 
+      <div class="modal-body">
+    	<div class="row mt-2">
+    		<div class="col text-center">
+    			아이디 혹은 비밀번호를 잘못 입력하셨습니다.
+    		</div>
+    	</div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">창닫기</button>
+      </div>      
+    </div>
+  </div>
+</div>
+<%--  Modal --%>
+
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
 
@@ -93,6 +253,89 @@ function ajaxTemplate() {
 	xhr.send("params");
 
 }
+
+// enter 처리
+function checkSendLogin(event) {
+	if (event.key === "Enter") {
+	    loginProcess();
+	  }
+}
+
+
+
+// 로그인 실패 modal
+function loginFailModal() {
+	
+	const loginFailModal = bootstrap.Modal.getOrCreateInstance("#loginFailModal");
+	loginFailModal.show();
+}
+
+// 로그인
+
+function loginProcess() {
+  const email = document.getElementById("email");
+  const pw = document.getElementById("pw");
+
+  if (email.value === "") {
+    // 아이디 입력 modal
+   /*  const emailInputModal = bootstrap.Modal.getOrCreateInstance("#emailInputModal");
+    emailInputModal.show();
+
+    setTimeout(function() {
+      emailInputModal.hide();
+    }, 2000);
+ */
+ 
+ 	alert("아이디를 입력하세요");
+    email.focus(); // 포커스 설정
+    pw.value = "";
+    return;
+  }
+
+  if (pw.value === "") {
+    // 비밀번호 입력 modal
+    /* const pwInputModal = bootstrap.Modal.getOrCreateInstance("#pwInputModal");
+    pwInputModal.show();
+
+    setTimeout(function() {
+      pwInputModal.hide();
+    }, 2000); */
+    alert("비밀번호를 입력하세요");
+
+    pw.focus(); // 포커스 설정
+    return;
+  }
+
+  const xhr = new XMLHttpRequest();
+
+  xhr.onreadystatechange = function() {
+    if (xhr.readyState === 4 && xhr.status === 200) {
+      const response = JSON.parse(xhr.responseText);
+      if (response.result === "success") {
+        console.log(response.result);
+        location.href = "/safari/main/mainPage";
+      } else {
+        /* const loginFailModal = bootstrap.Modal.getOrCreateInstance("#loginFailModal");
+        loginFailModal.show(); */
+        email.value = "";
+        pw.value = "";
+
+       /*  setTimeout(function() {
+          loginFailModal.hide();
+        }, 2000); */
+
+        alert("아이디 혹은 비밀번호가 일치하지 않습니다");
+        email.focus(); // 포커스 설정
+        return;
+      }
+    }
+  };
+
+  xhr.open("post", "/safari/user/loginProcess");
+  xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+  xhr.send("email=" + email.value + "&pw=" + pw.value);
+}
+
 
 
 

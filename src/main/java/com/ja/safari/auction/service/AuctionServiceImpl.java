@@ -11,17 +11,21 @@ import org.springframework.stereotype.Service;
 import com.ja.safari.auction.mapper.AuctionSqlMapper;
 import com.ja.safari.dto.AuctionBidDto;
 import com.ja.safari.dto.AuctionDeliveryDto;
+import com.ja.safari.dto.AuctionDeliveryTrackingDto;
 import com.ja.safari.dto.AuctionItemChatroomDto;
 import com.ja.safari.dto.AuctionItemDto;
 import com.ja.safari.dto.AuctionItemImgDto;
 import com.ja.safari.dto.AuctionItemInquiryDto;
 import com.ja.safari.dto.AuctionItemLikeDto;
+import com.ja.safari.dto.AuctionItemOrderAddressDto;
+import com.ja.safari.dto.AuctionItemOrderPaymentDto;
 import com.ja.safari.dto.AuctionItemReplyDto;
 import com.ja.safari.dto.AuctionKakaoPayApproveDto;
 import com.ja.safari.dto.AuctionPurchaseConfirmedDto;
 import com.ja.safari.dto.AuctionQnADto;
 import com.ja.safari.dto.ProductMainCategoryDto;
 import com.ja.safari.dto.ProductSubCategoryDto;
+import com.ja.safari.dto.UserAddressDto;
 import com.ja.safari.dto.UserCoinDto;
 import com.ja.safari.dto.UserDto;
 import com.ja.safari.user.mapper.UserSqlMapper;
@@ -225,6 +229,10 @@ public class AuctionServiceImpl {
 		// 결제 삭제
 		auctionSqlMapper.removePayData(id);
 		
+		// 좋아요 삭제
+		auctionSqlMapper.deleteAllLike(id);
+		
+		
 		
 	}
 	
@@ -295,10 +303,21 @@ public class AuctionServiceImpl {
 	public void registerAuctionInquiry(AuctionItemInquiryDto auctionItemInquiryDto) {
 		auctionSqlMapper.registerAuctionInquiry(auctionItemInquiryDto);
 	}
+	
+	// 경매 상품 문의 삭제
+	public void removeAuctionInquiry(int id) {
+		auctionSqlMapper.removeAuctionInquiry(id);
+	}
 
 	// 경매 상품 문의 답변 등록 
 	public void registerAuctionReply(AuctionItemReplyDto auctionItemReplyDto) {
 		auctionSqlMapper.registerAuctionReply(auctionItemReplyDto);
+	}
+	
+	
+	// 경매 상품 문의 답변 삭제
+	public void removeAuctionReply(int id) {
+		auctionSqlMapper.removeAuctionReply(id);
 	}
 	
 	// 경매 상품 당 문의 리스트 조회 
@@ -538,6 +557,11 @@ public class AuctionServiceImpl {
 		return bidHistoryList;
 	}
 	
+	// 마이페이지 - 내가 입찰한 기록 조회 (시간 업데이트 용도, id값만 필요함)
+	public List<AuctionBidDto> getMyBidListForRealTime(int userBuyerId) {
+		return auctionSqlMapper.getMyBidListForRealTime(userBuyerId);
+	}
+	
 
 	
 	 // 마이페이지 - 내가 입찰한 기록 조회
@@ -545,10 +569,15 @@ public class AuctionServiceImpl {
 		return auctionSqlMapper.getMyBidList(userBuyerId);
 	}
 	
+	// 마이페이지 - 내가 입찰한 기록 조회 (진행중)
+	public List<AuctionItemDto> getMyBidListIng(int userBuyerId) {
+		return auctionSqlMapper.getMyBidListIng(userBuyerId);
+	}
+	
 	// 마이페이지 - 낙찰된 경매 하나하나 결제하기 위해 주문 창 조회
-	public AuctionBidDto getOrderPageBySuccessBidPk(AuctionBidDto auctionBidDto) {
+	public AuctionItemOrderPaymentDto getOrderPageBySuccessBidPk(AuctionItemOrderPaymentDto  auctionItemOrderPaymentDto) {
 		
-		return auctionSqlMapper.getOrderPageBySuccessBidPk(auctionBidDto);
+		return auctionSqlMapper.getOrderPageBySuccessBidPk(auctionItemOrderPaymentDto);
 	}
 	
 	
@@ -564,9 +593,37 @@ public class AuctionServiceImpl {
 		return auctionSqlMapper.getMySuccessfulBidPayAndDeliveryStatusList(userBuyerId);
 	}
 	
+	// 주문화면에서 배송지 변경 버튼 클릭 후 설정된 조회 
+	public List<UserAddressDto> getMyAddressListInOrderPage(int userId) {
+		return auctionSqlMapper.getMyAddressListInOrderPage(userId);
+	}
+	
+	 // 주문화면에서 배송지 변경 모달에서 주소 선택
+	public UserAddressDto changeAddressInOrderPage(UserAddressDto userAddressDto) {
+		return auctionSqlMapper.changeAddressInOrderPage(userAddressDto);
+	}
+
+	
+	
+	
+	// 구매자 결제 시 배송 정보 저장하는 dto insert
+	public void registerAddressInfoInPayment(AuctionItemOrderAddressDto auctionItemOrderAddressDto) {
+		auctionSqlMapper.registerAddressInfoInPayment(auctionItemOrderAddressDto);
+	}
+	
+	// 배송 조회 시 배송 상세 정보 보기
+	public AuctionItemOrderAddressDto getAddressInfoInPaymentAndDelivery(int id) {
+		return auctionSqlMapper.getAddressInfoInPaymentAndDelivery(id);
+	}
+	
 	// 마이페이지 - 찜 목록 조회
 	public List<AuctionItemDto> getMyAuctionWishList(int userBuyerId) {
 		return auctionSqlMapper.getMyAuctionWishList(userBuyerId);
+	}
+	
+	// 마이페이지 - 찜 목록 (시간 업데이트용)
+	public List<AuctionItemLikeDto> getMyWishListForRealTime(int userBuyerId) {
+		return auctionSqlMapper.getMyWishListForRealTime(userBuyerId);
 	}
 	
 	//  마이페이지 - 경매 업로더 입장에서 입찰정보가 없을 경우 제품 정보 조회
@@ -638,6 +695,10 @@ public class AuctionServiceImpl {
 		return auctionSqlMapper.getEndedAuctionlist(userSellerId);
 	}
 	
+	// 경매 업로더 입장에서 물품 당 주문 내역, 배송 조회 모달 확인
+	public AuctionBidDto getEndedAuctionOrderAndDeliveryInfo(AuctionBidDto auctionBidDto) {
+		return auctionSqlMapper.getEndedAuctionOrderAndDeliveryInfo(auctionBidDto);
+	}
 	
 	// 배송 시작 (낙찰자가 결제하면 배송준비중, 판매자가 배송처리 누르는순간 배송중)
 	public void startAuctionDelivery(int partnerOrderId) {
@@ -647,6 +708,11 @@ public class AuctionServiceImpl {
 	// 배송 조회
 	public AuctionDeliveryDto checkAutionDeliveryStatus(int partnerOrderId) {
 		return auctionSqlMapper.checkAutionDeliveryStatus(partnerOrderId);
+	}
+	
+	// 배송 조회 (배송 조회 모달 출력 형태 )
+	public AuctionDeliveryTrackingDto getDeliveryStatusInSuccessfulBid(AuctionDeliveryTrackingDto auctionDeliveryTrackingDto) {
+		return auctionSqlMapper.getDeliveryStatusInSuccessfulBid(auctionDeliveryTrackingDto);
 	}
 	
 	// 배송 3일 지나면 배송완료 처리

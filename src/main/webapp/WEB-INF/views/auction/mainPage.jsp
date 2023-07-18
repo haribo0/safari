@@ -337,7 +337,7 @@ function reloadAuctionList(mainCategoryId, subCategoryId) {
 	            	
 	            	
 	            	const col = document.createElement("div");
-	            	col.classList.add("col-3", "mt-4");
+	            	col.classList.add("col-3", "mt-5", "mb-2");
 	            	
 	            	
 	            	const imageRow = document.createElement("div");
@@ -426,8 +426,8 @@ function reloadAuctionList(mainCategoryId, subCategoryId) {
 		            immediatePriceCol.classList.add("col");
 		            
 		            const immediateSpan = document.createElement("span");
-		            //immediateSpan.style.position = "relative";
-		            //immediateSpan.style.top = "1.5px";
+		            immediateSpan.style.position = "relative";
+		            immediateSpan.style.bottom = "3px";
 		            immediateSpan.style.fontSize = "13px";
 		            immediateSpan.innerText = "즉시낙찰가 " + new Intl.NumberFormat('ko-KR').format(data.auctionDto.max_price) + "원";
 	                
@@ -722,18 +722,18 @@ window.addEventListener("DOMContentLoaded", function(){
 		
 			<div class="col mt-4 d-flex justify-content-center" style="position: relative; right: 10px;">
 			
-			 <input class="form-check-input me-2" type="radio" id="radioStatus" name="radioStatus" value="">
+			 <input class="form-check-input me-2" type="radio" id="radioStatus" name="radioStatus" value="" style="cursor:pointer";>
 			  <label class="form-check-label me-4" for="radioStatus">
 			    	전체보기
 			  </label>			
 				
-			 <input class="form-check-input me-2" type="radio" id="radioStatusIng" name="radioStatus" value="ing">
+			 <input class="form-check-input me-2" type="radio" id="radioStatusIng" name="radioStatus" value="ing" style="cursor:pointer";>
 			  <label class="form-check-label me-4" for="radioStatusIng">
 			    	진행중인 경매만 보기
 			  </label>
  		  		
 
-				<input class="form-check-input me-2" type="radio" id="radioStatusReady" name="radioStatus" value="ready">
+				<input class="form-check-input me-2" type="radio" id="radioStatusReady" name="radioStatus" value="ready" style="cursor:pointer";>
 				  <label class="form-check-label me-2" for="radioStatusReady">
 				    	준비중인 경매만 보기
 				  </label>				

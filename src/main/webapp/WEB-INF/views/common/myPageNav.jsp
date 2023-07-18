@@ -47,6 +47,7 @@
 					<li class="list-group-item border-0 py-1 ps-0"><a href="/safari/auction/successBidList" class="btn py-0 text-body-secondary ps-0 fs-nav-small">낙찰목록</a></li>
 					<li class="list-group-item border-0 py-1 ps-0"><a href="/safari/auction/wishList" class="btn py-0 text-body-secondary ps-0 fs-nav-small">찜</a></li>
 					<li class="list-group-item border-0 py-1 ps-0"><a href="/safari/auction/uploadAuctionList" class="btn py-0 text-body-secondary ps-0 fs-nav-small">경매 업로드 목록</a></li>
+			
 				</ul>
 			</div>
 			

@@ -12,6 +12,319 @@
 <jsp:include page="../../common/meta.jsp"></jsp:include>
 <!-- 메타 섹션 -->
 
+<script>
+
+
+	//좋아요
+
+	//PathVariable
+	//const pickId = new URLSearchParams(location.search).get("id");
+	//const pathParts = window.location.pathname.split('/');
+	//const path = window.location.pathname;
+	//const parts = path.split('/');
+	//const pick_id = parts[parts.length - 1]; 
+	//const pickId = parseInt(pathParts[pathParts.length - 1], 10);
+	
+	const pathParts = window.location.pathname.split('/');
+	const pick_id = pathParts[pathParts.length - 1]; 
+	
+	console.log("pick_id:", pick_id);
+	
+	function ajaxTemplete(){
+		
+		const xhr = new XMLHttpRequest();
+		
+		xhr.onreadystatechange = function(){
+			if(xhr.readyState == 4 && xhr.status == 200){
+				const response = JSON.parse(xhr.responseText);
+				// js 작업..
+			}
+		}
+		
+		//get
+		xhr.open("get", "요청 url?파라메터=값");
+		xhr.send();
+		
+		//post
+		xhr.open("post", "요청 url");
+		xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded"); 
+		xhr.send("파라메터=값");
+	}
+	
+	let mySessionId = null;
+	
+	function getSessionId(){
+		const xhr = new XMLHttpRequest();
+		
+		xhr.onreadystatechange = function(){
+			if(xhr.readyState == 4 && xhr.status == 200){
+				const response = JSON.parse(xhr.responseText);
+				// js 작업..
+				if(response.result == "success"){
+					mySessionId = response.id; 
+					console.log("mySessionId:", mySessionId);
+				}
+			}
+		}
+		
+		//get
+		//xhr.open("get", "${pageContext.request.contextPath}/user/getMyId", false); // 딱 여기만 쓰세요...false 동기식 호출..! 권장되지 않음
+		xhr.open("get", "${pageContext.request.contextPath}/community/pick/getMyId", false);
+		
+		xhr.send();		
+	}
+	
+	function refreshTotalLikeCount(){
+		const xhr = new XMLHttpRequest();
+		
+		xhr.onreadystatechange = function(){
+			if(xhr.readyState == 4 && xhr.status == 200){
+				const response = JSON.parse(xhr.responseText);
+				// js 작업..
+				const totalLikeCountBox = document.getElementById("totalLikeCount");
+				console.log("totalLikeCount:", totalLikeCount);
+				totalLikeCountBox.innerText = response.count;
+			}
+		}
+		
+		
+		
+		//get
+		xhr.open("get", "${pageContext.request.contextPath}/community/pick/getTotalLikeCount?pick_id=" + pick_id);
+		xhr.send();		
+	}
+	
+	function toggleLike(){
+		if(mySessionId == null){
+			if(confirm("로그인을 하셔야 이용하실 수 있습니다. 로그인 하시겠습니까?")){
+				location.href = "${pageContext.request.contextPath}/user/loginPage";
+			}
+			
+			return;
+		}
+		
+		const xhr = new XMLHttpRequest();
+		
+		xhr.onreadystatechange = function(){
+			if(xhr.readyState == 4 && xhr.status == 200){
+				const response = JSON.parse(xhr.responseText);
+				// js 작업..
+				refreshTotalLikeCount();
+				refreshMyHeart();
+			}
+		}
+		
+		//get
+		xhr.open("get", "${pageContext.request.contextPath}/community/pick/toggleLike?pick_id=" + pick_id);
+		xhr.send();
+		
+	}
+	
+	function refreshMyHeart(){
+		
+		if(mySessionId == null) return;
+		
+		
+		const xhr = new XMLHttpRequest();
+		
+		xhr.onreadystatechange = function(){
+			if(xhr.readyState == 4 && xhr.status == 200){
+				const response = JSON.parse(xhr.responseText);
+				// js 렌더링... 작업..
+				const heartBox = document.getElementById("heartBox");
+				
+				if(response.isLiked){
+					heartBox.classList.remove("bi-heart");
+					heartBox.classList.add("bi-heart-fill");
+				}else{
+					heartBox.classList.remove("bi-heart-fill");
+					heartBox.classList.add("bi-heart");
+				}
+			}
+		}
+		
+		//get
+		xhr.open("get", "${pageContext.request.contextPath}/community/pick/isLiked?pick_id=" + pick_id);
+		xhr.send();
+		
+	}
+
+	
+		////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		//댓글
+		function registerComment(){
+		
+		if(!mySessionId) {
+			// 로그인 안되었있으니까...
+			return;
+		}
+		
+		const commentTextBox = document.getElementById("commentTextBox");
+		const commentTextValue = commentTextBox.value; 
+		
+		const xhr = new XMLHttpRequest();
+		
+		xhr.onreadystatechange = function(){
+			if(xhr.readyState == 4 && xhr.status == 200){
+				const response = JSON.parse(xhr.responseText);
+				// js 작업..
+				commentTextBox.value = "";
+				reloadCommentList();
+			}
+		}
+		
+		//post
+		xhr.open("post", "${pageContext.request.contextPath}/community/pick/registerComment");
+		xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded"); 
+		xhr.send("pick_id=" + pick_id + "&content=" + commentTextValue);
+		
+	}
+	
+	function reloadCommentList(){
+		const xhr = new XMLHttpRequest();
+		
+		xhr.onreadystatechange = function(){
+			if(xhr.readyState == 4 && xhr.status == 200){
+				const response = JSON.parse(xhr.responseText);
+				
+				document.getElementById("commentListBox").innerHTML = ""; //초기화 얘만 innerHTML 허용... 
+				
+				for(map of response.commentList){
+					const row1 = document.createElement("div");
+					row1.classList.add("row");
+					row1.classList.add("commentOuter");
+					row1.setAttribute("commentId" , map.pickCommentDto.id);
+					
+					
+					const colCommentBox = document.createElement("div");
+					colCommentBox.classList.add("commentBox");
+					colCommentBox.classList.add("col-8");
+					colCommentBox.classList.add("bg-primary");
+					colCommentBox.innerText = map.pickCommentDto.content; // 데이터 세팅
+					row1.appendChild(colCommentBox);
+
+					const colNickname = document.createElement("div"); 					
+					colNickname.classList.add("col-2");
+					colNickname.classList.add("bg-secondary");
+					colNickname.innerText = map.userDto.nickname; // 데이터 세팅
+					row1.appendChild(colNickname);
+					
+					if(mySessionId != null && map.pickCommentDto.user_id){
+						const colDelete = document.createElement("div");
+						colDelete.classList.add("col-1");
+						colDelete.innerText = "삭제";
+						colDelete.setAttribute("onclick", "deleteComment("+map.pickCommentDto.id+")");
+						row1.appendChild(colDelete);
+						
+						const colUpdate = document.createElement("div");
+						colUpdate.classList.add("col-1");
+						colUpdate.innerText = "수정";
+						colUpdate.setAttribute("onclick", "changeInputForUpdateComment(this)");
+						
+						row1.appendChild(colUpdate);
+					}
+					
+					document.getElementById("commentListBox").appendChild(row1);
+				}
+				
+				
+			}
+		}
+		
+		//get
+		xhr.open("get", "${pageContext.request.contextPath}/community/pick/getCommentList?pick_id=" + pick_id);
+		xhr.send();
+	}	
+	
+	function deleteComment(id){
+		const xhr = new XMLHttpRequest();
+		
+		xhr.onreadystatechange = function(){
+			if(xhr.readyState == 4 && xhr.status == 200){
+				const response = JSON.parse(xhr.responseText);
+				// js 작업..
+				reloadCommentList();
+			}
+		}
+		
+		//get
+		xhr.open("get", "${pageContext.request.contextPath}/community/pick/deleteComment?id=" + id);
+		xhr.send();
+		
+	}
+	
+	
+	function changeInputForUpdateComment(targetElement){
+		
+		const commentOuter = targetElement.closest(".commentOuter"); // 부모중에 css 접근자 문법에 맞는 엘리먼트를 가져온다.
+		
+		// const commentBox = commentOuter.getElementsByClassName("commentBox")[0];
+		const commentBox = commentOuter.querySelector(".commentBox");
+		
+		const tempValue = commentBox.innerText;
+		
+		commentBox.innerHTML = "";
+		
+		const inputTextComment = document.createElement("input");
+		inputTextComment.type = "text"
+		//inputTextComment.classList.add("form-control");
+		inputTextComment.classList.add("commentInputBox");
+		inputTextComment.value = tempValue;
+		commentBox.appendChild(inputTextComment);
+		
+		const inputButtonUpdate = document.createElement("button");
+		inputButtonUpdate.innerText = "수정 적용";
+		inputButtonUpdate.setAttribute("onclick" , "updateComment(this)");
+		commentBox.appendChild(inputButtonUpdate);
+		
+		
+		
+		targetElement.innerText = "수정취소";
+		targetElement.setAttribute("onclick", "cancelUpdate(this)");
+	}
+	
+	function updateComment(targetElement){
+		
+		const commentOuter = targetElement.closest(".commentOuter");
+		
+		const commentId = commentOuter.getAttribute("commentId");
+		console.log("commentId:", commentId);
+		const commentText = commentOuter.querySelector(".commentInputBox").value;
+		
+		const xhr = new XMLHttpRequest();
+		
+		xhr.onreadystatechange = function(){
+			if(xhr.readyState == 4 && xhr.status == 200){
+				const response = JSON.parse(xhr.responseText);
+				// js 작업..
+				reloadCommentList();
+			}
+		}
+		
+		//post
+		xhr.open("post", "${pageContext.request.contextPath}/community/pick/updateComment");
+		xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded"); 
+		xhr.send("id=" + commentId + "&content=" + commentText);
+				
+		
+	}
+	
+	
+	
+	//사실상 시작 시점...
+	window.addEventListener("DOMContentLoaded", function(){
+		
+		getSessionId();
+		refreshTotalLikeCount();
+		refreshMyHeart();
+		reloadCommentList();
+		
+		//setInterval(reloadCommentList, 5000);
+		
+	});
+</script>
+
+
 </head>
 
 
@@ -82,78 +395,46 @@
 									
 									<br>
 									
-									<div class="ms-2 me-2 mb-3">
-										
-										${map.pickDto.content}
-									<br>
-									</div>
-										
-										<%-- 내용카드 --%>
-										<div class="row">
-										  <div class="col-md-6 mt-2 mb-5">
-										  <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-center" >
-										  <div class="card" style="width: 255px; height: 320px;">
-										    <div class="d-felx justify-content-center">
-										    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS846XsQCCwKyA_1OgKiAPhT9YvnBxekWgQ52joFgHsnRKSdsiMoiloEcVvyrpGAq5IUwY&usqp=CAU" 
-										    class="rounded mx-auto d-block" alt="..." style="width: 250px; height: 250px;">
-										      <div class="card-body">
-										        <h6 class="card-title text-body-secondary mb-1">아디다스 티셔츠</h6>
-										        <p class="card-text mb-2">26,000원</p>
-										        <div class="text-center">
-										        </div></div></div>
-										    </div><button type="button" class="btn btn-outline-secondary rounded-pill btn-sm mt-4" style="width: 250px;">A</button>
-										      </div>
-										  </div>
-										  
-										  <div class="col-md-6 mt-2 mb-5">
-										  <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-center" >
-										  <div class="card" style="width: 255px; height: 320px;">
-										    <div class="d-felx justify-content-center">
-										    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTKx1kXLe73WUkC8YXj8IwJg_KUMw_uUmOC0FrSwNdLsDSNyhrKgxfNL_Cx5JMdyIonlSc&usqp=CAU" 
-										    class="rounded mx-auto d-block" alt="..." style="width: 250px; height: 250px;">
-										      <div class="card-body">
-										        <h6 class="card-title text-body-secondary mb-1">mlb 티셔츠</h6>
-										        <p class="card-text mb-2">30,000원</p>
-										        <div class="text-center">
-										        </div></div></div>
-										    </div><button type="button" class="btn btn-outline-secondary rounded-pill btn-sm mt-4" style="width: 250px;">B</button>
-										      </div>
-										  </div>
-										 </div>
+									<div class="row">
+										<div class="col fs-5 fw-bold">
+											골라주세요 옵션
+										</div>
+									</div>	
 									
-										 <div class="row">
-										  <div class="col-md-6 mt-2 mb-5">
-										  <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-center" >
-										  <div class="card" style="width: 255px; height: 320px;">
-										    <div class="d-felx justify-content-center">
-										    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSrh5aGdIDL0QBkRKzHK53gF4MaE-fSsMH54A&usqp=CAU" 
-										    class="rounded mx-auto d-block" alt="..." style="width: 250px; height: 250px;">
-										      <div class="card-body">
-										        <h6 class="card-title text-body-secondary mb-1">기본 티셔츠</h6>
-										        <p class="card-text mb-2">10,000원</p>
-										        <div class="text-center">
-										        </div></div></div>
-										    </div><button type="button" class="btn btn-outline-secondary rounded-pill btn-sm mt-4" style="width: 250px;">C</button>
-										      </div>
-										  </div>
-										  
-										  <div class="col-md-6 mt-2 mb-5">
-										  <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-center" >
-										  <div class="card" style="width: 255px; height: 320px;">
-										    <div class="d-felx justify-content-center">
-										    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTd-KkEW4Y-4Ys91kGSucRD6TBmYUKWypARIQ&usqp=CAU" 
-										    class="rounded mx-auto d-block" alt="..." style="width: 250px; height: 250px;">
-										      <div class="card-body">
-										        <h6 class="card-title text-body-secondary mb-1">나이키 티셔츠</h6>
-										        <p class="card-text mb-2">40,000원</p>
-										        <div class="text-center">
-										        </div></div></div>
-										    </div><button type="button" class="btn btn-outline-secondary rounded-pill btn-sm mt-4" style="width: 250px;">D</button>
-										      </div>
-										  </div>
-										 </div>
-										<%-- 내용카드 --%>
+									
+										<div class="row">
+											<c:forEach items="${map.pickOptionValuesForVoteDtoList }" var="pickOptionValuesForVoteDto">
+												  <div class="col-md-3 mt-2 mb-5">
+												  <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-center" >
+												  <div class="card">
+												    <div class="d-felx justify-content-center">
+												    <img class="img-fluid" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS846XsQCCwKyA_1OgKiAPhT9YvnBxekWgQ52joFgHsnRKSdsiMoiloEcVvyrpGAq5IUwY&usqp=CAU" 
+												    class="rounded mx-auto d-block" alt="...">
+												      <div class="card-body">
+												        <h6 class="card-title text-body-secondary mb-1">${pickOptionValuesForVoteDto.title }</h6>
+												        <p class="card-text mb-2">${pickOptionValuesForVoteDto.price }원 찜(${pickOptionValuesForVoteDto.product_zzim_count })</p>
+												        <div class="text-center d-grid mt-3">
+												        	<a href="/safari/used/productDetail?productId=${pickOptionValuesForVoteDto.product_id }" class="btn btn-sm btn-outline-primary"><i class="bi bi-box-arrow-up-right"></i> 상세 보기</a>
+												        </div>
+												       </div></div>
+												    </div><a href="/safari/community/pick/voteProcess?pick_id=${map.pickDto.id }&pick_option_id=${pickOptionValuesForVoteDto.option_id}" class="btn btn-outline-secondary rounded-pill btn-sm mt-4" style="width: 250px;">${pickOptionValuesForVoteDto.vote_cnt/map.totalVoteCount * 100}% VOTE (${pickOptionValuesForVoteDto.vote_cnt })</a>
+												      </div>
+												  </div>
+											</c:forEach>
+										</div>
 										
+
+									<div class="row">
+										<div class="col fs-5 fw-bold">
+											골라주세요 상세 내용
+										</div>
+									</div>	
+										
+									<div class="row">
+										<div class="col">
+											${map.pickDto.content}
+										</div>
+									</div>	
 										
 										<%-- 해시태그 --%>
 										<div class="mt-3">
@@ -186,6 +467,35 @@
 							</div>
 						</div>
 						<%-- 목록으로 버튼 --%>
+						
+							<%-- AJAX 좋아요 --%>
+								<hr>
+								<i id="heartBox" onclick="toggleLike()" class="fs-1 text-danger bi bi-heart"></i>
+								<span id="totalLikeCount"></span>
+							<%-- AJAX 좋아요 --%>
+							
+							<%-- AJAX 댓글 --%>
+							<div class="container">
+								<div class="row">
+									<div class="col-7">
+										<textarea id="commentTextBox" class="form-control"></textarea>
+									</div>
+									<div class="col d-grid">
+										<input onclick="registerComment()" class="btn btn-primary" type="button" value="댓글 작성">
+									</div>
+								</div>
+								<div class="row">
+									<div id="commentListBox" class="col">
+										<div class="row commentOuter">
+											<div class="commentBox col-8 bg-primary">내용..</div>
+											<div class="col bg-secondary">닉네임..</div>
+											<div class="col bg-success">삭제</div>
+											<div class="col bg-warning">수정</div>
+										</div>			
+									</div>
+								</div>
+							</div>
+							<%-- AJAX 댓글 --%>
 					
 								<%-- 댓글작성 --%>
 								<div class="row">
