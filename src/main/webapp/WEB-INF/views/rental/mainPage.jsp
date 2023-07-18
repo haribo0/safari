@@ -79,12 +79,12 @@
 				</div>
 
 				<!-- 광고 대여 물품 row 작업중 -->
-				<div class="row flex-wrap justify-content-between py-2 my-2">
-	 				<c:forEach items="${rentalItemList}" var="map">
-						<div class="col-2" style="cursor: pointer;">
+				<div class="row flex justify-content-between py-2 my-2">
+	 				<c:forEach items="${rentalItemList}" var="map" begin="0" end="4" step="1" varStatus="status">
+						<div class="col-2 px-0" style="min-width:200px; cursor: pointer;">
 							<div class="card border border-0">
 								<a href="${pageContext.request.contextPath}/rental/productDescPage?id=${map.rentalItemDto.id}" class="text-decoration-none d-inline-block">
-								  <img src="/safariImg/${map.rentalItemDto.main_img_link}" class="card-img-top object-fit-cover item-box-img-ad" alt="..." style="min-height: 200px;" >
+								  <img src="/safariImg/${map.rentalItemDto.main_img_link}" class="card-img-top img-fluid item-box-img-ad" alt="..." style="min-height: 200px;">
 								</a>
 							  <div class="card-body p-0 mt-2">
 							  	<div class="d-flex justify-content-between">
@@ -112,14 +112,14 @@
 
 				<div class="row flex-wrap pt-2 mt-3">
 	 				<c:forEach items="${rentalItemList}" var="map">
-						<div class="col-3 item-box mt-4" style="cursor: pointer;">
+						<div class="col-3 item-box mt-5" style="cursor: pointer;">
 							<div class="card border border-0">
 								<a href="${pageContext.request.contextPath}/rental/productDescPage?id=${map.rentalItemDto.id}" class="text-decoration-none d-inline-block">
-								  <img src="/safariImg/${map.rentalItemDto.main_img_link}" class="card-img-top object-fit-cover item-box-img" alt="..." style="min-height: 260px;" >
+								  <img src="/safariImg/${map.rentalItemDto.main_img_link}" class="card-img-top img-fluid item-box-img" alt="..." style="min-height: 260px;" >
 								</a>
 							  <div class="card-body p-0 pt-2">
 							  	<div class="d-flex justify-content-between">
-							    	<p class="text-dark mb-0"><a href="${pageContext.request.contextPath}/rental/productDescPage?id=${map.rentalItemDto.id}" class="text-decoration-none d-inline-block text-dark fw-bold" style="font-size: 16px;">${map.rentalItemDto.title}</a></p>
+							    	<p class="text-dark mb-0"><a href="${pageContext.request.contextPath}/rental/productDescPage?id=${map.rentalItemDto.id}" class="text-decoration-none d-inline-block text-dark fw-bold" style="font-size: 18px;">${map.rentalItemDto.title}</a></p>
 							  	</div>
 							    <p class="mb-1"><a href="${pageContext.request.contextPath}/rental/productDescPage?id=${map.rentalItemDto.id}" class="w-100 text-decoration-none d-inline-block text-body-secondary" style="overflow:hidden; text-overflow:ellipsis; white-space:nowrap; font-size: 15px;">${map.rentalItemDto.item_description}</a></p>
 							    <div class="d-flex  justify-content-between">

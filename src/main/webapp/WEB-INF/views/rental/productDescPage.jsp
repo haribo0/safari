@@ -172,14 +172,14 @@ window.addEventListener("DOMContentLoaded", function(){
 						  <thead>
 						    <tr>
 						    	<c:forEach items="${data.rentalPeriodDiscDtoList}" var="periodItem">
-							      <td class="text-center bg-body-tertiary" scope="col">${periodItem.rental_period }개월</td>
+							      <td class="text-center bg-body-tertiary" scope="col">${periodItem.rental_period}개월</td>
 						    	</c:forEach>
 						    </tr>
 						  </thead>
 						  <tbody>
 						    <tr>
-						      	<c:forEach items="${data.rentalPeriodDiscDtoList}" var="periodItem">
-							      <td class="text-center fw-bold" scope="col"><fmt:formatNumber value="${periodItem.discounted_price }" pattern="#,##0" />원</td>
+						      	<c:forEach items="${data.rentalPeriodDiscDtoList}" var="periodItem2">
+							      <td class="text-center fw-bold" scope="col"><fmt:formatNumber value="${periodItem2.discounted_price}" pattern="#,##0" />원</td>
 						    	</c:forEach>
 						    </tr>
 						  </tbody>
