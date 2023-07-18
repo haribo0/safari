@@ -37,7 +37,7 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-2 mt-4">
-				<ul class="list-group sticky-top" style="top: 115.23px; z-index: 50;">
+				<ul class="list-group" style="top: 115.23px; z-index: 50;">
 				  <li class="list-group-item border border-0 ps-0 pt-2 pb-0"><a href="${pageContext.request.contextPath}/rental/mainPage" class="btn ps-0 text fw-bold py-1" href="#" style="font-size: 17px;">전체보기</a></li>
 				  <c:forEach items="${categoryList}" var="map" varStatus="status">
 					  <li class="list-group-item border border-0 ps-0 pb-0 pt-3"><a href="${pageContext.request.contextPath}/rental/mainPage/?main_category_id=${map.categoryItem.id}" class="btn text fw-bold ps-0 py-1" style="font-size: 17px;">${map.categoryItem.main_category_name}</a></li>
@@ -88,7 +88,7 @@
 								</a>
 							  <div class="card-body p-0 mt-2">
 							  	<div class="d-flex justify-content-between">
-							    	<p class="text-dark mb-0"><a href="${pageContext.request.contextPath}/rental/productDescPage?id=${map.rentalItemDto.id}" class="text-decoration-none d-inline-block text-dark fw-bold" style="font-size: 16px;">${map.rentalItemDto.title}</a></p>
+							    	<p class="text-dark mb-0"><a href="${pageContext.request.contextPath}/rental/productDescPage?id=${map.rentalItemDto.id}" class="text-decoration-none d-inline-block text-dark fw-bold" style="font-size: 15px;">${map.rentalItemDto.title}</a></p>
 							  	</div>
 							    <p class="mb-0"><a href="${pageContext.request.contextPath}/rental/productDescPage?id=${map.rentalItemDto.id}" class="w-100 text-decoration-none d-inline-block text-body-secondary" style="overflow:hidden; text-overflow:ellipsis; white-space:nowrap; font-size: 14px;">${map.rentalItemDto.item_description}</a></p>
 							    <div class="d-flex justify-content-between">
@@ -104,9 +104,9 @@
 
 				<div class="row justify-content-end py-2 border-bottom">
 					<div class="col-3 d-flex justify-content-end align-items-center">
-						<span class="p-2 mx-3 fw-bold" style="cursor: pointer;">찜</span> |
-						<span class="p-2 mx-3" style="cursor: pointer;">리뷰</span> |
-						<span class="p-2 ms-3" style="cursor: pointer;">구매</span>
+						<a href="#" class="btn p-2 mx-3 btnLikesOrder" style="cursor: pointer;">찜</a> |
+						<a href="#" class="btn p-2 mx-3 btnReviewOrder" style="cursor: pointer;">리뷰</a> |
+						<a href="#" class="btn p-2 ms-3 btnRentOrder" style="cursor: pointer;">구매</a>
 					</div>
 				</div>
 
@@ -119,7 +119,7 @@
 								</a>
 							  <div class="card-body p-0 pt-2">
 							  	<div class="d-flex justify-content-between">
-							    	<p class="text-dark mb-0"><a href="${pageContext.request.contextPath}/rental/productDescPage?id=${map.rentalItemDto.id}" class="text-decoration-none d-inline-block text-dark fw-bold" style="font-size: 20px;">${map.rentalItemDto.title}</a></p>
+							    	<p class="text-dark mb-0"><a href="${pageContext.request.contextPath}/rental/productDescPage?id=${map.rentalItemDto.id}" class="text-decoration-none d-inline-block text-dark fw-bold" style="font-size: 16px;">${map.rentalItemDto.title}</a></p>
 							  	</div>
 							    <p class="mb-1"><a href="${pageContext.request.contextPath}/rental/productDescPage?id=${map.rentalItemDto.id}" class="w-100 text-decoration-none d-inline-block text-body-secondary" style="overflow:hidden; text-overflow:ellipsis; white-space:nowrap; font-size: 15px;">${map.rentalItemDto.item_description}</a></p>
 							    <div class="d-flex  justify-content-between">
@@ -221,10 +221,66 @@ function getSessionId(){
 		xhr.open("get", "${pageContext.request.contextPath}/rental/isLiked?item_id="+val);
 		xhr.send();
 	}
+	
+ 	function setOrderLink() {
+ 		const orderlyObj = [
+ 			{orderly: "likes"},
+ 			{orderly: "reviews"},
+ 			{orderly: "purchase"}
+ 		]
+	
+		const btnLikesOrder = document.querySelector('.btnLikesOrder')
+		const btnReviewOrder = document.querySelector('.btnReviewOrder')
+		const btnRentOrder = document.querySelector('.btnRentOrder')
+		
+		let url = new URL(window.location.href)
+ 		console.log(url)
+ 		let isIncludeMainCat = url.search.includes('main_category_id')
+ 		let isIncludeSubCat = url.search.includes('sub_category_id')
+ 		let originUrl
+ 		let querySign
+ 		
+  		if(isIncludeMainCat || isIncludeSubCat) {
+  			let urlSearch = url.search
+  			let queryString = urlSearch.split("?")[1];
+  			let firstQuery = queryString.split("&")[0];
+  			let firstParam = "?" + firstQuery;
+
+ 			originUrl = url.origin + url.pathname + firstParam
+
+			querySign ="&"
+			console.log(originUrl) 			
+ 		}else {
+	 		originUrl = url.origin + url.pathname 			
+			console.log(originUrl)
+			querySign ="?"
+ 		} 
+ 
+
+		btnLikesOrder.addEventListener('click',(e) => {
+			const oderlyParams = new URLSearchParams(orderlyObj[0])
+			e.preventDefault();
+			window.location.href = originUrl + querySign + oderlyParams
+		})
+		
+		btnReviewOrder.addEventListener('click',(e) => {
+			const oderlyParams = new URLSearchParams(orderlyObj[1])
+			e.preventDefault();
+			window.location.href = originUrl + querySign + oderlyParams		
+		})
+				
+		btnRentOrder.addEventListener('click',(e) => {
+			const oderlyParams = new URLSearchParams(orderlyObj[2])
+			e.preventDefault();
+			window.location.href = originUrl + querySign + oderlyParams		
+		})
+		
+
+	}
 
 window.addEventListener("DOMContentLoaded", function(){
 	getSessionId();
-
+	setOrderLink();
 	const heartBox = document.querySelectorAll(".heart_box");
 	for(let j =0; j<heartBox.length; j++) {
 		let id = heartBox[j].dataset.itemId

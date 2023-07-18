@@ -20,6 +20,30 @@ public class RestPromotionReviewController {
 	@Autowired
 	private PromotionReviewServiceImpl promoReviewService;
 	
+	@RequestMapping("promotion/getSubCategoryList")
+	public Map<String, Object> getSubCategoryList(int mainCategoryId){
+		Map<String, Object> map = new HashMap<>();
+		
+		map.put("result", "success");
+		map.put("subCategoryList", promoReviewService.getRentalSubCategoryList(mainCategoryId));
+		
+		
+		return map;
+	}
+	
+	@RequestMapping("promotion/getRentalItemList")
+	public Map<String, Object> getRentalItemList(int mainCategoryId, int subCategoryId){
+		Map<String, Object> map = new HashMap<>();
+		
+		
+		map.put("result", "success");
+		map.put("rentalItemCategoryList", promoReviewService.getRentalItems(mainCategoryId, subCategoryId));
+		
+		
+		return map;
+	}
+	
+	
 	@RequestMapping("promotion/togglePromotionReviewLike")
 	public Map<String, Object> togglePromotionReviewLike(HttpSession session, PromotionReviewLikeDto params){
 		Map<String, Object> map = new HashMap<>();

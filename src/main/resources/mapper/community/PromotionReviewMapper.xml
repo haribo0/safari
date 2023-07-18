@@ -163,4 +163,30 @@ FROM promotion_review
 ORDER BY promotion_review_views DESC
 </select>
 
+
+<select id="getSubCategoryList" resultType="com.ja.safari.dto.RentalSubCategoryDto">
+	SELECT * FROM RENTAL_SUB_CATEGORY_TABLE rsct
+	WHERE rsct.MAIN_CATEGORY_ID = #{mainCategoryId}
+</select>
+
+<select id="getRentalItemList" resultType="com.ja.safari.dto.RentalItemDto">
+	SELECT * FROM RENTAL_ITEM_TABLE rit
+	<if test="mainCategoryId != 0">
+		<choose>
+			<when test="subCategoryId != 0">
+				WHERE rit.SUB_CATEGORY_ID = #{subCategoryId}
+			</when>
+			<otherwise>
+				WHERE rit.SUB_CATEGORY_ID IN (
+					SELECT rsct.id FROM RENTAL_SUB_CATEGORY_TABLE rsct WHERE rsct.MAIN_CATEGORY_ID = #{mainCategoryId}
+				)
+			</otherwise>		
+		</choose>
+	</if>
+	ORDER BY rit.TITLE 
+</select>
+
+
+
+
 </mapper>
