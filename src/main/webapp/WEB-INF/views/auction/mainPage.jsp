@@ -337,7 +337,7 @@ function reloadAuctionList(mainCategoryId, subCategoryId) {
 	            	
 	            	
 	            	const col = document.createElement("div");
-	            	col.classList.add("col-3", "mt-4");
+	            	col.classList.add("col-3", "mt-5", "mb-2");
 	            	
 	            	
 	            	const imageRow = document.createElement("div");
@@ -426,8 +426,8 @@ function reloadAuctionList(mainCategoryId, subCategoryId) {
 		            immediatePriceCol.classList.add("col");
 		            
 		            const immediateSpan = document.createElement("span");
-		            //immediateSpan.style.position = "relative";
-		            //immediateSpan.style.top = "1.5px";
+		            immediateSpan.style.position = "relative";
+		            immediateSpan.style.bottom = "3px";
 		            immediateSpan.style.fontSize = "13px";
 		            immediateSpan.innerText = "즉시낙찰가 " + new Intl.NumberFormat('ko-KR').format(data.auctionDto.max_price) + "원";
 	                

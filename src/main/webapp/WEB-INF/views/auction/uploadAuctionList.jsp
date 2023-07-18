@@ -446,24 +446,24 @@
 							</div>
 						</div>
 						
-						<div class="row mt-2 mb-3">
+						<div class="row mt-2 mb-5">
 							<div class="col ms-3">
 								<div class="row">
 		      						<div class="col px-0" style="position: relative; left: 18px">
-		      							<i class="bi bi-boxes mt-1 ms-2" style="font-size: 4rem; "></i>
+		      							<i class="bi bi-boxes mt-1 ms-2" style="font-size: 3rem; "></i>
 		      						</div>
 		      						<div class="col text-center fs-4 fw-medium ms-2 mt-4"> > </div>
-		      						<div class="col px-0 ms-1">
-		      							<i class="bi bi-truck mt-1" style="font-size: 4rem; "></i>
+		      						<div class="col px-0 ms-1" style="font-size: 3rem; position: relative; left: 9px;">
+		      							<i class="bi bi-truck mt-1" style="font-size: 3rem;"></i>
 		      						</div>
 		      						<div class="col fs-4 fw-medium text-center mt-4"> > </div>
 		      						<div class="col px-0"> 
-		      							<i class="bi bi-bag-check mt-1" style="font-size: 4rem;"></i>
+		      							<i class="bi bi-bag-check mt-1" style="font-size: 3rem; position: relative; left: 9px;"></i>
 		      							
 		      						</div>
 		      						<div class="col fs-4 text-center fw-medium mt-4"> > </div>
 		      						<div class="col px-0">
-		      							<i class="bi bi-check-lg mt-1" style="font-size: 4rem;"></i>
+		      							<i class="bi bi-check-lg mt-1" style="font-size: 3rem;"></i>
 		      							
 		      						</div>
 		      					</div>
@@ -473,7 +473,7 @@
 		      							배송준비중
 		      						</div>
 		      						<div class="col fs-4 fw-medium mt-4 text-center">  </div>
-		      						<div class="col px-0 ms-1" id="ds_deliveryIng">
+		      						<div class="col px-0 ms-1" id="ds_deliveryIng" style="position: relative; left: 6px;">
 		      							배송중
 		      						</div>
 		      						<div class="col fs-4 fw-medium mt-4">  </div>
@@ -585,7 +585,7 @@
 							
 						</div>
 						
-						<div class="row mt-4">
+						<div class="row mt-4 mb-4">
 							<div class="col">
 								<div class="row">
 									<div class="col fw-bold fs-5">
@@ -596,7 +596,7 @@
 								<div class="row mt-2">
 									<div class="col">
 										<table class="table">
-											<tr>
+											<tr class="border-top">
 												<td class="custom-table-secondary text-center" style="width: 100px;">이름</td>
 												<td> <span class="ms-2" id="buyerNameOrder"></span></td>
 											</tr>
@@ -621,7 +621,7 @@
 									</div>
 								</div>
 								
-								<div class="row mt-2">
+								<div class="row mt-2 mb-4">
 									<div class="col ms-3 border border-1 rounded-3 p-3 ">
 									
 										<div class="row mt-1">
@@ -780,7 +780,8 @@ function checkOrderModal(id) {
 		  
 		// 상품 제목 //
       	 const productTitleBox = document.querySelector("#productOrderTitle");
-		
+      	 productTitleBox.innerHTML = "";
+      	 
 		 const titleRow = document.createElement("div");
 		 titleRow.classList.add("row");
 		 
@@ -872,20 +873,51 @@ function checkDeliveryModal(id) {
 	
 		  const productImageBox = document.querySelector("#productImage");
 	      productImageBox.innerHTML = "";
+	      
+	      const imageRow = document.createElement("div");
+  	      imageRow.classList.add("row");
+  	    
+  	      const imageCol = document.createElement("div");
+		  imageCol.classList.add("col");
+		  
+		  const productImageLink = document.createElement("a");
+		  productImageLink.href = "/safari/auction/productDetail/" + response.orderDeliveryInfo.auction_item_id;
 			
 		  const productImage = document.createElement("img");
 		  productImage.classList.add("img-fluid");
 		  productImage.src = "/auctionFiles/" + response.orderDeliveryInfo.auction_item_img_link;
-		  productImageBox.appendChild(productImage);
+		  
+		  productImageLink.appendChild(productImage);
+		  imageCol.appendChild(productImageLink);
+      	  imageRow.appendChild(imageCol);
+		  productImageBox.appendChild(imageRow);
 		  
 		  const mainCategoryName = document.querySelector("#productMainCategoryName");
 		  mainCategoryName.innerText = response.orderDeliveryInfo.main_category_name;
 		  const subCategoryName = document.querySelector("#productSubCategoryName");
 		  subCategoryName.innerText =  response.orderDeliveryInfo.sub_category_name;
 		  
-		// 상품 제목 //
+		 // 상품 제목 //
       	 const productTitleBox = document.querySelector("#productTitle");
-      	 productTitleBox.innerText = response.orderDeliveryInfo.title;
+      	 productTitleBox.innerHTML = "";
+    
+      	 
+		 const titleRow = document.createElement("div");
+		 titleRow.classList.add("row");
+		 
+		 const titleCol = document.createElement("div");
+		 titleCol.classList.add("col");
+      	 
+      	 const titleLink = document.createElement("a");
+      	 titleLink.href = "/safari/auction/productDetail/" + response.orderDeliveryInfo.auction_item_id;
+      	 titleLink.innerText = response.orderDeliveryInfo.title; 
+      	 
+      	 titleCol.appendChild(titleLink);
+      	 titleRow.appendChild(titleCol);
+      	 
+      	 productTitleBox.appendChild(titleRow);
+      	 
+      	 
       	// 상품 제목 //
       	
       	// 경매 정보 // 

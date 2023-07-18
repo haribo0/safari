@@ -26,6 +26,11 @@
 <jsp:include page="../common/meta.jsp"></jsp:include>
 <!-- 메타 섹션 -->
 <style>
+.modal-dialog .modal-lg  {
+	height: 700px;
+}
+
+
 .myContent {
   background-color: rgba(75, 137, 220, 0.25);  /* 배경색 */
   color: #000000; /* 글자색 */
@@ -312,6 +317,9 @@ input[id="tab03"]:checked ~ .con3 {
 	 								<div class="col" id="editBar">
 	 									<!-- i id="heartBox" class="bi bi-heart text-danger fs-5"></i> -->
 	 								</div>
+	 								<div class="col text-end" id="sellerBar">
+	 								
+	 								</div>
 	 							</div>
 	 							<%-- 하트 --%>
 	 							
@@ -513,7 +521,7 @@ input[id="tab03"]:checked ~ .con3 {
 style="position: absolute; transform: translateX(70%);right: 50%;">
   <div class="modal-dialog">
     <div class="modal-content">
-      <div class="modal-header">
+      <div class="modal-header bg-light">
         <h2 class="modal-title fs-5 fw-bold ms-3" id="exampleModalLabel">상품 정보</h2> 
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div> 
@@ -599,7 +607,7 @@ style="position: absolute; transform: translateX(70%);right: 50%;">
 					</ul>	
 			
 				<%-- 내용 --%>
-				<div class="tab-content" id="myTabContent">
+				<div class="tab-content" id="myTabContent" style="height: 600px;">
 					<div class="tab-pane fade show active" id="auctioninfo" role="tabpanel"
 						aria-labelledby="auctioninfo-tab">
 						<div class="row mt-4">
@@ -1425,7 +1433,7 @@ function showAuctionInfo() {
 	       /*  if (sessionId != item.auctionDto.user_seller_id) { */
 	              const heartBox = document.createElement("i");
 	              heartBox.id = "heartBox";
-	              heartBox.classList.add("fs-4", "text-danger", "bi");
+	              heartBox.classList.add("fs-5", "text-danger", "bi");
 	              //heartBox.style.position = "relative";
 	              //heartBox.style.top = "5px";
 	              refreshMyHeart();
@@ -1444,7 +1452,7 @@ function showAuctionInfo() {
            */
            
            	const bidCountIcon = document.createElement("i");
-            bidCountIcon.classList.add("bi", "bi-people", "fs-4", "ms-2");
+            bidCountIcon.classList.add("bi", "bi-people", "fs-5", "ms-2");
             
             const bidCount = document.createElement("span");
             bidCount.classList.add("ms-1");
@@ -1456,7 +1464,8 @@ function showAuctionInfo() {
             editCol.appendChild(bidCount);
             
             
-           
+           const sellerBar = document.querySelector("#sellerBar");
+           sellerBar.innerHTML = "";
            
 	          // 경매 판매자의 pk와 현재 접속한 유저의 pk가 일치할 경우 수정, 삭제 버튼 보이게 하기
 	          if (sessionId == item.auctionDto.user_seller_id  /*&& nowDate < threeDaysBeforeStartDate*/) { 
@@ -1465,35 +1474,19 @@ function showAuctionInfo() {
 	             threeDaysBeforeStartDate.setDate(startDate.getDate() - 3);
 	             
 	             const modifyButton = document.createElement("i");
-				 modifyButton.classList.add("bi", "bi-pencil-square", "fs-4", "text-secondary", "ms-4");
+				 modifyButton.classList.add("bi", "bi-pencil-square", "fs-5", "text-secondary", "ms-4");
 				 modifyButton.style.cursor = "pointer";
 				 modifyButton.onclick = modifyProductPage;
-				 
-	             
-	 /*             const modifyButton = document.createElement("input");
-	             modifyButton.type = "button";
-	             modifyButton.classList.add("btn", "btn-secondary", "me-1");
-	             modifyButton.onclick = modifyProductPage;
-	             
-	             modifyButton.value = "수정"; */
-	             
+		
 	         	const deleteButton = document.createElement("i");
-				deleteButton.classList.add("bi", "bi-trash3", "ms-1", "fs-4", "text-secondary");
+				deleteButton.classList.add("bi", "bi-trash3", "ms-1", "fs-5", "text-secondary");
 				deleteButton.style.cursor = "pointer";
 				deleteButton.onclick = function() {
 	                 location.href = "/safari/auction/removeProductProcess/" + auctionItemId;
 	               };   
-	
-	            /*  const deleteButton = document.createElement("input");
-	             deleteButton.type = "button";
-	             deleteButton.classList.add("btn", "btn-secondary");
-	             deleteButton.onclick = function() {
-	                 location.href = "/safari/auction/removeProductProcess/" + auctionItemId;
-	               };   
-	             deleteButton.value = "삭제";    */          
-	             
-	             editCol.appendChild(modifyButton);
-	             editCol.appendChild(deleteButton);
+
+	               sellerBar.appendChild(modifyButton);
+	               sellerBar.appendChild(deleteButton);
        
           	}
             
@@ -1823,15 +1816,25 @@ function updateAuctionCountDown() {
  	  //showEndInfo();
  	  
  	 const remainTitleRow = document.createElement("div"); 
-	 remainTitleRow.classList.add("row", "mt-5","mb-5");
+	 remainTitleRow.classList.add("row", "mt-2");
 	 
 	 const remainTitleCol = document.createElement("div"); 
-	 remainTitleCol.classList.add("col", "fw-bold", "fs-4");
-	 remainTitleCol.id = "endInfo";
+	 remainTitleCol.classList.add("col", "fw-medium", "fs-4");
+	 remainTitleCol.innerText = "남은 시간";
 	 
 	 remainTitleRow.appendChild(remainTitleCol);
 	 
+	 
+	 const remainTimeRow = document.createElement("div"); 
+	 remainTimeRow.classList.add("row");
+	 
+	 const remainTimeCol = document.createElement("div"); 
+	 remainTimeCol.classList.add("col", "fs-3", "fw-medium");
+	 remainTimeCol.innerText = "경매가 종료되었습니다."
+	 
+	 remainTimeRow.appendChild(remainTimeCol);
 	  timeAttackBox.appendChild(remainTitleRow);
+	  timeAttackBox.appendChild(remainTimeRow);
 	  
 	  const currentStatusBox = document.getElementById("currentStatus");
 	  if (sessionId == nowMaxBider && sessionId != null && currentStatusBox.style.backgroundColor != "#fcdf03") {
@@ -1849,7 +1852,7 @@ function updateAuctionCountDown() {
 	 remainTitleRow.classList.add("row", "mt-2");
 	 
 	 const remainTitleCol = document.createElement("div"); 
-	 remainTitleCol.classList.add("col", "text-center", "fw-bold", "fs-4");
+	 remainTitleCol.classList.add("col", "text-center", "fw-medium", "fs-4");
 	 
 	 remainTitleCol.innerText = "남은 시간";
 	 

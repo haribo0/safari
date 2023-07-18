@@ -233,26 +233,23 @@
       				<div class="col ms-4">
       					<div class="row">
       						<div class="col px-0">
-      							<i class="bi bi-cash-coin ms-2 mt-1" style="font-size: 4rem; "></i>
-      							<!-- <img src="/safari/resources/img/auction/paycomplete.png" 
-      							style="width: 110px; height: 90px"> -->
+      							<i class="bi bi-cash-coin ms-2 mt-1" style="font-size: 3rem; "></i>
+      							
       						</div>
       						<div class="col fs-4 fw-medium mt-4"> > </div>
       						<div class="col px-0 ms-1">
-      						<i class="bi bi-boxes mt-1" style="font-size: 4rem; "></i>
-      							<!-- <img src="/safari/resources/img/auction/deliveryprepare.png"
-      							style="width: 110px; height: 90px"> -->
+      						<i class="bi bi-boxes mt-1" style="font-size: 3rem;"></i>
+      							
       						</div>
       						<div class="col fs-4 fw-medium mt-4"> > </div>
       						<div class="col px-0"> 
-      							<i class="bi bi-truck mt-1" style="font-size: 4rem; "></i>
-      							<!-- <img src="/safari/resources/img/auction/deliverying.png"
-      							style="width: 110px; height: 90px"> -->
+      							<i class="bi bi-truck mt-1" style="font-size: 3rem; "></i>
+      							
       						</div>
       						<div class="col fs-4 fw-medium mt-4"> > </div>
       						<div class="col px-0">
-      							<i class="bi bi-bag-check mt-1" style="font-size: 4rem; position: relative; bottom: 5px; right: 5px;"></i>
-      							<!-- <img style="position: relative; bottom: 5px; width: 110px; height: 90px" src="/safari/resources/img/auction/deliverycomplete.png"> -->
+      							<i class="bi bi-bag-check mt-1" style="font-size: 3rem; position: relative; bottom: 5px; right: 5px;"></i>
+      							
       						</div>
       					</div>
       					
@@ -327,7 +324,7 @@
       			<%-- 상품 정보 --%>
       			
       			<%-- 정보 --%>
-      			<div class = "row mt-2">
+      			<div class = "row mt-2 mb-4">
       				<div class="col ms-4">
       					<hr>
       					
@@ -661,7 +658,7 @@ function deliveryStatusModal(id) {
         	
         	// 상품 제목 //
         	const productTitleBox = document.querySelector("#productTitle");
-        	
+        	productTitleBox.innerHTML = "";
         	const titleRow = document.createElement("div");
 		    titleRow.classList.add("row");
 		 
