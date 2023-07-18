@@ -77,12 +77,12 @@
 			</div>
 		</div>
 		</div>
-		<%-- 해주세요  --%>
+		<%-- 인기 게시글  --%>
 		<div class="card border border-1 mx-3 shadow-sm" style="width:24rem; height: 250px;">
 		<div class = "col">
 			<div class = "row">
 				<div class = "col fs-5 mt-2 mx-2 fw-semibold">
-					해주세요
+					인기 게시글
 				</div>
 				<div class = "col-1 p-0 me-3 d-flex align-items-center justify-content-end text-secondary">
 				<!--  공유버튼 -->
@@ -98,12 +98,12 @@
 			</div>
 		</div>
 		</div>
-		<%-- 공지사항(임시) --%>
+		<%-- 해주세요 --%>
 		<div class="card border border-1 mx-3 shadow-sm" style="width:24rem; height: 250px;">
 		<div class = "col">
 			<div class = "row">
 				<div class = "col fs-5 mt-2 mx-2 fw-semibold">
-					공지사항
+					해주세요
 				</div>
 				<div class = "col-1 p-0 me-3 d-flex align-items-center justify-content-end text-secondary">
 				<!--  공유버튼 -->
