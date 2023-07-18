@@ -255,7 +255,8 @@ public class UsedController {
 		model.addAttribute("ProductMainCategoryDto", usedService.selectProductMainCategoryDtoById(productId));
 		usedService.updateProductViewsById(productId);
 		model.addAttribute("productUser", usedService.selectUserDtoById(productDto.getUser_id()));
-		
+		// 연관상품 5개 리스트 
+		model.addAttribute("relatedProductList", usedService.selectRelatedProductByFive(productId));
 		return "used/productDetail";
 	}
 	

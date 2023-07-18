@@ -142,7 +142,7 @@
 		       				<td class="align-middle">
 		       					  <div class="row">
 				                    <div class="col">
-				                      <input type="text" class="form-control ms-2" oninput="oninputPhone(this)" maxlength="14" id="phone"
+				                       <input type="text" class="form-control ms-2" oninput="oninputPhone(this)" maxlength="14" id="phone"
 				                      style="width: 200px; height: 30px;">
 				                    </div>
 				                  </div>
@@ -156,7 +156,7 @@
 		       							<input type="text" class="form-control ms-2" id="postcode" style="width: 150px; height: 30px;">
 		       						</div>
 		       						<div class="col">
-		       							<input type="button" class="btn btn-sm btn-outline-secondary" value="우편번호"
+		       							<input type="button" class="btn btn-sm btn-outline-secondary" value="우편번호 찾기"
 		       							onclick="daumPost()" > 
 		       						</div>
 		       					</div>

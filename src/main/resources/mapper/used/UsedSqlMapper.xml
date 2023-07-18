@@ -447,7 +447,19 @@ WHERE ROWNUM <= 4
 	]]>
 </select>
 
-
+<!-- 상세페이지 연관상품 5개 -->
+<select id="selectRelatedProductByFive" resultType="com.ja.safari.dto.ProductDto">
+	<![CDATA[
+	SELECT *
+	FROM (
+	  SELECT *
+	  FROM PRODUCT
+	  WHERE id != #{id} AND product_sub_category = #{subId}
+	  ORDER BY reg_date DESC
+	)
+	WHERE ROWNUM <= 5
+	]]>
+</select>
 
 
 

@@ -35,7 +35,7 @@
 	<div class="row mt-0">
 		<div class="col"></div>
 		<div class="col-10">
-			<div class="row mb-2">
+			<div class="row mb-2 text-start">
 				<div class="col d-grid">
 					<h4 class="fw-bolder">1대1문의</h4>
 				</div>
@@ -88,7 +88,7 @@
 					</div>
 					
 					<!-- 글 상세보기 -->
-					<div class="row ps-5 pe-3  border-left">
+					<div class="row ps-5 pe-3 mb-5  border-left">
 						<div class="col" id="inquiryDetailContainer">
 						
 						
@@ -184,97 +184,6 @@
 
 
 
-<!-- 직원 등록 모달 -->
-<div class="modal modal" id="registerEmployeeModal" tabindex="-1">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title"> 직원 등록 </h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      
-     <form action="./productRegisterProcess" id="frm" method="POST" enctype="multipart/form-data">
-     
-      <div class="modal-body">
-       
-	        <div class="row">
-	        
-	        	<div class="col-1"></div>
-	        	<div class="col">
-	        	
-				        <div class="form-group row mt-2">
-				            <div class="col-10">
-				            	<div class="mb-1"><label for="username" class="col-form-label fw-bolder">아이디</label></div>
-				                <input type="text" class="form-control" id="username" name="username"  placeholder="아이디">
-				            </div>
-				        </div>
-				
-				        <div class="form-group row mt-2">
-				            <div class="col-10">
-				            	<div class="mb-1"><label for="password" class="col-form-label fw-bolder">비밀번호</label></div>
-				                <input type="password" class="form-control" id="password" name="password"  placeholder="비밀번호">
-				            </div>
-				        </div>
-				        <div class="form-group row mt-2">
-				            <div class="col-10">
-				            	<div class="mb-1"><label for="name" class="col-form-label fw-bolder">이름</label></div>
-				                <input type="text" class="form-control" id="name" name="name"  placeholder="이름">
-				            </div>
-				        </div>
-				
-				        <div class="form-group row mt-2">
-				            <div class="col-10">
-				            	<div class="mb-1"><label for="job_position" class="col-form-label fw-bolder">직급</label></div>
-				                <input type="text" class="form-control" id="job_position" name="job_position"  placeholder="직급">
-				            </div>
-				        </div>
-				       
-				        <div class="form-group row mt-2">
-				            <div class="col-10">
-				            	<div class="mb-1"><label for="nickname" class="col-form-label fw-bolder">닉네임</label></div>
-				                <input type="text" class="form-control" id="nickname" name="nickname"  placeholder="닉네임">
-				            </div>
-				        </div>
-				
-				
-				       
-				        
-				        
-				
-				        <div class="form-group row mt-4">
-				            
-				            <div class="col-6">
-				            <div class="mb-1"><label for="mainImg" class=" col-form-label fw-medium">프로필사진?</label></div>
-				                <input type="file" class="form-control-file" id="mainImg" name="mainImg" accept="images/*">
-				            </div>
-				            
-				        </div>
-				
-				        <div class="form-group row mt-4">
-				            
-				        </div>
-				        
-	        	
-	        	</div>
-	        	<div class="col-1"></div>
-	        </div>
-
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-outline-dark" data-bs-dismiss="modal">닫기</button>
-        <button type="button" class="btn btn-dark" onclick="registerEmployee()">직원 등록</button>
-      </div>
-      </form>
-    </div>
-  </div>
-</div>
-<!-- 상품 등록 모달 -->
-
-
-
-
-
-
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
 
@@ -318,7 +227,17 @@ function getInquiryList() {
 
 				const categoryDiv = document.createElement('div');
 				categoryDiv.classList.add('col-2','ms-1');
-				categoryDiv.textContent = map.category.category;
+				const stateDiv = document.createElement('div');
+				// stateDiv.classList.add('badge','text-bg-light');
+				if(map.qna.qna_reply!=null) {
+					stateDiv.classList.add('badge','text-bg-light');
+					stateDiv.innerText = "답변 완료";
+				}
+				else {
+					stateDiv.classList.add('badge','text-bg-primary', 'px-3');
+					stateDiv.innerText = "미답변";
+				}
+				categoryDiv.append(stateDiv);
 				
 				const col1Div = document.createElement('div');
 				col1Div.classList.add('col','ps-4', 'border-left');
@@ -474,51 +393,95 @@ function getInquiryDetail(qnaId) {
 			// row3.appendChild(col3);
 
 			
-			/* Row4 */
-			// Create the fourth row
-			const row4 = document.createElement('div');
-			row4.classList.add('row', 'pt-4');
-				const col4 = document.createElement('div');
-				col4.classList.add('col', 'fs-5', 'ms-1');
-				col4.textContent = '답변 작성';
-			row4.appendChild(col4);
-
-
-			/* Row6 */
-			// Create the sixth row
-			const row6 = document.createElement("div");
-			row6.classList.add("row", "py-2");
-				const row6Col = document.createElement("div");
-				row6Col.classList.add("col");
-				const textarea = document.createElement("textarea");
-				textarea.classList.add("form-control", "txtInput");
-				textarea.setAttribute("rows", "5");
-				textarea.setAttribute("id", "qnaReply");
-				textarea.setAttribute("name", "qna_reply");
-				textarea.setAttribute("placeholder", "답글을 입력해주세요");
-			row6Col.appendChild(textarea);
-			row6.appendChild(row6Col);
-
-			/* Row7 */
-			// Create the seventh row with border-bottom
-			const row7 = document.createElement("div");
-			row7.classList.add("row", "pt-2", "pb-5", "border-bottom");
-				const row7Col = document.createElement("div");
-				row7Col.classList.add("col", "text-end");
-				const button = document.createElement("div");
-				button.classList.add("btn", "btn-dark");
-				button.textContent = "작성 완료";
-				button.setAttribute("data-id", qna.id);
-				button.setAttribute("onclick", `saveQnaReply(\${qna.id})`);
-				row7Col.appendChild(button);
-			row7.appendChild(row7Col);
-
+			
 			inquiryDetailContainer.appendChild(row1);
 			inquiryDetailContainer.appendChild(row2);
 			//inquiryDetailContainer.appendChild(row3);
-			inquiryDetailContainer.appendChild(row4);
-			inquiryDetailContainer.appendChild(row6);
-			inquiryDetailContainer.appendChild(row7);
+			
+			
+			// 답변 완료의 경우 
+			if(qna.qna_reply!=null) {
+				
+				const row4 = document.createElement('div');
+				row4.classList.add('row', 'pt-4');
+					const col4 = document.createElement('div');
+					col4.classList.add('col', 'fs-5', 'ms-1');
+					col4.textContent = '답변 완료';
+				row4.appendChild(col4);
+				
+				const firstRowDiv = document.createElement("div");
+				firstRowDiv.classList.add("row", "mt-2", "bg-light", "mx-2", "py-4", "px-3", "rounded", "text-start");
+				const firstColumnDiv = document.createElement("div");
+				firstColumnDiv.classList.add("col");
+				firstColumnDiv.innerHTML = qna.qna_reply;
+				firstRowDiv.appendChild(firstColumnDiv);
+
+				const secondRowDiv = document.createElement("div");
+				secondRowDiv.classList.add("row", "bg-light", "mx-2", "pb-4", "px-3", "rounded", "text-start");
+				const secondColumnDiv = document.createElement("div");
+				secondColumnDiv.classList.add("col", "pb-1");
+
+				const spanElement = document.createElement("span");
+				spanElement.classList.add("text-secondary");
+				//spanElement.textContent = "from 고객지원팀 ";
+
+				// secondColumnDiv.appendChild(spanElement);
+				secondRowDiv.appendChild(secondColumnDiv);
+				
+				inquiryDetailContainer.appendChild(row4);
+				inquiryDetailContainer.appendChild(firstRowDiv);
+				inquiryDetailContainer.appendChild(secondRowDiv);
+
+				
+			}
+			
+			else {
+				/* Row4 */
+				// Create the fourth row
+				const row4 = document.createElement('div');
+				row4.classList.add('row', 'pt-4');
+					const col4 = document.createElement('div');
+					col4.classList.add('col', 'fs-5', 'ms-1');
+					col4.textContent = '답변 작성';
+				row4.appendChild(col4);
+
+
+				/* Row6 */
+				// Create the sixth row
+				const row6 = document.createElement("div");
+				row6.classList.add("row", "py-2");
+					const row6Col = document.createElement("div");
+					row6Col.classList.add("col");
+					const textarea = document.createElement("textarea");
+					textarea.classList.add("form-control", "txtInput");
+					textarea.setAttribute("rows", "5");
+					textarea.setAttribute("id", "qnaReply");
+					textarea.setAttribute("name", "qna_reply");
+					textarea.setAttribute("placeholder", "답글을 입력해주세요");
+				row6Col.appendChild(textarea);
+				row6.appendChild(row6Col);
+
+				/* Row7 */
+				// Create the seventh row with border-bottom
+				const row7 = document.createElement("div");
+				row7.classList.add("row", "pt-2", "pb-5", "border-bottom");
+					const row7Col = document.createElement("div");
+					row7Col.classList.add("col", "text-end");
+					const button = document.createElement("div");
+					button.classList.add("btn", "btn-dark");
+					button.textContent = "작성 완료";
+					button.setAttribute("data-id", qna.id);
+					button.setAttribute("onclick", `saveQnaReply(\${qna.id})`);
+					row7Col.appendChild(button);
+				row7.appendChild(row7Col);
+
+				inquiryDetailContainer.appendChild(row4);
+				inquiryDetailContainer.appendChild(row6);
+				inquiryDetailContainer.appendChild(row7);
+				
+			}
+			
+			
 			
 		}
 	}

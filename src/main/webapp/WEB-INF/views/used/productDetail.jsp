@@ -16,9 +16,8 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=e3bf1aa0a81d63e6cdd0d60a55347bc9&libraries=services"></script>
 
-
 <style type="text/css">
-.productImg{
+.productImg, #map{
 	border-radius: 10px;
 }
 .category{
@@ -60,6 +59,13 @@
 	font-size: 26px;
 	font-weight: bold;
 }
+.relatedTitleImg{
+	border-radius: 10px;
+}
+.relatedTitle{
+	font-weight: 500;
+	color: black;
+}
 
 </style>	
 
@@ -70,7 +76,7 @@
 	<!-- 헤더 섹션 -->
 
 <!-- 위치 모달 -->
-	<div class="modal" id="mapModal" tabindex="-1" >
+	<!-- <div class="modal" id="mapModal" tabindex="-1" >
 	  <div class="modal-dialog">
 	    <div class="modal-content">
 	      <div class="modal-header position-relative">
@@ -85,7 +91,7 @@
 	      </div>
 	    </div>
 	  </div>
-	</div>
+	</div> -->
 	<!-- 위치 모달 -->
 
 
@@ -172,18 +178,16 @@
 			<div class="col mt-1 text-start ps-0 nickname">${productUser.nickname}</div>
 			<div class="mt-1 col-6 category text-secondary text-end">관심 <span id="totalLikeCount"></span> ∙ 채팅 ${requestCount} ∙ 조회 ${map.productDto.views }</div>
 		<div class="row mt-3">
-			<div class="col mt-2 content" style="height: 252px">${map.productDto.content }</div>
+			<div class="col mt-2 content" style="height: 120px">${map.productDto.content }</div>
 		</div>
-		<div class="row mt-4">
-			<div class="col location"><i class="bi bi-geo-alt"></i> ${map.productDto.location }<span class="ms-3 btn btn-sm btn-outline-secondary" onclick="getMap()">위치보기</span></div>
+		<div class="row mt-4 mb-2">
+			<div class="col location"><i class="bi bi-geo-alt"></i> ${map.productDto.location }</div>
 		</div>
 		
         <%-- <h6>등록일 : <fmt:formatDate value="${map.productDto.reg_date}" pattern="yyyy-MM-dd HH:mm:ss"/></h6> --%>
-    	<!-- <div class="row">
-    		<div class="col"></div>
-    		<div class="col-4" id="map" style="width:200px;height:200px;">
-    		</div>
-    	</div>  -->
+    	<div class="row">
+    		<div class="col" id="map" style="width:200px;height:150px;"></div>
+    	</div> 
     	<div class="row mt-4 mb-1">
 			<div class="col gray-line"></div>
 		</div>
@@ -212,9 +216,30 @@
 	    	</div>
 	    	</c:if>
     	</div>
-		
- 	 </div>
+ 	 	</div>
 	</div>
+	</div>
+	
+	<div class="row mt-5">
+		<div class="col fs-5 fw-semibold">연관상품</div>
+	</div>
+	<div class="row mt-4">
+		<c:forEach items="${relatedProductList}" var="map">
+				<div class="col-auto">
+				<a href="./productDetail?productId=${map.productDto.id }" class="text-decoration-none">
+					<div class="row">
+						<div class="col">
+							<img class="relatedTitleImg" src="/safarifile/${map.productImgDto.product_img_link}" width="238px" height="238px">
+						</div>
+					</div>
+					<div class="row mt-1">
+						<div class="col relatedTitle">
+							${map.productDto.title }
+						</div>
+					</div>
+				</a>
+				</div>
+		</c:forEach>
 	</div>
 	
 </div>
@@ -378,45 +403,31 @@ function getUploadTime(productId) {
 	xhr.send();
 }
 
-const mapBox = document.getElementById("map");
-const modalBodyBox = document.getElementById('modalBody');
-
-
-
-
-const mapModal = bootstrap.Modal.getOrCreateInstance('#mapModal');
-
 
 //주소 가져오기 
-
-function getMap() {
-	// 열 때 
+function getAddress() {
 	const xhr = new XMLHttpRequest();
+
 	xhr.onreadystatechange = function() {
-		
 		if(xhr.readyState == 4 && xhr.status == 200){
 			const response = JSON.parse(xhr.responseText);
 			
 			const compAddress = response.productDto.location;
-			const compName = response.productDto.location;
-			
-			mapModal.show();
-			
-			openMap(compAddress,compName);
-			
+			openMap(compAddress,'거래 장소');
 		}
 	}
 
 	// get 방식 
-	xhr.open("get", "./getProductById?productId="+productId); 
+	xhr.open("get", "./getProductById?productId="+productId);
 	xhr.send();
 	
 }
+	
 function openMap(compAddress,compName) {
 	var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
 	mapOption = {
 	    center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
-	    level: 4 // 지도의 확대 레벨
+	    level: 3 // 지도의 확대 레벨
 	};  
 	
 	//지도를 생성합니다    
@@ -442,17 +453,16 @@ function openMap(compAddress,compName) {
 	    // 인포윈도우로 장소에 대한 설명을 표시합니다
 	    var infowindow = new kakao.maps.InfoWindow({
 	    		
-	        content: '<div style="width:190px;text-align:center;padding:6px 0;">'+compName+'</div>'
+	        content: '<div style="width:150px;text-align:center;padding:6px 0;">'+compName+'</div>'
 	    });
 	    infowindow.open(map, marker);
 	
 	    // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
 	    map.setCenter(coords);
-	    
-	    
 	} 
 	}); 
-} 
+}
+
 
 window.addEventListener("DOMContentLoaded", function() {
 	//사실상 시작 시점...
@@ -460,7 +470,39 @@ window.addEventListener("DOMContentLoaded", function() {
 	refreshTotalLikeCount();
 	refreshMyHeart();
 	getUploadTime(productId);
+	getAddress();
 });
+
+
+/* const mapModal = bootstrap.Modal.getOrCreateInstance('#mapModal'); */
+
+
+//주소 가져오기 
+
+/* function getMap() {
+	// 열 때 
+	const xhr = new XMLHttpRequest();
+	xhr.onreadystatechange = function() {
+		
+		if(xhr.readyState == 4 && xhr.status == 200){
+			const response = JSON.parse(xhr.responseText);
+			
+			const compAddress = response.productDto.location;
+			
+			mapModal.show();
+			
+			openMap(compAddress,'거래 장소');
+			
+		}
+	}
+
+	// get 방식 
+	xhr.open("get", "./getProductById?productId="+productId); 
+	xhr.send();
+	 
+}
+*/
+
 
 </script>
 </body>	

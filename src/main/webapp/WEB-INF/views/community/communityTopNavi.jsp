@@ -6,7 +6,6 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
 
 <!-- 메타 섹션 -->
 <jsp:include page="../common/meta.jsp"></jsp:include>
@@ -17,6 +16,7 @@
    <!-- 커뮤니티 메뉴바 -->
    <div class="container main_box">
       <h1 class="text-center fs-3 mt-1 me-5"><b>커뮤니티</b></h1>
+      <hr class="my-1 mt-3 mb-3" style="border-color: gray; width: 50%; margin: 0 auto;">
          <ul class="nav justify-content-center pb-3 mb-3 mt-4">
             <!--<li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">공동구매</a></li>  -->
            <!--  <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">살까말까</a></li> -->

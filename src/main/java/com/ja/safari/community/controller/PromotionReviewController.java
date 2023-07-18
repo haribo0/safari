@@ -14,7 +14,6 @@ import org.apache.commons.text.StringEscapeUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
@@ -24,8 +23,8 @@ import com.ja.safari.community.service.PromotionReviewServiceImpl;
 import com.ja.safari.dto.PromotionReviewCommentDto;
 import com.ja.safari.dto.PromotionReviewDto;
 import com.ja.safari.dto.PromotionReviewImgDto;
-import com.ja.safari.dto.UserCoinDto;
 import com.ja.safari.dto.UserDto;
+import com.ja.safari.rental.service.RentalBusinessServiceImpl;
 import com.ja.safari.user.service.UserServiceImpl;
 
 @Controller
@@ -38,7 +37,8 @@ public class PromotionReviewController {
 	private PromotionReviewCommentServiceImpl promotionReviewCommentService;
 	@Autowired
 	private UserServiceImpl userService;
-	
+	@Autowired
+	private RentalBusinessServiceImpl rentalBusinessService;
 	////////////
 	// 써봤어요 //
 	///////////
@@ -77,7 +77,14 @@ public class PromotionReviewController {
 	
 	// 커뮤니티 프로모션 게시글 작성페이지
 	@RequestMapping("promotion/writePromotionReviewPage")
-	public String writePromotionReviewPage() {
+	public String writePromotionReviewPage(HttpSession session, Model model) {
+		
+		UserDto userDto = (UserDto) session.getAttribute("sessionUser");
+		if(userDto == null) return "redirect:/user/loginPage";
+		
+		model.addAttribute("mainCategoryList", rentalBusinessService.getRentalMainCategoryList());
+		//model.addAttribute("rentalItemList", promotionReviewService.getRentalItems());
+		
 		
 		return "/community/promotion/writePromotionReviewPage";
 	}
@@ -97,9 +104,7 @@ public class PromotionReviewController {
 				if(multipartFile.isEmpty()) {
 					continue;
 				}
-				
-				System.out.println("파일명 : " + multipartFile.getOriginalFilename());
-				
+
 				String rootFolder = "C:/uploadPromoFiles/";
 				
 				// 날짜별 폴더 생성 로직
@@ -175,11 +180,15 @@ public class PromotionReviewController {
 	
 	// 프로모션 게시글 수정 페이지
 	@RequestMapping("promotion/updatePromotionReviewPage")
-	public String updatePromotionReviewPage(Model model, int id) {
+	public String updatePromotionReviewPage(HttpSession session, Model model, int id) {
+		
+		UserDto userDto = (UserDto) session.getAttribute("sessionUser");
+		if(userDto == null) return "redirect:/user/loginPage"; 
 		
 		Map<String, Object> map = promotionReviewService.getPromotionReview(id);
 		
 		model.addAttribute("data", map);
+		model.addAttribute("mainCategoryList", rentalBusinessService.getRentalMainCategoryList());
 		
 		
 		return "/community/promotion/updatePromotionReviewPage";
@@ -206,8 +215,6 @@ public class PromotionReviewController {
 				if(multipartFile.isEmpty()) {
 					continue;
 				}
-				
-				System.out.println("파일명 : " + multipartFile.getOriginalFilename());
 				
 				String rootFolder = "C:/uploadPromoFiles/";
 				
@@ -342,12 +349,17 @@ public class PromotionReviewController {
 	}
 	
 	// 댓글 수정 
-//	@RequestMapping
-//	public String updatePromoComment(Model model, int id) {
-//		Map<String, Object> map = promotionReviewCommentService.updatePromoComment(id);
-//		
-//		return ;
-//	}
+	@RequestMapping("promotion/updatePromoCommentProcess")
+	public String updatePromoComment(@RequestParam("commentId") int commentId, @RequestParam("newComment") String newComment) {
+		
+		PromotionReviewCommentDto promotionReviewCommentDto = promotionReviewCommentService.selectPromoCommentById(commentId);
+		int boardId = promotionReviewCommentDto.getPromotion_review_id();
+
+		promotionReviewCommentDto.setPromotion_review_comment(newComment);
+	    promotionReviewCommentService.updatePromoComment(promotionReviewCommentDto);
+	    
+	    return "redirect:/community/promotion/contentPromotionReviewPage?id=" + boardId;
+	}
 	
 	// 댓글 삭제 process
 	@RequestMapping("promotion/deletePromotionReivewCommentProcess")
@@ -363,15 +375,17 @@ public class PromotionReviewController {
 	
 	
 	// 리워드 적립 페이지(거쳐가는 페이지=> 여기서 포인트 적립이 되야 함.)(이거 머리 안돌아가서 이상할걸 다시 수정하길)
-	@RequestMapping("promotion/rewardPromotionReviewPage")
-	public String rewardPromotionReviewPage(UserCoinDto userCoinDto) {
-		
-		System.out.println("리워드 적립 되니? " + userCoinDto);
-		
-		userService.insertPromoCoin(userCoinDto);
-		
-		return "redirect:/community/promotion/rentalProductPage";
-	}
+//	@RequestMapping("promotion/rewardPromotionReviewPage")
+
+//	public String rewardPromotionReviewPage(UserCoinDto userCoinDto, PromotionReviewDto promotionReviewDto) {
+//		
+//		System.out.println("리워드 적립 되니? " + userCoinDto);
+//		System.out.println("제발요 : " + promotionReviewDto);
+//		
+//		userService.insertPromoCoin(userCoinDto, promotionReviewDto);
+//		
+//		return "redirect:/community/promotion/rentalProductPage";
+//	}
 	
 	// 대여 상품 상세페이지(임시!!!!!!!! 나중에 진짜 대여랑 엮으시길 바랍니다.)
 	@RequestMapping("promotion/rentalProductPage")

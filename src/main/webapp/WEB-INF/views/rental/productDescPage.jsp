@@ -100,13 +100,11 @@
 	
 	function setStarBox() {
 		const starBox = document.querySelector('.star-box')
-		const ratingNum = 3
+		const ratingNum = ${reviewRating}
 		
 		for(let i = 0; i < ratingNum; i++) {
 			let starIco = document.createElement('i')
 			starIco.className ='bi bi-star-fill me-1'
-			
-			console.log(starIco)
 			
 			starBox.appendChild(starIco)
 		}
@@ -157,9 +155,7 @@ window.addEventListener("DOMContentLoaded", function(){
 					
 					<div class="d-flex justify-content-between">
  						<p>
-							<span class="me-2 star-box">
-								
-							</span> <span class="me-4">${reviewRating}</span> <span>리뷰 ${reviewCount}</span>
+							<span class="me-2 star-box"></span><span class="me-4">${reviewRating}</span> <span>리뷰 ${reviewCount}</span>
 						</p>
 						<p><span class="fs-6 me-2" id="totalLikeCount"></span><i id="heartBox" onclick="toggleLike()" class="fs-4 bi bi-heart text-danger"></i></p>						
 					</div>

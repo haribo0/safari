@@ -148,7 +148,8 @@ function getViewAll(mainId2,subId2,cityId2,townId2,statusId2,orderId2){
                     divRow1.classList.add("row", "mb-1");
                   
                     const divRow1col = document.createElement("div");
-                    divRow1col.classList.add("col");
+                    divRow1col.classList.add("col", "px-0");
+                    
                     
                     
                     const link = document.createElement("a");
@@ -200,7 +201,7 @@ function getViewAll(mainId2,subId2,cityId2,townId2,statusId2,orderId2){
 
                     	const button = document.createElement("button");
                     	button.type = "button";
-                    	button.classList.add("btn", "btn-outline-success", "btn-sm", "p-1", "btn-sm-custom");
+                    	button.classList.add("btn", "btn-outline-secondary", "btn-sm", "p-1", "btn-sm-custom");
                     	button.disabled = true;
                     	button.textContent = "거래완료";
 

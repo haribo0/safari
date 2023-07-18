@@ -7,107 +7,126 @@
 <head>
 <meta charset="UTF-8">
 <title>사파리 | 회원가입</title>
+<!-- 메타 섹션 -->
+<jsp:include page="../common/meta.jsp"></jsp:include>
+<!-- 메타 섹션 -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+<style>
+.orangeButton{
+	background: #ff6f0f;
+	font-weight: bold;
+	color: white;
+}
+</style>
+
 </head>
+
+
 <body>
 	<!-- 헤더 섹션 -->
 	<jsp:include page="../common/header.jsp"></jsp:include>
 	<!-- 헤더 섹션 -->
 	
-	<div class="container d-flex justify-content-center">
-		<form action="userJoinProcess" method="post">
-		    <div class="row g-3 pb-5" style="max-width: 480px;">
-		        <div class="col-sm-12">
-		          <label for="uid" class="form-label">아이디(이메일)</label>
-		          <input type="text" class="form-control" id="uid" placeholder="" value="" required="" name="email">
-		          <div class="invalid-feedback">
-		            아이디를 입력해주세요.
-		          </div>
-		        </div>
-		
-		        <div class="col-sm-12 mt-4">
-		          <label for="upw" class="form-label">비밀번호</label>
-		          <input type="password" class="form-control" id="upw" placeholder="" value="" required="" name="pw">
-		          <div class="invalid-feedback">
-		            비밀번호를 입력해주세요.
-		          </div>
-		        </div>
-		        
-		        <div class="col-sm-12 mt-4">
-		          <label for="unick" class="form-label">닉네임</label>
-		          <input type="text" class="form-control" id="unick" placeholder="" value="" required="" name="nickname">
-		          <div class="invalid-feedback">
-		            닉네임을 입력해주세요.
-		          </div>
-		        </div>
-		        
-		       	<div class="col-sm-12 mt-4">
-		          <label for="uphone" class="form-label">전화번호</label>
-		          <input type="text" class="form-control" id="uphone" placeholder="" value="" required="" name="phone">
-		          <div class="invalid-feedback">
-		            전화번호를 입력해주세요.
-		          </div>
-		        </div>
-		        
-		        <div class="col-sm-12 mt-4">
-		        	<p>성별</p>
-		          <label for="ugender_m">남자</label>
-		          <input type="radio" id="ugender_m" placeholder="" value="m" required="" name="gender">
-		          <div class="invalid-feedback">
-		            남
-		          </div>
-		          
-		          <label for="ugender_w">여자</label>
-		          <input type="radio" id="ugender_w" placeholder="" value="w" required="" name="gender">
-		          <div class="invalid-feedback">
-		            여
-		          </div>
-		        </div>
-		        
-		        <div class="col-sm-12 mt-4">
-		          <label for="ubirth" class="form-label">생일</label>
-		          <input type="date" class="form-control" id="ubirth" placeholder="" value="" required="" name="birth">
-		          <div class="invalid-feedback">
-		            비밀번호를 입력해주세요.
-		          </div>
-		        </div>
-		        
-		        <div class="col-sm-12 mt-4">
-		          <label for="upic" class="form-label">프로필사진</label>
-		          <input type="file" class="form-control" id="upic" placeholder="" value="" name="profile_img_link">
-		          <div class="invalid-feedback">
-		            프로필사진
-		          </div>
-		        </div>
-		        
-		      </div>
-		      <div class="row" style="max-width: 480px;">
-		        <button class="btn btn-secondary">회원가입</button>
-		      </div>
-		</form>
+	<div class="container mb-5">
+		<div class="row mt-5 justify-content-center">
+			<div class="col-4">
+				
+				<div class="row">
+					<div class="col fw-bold fs-5 text-center">회원가입</div>					
+				</div>
+				
+				<div class="row mt-4">
+					<div class="col">
+				
+						<div class="row">
+							<div class="col">
+								<label for="email" class="form-label">아이디</label>
+								<input type="text" class="form-control" id="email">
+							</div>
+						</div>
+						
+						<div class="row mt-2">
+							<div class="col">
+								<label for="pw" class="form-label">비밀번호</label>
+								<input type="password" class="form-control" id="pw">
+							</div>
+						</div>
+				
+						<div class="row mt-2">
+							<div class="col">
+								<label for="pwCheck" class="form-label">비밀번호 확인</label>
+								<input type="password" class="form-control" id="pwCheck">
+							</div>
+						</div>
+						
+						<div class="row mt-2">
+							<div class="col">
+								<label for="phone" class="form-label">전화번호</label>
+								<input type="text" class="form-control" id="phone">
+							</div>
+						</div>		
+						
+						<div class="row mt-2">
+						
+							<div class="row">
+								<div class="col">성별</div>
+								
+							</div>
+							<div class="row mt-2">
+								<div class="col">
+									 <input class="form-check-input me-2" type="radio" id="gender" name="gender" value="" style="cursor:pointer";>
+									  <label class="form-check-label me-4" for="gender">
+									    	남
+									  </label>	
+									   <input class="form-check-input me-2" type="radio" id="gender" name="gender" value="" style="cursor:pointer";>
+									  <label class="form-check-label me-4" for="gender">
+									    	여
+									  </label>	
+								</div>
+							</div>
+						</div>		
+						
+						<div class="row mt-3">
+							<div class="col">
+								<label for="birth" class="form-label">생년월일</label>
+								<input type="date" class="form-control" id="birth">
+							</div>
+						</div>			
+						
+						<div class="row mt-3">
+							<div class="col">
+								<input type="file" class="form-control" id="profile_img_link">						
+							</div>
+						</div>
+						
+						<div class="row mt-3">
+							<div class="col d-grid">
+								<input type="button" class="btn orangeButton" value="회원가입">
+							</div>
+						</div>
+				
+				
+				
+				
+				
+				
+					</div>
+				</div>
+				
+				
+				
+				
+				
+				
+				
+				
+			</div>
+		</div>
+	
+	
 	</div>
 	
-	
-<!-- 	<div class="d-none" id="templeteList">
-		<div class="row auction_item">
-			<div class="col">ddd</div>
-		</div>
 
-		<div class="row ">
-			<div class="col">ddd</div>
-		</div>
-
-		<div class="row ">
-			<div class="col">ddd</div>
-		</div>
-
-		<div class="row ">
-			<div class="col">ddd</div>
-		</div>
-
-	
-	</div> -->
-	
 	
 	
 	

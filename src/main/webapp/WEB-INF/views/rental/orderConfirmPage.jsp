@@ -487,7 +487,7 @@ select option[value=""][disabled] {
              return `\${year}-\${month}-\${day}`
 		}
 	
-	 console.log(getDayOfReturn(new Date('2023-06-17'), 6 ), '월에 반납 하는 달!!!');
+	// console.log(getDayOfReturn(new Date('2023-06-17'), 6 ), '월에 반납 하는 달!!!');
 	
 	// 조기 반납시 처리
 	function calcEarlyReturn(startDate, oiginEndDate, endDate) {

@@ -18,6 +18,8 @@ import com.ja.safari.dto.PromotionReviewDto;
 import com.ja.safari.dto.PromotionReviewImgDto;
 import com.ja.safari.dto.RecruitDto;
 import com.ja.safari.dto.RentalItemDto;
+import com.ja.safari.dto.RentalItemLikeDto;
+import com.ja.safari.dto.RentalItemReturnDto;
 import com.ja.safari.dto.RentalOrderDto;
 import com.ja.safari.dto.UserAddressDto;
 import com.ja.safari.dto.UserCoinDto;
@@ -109,10 +111,12 @@ public class UserServiceImpl {
 			System.out.println("isCompleted:: " + isCompleted);
 			
 			RentalItemDto rentalItem = rentalSqlMapper.selectById(item.getItem_id());
+			RentalItemReturnDto rentalItemReturnDto = rentalSqlMapper.selectRentalItemRetrunById(item.getId());
 			
 			map.put("isCompleted", isCompleted);
 			map.put("orderedItem", item);
 			map.put("product", rentalItem);
+			map.put("rentalItemReturnDto",rentalItemReturnDto);
 		
 			list.add(map);
 		}
@@ -310,6 +314,25 @@ public class UserServiceImpl {
 			}
 			
 			return pickPostMyPostList;
+		}
+
+	// 대여 - 좋아요 리스트 불러오기
+		public List<Map<String, Object>> getRentalItemLikeList(int id) {
+			
+			List<Map<String, Object>> list = new ArrayList<Map<String,Object>>();
+			List<RentalItemLikeDto> rentalItemLikeList = rentalSqlMapper.selectRentalItemLikeAll(id);
+			
+			for(RentalItemLikeDto rentalItemLike : rentalItemLikeList ) {
+				Map<String, Object> map = new HashMap<>();
+				
+				RentalItemDto rentalItemDto = rentalSqlMapper.selectById(rentalItemLike.getItem_id());
+				
+				map.put("rentalItemLike", rentalItemLike);
+				map.put("rentalItemDto", rentalItemDto);
+				
+				list.add(map);
+			}
+			return list;
 		}
 
 }

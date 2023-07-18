@@ -24,6 +24,7 @@ public class AuctionItemDto {
 	private String auction_item_img_link;
 	private String main_category_name;
 	private String sub_category_name;
+	private String partner_order_id;
 	
 	
 	public AuctionItemDto() {
@@ -166,6 +167,14 @@ public class AuctionItemDto {
 
 	public void setSub_category_name(String sub_category_name) {
 		this.sub_category_name = sub_category_name;
+	}
+
+	public String getPartner_order_id() {
+		return partner_order_id;
+	}
+
+	public void setPartner_order_id(String partner_order_id) {
+		this.partner_order_id = partner_order_id;
 	}
 	
 	

@@ -73,19 +73,37 @@
 	
 	<!-- 렌탈 상품 리스트 -->
 	<select id="selectRentalItemListAll" resultType="com.ja.safari.dto.RentalItemDto">
-		SELECT * FROM rental_item_table a
+		SELECT
 		
-		<if test="sub_category_id > 0">
-		WHERE sub_category_id = #{sub_category_id}
-		</if>
-		
-		<if test="main_category_id>0">
-		JOIN rental_sub_category_table b ON
-		a.sub_category_id = b.id
-		JOIN rental_main_category_table c ON
-		b.main_category_id = c.id
-		WHERE c.id = #{main_category_id}
-		</if>
+		<choose>
+			<when test="orderly == 'likes'">
+				a.*, NVL(p1.likeCount,0) as LikeCount from rental_item_table a 
+				left join (select item_id, count(*) likeCount from rental_item_like_table group by item_id)p1
+				on p1.item_id=a.id order by LikeCount DESC
+			</when>
+			
+			<when test="orderly == 'likes' and sub_category_id > 0">
+				a.*, NVL(p1.likeCount,0) as LikeCount from rental_item_table a 
+				left join (select item_id, count(*) likeCount from rental_item_like_table group by item_id)p1
+				on p1.item_id=a.id WHERE a.sub_category_id = #{sub_category_id} order by LikeCount DESC
+			</when>
+			
+			<when test="orderly != 'likes' and sub_category_id > 0">
+				* FROM rental_item_table a
+				WHERE sub_category_id = #{sub_category_id}
+			</when>
+			
+			<when test="orderly != 'likes' and main_category_id > 0">
+				* FROM rental_item_table a
+				JOIN rental_sub_category_table b ON a.sub_category_id = b.id
+				JOIN rental_main_category_table c ON b.main_category_id = c.id
+				WHERE c.id = #{main_category_id}
+			</when>
+			<otherwise>
+				* FROM rental_item_table
+			</otherwise>
+		</choose>
+
 	</select>
 
 	<!-- 상품 하나 가져오기 -->
@@ -154,6 +172,13 @@
 		WHERE item_id = #{id} order by id
 	</select>
 	
+	
+	<!-- 대여 찜 리스트  -->
+	<select id="selectRentalItemLikeAll" resultType="com.ja.safari.dto.RentalItemLikeDto">
+		SELECT * FROM rental_item_like_table WHERE user_id= #{id}
+	</select>
+	
+	
 	<!-- 대여 오더 신청 -->
 	<insert id="insertRentalOrder">
 	INSERT INTO rental_order_table values(
@@ -182,6 +207,11 @@
     	SYSDATE
 		)
 	</insert>
+	
+	<!-- 반납 아이템 가져오기  -->
+	<select id="selectRentalItemRetrunById" resultType="com.ja.safari.dto.RentalItemReturnDto">
+		SELECT * FROM rental_item_return_table WHERE rental_order_id = #{id}
+	</select>
 	
 	<!-- 대여 리뷰 작성 -->
 	<insert id="insertRentalReview">

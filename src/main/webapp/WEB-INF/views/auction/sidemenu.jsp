@@ -59,6 +59,7 @@ function getProductMainCategoriesForMenu() {
         		
         		
         		mainCategoryCol.innerText = data.main_category_name;
+        		mainCategoryCol.style.cursor = "pointer";
         		
         		mainCategoryRow.appendChild(mainCategoryCol);
         		
@@ -103,6 +104,7 @@ function getProductSubCategoriesForMenu(productMainCategoryId, subCategoryDiv) {
             	
             	const subCategoryCol = document.createElement("div");
             	subCategoryCol.classList.add("col", "fs-6", "fw-normal");
+            	subCategoryCol.style.cursor = "pointer";
 
             	
             	subCategoryCol.id = "subCategory_" + data.id;

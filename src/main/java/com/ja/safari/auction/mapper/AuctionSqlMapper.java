@@ -6,15 +6,23 @@ import org.apache.ibatis.annotations.Param;
 
 import com.ja.safari.dto.AuctionBidDto;
 import com.ja.safari.dto.AuctionDeliveryDto;
+import com.ja.safari.dto.AuctionDeliveryTrackingDto;
 import com.ja.safari.dto.AuctionItemChatroomDto;
 import com.ja.safari.dto.AuctionItemDto;
 import com.ja.safari.dto.AuctionItemImgDto;
+import com.ja.safari.dto.AuctionItemInquiryDto;
 import com.ja.safari.dto.AuctionItemLikeDto;
+import com.ja.safari.dto.AuctionItemOrderAddressDto;
+import com.ja.safari.dto.AuctionItemOrderPaymentDto;
+import com.ja.safari.dto.AuctionItemReplyDto;
 import com.ja.safari.dto.AuctionKakaoPayApproveDto;
 import com.ja.safari.dto.AuctionPurchaseConfirmedDto;
+import com.ja.safari.dto.AuctionQnADto;
 import com.ja.safari.dto.ProductMainCategoryDto;
 import com.ja.safari.dto.ProductSubCategoryDto;
+import com.ja.safari.dto.UserAddressDto;
 import com.ja.safari.dto.UserCoinDto;
+import com.ja.safari.dto.UserDto;
 
 public interface AuctionSqlMapper {
 	
@@ -75,6 +83,22 @@ public interface AuctionSqlMapper {
 	
 	// 경매 물품 상세페이지 (이미지)
 	public List<AuctionItemImgDto> getAuctionProductImages(int auctionItemId);
+	
+	// 경매 상품 문의 등록
+	public void registerAuctionInquiry(AuctionItemInquiryDto auctionItemInquiryDto);
+	
+	// 경매 상품 문의 삭제
+	public void removeAuctionInquiry(int id);
+	
+	// 경매 상품 문의 답변 등록 
+	public void registerAuctionReply(AuctionItemReplyDto auctionItemReplyDto);
+	
+	// 경매 상품 문의 답변 삭제
+	public void removeAuctionReply(int id);
+	
+	// 경매 상품 당 문의 리스트 조회 
+	public List<AuctionQnADto> getAuctionQnAList(int auctionItemId);
+	
 	
 	// 경매 종료 시간 실시간으로 받아오기
 	public AuctionItemDto getAuctionEndTimeInRealTime(int auctionItemId);
@@ -137,6 +161,9 @@ public interface AuctionSqlMapper {
 	// 회원의 입찰 기록 조회
 	public List<AuctionBidDto> getBidHistoryByUser(int userBuyerId);
 	
+	//  마이페이지 - 내가 입찰한 기록 조회 (시간 업데이트 용도, id값만 필요함)
+	public List<AuctionBidDto> getMyBidListForRealTime(int userBuyerId);
+	
 	// 회원의 경매 업로드 기록 조회
 	public List<AuctionItemDto> getAuctionUploadHistoryByUser(int userSellerId);
 	
@@ -146,6 +173,9 @@ public interface AuctionSqlMapper {
 	// 경매 찜하기 클릭
 	public void likeAuctionProduct(AuctionItemLikeDto auctionItemLikeDto);
 	
+	// 경매 좋아요 삭제 (테스트용)
+	public void deleteAllLike(int id);
+	
 	// 경매 좋아요 취소 
 	public void unlikeAuctionProduct(AuctionItemLikeDto auctionItemLikeDto);
 	
@@ -154,6 +184,9 @@ public interface AuctionSqlMapper {
 	
 	// 경매물품 당 좋아요 개수 
 	public int countLikeAuctionProduct(int auctionItemId);
+	
+	// 경매 마이페이지 - 찜 목록 (시간 업데이트용)
+	public List<AuctionItemLikeDto> getMyWishListForRealTime(int userBuyerId);
 
 	
 	// 경매 채팅방에서 채팅 입력
@@ -174,6 +207,13 @@ public interface AuctionSqlMapper {
 	// 마이페이지 - 내가 입찰한 기록 조회
 	public List<AuctionItemDto> getMyBidList(int userBuyerId);
 	
+	// 마이페이지 - 내가 입찰한 기록 조회 (진행중)
+	public List<AuctionItemDto> getMyBidListIng(int userBuyerId);
+	
+	// 마이페이지 - 낙찰된 경매 하나하나 결제하기 위해 주문 창 조회
+	public AuctionItemOrderPaymentDto getOrderPageBySuccessBidPk(AuctionItemOrderPaymentDto auctionItemOrderPaymentDto);
+	
+	
 	// 마이페이지 - 낙찰 기록 조회
 	public List<AuctionBidDto> getMySueecssfulBidList(int userBuyerId);
 	
@@ -183,6 +223,12 @@ public interface AuctionSqlMapper {
 	// 마이페이지 - 찜 목록 조회
 	public List<AuctionItemDto> getMyAuctionWishList(int userBuyerId);
 	
+	// 주문화면에서 배송지 변경 버튼 클릭 후 설정된 조회 
+	public List<UserAddressDto> getMyAddressListInOrderPage(int userId);
+	
+	// 주문화면에서 배송지 변경 모달에서 주소 선택
+	public UserAddressDto changeAddressInOrderPage(UserAddressDto userAddressDto);
+	
 	// 경매 낙찰 건에 대한 카카오페이 결제 정보 저장
 	public void saveAuctionKakaoPayInfo(AuctionKakaoPayApproveDto auctionKakaoPayApproveDto);
 	
@@ -191,6 +237,15 @@ public interface AuctionSqlMapper {
 	
 	// 경매 낙찰 후 결제하여 코인 차감
 	public void reduceUserCoinByAuction(UserCoinDto userCoinDto);
+	
+	// 구매자 결제 시 배송 정보 저장하는 dto insert
+	public void registerAddressInfoInPayment(AuctionItemOrderAddressDto auctionItemOrderAddressDto);
+	
+	// 결제 시 경매 판매자 정보 조회
+	public UserDto getUserSellerInfoByAuctionPay(int partnerOrderId);
+	
+	// 구매자가 경매 낙찰 후 결제하면 판매자는 코인 획득
+	public void increaseUserCoinByAuction(UserCoinDto userCoinDto);
 	
 	
 	//  결제 정보 삭제 (테스트 데이터 삭제 위함 !! 사실 절대 사용하면 안됨)
@@ -214,6 +269,10 @@ public interface AuctionSqlMapper {
 	// 경매 업로더의 입장에서 종료된 경매 리스트 상태 조회
 	public List<AuctionBidDto> getEndedAuctionlist(int userSellerId);
 	
+	// 경매 업로더 입장에서 물품 당 주문 내역, 배송 조회 모달 확인
+	public AuctionBidDto getEndedAuctionOrderAndDeliveryInfo(AuctionBidDto auctionBidDto);
+	
+	
 	// 배송 시작 (낙찰자가 결제하면 배송준비중, 판매자가 배송처리 누르는순간 배송중)
 	public void startAuctionDelivery(int partnerOrderId);
 	
@@ -223,6 +282,13 @@ public interface AuctionSqlMapper {
 	// 배송 조회
 	public AuctionDeliveryDto checkAutionDeliveryStatus(int partnerOrderId);
 	
+	// 낙찰목록 당 배송 조회  (배송 조회 모달 출력 형태 )
+	public AuctionDeliveryTrackingDto getDeliveryStatusInSuccessfulBid(AuctionDeliveryTrackingDto auctionDeliveryTrackingDto);
+	
+	// 배송 조회 시 배송 상세 정보 보기
+	public AuctionItemOrderAddressDto getAddressInfoInPaymentAndDelivery(int id);
+
+	
 	// 배송 3일 지나면 배송완료 처리
 	public void completeAuctionDelivery(int partnerOrderId);
 	
@@ -231,5 +297,8 @@ public interface AuctionSqlMapper {
 	
 	//  구매 확정 여부 조회
 	public int checkPurchaseConfirmedYn(int partnerOrderId);
+	
+	
+	
 	
 }

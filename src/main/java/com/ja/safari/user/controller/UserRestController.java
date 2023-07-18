@@ -32,6 +32,22 @@ public class UserRestController {
 	
 	@Autowired
 	private CsServiceImpl csServiceImpl;
+	
+	// 사용자 로그인
+	@RequestMapping("loginProcess")
+	public Map<String, Object> loginProcess(UserDto userDto, HttpSession session) {
+		
+		Map<String, Object> map = new HashMap<>();
+		
+	   if (userService.loginUser(userDto) != null) {
+		   session.setAttribute("sessionUser", userService.loginUser(userDto));
+		   map.put("result", "success");
+	   } else {
+		   map.put("result", "fail");
+	   }
+		return map;
+		
+	}
 
 	// 사용자 로그인 확인
 	@RequestMapping("getMyId")
@@ -168,9 +184,6 @@ public class UserRestController {
 			  map.put("reason", "로그인이 되어 있지 않습니다.");
 			  return map;
 		  }
-		  
-		  System.out.println(inquiry.getQna_title());
-		  System.out.println(inquiry.getQna_content());
 		  
 		  map.put("result", "success"); 
 		  inquiry.setUser_id(sessionUser.getId());

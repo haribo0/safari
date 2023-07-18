@@ -628,7 +628,20 @@ public class UsedServiceImpl {
 		return list;
 	}
 	
-	
+	// 상세페이지에서 연관상품 5개 
+	 public List<Map<String, Object>> selectRelatedProductByFive(int productId) {
+		// 연관상품 보여주기 
+		List<Map<String, Object>> list = new ArrayList<Map<String,Object>>();
+		ProductDto productDto = usedSqlMapper.selectProductById(productId);
+		List<ProductDto> relatedProductList =  usedSqlMapper.selectRelatedProductByFive(productId, productDto.getProduct_sub_category());
+		for(ProductDto productDto2 : relatedProductList) {
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("productDto", productDto2);
+			map.put("productImgDto", usedSqlMapper.selectProductImg(productDto2.getId()));
+			list.add(map);
+		}
+		return list;
+ }
 	 
 	 
 	 

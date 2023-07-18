@@ -16,6 +16,7 @@ import com.ja.safari.dto.CsChatListDto;
 import com.ja.safari.dto.CsChatResponseDto;
 import com.ja.safari.dto.CsChatResponseDto2;
 import com.ja.safari.dto.CsEmpDto;
+import com.ja.safari.dto.CsEmpRatingResponseDto;
 import com.ja.safari.dto.CsEventDto;
 import com.ja.safari.dto.CsLiveChatDto;
 import com.ja.safari.dto.CsLiveChatMsgDto;
@@ -199,13 +200,14 @@ public class CsServiceImpl {
 	}
 
 	
-	
+	// 출근 처리 
 	public void startWorking(int empId) {
 		
 		csSqlMapper.insertTimeInByEmpId(empId);
 		
 	}
 
+	// 퇴근 처리 
 	public void stopWorking(int empId) {
 		
 		csSqlMapper.updateTimeOutByLogId(csSqlMapper.getRecentAttendanceLogDtos(empId).get(0).getId());
@@ -405,6 +407,12 @@ public class CsServiceImpl {
 		return empDto.getNickname() ;
 	}
 
+	
+	// 채팅 아이디로 상담사 닉네임 가져오기 
+	public List<CsEmpRatingResponseDto> getEmpChatRatingList() {
+		return csSqlMapper.getEmpChatRatingList();
+	}
+	
 
 	
 	
