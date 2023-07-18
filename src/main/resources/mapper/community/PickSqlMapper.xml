@@ -174,7 +174,7 @@
 		    ) as vote_cnt,
 		    (
 		        SELECT pi.product_img_link FROM product_img pi
-		        WHERE pi.product_id = 1
+		        WHERE pi.product_id = p.id
 		        AND ROWNUM = 1
 		    ) as img,
 		    (

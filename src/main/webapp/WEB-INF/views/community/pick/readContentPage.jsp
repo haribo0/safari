@@ -408,7 +408,7 @@
 												  <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-center" >
 												  <div class="card">
 												    <div class="d-felx justify-content-center">
-												    <img class="img-fluid" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS846XsQCCwKyA_1OgKiAPhT9YvnBxekWgQ52joFgHsnRKSdsiMoiloEcVvyrpGAq5IUwY&usqp=CAU" 
+												    <img class="img-fluid" src="/uploadFiles/${pickOptionValuesForVoteDto.img }" 
 												    class="rounded mx-auto d-block" alt="...">
 												      <div class="card-body">
 												        <h6 class="card-title text-body-secondary mb-1">${pickOptionValuesForVoteDto.title }</h6>
@@ -417,7 +417,7 @@
 												        	<a href="/safari/used/productDetail?productId=${pickOptionValuesForVoteDto.product_id }" class="btn btn-sm btn-outline-primary"><i class="bi bi-box-arrow-up-right"></i> 상세 보기</a>
 												        </div>
 												       </div></div>
-												    </div><a href="/safari/community/pick/voteProcess?pick_id=${map.pickDto.id }&pick_option_id=${pickOptionValuesForVoteDto.option_id}" class="btn btn-outline-secondary rounded-pill btn-sm mt-4" style="width: 250px;">${pickOptionValuesForVoteDto.vote_cnt/map.totalVoteCount * 100}% VOTE (${pickOptionValuesForVoteDto.vote_cnt })</a>
+												    </div><a href="/safari/community/pick/voteProcess?pick_id=${map.pickDto.id }&pick_option_id=${pickOptionValuesForVoteDto.option_id}" class="btn btn-outline-secondary rounded-pill btn-sm mt-4" style="width: 250px;">${map.totalVoteCount == 0 ? 0 : pickOptionValuesForVoteDto.vote_cnt/map.totalVoteCount * 100}% VOTE (${pickOptionValuesForVoteDto.vote_cnt })</a>
 												      </div>
 												  </div>
 											</c:forEach>
