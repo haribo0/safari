@@ -395,6 +395,17 @@
 		ORDER BY avg_rating DESC
 	</select>
 	
+	<!-- 직원별 1대1 문의 별점 (별점순) -->
+	<select id="getEmpChatRatingList" resultType="com.ja.safari.dto.CsEmpRatingResponseDto">
+		SELECT e.id AS emp_id, e.name, AVG(qr.rating) AS avg_rating
+		FROM CS_QNA q
+		INNER JOIN cs_emp e ON e.id = q.emp_id
+		LEFT JOIN CS_QNA_RATING qr ON qr.qna_id = q.id
+		WHERE master = 0
+		GROUP BY e.id, e.name
+		ORDER BY avg_rating DESC
+	</select>
+	
 	
 	
 	

@@ -363,15 +363,16 @@ public class PromotionReviewController {
 	
 	
 	// 리워드 적립 페이지(거쳐가는 페이지=> 여기서 포인트 적립이 되야 함.)(이거 머리 안돌아가서 이상할걸 다시 수정하길)
-	@RequestMapping("promotion/rewardPromotionReviewPage")
-	public String rewardPromotionReviewPage(UserCoinDto userCoinDto) {
-		
-		System.out.println("리워드 적립 되니? " + userCoinDto);
-		
-		userService.insertPromoCoin(userCoinDto);
-		
-		return "redirect:/community/promotion/rentalProductPage";
-	}
+//	@RequestMapping("promotion/rewardPromotionReviewPage")
+//	public String rewardPromotionReviewPage(UserCoinDto userCoinDto) {
+//		
+//		System.out.println("리워드 적립 되니? " + userCoinDto);
+//		
+//		// userService.insertPromoCoin(userCoinDto);
+//		
+//		return "redirect:/community/promotion/rentalProductPage";
+//	}
+//	
 	
 	// 대여 상품 상세페이지(임시!!!!!!!! 나중에 진짜 대여랑 엮으시길 바랍니다.)
 	@RequestMapping("promotion/rentalProductPage")

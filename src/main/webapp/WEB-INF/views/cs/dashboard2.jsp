@@ -268,7 +268,13 @@
 </div>
 
 
-
+<div class="card shadow-sm d-none" >
+  <div class="card-body">
+  	<div class="fw-bold">상품별 주문</div>
+    <hr class="border">
+    <canvas id="barChart"></canvas>
+  </div>
+</div>
 
 
 
