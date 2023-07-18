@@ -46,7 +46,7 @@
     color: #ddd;
   }
 }
-body {
+body1 {
   padding: 1rem;
   text-align: center;
 }
@@ -219,7 +219,7 @@ body {
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header position-relative px-3" style="background: #EAEAEA; padding: 10px 0px;">
-      		<i class="bi bi-chevron-left fs-4 p-0"></i>
+      		<i class="bi bi-chevron-left fs-4 p-0" onclick="reloadChatRoomList()"></i>
       		<h5 class="modal-title ms-1 position-absolute top-50 start-50 translate-middle" id="modalTitle">
 	        	</h5>
 	        <!--<div class="modal-title position-absolute top-50 start-50 translate-middle fw-bold fs-3" id="modalTitle"></div> -->
@@ -245,7 +245,7 @@ body {
 	      	</div> -->
 	      </div>
       </div>
-      <div class="modal-body" style="height: 400px">
+      <div class="modal-body py-2" style="height: 400px">
 		<div class="chat-container overflow-y-scroll overflow-x-hidden" style="height:380px;" id="getChatList">
 		</div>
       </div>
@@ -265,107 +265,17 @@ body {
 <div class="modal" id="writeReviewModal" tabindex="-1" >
   <div class="modal-dialog">
     <div class="modal-content">
-      <div class="modal-header position-relative">
-	        <div class="modal-title position-absolute top-50 start-50 translate-middle fw-bold fs-3">
-	        	<h5 class="modal-title text-center">거래 후기 보내기</h5>
-	        </div>
+      <div class="modal-header position-relative px-3" style="background: #EAEAEA; padding: 10px 0px;">
+       	<i class="bi bi-chevron-left fs-4 p-0" onclick="modalOnById()"></i>
+       	<h5 class="modal-title ms-1 position-absolute top-50 start-50 translate-middle">거래 후기 보내기</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-header ms-2" id="modalHeader2">
 	     <div class="my-custom-header-wrapper" id="modalHeaderWrapper2">
-	      	<!-- div class="row">
-      		<div class="col">
-      			에어팟 프로
-      		</div>
-      	</div>
-      	<div class="row">
-      		<div class="col">
-      			거래한 이웃
-      			<span>피자죠아</span>
-      		</div>
-      	</div>
-      </div> -->
        </div>
       </div>
      <div class="modal-body ms-2" style="height: 500px">
 	<div class="chat-container overflow-y-scroll overflow-x-hidden" style="height:480px;" id="modalBody2">
-	<!-- <div class="row">
-    			<div class="col">
-    				바니바니님,
-    			</div>
-    		</div>
-    		<div class="row">
-    			<div class="col">
-    				피자죠아님과 거래가 어떠셨나요?
-    			</div>
-    		</div>
-    		<div class="row">
-    			<div class="col text-secondary onlyme mt-1">
-    				거래 선호도는 나만 볼 수 있어요
-    			</div>
-    		</div>
-    		<div class="row mt-4">
-    			<div class="col-4 text-center">
-    				<img class="opacity-25 btn-bunny" alt="soso" src="/safari/resources/img/used/soso1.png" width="70" height="70" onclick="soso1Change()" id="sosoImg">
-    				<p class="text-secondary fw-semibold mt-1" id="sosoText">별로예요</p>
-    			</div>
-    			<div class="col-4 text-center">
-    				<img class="opacity-25 btn-bunny" alt="good" src="/safari/resources/img/used/good1.png" width="70" height="70" onclick="good1Change()" id="goodImg">
-    				<p class="text-secondary fw-semibold mt-1" id="goodText">좋아요</p>
-    			</div>
-    			<div class="col-4 text-center">
-    				<img class="opacity-25 btn-bunny" alt="best" src="/safari/resources/img/used/best1.png" width="70" height="70" onclick="best1Change()" id="bestImg">
-    				<p class="text-secondary fw-semibold mt-1" id="bestText">최고예요</p>
-    			</div>
-    		</div> -->
-    		<!-- <div class="row mt-3">
-    			<div class="col fs-6">어떤 점이 별로였나요?</div>
-    		</div>
-    		<div class="row mt-3">
-    			<div class="col">
-    				<input type="checkbox" id="myCheckbox">
-			<label for="myCheckbox">시간약속을 안 지켜요.</label>
-    			</div>
-    		</div>
-    		<div class="row mt-3">
-    			<div class="col">
-    				<input type="checkbox" id="myCheckbox">
-			<label for="myCheckbox">원하지 않는 가격을 계속 요구해요.</label>
-    			</div>
-    		</div>
-    		<div class="row mt-3">
-    			<div class="col">
-    				<input type="checkbox" id="myCheckbox">
-			<label for="myCheckbox">거래 시간과 장소를 정한 후 연락이 안돼요.</label>
-    			</div>
-    		</div>
-    		<div class="row mt-3">
-    			<div class="col">
-    				<input type="checkbox" id="myCheckbox">
-			<label for="myCheckbox">불친절해요.</label>
-    			</div>
-    		</div>
-    		<div class="row">
-    			<div class="col mt-4">
-    				아쉬웠던 점을 사파리 팀에 알려주세요.
-    			</div>
-    		</div>
-    		<div class="row">
-    			<div class="col onlyme text-secondary mt-1">
-    				상대방에게 전달되지 않으니 안심하세요.
-    			</div>
-    		</div>
-    		<div class="row">
-    			<div class="col mt-1">
-    				<textarea class="form-control" rows="3" cols="35" placeholder=" 여기에 적어주세요. (선택사항)"></textarea>
-    			</div>
-    		</div>
-    		<div class="row">
-    			<div class="col">
-    				<input class="mt-3 mb-4" type="file">
-    			</div>
-    		</div>
-  </div> -->
       </div>
     </div>
   </div>
@@ -377,10 +287,9 @@ body {
 <div class="modal" id="myWroteReviewModal" tabindex="-1" >
   <div class="modal-dialog">
     <div class="modal-content">
-      <div class="modal-header position-relative">
-	        <div class="modal-title position-absolute top-50 start-50 translate-middle fw-bold fs-3">
-	        	<h5 class="modal-title text-center">내가 보낸 거래 후기</h5>
-	        </div>
+      <div class="modal-header position-relative px-3" style="background: #EAEAEA; padding: 10px 0px;">
+        <i class="bi bi-chevron-left fs-4 p-0" onclick="modalOnById()"></i>
+       	<h5 class="modal-title ms-1 position-absolute top-50 start-50 translate-middle">내가 보낸 거래 후기</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body ms-3 me-3" style="height: 530px">
@@ -413,6 +322,9 @@ body {
  				</div> -->
 	     </div>
       </div>
+      <div class="modal-footer p-0 mt-1">
+      	<img class="img-fluid m-0" alt="chatAds" src="/safari/resources/img/used/usedChatAds3.png">
+      </div>
     </div>
   </div>
 </div>
@@ -422,41 +334,18 @@ body {
 <div class="modal" id="receiverWroteReviewModal" tabindex="-1" >
   <div class="modal-dialog">
     <div class="modal-content">
-      <div class="modal-header position-relative">
-	        <div class="modal-title position-absolute top-50 start-50 translate-middle fw-bold fs-3">
-	        	<h5 class="modal-title text-center">받은 거래 후기</h5>
-	        </div>
+      <div class="modal-header position-relative px-3" style="background: #EAEAEA; padding: 10px 0px;">
+      	<i class="bi bi-chevron-left fs-4 p-0" onclick="modalOnById()"></i>
+        <h5 class="modal-title ms-1 position-absolute top-50 start-50 translate-middle">받은 거래 후기</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-      <div class="modal-body ms-3 me-3" style="height: 530px">
-	<div class="chat-container overflow-y-scroll overflow-x-hidden" style="height:500px;" id="modalBody4">
-    	   <!-- <div class="row mt-3">
-    				<div class="col fw-bold">닉네임님에게</div>
-    			</div>
-		<div class="row">
-    				<div class="col fw-bold">따뜻한 후기를 보냈어요.</div>
-    			</div>
-    			<div class="row mt-1">
-    				<div class="col text-secondary onlyme">상대방닉네임과 상품이름을(를) 거래했어요.</div>
-    			</div>
-    			<div class="row mt-4">
-    				<div class="col">
-    					<img alt="review" width="100%" height="180" id="reviewImg2" src="/safari/resources/img/used/review2.jpeg">
-    				</div>
-    			</div>
-    			<div class="reviewContent">
-    			<div class="row mt-3 mb-1">
-    				<div class="col ms-3">
-    					거래가 너무 좋았습니다. 앞으로도 이런 분과 거래하고 싶어요~!
-    				</div>
-    			</div>
- 				<ul>
- 					<li class="mb-1">제가 있는 곳까지 와서 거래했어요.</li>
- 					<li class="mb-1">제가 있는 곳까지 와서 거래했어요.</li>
- 					<li class="mb-1">제가 있는 곳까지 와서 거래했어요.</li>
- 				</ul>
- 				</div> -->
+      <div class="modal-body ms-3 me-3" style="height: 515px">
+		<div class="chat-container overflow-y-scroll overflow-x-hidden" style="height:500px;" id="modalBody4">
+	    
 	     </div>
+      </div>
+      <div class="modal-footer p-0 mt-1">
+      	<img class="img-fluid m-0" alt="chatAds" src="/safari/resources/img/used/usedChatAds3.png">
       </div>
     </div>
   </div>
@@ -641,8 +530,11 @@ body {
 /* let mySessionId = null; */
 let requestId2 = null;
 let receiverId2 = null;
+let userNickname2 = null;
 
-
+function modalOnById() {
+	modalOn(requestId2,receiverId2,userNickname2);
+}
 // 리뷰 기분 - 별로예요
 function soso1Change(rateId, senderId, receiverId, requestId) {
 
@@ -1664,7 +1556,7 @@ function reloadChatRoomList() {
 
 
   		      }
-
+            modalHide('chatModal');
         	const modal = bootstrap.Modal.getOrCreateInstance("#usedChatModal");
         	modal.show();
         }
@@ -1679,10 +1571,10 @@ function reloadChatRoomList() {
 let intervalHandler = null;
 // 모달 열기
 function  modalOn(requestId, receiverId, userNickname) {
-	const userNickname2 = userNickname;
 	const myModal = bootstrap.Modal.getOrCreateInstance('#chatModal');
 	requestId2=requestId;
 	receiverId2=receiverId;
+	userNickname2=userNickname;
 
 	/* console.log("requestId"+requestId);
 	console.log("receiverId"+receiverId); */
@@ -1701,6 +1593,7 @@ function  modalOn(requestId, receiverId, userNickname) {
 	row1col1.classList.add('col-1');
 	// 닫을 때
 	modalHide('usedChatModal');
+	modalHide('myWroteReviewModal');
 	// 열 때
 	myModal.show();
 	// 채팅방 리로딩
@@ -1710,7 +1603,7 @@ function  modalOn(requestId, receiverId, userNickname) {
 		const sendBox = document.getElementById("sendContent");
 	// 텍스트상자
 	const textareaBox = document.getElementById("chatContent");
-	textareaBox.addEventListener("keyup", keyUpEvent);
+	textareaBox.addEventListener("keyup", keyUpEvent1);
 
 	// 전송버튼 누르면 해당 메소드 불러오기
 	sendBox.setAttribute("onclick", "insertContent("+requestId+","+receiverId+")");
@@ -1790,9 +1683,9 @@ function getProductInformation(requestId) {
             if(response.map.status == '거래완료'){
             	row1col2row1col2.classList.add('btn', 'py-0', 'btn-outline-secondary', 'btn-sm', 'ms-2');
             }else if(response.map.status == '예약중'){
-            	row1col2row1col2.classList.add('btn', 'py-0', 'btn-outline-primary', 'btn-sm', 'ms-2');
-            }else{
             	row1col2row1col2.classList.add('btn', 'py-0', 'btn-outline-success', 'btn-sm', 'ms-2');
+            }else{
+            	row1col2row1col2.classList.add('btn', 'py-0', 'btn-outline-primary', 'btn-sm', 'ms-2');
             }
 
 
@@ -1932,7 +1825,6 @@ function getProductInformation(requestId) {
     				row2col1Icon.classList.add('bi', 'bi-pencil-square');
     				const row2col1Span = document.createElement('span');
     				row2col1Span.innerText = ' 보낸 후기 보기';
-    				row2col1Span.classList.add('fw-bold');
     				row2col1Span.setAttribute("onclick", "getMyWroteReview("+response.sessionId+","+response.productRequestDto.user_id+","+response.productRequestDto.id+")");
 
     	            const row2col4 = document.createElement('div');
@@ -2024,7 +1916,6 @@ function getProductInformation(requestId) {
     				row2col1Icon.classList.add('bi', 'bi-pencil-square');
     				const row2col1Span = document.createElement('span');
     				row2col1Span.innerText = ' 보낸 후기 보기';
-    				row2col1Span.classList.add('fw-bold');
     				row2col1Span.setAttribute("onclick", "getMyWroteReview("+response.sessionId+","+response.map.productDto.user_id+","+response.productRequestDto.id+")");
 
     	            const row2col4 = document.createElement('div');
@@ -2125,7 +2016,7 @@ function getProductInformation(requestId) {
 
 
 // Textarea에서 Enter 칠 때도 전송되기(단, shirt+enter 안되게)
-function keyUpEvent(e) {
+function keyUpEvent1(e) {
 	console.log(e)
     if (e.key === "Enter" && !e.shiftKey) {
     	insertContent(requestId2, receiverId2);
@@ -2488,15 +2379,14 @@ xhr.onreadystatechange = function(){
         row1.classList.add('row');
 
         const col1 = document.createElement('div');
-        col1.classList.add('col-5', 'p-0');
+        col1.classList.add('col-2', 'p-0');
       	const col1Img = document.createElement("img");
       	col1Img.alt = response.map.productDto.title;
       	col1Img.src = '/safarifile/' + response.map.productImgDto.product_img_link;
-      	col1Img.width = 90;
-      	col1Img.height = 90;
+      	col1Img.classList.add('img-fluid');
 
       	const col2 = document.createElement('div');
-        col2.classList.add('col', 'mt-3');
+        col2.classList.add('col', 'mt-3', 'ms-1');
 
       	const col2row1 = document.createElement('div');
       	col2row1.classList.add('row');
@@ -2508,13 +2398,13 @@ xhr.onreadystatechange = function(){
         const col2row2 = document.createElement('div');
       	col2row2.classList.add('row');
         const col2row2col1 = document.createElement('div');
-        col2row2col1.classList.add('col');
+        col2row2col1.classList.add('col-auto');
         col2row2col1.textContent = '거래한 이웃'
 
-        const span = document.createElement('span');
-        span.classList.add('fw-bold', 'ms-2');
+        const col2row2col2 = document.createElement('div');
+        col2row2col2.classList.add('fw-bold', 'm-0', 'col-auto', 'p-0');
         /* span.textContent = '피자죠아'; */
-        span.textContent = response.map.receiverDto.nickname;
+        col2row2col2.textContent = response.map.receiverDto.nickname;
 
         row1.appendChild(col1);
         col1.appendChild(col1Img);
@@ -2523,7 +2413,7 @@ xhr.onreadystatechange = function(){
         col2row1.appendChild(col2row1col1);
         col2.appendChild(col2row2);
         col2row2.appendChild(col2row2col1);
-        col2row2col1.appendChild(span);
+        col2row2.appendChild(col2row2col2);
 
         modalHeaderWrapperBox.appendChild(row1);
 
