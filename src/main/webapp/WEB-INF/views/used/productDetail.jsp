@@ -96,6 +96,14 @@
 
 
 <div class="container main_box mb-5">
+	<!— 테이블 헤더 —>
+<div class="row py-2 text-center">
+	<div class="col-auto">
+		<a href="./productList" class="text-secondary text-decoration-none">
+			<i class="bi bi-chevron-left"></i> 목록으로
+		</a>
+	</div>
+</div>
   <div class="row mt-2">
 	<div class="col-6">
 		<c:choose>
@@ -168,10 +176,11 @@
 			<div class="col-auto my-auto mb-2 contentTitle text-start my-auto">
 				<c:choose>
 					<c:when test="${productUser.profile_img_link == null }"> 
-						 <img style="filter:grayscale(1)" class="img-fluid rounded-circle" alt="img" src="/safari/resources/img/user.jpg" width="35" height="35">
+						 <img style="filter:grayscale(1)" class="rounded-circle" alt="img" src="/safari/resources/img/user.jpg" width="40" height="40">
 					</c:when>	
 					<c:otherwise>
-						<img style="filter:grayscale(1)" class="img-fluid rounded-circle" alt="img" src="/safarifile/${productUser.profile_img_link}" width="35" height="35">
+						<img class="rounded-circle" alt="img" src="/safari/resources/img/used/user2.png" width="40" height="40">
+						<%-- <img style="filter:grayscale(1)" class="img-fluid rounded-circle" alt="img" src="/safarifile/${productUser.profile_img_link}" width="35" height="35"> --%>
 					</c:otherwise> 
 				</c:choose>
 			</div>
@@ -202,7 +211,7 @@
     				<a href="./productRequestAlready?productId=${map.productDto.id }" type="button" class="btn orangeButton">채팅하기</a>
     			</c:if>
     			 <c:if test="${completeCount > 0}">
-    			 	<button type="button" class="btn btn-outline-secondary btn-sm" disabled>채팅하기</button>
+    			 	<button type="button" class="btn btn-secondary btn-sm" disabled>채팅하기</button>
     			 </c:if>
     		</div>
     		</c:if>

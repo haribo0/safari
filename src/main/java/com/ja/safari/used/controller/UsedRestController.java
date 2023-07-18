@@ -11,7 +11,6 @@ import java.util.UUID;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
@@ -19,7 +18,6 @@ import org.springframework.web.multipart.MultipartFile;
 import com.ja.safari.dto.ProductChatDto;
 import com.ja.safari.dto.ProductDto;
 import com.ja.safari.dto.ProductLikeDto;
-import com.ja.safari.dto.UsedKaKaoPayApproveDto;
 import com.ja.safari.dto.UsedPurchaseReviewDto;
 import com.ja.safari.dto.UserCoinDto;
 import com.ja.safari.dto.UserDto;
@@ -317,7 +315,7 @@ public class UsedRestController {
 	
 	// 코인 결제 후 구매자 마이너스, 판매자 플러스 헤주기
 	@RequestMapping("reduceAndPlusUserCoinByUsed")
-	public Map<String, Object> reduceUserCoinByUsed(HttpSession session, UserCoinDto userCoinDto, Integer productId) {
+	public Map<String, Object> reduceUserCoinByUsed(HttpSession session, UserCoinDto userCoinDto, Integer productId, Integer requestId) {
 		Map<String, Object> map = new HashMap<>();
 		UserDto sessionUser = (UserDto)session.getAttribute("sessionUser");
 		if(sessionUser == null) {
@@ -325,7 +323,7 @@ public class UsedRestController {
 			map.put("reason", "로그인되어있지않습니다.");
 			return map;
 		}else {
-			usedService.reduceAndPlusUserCoinByUsed(userCoinDto, productId);
+			usedService.reduceAndPlusUserCoinByUsed(userCoinDto, productId, requestId);
 			
 			map.put("result", "success");
 			return map;

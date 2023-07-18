@@ -278,7 +278,7 @@ public class UsedController {
 			productRequestDto.setProduct_id(productId);
 			productRequestDto.setUser_id(sessionUser.getId());
 			usedService.insertProductRequest(productRequestDto);
-			return "redirect:./chatList";
+			return "redirect:../user/myPage";
 		}
 	}
 	
@@ -290,7 +290,7 @@ public class UsedController {
 			return "redirect:../user/loginPage";
 		}else {
 //			usedService.deleteProductRequestByUser(productId, sessionUser.getId());
-			return "redirect:./chatList";
+			return "redirect:../user/myPage";
 		}
 	}
 	

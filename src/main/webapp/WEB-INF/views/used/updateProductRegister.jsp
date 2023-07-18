@@ -65,7 +65,7 @@ input[type=file]::file-selector-button:hover {
         <div class="form-group row mt-3">
             <label for="product_main_category" class="col-sm-2 col-form-label fw-bold">카테고리 대분류</label>
             <div class="col-sm-4">
-            	<select class="form-control" id="product_main_category">
+            	<select class="form-select" id="product_main_category">
             		<option value="0" >대분류 선택</option>
             		<c:forEach items="${MainCateogryList}" var="ProductMainCategoryDto">
                     	<option value="${ProductMainCategoryDto.id }">${ProductMainCategoryDto.main_category_name }</option>
@@ -75,7 +75,7 @@ input[type=file]::file-selector-button:hover {
 
             <label for="product_sub_category" class="col-sm-2 col-form-label fw-bold">카테고리 소분류</label>
             <div class="col-sm-4">
-                <select class="form-control" id="product_sub_category" name="product_sub_category">
+                <select class="form-select" id="product_sub_category" name="product_sub_category">
                    <option value="0">소분류 선택</option>
                 </select>
             </div>
@@ -125,7 +125,7 @@ input[type=file]::file-selector-button:hover {
         <div class="form-group row mt-3">
             <label for="product_city" class="col-sm-2 col-form-label fw-bold">지역</label>
             <div class="col-sm-4">
-            	<select class="form-control" id="product_city">
+            	<select class="form-select" id="product_city">
             		<option value="0" selected="selected">지역을 선택하세요</option>
             		<c:forEach items="${cityList}" var="ProductCityDto">
                     	<option value="${ProductCityDto.id }">${ProductCityDto.product_city_name }</option>
@@ -134,7 +134,7 @@ input[type=file]::file-selector-button:hover {
             </div>
             <label for="product_town" class="col-sm-2 text-center col-form-label fw-bold">동네</label>
             <div class="col-sm-4">
-                <select class="form-control" id="product_town" name="product_town_id">
+                <select class="form-select" id="product_town" name="product_town_id">
                    <option value="0" selected="selected">동네를 선택하세요</option>
                 </select>
             </div>

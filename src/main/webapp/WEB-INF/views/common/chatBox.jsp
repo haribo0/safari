@@ -2181,7 +2181,7 @@ xhr.onreadystatechange = function(){
 			  }
 
 			  const row1 = document.createElement('div');
-			  row1.classList.add('row', 'mt-1');
+			  row1.classList.add('row', 'mt-1', 'mb-2');
 
 			  if(mySessionId!=data.receiver_id && data.receiver_id != 0){
 				  const col1 = document.createElement('div');
@@ -2212,7 +2212,20 @@ xhr.onreadystatechange = function(){
 				  col1.appendChild(col1row2);
 
 				  getChatbox.appendChild(row1);
-			  }else if(mySessionId==data.receiver_id && data.receiver_id != 0) {
+			  }else {
+				  /*
+				  const colIcon = document.createElement('div');
+				  colIcon.className = 'col-auto ms-2 pe-0 text-left';
+	  			  const col1Img = document.createElement('img');
+	  			  // 프로필 사진 있을 떄
+	  			  console.log(data.userDto.profile_img_link == null)
+	  			  if(true){
+	  				col1Img.src = '/safari/resources/img/user.jpg';
+	  			  }else{
+	  				/* col1Img.src = '/safarifile/' + data.userDto.product_img_link; 
+	  			  }
+				  */
+				  
 				  const colIcon = document.createElement('div');
 				  colIcon.classList.add('col-1', 'ms-2', 'text-left');
 
@@ -2249,7 +2262,7 @@ xhr.onreadystatechange = function(){
 
 				  getChatbox.appendChild(row1);
 			  }
-			  // 송금 받았을 때
+			  /* // 송금 받았을 때
 			  else{
 				  const col3 = document.createElement('div');
 				  col3.classList.add('col','text-center');
@@ -2258,7 +2271,7 @@ xhr.onreadystatechange = function(){
 				  row1.appendChild(col3);
 
 				  getChatbox.appendChild(row1);
-			  }
+			  } */
 		}
 		/* // 채팅 화면 마지막으로 맞추기
 		getChatbox.scrollTop = getChatbox.scrollHeight; */
@@ -2366,7 +2379,7 @@ function successPayment(partner_order_id, partner_user_id,item_name,item_code,to
 	    }
 	}
 	//get
-	xhr.open("get", "../used/reduceAndPlusUserCoinByUsed?user_id="+partner_user_id+"&coin_transaction="+total_amount+"&productId="+item_code);
+	xhr.open("get", "../used/reduceAndPlusUserCoinByUsed?user_id="+partner_user_id+"&coin_transaction="+total_amount+"&productId="+item_code+"&requestId="+partner_order_id);
 	xhr.send();
 	
 	/* const myModal = bootstrap.Modal.getOrCreateInstance('#adsModal');
