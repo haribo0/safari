@@ -42,6 +42,11 @@
     .bestImg{
     	border-radius: 7px;
     }
+    .overflow {
+	  white-space: nowrap; /* 텍스트를 한 줄로 표시 */
+	  overflow: hidden; /* 넘친 텍스트를 숨김 */
+	  text-overflow: ellipsis; /* 넘친 텍스트를 "..."으로 표시 */
+	}
 </style>
 
 </head>
@@ -96,7 +101,7 @@
 						</div>
 					</div>	
 					<div class="row">
-						<div class="col mt-2">
+						<div class="col mt-2 overflow">
 						<a href="./productDetail?productId=${map.productDto.id }" class="ms-1 text-decoration-none text-black title">
 							${map.productDto.title }
 						</a>
@@ -131,7 +136,7 @@
 						</div>
 					</div>	
 					<div class="row">
-						<div class="col mt-2">
+						<div class="col mt-2 overflow">
 						<a href="./productDetail?productId=${map.productDto.id }" class="ms-1 text-decoration-none text-black title">
 							${map.productDto.title }
 						</a>

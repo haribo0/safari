@@ -26,7 +26,7 @@
 				<ul class="list-group">
 					<li class="list-group-item border-0 py-1 ps-0"><a href="#" class="btn py-0 text-body-secondary ps-0 fs-nav-small">판매 내역</a></li>
 					<li class="list-group-item border-0 py-1 ps-0"><a href="#" class="btn py-0 text-body-secondary ps-0 fs-nav-small">구매 내역</a></li>
-					<li class="list-group-item border-0 py-1 ps-0"><a href="#" class="btn py-0 text-body-secondary ps-0 fs-nav-small">관심 내역</a></li>
+					<li class="list-group-item border-0 py-1 ps-0"><a href="/safari/used/wishList" class="btn py-0 text-body-secondary ps-0 fs-nav-small">찜</a></li>
 				</ul>
 			</div>
 			
