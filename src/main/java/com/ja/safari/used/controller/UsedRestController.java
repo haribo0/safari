@@ -200,7 +200,7 @@ public class UsedRestController {
 	
 	// 채팅창 modal-reloadChatList - 채팅내용 리스트 보여주기 
 	@RequestMapping("reloadChatList")
-	public Map<String, Object> reloadChatList(Integer requestId, HttpSession session){
+	public Map<String, Object> reloadChatList(Integer requestId, HttpSession session, Integer receiverId){
 		Map<String, Object> map = new HashMap<>();
 		UserDto sessionUser = (UserDto)session.getAttribute("sessionUser");
 		if(sessionUser == null) {
@@ -209,6 +209,7 @@ public class UsedRestController {
 			return map;
 		}else {
 			map.put("sessionId", sessionUser.getId());
+			map.put("receiverDto", usedService.selectUserDtoById(receiverId));
 			map.put("chatList", usedService.selectProductChatByRequestId(requestId));
 			map.put("result", "success");
 			return map;

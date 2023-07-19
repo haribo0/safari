@@ -1499,17 +1499,19 @@ function reloadChatRoomList() {
   			  const col1 = document.createElement('div');
   			  col1.className = 'col-auto ms-4 pe-0';
   			  const col1Img = document.createElement('img');
-  			  // 프로필 사진 있을 떄
+  			  col1Img.className = 'rounded-circle';
+  		      col1Img.width = '35';
+			  col1Img.height = '35';
+  			  // 프로필 사진 없을 때 
   			  console.log(data.userDto.profile_img_link == null)
-  			  if(true){
+  			  if(data.userDto.profile_img_link == null){
   				col1Img.src = '/safari/resources/img/user.jpg';
+  				col1Img.style = 'filter:grayscale(1)';
   			  }else{
+  				col1Img.src = '/safari/resources/img/used/user2.png';
   				/* col1Img.src = '/safarifile/' + data.userDto.product_img_link; */
   			  }
-  			  col1Img.className = 'img-fluid rounded-circle';
-  			  col1Img.style.filter = "grayscale(1)";
-  			  col1Img.width = '35';
-  			  col1Img.height = '35';
+  			  
   			  col1.appendChild(col1Img);
 
   			  const col2 = document.createElement('div');
@@ -2140,102 +2142,100 @@ let chatMsgScrollTop = -1;
 
 //채팅 내용 리스트 리로딩
 function reloadChatList(requestId) {
-// chatlisBox
-const getChatbox = document.getElementById("getChatList");
-
-// 스크롤 위치 저장
-const isScrolledToBottom = getChatbox.scrollHeight - getChatbox.clientHeight <= getChatbox.scrollTop + 10;
-if(chatMsgScrollTop != 1) chatMsgScrollTop = getChatbox.scrollTop;
-
-
-// 채팅 읽음 표시 update
-updateIsRead(requestId);
-
-const xhr = new XMLHttpRequest();
-
-xhr.onreadystatechange = function(){
-	if(xhr.readyState == 4 && xhr.status == 200){
-		const response = JSON.parse(xhr.responseText);
-		mySessionId = response.sessionId;
-
-	    getChatbox.innerHTML = ""; //초기화 얘만 innerHTML 허용...
-		let yearMonthDay = null;
-
-		// 채팅 내용 반복문 돌리기
-		for(data of response.chatList){
-			// 시간 몇월
-			  const regDate = new Date(data.reg_date);
-			  const year = regDate.getFullYear();
-			  const month = regDate.getMonth() + 1;
-			  const day = regDate.getDate();
-			  const formattedDateHappen = year + '년 ' + month + '월 ' + day + '일';
-			  /* console.log(yearMonthDay);
-			  console.log(formattedDateHappen);
-			   */
-			  if(yearMonthDay != formattedDateHappen){
-				  const yearMonthDayRow = document.createElement('div');
-				  yearMonthDayRow.classList.add('row', 'justify-content-center', 'mt-4', 'mb-4');
-				  yearMonthDayRow.innerText = formattedDateHappen;
-				  getChatbox.appendChild(yearMonthDayRow);
-				  yearMonthDay = formattedDateHappen;
-			  }
-
-			  const row1 = document.createElement('div');
-			  row1.classList.add('row', 'mt-1', 'mb-2');
-
-			  if(mySessionId!=data.receiver_id && data.receiver_id != 0){
-				  const col1 = document.createElement('div');
-				  col1.classList.add('col', 'd-flex', 'flex-column', 'justify-content-end');
-				  const col1row1 = document.createElement('div');
-				  col1row1.classList.add('row', 'justify-content-end', 'mx-1');
-
-				  if(data.read_unread == 'N'){
-					  col1row1.innerText = '1';
-				  }else{
-					  col1row1.innerText = ' ';
-				  }
-
-				  const col1row2 = document.createElement('div');
-				  col1row2.classList.add('row', 'justify-content-end', 'mx-1', 'chatTime');
+	// chatlisBox
+	const getChatbox = document.getElementById("getChatList");
+	
+	// 스크롤 위치 저장
+	const isScrolledToBottom = getChatbox.scrollHeight - getChatbox.clientHeight <= getChatbox.scrollTop + 10;
+	if(chatMsgScrollTop != 1) chatMsgScrollTop = getChatbox.scrollTop;
+	
+	
+	// 채팅 읽음 표시 update
+	updateIsRead(requestId);
+	
+	const xhr = new XMLHttpRequest();
+	
+	xhr.onreadystatechange = function(){
+		if(xhr.readyState == 4 && xhr.status == 200){
+			const response = JSON.parse(xhr.responseText);
+			mySessionId = response.sessionId;
+	
+		    getChatbox.innerHTML = ""; //초기화 얘만 innerHTML 허용...
+			let yearMonthDay = null;
+	
+			// 채팅 내용 반복문 돌리기
+			for(data of response.chatList){
+				// 시간 몇월
 				  const regDate = new Date(data.reg_date);
-				  const formattedDate = regDate.toLocaleTimeString('ko-KR', { hour: 'numeric', minute: '2-digit' });
-				  col1row2.innerText = formattedDate;
-
-
-				  const col2 = document.createElement('div');
-				  col2.classList.add('col-7', 'me-3', 'myContent', 'text-break');
-				  col2.innerText = data.content;
-
-				  row1.appendChild(col1);
-				  row1.appendChild(col2);
-				  col1.appendChild(col1row1);
-				  col1.appendChild(col1row2);
-
-				  getChatbox.appendChild(row1);
-			  }else {
-				  /*
-				  const colIcon = document.createElement('div');
-				  colIcon.className = 'col-auto ms-2 pe-0 text-left';
-	  			  const col1Img = document.createElement('img');
-	  			  // 프로필 사진 있을 떄
-	  			  console.log(data.userDto.profile_img_link == null)
-	  			  if(true){
-	  				col1Img.src = '/safari/resources/img/user.jpg';
-	  			  }else{
-	  				/* col1Img.src = '/safarifile/' + data.userDto.product_img_link; 
-	  			  }
-				  */
+				  const year = regDate.getFullYear();
+				  const month = regDate.getMonth() + 1;
+				  const day = regDate.getDate();
+				  const formattedDateHappen = year + '년 ' + month + '월 ' + day + '일';
+				  /* console.log(yearMonthDay);
+				  console.log(formattedDateHappen);
+				   */
+				  if(yearMonthDay != formattedDateHappen){
+					  const yearMonthDayRow = document.createElement('div');
+					  yearMonthDayRow.classList.add('row', 'justify-content-center', 'mt-4', 'mb-4');
+					  yearMonthDayRow.innerText = formattedDateHappen;
+					  getChatbox.appendChild(yearMonthDayRow);
+					  yearMonthDay = formattedDateHappen;
+				  }
+	
+				  const row1 = document.createElement('div');
+				  row1.classList.add('row', 'mt-1', 'mb-2');
+				  // 보내는 사람일때	
+				  if(mySessionId!=data.receiver_id && data.receiver_id != 0){
+					  const col1 = document.createElement('div');
+					  col1.classList.add('col', 'd-flex', 'flex-column', 'justify-content-end');
+					  const col1row1 = document.createElement('div');
+					  col1row1.classList.add('row', 'justify-content-end', 'mx-1');
+	
+					  if(data.read_unread == 'N'){
+						  col1row1.innerText = '1';
+					  }else{
+						  col1row1.innerText = ' ';
+					  }
+	
+					  const col1row2 = document.createElement('div');
+					  col1row2.classList.add('row', 'justify-content-end', 'mx-1', 'chatTime');
+					  const regDate = new Date(data.reg_date);
+					  const formattedDate = regDate.toLocaleTimeString('ko-KR', { hour: 'numeric', minute: '2-digit' });
+					  col1row2.innerText = formattedDate;
+	
+	
+					  const col2 = document.createElement('div');
+					  col2.classList.add('col-7', 'me-3', 'myContent', 'text-break');
+					  col2.innerText = data.content;
+	
+					  row1.appendChild(col1);
+					  row1.appendChild(col2);
+					  col1.appendChild(col1row1);
+					  col1.appendChild(col1row2);
+	
+					  getChatbox.appendChild(row1);
+				     // 받는 사람일 떄 
+			      }else {
 				  
 				  const colIcon = document.createElement('div');
-				  colIcon.classList.add('col-1', 'ms-2', 'text-left');
-
-				  const icon = document.createElement('i');
-				  icon.classList.add('bi', 'bi-person-circle', 'fs-4');
-				  colIcon.style.lineHeight = 1;
-				  colIcon.appendChild(icon);
+				  colIcon.className = 'col-1 ms-1 text-left ms-0';
+	  			  const col1Img = document.createElement('img');
+	  			  col1Img.className = 'rounded-circle';
+	  			  col1Img.width = 40;
+	  			  col1Img.height = 40;
+	  			  // 상대방이  프로필 사진 있을 떄
+	  			  console.log(response.receiverDto.profile_img_link == null);
+	  			  if(response.receiverDto.profile_img_link == null){
+	  				col1Img.src = '/safari/resources/img/user.jpg';
+	  				col1Img.style = 'filter:grayscale(1)';
+	  			  }else{
+	  				col1Img.src = '/safari/resources/img/used/user2.png';
+	  				/* col1Img.src = '/safarifile/' + data.userDto.product_img_link;  */
+	  			  }
+	  			  colIcon.appendChild(col1Img);
 
 				  const col3 = document.createElement('div');
-				  col3.classList.add('col-7', 'ms-2', 'otherContent', 'text-break');
+				  col3.classList.add('col-7', 'ms-3', 'otherContent', 'text-break');
 				  col3.innerText = data.content;
 
 				  const col4 = document.createElement('div');
@@ -2262,35 +2262,35 @@ xhr.onreadystatechange = function(){
 
 				  getChatbox.appendChild(row1);
 			  }
-			  /* // 송금 받았을 때
-			  else{
-				  const col3 = document.createElement('div');
-				  col3.classList.add('col','text-center');
-				  col3.innerText = data.content;
-
-				  row1.appendChild(col3);
-
-				  getChatbox.appendChild(row1);
-			  } */
+				  /* // 송금 받았을 때
+				  else{
+					  const col3 = document.createElement('div');
+					  col3.classList.add('col','text-center');
+					  col3.innerText = data.content;
+	
+					  row1.appendChild(col3);
+	
+					  getChatbox.appendChild(row1);
+				  } */
+			}
+			/* // 채팅 화면 마지막으로 맞추기
+			getChatbox.scrollTop = getChatbox.scrollHeight; */
+	
+			// 스크롤 위치 복원
+			if (isScrolledToBottom) {
+				getChatbox.scrollTop = getChatbox.scrollHeight;
+			} else if (chatMsgScrollTop === -1) {
+				getChatbox.scrollTop = getChatbox.scrollHeight;
+			} else {
+				getChatbox.scrollTop = chatMsgScrollTop
+			}
+	
 		}
-		/* // 채팅 화면 마지막으로 맞추기
-		getChatbox.scrollTop = getChatbox.scrollHeight; */
-
-		// 스크롤 위치 복원
-		if (isScrolledToBottom) {
-			getChatbox.scrollTop = getChatbox.scrollHeight;
-		} else if (chatMsgScrollTop === -1) {
-			getChatbox.scrollTop = getChatbox.scrollHeight;
-		} else {
-			getChatbox.scrollTop = chatMsgScrollTop
-		}
-
 	}
-}
 
-//get
-xhr.open("get", "../used/reloadChatList?requestId=" + requestId);
-xhr.send();
+	//get
+	xhr.open("get", "../used/reloadChatList?requestId=" + requestId+"&receiverId="+receiverId2);
+	xhr.send();
 }
 
 //읽음여부 업데이트
