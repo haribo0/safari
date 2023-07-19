@@ -90,8 +90,8 @@
 										    <strong>
 										      <select id="product_id" name="category" style="width: 100%; border: none; outline: none;">
 										        <option value="0" selected="selected">제품 선택1</option>
-										        <c:forEach items="${PickOptionList}" var="PickOptionDto">
-										        	<option value="${PickOptionDto.id}" class="${PickOptionDto.product_id}">${PickOptionDto.title}</option>
+										        <c:forEach items="${productPickOptionList}" var="ProductDto">
+										        	<option value="${ProductDto.id}">${ProductDto.title}</option>
 										        </c:forEach>
 										      </select>
 										    </strong>
@@ -102,6 +102,9 @@
 										    <strong>
 										      <select id="product_id" name="category" style="width: 100%; border: none; outline: none;">
 										        <option value="0" selected="selected">제품 선택2</option>
+										        <c:forEach items="${productPickOptionList}" var="ProductDto">
+										        	<option value="${ProductDto.id}">${ProductDto.title}</option>
+										        </c:forEach>
 										      </select>
 										    </strong>
 										  </div>
@@ -110,6 +113,9 @@
 										    <strong>
 										      <select id="product_id" name="category" style="width: 100%; border: none; outline: none;">
 										        <option value="0" selected="selected">제품 선택3</option>
+										        <c:forEach items="${productPickOptionList}" var="ProductDto">
+										        	<option value="${ProductDto.id}">${ProductDto.title}</option>
+										        </c:forEach>
 										      </select>
 										    </strong>
 										  </div>
@@ -118,6 +124,9 @@
 										    <strong>
 										      <select id="product_id" name="category" style="width: 100%; border: none; outline: none;">
 										        <option value="0" selected="selected">제품 선택4</option>
+										        <c:forEach items="${productPickOptionList}" var="ProductDto">
+										        	<option value="${ProductDto.id}">${ProductDto.title}</option>
+										        </c:forEach>
 										      </select>
 										    </strong>
 										  </div>
@@ -140,7 +149,7 @@
 										  </c:when>
 										  <c:otherwise>
 										  DTO 이미지링크: ${productDto.product_img_link}
-										  <img src="/uploadFiles/${productDto.product_img_link}">
+										  <img src="c://uploadFiles/${productDto.product_img_link}">
 										  </c:otherwise>
 									  </c:choose>
 									 <%--  DTO 이미지링크: ${productDto.pickShowCardDto.product_img_link} <br> --%> 

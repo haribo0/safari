@@ -80,6 +80,19 @@
 					내가 입찰한 경매 목록
 				</div>
 			</div>
+			
+			<div class="row mt-2">
+				<div class="col">
+					 <input class="form-check-input me-2" type="radio" id="radioStatusIng" name="radioStatus" value="ing" style="cursor:pointer";>
+					  <label class="form-check-label me-4" for="radioStatusIng">
+					    	진행중인 경매만 보기
+					  </label>
+					  <input class="form-check-input me-2" type="radio" id="radioStatus" name="radioStatus" value="" style="cursor:pointer";>
+	  					<label class="form-check-label me-4" for="radioStatus">
+	    					전체보기
+	  				</label>	
+				</div>
+			</div>
 
 			<div class="row mt-2 ms-1">
 				<div class="col">
@@ -131,10 +144,10 @@
 								</div>
 							</div>	
 							
-							<div class="col mt-3 text-center fw-bold text-danger">
+							<div class="col mt-3 text-center">
 								<div class="row mt-4">
-									<div class="col" id="currentPrice_${bidItem.id}">
-										
+									<div class="col" >
+										<span class="fw-bold text-danger" id="currentPrice_${bidItem.id}"></span> 원
 										
 									</div>
 								</div>
@@ -165,94 +178,7 @@
 				</div>
 			</div>
 			
-	
-		
-			
-			 
-				
-				
-				
-				
-				
-				
-		
-			
-			
-			
-			
-			
-			
-<%-- 			<div class="row mt-2">
-				<c:forEach items="${userBidList}" var="bidItem">
-					<div class="col-3 mt-4">
-						<div class="row">
-							<div class="col">
-								<a href="/safari/auction/productDetail/${bidItem.id}" class="text-decoration-none d-inline-block">
-									  <img src="/auctionFiles/${bidItem.auction_item_img_link}" class="img-fluid" alt="..." 
-									  	 style="height: 220px;">
-								</a>
-							</div>
-						</div>
-						
-						
-						<div class="row mt-2">
-							<div class="col fw-bold overflow" style="width: 200px; font-size: 17px;">
-								<a href="/safari/auction/productDetail/${bidItem.id}">
-								   ${bidItem.title}</a>
-							</div>
-						</div>
-			
-						
-						
-						<div class="row mt-1">
-							<div class="col-auto text-secondary">
-								현재가<span class="text-danger fw-bold opacity-75 ms-2 fs-5" 
-											id="currentPrice_${bidItem.id}"></span>
-							</div>
-							<div class="col">
-								<span id="auctionStatus_${bidItem.id}"
-								style="position: relative; right: 8px;"></span>
-								
-							</div>
-						</div>
-						
-						<div class="row">
-							<div class="col" style="font-size: 13px;">
-								즉시낙찰가
-								<span class="ms-2">
-					 				<fmt:formatNumber value="${bidItem.max_price}" pattern="#,###"/>원
-					 			</span> 
-							</div>
-						</div>	
-						
-						<div class="row mt-1" >
-							<div class="col" style="font-size: 13px;">
-								경매시작일 : <fmt:formatDate value="${bidItem.start_date}"  pattern="yyyy. MM. dd. a hh:mm"  />
-							</div>
-							
-						</div>		
-						
-						<div class="row">
-							<div class="col" style="font-size: 13px;" id="auctionEndDate_${bidItem.id}">
-								
-							</div>
-							
-						</div>		
-						
-						<div class="row mt-1 mb-0">
-							<div class="col" style="font-size: 18px;">
-								<p id="remainTime_${bidItem.id}" class="mb-1">
-								 </p>
-							</div>
-						</div>							
-						
-	
-					</div>
-				</c:forEach>
-			</div> --%>			
-		
-	
-		
+
 		
 		</div>
 	</div>
@@ -369,7 +295,7 @@ function getCurrentPrice(auctionItemId) {
 function updateCurrentPrice(auctionItemId, currentPrice) {
   const currentPriceElement = document.getElementById("currentPrice_" + auctionItemId);
   	if (currentPriceElement) {
-  		 currentPriceElement.textContent =  new Intl.NumberFormat('ko-KR').format(currentPrice) + "원";
+  		 currentPriceElement.textContent =  new Intl.NumberFormat('ko-KR').format(currentPrice);
   }
 }
 
@@ -524,7 +450,29 @@ function getBidCount(id) {
 } 
  
  
-function getUserBidList() {
+//경매 진행 상태
+let status = null;
+
+
+document.addEventListener('DOMContentLoaded', function() {
+	
+    document.getElementById('radioStatus').addEventListener('click', function() {
+       	
+    	getUserBidList();
+        
+    });	
+    // 진행중인 버튼 클릭 시
+    document.getElementById('radioStatusIng').addEventListener('click', function() {
+        status = 'ing'; // 전역 변수에 'ing' 할당
+        getUserBidListIng();
+        status = null;
+    });
+
+    
+});
+ 
+ 
+function getUserBidListIng() {
 	
 	 const xhr = new XMLHttpRequest();
 	  xhr.onreadystatechange = function() {
@@ -535,14 +483,43 @@ function getUserBidList() {
 	    	  
 	    	  let currentPrice = 0;
 	    	  
-	    	  getCurrentPrice(data.auctionDto.id);
-	    	  updateAuctionCountDown(data.auctionDto.id);
-	    	  getBidCount(data.auctionDto.id);
+	    	  getCurrentPrice(data.id);
+	    	  updateAuctionCountDown(data.id);
+	    	  getBidCount(data.id);
 	      }
 	    }
 	    
 	  };
-	  xhr.open("get", "/safari/auction/getAuctionList");
+	  xhr.open("get", "/safari/auction/getMyBidListIng");
+	  xhr.send();		  
+	
+}  
+ 
+ 
+function getUserBidList() {
+	
+	 const xhr = new XMLHttpRequest();
+	  xhr.onreadystatechange = function() {
+	    if (xhr.readyState === 4 && xhr.status === 200) {
+	      const response = JSON.parse(xhr.responseText);
+	      
+	      if(!response.getBidList) {
+	    	  return;
+	      }
+	      
+	      
+	      for(data of response.getBidList) {
+	    	  
+	    	  let currentPrice = 0;
+	    	  
+	    	  getCurrentPrice(data.auction_item_id);
+	    	  updateAuctionCountDown(data.auction_item_id);
+	    	  getBidCount(data.auction_item_id);
+	      }
+	    }
+	    
+	  };
+	  xhr.open("get", "/safari/auction/getMyBidListForRealTime");
 	  xhr.send();		  
 	
 } 

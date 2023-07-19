@@ -32,6 +32,22 @@ public class UserRestController {
 	
 	@Autowired
 	private CsServiceImpl csServiceImpl;
+	
+	// 사용자 로그인
+	@RequestMapping("loginProcess")
+	public Map<String, Object> loginProcess(UserDto userDto, HttpSession session) {
+		
+		Map<String, Object> map = new HashMap<>();
+		
+	   if (userService.loginUser(userDto) != null) {
+		   session.setAttribute("sessionUser", userService.loginUser(userDto));
+		   map.put("result", "success");
+	   } else {
+		   map.put("result", "fail");
+	   }
+		return map;
+		
+	}
 
 	// 사용자 로그인 확인
 	@RequestMapping("getMyId")
@@ -65,6 +81,20 @@ public class UserRestController {
 		
 		return map;
 	}
+	
+	// 아이디 중복 체크
+	@RequestMapping("existsUserId") 
+	public Map<String, Object> existsUserId(String email)  {
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		boolean exists = userService.existsUserId(email);
+		
+		map.put("exists", exists);
+		
+		return map;
+	}
+	
 
 	// 사용자 주소 추가
 	@RequestMapping("addUserAddress")

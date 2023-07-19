@@ -66,7 +66,6 @@ body1 {
   color: white; /* 글자색 */
   padding: 10px; /* 여백 */
   border-radius: 10px; /* 테두리의 굴곡 정도 */
-  text-align: end; /* 내용을 오른쪽 정렬 */
   width: auto;
   max-width: 320px;
 }
@@ -357,6 +356,53 @@ body1 {
   </div>
 </div>
 <!-- 상대방 리뷰 모달 -->
+<!-- 잔액 부족 경고 모달(코인 보유 금액 < 상품 금액)  -->
+<div class="modal" id="bidFailureLowerCoinModal" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered" style="min-height: 67.5vh; background: rgba(0, 0, 0, 0.45);"> 
+    <div class="modal-content">
+      <div class="modal-header">
+      	<h5>송금 실패</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div> 
+      <div class="modal-body">
+      	
+      	<div class="row text-center">
+    		<div class="col">코인이 부족하여 송금하기에 실패하였습니다.</div>
+       </div>
+  
+      </div>
+      
+      <div class="modal-footer">
+      	<input type="button" class="btn orangeButton" value="충전하기" onclick="location.href='/safari/user/myCoinPage'">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">창닫기</button>
+      </div>      
+   
+    </div>
+  </div>
+</div>
+<!-- 잔액 부족 경고 모달(코인 보유 금액 < 상품 금액)  -->
+<!-- 송금 내역  -->
+<div class="modal" id="usedTransferSuccess" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered" style="background: rgba(0, 0, 0, 0.45);"> 
+    <div class="modal-content">
+      <div class="modal-header">
+      	<h5>송금 완료</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div> 
+	     <div class="modal-body ms-3 me-3" style="height: 515px">
+			<div class="chat-container overflow-y-scroll overflow-x-hidden" style="height:500px;" id="modalBody5">
+		    	
+		    </div>
+	     </div>
+      
+      <div class="modal-footer">
+        <button type="button" class="btn orangeButton d-grid" data-bs-dismiss="modal">확인</button>
+      </div>      
+    </div>
+  </div>
+</div>
+<!-- 잔액 부족 경고 모달(코인 보유 금액 < 상품 금액)  -->
+
 <!-- 중고 끝 -->
 
 
@@ -537,6 +583,7 @@ body1 {
 let requestId2 = null;
 let receiverId2 = null;
 let userNickname2 = null;
+let coinBalance = null;
 
 // 받은 거래 후기 닫고, 내가 쓴 리뷰 보이게 하기 
 function receiverCloseAndMyOpen() {
@@ -1435,6 +1482,11 @@ function reloadChatRoomList() {
     xhr.onreadystatechange = function(){
         if(xhr.readyState == 4 && xhr.status == 200){
             const response = JSON.parse(xhr.responseText);
+            
+            // 회원 코인 잔액 확인하기 
+            coinBalance = response.coinBalance;
+            console.log(coinBalance);
+            
             chatRoomListStartBox.innerHTML = "";
             for(data of response.chatRoomList){
   			  const row = document.createElement('div');
@@ -1447,17 +1499,19 @@ function reloadChatRoomList() {
   			  const col1 = document.createElement('div');
   			  col1.className = 'col-auto ms-4 pe-0';
   			  const col1Img = document.createElement('img');
-  			  // 프로필 사진 있을 떄
+  			  col1Img.className = 'rounded-circle';
+  		      col1Img.width = '35';
+			  col1Img.height = '35';
+  			  // 프로필 사진 없을 때 
   			  console.log(data.userDto.profile_img_link == null)
-  			  if(true){
+  			  if(data.userDto.profile_img_link == null){
   				col1Img.src = '/safari/resources/img/user.jpg';
+  				col1Img.style = 'filter:grayscale(1)';
   			  }else{
+  				col1Img.src = '/safari/resources/img/used/user2.png';
   				/* col1Img.src = '/safarifile/' + data.userDto.product_img_link; */
   			  }
-  			  col1Img.className = 'img-fluid rounded-circle';
-  			  col1Img.style.filter = "grayscale(1)";
-  			  col1Img.width = '35';
-  			  col1Img.height = '35';
+  			  
   			  col1.appendChild(col1Img);
 
   			  const col2 = document.createElement('div');
@@ -1568,7 +1622,6 @@ function reloadChatRoomList() {
 
 
   		      }
-            modalHide('chatModal');
             modalHide('chatModal');
         	const modal = bootstrap.Modal.getOrCreateInstance("#usedChatModal");
         	modal.show();
@@ -1739,8 +1792,8 @@ function getProductInformation(requestId) {
     	            row2col2Icon.classList.add('bi', 'bi-coin');
     	            const row2col2Span = document.createElement('span');
     	            row2col2Span.innerText = ' 송금요청';
-    	            //송금하기  버튼 누르면 해당 메소드 불러오기
-    				/* row2col1Span.setAttribute("onclick", "productRequestStatusReservation("+requestId+")"); */
+    	            //송금요청  버튼 누르면 해당 메소드 불러오기
+    				row2col2Span.setAttribute("onclick", "productRequestTransfer("+requestId+")");
 
     	            const row2col3 = document.createElement('div');
     	            row2col3.classList.add('col-2', 'btn', 'btn-outline-secondary', 'text-dark', 'btn-sm', 'p-1');
@@ -1783,8 +1836,8 @@ function getProductInformation(requestId) {
     	            row2col2Icon.classList.add('bi', 'bi-coin');
     	            const row2col2Span = document.createElement('span');
     	            row2col2Span.innerText = ' 송금요청';
-    	         // 송금하기 버튼 누르면 해당 메소드 불러오기
-    				/* row2col3Span.setAttribute("onclick", "productRequestStatusComplete("+requestId+")"); */
+    	         // 송금요청 버튼 누르면 해당 메소드 불러오기
+    				row2col2Span.setAttribute("onclick", "productRequestTransfer("+requestId+")");
 
     	            const row2col3 = document.createElement('div');
     	            row2col3.classList.add('col-2', 'btn', 'btn-outline-secondary', 'text-dark', 'btn-sm', 'p-1');
@@ -2027,6 +2080,21 @@ function getProductInformation(requestId) {
 	xhr.open("get", "../used/getProductInformation?requestId="+requestId);
 	xhr.send();
 }
+// 판매자일때 송금요청하기 
+function productRequestTransfer(requestId) {
+	
+	const xhr = new XMLHttpRequest();
+	
+	xhr.onreadystatechange = function(){
+	    if(xhr.readyState == 4 && xhr.status == 200){
+	        const response = JSON.parse(xhr.responseText);
+	        reloadChatList(requestId);
+	    }
+	}
+	//get
+	xhr.open("get", "../used/productRequestTransfer?requestId="+requestId);
+	xhr.send();
+}
 
 
 // Textarea에서 Enter 칠 때도 전송되기(단, shirt+enter 안되게)
@@ -2074,89 +2142,100 @@ let chatMsgScrollTop = -1;
 
 //채팅 내용 리스트 리로딩
 function reloadChatList(requestId) {
-// chatlisBox
-const getChatbox = document.getElementById("getChatList");
-
-// 스크롤 위치 저장
-const isScrolledToBottom = getChatbox.scrollHeight - getChatbox.clientHeight <= getChatbox.scrollTop + 10;
-if(chatMsgScrollTop != 1) chatMsgScrollTop = getChatbox.scrollTop;
-
-
-// 채팅 읽음 표시 update
-updateIsRead(requestId);
-
-const xhr = new XMLHttpRequest();
-
-xhr.onreadystatechange = function(){
-	if(xhr.readyState == 4 && xhr.status == 200){
-		const response = JSON.parse(xhr.responseText);
-		mySessionId = response.sessionId;
-
-	    getChatbox.innerHTML = ""; //초기화 얘만 innerHTML 허용...
-		let yearMonthDay = null;
-
-		// 채팅 내용 반복문 돌리기
-		for(data of response.chatList){
-			// 시간 몇월
-			  const regDate = new Date(data.reg_date);
-			  const year = regDate.getFullYear();
-			  const month = regDate.getMonth() + 1;
-			  const day = regDate.getDate();
-			  const formattedDateHappen = year + '년 ' + month + '월 ' + day + '일';
-			  /* console.log(yearMonthDay);
-			  console.log(formattedDateHappen);
-			   */
-			  if(yearMonthDay != formattedDateHappen){
-				  const yearMonthDayRow = document.createElement('div');
-				  yearMonthDayRow.classList.add('row', 'justify-content-center', 'mt-4', 'mb-4');
-				  yearMonthDayRow.innerText = formattedDateHappen;
-				  getChatbox.appendChild(yearMonthDayRow);
-				  yearMonthDay = formattedDateHappen;
-			  }
-
-			  const row1 = document.createElement('div');
-			  row1.classList.add('row', 'mt-1');
-
-			  if(mySessionId!=data.receiver_id && data.receiver_id != 0){
-				  const col1 = document.createElement('div');
-				  col1.classList.add('col', 'd-flex', 'flex-column', 'justify-content-end');
-				  const col1row1 = document.createElement('div');
-				  col1row1.classList.add('row', 'justify-content-end', 'mx-1');
-
-				  if(data.read_unread == 'N'){
-					  col1row1.innerText = '1';
-				  }else{
-					  col1row1.innerText = ' ';
-				  }
-
-				  const col1row2 = document.createElement('div');
-				  col1row2.classList.add('row', 'justify-content-end', 'mx-1', 'chatTime');
+	// chatlisBox
+	const getChatbox = document.getElementById("getChatList");
+	
+	// 스크롤 위치 저장
+	const isScrolledToBottom = getChatbox.scrollHeight - getChatbox.clientHeight <= getChatbox.scrollTop + 10;
+	if(chatMsgScrollTop != 1) chatMsgScrollTop = getChatbox.scrollTop;
+	
+	
+	// 채팅 읽음 표시 update
+	updateIsRead(requestId);
+	
+	const xhr = new XMLHttpRequest();
+	
+	xhr.onreadystatechange = function(){
+		if(xhr.readyState == 4 && xhr.status == 200){
+			const response = JSON.parse(xhr.responseText);
+			mySessionId = response.sessionId;
+	
+		    getChatbox.innerHTML = ""; //초기화 얘만 innerHTML 허용...
+			let yearMonthDay = null;
+	
+			// 채팅 내용 반복문 돌리기
+			for(data of response.chatList){
+				// 시간 몇월
 				  const regDate = new Date(data.reg_date);
-				  const formattedDate = regDate.toLocaleTimeString('ko-KR', { hour: 'numeric', minute: '2-digit' });
-				  col1row2.innerText = formattedDate;
-
-
-				  const col2 = document.createElement('div');
-				  col2.classList.add('col-7', 'me-3', 'myContent', 'text-break');
-				  col2.innerText = data.content;
-
-				  row1.appendChild(col1);
-				  row1.appendChild(col2);
-				  col1.appendChild(col1row1);
-				  col1.appendChild(col1row2);
-
-				  getChatbox.appendChild(row1);
-			  }else if(mySessionId==data.receiver_id && data.receiver_id != 0) {
+				  const year = regDate.getFullYear();
+				  const month = regDate.getMonth() + 1;
+				  const day = regDate.getDate();
+				  const formattedDateHappen = year + '년 ' + month + '월 ' + day + '일';
+				  /* console.log(yearMonthDay);
+				  console.log(formattedDateHappen);
+				   */
+				  if(yearMonthDay != formattedDateHappen){
+					  const yearMonthDayRow = document.createElement('div');
+					  yearMonthDayRow.classList.add('row', 'justify-content-center', 'mt-4', 'mb-4');
+					  yearMonthDayRow.innerText = formattedDateHappen;
+					  getChatbox.appendChild(yearMonthDayRow);
+					  yearMonthDay = formattedDateHappen;
+				  }
+	
+				  const row1 = document.createElement('div');
+				  row1.classList.add('row', 'mt-1', 'mb-2');
+				  // 보내는 사람일때	
+				  if(mySessionId!=data.receiver_id && data.receiver_id != 0){
+					  const col1 = document.createElement('div');
+					  col1.classList.add('col', 'd-flex', 'flex-column', 'justify-content-end');
+					  const col1row1 = document.createElement('div');
+					  col1row1.classList.add('row', 'justify-content-end', 'mx-1');
+	
+					  if(data.read_unread == 'N'){
+						  col1row1.innerText = '1';
+					  }else{
+						  col1row1.innerText = ' ';
+					  }
+	
+					  const col1row2 = document.createElement('div');
+					  col1row2.classList.add('row', 'justify-content-end', 'mx-1', 'chatTime');
+					  const regDate = new Date(data.reg_date);
+					  const formattedDate = regDate.toLocaleTimeString('ko-KR', { hour: 'numeric', minute: '2-digit' });
+					  col1row2.innerText = formattedDate;
+	
+	
+					  const col2 = document.createElement('div');
+					  col2.classList.add('col-7', 'me-3', 'myContent', 'text-break');
+					  col2.innerText = data.content;
+	
+					  row1.appendChild(col1);
+					  row1.appendChild(col2);
+					  col1.appendChild(col1row1);
+					  col1.appendChild(col1row2);
+	
+					  getChatbox.appendChild(row1);
+				     // 받는 사람일 떄 
+			      }else {
+				  
 				  const colIcon = document.createElement('div');
-				  colIcon.classList.add('col-1', 'ms-2', 'text-left');
-
-				  const icon = document.createElement('i');
-				  icon.classList.add('bi', 'bi-person-circle', 'fs-4');
-				  colIcon.style.lineHeight = 1;
-				  colIcon.appendChild(icon);
+				  colIcon.className = 'col-1 ms-1 text-left ms-0';
+	  			  const col1Img = document.createElement('img');
+	  			  col1Img.className = 'rounded-circle';
+	  			  col1Img.width = 40;
+	  			  col1Img.height = 40;
+	  			  // 상대방이  프로필 사진 있을 떄
+	  			  console.log(response.receiverDto.profile_img_link == null);
+	  			  if(response.receiverDto.profile_img_link == null){
+	  				col1Img.src = '/safari/resources/img/user.jpg';
+	  				col1Img.style = 'filter:grayscale(1)';
+	  			  }else{
+	  				col1Img.src = '/safari/resources/img/used/user2.png';
+	  				/* col1Img.src = '/safarifile/' + data.userDto.product_img_link;  */
+	  			  }
+	  			  colIcon.appendChild(col1Img);
 
 				  const col3 = document.createElement('div');
-				  col3.classList.add('col-7', 'ms-2', 'otherContent', 'text-break');
+				  col3.classList.add('col-7', 'ms-3', 'otherContent', 'text-break');
 				  col3.innerText = data.content;
 
 				  const col4 = document.createElement('div');
@@ -2183,66 +2262,66 @@ xhr.onreadystatechange = function(){
 
 				  getChatbox.appendChild(row1);
 			  }
-			  // 송금 받았을 때
-			  else{
-				  const col3 = document.createElement('div');
-				  col3.classList.add('col','text-center');
-				  col3.innerText = data.content;
-
-				  row1.appendChild(col3);
-
-				  getChatbox.appendChild(row1);
-			  }
+				  /* // 송금 받았을 때
+				  else{
+					  const col3 = document.createElement('div');
+					  col3.classList.add('col','text-center');
+					  col3.innerText = data.content;
+	
+					  row1.appendChild(col3);
+	
+					  getChatbox.appendChild(row1);
+				  } */
+			}
+			/* // 채팅 화면 마지막으로 맞추기
+			getChatbox.scrollTop = getChatbox.scrollHeight; */
+	
+			// 스크롤 위치 복원
+			if (isScrolledToBottom) {
+				getChatbox.scrollTop = getChatbox.scrollHeight;
+			} else if (chatMsgScrollTop === -1) {
+				getChatbox.scrollTop = getChatbox.scrollHeight;
+			} else {
+				getChatbox.scrollTop = chatMsgScrollTop
+			}
+	
 		}
-		/* // 채팅 화면 마지막으로 맞추기
-		getChatbox.scrollTop = getChatbox.scrollHeight; */
-
-		// 스크롤 위치 복원
-		if (isScrolledToBottom) {
-			getChatbox.scrollTop = getChatbox.scrollHeight;
-		} else if (chatMsgScrollTop === -1) {
-			getChatbox.scrollTop = getChatbox.scrollHeight;
-		} else {
-			getChatbox.scrollTop = chatMsgScrollTop
-		}
-
 	}
-}
 
-//get
-xhr.open("get", "../used/reloadChatList?requestId=" + requestId);
-xhr.send();
+	//get
+	xhr.open("get", "../used/reloadChatList?requestId=" + requestId+"&receiverId="+receiverId2);
+	xhr.send();
 }
 
 //읽음여부 업데이트
 function updateIsRead(requestId) {
 
-const xhr = new XMLHttpRequest();
-
-xhr.onreadystatechange = function(){
-    if(xhr.readyState == 4 && xhr.status == 200){
-        const response = JSON.parse(xhr.responseText);
-    }
-}
-//get
-xhr.open("get", "../used/updateIsRead?requestId="+requestId);
-xhr.send();
-}
+	const xhr = new XMLHttpRequest();
+	
+	xhr.onreadystatechange = function(){
+	    if(xhr.readyState == 4 && xhr.status == 200){
+	        const response = JSON.parse(xhr.responseText);
+	    }
+	}
+	//get
+	xhr.open("get", "../used/updateIsRead?requestId="+requestId);
+	xhr.send();
+	}
 
 //예약중으로 상태 업데이트
 function productRequestStatusReservation(requestId) {
 
-const xhr = new XMLHttpRequest();
-
-xhr.onreadystatechange = function(){
-    if(xhr.readyState == 4 && xhr.status == 200){
-        const response = JSON.parse(xhr.responseText);
-        getProductInformation(requestId);
-    }
-}
-//get
-xhr.open("get", "../used/productRequestStatusReservation?requestId="+requestId);
-xhr.send();
+	const xhr = new XMLHttpRequest();
+	
+	xhr.onreadystatechange = function(){
+	    if(xhr.readyState == 4 && xhr.status == 200){
+	        const response = JSON.parse(xhr.responseText);
+	        getProductInformation(requestId);
+	    }
+	}
+	//get
+	xhr.open("get", "../used/productRequestStatusReservation?requestId="+requestId);
+	xhr.send();
 }
 
 //예약취소해서 거래요청으로 상태 업데이트
@@ -2279,61 +2358,81 @@ xhr.send();
 
 //결제하기
 function processPayment(partner_order_id, partner_user_id,item_name,item_code,total_amount) {
+	if(total_amount>coinBalance){
+		const coinAlertwModal = bootstrap.Modal.getOrCreateInstance('#bidFailureLowerCoinModal');
+		coinAlertwModal.show();
+	}else{
+		successPayment(partner_order_id, partner_user_id,item_name,item_code,total_amount);
+	}
 
-/* const myModal = bootstrap.Modal.getOrCreateInstance('#adsModal');
-myModal.hide(); */
-
-  const cid = "TC0ONETIME";
-  /* const partner_order_id = partner_order_id;
-  const partner_user_id = partner_user_id;
-  const item_name = item_name;
-  const item_code = item_code; */
-  const quantity = 1;
-  /* const total_amount = total_amount; */
-  const tax_free_amount = total_amount;
-  const approval_url = "http://localhost:8080/safari/used/paymentProcess";
-  const cancel_url = "http://localhost:8080/safari/used/chatList";
-  const fail_url = "http://localhost:8080/safari/used/paymentFailed";
-
-  // Make an AJAX request to the server to initiate the payment using KakaoPay API
-  // Replace the URL and other request parameters with your actual API endpoint and data
-  const xhr = new XMLHttpRequest();
-
-  xhr.onreadystatechange = function() {
-    if (xhr.readyState === XMLHttpRequest.DONE) {
-      if (xhr.status === 200) {
-        // Payment request succeeded
-        const response = JSON.parse(xhr.responseText);
-        // Handle the response or redirect the user to the payment page
-        const tid = response.tid;
-
-        saveTidToSession(cid, partner_order_id, partner_user_id, tid, item_name, item_code,response.next_redirect_pc_url);
-
-
-      } else {
-        // Payment request failed
-        // Handle the error or display an error message to the user
-      }
-    }
-  };
-
-  xhr.open("POST", "https://kapi.kakao.com/v1/payment/ready");
-  xhr.setRequestHeader("Authorization", "KakaoAK 3b87c3c90d2d8e263b4a8ac2422d11ba");
-  xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded;charset=utf-8");
-  xhr.send("cid="+cid+"&partner_order_id="+partner_order_id+"&partner_user_id="+partner_user_id+"&item_name="+item_name
-		  +"&item_code="+item_code+"&quantity="+quantity+"&total_amount="+total_amount+"&tax_free_amount="+tax_free_amount
-		  +"&approval_url="+approval_url+"&cancel_url="+cancel_url+"&fail_url="+fail_url);
 }
 
+function successPayment(partner_order_id, partner_user_id,item_name,item_code,total_amount) {
+	
+	
+	const xhr = new XMLHttpRequest();
+	
+	xhr.onreadystatechange = function(){
+	    if(xhr.readyState == 4 && xhr.status == 200){
+	        const response = JSON.parse(xhr.responseText);
+	        reloadChatList(requestId);
+	    }
+	}
+	//get
+	xhr.open("get", "../used/reduceAndPlusUserCoinByUsed?user_id="+partner_user_id+"&coin_transaction="+total_amount+"&productId="+item_code+"&requestId="+partner_order_id);
+	xhr.send();
+	
+	/* const myModal = bootstrap.Modal.getOrCreateInstance('#adsModal');
+	myModal.hide(); 
+
+	  const cid = "TC0ONETIME";
+	  const partner_order_id = partner_order_id;
+	  const partner_user_id = partner_user_id;
+	  const item_name = item_name;
+	  const item_code = item_code; 
+	  const quantity = 1;
+	  const total_amount = total_amount; 
+	  const tax_free_amount = total_amount;
+	  const approval_url = "http://localhost:8080/safari/used/paymentProcess";
+	  const cancel_url = "http://localhost:8080/safari/used/chatList";
+	  const fail_url = "http://localhost:8080/safari/used/paymentFailed";
+
+	  // Make an AJAX request to the server to initiate the payment using KakaoPay API
+	  // Replace the URL and other request parameters with your actual API endpoint and data
+	  const xhr = new XMLHttpRequest();
+
+	  xhr.onreadystatechange = function() {
+	    if (xhr.readyState === XMLHttpRequest.DONE) {
+	      if (xhr.status === 200) {
+	        // Payment request succeeded
+	        const response = JSON.parse(xhr.responseText);
+	        // Handle the response or redirect the user to the payment page
+	        const tid = response.tid;
+
+	        saveTidToSession(cid, partner_order_id, partner_user_id, tid, item_name, item_code,response.next_redirect_pc_url);
+
+
+	      } else {
+	        // Payment request failed
+	        // Handle the error or display an error message to the user
+	      }
+	    }
+	  };
+
+	  xhr.open("POST", "https://kapi.kakao.com/v1/payment/ready");
+	  xhr.setRequestHeader("Authorization", "KakaoAK 3b87c3c90d2d8e263b4a8ac2422d11ba");
+	  xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded;charset=utf-8");
+	  xhr.send("cid="+cid+"&partner_order_id="+partner_order_id+"&partner_user_id="+partner_user_id+"&item_name="+item_name
+			  +"&item_code="+item_code+"&quantity="+quantity+"&total_amount="+total_amount+"&tax_free_amount="+tax_free_amount
+			  +"&approval_url="+approval_url+"&cancel_url="+cancel_url+"&fail_url="+fail_url); */
+	  
+}
+
+/*
 //Save tid to session using AJAX
 function saveTidToSession(cid,partner_order_id,partner_user_id,tid, item_name, item_code, next_redirect_pc_url) {
 
 	console.log("saveTidToSession");
-/* 	console.log(cid);
-	console.log(tid);
-	console.log(partner_user_id);
-	console.log(partner_order_id);
-	console.log(next_redirect_pc_url); */
 
 const xhr = new XMLHttpRequest();
 
@@ -2341,7 +2440,7 @@ const xhr = new XMLHttpRequest();
 xhr.onreadystatechange = function() {
     if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
 
-    	 /* location.href = response.next_redirect_pc_url; */
+    	 location.href = response.next_redirect_pc_url; 
     	 window.open(next_redirect_pc_url, "_blank");
 
     }
@@ -2351,202 +2450,179 @@ xhr.open("POST", "../used/saveTidToSession");
 xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 xhr.send("cid="+cid+"&partner_order_id="+partner_order_id+"&partner_user_id="+partner_user_id+"&tid="+tid+"&item_name="+item_name+"&item_code="+item_code);
 }
+*/
 
 //리뷰 클릭하면 채팅창 닫고 리뷰쓰기 모달 열기
 function writeReview(senderId, receiverId, requestId) {
-modalHide('chatModal');
-reviewModalOn(senderId, receiverId, requestId);
+	modalHide('chatModal');
+	reviewModalOn(senderId, receiverId, requestId);
 }
 
 //리뷰모달 열기
 function  reviewModalOn(senderId, receiverId, requestId) {
 
-// 리뷰 모달 열기 전 정보 가져오기
-getReviewInformation(senderId, receiverId, requestId);
-
-// 열 때
-const writeReviewModal = bootstrap.Modal.getOrCreateInstance('#writeReviewModal');
-writeReviewModal.show();
+	// 리뷰 모달 열기 전 정보 가져오기
+	getReviewInformation(senderId, receiverId, requestId);
+	
+	// 열 때
+	const writeReviewModal = bootstrap.Modal.getOrCreateInstance('#writeReviewModal');
+	writeReviewModal.show();
 
 }
 
 //리뷰 모달 열기 전 정보 가져오기
 function getReviewInformation(senderId, receiverId, requestId) {
-// 거래후기 모달 창 헤더
-const modalHeaderWrapperBox = document.getElementById('modalHeaderWrapper2');
-
-
-// 거래후기 모달 창 바디
-const modalBodyBox = document.getElementById('modalBody2');
-
-const xhr = new XMLHttpRequest();
-
-xhr.onreadystatechange = function(){
-    if(xhr.readyState == 4 && xhr.status == 200){
-        const response = JSON.parse(xhr.responseText);
-
-        modalHeaderWrapperBox.innerHTML = "";
-        modalBodyBox.innerHTML = "";
-
-        // header
-        const row1 = document.createElement('div');
-        row1.classList.add('row');
-
-        const col1 = document.createElement('div');
-        col1.classList.add('col-2', 'p-0');
-      	const col1Img = document.createElement("img");
-      	col1Img.alt = response.map.productDto.title;
-      	col1Img.src = '/safarifile/' + response.map.productImgDto.product_img_link;
-      	col1Img.classList.add('img-fluid');
-
-      	const col2 = document.createElement('div');
-        col2.classList.add('col', 'mt-3', 'ms-1');
-
-      	const col2row1 = document.createElement('div');
-      	col2row1.classList.add('row');
-        const col2row1col1 = document.createElement('div');
-        col2row1col1.classList.add('col', 'fw-bold');
-        /* col2row1col1.textContent = '에어팟 프로'; */
-        col2row1col1.textContent = response.map.productDto.title;
-
-        const col2row2 = document.createElement('div');
-      	col2row2.classList.add('row');
-        const col2row2col1 = document.createElement('div');
-        col2row2col1.classList.add('col-auto');
-        col2row2col1.textContent = '거래한 이웃'
-
-        const col2row2col2 = document.createElement('div');
-        col2row2col2.classList.add('fw-bold', 'm-0', 'col-auto', 'p-0');
-        /* span.textContent = '피자죠아'; */
-        col2row2col2.textContent = response.map.receiverDto.nickname;
-
-        row1.appendChild(col1);
-        col1.appendChild(col1Img);
-        row1.appendChild(col2);
-        col2.appendChild(col2row1);
-        col2row1.appendChild(col2row1col1);
-        col2.appendChild(col2row2);
-        col2row2.appendChild(col2row2col1);
-        col2row2.appendChild(col2row2col2);
-
-        modalHeaderWrapperBox.appendChild(row1);
-
-
-       /*  col1.classList.add('col', "fw-bold");
-         col1.textContent = '에어팟 프로';
-        col1.textContent = response.map.productDto.title;
-
-        row1.appendChild(col1);
-        modalHeaderWrapperBox.appendChild(row1);
-
-        const row2 = document.createElement('div');
-        row2.classList.add('row');
-
-
-        const col2 = document.createElement('div');
-        col2.classList.add('col');
-        col2.textContent = '거래한 이웃';
-
-        const span = document.createElement('span');
-        span.classList.add('fw-bold', 'ms-2');
-        /* span.textContent = '피자죠아';
-        span.textContent = response.map.receiverDto.nickname;
-
-        col2.appendChild(span);
-        row2.appendChild(col2);
-        modalHeaderWrapperBox.appendChild(row2); */
-
-        // body
-        // First row
-        const firstRow = document.createElement("div");
-        firstRow.classList.add("row");
-
-        const firstCol = document.createElement("div");
-        firstCol.classList.add("col", "fw-bold");
-        /* firstCol.textContent = "바니바니님,"; */
-        firstCol.textContent = response.map.senderDto.nickname+"님,";
-
-        firstRow.appendChild(firstCol);
-
-        modalBodyBox.appendChild(firstRow);
-
-        // Second row
-        const secondRow = document.createElement("div");
-        secondRow.classList.add("row");
-
-        const secondCol = document.createElement("div");
-        secondCol.classList.add("col", "fw-bold");
-        secondCol.textContent = response.map.receiverDto.nickname+"님과 거래가 어떠셨나요?";
-
-        secondRow.appendChild(secondCol);
-
-        modalBodyBox.appendChild(secondRow);
-
-        // Third row
-        const thirdRow = document.createElement("div");
-        thirdRow.classList.add("row");
-
-        const thirdCol = document.createElement("div");
-        thirdCol.classList.add("col", "text-secondary", "onlyme", "mt-1");
-        thirdCol.textContent = "거래 선호도는 나만 볼 수 있어요";
-
-        thirdRow.appendChild(thirdCol);
-
-        modalBodyBox.appendChild(thirdRow);
-
-        // Fourth row
-        const fourthRow = document.createElement("div");
-        fourthRow.classList.add("row", "mt-4");
-
-        // 평가 카테고리
-        for(data of response.map.usedReviewRateCategoryDto){
-        	// 평가 list
-            const col4 = document.createElement("div");
-            col4.classList.add("col-4", "text-center");
-
-            const img4 = document.createElement("img");
-            img4.classList.add("opacity-25", "btn-bunny");
-            img4.alt = data.img_title;
-            img4.src = "/safari/resources/img/used/"+data.img_title+".png";
-            img4.width = 70;
-            img4.height = 70;
-            img4.setAttribute("onclick", data.img_title+"Change("+data.id+","+senderId+","+receiverId+","+requestId+")");
-            img4.id=data.img_title+"Img";
-
-
-            const p4 = document.createElement("p");
-            p4.classList.add("text-secondary", "fw-semibold", "mt-1");
-            p4.textContent = data.content;
-            p4.id = data.img_title+"Text";
-
-            col4.appendChild(img4);
-            col4.appendChild(p4);
-
-            fourthRow.appendChild(col4);
-
-
-        }
-
-        const rateCheckContainer = document.createElement("div");
-        rateCheckContainer.classList.add("container");
-        rateCheckContainer.id = 'rateCheckContainer';
-
-        modalBodyBox.appendChild(fourthRow);
-        modalBodyBox.appendChild(rateCheckContainer);
-
-
-    }
-}
-//get
-xhr.open("get", "../used/getReviewHeaderAndBody?senderId="+senderId+"&receiverId="+receiverId+"&requestId="+requestId);
-xhr.send();
+	// 거래후기 모달 창 헤더
+	const modalHeaderWrapperBox = document.getElementById('modalHeaderWrapper2');
+	
+	
+	// 거래후기 모달 창 바디
+	const modalBodyBox = document.getElementById('modalBody2');
+	
+	const xhr = new XMLHttpRequest();
+	
+	xhr.onreadystatechange = function(){
+	    if(xhr.readyState == 4 && xhr.status == 200){
+	        const response = JSON.parse(xhr.responseText);
+	
+	        modalHeaderWrapperBox.innerHTML = "";
+	        modalBodyBox.innerHTML = "";
+	
+	        // header
+	        const row1 = document.createElement('div');
+	        row1.classList.add('row');
+	
+	        const col1 = document.createElement('div');
+	        col1.classList.add('col-2', 'p-0');
+	      	const col1Img = document.createElement("img");
+	      	col1Img.alt = response.map.productDto.title;
+	      	col1Img.src = '/safarifile/' + response.map.productImgDto.product_img_link;
+	      	col1Img.classList.add('img-fluid');
+	
+	      	const col2 = document.createElement('div');
+	        col2.classList.add('col', 'mt-3', 'ms-1');
+	
+	      	const col2row1 = document.createElement('div');
+	      	col2row1.classList.add('row');
+	        const col2row1col1 = document.createElement('div');
+	        col2row1col1.classList.add('col', 'fw-bold');
+	        /* col2row1col1.textContent = '에어팟 프로'; */
+	        col2row1col1.textContent = response.map.productDto.title;
+	
+	        const col2row2 = document.createElement('div');
+	      	col2row2.classList.add('row');
+	        const col2row2col1 = document.createElement('div');
+	        col2row2col1.classList.add('col-auto');
+	        col2row2col1.textContent = '거래한 이웃'
+	
+	        const col2row2col2 = document.createElement('div');
+	        col2row2col2.classList.add('fw-bold', 'm-0', 'col-auto', 'p-0');
+	        /* span.textContent = '피자죠아'; */
+	        col2row2col2.textContent = response.map.receiverDto.nickname;
+	
+	        row1.appendChild(col1);
+	        col1.appendChild(col1Img);
+	        row1.appendChild(col2);
+	        col2.appendChild(col2row1);
+	        col2row1.appendChild(col2row1col1);
+	        col2.appendChild(col2row2);
+	        col2row2.appendChild(col2row2col1);
+	        col2row2.appendChild(col2row2col2);
+	
+	        modalHeaderWrapperBox.appendChild(row1);
+	
+	
+	        // body
+	        // First row
+	        const firstRow = document.createElement("div");
+	        firstRow.classList.add("row");
+	
+	        const firstCol = document.createElement("div");
+	        firstCol.classList.add("col", "fw-bold");
+	        /* firstCol.textContent = "바니바니님,"; */
+	        firstCol.textContent = response.map.senderDto.nickname+"님,";
+	
+	        firstRow.appendChild(firstCol);
+	
+	        modalBodyBox.appendChild(firstRow);
+	
+	        // Second row
+	        const secondRow = document.createElement("div");
+	        secondRow.classList.add("row");
+	
+	        const secondCol = document.createElement("div");
+	        secondCol.classList.add("col", "fw-bold");
+	        secondCol.textContent = response.map.receiverDto.nickname+"님과 거래가 어떠셨나요?";
+	
+	        secondRow.appendChild(secondCol);
+	
+	        modalBodyBox.appendChild(secondRow);
+	
+	        // Third row
+	        const thirdRow = document.createElement("div");
+	        thirdRow.classList.add("row");
+	
+	        const thirdCol = document.createElement("div");
+	        thirdCol.classList.add("col", "text-secondary", "onlyme", "mt-1");
+	        thirdCol.textContent = "거래 선호도는 나만 볼 수 있어요";
+	
+	        thirdRow.appendChild(thirdCol);
+	
+	        modalBodyBox.appendChild(thirdRow);
+	
+	        // Fourth row
+	        const fourthRow = document.createElement("div");
+	        fourthRow.classList.add("row", "mt-4");
+	
+	        // 평가 카테고리
+	        for(data of response.map.usedReviewRateCategoryDto){
+	        	// 평가 list
+	            const col4 = document.createElement("div");
+	            col4.classList.add("col-4", "text-center");
+	
+	            const img4 = document.createElement("img");
+	            img4.classList.add("opacity-25", "btn-bunny");
+	            img4.alt = data.img_title;
+	            img4.src = "/safari/resources/img/used/"+data.img_title+".png";
+	            img4.width = 70;
+	            img4.height = 70;
+	            img4.setAttribute("onclick", data.img_title+"Change("+data.id+","+senderId+","+receiverId+","+requestId+")");
+	            img4.id=data.img_title+"Img";
+	
+	
+	            const p4 = document.createElement("p");
+	            p4.classList.add("text-secondary", "fw-semibold", "mt-1");
+	            p4.textContent = data.content;
+	            p4.id = data.img_title+"Text";
+	
+	            col4.appendChild(img4);
+	            col4.appendChild(p4);
+	
+	            fourthRow.appendChild(col4);
+	
+	
+	        }
+	
+	        const rateCheckContainer = document.createElement("div");
+	        rateCheckContainer.classList.add("container");
+	        rateCheckContainer.id = 'rateCheckContainer';
+	
+	        modalBodyBox.appendChild(fourthRow);
+	        modalBodyBox.appendChild(rateCheckContainer);
+	
+	
+	    }
+	}
+	//get
+	xhr.open("get", "../used/getReviewHeaderAndBody?senderId="+senderId+"&receiverId="+receiverId+"&requestId="+requestId);
+	xhr.send();
 }
 
 //modal 닫을 때
 function modalHide(id) {
-const modalId = '#'+ id;
-const myModal = bootstrap.Modal.getOrCreateInstance(modalId);
-   myModal.hide();
+	const modalId = '#'+ id;
+	const myModal = bootstrap.Modal.getOrCreateInstance(modalId);
+	   myModal.hide();
 }
 
 

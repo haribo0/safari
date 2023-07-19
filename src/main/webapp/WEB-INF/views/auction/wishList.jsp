@@ -117,10 +117,10 @@
 								
 							</div>
 							
-							<div class="row">
-								<div class="col fw-medium">
+							<div class="row mt-1">
+								<div class="col" style="font-size: 14px;">
 									즉시낙찰가
-									<span class="ms-2">
+									<span class="ms-2" >
 						 				<fmt:formatNumber value="${wish.max_price}" pattern="#,###"/>원
 						 			</span> 
 								</div>
@@ -388,17 +388,24 @@ function updateCurrentPrice(auctionItemId, currentPrice) {
 	    if (xhr.readyState === 4 && xhr.status === 200) {
 	      const response = JSON.parse(xhr.responseText);
 	      
-	      for(data of response.getAuctionList) {
+	       if(!response.getWishList) {
+	    	  return;
+	      }
+	      
+	      else { 
+	      for(data of response.getWishList) {
 	    	  
 	    	  let currentPrice = 0;
-	    	  
-	    	  getCurrentPrice(data.auctionDto.id);
-	    	  updateAuctionCountDown(data.auctionDto.id);
+	   
+	    	  getCurrentPrice(data.auction_item_id);
+	    	  updateAuctionCountDown(data.auction_item_id);
+	      }
+	      
 	      }
 	    }
 	    
 	  };
-	  xhr.open("get", "/safari/auction/getAuctionList");
+	  xhr.open("get", "/safari/auction/getMyWishListForRealTime");
 	  xhr.send();		  
 	
 } 

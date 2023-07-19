@@ -1,399 +1,790 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>  
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>사파리 | 로그인</title>
-	<!-- 메타 섹션 -->
-	<jsp:include page="../../common/meta.jsp"></jsp:include>
-	<!-- 메타 섹션 -->
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+<!-- 메타 섹션 -->
+<jsp:include page="../../common/meta.jsp"></jsp:include>
+<!-- 메타 섹션 -->
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM"
+	crossorigin="anonymous">
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+
+<script>
+
+// 현재 접속한 유저 pk
+let mySessionId = null;
+	
+//경로에서 변수 부분 추출 (pathv~로 설정한 주소 받아오기)
+const path = window.location.pathname;
+const parts = path.split('/');
+//해주세요 pk
+const help_id = parts[parts.length - 1]; 
+
+
+
+function ajaxTemplete() { //갖다붙이고 시작하기
+	
+	const xhr = new XMLHttpRequest();
+
+	xhr.onreadystatechange = function(){
+		if(xhr.readyState == 4 && xhr.status == 200){
+			const response = JSON.parse(xhr.responseText);
+			// js 작업..
+		}
+	}	
+
+	//get
+	xhr.open("get", "요청 url?파라미터=값");
+	xhr.send();
+	
+	//post
+	xhr.open("post", "요청 url");
+	xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+	xhr.send("파라미터=값");
+}
+	
+	
+	
+function getSessionId() {
+	const xhr = new XMLHttpRequest();
+	
+	xhr.onreadystatechange = function(){
+		if(xhr.readyState == 4 && xhr.status == 200){
+			const response = JSON.parse(xhr.responseText);
+			// js 작업..
+			if(response.result == "success"){
+				mySessionId = response.id;
+				
+			}
+		}
+	}	
+
+	//get
+	xhr.open("get", "/safari/user/getMyId"); //딱 여기만 쓰세요, false 동기식 호출(권장x) //여기 틀림
+	xhr.send();
+}
+	
+function refreshTotalHelpLikeCount(){
+	const xhr = new XMLHttpRequest();
+	
+	xhr.onreadystatechange = function(){
+		if(xhr.readyState == 4 && xhr.status == 200){
+			const response = JSON.parse(xhr.responseText);
+			const totalHelpLikeCountBox = document.getElementById("totalHelpLikeCount");
+			totalHelpLikeCountBox.innerText = response.count;
+		}
+	}
+	
+	
+	
+	
+	
+	xhr.open("get", "/safari/help/getTotalHelpLikeCount?help_id=" +help_id);
+	xhr.send();
+}
+	
+	
+
+function toggleHelpLike(){
+	if(!mySessionId){
+		/* if(confirm("로그인을 하셔야 이용하실 수 있습니다. 로그인 하시겠습니까?")){  */
+			location.href = "/safari/user/loginPage";		
+			 return;
+		}
+		
+	
+	
+	
+	const xhr = new XMLHttpRequest();
+	
+	xhr.onreadystatechange = function(){
+		if(xhr.readyState == 4 && xhr.status == 200){
+			const response = JSON.parse(xhr.responseText);
+			// js 작업..
+			refreshTotalHelpLikeCount();
+			refreshHelpHeart();
+		}
+	}	
+
+	//get
+	xhr.open("get", "/safari/help/toggleHelpLike?help_id=" + help_id);
+	xhr.send();
+}
+	
+function refreshHelpHeart(){
+	
+	if(mySessionId == null) return;
+	
+	const xhr = new XMLHttpRequest();
+	
+	xhr.onreadystatechange = function(){
+		if(xhr.readyState == 4 && xhr.status == 200){
+			const response = JSON.parse(xhr.responseText);
+			// js 렌더링 작업..
+			const heartHelpBox = document.getElementById("heartHelpBox");
+			
+			if(response.isHelpLiked){
+				heartHelpBox.classList.remove("bi-heart");
+				heartHelpBox.classList.add("bi-heart-fill");
+			}else{
+				heartHelpBox.classList.remove("bi-heart-fill");
+				heartHelpBox.classList.add("bi-heart");
+			}
+		}
+	}	
+
+	//get
+	xhr.open("get", "/safari/help/isHelpLiked?help_id=" + help_id);
+	xhr.send();
+	
+	
+}
+
+function registerHelpComment(){
+	
+	if(!mySessionId) {
+		location.href = "/safari/user/loginPage"
+		return;
+	}
+	
+	const helpCommentTextBox = document.getElementById("helpCommentTextBox");
+	const helpCommentTextValue = helpCommentTextBox.value;
+	
+	const xhr = new XMLHttpRequest();
+
+	xhr.onreadystatechange = function(){
+		if(xhr.readyState == 4 && xhr.status == 200){
+			const response = JSON.parse(xhr.responseText);
+			
+			helpCommentTextBox.value = "";
+			reloadHelpCommentList();
+		}
+	}	
+
+	
+	
+	//post
+	xhr.open("post", "/safari/help/registerHelpComment");
+	xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+	xhr.send("help_id=" + help_id + "&content=" + helpCommentTextValue);  
+	
+	}
+	
+function formatDate(date, format) {
+    var hours = date.getHours();
+    var ampm = hours >= 12 ? '오후' : '오전';
+    hours = hours % 12;
+    hours = hours ? hours : 12; // 0시를 12시로 변경
+
+    var patterns = {
+        yyyy: date.getFullYear(),
+        MM: ('0' + (date.getMonth() + 1)).slice(-2),
+        dd: ('0' + date.getDate()).slice(-2),
+        hh: ('0' + hours).slice(-2),
+        mm: ('0' + date.getMinutes()).slice(-2),
+        a: ampm
+    };
+
+    return format.replace(/yyyy|MM|dd|hh|mm|a/g, function(match) {
+        return patterns[match];
+    });
+}
+
+
+	function reloadHelpCommentList(){
+		const xhr = new XMLHttpRequest();
+
+		xhr.onreadystatechange = function(){
+			if(xhr.readyState == 4 && xhr.status == 200){
+				const response = JSON.parse(xhr.responseText);
+				
+				
+				// 채택된것이 하나라도 있는가?
+				let existPick = false;
+				for(data of response.helpCommentList){
+					if(data.helpCommentDto.status == "채택 완료"){
+						existPick = true;
+					}
+				}
+				
+				
+				// js 작업..렌더링...
+			
+				
+				/* <div class="row">
+				<div class="helpCommentBox col-8 bg-primary">내용</div>
+				<div class="col bg-secondary">닉네임</div>
+				<div class="col bg-success">삭제</div>
+				<div class="col bg-warning">수정</div>
+				</div> */
+				
+				
+				const helpCommentListBox = document.getElementById("helpCommentListBox");
+				helpCommentListBox.innerHTML = ""; //초기화 얘만 innerHTML
+				
+				for(data of response.helpCommentList){
+					const newCommentElement = document.querySelector("#templete .comment").cloneNode(true);
+					
+					const commentNickname = newCommentElement.querySelector(".commentNickname");
+					commentNickname.innerText = data.userDto.nickname;
+					
+					const commentContent = newCommentElement.querySelector(".commentContent");
+					commentContent.innerText = data.helpCommentDto.content;
+					
+					/* if(mySessionId != null && data.helpCommentDto.user_id){
+						const commentDelete = document.newCommentElement("span");
+						commentDelete.classList.add()
+					}
+					const commentUpdate = newCommentElement.querySelector(".commentUpdate");
+					commentUpdate.innerText = 
+						
+					const commentDelete = newCommentElement.querySelector(".commentDelete");
+					commentDelete.innerText =  */
+					
+				 	const commentDate = newCommentElement.querySelector(".commentDate");
+					const date = new Date(data.helpCommentDto.reg_date);
+					const formattedDate = formatDate(date, 'yyyy.MM.dd a hh:mm');
+				    commentDate.innerText = formattedDate;
+					
+				    
+				    // 수정 삭제 버튼 유무...
+				    const commentUpdate = newCommentElement.querySelector(".commentUpdate");
+				    
+				    // 로그인 하지 많았거나 글쓴이가 자신이 아니면...
+				    if(mySessionId == null || data.helpCommentDto.user_id != mySessionId) {
+				    	commentUpdate.classList.add("d-none");
+				    }
+				    
+			    	const commentDelete = newCommentElement.querySelector(".commentDelete");
+			    	commentDelete.setAttribute("onclick", "deleteHelpComment("+data.helpCommentDto.id+")");
+
+			    	
+		    		if(mySessionId == null || mySessionId != ${map.helpDto.user_id} || data.helpCommentDto.user_id == ${map.helpDto.user_id}){
+			    		const pickCol = newCommentElement.querySelector(".pickCol");
+				    	pickCol.classList.add("d-none");			    		
+		    		}
+			    	
+			    	
+			    	if(existPick == true){
+				    	const pickCol = newCommentElement.querySelector(".pickCol");
+				    	pickCol.classList.add("d-none");
+					    
+			    		
+			    		// 채택된 답변이면...
+					    if(data.helpCommentDto.status != "채택 완료"){
+				    		const pickColIcon = newCommentElement.querySelector(".pickColIcon");
+				    		pickColIcon.classList.add("d-none");
+					    }
+			    	} else{
+			    		const pickColIcon = newCommentElement.querySelector(".pickColIcon");
+			    		pickColIcon.classList.add("d-none");
+			    		
+			    		
+			    	}
+			    	
+			    	const pick = newCommentElement.querySelector(".pick");
+			    	pick.setAttribute("onclick", "commentPick("+data.helpCommentDto.id+")");
+			    	
+			    	
+				    
+				    
+					helpCommentListBox.appendChild(newCommentElement);
+				}
+				
+				
+				
+				
+/* 				for(data of response.helpCommentList){
+					const row1 = document.createElement("div");
+					row1.classList.add("row");
+					row1.classList.add("helpCommentOuter");
+					row1.setAttribute("help_id", data.helpCommentDto.id);
+					//헬부분
+					const colHelpCommentBox = document.createElement("div");
+					colHelpCommentBox.classList.add("helpCommentBox");
+					colHelpCommentBox.classList.add("col-8");
+					colHelpCommentBox.classList.add("bg-primary");
+					colHelpCommentBox.innerText = data.helpCommentDto.content; //데이터 세팅
+					row1.appendChild(colHelpCommentBox);
+					
+					const colHelpNickName = document.createElement("div");
+					colHelpNickName.classList.add("col-2");
+					colHelpNickName.classList.add("bg-secondary");
+					colHelpNickName.innerText = data.userDto.nickname; //데이터 세팅
+					row1.appendChild(colHelpNickName);
+					
+					if(mySessionId != null && data.helpCommentDto.user_id){
+						const colHelpDelete = document.createElement("div");
+						colHelpDelete.classList.add("col-1");
+						colHelpDelete.innerText = "삭제";
+						colHelpDelete.setAttribute("onclick", "deleteHelpComment("+data.helpCommentDto.id+")");
+						row1.appendChild(colHelpDelete);
+						
+						const colHelpUpdate = document.createElement("div");
+						colHelpUpdate.classList.add("col-1");
+						colHelpUpdate.innerText = "수정";
+						colHelpUpdate.setAttribute("onclick", "changeInputForUpdateHelpComment(this)");
+						
+						
+						row1.appendChild(colHelpUpdate);
+						
+					} 
+					
+					document.getElementById("helpCommentListBox").appendChild(row1);
+					} */
+				}
+				}
+	
+	
+
+		//get
+		xhr.open("get", "/safari/help/getHelpCommentList?help_id=" + help_id);
+		xhr.send();	
+	
+	}
+
+	
+function commentPick(id){
+	const xhr = new XMLHttpRequest();
+
+	xhr.onreadystatechange = function(){
+		if(xhr.readyState == 4 && xhr.status == 200){
+			const response = JSON.parse(xhr.responseText);
+			// js 작업..
+			reloadHelpCommentList();
+		}
+	}	
+
+	//get
+	xhr.open("get", "/safari/help/acceptHelpCommentProcess?help_comment_id=" + id );
+	xhr.send();		
+}
+	
+function deleteHelpComment(id){
+	
+	const xhr = new XMLHttpRequest();
+
+	xhr.onreadystatechange = function(){
+		if(xhr.readyState == 4 && xhr.status == 200){
+			const response = JSON.parse(xhr.responseText);
+			// js 작업..
+			reloadHelpCommentList();
+		}
+	}	
+
+	//get
+	xhr.open("get", "/safari/help/deleteHelpComment?id=" + id );
+	xhr.send();
+}
+
+function changeInputForUpdateHelpComment(targetElement){
+	
+	const helpCommentOuter = targetElement.closest(".helpCommentOuter"); // 부모 중에 css 접근자 문법에 맞는 엘리먼트를 가져온다
+	
+	//const helpCommentBox = helpCommentOuter.getElementsByClassName("helpCommentBox")[0];
+	const helpCommentBox = helpCommentOuter.querySelector(".helpCommentBox");
+	
+	const tempValue = helpCommentBox.innerText;
+	
+	helpCommentBox.innerHTML = "";
+	
+	const inputTextHelpComment =  document.createElement("input");
+	inputTextHelpComment.type = "text";
+	//inputTextHelpComment.classList.add("form-control");
+	inputTextHelpComment.classList.add("helpCommentInputBox");
+	inputTextHelpComment.value = tempValue;
+	helpCommentBox.appendChild(inputTextHelpComment);
+	
+	const inputButtonUpdateHelpComment = document.createElement("button");
+	inputButtonUpdateHelpComment.innerText = "수정 적용";
+	inputButtonUpdateHelpComment.setAttribute("onclick", "updateHelpComment(this)");
+	helpCommentBox.appendChild(inputButtonUpdateHelpComment)
+	
+	targetElement.innerText = "수정취소";
+	targetElement.setAttribute("onclick", "cancelUpdateHelpComment(this)");
+	
+}
+
+function updateHelpComment(targetElement){
+	
+	const helpCommentOuter = targetElement.closest(".helpCommentOuter");
+	
+	const help_id = helpCommentOuter.getAttribute("help_id");
+	const helpCommentText = helpCommentOuter.querySelector(".helpCommentInputBox").value;
+	
+	const xhr = new XMLHttpRequest();
+
+	xhr.onreadystatechange = function(){
+		if(xhr.readyState == 4 && xhr.status == 200){
+			const response = JSON.parse(xhr.responseText);
+			// js 작업..
+			reloadHelpCommentList();
+		}
+	}	
+	
+	//post
+	xhr.open("post", "/safari/help/updateHelpComment");
+	xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+	xhr.send("id=" + help_id + "&content=" +helpCommentText );
+}
+
+function cancelUpdateHelpComment(targetElement){
+	//구현..
+	console.log("....")
+	
+}
+
+	
+window.addEventListener("DOMContentLoaded", function(){
+	//사실상 시작 시점
+	getSessionId();
+	refreshTotalHelpLikeCount();
+	refreshHelpHeart();
+	reloadHelpCommentList();
+});
+
+
+
+</script>
 </head>
 <body>
 	<!-- 헤더 섹션 -->
 	<jsp:include page="../../common/header.jsp"></jsp:include>
 	<!-- 헤더 섹션 -->
-	
-	
+
+
 	<div class="row mt-5">
 		<div class="col"></div>
-		
-		
+
+
 		<%-- 내용 공간 --%>
 		<div class="col-8">
-		<div class="container">
-			<div class="row" style="margin-bottom: 7px;">
-				<div class="col">
-					
-					<span class="fw-medium fs-5">${map.helpDto.title}</span> 
-					
-					<c:if test="${map.helpDto.points>=1}">
-					<span class="badge rounded-pill text-bg-warning opacity-75" style="font-size: 80%; position: relative; bottom: 2px;">
-					<span class="text-black">${map.helpDto.points}p</span></span>
-					</c:if>
-					<c:if test="${map.helpDto.points==0}"></c:if>
-				</div>	
-			</div>
-			
-			
-			
-			<div class="row">
-				<div class="col ms-1">
-				 <span style="font-size: 0.9rem; color: gray;" > ${map.userDto.nickname}  &nbsp;  <i class="bi bi-eye"></i> ${map.helpDto.views} &nbsp;
-				 ${map.helpDto.status}
-				 </span>
-				</div>
-				<div class="col">
-				</div>
-				<div class="col text-end">
-					<span style="font-size: 0.9rem; color: gray;"><i class="bi bi-clock"></i> <fmt:formatDate value="${map.helpDto.reg_date}" pattern="yyyy-MM-dd HH:mm"/></span>
-				</div>
-			</div>
-			
-			<hr>
-			
-			
-			<%--게시물 공간 --%>
 			<div class="container">
-				<div class="row">
+				<div class="row" style="margin-bottom: 7px;">
 					<div class="col">
-						
-						<%-- 글 내용/이미지 영역 --%>
-							<div class="row mb-5">
-								<div class="col">
-									${map.helpDto.content } 
-								</div>
-							</div>
-						
-						
-						
-						<c:forEach items="${map.helpImgDtoList}" var="helpImgDto">
-							<div class="row mt-2">
-								<div class="col">
-									<img src="/uploadFiles/${helpImgDto.help_img_link}"
-										style="width: 500px;">
-								</div>
-							</div>						
-						</c:forEach>
-						<%-- 글 내용/이미지 영역 --%>
-					
+
+						<span class="fw-medium fs-5">${map.helpDto.title}</span>
+
+						<c:if test="${map.helpDto.points>=1}">
+							<span class="badge rounded-pill text-bg-warning opacity-75"
+								style="font-size: 80%; position: relative; bottom: 2px;">
+								<span class="text-black">${map.helpDto.points}p</span>
+							</span>
+						</c:if>
+						<c:if test="${map.helpDto.points==0}"></c:if>
 					</div>
 				</div>
-			</div> 
-			<%--게시물 공간 --%>
+
+
+
+				<div class="row">
+					<div class="col ms-1">
+						<span style="font-size: 0.9rem; color: gray;">
+							${map.userDto.nickname} &nbsp; <i class="bi bi-eye"></i>
+							${map.helpDto.views} &nbsp; ${map.helpDto.status}
+						</span>
+					</div>
+					<div class="col"></div>
+					<div class="col text-end">
+						<span style="font-size: 0.9rem; color: gray;"><i
+							class="bi bi-clock"></i> <fmt:formatDate
+								value="${map.helpDto.reg_date}" pattern="yyyy-MM-dd HH:mm" /></span>
+					</div>
+				</div>
+
+				<hr>
+
+
+				<%--게시물 공간 --%>
 			
-			<%--좋아요 --%>
-			<%-- <div class="row mt-5 text-center">
-				 <div class="col">
-				  <!--  onclick='location.href="/safari/community/help/insertHelpLikeProcess/${map.helpDto.id}"'-->
 					<div class="row">
-						<div class="col text-center" style="text-align: center;">
-						<!-- 고친다 -->
-							<c:choose>
-							    <c:when test="${HelpBoardLikeCount >= 1}">
-							        <a class="bi bi-heart-fill text-danger" style="font-size: 40px;" href="/safari/community/help/insertHelpLikeProcess/${map.helpDto.id}"></a>
-							        ${HelpBoardLikeCount}
-							    </c:when>
-							    <c:otherwise>
-							        <a class="bi bi-heart text-danger" style="font-size: 40px;" href="/safari/community/help/insertHelpLikeProcess/${map.helpDto.id}"></a>
-							        ${HelpBoardLikeCount}
-							    </c:otherwise>
-							</c:choose>
-							
+						<div class="col">
+
+							<%-- 글 내용/이미지 영역 --%>
+							<div class="row mb-5">
+								<div class="col">${map.helpDto.content }</div>
+							</div>
+
+
+
+							<c:forEach items="${map.helpImgDtoList}" var="helpImgDto">
+								<div class="row mt-2">
+									<div class="col">
+										<img src="/uploadFiles/${helpImgDto.help_img_link}"
+											style="width: 500px;">
+									</div>
+								</div>
+							</c:forEach>
+							<%-- 글 내용/이미지 영역 --%>
+
 						</div>
 					</div>
-				</div>
-			 </div> --%>
-			<%--좋아요 --%>
-			
-			
-			
-			<%--수정/삭제/목록--%>
-			<div class="row mt-4 text-end">
-			<div class="col d-flex align-items-center">		
-			 <c:choose>
-				<c:when test="${HelpBoardLikeCount >= 1}">
-		        	<a class="bi bi-heart-fill text-danger" style="font-size: 21px;" href="/safari/community/help/insertHelpLikeProcess/${map.helpDto.id}"></a>
-			        &nbsp;${HelpBoardLikeCount} 
-				</c:when>
-				<c:otherwise>
-			        <a class="bi bi-heart text-danger" style="font-size: 21px;" href="/safari/community/help/insertHelpLikeProcess/${map.helpDto.id}"></a>
-			        &nbsp;${HelpBoardLikeCount}
-			    </c:otherwise>
-			</c:choose> 
-			&nbsp;<c:if test="${sessionUser.id == map.userDto.id }">
-				<input type="button" class="btn btn-secondary" style="background-color: transparent; border: none; color: inherit; font-size: 14px" onclick="location.href='/safari/community/help/updateContentPage/${map.helpDto.id}'" value="수정" />
-				<input type="button" class="btn btn-secondary" style="background-color: transparent; border: none; color: inherit; font-size: 14px" onclick="location.href='/safari/community/help/deleteContentProcess/${map.helpDto.id}'"  value="삭제" />
-			</c:if>
-				<input type="button" class="btn btn-secondary" style="background-color: transparent; border: none; color: inherit; font-size: 14px" onclick="location.href='/safari/community/help/mainPage'" value="목록으로">
-			</div>
-			</div>
-			<%--수정/삭제/목록--%>
-			
-			<hr>
-			
-			<%-- 댓글 작성 글자 --%>
-			<div class="row">
-				<div class="col fw-bold">
 				
-				<i class="bi bi-chat-dots"></i>&nbsp;<span style="font-size: 13px;">댓글</span>
-				</div>
-			</div>
-			<%-- 댓글 작성 글자 --%>
-			
-			
-			<form action="/safari/community/help/writeCommentProcess/${map.helpDto.id}" method="post">
-			<input type="hidden" name="user_id" value="${sessionUser.id}">
-			<input type="hidden" name="help_id" value="${map.helpDto.id}">
-			
-				<%-- 댓글 작성 박스 --%>
-				<div class="row mt-2">
-					<div class="col-11 d-grid ">
-						<textarea class="form-floating border p-2 mb-2 border-opacity" placeholder="댓글을 입력하세요" id="floatingTextarea2" style="height: 60px; font-size: 13px;" name="content" ></textarea>
-					
+				<%--게시물 공간 --%>
+
+				<%--수정/삭제/목록--%>
+				<div class="row mt-4 text-end">
+					<div class="col d-flex align-items-center">
+
+						<%--ajax 좋아요 연습 --%>
+						<i id="heartHelpBox" onclick="toggleHelpLike()"
+							class="fs-5 text-danger bi bi-heart"></i> <span
+							id="totalHelpLikeCount"></span>
+						<%--ajax 좋아요 연습 --%>
+
+
+
+						&nbsp;
+						<c:if test="${sessionUser.id == map.userDto.id }">
+							<input type="button" class="btn btn-secondary"
+								style="background-color: transparent; border: none; color: inherit; font-size: 14px"
+								onclick="location.href='/safari/community/help/updateContentPage/${map.helpDto.id}'"
+								value="수정" />
+							<input type="button" class="btn btn-secondary"
+								style="background-color: transparent; border: none; color: inherit; font-size: 14px"
+								onclick="location.href='/safari/community/help/deleteContentProcess/${map.helpDto.id}'"
+								value="삭제" />
+						</c:if>
+						<input type="button" class="btn btn-secondary"
+							style="background-color: transparent; border: none; color: inherit; font-size: 14px"
+							onclick="location.href='/safari/community/help/mainPage'"
+							value="목록으로">
 					</div>
-					<div class="col d-flex justify-content-center ">
-						<button class="btn btn-secondary" style="font-size: 22px; height: 60px; width: 68px"><i class="bi bi-chat-text"></i></button>
+				</div>
+				<%--수정/삭제/목록--%>
+
+				<hr>
+
+				<%-- 댓글 작성 글자 --%>
+				<div class="row">
+					<div class="col fw-bold">
+
+						<i class="bi bi-chat-dots"></i>&nbsp;<span
+							style="font-size: 13px;">댓글</span>
 					</div>
 				</div>
-			</form>	
-			<%-- 댓글 작성 박스 --%>
-			
-			<%-- 댓글 작성 -- 댓글 내용 여백--%>
-			<div class="row mb-2">
-				<div class="col"></div>
-			</div>
-			<%-- 댓글 작성 -- 댓글 내용 여백--%>
+				<%-- 댓글 작성 글자 --%>
+				
+					<%--ajax 댓글 랜더링 --%>
+						<div class="container">
+							<div class="row mt-2">
+								<div class="col-11 d-grid ">
+									<textarea id="helpCommentTextBox"
+										class="form-floating border p-2 mb-2 border-opacity"
+										placeholder="댓글을 입력하세요" id="floatingTextarea2"
+										style="height: 60px; font-size: 13px;" name="content"></textarea>
 
-			<%-- 댓글 반복문 --%>
-			<div class="row">
-			<div class="col" style="margin-left: 10px; margin-right: 20px;">
-			<c:forEach items="${helpCommentsList}" var="helpComment">
+								</div>
+								<div class="col d-flex justify-content-center ">
+									<button class="btn btn-secondary"
+										onclick="registerHelpComment()"
+										style="font-size: 22px; height: 60px; width: 68px">
+										<i class="bi bi-chat-text"></i>
+									</button>
+								</div>
+							</div>
+							
+							<%--ajax 댓글 조회 랜더링(영상) --%>
+							<div class="row">
+								<div id="helpCommentListBox"
+									class="col border border-1 rounded-3">
+									<div class="row helpCommentOuter mt-2">
+										<div class="col-1 fw-bold">닉네임</div>
+										<div class="col-3">날짜</div>
+										<div class="col-1">수정</div>
+										<div class="col-1">삭제</div>
+										<div class="col-1">🚨</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<%--ajax 댓글 랜더링 --%>
+				
+							
+						<!-- <div class="container">
+							<div class="row mt-2">
+								<div class="col-11 d-grid ">
+									<textarea id="helpCommentTextBox"
+										class="form-floating border p-2 mb-2 border-opacity"
+										placeholder="댓글을 입력하세요" id="floatingTextarea2"
+										style="height: 60px; font-size: 13px;" name="content"></textarea>
 
+								</div>
+								<div class="col d-flex justify-content-center ">
+									<button class="btn btn-secondary"
+										onclick="registerHelpComment()"
+										style="font-size: 22px; height: 60px; width: 68px">
+										<i class="bi bi-chat-text"></i>
+									</button>
+								</div>
+							</div> -->
+							<%--ajax 댓글 조회 랜더링(영상) --%>
+							<!-- <div class="row">
+					<div id="helpCommentListBox" class="col">
+						<div class="row helpCommentOuter">
+							<div class="helpCommentBox col-8 bg-primary">내용</div>
+							<div class="col bg-secondary">닉네임</div>
+							<div class="col bg-success">삭제</div>
+							<div class="col bg-warning">수정</div>
+						</div>
+					</div>
+				</div> -->
+							<%--ajax 댓글 조회 랜더링(영상) --%>
+							<!-- <div class="row">
+								<div id="helpCommentListBox"
+									class="col border border-1 rounded-3">
+									<div class="row helpCommentOuter mt-2">
+										<div class="col-1 fw-bold">닉네임</div>
+										<div class="col-3">날짜</div>
+										<div class="col-1">수정</div>
+										<div class="col-1">삭제</div>
+										<div class="col-1">🚨</div>
+									</div>
+								</div>
+							</div>
+						</div> -->
+						<%--ajax 댓글 랜더링 --%>
 
-	          <!-- 댓글 공간-->
-	            <div class="row">
-	                <div class="col border border-1 rounded-3">
-	                        
-	                    <!-- 댓글 내용-->
-	                        <div class="row mt-2 ">
-	                            <div class="col fw-bold">
-	                            	<span style="font-size: 13px;">${helpComment.userDto.nickname }</span> 
-	                                <span class="text-secondary ms-2" style="font-size: 13px; font-weight: normal;">
-	                                <fmt:formatDate value="${helpComment.helpCommentDto.reg_date}" pattern="yyyy.MM.dd a hh:mm"/> 
-	                                </span>
-	                                
-	                                  <c:if test="${sessionUser.id == helpComment.userDto.id }">
-	                                   <span class="text-secondary ms-2">
-	                                       <input type="button" class="btn btn-sm btn-primary" value="수정" onclick='location.href="/safari/community/help/updateContentPage/${map.helpDto.id}"' style="font-size: 13px; background-color: transparent; border: none; color: inherit;">
-	                                        <input type="button" class="btn btn-sm btn-primary" value="삭제" onclick='location.href="/safari/community/help/deleteCommentProcess/${helpComment.helpCommentDto.id}?boardId=${map.helpDto.id }"' style="font-size: 13px; background-color: transparent; border: none; color: inherit;">
-	                                       🚨
-	                                       </span> 
-	                                  </c:if>
-	                                
-	                            </div>
-	                            <div class="col text-end">
-	                                  <div class="row">
-	                                    <div class="col">
-	                                    	<!-- 동적으로 바껴야 하는 부분 -->
-	                                    	<c:choose>
-	                                    		<%-- 본인이 작성한 게시물의 상태가 현재 진행중(채택 대기중)일 때 --%>
-	                                    		<c:when test="${(map.userDto.id == sessionUser.id) && map.helpDto.status == '진행중'}">
-	                                    			<c:choose>
-	                                    				<%-- 본인이 쓴 댓글이 아니고 그 댓글이 채택 대기중일 때 채택하기 버튼 있음, 게시글 상태는 진행중이라 모든 댓글은 채택 대기중 상태 --%>
-	                                    				<c:when test="${(map.userDto.id != helpComment.helpCommentDto.user_id) && helpComment.helpCommentDto.status=='채택 대기중' }">
-	                                    					 <input type="button" class="btn mt-4 btn-primary btn-sm" onclick='location.href="/safari/community/help/acceptHelpCommentProcess?help_comment_id=${helpComment.helpCommentDto.id}"' value="채택하기">
-	                                    				</c:when>
-	                                    				<%-- 본인이 쓴 댓글일 경우 채택하기 버튼 없음  --%>
-	                                    				<c:when test="${map.userDto.id == helpComment.helpCommentDto.user_id }">
-	                                    				
-	                                    				</c:when>	                                    				
-	                                    			</c:choose>
-	                                    		</c:when>
-	                                    		
-	                                    		<%-- 본인이 작성한 게시물 상태가 현재 채택 완료일 때 --%>
-	                                    		<c:when test="${(map.userDto.id == sessionUser.id) && map.helpDto.status == '채택 완료' }">
-	                                    			<c:choose>
-	                                    				<c:when test="${(map.userDto.id != helpComment.helpCommentDto.user_id) && helpComment.helpCommentDto.status == '채택 완료'}">
-	                                    					<!--  여기에 아이콘 -->
-	                                    					    <i class="bi bi-check-circle" style="font-size: 1.3rem; color: #28a745;"></i>  <span class="text-success mt-1" 
-	                                    					    style="font-size: 14px; position: relative; bottom: 3px; ">채택 완료</span>         			
-	                                    				</c:when>
-	                                    				
-	                                    				<c:when test="${(map.userDto.id != helpComment.helpCommentDto.user_id) && helpComment.helpCommentDto.status == '채택 대기중' }">
-	                                    				</c:when>
-	                                    				
-	                                    				<%-- 본인이 쓴 댓글일 경우 채택하기 버튼은 없음 --%>
-	                                    				<c:when test="${map.userDto.id == helpComment.helpCommentDto.user_id}">
-	                                    				</c:when>
-	                                    			</c:choose>
-	                                    		</c:when>
-	                                    		
-	                                    		
-	                                    		<%-- 본인이 작성한 게시물이 아닐 경우이고 게시물이 채택 대기중일때 --%>
-	                                    		<c:when test="${(map.userDto.id != sessionUser.id) && map.helpDto.status == '진행중'}">
-	                                    		
-	                                    		</c:when>
-	                                    		
-	                                    		<%-- 본인이 작성한 게시물이 아닐 경우이고 게시글이 채택 완료되었을 때 --%>
-	                                    		<c:when test="${(map.userDto.id != sessionUser.id) && map.helpDto.status == '채택 완료'}">
-	                                    			<c:choose>
-	                                    				<c:when test="${helpComment.helpCommentDto.status == '채택 완료'}">
-	                                    					  <!--  여기에 아이콘 -->
-	                                    						<i class="bi bi-check-circle" style= "font-size: 1.3rem; color: #28a745;"></i> <span class="text-success mt-1" style="
-	                                    						position: relative; bottom: 3px; font-size: 14px">채택 완료</span> 
-	                                    						                                    			 
-	                                    				</c:when>
-	                                    				<c:when test="${helpComment.helpCommentDto.status == '채택 대기중'}">
-	                                    				</c:when>
-	                                    			</c:choose>
-	                                    		</c:when>
-	                                    	
-	                                    	</c:choose>
-	                                    	<!-- 동적으로 바껴야 하는 부분 -->
-	                                    </div>
-	                                </div>
-	                                                           
-	                            </div>                            
-	                        </div>
-	
-	                        <div class="row mt-2">
-	                            <div class="col" style="margin-top: -5px; margin-bottom: 15px; font-size: 13px"  >
-	                               ${helpComment.helpCommentDto.content} 
-	                            </div>
-	                            <div class="col text-end">
-	                                <div class="row">
-	
-	                                    <div class="col">
-	                                      
-	                                    </div>
-	                                </div>
-	
-	                            </div>
-	                        </div>
-	                     <!-- 댓글 내용-->
-	                </div>
-	            </div>
-	            <!-- 댓글 공간-->    
-			</c:forEach>
-			</div>
-			</div>
-			<%-- 댓글 반복문 --%> 
-			
-			
-		<%-- 	<div class="row mt-2">
-				<div class="col-10">
+				<%-- 1차 댓글 --%>
+				<%-- <form
+					action="/safari/community/help/writeCommentProcess/${map.helpDto.id}"
+					method="post">
 					<input type="hidden" name="user_id" value="${sessionUser.id}">
 					<input type="hidden" name="help_id" value="${map.helpDto.id}">
-					${map.userDto.nickname }
-					<input type="text" class="form-control" name= "reg_date" value="${map.helpCommentDto.reg_date }">
-					<input type="text" class="form-control" name= "status" value="${map.helpCommentDto.status }">
-					<input type="text" class="form-control" name="content" value="${map.helpCommentDto.content}">
-						
+
+					댓글 작성 박스
+					<div class="row mt-2">
+						<div class="col-11 d-grid ">
+							<textarea class="form-floating border p-2 mb-2 border-opacity"
+								placeholder="댓글을 입력하세요" id="floatingTextarea2"
+								style="height: 60px; font-size: 13px;" name="content"></textarea>
+
+						</div>
+						<div class="col d-flex justify-content-center ">
+							<button class="btn btn-secondary"
+								style="font-size: 22px; height: 60px; width: 68px">
+								<i class="bi bi-chat-text"></i>
+							</button>
+						</div>
+					</div>
+				</form> --%>
+				<%-- 댓글 작성 박스 --%>
+
+				<%-- 댓글 작성 -- 댓글 내용 여백--%>
+				<div class="row mb-2">
+					<div class="col"></div>
 				</div>
-			
-			</div>
+				<%-- 댓글 작성 -- 댓글 내용 여백--%>
+
 				
-		
-			
-			<%--댓글 시작 --%>
-			
-		<%-- <h6>댓글</h6>
-			<form action="/safari/community/help/writeCommentProcess" method="post">
-				<div class="container">
-					작성자: ${sessionUser.nickname}
-					<input type="hidden" name="id" value="${map.userDto.id}">
-					<input type="hidden" name="help_id" value="${map.helpDto.id}"> <!-- 주의 -->
-					<textarea rows="5" cols="160" name="content"></textarea>
-					
-					<button class="btn btn-primary" onclick="window.open('/safari/community/help/readContentPage')">댓글쓰기</button> 
-				</div>
-			</form>
-			
-			
-			<div class="row mt-5 text-center">
-				<div class="col">
-					<c:if test="${sessionUser.id == map.userDto.id }">
-					<input type="button" class="btn btn-primary" onclick="window.open('/safari/community/help/updateContentPage/${map.helpDto.id}')" value="수정" />
-					<input type="button" class="btn btn-primary" onclick="window.open('/safari/community/help/deleteContentProcess/${map.helpDto.id}')"  value="삭제" />
-					</c:if>
-					<input type="button" class="btn btn-primary" onclick="window.open('/safari/community/help/mainPage')" value="목록으로">
-					
-				</div>
+
+
+
 			</div>
-			<%--댓글 끝 --%>
-			
-		</div></div>
-		
-		<%-- 내용 공간 --%>
-		
-		
-		<div class="col">
-		 
 		</div>
-	
-	</div>
-	
-<%--	<div class="row">
-	<div class="col text-center">
-	<div>
-	  <h3>제목: ${map.helpDto.title}</h3>
-	</div>
-	<div>
-	  <div>내용: ${map.helpDto.content }</div>
-	</div>
-	<div> 
-	  <h6>포인트: ${map.helpDto.points }</h6>
-	</div>
-	<div>
-	  <h6>위치: ${map.helpDto.location }</h6>
-	</div>
-	<div>
-	  <h6>작성자: ${map.userDto.nickname }</h6>
-	</div>
-	<div>
-	  <h6>등록일: <fmt:formatDate value="${map.helpDto.reg_date}" pattern="yyyy.MM.dd"/></h6>
-	</div>
-	<div>
-	  <h6>조회수: ${map.helpDto.views }</h6>
-	</div>
-	
-	<c:forEach items="${map.helpImgDtoList}" var="helpImgDto">
-		<img src="/uploadFiles/${helpImgDto.help_img_link}"><br>
-	</c:forEach>
 
-	
-	<a href="/safari/community/help/mainPage"> 목록으로 </a><br>
-	<c:if test="${sessionUser.id == map.userDto.id}">
-		<a href="/safari/community/help/updateContentPage/${map.helpDto.id}">수정</a>
-		<a href="/safari/community/help/deleteContentProcess/${map.helpDto.id}">삭제</a>
-	</c:if>
+		<%-- 내용 공간 --%>
+		<%-- 1차 댓글 --%>
+
+		<div class="col"></div>
+
 	</div>
-	
 
-	
-</div> --%>
 
-	
-	
-	
+
+	<div id="templete" class="d-none">
+
+		<div class="row comment">
+			<div class="col border border-1 rounded-3">
+
+				<!-- 댓글 내용-->
+				<div class="row mt-2 ">
+					<div class="col text-start fw-bold">
+						<span style="font-size: 13px;" class="commentNickname">닉네임 공간</span>             
+						<span class="text-secondary ms-2 commentDate" style="font-size: 13px; font-weight: normal;" > 날짜 공간 </span> 
+						<span class="text-secondary ms-2 commentUpdate"> <input type="button"
+							class="btn btn-sm btn-primary" value="수정"
+							style="font-size: 13px; background-color: transparent; border: none; color: inherit;">
+							<input type="button" class="btn btn-sm btn-primary commentDelete" value="삭제"
+							style="font-size: 13px; background-color: transparent; border: none; color: inherit;">
+							🚨
+						</span>
+
+					</div>
+					<div class="col text-end">
+						<div class="row">
+							<div class="col pickCol">
+								<!-- 동적으로 바껴야 하는 부분 -->
+								<input type="button" class="pick btn mt-4 btn-primary btn-sm" value="채택하기">
+
+
+							</div>
+							<div class="col pickColIcon">
+
+								<!--  여기에 아이콘 -->
+								<i class="bi bi-check-circle"
+									style="font-size: 1.3rem; color: #28a745;"></i> <span
+									class="text-success mt-1"
+									style="position: relative; bottom: 3px; font-size: 14px">채택
+									완료</span>
+							
+							</div>
+						</div>
+
+					</div>
+				</div>
+
+				<div class="row mt-2">
+					
+					<div class="col-6 commentContent" style="margin-top: -5px; margin-bottom: 30px; font-size: 13px">
+					</div>	
+					
+					 <div class="col text-end">
+						<div class="row">
+
+							<div class="col"></div>
+						</div>
+
+					</div>
+				</div>
+				<!-- 댓글 내용-->
+			</div>
+		</div>
+
+
+
+	</div>
+
+
+
+
+
+
+
+
+
 	<!-- 푸터 섹션 -->
 	<jsp:include page="../../common/footer.jsp"></jsp:include>
 	<!-- 푸터 섹션 -->
 
-<script>
-s
+	<script>
+
 
 
 
 
 </script>
-</body>	
-</html>	
+</body>
+</html>
 
 
 

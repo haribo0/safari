@@ -46,7 +46,7 @@
 			<textarea type="text" class="form-control" name="content" maxlength="3000" style="height:400px; margin-top: 10px;">${map.helpDto.content }</textarea>
  			<div style="display: flex; gap: 10px;">
  			<select class="form-select" aria-label="Default select example" name="points" style="margin-top: 10px; max-width: 200px;">
-				  <option selected>포인트</option>
+				  <option value="">${map.helpDto.points}</option>
 				  <option value="100">100</option>
 				  <option value="200">200</option>
 				  <option value="300">300</option>
@@ -72,7 +72,7 @@
 	<div class="row">
 	<div class="col text-center">
 		<br>
-		<button class="btn btn-primary">수정하기</button> 
+		<button class="btn btn-dark">수정하기</button> 
 	</div>
 	</div>
 	<%--버튼--%>

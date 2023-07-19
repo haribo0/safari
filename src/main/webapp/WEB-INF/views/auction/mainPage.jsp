@@ -14,9 +14,11 @@
 <link rel="stylesheet" href="/safari/resources/style/common.css" type="text/css">
 <link rel="stylesheet" href="/safari/resources/style/auction.css" type="text/css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/moonspam/NanumSquare@1.0/nanumsquare.css">
 <style>
   .blink-text {
     animation: blink 1.5s infinite;
@@ -337,7 +339,7 @@ function reloadAuctionList(mainCategoryId, subCategoryId) {
 	            	
 	            	
 	            	const col = document.createElement("div");
-	            	col.classList.add("col-3", "mt-4");
+	            	col.classList.add("col-3", "mt-5", "mb-2");
 	            	
 	            	
 	            	const imageRow = document.createElement("div");
@@ -426,8 +428,8 @@ function reloadAuctionList(mainCategoryId, subCategoryId) {
 		            immediatePriceCol.classList.add("col");
 		            
 		            const immediateSpan = document.createElement("span");
-		            //immediateSpan.style.position = "relative";
-		            //immediateSpan.style.top = "1.5px";
+		            immediateSpan.style.position = "relative";
+		            immediateSpan.style.bottom = "3px";
 		            immediateSpan.style.fontSize = "13px";
 		            immediateSpan.innerText = "즉시낙찰가 " + new Intl.NumberFormat('ko-KR').format(data.auctionDto.max_price) + "원";
 	                
@@ -722,18 +724,18 @@ window.addEventListener("DOMContentLoaded", function(){
 		
 			<div class="col mt-4 d-flex justify-content-center" style="position: relative; right: 10px;">
 			
-			 <input class="form-check-input me-2" type="radio" id="radioStatus" name="radioStatus" value="">
+			 <input class="form-check-input me-2" type="radio" id="radioStatus" name="radioStatus" value="" style="cursor:pointer";>
 			  <label class="form-check-label me-4" for="radioStatus">
 			    	전체보기
 			  </label>			
 				
-			 <input class="form-check-input me-2" type="radio" id="radioStatusIng" name="radioStatus" value="ing">
+			 <input class="form-check-input me-2" type="radio" id="radioStatusIng" name="radioStatus" value="ing" style="cursor:pointer";>
 			  <label class="form-check-label me-4" for="radioStatusIng">
 			    	진행중인 경매만 보기
 			  </label>
  		  		
 
-				<input class="form-check-input me-2" type="radio" id="radioStatusReady" name="radioStatus" value="ready">
+				<input class="form-check-input me-2" type="radio" id="radioStatusReady" name="radioStatus" value="ready" style="cursor:pointer";>
 				  <label class="form-check-label me-2" for="radioStatusReady">
 				    	준비중인 경매만 보기
 				  </label>				

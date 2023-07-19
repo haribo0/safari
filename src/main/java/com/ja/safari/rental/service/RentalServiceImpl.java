@@ -121,7 +121,6 @@ public class RentalServiceImpl {
 		String mainCategoryName = rentalSqlMapper.selectMainCatName(rentalSubCategoryDto.getMain_category_id());
 		String subCategoryName = rentalSubCategoryDto.getSub_category_name();
 		
-		
 		List<RentalPeriodDiscDto> rentalPeriodDiscDtoList = rentalSqlMapper.selectPeriodDiscById(id);
 		
 		List<RentalItemImgDto> rentalItemImgDtoList = rentalSqlMapper.selectItemImageByItemId(id);
@@ -133,6 +132,12 @@ public class RentalServiceImpl {
 		map.put("rentalPeriodDiscDtoList", rentalPeriodDiscDtoList);
 		
 		return map;
+	}
+	
+	// 대여 아이템 할인 테이블 가져오기
+	public List<RentalPeriodDiscDto> getRentalItDiscDtoList(int id) {
+		List<RentalPeriodDiscDto> list = rentalSqlMapper.selectPeriodDiscById(id);
+		return list;
 	}
 
 	// 대여 상품 아이템 좋아요 토글

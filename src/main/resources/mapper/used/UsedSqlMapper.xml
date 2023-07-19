@@ -461,11 +461,22 @@ WHERE ROWNUM <= 4
 	]]>
 </select>
 
+<!-- 코인 마이너스  -->
+ <insert id="reduceUserCoinByUsed">
+    INSERT INTO coin_table VALUES(
+       coin_table_seq.nextval,
+       #{user_id},
+       #{coin_transaction},
+       'M',
+       '중고 상품 결제',
+       SYSDATE
+       )
+ </insert>
 
-
-
-
-
+<!-- 좋아요 목록 -->
+<select id="selectProductLikeByUserId" resultType="com.ja.safari.dto.ProductLikeDto">
+	SELECT * FROM PRODUCT_LIKE WHERE user_id=#{userId} ORDER BY id DESC
+</select>
 
 
 

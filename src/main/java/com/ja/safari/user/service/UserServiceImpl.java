@@ -65,6 +65,18 @@ public class UserServiceImpl {
 	public void modifyUserInfo(UserDto userDto) {
 		userSqlMapper.modifyUserInfo(userDto);
 	}
+	
+	// 아이디 중복 체크
+	public boolean existsUserId(String email) {
+		
+		int count = userSqlMapper.existsUserId(email);
+		
+		if (count > 0) {
+			return true;
+		} else {
+			return false;
+		}
+	}
 
 	// 주소 추가
 	public void addUserAddress(UserAddressDto userAddressDto) {

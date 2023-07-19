@@ -23,7 +23,6 @@ import com.ja.safari.community.service.PromotionReviewServiceImpl;
 import com.ja.safari.dto.PromotionReviewCommentDto;
 import com.ja.safari.dto.PromotionReviewDto;
 import com.ja.safari.dto.PromotionReviewImgDto;
-import com.ja.safari.dto.UserCoinDto;
 import com.ja.safari.dto.UserDto;
 import com.ja.safari.rental.service.RentalBusinessServiceImpl;
 import com.ja.safari.user.service.UserServiceImpl;
@@ -377,6 +376,7 @@ public class PromotionReviewController {
 
 	// 리워드 적립 페이지(거쳐가는 페이지=> 여기서 포인트 적립이 되야 함.)(이거 머리 안돌아가서 이상할걸 다시 수정하길)
 //	@RequestMapping("promotion/rewardPromotionReviewPage")
+
 //	public String rewardPromotionReviewPage(UserCoinDto userCoinDto, PromotionReviewDto promotionReviewDto) {
 //
 //		System.out.println("리워드 적립 되니? " + userCoinDto);

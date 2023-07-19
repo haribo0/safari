@@ -9,6 +9,7 @@
 <title>사파리 | 대여메인</title>
 <!-- 메타 섹션 -->
 <jsp:include page="../common/meta.jsp"></jsp:include>
+<link rel="stylesheet" href="/safari/resources/style/auction.css" type="text/css">
 <!-- 메타 섹션 -->
 <style>
 

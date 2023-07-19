@@ -19,6 +19,7 @@ import com.ja.safari.dto.UsedKaKaoPayApproveDto;
 import com.ja.safari.dto.UsedPurchaseReviewDto;
 import com.ja.safari.dto.UsedReviewCheckboxCategoryDto;
 import com.ja.safari.dto.UsedReviewRateCategoryDto;
+import com.ja.safari.dto.UserCoinDto;
 import com.ja.safari.dto.UserDto;
 
 public interface UsedSqlMapper {
@@ -148,6 +149,22 @@ public interface UsedSqlMapper {
 	public List<ProductDto> selectAllProductListByEight();
 	// 상세페이지에서 연관상품 5개 
 	public List<ProductDto> selectRelatedProductByFive(@Param("id")Integer id, @Param("subId")Integer subId);
+	// 코인 결제하고 나서 마이너스 
+	public void reduceUserCoinByUsed(UserCoinDto userCoinDto);
+	// 좋아요 리스트 
+	public List<ProductLikeDto> selectProductLikeByUserId(Integer userId);
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	

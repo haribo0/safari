@@ -27,21 +27,34 @@
 	      </div>
 	      <div class="modal-body">
 	      	<div class="container">
-	      		<div class="row">
-	      			<div class="col">
-	      				<p class="modal-tit fw-bold fs-5 mb-0"></p>
-	      			</div>
-	      		</div>
 	      		<div class="row flex-column mt-2 p-1">
 	      			<div class="col py-2 px-3 border rounded-1">
-	      				<p class="fs-6 fw-bold mb-2"><span class="regiMonthP"></span>개월 정기대여</p>
-	      				<p class="text-secondary pt-2 border-top mb-2"><span class="startDateP"></span> ~ <span class="endDateP"></span></p>
+	      				<div class="row">
+	      					<div class="col">
+			      				<p class="fs-6 fw-bold mb-2"><span class="regiMonthP"></span>개월 정기대여</p>	      					
+	      					</div>
+	      				</div>
+	      				<div class="row">
+			      			<div class="col">
+			      				<div class="row justify-content-between">
+			      					<div class="col align-items-center">
+					      				<p class="text-secondary pt-2 border-top mb-0" style="font-size: 14px;"><span class="startDateP"></span> ~ <span class="endDateP"></span></p>
+					      				<p class="modal-tit fw-bold fs-4 mb-0"></p>
+					      				<p><span class="originPriceP"></span><small>/월</small></p>
+			      					</div>
+			      					<div class="col-1 d-flex justify-content-end">
+					      				<img class="modalTopImage" alt="" src="" style="width: 100px;">
+			      					</div>
+			      				</div>
+			      			</div>
+	      				</div>
+	      				
 	      			</div>
 					<div class="col py-2 px-3 mt-3 border rounded-1">
 						<div class="row">
 							<div class="col py-2 d-flex justify-content-between">
-								<p>상품금액</p>
-								<p class="originPriceP"></p>
+								<p>사용중인 월 구독료</p>
+								<p class="usedPriceP"></p>
 							</div>
 						</div>
 						<div class="row">
@@ -51,19 +64,38 @@
 						</div>
 						<div class="row">
 							<div class="col pt-2 pb-0 d-flex justify-content-between">
-								<small class="text-secondary">&#x2514;<span class="regiMonthP"></span>개월 할인 금액</small>
-								<p>(-)1000원</p>
+								<small class="text-secondary">&#x2514; 할인 금액</small>
+								<p class="mb-0">( - ) <span class="minusPriceP"></span>원</p>
 							</div>
 						</div>
-						<div class="row border-top">
+						<div class="row">
+							<div class="col pt-2 pb-0 d-flex justify-content-between">
+								<small class="text-secondary">&#x2514; 남은 개월수 </small>
+								<p class="mb-0">( * ) <span class="regiMonthP"></span>개월</p>
+							</div>
+						</div>
+						<div class="row mt-3 border-top">
 							<div class="col py-2 d-flex justify-content-between">
 								<p>결제금액</p>
 								<p class="fw-bold fs-5"><span class="finPriceP"></span>원</p>
 							</div>
 						</div>
 					</div>
-
 	      		</div>
+	      		
+	      		<div class="row justify-content-between">
+	      			<div class="col">
+	      				<div class="row justify-content-between">
+	      					<div class="col d-flex align-items-center">
+			      				<p class="modal-tit fw-bold fs-4 mb-0"></p>
+	      					</div>
+	      					<div class="col d-flex justify-content-end">
+			      				<img class="modalTopImage" alt="" src="" style="width: 80px;">
+	      					</div>
+	      				</div>
+	      			</div>
+	      		</div>
+	      		
 	      	</div>
 			<!-- <p class="me-5">반납하게 되시는 날은 다음과 같습니다: <span class="date_return"></span></p>  -->
 			<p class="return_desc"></p>
@@ -178,7 +210,19 @@
 									            <c:otherwise>
 									            	<c:choose>
 									            		<c:when test="${data.rentalItemReturnDto.is_item_returned != 'Y'}">
-											                <button type="button" class="btn btn-primary" data-product-title="${data.product.title}" data-order-id="${data.orderedItem.id}" data-original-price="${data.orderedItem.original_price}" data-rego-price="${data.orderedItem.price}" data-startdate="${data.orderedItem.start_date }" data-enddate="${data.orderedItem.end_date}" data-deposit="${data.orderedItem.deposit}" data-bs-toggle="modal" data-bs-target="#modalReturn">대여반납신청</button>
+											                <button type="button" class="btn btn-primary" 
+											                	data-image-link="${data.product.main_img_link}" 
+											                	data-product-title="${data.product.title}" 
+											                	data-order-id="${data.orderedItem.id}" 
+											                	data-original-price="${data.orderedItem.original_price}" 
+											                	data-rego-price="${data.orderedItem.price}" 
+											                	data-startdate="${data.orderedItem.start_date }" 
+											                	data-enddate="${data.orderedItem.end_date}" 
+											                	data-deposit="${data.orderedItem.deposit}" 
+											                	data-bs-toggle="modal" 
+											                	data-bs-target="#modalReturn">
+											               		 대여반납신청
+											                </button>
 									            		</c:when>
 									            		<c:when test="${data.rentalItemReturnDto.is_item_returned == 'Y' && data.isCompleted != 'Y' }">
 									            			<button type="button" class="btn btn-outline-secondary" disabled>최종 정산중</button>
@@ -209,6 +253,10 @@
 
 
 <script>
+	let discList = []
+	let itemDiscList = []
+	let discPrice
+	let finDiscPrice
 	let formattedDate
 	//로그인된 세션 초기화
 	let mySessionId = null;
@@ -229,7 +277,36 @@
 		xhr.send();		
 	}
 	
-
+	// 할인 테이블 가져오기
+	function getRentalPeriodDisc(id, regiMonth, originPriceVal) {
+		const xhr = new XMLHttpRequest()
+		xhr.onreadystatechange = function() {
+			if(xhr.readyState == 4 && xhr.status == 200){
+				const response = JSON.parse(xhr.responseText);
+				if(response.result == "success"){
+					discList = response.rentalPeriodDiscDto
+					afterAjaxRequest(regiMonth, originPriceVal);
+				}
+			}
+		}
+		xhr.open("get", "../rental/getRentalPeriodDisc?id="+id)
+		xhr.send();	
+	}
+	
+	function afterAjaxRequest(regiMonth, originPriceVal) {
+		for(let j = 0; j<discList.length; j++){
+			console.log(discList[j])
+			let str = originPriceVal;
+			let result = str.replace(/,/g, '');
+				if(regiMonth > discList[j].rental_period) {
+					discPrice = discList[j].discounted_price
+					console.log("원래가격:: ", parseInt(result), "할인기준가격:: ", discPrice)
+					finDiscPrice = parseInt(result) - discPrice
+					
+				}
+		}
+	}
+	
 // 반납하게되는 날(오늘)
 const setRegDate = () => {
       const today = new Date();
@@ -247,11 +324,6 @@ const modalReview = document.getElementById('modalReview')
 // 반납 안내 모달
 if (modalReturn) {modalReturn.addEventListener('show.bs.modal', event => {
 	
-	
-	
-	
-	
-	
 	const returnDesc = document.querySelector(".return_desc")
 	returnDesc.innerHTML = ''
     const button = event.relatedTarget
@@ -264,6 +336,7 @@ if (modalReturn) {modalReturn.addEventListener('show.bs.modal', event => {
     const deposit = button.getAttribute('data-deposit')
     const productTitle = button.getAttribute('data-product-title')
     const submitReturn = document.getElementById("submitReturn")
+    const dataImageLink = button.getAttribute('data-image-link')
     const form = modalReturn.querySelector('form')
     
 	let endDateObj = new Date(endDate.replace('KST', 'GMT+0900'));
@@ -277,47 +350,49 @@ if (modalReturn) {modalReturn.addEventListener('show.bs.modal', event => {
     const yyyy2 = startDateObj.getFullYear();
     const mm2 = String(startDateObj.getMonth() + 1).padStart(2, '0');
     const dd2 = String(startDateObj.getDate()).padStart(2, '0');
-    formattedStarteDate = `\${yyyy2}-\${mm2}-\${dd2}`;
+    formattedStartedDate = `\${yyyy2}-\${mm2}-\${dd2}`;
     
     setRegDate()
     
     const remainMonth = getMonthDiffer(new Date(formattedDate),new Date(formattedEndDate))
     const refundMoney = (originalPrice - price) * remainMonth
-    
-    // 아래 기간별 할인률 불러오는 함수
-	/* function showDescPrice() {
-		<c:forEach items="${data.rentalPeriodDiscDtoList}" var="list">
-		if(periodValue >= ${list.rental_period} ){
-			console.log(${list.discounted_price})
-			let descPrice = document.querySelector("#desc_price")
-			let calcPrice = ${list.discounted_price}
-			console.log(calcPrice.toLocaleString('ko-KR'))
-			descPrice.innerText = calcPrice.toLocaleString('ko-KR')
-			hiddenPrice.value =${list.discounted_price}
-		}
-		</c:forEach>
-		
-	} */
-    
+   
     let span = document.createElement('span')
     let modalTit = document.querySelector('.modal-tit')
     let originPriceP = document.querySelector('.originPriceP')
+    let originPriceVal = parseInt(originalPrice).toLocaleString('ko-KR')
     let regiMonthP = document.querySelectorAll('.regiMonthP')
     let startDateP = document.querySelector('.startDateP')
     let endDateP = document.querySelector('.endDateP')
-    let finPriceP = document.querySelector('.finPriceP') 
-    let regiMonth = getMonthDiffer(new Date(formattedStarteDate), new Date(formattedEndDate))
+    let finPriceP = document.querySelector('.finPriceP')
+    let usedPriceP = document.querySelector('.usedPriceP')
+   // let usedMonthP = document.qu'.<small>'r('.usedMonthP')
+    let modalTopImage = document.querySelector('.modalTopImage')
+    let minusPriceP = document.querySelector('.minusPriceP')
+    
+    let regiMonth = getMonthDiffer(new Date(formattedStartedDate), new Date(formattedEndDate)) // 남은 달
+    let calcMonth = getMonthDiffer(new Date(formattedStartedDate), new Date(formattedDate)) // 사용한 달
+
+    getRentalPeriodDisc(orderId, regiMonth, originPriceVal)
     
     modalTit.innerText = productTitle
-    
-    let originPriceVal = parseInt(originalPrice).toLocaleString('ko-KR')
+    usedPriceP.innerText = price
     originPriceP.innerText = originPriceVal+"원"
     regiMonthP[0].innerText = regiMonth
     regiMonthP[1].innerText = regiMonth
-    startDateP.innerText = formattedStarteDate
+    startDateP.innerText = formattedStartedDate
     endDateP.innerText = formattedEndDate
+    minusPriceP.innerText = ''
+    
+    minusPriceP.innerText = parseInt(discPrice) - parseInt(originPriceVal)
     finPriceP.innerText = parseInt(refundMoney).toLocaleString('ko-KR')
+    
+    setTimeout(() => {
+    	minusPriceP.innerText = finDiscPrice
+	}, 500);
 
+   // usedMonthP.innerText = calcMonth
+    modalTopImage.setAttribute('src', '/safariImg/'+dataImageLink)
     submitReturn.setAttribute('onclick', 'returnProcess(' + orderId + ',' + refundMoney + ', "'+ productTitle + '")')
     
   })
@@ -344,12 +419,14 @@ function getMonthDiffer(startMonth, endMonth) {
 	  );
 }
 
+
+
 function returnProcess(orderId,refundMoney,productTitle) {
 	console.log('리턴프로세스 매개변수 orderId:: ',orderId )
 	console.log('리턴프로세스 매개변수 refundMoney:: ',refundMoney )
 	console.log('리턴프로세스 매개변수 productTitle:: ',productTitle )
-	const xhr = new XMLHttpRequest()
 	console.log(orderId,refundMoney,productTitle)
+	const xhr = new XMLHttpRequest()
 
 	xhr.onreadystatechange = function() {
 		if(xhr.readyState == 4 && xhr.status == 200){

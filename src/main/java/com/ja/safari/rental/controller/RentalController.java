@@ -57,6 +57,19 @@ public class RentalController {
 	/*
 	 * 페이징처리 
 	 */
+	// 대여 인트로 메인 페이지
+	@RequestMapping("introMainPage")
+	public String introMainPage(Model model) {
+		Integer sub_category_id = 0;
+		Integer main_category_id = 0;
+		String orderly ="";
+
+		List<Map<String, Object>> reviewMap = rentalService.getRentalReview(2);
+		List<Map<String, Object>> rentalItemList = rentalService.getRentalItemList(sub_category_id, main_category_id, orderly);
+		model.addAttribute("rentalItemList", rentalItemList);
+		model.addAttribute("reviewData", reviewMap);
+		return "rental/introMainPage";
+	}
 	
 	// 대여 메인 페이지
 	@RequestMapping("mainPage")
@@ -168,11 +181,6 @@ public class RentalController {
 	}
 	
 	
-	
-	
-	
-	
-	
 	// 대여 리뷰 프로세스
 	@RequestMapping("writeRentalReviewProcess")
 	public String writeRentalReviewProcess(HttpSession session, RentalReviewDto params, MultipartFile[] rental_review_img) {
@@ -193,7 +201,7 @@ public class RentalController {
 				}
 			
 	
-			String rootFolder = "C:\\ploadFiles";
+			String rootFolder = "C:\\uploadFiles";
 	
 			// 날짜별 폴더 생성 로직 
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");

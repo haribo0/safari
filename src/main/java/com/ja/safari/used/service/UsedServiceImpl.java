@@ -643,10 +643,64 @@ public class UsedServiceImpl {
 		return list;
  }
 	 
+	// 송금 요청하기  
+	public void productRequestTransfer(Integer requestId, Integer id) {
+		ProductRequestDto productRequestDto = usedSqlMapper.selectProductRequestById(requestId);
+		ProductDto productDto = usedSqlMapper.selectProductById(productRequestDto.getProduct_id());
+		ProductChatDto productChatDto = new ProductChatDto();
+		productChatDto.setPurchase_request_id(requestId);
+		productChatDto.setSender_id(id);
+		productChatDto.setReceiver_id(productRequestDto.getUser_id());
+		productChatDto.setContent("송금 요청 메시지가 도착했습니다.\n\n- 요청 금액 : "+productDto.getPrice()+"원\n\n상단에 있는 송금하기를 클릭하여 빠르게\n 송금하세요!");
+		usedSqlMapper.insertProductChat(productChatDto);
+	}
 	 
-	 
-	 
-	 
+	// 회원 코인 조회
+	public int getUserCoinBalance(int userId) {
+		return userSqlMapper.getUserCoinBalance(userId);
+	}
+	
+	// 코인 결제 후 마이너스 인서트
+	public void reduceAndPlusUserCoinByUsed(UserCoinDto userCoinDto, Integer productId, Integer requestId) {
+		// 나눔이 아닐때 
+		if(userCoinDto.getCoin_transaction()!=0) {
+			// 구매한 사람 코인 마이너스 
+			usedSqlMapper.reduceUserCoinByUsed(userCoinDto);
+			// 판매한 사람 코인 플러스
+			int coinPk = userSqlMapper.getOnChargeCoinPk();
+			ProductDto productDto = usedSqlMapper.selectProductById(productId);
+			UserCoinDto userCoinDto2 = new UserCoinDto();
+			userCoinDto2.setId(coinPk);
+			userCoinDto2.setUser_id(productDto.getUser_id());
+			userCoinDto2.setCoin_transaction(userCoinDto.getCoin_transaction());
+			userCoinDto2.setTransaction_detail("중고거래 판매건 입금");
+			userSqlMapper.insertUserCoin(userCoinDto2);
+			// 송금하면 채팅방에 송금한거 써놓아주기
+			ProductChatDto productChatDto = new ProductChatDto();
+			productChatDto.setPurchase_request_id(requestId);
+			productChatDto.setSender_id(userCoinDto.getUser_id());
+			productChatDto.setReceiver_id(productDto.getUser_id());
+			productChatDto.setContent("입금 완료 메시지가 도착했습니다.\n\n- 입금된 금액 : "+productDto.getPrice()+"원\n\n자세한 코인 내역은 마이페이지-코인관리에서 확인 가능합니다.");
+			usedSqlMapper.insertProductChat(productChatDto);
+		}
+	}
+	
+	// 마이페이지 내 좋아요 목록
+	public List<Map<String, Object>> selectProductLikeByUserId(Integer userId){
+		List<Map<String, Object>> list = new ArrayList<Map<String,Object>>();
+		List<ProductLikeDto> productLikeDtoList = usedSqlMapper.selectProductLikeByUserId(userId);
+		for(ProductLikeDto productLikeDto:productLikeDtoList) {
+			Map<String, Object> map = new HashMap<String, Object>();
+			Integer productId = productLikeDto.getProduct_id();
+			ProductDto productDto = usedSqlMapper.selectProductById(productId);
+			map.put("productDto", productDto);
+			map.put("productImgDto", usedSqlMapper.selectProductImg(productId));
+			map.put("productCityDto", usedSqlMapper.selectProductCityByTownId(productDto.getProduct_town_id()));
+			map.put("productTownDto", usedSqlMapper.selectProductTownById(productDto.getProduct_town_id()));
+			list.add(map);
+		}
+		return list;
+	}
 	 
 	 
 	 
