@@ -376,6 +376,10 @@ function checkValueAndSubmit() {
 		alert("비밀번호를 입력해주세요");
 		pw.focus();
 		return;
+	} else if (pwCheck.value == "") {
+		alert("비밀번호 확인란을 입력해주세요");
+		pw.focus();
+		return;
 	} else if (nickname.value == "") {
 		alert("닉네임을 입력해주세요");
 		nickname.focus();
