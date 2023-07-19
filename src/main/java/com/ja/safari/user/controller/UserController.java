@@ -15,6 +15,7 @@ import com.ja.safari.cs.service.CsServiceImpl;
 import com.ja.safari.dto.PromotionReviewDto;
 import com.ja.safari.dto.UserChargeCoinKakaoPayApproveDto;
 import com.ja.safari.dto.UserDto;
+import com.ja.safari.used.service.UsedServiceImpl;
 import com.ja.safari.user.service.UserServiceImpl;
 
 @Controller
@@ -23,6 +24,9 @@ public class UserController {
 	
 	@Autowired
 	private UserServiceImpl userService;
+	
+	@Autowired
+	private UsedServiceImpl usedService;
 	
 	@Autowired
 	private AuctionServiceImpl auctionService;
@@ -175,6 +179,18 @@ public class UserController {
 		model.addAttribute("isRated", csService.isQnaReplyRated(id));
 		
 		return "user/myInquiryDetail";
+	}
+	
+	// 중고 -- 마이페이지 : 관심목록 
+	@RequestMapping("wishList")
+	public String wishList(HttpSession session, Model model) {
+		UserDto sessionUser = (UserDto)session.getAttribute("sessionUser");
+		if(sessionUser==null) {
+			return "redirect:./user/loginPage";
+		}else {
+			model.addAttribute("list", usedService.selectProductLikeByUserId(sessionUser.getId()));
+			return "used/wishList";
+		}
 	}
 	
 	

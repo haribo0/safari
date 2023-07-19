@@ -342,16 +342,7 @@ public class UsedController {
 		}
 	}
 	
-	// 찜 내역 
-	@RequestMapping("wishList")
-	public String wishList(HttpSession session) {
-		UserDto sessionUser = (UserDto)session.getAttribute("sessionUser");
-		if(sessionUser==null) {
-			return "redirect:../user/loginPage";
-		}else {
-			return "used/wishList";
-		}
-	}
+	
 	
 	
 	

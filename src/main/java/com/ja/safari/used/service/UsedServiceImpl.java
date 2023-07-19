@@ -684,7 +684,23 @@ public class UsedServiceImpl {
 			usedSqlMapper.insertProductChat(productChatDto);
 		}
 	}
-	 
+	
+	// 마이페이지 내 좋아요 목록
+	public List<Map<String, Object>> selectProductLikeByUserId(Integer userId){
+		List<Map<String, Object>> list = new ArrayList<Map<String,Object>>();
+		List<ProductLikeDto> productLikeDtoList = usedSqlMapper.selectProductLikeByUserId(userId);
+		for(ProductLikeDto productLikeDto:productLikeDtoList) {
+			Map<String, Object> map = new HashMap<String, Object>();
+			Integer productId = productLikeDto.getProduct_id();
+			ProductDto productDto = usedSqlMapper.selectProductById(productId);
+			map.put("productDto", productDto);
+			map.put("productImgDto", usedSqlMapper.selectProductImg(productId));
+			map.put("productCityDto", usedSqlMapper.selectProductCityByTownId(productDto.getProduct_town_id()));
+			map.put("productTownDto", usedSqlMapper.selectProductTownById(productDto.getProduct_town_id()));
+			list.add(map);
+		}
+		return list;
+	}
 	 
 	 
 	 
