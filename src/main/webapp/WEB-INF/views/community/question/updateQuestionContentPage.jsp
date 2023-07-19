@@ -27,38 +27,48 @@
 	<div class="col text-center">
 	
 	
-<form action="/safari/community/question/updateQuestionContentProcess" method="post">
+<form action="/safari/community/question/updateQuestionContentProcess" method="post" enctype="multipart/form-data">
 	
 <%--수정하기 폼 시작 --%>
-	<div class="container">
-		<table class="table table-hover">
-			<tbody>
-				<tr>
-	  				<td><input type="hidden" name="id" value="${map.questionDto.id}"></td>
-	  			</tr>
-	  			<tr>
-					<td><input type="number" class="form-control" name="question_category_id" maxlength="40" value="${map.questionDto.question_category_id}"></td>
-	  			</tr>
-				<tr>
-					<td><input type="text" class="form-control" name="title" maxlength="40" value="${map.questionDto.title}"></td>
-	  			</tr>
-	  		 	<tr>
-	  				<td><textarea type="text" class="form-control" name="content" maxlength="3000" style="height:400px;">${map.questionDto.content }</textarea></td>
-	  			</tr>
-	 			<tr> 
-	 			 	<td><input type="text" class="form-control"  name="points" maxlength="10" value="${map.questionDto.points }"></td>
-	 			</tr>
-	 		<%--	<tr>
-	 				<td><input name="helpBoardFiles" type="file" onchange="readURLContent(this)" id="helpBoardFiles" multiple accept="image/*"></td>
-	 			</tr>	 --%>
-			 </tbody>
-		</table>
-	
- </div>
+	<div class="row">
+			<div class="col">
+				  	<input type="hidden" name="id" value="${map.questionDto.id}">
+				  	<input type="text" class="form-control" name="title" maxlength="40" value="${map.questionDto.title}" style= "margin-top: 10px;">
+ 					<textarea type="text" class="form-control" name="content" maxlength="3000" style="height:400px; margin-top: 10px;">${map.questionDto.content}</textarea>
+					  <div style="display: flex; gap: 10px;">
+					  <select class="form-select" aria-label="Default select example" name="points"  style="margin-top: 10px; max-width: 200px;">
+						  <option value="">${map.questionDto.points}</option>
+						  <option value="0">0</option>
+						  <option value="100">100</option>
+						  <option value="200">200</option>
+						  <option value="300">300</option>
+						  <option value="400">400</option>
+						  <option value="500">500</option>
+						  <option value="600">600</option>
+						  <option value="700">700</option>
+						  <option value="800">800</option>
+						  <option value="900">900</option>
+						  <option value="1000">1000</option>
+					  </select>				  
+				  	</div>
+				  <label for="questionBoardFiles" class="file-upload-btn" style="margin-top: 10px;">
+				  <i class="bi bi-paperclip"></i>
+				  <span class="sr-only">파일 선택</span>
+				  </label>
+				  <input name="questionBoardFiles" type="file" onchange="readURLContent(this)" id="questionBoardFiles" style= "display: none;"  multiple accept= "image/*">
+				
+				</div>
+			</div> 
 
-	<%--버튼 2가지 --%>
-	<button class="btn btn-primary">수정하기</button> 
-	<input type="submit" class="btn btn-primary" value="수정하기">
+	<%--버튼--%>
+	<div class="row">
+	<div class="col text-center">
+		<br>
+		<button class="btn btn-dark">수정하기</button> 
+	</div>
+	</div>
+	<%--버튼--%>
+	
 </form>
 
 	<%-- 제목: <input type="text" name="title" value="${map.helpDto.title}"><br>

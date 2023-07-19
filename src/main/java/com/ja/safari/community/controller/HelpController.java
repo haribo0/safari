@@ -55,8 +55,10 @@ public class HelpController {
 		List<Map<String, Object>> helpBestBoardList = helpService.selectBestHelpBoards();
 		model.addAttribute("helpBestBoardList", helpBestBoardList);
 
-		// int helpCommentCount = communityService.selectAllHelpBoards();
-		// model.addAttribute("helpCommentCount", helpCommentCount);
+		/*
+		 * int helpCommentCount = helpService.selectAllHelpBoards();
+		 * model.addAttribute("helpCommentCount", helpCommentCount);
+		 */
 
 		return "/community/help/mainPage";
 	}
@@ -67,7 +69,7 @@ public class HelpController {
 		return "/community/help/writeContentPage";
 	}
 
-	//해주세요 글쓰기 프로세스
+	//해주세요 글쓰기 프로세
 	@RequestMapping("help/writeContentProcess")
 	public String writeContentProcess(HttpSession session, HelpDto helpDto, MultipartFile[] helpBoardFiles) {
 		// 세션이 null일 때 로그인 페이지로 리다이렉트시키기
