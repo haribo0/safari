@@ -3,6 +3,7 @@ package com.ja.safari.used.service;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -119,7 +120,6 @@ public class UsedServiceImpl {
 			map.put("productImgDto", usedSqlMapper.selectProductImg(productId));
 			map.put("productTownDto", usedSqlMapper.selectProductTownById(townIdTwo));
 			map.put("productCityDto", usedSqlMapper.selectProductCityByTownId(townIdTwo));
-			
 			list.add(map);
 		}
 		return list;
@@ -145,7 +145,6 @@ public class UsedServiceImpl {
 			map.put("productImgDto", usedSqlMapper.selectProductImg(productId));
 			map.put("productTownDto", usedSqlMapper.selectProductTownById(townId));
 			map.put("productCityDto", usedSqlMapper.selectProductCityByTownId(townId));
-			
 			list.add(map);
 		}
 		return list;
@@ -204,8 +203,8 @@ public class UsedServiceImpl {
 		Map<String, Object> map = new HashMap<>();
 		ProductDto productDto = usedSqlMapper.selectProductById(productId);
 		Integer townId = productDto.getProduct_town_id();
-		String content = productDto.getContent().replaceAll("\n", "<br>");
-		productDto.setContent(content);
+//		String content = productDto.getContent().replaceAll("\n", "<br>");
+//		productDto.setContent(content);
 		int productLikeCount = usedSqlMapper.selectProductLikeCountByProductId(productId);
 		map.put("productDto", productDto);
 		map.put("productLikeCount", productLikeCount);
@@ -550,12 +549,168 @@ public class UsedServiceImpl {
 		map.put("recevierReviewCount", usedSqlMapper.selectMyWroteReviewCount(requestId,receiverId));
 		return map;
 	}
+
+	// 메인 - 무료 나눔 리스트 
+	public List<Map<String, Object>> selectFreePriceList() {
+		List<Map<String, Object>> list = new ArrayList<Map<String,Object>>();
+		List<ProductDto> productDtoList = usedSqlMapper.selectFreePriceList();
+		
+		for(ProductDto productDto : productDtoList) {
+			Map<String, Object> map = new HashMap<>();
+			int productId = productDto.getId();
+			Integer townId = productDto.getProduct_town_id();
+			map.put("productDto", productDto);
+			map.put("likeCount", usedSqlMapper.selectProductLikeCountByProductId(productId));
+			map.put("requestCount", usedSqlMapper.countProductRequestByProductId(productId));
+			map.put("productImgDto", usedSqlMapper.selectProductImg(productId));
+			map.put("productTownDto", usedSqlMapper.selectProductTownById(townId));
+			map.put("productCityDto", usedSqlMapper.selectProductCityByTownId(townId));
+			map.put("uploadTime", dateToTimeDifference(productDto.getReg_date()));
+			list.add(map);
+		}
+		return list;
+	}
 	
+	// 자바로 날짜 구하기 
+	 public static String dateToTimeDifference(Date regDate) {
+	        // 현재 시간을 가져옵니다.
+        Date currentTime = new Date();
+
+        // 현재 시간과 regDate 사이의 시간 차이를 계산합니다.
+        long timeDifference = currentTime.getTime() - regDate.getTime();
+
+        // 초, 분, 시간, 일, 월, 년 단위로 차이를 계산합니다.
+        long seconds = timeDifference / 1000;
+        long minutes = seconds / 60;
+        long hours = minutes / 60;
+        long days = hours / 24;
+        long months = days / 30;
+        long years = months / 12;
+
+        String formattedTime;
+
+        // 시/분/초 중 하나를 선택하여 표시합니다.
+        if (years >= 1) {
+            formattedTime = years + "년 전";
+        } else if (months >= 1) {
+            formattedTime = months + "개월 전";
+        } else if (days >= 1) {
+            formattedTime = days + "일 전";
+        } else if (hours >= 1) {
+            formattedTime = hours + "시간 전";
+        } else if (minutes >= 1) {
+            formattedTime = minutes + "분 전";
+        } else {
+            formattedTime = seconds + "초 전";
+        }
+
+        return formattedTime;
+    }
 	
+	// 메인페이지에서 전체상품리스트 8개 
+	 public List<Map<String, Object>> selectAllProductListByEight() {
+		List<Map<String, Object>> list = new ArrayList<Map<String,Object>>();
+		List<ProductDto> productDtoList = usedSqlMapper.selectAllProductListByEight();
+		
+		for(ProductDto productDto : productDtoList) {
+			Map<String, Object> map = new HashMap<>();
+			int productId = productDto.getId();
+			Integer townId = productDto.getProduct_town_id();
+			map.put("productDto", productDto);
+			map.put("likeCount", usedSqlMapper.selectProductLikeCountByProductId(productId));
+			map.put("requestCount", usedSqlMapper.countProductRequestByProductId(productId));
+			map.put("productImgDto", usedSqlMapper.selectProductImg(productId));
+			map.put("productTownDto", usedSqlMapper.selectProductTownById(townId));
+			map.put("productCityDto", usedSqlMapper.selectProductCityByTownId(townId));
+			map.put("uploadTime", dateToTimeDifference(productDto.getReg_date()));
+			list.add(map);
+		}
+		return list;
+	}
 	
+	// 상세페이지에서 연관상품 5개 
+	 public List<Map<String, Object>> selectRelatedProductByFive(int productId) {
+		// 연관상품 보여주기 
+		List<Map<String, Object>> list = new ArrayList<Map<String,Object>>();
+		ProductDto productDto = usedSqlMapper.selectProductById(productId);
+		List<ProductDto> relatedProductList =  usedSqlMapper.selectRelatedProductByFive(productId, productDto.getProduct_sub_category());
+		for(ProductDto productDto2 : relatedProductList) {
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("productDto", productDto2);
+			map.put("productImgDto", usedSqlMapper.selectProductImg(productDto2.getId()));
+			list.add(map);
+		}
+		return list;
+ }
+	 
+	// 송금 요청하기  
+	public void productRequestTransfer(Integer requestId, Integer id) {
+		ProductRequestDto productRequestDto = usedSqlMapper.selectProductRequestById(requestId);
+		ProductDto productDto = usedSqlMapper.selectProductById(productRequestDto.getProduct_id());
+		ProductChatDto productChatDto = new ProductChatDto();
+		productChatDto.setPurchase_request_id(requestId);
+		productChatDto.setSender_id(id);
+		productChatDto.setReceiver_id(productRequestDto.getUser_id());
+		productChatDto.setContent("송금 요청 메시지가 도착했습니다.\n\n- 요청 금액 : "+productDto.getPrice()+"원\n\n상단에 있는 송금하기를 클릭하여 빠르게\n 송금하세요!");
+		usedSqlMapper.insertProductChat(productChatDto);
+	}
+	 
+	// 회원 코인 조회
+	public int getUserCoinBalance(int userId) {
+		return userSqlMapper.getUserCoinBalance(userId);
+	}
 	
+	// 코인 결제 후 마이너스 인서트
+	public void reduceAndPlusUserCoinByUsed(UserCoinDto userCoinDto, Integer productId, Integer requestId) {
+		// 나눔이 아닐때 
+		if(userCoinDto.getCoin_transaction()!=0) {
+			// 구매한 사람 코인 마이너스 
+			usedSqlMapper.reduceUserCoinByUsed(userCoinDto);
+			// 판매한 사람 코인 플러스
+			int coinPk = userSqlMapper.getOnChargeCoinPk();
+			ProductDto productDto = usedSqlMapper.selectProductById(productId);
+			UserCoinDto userCoinDto2 = new UserCoinDto();
+			userCoinDto2.setId(coinPk);
+			userCoinDto2.setUser_id(productDto.getUser_id());
+			userCoinDto2.setCoin_transaction(userCoinDto.getCoin_transaction());
+			userCoinDto2.setTransaction_detail("중고거래 판매건 입금");
+			userSqlMapper.insertUserCoin(userCoinDto2);
+			// 송금하면 채팅방에 송금한거 써놓아주기
+			ProductChatDto productChatDto = new ProductChatDto();
+			productChatDto.setPurchase_request_id(requestId);
+			productChatDto.setSender_id(userCoinDto.getUser_id());
+			productChatDto.setReceiver_id(productDto.getUser_id());
+			productChatDto.setContent("입금 완료 메시지가 도착했습니다.\n\n- 입금된 금액 : "+productDto.getPrice()+"원\n\n자세한 코인 내역은 마이페이지-코인관리에서 확인 가능합니다.");
+			usedSqlMapper.insertProductChat(productChatDto);
+		}
+	}
 	
-	
+	// 마이페이지 내 좋아요 목록
+	public List<Map<String, Object>> selectProductLikeByUserId(Integer userId){
+		List<Map<String, Object>> list = new ArrayList<Map<String,Object>>();
+		List<ProductLikeDto> productLikeDtoList = usedSqlMapper.selectProductLikeByUserId(userId);
+		for(ProductLikeDto productLikeDto:productLikeDtoList) {
+			Map<String, Object> map = new HashMap<String, Object>();
+			Integer productId = productLikeDto.getProduct_id();
+			ProductDto productDto = usedSqlMapper.selectProductById(productId);
+			map.put("productDto", productDto);
+			map.put("productImgDto", usedSqlMapper.selectProductImg(productId));
+			map.put("productCityDto", usedSqlMapper.selectProductCityByTownId(productDto.getProduct_town_id()));
+			map.put("productTownDto", usedSqlMapper.selectProductTownById(productDto.getProduct_town_id()));
+			list.add(map);
+		}
+		return list;
+	}
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
 	
 	
 	

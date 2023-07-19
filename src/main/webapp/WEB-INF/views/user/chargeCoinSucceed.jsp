@@ -88,7 +88,7 @@
 				  		
 				  		<div class="fs-6 text-start mt-4 fw-medium">충전 금액</div>
 				  		<div class="fs-4 fw-light text-start mt-1 fw-bold" id="amount"
-				  		style="color:#ff6f0f;">
+				  		>
 				  		<fmt:formatNumber value="${map.chargeCoinHistory.coin_transaction}" pattern="#,###"/>원
 				  		
 				  		</div>				  		

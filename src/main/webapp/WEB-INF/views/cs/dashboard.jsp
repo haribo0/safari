@@ -107,9 +107,9 @@
 
 <div class="container-fluid">
 	<div class="row ">
-		<div class="col"></div>
+		<div class="col-6"></div>
 		
-		<div class="col-9">
+		<div class="col-6">
 			
 			
 			<div id='wrap'>

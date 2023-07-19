@@ -1,5 +1,6 @@
 package com.ja.safari.community.controller;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -17,6 +18,8 @@ import com.ja.safari.dto.PickCommentDto;
 import com.ja.safari.dto.PickDto;
 import com.ja.safari.dto.PickLikeDto;
 import com.ja.safari.dto.PickOptionDto;
+import com.ja.safari.dto.PickOptionVoteDto;
+import com.ja.safari.dto.PickShowCardDto;
 import com.ja.safari.dto.ProductDto;
 import com.ja.safari.dto.UserDto;
 import com.ja.safari.user.service.UserServiceImpl;
@@ -80,28 +83,35 @@ public class PickController {
 		}
 */
 		
-		//골라줘요 글쓰기 페이지
+		//골라줘요 글쓰기 페이지 //골라줘요 옵션 추가.
 		@RequestMapping("pick/writeContentPage")
-		public String pickWriteContentPage() {
+		public String pickWriteContentPage(Model model) {
+			
+			//골라줘요 옵션 추가. (여기부터)
+			List<PickShowCardDto> showAllProductList = pickService.showAllProduct();
+			model.addAttribute("showAllProductList", showAllProductList);
+			
+			
+			model.addAttribute("productPickOptionList", pickService.getProductPickOptionList());
+			
+			//System.out.printf("*1 컨트롤러 showProductByproductIdList: ", showProductByproductIdList);//확인용
 			
 			return "/community/pick/writeContentPage";
 		}
 		
-		//골라줘요 글쓰기 프로세스 //골라줘요 옵션 추가.
+		//골라줘요 글쓰기 프로세스 
 		@RequestMapping("pick/writeContentProcess")
-		public String pickWriteContentProcess(HttpSession session, PickDto pickDto, PickOptionDto pickOptionDto, Model model) {
+		public String pickWriteContentProcess(HttpSession session, PickDto pickDto, int [] category) {
+			
+			System.out.println("야호...!!!");
 			
 			UserDto sessionUser = (UserDto)session.getAttribute("sessionUser");
 			
 			int user_id = sessionUser.getId();
 			pickDto.setUser_id(user_id);
+
+			pickService.registerPickBoard(pickDto, category);
 			
-			
-			//골라줘요 옵션 추가.
-			List<Map<String, Object>> showProductByproductIdList = pickService.showProductByproductIdList();
-			model.addAttribute("showProductByproductIdList", showProductByproductIdList);
-			
-			System.out.printf("1 컨트롤러 showProductByproductIdList: ", showProductByproductIdList);//확인용
 			
 			return "redirect:/community/pick/mainPage";
 		}
@@ -146,8 +156,11 @@ public class PickController {
 		public String pickUpdateContentProcess(PickDto pickDto) {
 			
 			pickService.updatePickBoard(pickDto);
+			int id = pickDto.getId();
 			
-			return "redirect:/community/pick/mainPage";
+			System.out.println(id);
+			//return "redirect:/community/pick/mainPage";
+			return "redirect:/community/pick/readContentPage/" + id;
 		}
 		
 		//골라줘요 게시물 삭제하기
@@ -221,6 +234,25 @@ public class PickController {
 			}
 
 		}
+		
+
+	// 강사 코드
+	@RequestMapping("pick/voteProcess")	
+	public String voteProcess(int pick_id, PickOptionVoteDto pickOptionVoteDto, HttpSession session) {
+		UserDto sessionUser = (UserDto)session.getAttribute("sessionUser");
+		
+		//로그인 안되어 있을 때
+		if (sessionUser == null) {
+			return "redirect:/user/loginPage";
+		} 
+
+		pickOptionVoteDto.setUser_id(sessionUser.getId());
+		
+		pickService.vote(pickOptionVoteDto, pick_id);
+		
+		
+		return "redirect:/community/pick/readContentPage/" + pick_id;
+	}
 			
 }
 	

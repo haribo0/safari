@@ -16,6 +16,7 @@ import com.ja.safari.dto.CsChatListDto;
 import com.ja.safari.dto.CsChatResponseDto;
 import com.ja.safari.dto.CsChatResponseDto2;
 import com.ja.safari.dto.CsEmpDto;
+import com.ja.safari.dto.CsEmpRatingResponseDto;
 import com.ja.safari.dto.CsEventDto;
 import com.ja.safari.dto.CsLiveChatDto;
 import com.ja.safari.dto.CsLiveChatMsgDto;
@@ -172,21 +173,24 @@ public class CsServiceImpl {
         
         String workState = "휴무";
         
-        // 근무 스케줄 가져오기 (요일별) 
+        // 직원 아이디로 근무 스케줄 가져오기 (여러개 / 요일별) 
 		for(CsScheduleDto scheduleDto : csSqlMapper.getScheduleByEmpId(empId)) {
+			
 			// 최근 출퇴근 기록 가져오기 
 			List<CsAttendanceLogDto> attList = csSqlMapper.getRecentAttendanceLogDtos(empId);
 			
 			// 해당일에 근무 일 경우 
 			if(getWeekdayAsInteger(scheduleDto.getWeekday()) == dayOfWeek) {
 				// 근무 기록 없거나 마지막 기록에 퇴근 시간이 있으면
-				if(attList.size()==0 || attList.get(0).getTime_out()!=null) {
+				if(attList.size()==0) workState = (hourOfDay < scheduleDto.getEnd_time() ? "출근전" : "퇴근");
+				else if(attList.get(0).getTime_out()!=null) {
 					workState = (hourOfDay < scheduleDto.getEnd_time() ? "출근전" : "퇴근");
 				} else {
 					workState = "근무";
 				}
-			} else {
-				if(attList.get(0).getTime_out()==null) {
+			} else { // 근무일 아닐경우 
+				if(attList.size()==0) continue;
+				else if(attList.get(0).getTime_out()==null) {
 					workState = "근무";
 				}
 			}
@@ -196,13 +200,14 @@ public class CsServiceImpl {
 	}
 
 	
-	
+	// 출근 처리 
 	public void startWorking(int empId) {
 		
 		csSqlMapper.insertTimeInByEmpId(empId);
 		
 	}
 
+	// 퇴근 처리 
 	public void stopWorking(int empId) {
 		
 		csSqlMapper.updateTimeOutByLogId(csSqlMapper.getRecentAttendanceLogDtos(empId).get(0).getId());
@@ -402,6 +407,12 @@ public class CsServiceImpl {
 		return empDto.getNickname() ;
 	}
 
+	
+	// 채팅 아이디로 상담사 닉네임 가져오기 
+	public List<CsEmpRatingResponseDto> getEmpChatRatingList() {
+		return csSqlMapper.getEmpChatRatingList();
+	}
+	
 
 	
 	

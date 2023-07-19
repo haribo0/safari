@@ -375,26 +375,26 @@
 	
 	<!-- 반납 신청 리스트 / 수취확인 전  -->
 	<select id="getItemToBeReturnedListByBusinessId" resultType="com.ja.safari.dto.RentalItemReturnDto">
-		SELECT * FROM RENTAL_ORDER_TABLE rot, RENTAL_ITEM_TABLE rit, RENTAL_ITEM_RETURN_TABLE rirt, RENTAL_BUISNESS_TABLE rbt 
-		WHERE rot.ITEM_ID = rit.ID
-		AND rirt.RENTAL_ORDER_ID = rot.ID 
-		AND rit.BUSINESS_ID  = rbt.ID 
-		AND 1=1
-		AND rbt.id = #{businessId}
-		AND RIRT.IS_ITEM_RETURNED = 'N'
-		ORDER BY rirt.id desc
+		SELECT rirt.*
+		FROM RENTAL_ITEM_RETURN_TABLE rirt
+		JOIN RENTAL_ORDER_TABLE rot ON rot.ID = rirt.RENTAL_ORDER_ID
+		JOIN RENTAL_ITEM_TABLE rit ON rit.ID = rot.ITEM_ID
+		JOIN RENTAL_BUISNESS_TABLE rbt ON rbt.ID = rit.BUSINESS_ID
+		WHERE rbt.ID = #{businessId}
+		AND rirt.IS_ITEM_RETURNED = 'N'
+		ORDER BY rirt.ID DESC
 	</select>
 	
 	<!-- 반납 신청 리스트 / 수취확인 후  -->
 	<select id="getItemReturnedListByBusinessId" resultType="com.ja.safari.dto.RentalItemReturnDto">
-		SELECT * FROM RENTAL_ORDER_TABLE rot, RENTAL_ITEM_TABLE rit, RENTAL_ITEM_RETURN_TABLE rirt, RENTAL_BUISNESS_TABLE rbt 
-		WHERE rot.ITEM_ID = rit.ID
-		AND rirt.RENTAL_ORDER_ID = rot.ID 
-		AND rit.BUSINESS_ID  = rbt.ID 
-		AND 1=1
-		AND rbt.id = #{businessId}
-		AND RIRT.IS_ITEM_RETURNED = 'Y'
-		ORDER BY rirt.id DESC
+		SELECT rirt.*
+		FROM RENTAL_ITEM_RETURN_TABLE rirt
+		JOIN RENTAL_ORDER_TABLE rot ON rot.ID = rirt.RENTAL_ORDER_ID
+		JOIN RENTAL_ITEM_TABLE rit ON rit.ID = rot.ITEM_ID
+		JOIN RENTAL_BUISNESS_TABLE rbt ON rbt.ID = rit.BUSINESS_ID
+		WHERE rbt.ID = #{businessId}
+		AND rirt.IS_ITEM_RETURNED = 'Y'
+		ORDER BY rirt.ID DESC
 	</select>
 	
 	<!-- 반납 번호로 상품 찾아오기   -->

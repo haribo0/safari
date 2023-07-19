@@ -41,9 +41,17 @@
   color: #FACD4C; /* 원하는 아이콘 색상으로 변경 */
 }
 
-
-
-
+/* 버튼 색깔 */
+.orangeButton{
+	background: #ff6f0f;
+	font-weight: bold;
+	color: white;
+}
+.orangeButton:hover {
+     background: #ff6f0f;
+	font-weight: bold;
+	color: white;
+  }
 </style>
 <script>
 // 좋아요 토글
@@ -190,7 +198,7 @@ window.addEventListener("DOMContentLoaded", function(){
 	<!--  뒤로가기 버튼 -->
 	<div class = "row mt-3">
 		<div class = "col-1">
-		<a href="./allPromotionReviewPage" style="text-decoration: none; color: inherit;">
+		<a href="./allPromotionReviewPage" style="text-decoration: none; color: #ff6f0f;">
 			<i class="bi bi-arrow-left-square-fill fs-1"></i>
 		</a>
 		</div>
@@ -230,7 +238,7 @@ window.addEventListener("DOMContentLoaded", function(){
 					<div class = "reviewlist container border border-1 mt-3" style="border-radius: 10px;">
 						<div class = "row mt-2">
 							<div class = "col">
-								공감 수 : n개  ,  ..
+								상호명 business_name...
 							</div>
 						</div>
 					</div>	
@@ -264,7 +272,7 @@ window.addEventListener("DOMContentLoaded", function(){
 					<div class = "row">
 						<div class = "col">
 							<form action="./rewardPromotionReviewPage" method="post">
-							<button class = "form-control btn btn-dark me-2">
+							<button class = "form-control btn orangeButton me-2">
 									<i class="bi bi-fast-forward"></i>&nbsp; 더 알아보기 &nbsp;<i class="bi bi-fast-forward"></i>
 							</button>
 							</form>
@@ -278,11 +286,15 @@ window.addEventListener("DOMContentLoaded", function(){
 	
 		
 		<!--  중간 바 -->
-		<div class = "col-1">
-			<div class="d-flex" style="height: 450px;">
+		<div class = "col-1 mt-5">
+			<div class = "row sticky-top">
+				<div class = "col">
+			<div class="d-flex" style="height: 400px;">
 				  <div class="vr"></div>
+				</div>
 			</div>
-		</div> <!--  col 2번 -->
+			</div>
+		</div>
 		
 		<!--  게시물 내용 -->
 		<div class = "col-7"> <!--  수습 안 되면 다시 scroll-container 붙이기 --> 
@@ -291,9 +303,15 @@ window.addEventListener("DOMContentLoaded", function(){
 				<div class = "col">
 					<div class = "row mt-2">
 						<div class = "col">
-						
-						<span class="badge text-bg-warning">BEST</span>
-							
+							<!--  공감수 + 조회수 top5 -->
+							<c:choose>
+								<c:when test="">
+									<span class="badge text-bg-warning">BEST</span>
+								</c:when>
+								<c:otherwise>
+									
+								</c:otherwise>
+							</c:choose>
 						</div>
 						<div class = "col"></div>
 					</div>
@@ -302,37 +320,37 @@ window.addEventListener("DOMContentLoaded", function(){
 							Category(대여)
 						</div>
 					</div>
-					<div class = "row mt-2">
+					<div class = "row">
 						<div class = "col fw-semibold fs-3"> 
 							${data.promotionReviewDto.promotion_review_title}
 						</div>
 					</div>
 					
 					<!--  프로필 -->
-					<div class = "row mt-3">
-						<div class = "col-2">
-							<div class="d-flex align-items-center">
+					<div class = "row mt-2">
+						<div class = "col-auto">
+							<div class="d-flex justify-content-center align-items-center">
 							<img src="${data.userDto.profile_img_link }"
-								class="rounded-circle" style="width: 50px; height: 50px;"
-								alt="프로필사진">				
-							
-										
+								class="rounded-circle" style="width: 50px; height: 50px; border-radius: 50%;"
+								alt="프로필사진">						
 							</div>
 						</div>
 						<div class = "col text-start">
-							${data.userDto.nickname }
+							<div class = "row">
+								<div class = "col">
+									${data.userDto.nickname }
+								</div>
+							</div>
 							<div class = "row">
 								<div class = "col fst-italic text-secondary">
 									<fmt:formatDate value="${data.promotionReviewDto.reg_date }" pattern="yy.MM.dd"/>		
 									&nbsp; · &nbsp;
 									<i class="bi bi-eye-fill fs-6 text-secondary">${data.promotionReviewDto.promotion_review_views }</i>			
 								</div>
-								
-								
 							</div>
 						</div>
 						<div class = "col"></div>
-						<div class = "col-1 d-flex justify-content-center align-items-center">
+						<div class = "col-1 mx-2 d-flex justify-content-center align-items-center">
 						<!--  공감하트버튼 -->
 							<i id = "heartBox" onclick="togglePromotionReviewLike()" class="text-danger bi bi-heart fs-4"></i>
 							&nbsp;
@@ -356,8 +374,8 @@ window.addEventListener("DOMContentLoaded", function(){
 					</div>
 					
 						<!--  본문 내용 -->
-					<div class = "row mt-5">
-						<div class = "col" style="height: 500px; overflow: auto;">
+					<div class = "row mt-2">
+						<div class = "col" style="height: 300px; overflow: auto;">
 							${data.promotionReviewDto.promotion_review_content}
 						</div>
 					</div>
@@ -389,7 +407,7 @@ window.addEventListener("DOMContentLoaded", function(){
 					</div>
 					
 					<!--  댓글 작성 -->	
-					<div class = "row mt-5">
+					<div class = "row mt-3">
 						<div class = "col">
 							<div class = "row">
 								<div class = "col fw-semibold fst-italic fs-5">
@@ -446,7 +464,7 @@ window.addEventListener("DOMContentLoaded", function(){
 													</div>
 													<div class = "col-8"></div>
 													<div class = "col">
-													<button class = "form-control btn btn-dark">등록</button>
+													<button class = "form-control btn orangeButton">등록</button>
 													</div>
 												</div>
 											</form>
@@ -465,8 +483,8 @@ window.addEventListener("DOMContentLoaded", function(){
 						<div class = "col">
 							<c:forEach items = "${promoCommentDtoList}" var = "mapPromoComment">
 							<div class = "row mt-1">
-								<div class = "col-1">
-									<i class="bi bi-person-square fs-1"></i>
+								<div class = "col-1"> <!--  프로필사진 -->
+									<img style="filter: grayscale(1);" src = "/safari/resources/img/user.jpg" alt = "UserImage" width="50px">
 								</div>
 								<div class = "col">
 									<div class = "row">
@@ -477,7 +495,29 @@ window.addEventListener("DOMContentLoaded", function(){
 													${mapPromoComment.userDto.nickname}
 												</div>
 												<div class = "col-1"></div>
-												<div class = "col text-end text-secondary ms-1" style = "font-size: 12px;">
+												<!--  수정/삭제 버튼 -->
+												<div class = "col text-end text-secondary fs-5"> 
+													<div class="dropdown">
+													  <span class="bi bi-three-dots-vertical" data-bs-toggle="dropdown" aria-expanded="false"></span>		  
+													  <c:choose>
+													  	<c:when test="${!empty sessionUser}">
+														  	 <ul class="dropdown-menu">
+															  <li><a class="dropdown-item" href="./updatePromoCommentProcess?id=${mapPromoComment.promotionReviewCommentDto.id}">수정</a></li>
+															  <li><a class="dropdown-item" href="./deletePromotionReivewCommentProcess?id=${mapPromoComment.promotionReviewCommentDto.id}">삭제</a></li>
+														  </ul>
+													  	</c:when>
+													  	<c:otherwise>
+													  		 <ul class="dropdown-menu">
+																  <li><a class="dropdown-item" href="#">신고</a></li>		 
+															  </ul>
+													  	</c:otherwise>
+													  </c:choose>
+													 
+													</div>											
+												</div>
+											</div>
+											<div class = "row">
+												<div class = "col text-secondary " style = "font-size: 12px;">
 												<fmt:formatDate value="${mapPromoComment.promotionReviewCommentDto.reg_date}" pattern = "yyyy-MM-dd  HH-mm-ss"/>	
 												</div>
 											</div>
@@ -496,10 +536,23 @@ window.addEventListener("DOMContentLoaded", function(){
 					 							</c:if>
 					 							 --%>
 					 							
-					 							
-					 								${mapPromoComment.promotionReviewCommentDto.promotion_review_comment }
+					 							 <c:choose>
+								                    <c:when test="${mapPromoComment.editMode}">
+								                      <form action="./updatePromoCommentProcess" method="post">
+								                        <input type="hidden" name="commentId" value="${mapPromoComment.promotionReviewCommentDto.id}">
+								                        <textarea name="newComment" >${mapPromoComment.promotionReviewCommentDto.promotion_review_comment}</textarea>
+								                        <button type="submit">저장</button>
+								                      </form>
+								                    </c:when>
+								                    <c:otherwise>
+								                      <span>${mapPromoComment.promotionReviewCommentDto.promotion_review_comment}</span>
+								                    </c:otherwise>
+								                  </c:choose>	
+					 								
+					 								
+					 								
+					 							<!--  내용 	${mapPromoComment.promotionReviewCommentDto.promotion_review_comment } -->
 					 							</div>
-					 						</div>
 										</div>
 										
 									</div>
@@ -534,7 +587,7 @@ window.addEventListener("DOMContentLoaded", function(){
 
 
 
-
+<div class = "mb-5"></div>
 </div> <!--  container div 닫는 곳 -->
 	<!-- 푸터 섹션 -->
 	<jsp:include page="../../common/footer.jsp"></jsp:include>

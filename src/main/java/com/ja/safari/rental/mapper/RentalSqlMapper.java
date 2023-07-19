@@ -2,6 +2,7 @@ package com.ja.safari.rental.mapper;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
 
@@ -43,7 +44,7 @@ public interface RentalSqlMapper {
 	public List<RentalSubCategoryDto> selectSubCategoryList(int mainCategoryId);
 
 	// 상품리스트 가져오기
-	public List<RentalItemDto> selectRentalItemListAll(@Param("sub_category_id") Integer sub_category_id, @Param("main_category_id") Integer main_category_id);
+	public List<RentalItemDto> selectRentalItemListAll(@Param("sub_category_id") Integer sub_category_id, @Param("main_category_id") Integer main_category_id, @Param("orderly") String orderly);
 
 	// 상품 하나 가져오기
 	public RentalItemDto selectById(int id);
@@ -126,6 +127,19 @@ public interface RentalSqlMapper {
 
 	// 대여 반납 신청pk
 	public int getRentalOrderReturnPk();
+
+	// 서브 카테고리 가져오기
+	public RentalSubCategoryDto selectSubCatName(int id);
+
+	// 메인 카테고리 이름 가져오기
+	public String selectMainCatName(int main_category_id);
+
+	// 대여 반납 아이템 가져오기
+	public RentalItemReturnDto selectRentalItemRetrunById(int id);
+
+	// 대여 찜 리스트 가져오기
+	public List<RentalItemLikeDto> selectRentalItemLikeAll(int id);
+
 
 
 

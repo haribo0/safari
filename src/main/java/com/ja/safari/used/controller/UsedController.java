@@ -42,7 +42,22 @@ public class UsedController {
 		// categoryList
 		model.addAttribute("categoryList", usedService.selectMainAndSubCategory());
 		model.addAttribute("cityList", usedService.selectProductCity());
+		// 무료나눔 리스트 
+		model.addAttribute("freePriceList", usedService.selectFreePriceList());
+		// 8개 전체리스트 
+		model.addAttribute("eightList", usedService.selectAllProductListByEight());
 		return "/used/mainPageAjax";
+	}
+	
+	// 중고 물품 전체 리스트 
+	@RequestMapping("productList")
+	public String productList(Model model) {
+		List<Map<String, Object>> list = usedService.selectProductList();
+		model.addAttribute("list", list);
+		// categoryList
+		model.addAttribute("categoryList", usedService.selectMainAndSubCategory());
+		model.addAttribute("cityList", usedService.selectProductCity());
+		return "/used/realMain";
 	}
 	
 	// 베스트 
@@ -173,15 +188,6 @@ public class UsedController {
 			
 			int productId = usedService.createProductPk();
 			productDto.setId(productId);
-			System.out.println(productDto.getId());
-			System.out.println(productDto.getUser_id());
-			System.out.println(productDto.getTitle());
-			System.out.println(productDto.getContent());
-			System.out.println(productDto.getLocation());
-			System.out.println(productDto.getPrice());
-			System.out.println(productDto.getProduct_sub_category());
-			System.out.println(productDto.getProduct_town_id());
-			
 			usedService.insertProduct(productDto);
 			
 			if(images != null) {
@@ -222,7 +228,7 @@ public class UsedController {
 					usedService.insertProductImg(productImgDto);
 				}
 			}
-			return "redirect:./mainPage";
+			return "redirect:./productDetail?productId="+productId;
 		}
 	}
 	
@@ -249,7 +255,8 @@ public class UsedController {
 		model.addAttribute("ProductMainCategoryDto", usedService.selectProductMainCategoryDtoById(productId));
 		usedService.updateProductViewsById(productId);
 		model.addAttribute("productUser", usedService.selectUserDtoById(productDto.getUser_id()));
-		
+		// 연관상품 5개 리스트 
+		model.addAttribute("relatedProductList", usedService.selectRelatedProductByFive(productId));
 		return "used/productDetail";
 	}
 	
@@ -257,7 +264,7 @@ public class UsedController {
 	@RequestMapping("deleteProduct")
 	public String deleteProduct(int productId) {
 		usedService.deleteProductByProductId(productId);
-		return "redirect:./mainPage";
+		return "redirect:./productList";
 	}
 	
 	// 거래 요청 
@@ -271,7 +278,7 @@ public class UsedController {
 			productRequestDto.setProduct_id(productId);
 			productRequestDto.setUser_id(sessionUser.getId());
 			usedService.insertProductRequest(productRequestDto);
-			return "redirect:./chatList";
+			return "redirect:../user/myPage";
 		}
 	}
 	
@@ -283,7 +290,7 @@ public class UsedController {
 			return "redirect:../user/loginPage";
 		}else {
 //			usedService.deleteProductRequestByUser(productId, sessionUser.getId());
-			return "redirect:./chatList";
+			return "redirect:../user/myPage";
 		}
 	}
 	
@@ -335,44 +342,51 @@ public class UsedController {
 		}
 	}
 	
-	// 결제 실패 
-	@RequestMapping("paymentFailed")
-	public String paymentFailed(HttpSession session) {
-		
-		UserDto userDto = (UserDto) session.getAttribute("sessionUser");
-		if(userDto == null) return "redirect:../user/loginPage"; 		
-		
-		return "used/paymentFailed";
-	}
 	
-	// 결제 중 
-	@RequestMapping("paymentProcess")
-	public String paymentProcess(HttpSession session, String pg_token) {
-		
-		UserDto userDto = (UserDto) session.getAttribute("sessionUser");
-		if(userDto == null) return "redirect:../user/loginPage";	
-		
-		System.out.println(pg_token);
-		UsedKaKaoPayApproveDto usedKakaoPagApproveDto = (UsedKaKaoPayApproveDto) session.getAttribute("usedKakaoPay");
-		usedKakaoPagApproveDto.setPg_token(pg_token);
-		session.setAttribute("usedKakaoPay", usedKakaoPagApproveDto);
-		
-		return "used/paymentProcess";
-	}
-		
-	// 결제 성공     
-	@RequestMapping("paymentSucceeded")
-	public String paymentSucceeded(HttpSession session, Model model, Integer orderId) {
-		
-		UserDto userDto = (UserDto) session.getAttribute("sessionUser");
-		if(userDto == null) return "redirect:../user/loginPage"; 		
-		
-		session.removeAttribute("usedKakaoPay");
-		
-		model.addAttribute("map", usedService.getOrderAndPaymentInfo(orderId));
-		
-		return "used/paymentSucceeded";
-	}
+	
+	
+	
+	
+	
+	
+	
+//	// 결제 실패 
+//	@RequestMapping("paymentFailed")
+//	public String paymentFailed(HttpSession session) {
+//		
+//		UserDto userDto = (UserDto) session.getAttribute("sessionUser");
+//		if(userDto == null) return "redirect:../user/loginPage"; 		
+//		
+//		return "used/paymentFailed";
+//	}
+//	
+//	// 결제 중 
+//	@RequestMapping("paymentProcess")
+//	public String paymentProcess(HttpSession session, String pg_token) {
+//		
+//		UserDto userDto = (UserDto) session.getAttribute("sessionUser");
+//		if(userDto == null) return "redirect:../user/loginPage";	
+//		
+//		UsedKaKaoPayApproveDto usedKakaoPagApproveDto = (UsedKaKaoPayApproveDto) session.getAttribute("usedKakaoPay");
+//		usedKakaoPagApproveDto.setPg_token(pg_token);
+//		session.setAttribute("usedKakaoPay", usedKakaoPagApproveDto);
+//		
+//		return "used/paymentProcess";
+//	}
+//		
+//	// 결제 성공     
+//	@RequestMapping("paymentSucceeded")
+//	public String paymentSucceeded(HttpSession session, Model model, Integer orderId) {
+//		
+//		UserDto userDto = (UserDto) session.getAttribute("sessionUser");
+//		if(userDto == null) return "redirect:../user/loginPage"; 		
+//		
+//		session.removeAttribute("usedKakaoPay");
+//		
+//		model.addAttribute("map", usedService.getOrderAndPaymentInfo(orderId));
+//		
+//		return "used/paymentSucceeded";
+//	}
 	
 	
 	

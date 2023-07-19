@@ -51,38 +51,40 @@
 			<div class="col-9">
 				<div class="align-items-center justify-content-center justify-content-lg-center"> 
 					
+					
+					<%-- 카드 recruitBoardList --%>
+					<div class="card" style="width: ;">
+					  <img src="..." class="card-img-left" alt="...">
+					  <div class="card-body">
+					    <h5 class="card-title">Card title</h5>
+					    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+					    <a href="#" class="btn btn-primary">Go somewhere</a>
+					  </div>
+					</div>
+					<%-- 카드 recruitBoardList --%>
+					
 					<%-- recruitBoardList --%>
 					<div class="row"  style="text-align:center">
 						<div class="col">
-							<table class="table table-hover">
-								<thead>
-									<tr>
-										<th>글번호</th>
-										<th>기업명(작성자)</th>
-										<th>공고제목</th>
-										<th>근무지역</th>
-										<th>급여</th>
-										<th>조회수</th>
-										<th>등록일</th>
-									</tr>	
-								</thead>
-								<tbody>
+						
+						</div>
+						<div class="col">
 								<c:forEach items="${recruitBoardList}" var="recruitDto">							
-									<tr class="align-middle">
-										<td><a class="text-black text-decoration-none" href="/safari/community/recruit/readContentPage/${recruitDto.recruitDto.id}" >
-										${recruitDto.recruitDto.id}
-										</a></td>
-										<td>${recruitDto.userDto.nickname}</td>
-										<td><a class="text-black text-decoration-none" href="/safari/community/recruit/readContentPage/${recruitDto.recruitDto.id}">
-										${recruitDto.recruitDto.title}</a></td>
-										<td>${recruitDto.recruitDto.location}</td>
-										<td>${recruitDto.recruitDto.salary}</td>
-										<td>${recruitDto.recruitDto.views}</td>
-										<td><fmt:formatDate value="${recruitDto.recruitDto.reg_date}" pattern="yyyy.MM.dd"/></td>
-									</tr>
+									<div class="align-middle">
+										<a class="text-black text-decoration-none" href="/safari/community/recruit/readContentPage/${recruitDto.recruitDto.id}" >
+										${recruitDto.recruitDto.id}<br>
+										</a>
+										${recruitDto.userDto.nickname}<br>
+										<a class="text-black text-decoration-none" href="/safari/community/recruit/readContentPage/${recruitDto.recruitDto.id}">
+										${recruitDto.recruitDto.title}</a><br>
+										${recruitDto.recruitDto.location}<br>
+										${recruitDto.recruitDto.salary}<br>
+										${recruitDto.recruitDto.views}<br>
+										<fmt:formatDate value="${recruitDto.recruitDto.reg_date}" pattern="yyyy.MM.dd"/>
+										<br>
+									</div><hr>
 								</c:forEach>	
-								</tbody>
-							</table>
+								
 							 
 							<%-- 글쓰기버튼 --%>
 							<div class="row">

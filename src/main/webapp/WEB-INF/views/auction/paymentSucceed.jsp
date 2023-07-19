@@ -9,6 +9,7 @@
 <title>사파리 | 대여메인</title>
 <!-- 메타 섹션 -->
 <jsp:include page="../common/meta.jsp"></jsp:include>
+<link rel="stylesheet" href="/safari/resources/style/auction.css" type="text/css">
 <!-- 메타 섹션 -->
 <style>
 
@@ -90,7 +91,7 @@
 				  		
 				  		<div class="fs-6 text-start mt-4 fw-medium">결제 금액</div>
 				  		<div class="fs-4 fw-light text-start mt-1 fw-bold" id="amount"
-				  		style="color:#ff6f0f;">
+				  		>
 				  		<fmt:formatNumber value="${map.auctionPayment.amount}" pattern="#,###"/>원
 				  		
 				  		</div>				  		

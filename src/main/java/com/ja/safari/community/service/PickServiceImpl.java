@@ -14,6 +14,9 @@ import com.ja.safari.dto.PickCommentDto;
 import com.ja.safari.dto.PickDto;
 import com.ja.safari.dto.PickLikeDto;
 import com.ja.safari.dto.PickOptionDto;
+import com.ja.safari.dto.PickOptionValuesForVoteDto;
+import com.ja.safari.dto.PickOptionVoteDto;
+import com.ja.safari.dto.PickShowCardDto;
 import com.ja.safari.dto.ProductDto;
 import com.ja.safari.dto.UserDto;
 import com.ja.safari.used.mapper.UsedSqlMapper;
@@ -50,31 +53,9 @@ public class PickServiceImpl {
 	
 	
 	//골라줘요 옵션.
-	public List<Map<String, Object>> showProductByproductIdList() {
+	public List<PickShowCardDto> showAllProduct() {
 
-		//골라줘요 옵션
-		int product_id = usedSqlMapper.createProductPk();
-		List<Map<String, Object>> productBoardList = new ArrayList<>();
-		List<ProductDto> productDtoList = usedSqlMapper.selectProduct();
-		
-		System.out.printf("1 서비스 product_id: ", product_id);//확인용
-		System.out.printf("2 서비스 productDtoList: ", productDtoList);//확인용
-		
-		for(ProductDto productDto : productDtoList ) {
-			
-			Map<String, Object> map = new HashMap<>();
-			
-			productDto.setId(product_id); //productId
-			pickSqlMapper.showProductByproductId(productDto);
-			
-			map.put("productDto", productDto);
-			
-			System.out.printf("3 서비스 productDto: ", productDto);//확인용
-			
-			productBoardList.add(map);
-		}
-		
-		return productBoardList;
+		return pickSqlMapper.showAllProduct();
 	}
 	
 	
@@ -117,6 +98,19 @@ public class PickServiceImpl {
 		
 		map.put("userDto", userDto);
 		map.put("pickDto", pickDto);
+		
+		
+		List<PickOptionValuesForVoteDto> pickOptionValuesForVoteDtoList = pickSqlMapper.getPickOptionValues(id);
+		
+		int sum = 0;
+		for(PickOptionValuesForVoteDto x : pickOptionValuesForVoteDtoList) {
+			sum += x.getVote_cnt();
+		}
+		
+		
+		map.put("pickOptionValuesForVoteDtoList", pickOptionValuesForVoteDtoList);
+		map.put("totalVoteCount", sum);
+	
 		
 		return map;
 	}
@@ -215,5 +209,93 @@ public class PickServiceImpl {
 		
 		pickSqlMapper.registerPickOption(pickOptionDto);
 	}
+	
+	//골라줘요 AJAX 좋아요
+	public void toggleLike(PickLikeDto pickLikeDto) {
+			
+			if(pickSqlMapper.checkPickLike(pickLikeDto) > 0) {
+				pickSqlMapper.removeLikePickBoard(pickLikeDto);
+			}else {
+				pickSqlMapper.insertPickLike(pickLikeDto);
+			}
+		}
+	
+	public boolean isLiked(PickLikeDto pickLikeDto) {
+		return pickSqlMapper.checkPickLike(pickLikeDto) > 0;
+	}
+	
+	public int getTotalLike(int pick_id) {
+		return pickSqlMapper.countLikeByPickBoardId(pick_id);
+	}
+	
+	//골라줘요 AJAX 댓글
+	public void registerComment(PickCommentDto pickCommentDto) {
+		//pickSqlMapper.insertComment(pickCommentDto);
+		pickSqlMapper.registerPickComment(pickCommentDto);
+	}
+	
+	public void deleteComment(int id) {
+		//pickSqlMapper.deleteComment(id);
+		pickSqlMapper.deleteByPickcommentId(id);
+	}
+	
+	public void updateComment(PickCommentDto pickCommentDto) {
+		//pickSqlMapper.updateComment(pickCommentDto);
+		pickSqlMapper.updatePickcomment(pickCommentDto);
+	}
+	
+	public List<Map<String, Object>> getCommentList(int pick_id){
+		List<Map<String, Object>> list = new ArrayList<>();
+		
+		List<PickCommentDto> commentList = pickSqlMapper.selectByPickcommentId(pick_id);
+		
+		for(PickCommentDto pickCommentDto : commentList) {
+			
+			UserDto userDto = userSqlMapper.selectUserDtoById(pickCommentDto.getUser_id());
+			//PickDto pickDto = pickSqlMapper.getPickBoardByBoardId(id);
+			//UserDto userDto = userSqlMapper.selectUserDtoById(pickDto.getUser_id());
+			
+			Map<String, Object> map = new HashMap<>();
+			
+			map.put("userDto", userDto);
+			map.put("pickCommentDto", pickCommentDto);
+			
+			list.add(map);
+		}
+		
+		return list;
+	}
+	
+	// 강사...
+	
+	public List<ProductDto> getProductPickOptionList(){
+		
+		return pickSqlMapper.getProductPickOptionList();
+		
+	}
+	
+	public void registerPickBoard(PickDto pickDto, int [] category) {
+		
+		int pk = pickSqlMapper.createPickPk();
+		pickDto.setId(pk);
+		pickSqlMapper.registerPickBoard(pickDto);
+
+		for(int x : category) {
+			PickOptionDto pickOptionDto = new PickOptionDto();
+			pickOptionDto.setPick_id(pk);
+			pickOptionDto.setProduct_id(x);
+			
+			pickSqlMapper.registerPickOption(pickOptionDto);
+		}
+		
+	}
+	
+	public void vote(PickOptionVoteDto pickOptionVoteDto, int pick_id) {
+		pickSqlMapper.resetVote(pickOptionVoteDto.getUser_id(), pick_id);
+		pickSqlMapper.insertPickOptionVote(pickOptionVoteDto);
+	}
+	
+	
+	
 }
 

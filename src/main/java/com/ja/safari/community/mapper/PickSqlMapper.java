@@ -2,10 +2,15 @@ package com.ja.safari.community.mapper;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.ja.safari.dto.PickCommentDto;
 import com.ja.safari.dto.PickDto;
 import com.ja.safari.dto.PickLikeDto;
 import com.ja.safari.dto.PickOptionDto;
+import com.ja.safari.dto.PickOptionValuesForVoteDto;
+import com.ja.safari.dto.PickOptionVoteDto;
+import com.ja.safari.dto.PickShowCardDto;
 import com.ja.safari.dto.ProductDto;
 
 public interface PickSqlMapper {
@@ -46,6 +51,9 @@ public interface PickSqlMapper {
 	//골라줘요 댓글 삭제
 	public void deleteByPickcommentId(int id);
 		
+	//골라줘요 댓글 수정
+	public void updatePickcomment(PickCommentDto pickCommentDto); 
+	
 	//골라줘요 게시물 조회수 증가
 	public void increaseViewsPickBoard(int id);
 	
@@ -68,6 +76,17 @@ public interface PickSqlMapper {
 	public void registerPickOption(PickOptionDto pickOptionDto);
 	
 	//골라줘요 : 중고 상품 테이블에서 조회해서 받아오기. (이름, 가격, 좋아요 수, 이미지) productDto 받아오기
-	public ProductDto showProductByproductId(ProductDto productDto);
+	public List<PickShowCardDto> showAllProduct();
+	
+	// 강사...
+	
+	public List<ProductDto> getProductPickOptionList();
+	
+	public List<PickOptionValuesForVoteDto> getPickOptionValues(int pick_id);	
+	
+	public void insertPickOptionVote(PickOptionVoteDto pickOptionVoteDto);
+	
+	public void resetVote(@Param("user_id") int user_id, @Param("pick_id") int pick_id);
+	
 
 }

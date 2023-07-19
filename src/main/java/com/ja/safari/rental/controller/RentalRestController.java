@@ -11,6 +11,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.mail.Session;
@@ -26,6 +27,7 @@ import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ja.safari.dto.RentalOrderKakaopayReady;
+import com.ja.safari.dto.RentalPeriodDiscDto;
 import com.ja.safari.dto.RentalReturnKakaopayAmount;
 import com.ja.safari.dto.RentalReturnKakaopayApprove;
 import com.ja.safari.dto.RentalItemDto;
@@ -435,7 +437,7 @@ public class RentalRestController {
 					RentalItemReturnDto rentalItemReturnDto = (RentalItemReturnDto)session.getAttribute("rentalItemReturnDto");
 					rentalService.rentalReturn(rentalItemReturnDto);
 					
-					
+					session.removeAttribute("rentalItemReturnDto");
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -457,7 +459,17 @@ public class RentalRestController {
 			return null;
 		}
 			
+		// 마이대여리스트중 할인테이블 가져오기
+		@RequestMapping("getRentalPeriodDisc")
+		public Map<String, Object> getRentalPeriodDisc(int id) {
+			Map<String, Object> map = new HashMap<String, Object>();
 			
+			List<RentalPeriodDiscDto> rentalPeriodDiscDto = rentalService.getRentalItDiscDtoList(id);
+			map.put("result", "success");
+			map.put("rentalPeriodDiscDto", rentalPeriodDiscDto);
 			
+			return map;
+		}
+
 }
 

@@ -5,16 +5,19 @@ public class UserAddressDto {
 	private int id;
 	private int user_id;
 	private String address;
+	private String address_name;
+	private String phone;
 	
 	public UserAddressDto() {
 		super();
 	}
 
-	public UserAddressDto(int id, int user_id, String address) {
-		super();
+	public UserAddressDto(int id, int user_id, String address, String address_name, String phone) {
 		this.id = id;
 		this.user_id = user_id;
 		this.address = address;
+		this.address_name = address_name;
+		this.phone = phone;
 	}
 
 	public int getId() {
@@ -40,6 +43,23 @@ public class UserAddressDto {
 	public void setAddress(String address) {
 		this.address = address;
 	}
+
+	public String getAddress_name() {
+		return address_name;
+	}
+
+	public void setAddress_name(String address_name) {
+		this.address_name = address_name;
+	}
+
+	public String getPhone() {
+		return phone;
+	}
+
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+
 	
 
 }

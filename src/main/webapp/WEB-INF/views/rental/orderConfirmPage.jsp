@@ -10,7 +10,7 @@ select option[value=""][disabled] {
 }
 
 .slidecontainer {
-  width: 32%;
+  width: 66%;
 }
 
 .slider {
@@ -18,7 +18,7 @@ select option[value=""][disabled] {
   width: 100%;
   height: 15px;
   border-radius: 5px;
-  background: #d3d3d3;
+  background: #e9e9e9;
   outline: none;
   opacity: 0.7;
   -webkit-transition: .2s;
@@ -35,7 +35,7 @@ select option[value=""][disabled] {
   width: 25px;
   height: 25px;
   border-radius: 50%;
-  background: #04AA6D;
+  background: #f68a42;
   cursor: pointer;
 }
 
@@ -43,7 +43,7 @@ select option[value=""][disabled] {
   width: 25px;
   height: 25px;
   border-radius: 50%;
-  background: #04AA6D;
+  background: #f68a42;
   cursor: pointer;
 }
 </style>
@@ -60,9 +60,134 @@ select option[value=""][disabled] {
 	<!-- 헤더 섹션 -->
 	
 	<div class="container my-5 py-4">
-		<div class="row">
-			<form action="./rentalOrderProcess" method="post">
-				<h3 class="mb-4 bg-light p-3 text-center">대여 주문 확인서</h3>
+		<div class="row mb-5">
+			<div class="col">
+				<div class="row">
+					<p class="mb-4 bg-light p-3 fs-6">대여 주문 확인서</p>				
+				</div>
+				<div class="row">
+					<p class="fs-5 text-body-secondary pb-2 border-bottom" style="font-weight: 600"><i class="bi bi-archive"></i> 상품 정보</p>					
+				</div>
+				<div class="row mt-2" >
+					<div class="row">
+						<div class="col-2">
+							<img alt="" src="/safariImg/${data.rentalItemDto.main_img_link}" class="rounded-1" style="width: 140px;">							
+						</div>
+						<div class="col">
+							<p class="fs-5">${data.rentalItemDto.title}</p>
+							<p>${data.rentalItemDto.item_description}</p>
+							<p>기본 대여비 <span class="fw-bold"><fmt:formatNumber value="${data.rentalItemDto.price }" pattern="#,##0" /></span>원 </p>
+						</div>
+					</div>
+					
+					<div class="row mt-4 py-2">
+						<div class="col">
+							<table class="table table-bordered">
+							  <thead>
+							    <tr>
+							    	<c:forEach items="${data.rentalPeriodDiscDtoList}" var="periodItem">
+								      <td class="text-center bg-body-tertiary" scope="col">${periodItem.rental_period }개월</td>
+							    	</c:forEach>
+							    </tr>
+							  </thead>
+							  <tbody>
+							    <tr>
+							      	<c:forEach items="${data.rentalPeriodDiscDtoList}" var="periodItem">
+								      <td class="text-center fw-bold" scope="col"><fmt:formatNumber value="${periodItem.discounted_price }" pattern="#,##0" />원</td>
+							    	</c:forEach>
+							    </tr>
+							  </tbody>
+							</table>
+						</div>
+					</div>
+
+				</div>
+				</div>
+			</div>
+			
+
+			
+			
+			<div class="row mt-5">
+				<p class="fs-5 text-body-secondary pb-2 border-bottom" style="font-weight: 600"><i class="bi bi-file-earmark-text"></i> 계약 정보</p>
+			</div>
+			<div class="row pb-3 mt-2">
+				<div class="col">
+					<div class="row">
+						<div class="col-2">
+							<p class="me-5">시작일 </p>
+						</div>
+						<div class="col">
+							<input type="date" class="form-control" id="calendar_start" name="start_date" style="height: 40px; width: 32%;" required/>
+						</div>
+					</div>
+					
+					<div class="row mt-4">
+						<div class="col-2">
+							<p class="me-5">대여기간 </p>
+						</div>
+						<div class="col">
+							<div class="slidecontainer">
+								<input type="range" value="12" class="slider optionPeriod" id="myRange">
+								<p><span id="monthly"></span>개월</p>
+							</div>
+						</div>
+						<div class="col">
+							<span>반납 예정일은</span> <span class="fw-bold" id="return_box"></span> <span>입니다.</span>
+						</div>
+					</div>
+					
+					<div class="row mt-4">
+						<div class="col-2">
+							<p class="me-5">배송지 </p>
+						</div>
+						<div class="col">
+							<div class="row">
+								<div class="list_addr_box">
+								</div>							
+							</div>
+							<div class="row mt-3 ps-3">
+								<div class="col">
+									<input type="text" id="usr_address" name="prd_address" placeholder="주소입력" class="form-control w-50" onclick="searchAddr()"/>
+									<input type="text" id="sub-address" placeholder="상세주소" class="form-control w-25 mt-1"/>								
+								</div>
+							</div>
+							<div class="row ps-3 mt-2">
+								<div class="col d-flex px-0">
+								 	<p onclick="searchAddr()" class="btn btn-outline-secondary mt-2 me-3">주소찾기</p>
+									<p class="btn btn-dark mt-2" onclick="addMyAddr()">추가</p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			<div class="row mt-5">
+				<p class="fs-5 text-body-secondary pb-2 border-bottom" style="font-weight: 600"><i class="bi bi-wallet2"></i> 결제 정보</p>
+			</div>
+			<div class="row">
+				<div class="col">
+					<div class="row">
+						<p class="fs-5"><span id="desc_price"></span>원 / <small>월</small></p>				
+				
+						<p class="fs-5">보증금 <span class="fw-bold"><fmt:formatNumber value="${data.rentalItemDto.deposit }" pattern="#,##0" /></span>원</p>		
+					</div>
+					
+					<div class="row">
+						<input type="hidden" value="${data.rentalItemDto.deposit }" name="deposit">
+						<input type="hidden" value="" name="end_date" id="hiddin_date">
+						<input type="hidden" value="${data.rentalItemDto.price }" name="original_price">
+						<input type="hidden" value="${data.rentalItemDto.id }" name="item_id">
+						<input type="hidden" value="" name="price" id="hidden_price">
+						<span class="btn mt-5 w-25 pe-0 btn-dark" onclick="checkVali()">주문신청</span>
+					</div>
+				</div>
+			</div>
+			
+			
+			<%-- <form action="./rentalOrderProcess" method="post">
+				<p class="mb-4 bg-light p-3 fs-4">대여 주문 확인서</p>
 				
 				<div class="row pt-3">
 					<img alt="" src="/safariImg/${data.rentalItemDto.main_img_link}" class="rounded" style="width: 160px;">
@@ -140,13 +265,12 @@ select option[value=""][disabled] {
 					<input type="hidden" value="${data.rentalItemDto.price }" name="original_price">
 					<input type="hidden" value="${data.rentalItemDto.id }" name="item_id">
 					<input type="hidden" value="" name="price" id="hidden_price">
-					<div class="row justify-content-end">
-						<!-- <button class="btn btn-success mt-5 w-25 pe-0">주문신청</button> -->				
+					<div class="row justify-content-end">		
 					 	<span class="btn btn-success mt-5 w-25 pe-0" onclick="checkVali()">주문신청</span>
 					</div>
 				</div>
 			</form>
-		</div>
+			 --%>
 	</div>
 	
 	<!-- 푸터 섹션 -->
@@ -363,7 +487,7 @@ select option[value=""][disabled] {
              return `\${year}-\${month}-\${day}`
 		}
 	
-	 console.log(getDayOfReturn(new Date('2023-06-17'), 6 ), '월에 반납 하는 달!!!');
+	// console.log(getDayOfReturn(new Date('2023-06-17'), 6 ), '월에 반납 하는 달!!!');
 	
 	// 조기 반납시 처리
 	function calcEarlyReturn(startDate, oiginEndDate, endDate) {
@@ -415,7 +539,9 @@ select option[value=""][disabled] {
 			if(periodValue >= ${list.rental_period} ){
 				console.log(${list.discounted_price})
 				let descPrice = document.querySelector("#desc_price")
-				descPrice.innerText = ${list.discounted_price}
+				let calcPrice = ${list.discounted_price}
+				console.log(calcPrice.toLocaleString('ko-KR'))
+				descPrice.innerText = calcPrice.toLocaleString('ko-KR')
 				hiddenPrice.value =${list.discounted_price}
 			}
 			</c:forEach>
@@ -424,8 +550,9 @@ select option[value=""][disabled] {
 
 	// 배송지 주소 추가
 	function addMyAddr() {
-		let inputAddr = document.querySelector("#usr_address");
-		let usrAddress = inputAddr.value.trim();
+        let subAddr = document.querySelector('#sub-address').value
+		let inputAddr = document.querySelector("#usr_address").value + ' ' + subAddr;
+		let usrAddress = inputAddr.trim();
 
 		if(!usrAddress) return;
 		
@@ -439,6 +566,7 @@ select option[value=""][disabled] {
 				getMyaddressList()
 				console.log(response.result)
 				usrAddress = ''
+				subAddr = ''
 			}
 		}
 		
@@ -476,8 +604,8 @@ select option[value=""][disabled] {
 					p.appendChild(input)
 					p.appendChild(label)
 					
-					p.classList.add('border')
-					p.classList.add('p-2')
+					//p.classList.add('border')
+					//p.classList.add('p-2')
 					p.classList.add('w-75')
 					p.classList.add('rounded')
 					

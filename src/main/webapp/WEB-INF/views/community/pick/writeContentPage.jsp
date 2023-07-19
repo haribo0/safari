@@ -18,53 +18,7 @@
 <style></style>
 <!-- 스타일 섹션 -->
 
-<!-- 스크립트 섹션 -->
-<script>
-	const boardId = new URLSearchParams(location.search).get("id");
-	
-	function ajaxTemplete(){
-		
-		const xhr = new XMLHttpRequest();
-		
-		xhr.onreadystatechange = function(){
-			if(xhr.readyState == 4 && xhr.status == 200){
-				const response = JSON.parse(xhr.responseText);
-				// js 작업..
-			}
-		}
-		
-		//get
-		xhr.open("get", "요청 url?파라메터=값");
-		xhr.send();
-		
-		//post
-		xhr.open("post", "요청 url");
-		xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded"); 
-		xhr.send("파라메터=값");
-	}
-	
-	let mySessionId = null;
-////
-
-
-	const PickOptionSelect = document.getId(PickOptionSelect);
-	
-	PickOptionSelect.addEventListner('change', function(event) {
-		
-		const selectedValue = event.target.value;
-		
-		//선택된 값 컨트롤러로 전달.
-		sendDateToController(selectedValue);
-	});
-	
-	function senDataController(value) {
-		
-		console.log('선택된 값:', value);
-	}
-	
-	
-	
-</script>
+<!-- 스크립트 섹션-->
 <!-- 스크립트 섹션 -->
 
 <body>
@@ -136,8 +90,8 @@
 										    <strong>
 										      <select id="product_id" name="category" style="width: 100%; border: none; outline: none;">
 										        <option value="0" selected="selected">제품 선택1</option>
-										        <c:forEach items="${PickOptionList}" var="PickOptionDto">
-										        	<option value="${PickOptionDto.id}" class="${PickOptionDto.product_id}">${PickOptionDto.title}</option>
+										        <c:forEach items="${productPickOptionList}" var="ProductDto">
+										        	<option value="${ProductDto.id}">${ProductDto.title}</option>
 										        </c:forEach>
 										      </select>
 										    </strong>
@@ -148,6 +102,9 @@
 										    <strong>
 										      <select id="product_id" name="category" style="width: 100%; border: none; outline: none;">
 										        <option value="0" selected="selected">제품 선택2</option>
+										        <c:forEach items="${productPickOptionList}" var="ProductDto">
+										        	<option value="${ProductDto.id}">${ProductDto.title}</option>
+										        </c:forEach>
 										      </select>
 										    </strong>
 										  </div>
@@ -156,6 +113,9 @@
 										    <strong>
 										      <select id="product_id" name="category" style="width: 100%; border: none; outline: none;">
 										        <option value="0" selected="selected">제품 선택3</option>
+										        <c:forEach items="${productPickOptionList}" var="ProductDto">
+										        	<option value="${ProductDto.id}">${ProductDto.title}</option>
+										        </c:forEach>
 										      </select>
 										    </strong>
 										  </div>
@@ -164,6 +124,9 @@
 										    <strong>
 										      <select id="product_id" name="category" style="width: 100%; border: none; outline: none;">
 										        <option value="0" selected="selected">제품 선택4</option>
+										        <c:forEach items="${productPickOptionList}" var="ProductDto">
+										        	<option value="${ProductDto.id}">${ProductDto.title}</option>
+										        </c:forEach>
 										      </select>
 										    </strong>
 										  </div>
@@ -175,12 +138,25 @@
 									
 									<%-- pick option 미리보기--%>
 									  pick option 미리보기
-									  <c:forEach items="${showProductByproductIdList}" var="productDto">
-									  ${productDto.productDto.title}
+									  <c:forEach items="${showAllProductList}" var="productDto">
+									  DTO 제목: ${productDto.title} <br>
+									  ${productDto.title}
+									 DTO 가격:  <br>
+									  DTO 좋아요 수: ${productDto.likeCount} <br>
+									  <c:choose>
+										  <c:when test="${empty productDto.product_img_link}">
+										  	DTO 이미지링크: 0
+										  </c:when>
+										  <c:otherwise>
+										  DTO 이미지링크: ${productDto.product_img_link}
+										  <img src="c://uploadFiles/${productDto.product_img_link}">
+										  </c:otherwise>
+									  </c:choose>
+									 <%--  DTO 이미지링크: ${productDto.pickShowCardDto.product_img_link} <br> --%> 
 									  </c:forEach>
 									<%-- pick option 미리보기--%> 
 								    
-								    <div class="form-group mt-4 mb-4">
+								    <div class="form-group mt-4 mb-4"> 
 								      <div class="form-control " style="font-size: ; font-family: 'Noto Sans', sans-serif; box-shadow: none;">
 								        <textarea rows="10" name="content" placeholder="내용을 입력해주세요." style="width: 100%; border: none; outline: none; padding: 0;"></textarea>
 								      </div>

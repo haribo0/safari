@@ -282,7 +282,6 @@ function getItemToBeReturnedList() {
 	
 	const listBox = document.getElementById("listBox");
 	
-	listBox.innerHTML = "";
 	
 	const xhr = new XMLHttpRequest();
 
@@ -290,6 +289,8 @@ function getItemToBeReturnedList() {
 		if(xhr.readyState == 4 && xhr.status == 200){
 			const response = JSON.parse(xhr.responseText);
 			
+			listBox.innerHTML = "";
+
 			const listContainer = document.createElement("div");
 			listContainer.className = 'row mt-3 mb-4';
 			
@@ -376,7 +377,6 @@ function getItemToBeReturnedList() {
 function getItemReturnedList() {
 	
 	const listBox = document.getElementById("listBox2");
-	listBox.innerHTML = "";
 	
 	const xhr = new XMLHttpRequest();
 
@@ -384,6 +384,8 @@ function getItemReturnedList() {
 		if(xhr.readyState == 4 && xhr.status == 200){
 			const response = JSON.parse(xhr.responseText);
 			
+			listBox.innerHTML = "";
+
 			const listContainer = document.createElement("div");
 			listContainer.className = 'row mt-3 mb-4';
 			
@@ -474,7 +476,7 @@ function getItemReturnedList() {
 // 배송 처리 
 function changeReturnShippingStatus(e) {
 	
-	const returnId = e.getAttribute("data-return-id")
+	const returnId = e.getAttribute("data-return-id");
 	
 	const xhr = new XMLHttpRequest();
 

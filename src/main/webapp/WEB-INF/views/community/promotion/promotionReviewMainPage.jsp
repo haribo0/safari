@@ -23,6 +23,17 @@
         font-size: 14px;
         color: darkgray;
     }
+    
+ /* 버튼 색깔 */
+.orangeButton{
+	background: #ff6f0f;
+	font-weight: bold;
+	color: white;
+}
+.orangeButton:hover {
+      outline: 2px solid orange;
+      /* hover 상태일 때의 스타일 */
+ }
 </style>
 <script>
 //좋아요 토글
@@ -144,17 +155,17 @@ window.addEventListener("DOMContentLoaded", function(){
 			<!-- 검색 -->
 			<form action="./allPromotionReviewPage" method="get">
 				<div class="row"> 
-					<div class="col-4">
+					<div class="col-4 pe-1">
 						<select name="promoReview_searchType" class="form-select">
 							<option value="promotion_review_title" selected>제목</option>
 							<option value="promotion_review_content">내용</option>
 							<option value="nickname">작성자</option>
 						</select>				
 					</div>
-					<div class="col-5">
+					<div class="col-5 px-0">
 						<input name="promoReview_searchWord" type="text" class="form-control">
 					</div>
-					<div class="col-2 d-grid mx-1">
+					<div class="col-1 d-grid px-1">
 						 <button type="submit" class="btn btn-outline-dark">
 						  	<span class="bi bi-search"></span>
 						</button>
@@ -165,8 +176,8 @@ window.addEventListener("DOMContentLoaded", function(){
 
 			<div class = "col-1">
 			<c:if test="${!empty sessionUser }">
-			<form action="writePromotionReviewPage" method = "post"> <!--  나중에 수정하도록 -->
-				<button class = "form-control btn btn-dark">글쓰기</button>
+			<form action="writePromotionReviewPage" method = "post">
+				<button class = "form-control btn orangeButton">글쓰기</button>
 			</form>
 			</c:if>
 			</div>
@@ -235,32 +246,28 @@ window.addEventListener("DOMContentLoaded", function(){
 									
 						<!--  업로드된 게시글 목록들 -->
 						 <div class="mt-3">
-						<div class = "reviewlist container border border-1" style="border-radius: 10px;">
-						<div class = "row mt-4">			
+						<div class = "reviewlist container border border-1 shadow-sm" style="border-radius: 10px;">
+						<div class = "row mt-3">			
 							<c:forEach items="${promoReviewList}" var="map" varStatus="status" begin="0" end="4">
 								<div class = "col mb-3">
+								<a href="./contentPromotionReviewPage?id=${map.promotionReviewDto.id}" style="text-decoration: none; color: inherit;">
 									<div class="card border border-0" style="width:30rem; height: 150px;">
 									<div class = "row">
 										<div class = "col-4">
-										<a href="./contentPromotionReviewPage?id=${map.promotionReviewDto.id }"> <%-- 여기에 사진 누르면 들어가는 구매창 링크 --%> 	
-									  <img src="/uploadPromoFiles/${map.promotionReviewImgList[0].rental_review_img }"
-									  	   class="card-img-top" alt="리워드게시물사진" height="150" width="100" >
-									  </a>
+										  <img src="/uploadPromoFiles/${map.promotionReviewImgList[0].rental_review_img }"
+										  	   class="card-img-top" alt="리워드게시물사진" height="150" width="100" >
 									 	</div>
 									 	<div class = "col">
 									  <div class="card-body">
 									  <div class = "row">
 									  	  <div class = "col">
-										  	<h5 class="card-title fs-5 mt-1 fw-semibold">
-											    <a href="./contentPromotionReviewPage?id=${map.promotionReviewDto.id }" style="text-decoration: none; color: inherit;">
+										  	<h5 class="card-title fs-5 fw-semibold">   
 											    ${map.promotionReviewDto.promotion_review_title }
-											    </a>
 										     	<span class="comment-count">[${map.countPromotionReviewComment}]</span>
 										    </h5>
 									  	  </div>
 									  	  <!--  공감버튼. 내가 누른 하트 유무-->
 									  	  <div class = "col-1 text-end">
-									  	
 									  		<c:choose>
 									  			<c:when test="${!empty sessionUser && (map.realCheck != 0)}">
 									  				<i id = "heartBox${map.promotionReviewDto.id}" class = "text-danger bi bi-heart-fill fs-5"
@@ -283,7 +290,8 @@ window.addEventListener("DOMContentLoaded", function(){
 									  	</div>
 									</div>
 									</div>
-								</div>	<!-- col-4 mb-3 -->		
+								</a>
+								</div>		
 							<c:if test="${status.count % 1 == 0}">
 						</div>
 								<div class = "row mt-3">
@@ -313,30 +321,27 @@ window.addEventListener("DOMContentLoaded", function(){
 							
 							<!--  업로드된 게시글 목록들 -->
 						<div class="mt-3">
-						<div class = "reviewlist container border border-1" style="border-radius: 10px;">
-						<div class = "row mt-4">			
+						<div class = "reviewlist container border border-1 shadow-sm" style="border-radius: 10px;">
+						<div class = "row mt-3">			
 							<c:forEach items="${orderByLikePromoReviewList}" var="map" varStatus="status" begin="0" end="4">
 								<div class = "col mb-3">
+								<a href="./contentPromotionReviewPage?id=${map.promotionReviewDto.id}" style="text-decoration: none; color: inherit;">
 									<div class="card border border-0" style="width:30rem; height: 150px;">
 									<div class = "row">
 										<div class = "col-4">
-										<a href="./contentPromotionReviewPage?id=${map.promotionReviewDto.id }"> 	
 									  <img src="/uploadPromoFiles/${map.promotionReviewImgList[0].rental_review_img }"
 									  	   class="card-img-top" alt="리워드게시물사진" height="150" width="100" >
-									  </a>
 									 		 </div>
 									 	<div class = "col">
 									  <div class="card-body">
 									    <div class = "row">
 									  	  <div class = "col">
-										  	<h5 class="card-title fs-5 mt-1 fw-semibold">
-											    <a href="./contentPromotionReviewPage?id=${map.promotionReviewDto.id }" style="text-decoration: none; color: inherit;">
+										  	<h5 class="card-title fs-5 fw-semibold">
 											    ${map.promotionReviewDto.promotion_review_title }
-											    </a>
 										     	<span class="comment-count">[${map.countPromotionReviewComment}]</span>
 										    </h5>
 									  	  </div>
-									  	  <!--  공감버튼. 내가 누른 하트 유무  밥 먹고와서 하세요-->
+									  	  <!-- 공감버튼 -->
 									  	  <div class = "col-1 text-end">
 									  		<c:choose>
 									  			<c:when test="${!empty sessionUser && (map.realCheck != 0)}">
@@ -358,7 +363,8 @@ window.addEventListener("DOMContentLoaded", function(){
 									  	</div>
 									</div>
 									</div>
-								</div>	<!-- col-4 mb-3 -->		
+								</a>
+								</div>	
 							<c:if test="${status.count % 1 == 0}">
 						</div>
 								<div class = "row mt-3">

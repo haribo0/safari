@@ -7,6 +7,8 @@ import org.apache.ibatis.annotations.Param;
 import com.ja.safari.dto.PromotionReviewDto;
 import com.ja.safari.dto.PromotionReviewImgDto;
 import com.ja.safari.dto.PromotionReviewLikeDto;
+import com.ja.safari.dto.RentalItemDto;
+import com.ja.safari.dto.RentalSubCategoryDto;
 
 public interface PromotionReviewMapper {
 	
@@ -69,8 +71,9 @@ public interface PromotionReviewMapper {
 	// 프로모션 게시글 조회수 높은 순
 	public List<PromotionReviewDto> topViewByPromoReview();
 	
-	
-	
+	// 리뷰 쓰기용... 렌탈 아이템 리스트 가져오기
+	public List<RentalSubCategoryDto> getSubCategoryList(int mainCategoryId);
+	public List<RentalItemDto> getRentalItemList(@Param("mainCategoryId") int mainCategoryId, @Param("subCategoryId") int subCategoryId);
 	
 	
 	

@@ -71,13 +71,13 @@ public class RentalServiceImpl {
 	}
 	
 	// 상품 리스트 가져오기
-	public List<Map<String, Object>> getRentalItemList(Integer sub_category_id, Integer main_category_id ) {
+	public List<Map<String, Object>> getRentalItemList(Integer sub_category_id, Integer main_category_id, String orderly ) {
 		List<Map<String, Object>> list = new ArrayList<Map<String,Object>>();
 		
 		if(main_category_id == null) main_category_id = 0;
-		if(sub_category_id==null) sub_category_id=0;
+		if(sub_category_id==null) sub_category_id = 0;
 		
-		List<RentalItemDto> rentalItemDtoList = rentalSqlMapper.selectRentalItemListAll(sub_category_id, main_category_id);
+		List<RentalItemDto> rentalItemDtoList = rentalSqlMapper.selectRentalItemListAll(sub_category_id, main_category_id, orderly);
 		
 		for(RentalItemDto item : rentalItemDtoList) {
 			Map<String, Object> map = new HashMap<String, Object>();
@@ -116,15 +116,28 @@ public class RentalServiceImpl {
 		Map<String, Object> map = new HashMap<String, Object>();
 		
 		RentalItemDto rentalItemDto = rentalSqlMapper.selectById(id);
+		RentalSubCategoryDto rentalSubCategoryDto =  rentalSqlMapper.selectSubCatName(id);
+		
+		String mainCategoryName = rentalSqlMapper.selectMainCatName(rentalSubCategoryDto.getMain_category_id());
+		String subCategoryName = rentalSubCategoryDto.getSub_category_name();
+		
 		List<RentalPeriodDiscDto> rentalPeriodDiscDtoList = rentalSqlMapper.selectPeriodDiscById(id);
 		
 		List<RentalItemImgDto> rentalItemImgDtoList = rentalSqlMapper.selectItemImageByItemId(id);
 		
 		map.put("rentalItemDto", rentalItemDto);
+		map.put("mainCategoryName", mainCategoryName);
+		map.put("subCategoryName", subCategoryName);
 		map.put("rentalItemImgDtoList", rentalItemImgDtoList);
 		map.put("rentalPeriodDiscDtoList", rentalPeriodDiscDtoList);
 		
 		return map;
+	}
+	
+	// 대여 아이템 할인 테이블 가져오기
+	public List<RentalPeriodDiscDto> getRentalItDiscDtoList(int id) {
+		List<RentalPeriodDiscDto> list = rentalSqlMapper.selectPeriodDiscById(id);
+		return list;
 	}
 
 	// 대여 상품 아이템 좋아요 토글
