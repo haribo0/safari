@@ -201,7 +201,7 @@ public class RentalController {
 				}
 			
 	
-			String rootFolder = "C:\\uploadFiles";
+			String rootFolder = "C:\\uploadFiles\\";
 	
 			// 날짜별 폴더 생성 로직 
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");

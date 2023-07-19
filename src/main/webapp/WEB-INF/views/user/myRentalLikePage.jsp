@@ -12,7 +12,7 @@
 <!-- 메타 섹션 -->
 <style>
 .like-item, .like-item img{transition: all 0.2s ease;}
-.like-item:hover{box-shadow: 2px 4px 12px #ccc!important;}
+.like-item:hover{box-shadow: 2px 4px 12px #ccc!important; font-weight: bold;}
 .like-item:hover img{transform: scale(1.02)}
 </style>
 </head>
@@ -43,10 +43,10 @@
 				<c:forEach items="${rentalItemLikeList}" var="data">
 					<div class="col-3 d-flex flex-column justify-content-center align-items-center mt-5 shadow-sm me-4 py-3 like-item" style="max-width: 240px;">
 						<a href="${pageContext.request.contextPath}/rental/productDescPage?id=${data.rentalItemDto.id}" class="text-decoration-none d-inline-block">
-						<div>
-							<img alt="" src="/safariImg/${data.rentalItemDto.main_img_link}" class="rounded-1" style="width: 140px;">				
-						</div>
-						<%-- <p class="mt-2 text-secondary">${data.rentalItemDto.title }</p> --%>
+							<div>
+								<img alt="" src="/safariImg/${data.rentalItemDto.main_img_link}" class="rounded-1" style="width: 140px;">				
+							</div>
+							<p class="mt-3 mb-0 text-secondary text-center" style="font-size: 14px;">${data.rentalItemDto.title }</p>
 						</a>
 					</div>
 				</c:forEach>

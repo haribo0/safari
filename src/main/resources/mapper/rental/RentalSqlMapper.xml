@@ -27,6 +27,12 @@
 		select rental_review_table_seq.nextval from dual
 	</select>
 
+	<!-- id로 유저 찾기 -->
+	<select id="selectUserById" resultType="com.ja.safari.dto.UserDto">
+		select * from user_table where id = #{id}
+	</select>
+	
+
 	<!-- 아이디 중복 확인 -->
 	<select id="countUsersByBusinessUserId" resultType="int">
 		SELECT COUNT(*) FROM rental_buisness_table WHERE business_userid = #{businessUserId}
@@ -56,6 +62,15 @@
 		FROM rental_buisness_table 
 		WHERE business_userid = #{business_userid} 
 			AND pw = #{pw}
+	</select>
+	
+	<!-- 렌탈 상품 하나 가져오기 -->
+	<select id="selectRentalItem" resultType="com.ja.safari.dto.RentalItemDto">
+		select * from rental_review_table a 
+		join rental_order_table b
+		on a.rental_id = b.id 
+		join rental_item_table c
+		on b.item_id = c.id where a.rental_id = #{rental_id}
 	</select>
 	
 	<!-- 렌탈 카테고리 리스트 -->
@@ -240,7 +255,7 @@
 	
 	<!-- 대여 리뷰 불러오기  -->
 	<select id="selectRentalReviewAll" resultType="com.ja.safari.dto.RentalReviewDto">
-		SELECT a.id, a.rental_review_title, a.rental_review_content, a.rental_review_rating, a.rental_review_views, a.rental_reply_review  
+		SELECT *
 		FROM rental_review_table a inner join rental_order_table b
 		on a.rental_id = b.id
 		join rental_item_table c
@@ -269,6 +284,12 @@
 			WHERE b.item_id = #{id}
 			)
 	</select>
+	
+	<!-- 사용자 리뷰 1개 이상체크 -->
+	<select id="selectIsOverCount" resultType="Integer">
+		SELECT COUNT(*) FROM rental_review_table WHERE user_id = #{id} AND rental_id = #{orderId}
+	</select>
+	
 	
 	<!--대여 리뷰 이미지 불러오기  -->
 	<select id="selectRentalReviewImgAll" resultType="com.ja.safari.dto.RentalReviewImgDto">
