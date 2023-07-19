@@ -223,7 +223,13 @@ function getInquiryList() {
 				row1Div.appendChild(col2Div);
 				row1Div.appendChild(col3Div);
 				row1Div.appendChild(col4Div);
+				
+				/* row1Div.addEventListener("click", function() {
+					
+				}); */
 				listContainer.appendChild(row1Div);
+				
+			
 				
 				/* if(map.qna.qna_reply!=null) {
 					// Create the main container div

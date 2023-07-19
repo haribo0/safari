@@ -18,13 +18,16 @@ import com.ja.safari.dto.CsChatResponseDto2;
 import com.ja.safari.dto.CsEmpDto;
 import com.ja.safari.dto.CsEmpRatingResponseDto;
 import com.ja.safari.dto.CsEventDto;
+import com.ja.safari.dto.CsLiveChatCountResponseDto;
 import com.ja.safari.dto.CsLiveChatDto;
 import com.ja.safari.dto.CsLiveChatMsgDto;
 import com.ja.safari.dto.CsLiveChatRating;
 import com.ja.safari.dto.CsQnaCombinedDto;
+import com.ja.safari.dto.CsQnaCountResponseDto;
 import com.ja.safari.dto.CsQnaDto;
 import com.ja.safari.dto.CsQnaRating;
 import com.ja.safari.dto.CsScheduleDto;
+import com.ja.safari.dto.CsTodayStatsDto;
 import com.ja.safari.dto.UserDto;
 import com.ja.safari.user.mapper.UserSqlMapper;
 
@@ -164,6 +167,48 @@ public class CsServiceImpl {
 	            throw new IllegalArgumentException("Invalid weekday: " + weekday);
 	    }
 	}
+	
+	private String getTodayDayOfWeek() {
+		// Calendar 인스턴스 생성
+        Calendar calendar = Calendar.getInstance();
+        // 현재 날짜와 시간으로 설정
+        calendar.setTimeInMillis(System.currentTimeMillis());
+        // 요일 가져오기 (1: 일요일, 2: 월요일, ..., 7: 토요일)
+        int dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
+
+        // 요일에 따라 문자열로 변환하여 출력
+        String dayOfWeekString;
+        
+        switch (dayOfWeek) {
+            case Calendar.SUNDAY:
+                dayOfWeekString = "일";
+                break;
+            case Calendar.MONDAY:
+                dayOfWeekString = "월";
+                break;
+            case Calendar.TUESDAY:
+                dayOfWeekString = "화";
+                break;
+            case Calendar.WEDNESDAY:
+                dayOfWeekString = "수";
+                break;
+            case Calendar.THURSDAY:
+                dayOfWeekString = "목";
+                break;
+            case Calendar.FRIDAY:
+                dayOfWeekString = "금";
+                break;
+            case Calendar.SATURDAY:
+                dayOfWeekString = "토";
+                break;
+            default:
+                dayOfWeekString = "";
+                break;
+                
+        	} 
+        return dayOfWeekString;
+	}
+	
 
 	public String getWorkStateByEmpId(int empId) {
 		// 근무 날인지 확인 
@@ -406,15 +451,113 @@ public class CsServiceImpl {
 		CsEmpDto empDto = csSqlMapper.getEmpDtoByChatId(chatId);
 		return empDto.getNickname() ;
 	}
+	
+	// 오늘 실시간 현황 
+//	public Map<String, Object> getStatsToday() {
+//		Map<String, Object> map = new HashMap<String, Object>();
+//		
+//		return map;
+//	}
+	
+	// 오늘 실시간 현황 
+	public CsTodayStatsDto getStatsToday() {
+		
+		return csSqlMapper.getStatsToday();
+	}
 
 	
-	// 채팅 아이디로 상담사 닉네임 가져오기 
-	public List<CsEmpRatingResponseDto> getEmpChatRatingList() {
-		return csSqlMapper.getEmpChatRatingList();
+	// 실시간 직원 출근 현황 
+	public List<Map<String, Object>> getEmpListForToday() {
+		
+		List<Map<String, Object>> list = new ArrayList<Map<String,Object>>();
+		
+		// 오늘 요일 
+		String dayOfWeekToday = getTodayDayOfWeek();
+		
+		for(CsEmpDto empDto :  csSqlMapper.getEmpListForToday(dayOfWeekToday)) {
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("emp", empDto);
+			CsScheduleDto scheduleDto = csSqlMapper.getScheduleByEmpIdAndWeekday(empDto.getId(),dayOfWeekToday);
+			map.put("schedule", scheduleDto);
+			String workState = getWorkStateByEmpId(empDto.getId());
+			map.put("workState", workState);
+			CsQnaCountResponseDto qnaCountResponseDto = csSqlMapper.getQnaCountForTodayByEmpId(empDto.getId()).get(0);
+			map.put("qna", qnaCountResponseDto);
+			CsLiveChatCountResponseDto chatCountResponseDto = csSqlMapper.getLiveChatCountForTodayByEmpId(empDto.getId()).get(0);
+			map.put("chat", chatCountResponseDto);
+			if(qnaCountResponseDto.getReply_count()>0) {
+				// 평균 계산 
+				// map.put("qnaAvgTime", qnaCountResponseDto.getReply_count()/getTimeDifferenceInMinutes(scheduleDto.getStart_time()));
+				// map.put("qnaAvgTime", getTimeDifferenceInMinutes(scheduleDto.getStart_time())/qnaCountResponseDto.getReply_count());
+				// map.put("qnaAvgTime", csSqlMapper.getAvgReplyTimeTodayByEmpId(empDto.getId()));
+				double avgReplyTime = csSqlMapper.getAvgReplyTimeTodayByEmpId(empDto.getId());
+				double roundedAvgReplyTime = Math.round(avgReplyTime * 10.0) / 10.0;
+				map.put("qnaAvgTime", roundedAvgReplyTime);
+				
+			} else {
+				map.put("qnaAvgTime", "-");
+
+			}
+			if(chatCountResponseDto.getChat_ended_count()>0) {
+				// 평균 계산 
+				// map.put("chatAvgTime", chatCountResponseDto.getChat_ended_count()/getTimeDifferenceInMinutes(scheduleDto.getStart_time()));
+				// map.put("chatAvgTime", getTimeDifferenceInMinutes(scheduleDto.getStart_time())/chatCountResponseDto.getChat_ended_count());
+				// map.put("chatAvgTime", csSqlMapper.getAvgChatEndTimeTodayByEmpId(empDto.getId()));
+				double avgChatTime = csSqlMapper.getAvgChatEndTimeTodayByEmpId(empDto.getId());
+				double roundedAvgChatTime = Math.round(avgChatTime * 10.0) / 10.0;
+				map.put("chatAvgTime", roundedAvgChatTime);
+			} else {
+				map.put("chatAvgTime", "-");
+				
+			}
+			list.add(map);
+		}
+		
+		
+		return list;
+		
+	}
+
+	
+	// 지난 주간 현황 
+	public List<Map<String, Object>> getLastWeekData() {
+		
+		List<Map<String, Object>> list = new ArrayList<Map<String,Object>>();
+		
+		
+		for(CsEmpDto empDto :  csSqlMapper.getEmployeeList()) {
+			if(empDto.getMaster()==1) continue;
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("emp", empDto);
+			map.put("rating", csSqlMapper.getRatingsByEmpId(empDto.getId()));
+			map.put("weeklyHours", csSqlMapper.getWeeklyHoursByEmpId(empDto.getId()));
+			map.put("qna", csSqlMapper.getWeeklyQnaCountByEmpId(empDto.getId()));
+			map.put("chat", csSqlMapper.getWeeklyLiveChatCountByEmpId(empDto.getId()));
+			
+			
+			list.add(map);
+		}
+		
+		return list;
+		
 	}
 	
-
 	
+
+	private int getTimeDifferenceInMinutes(int startHour) {
+        // 현재 시간 가져오기
+        Calendar now = Calendar.getInstance();
+        int currentHour = now.get(Calendar.HOUR_OF_DAY); // 현재 시간의 시간 부분
+        int currentMinute = now.get(Calendar.MINUTE); // 현재 시간의 분 부분
+        
+        // 현재 시간과 출근 시간의 차이 계산
+        int diffMinutes = (currentHour - startHour) * 60 + (currentMinute - 0);
+        
+        // 분 단위 차이를 시간 단위로 변환
+        int diffHours = diffMinutes / 60;
+        
+		return diffHours;
+	}
 	
 	
 	

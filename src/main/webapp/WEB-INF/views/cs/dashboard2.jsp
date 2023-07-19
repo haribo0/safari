@@ -11,6 +11,9 @@
 <jsp:include page="../common/meta.jsp"></jsp:include>
 <!-- 메타 섹션 -->
 
+<!-- charjs -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
 
 
   <!-- jquery CDN -->
@@ -22,6 +25,9 @@
 <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js'></script>
 
 <style>
+.chart-legend ul li span {
+  font-size: 20px; /* 원하는 크기로 조절 */
+}
   /* body 스타일 */
   body {
 /*     margin-top: 40px;
@@ -88,8 +94,132 @@
   padding: 5px;
   margin-bottom: 2px;
 } */
+
+.btn_search{
+	padding:9px 18px; 
+	background: #e6edfe; 
+	border:none; 
+	color: #789efd; 
+	border-radius:8px; 
+	font-size: 14px; 
+	width: 74px;
+}
+
+
+.gray_dot{
+	display:inline-block;
+	width: 15px;
+	height:15px;
+	border-radius: 50%;
+	background: #e5e5e5;
+	position:relative;
+	top:1px;
+}
+
+.green_dot{
+	display:inline-block;
+	width: 15px;
+	height:15px;
+	position:relative;
+	top:1px;
+	border-radius: 50%;
+	background: #6EDAA5;
+}
+
+.btn_blue{
+	padding: 1px 4px; 
+	/* background: #FC7894; */
+	border:none; 
+	/* color: white;  */
+/* 	color: #FC7894;  */
+	/* color: #F35252;  */
+	/* border-radius:16px;  */
+	font-size: 17px; 
+	/* font-weight:bold;  */
+	/* text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1); */
+	width: 70px;
+}
+/* .btn_warning{
+	background: #FD9368;
+	border:none; 
+	color: white; 
+	border-radius:16px; 
+	font-size: 15px; 
+	width: 60px;
+}
+.btn_okay{
+	background: #FBCD3E; 
+	border:none; 
+	color: white; 
+	border-radius:16px; 
+	font-size: 15px; 
+	width: 60px;
+}
+.btn_good{
+	background: #6EDAA5; 
+	border:none; 
+	color: white; 
+	border-radius:16px; 
+	font-size: 15px; 
+	width: 60px;
+} */
+.btn_warning{
+	border:none; 
+	color: #FD9368; 
+}
+.btn_okay{
+	/* padding:2px 12px;  */
+	background: #FBCD3E; 
+	border:none; 
+	color: white; 
+	border-radius:16px; 
+	font-size: 15px; 
+	width: 60px;
+}
+.btn_good{
+	border:none; 
+	color: #38C6FF; 
+}
+
+.txt_green{
+	color: #6EDAA5;
+}
+
+.highlight-background {
+    position: absolute;
+    top: 30px;
+    left: 17px;
+    width: 6%;
+    height: 3%;
+    background-color: orange; /* 하이라이트 배경 색상 설정 */
+    opacity: 0.25; /* 하이라이트 배경 투명도 설정 */
+}
+
+.highlight-text {
+    position: relative;
+    z-index: 1; /* 텍스트를 배경 위로 올림 */
+}
+
+
+
+
+/* .highlight {
+    position: relative;
+}
+
+.highlight::before {
+    content: "";
+    position: absolute;
+    bottom: -2px; 
+    left: 0;
+    width: 100%;
+    height: 20px;
+    background-color: yellow; 
+    z-index: -1;
+} */
+
  
- .height100{height: 174vh !important;}
+.height100{height: 552px !important;}
  a{text-decoration: none; color: #555;}
 </style>
 
@@ -107,7 +237,9 @@
 
 
 <div class="container-fluid">
-	<div class="row mb-5">
+
+	<!-- 1ST ROW -->
+	<div class="row">
 		
 		<!-- LEFT COL -->
 		<div class="col-1" ></div>
@@ -115,7 +247,7 @@
 			
 			<div class="card ">
 			<div class="card-body ">
-				<div class="row  border-bottom fs-5 fw-medium pb-2">
+				<div class="row border-bottom fs-5 fw-medium ps-1 pb-3">
 					<div class="col ">
 						주간 스케줄
 					</div>
@@ -138,125 +270,201 @@
 		
 		
 		<!-- RIGHT COL -->
-		<div class="col-4">
-			<div class="row">
-			    <div class="col">
-		    		
-		    		<div class="card ">
-		    		<div class="card-body ">
-		    			<div class="row ">
-			    			<div class="col border-bottom fs-5 fw-medium pb-2">
-		    					1대1 문의 평점 
-			    			</div>
-		    			</div>
-
-
-		    			
-		    			
-		    			<c:forEach var="dto" items="${chatRatingList}">
-		    			<div class="row py-2 border-bottom" >
-			    			<div class="col ">
-							    <div class="row">
-								    <div class="col">
-							    		${dto.name} ${dto.avg_rating}
-								    </div>
-							    </div>
-							    <div class="row">
-								   <div class="col text-warning">
-								    
-									<c:set var="avgRating" value="${dto.avg_rating}" /> <!-- 가져온 평균 평점 (예시) -->
-									<c:set var="maxRating" value="5" /> <!-- 최대 평점 -->
-																    
-								    <c:set var="wholeStars" value="${avgRating - avgRating % 1}" /> <!-- 정수 부분 (예: 4.6 -> 4) -->
-									<c:set var="halfStar" value="${avgRating - wholeStars}" /> <!-- 소수 부분 (예: 4.6 -> 0.6) -->
+		<div class="col">
+		
+			<div class="row mb-4">
+				<div class="col">
+					<div class="card ">
+						<div class="card-body ">
+							<div class="row border-bottom fs-5 fw-medium ps-2 pb-3">
+								<div class="col ">
+									Today's &nbsp; 전체 문의
+								</div>
+							</div>
+							<div class="row text-center mb-3">
+								<div class="col ">
+									<div class="row mt-3">
+										<div class="col text-center border-bottom border-black fw-medium py-3 mx-3 border-2">
+											1대1 문의
+										</div>
+									</div>
+									<div class="row mt-3 fs-2  mx-4 my-auto">
+										<div class="col  fw-light my-auto pt-4">
+											${todayStats.qna_count}
+										</div>
+										<div class="col  fw-light my-auto pt-4">
+											${todayStats.reply_count}
+										</div>
+										<div class="col fw-light">
+											<%-- <c:set var="percent" value="${todayStats.qna_count == 0 ? 0.0 : Math.round((todayStats.reply_count / todayStats.qna_count * 100) * 10.0) / 10.0}" />
+											${percent}% --%>
+											<div>
+											  <canvas id="donutChart1" style="width:100px"></canvas>
+											</div>
+																						
+										</div>
 										
-										<c:forEach begin="1" end="${maxRating}" varStatus="loop">
-										  <c:choose>
-										    <c:when test="${loop.index le wholeStars}">
-										      <i class="bi bi-star-fill"></i> <!-- 평점의 정수 부분만큼 채워진 별 아이콘을 출력 -->
-										    </c:when>
-										    <c:when test="${loop.index eq wholeStars + 1 and halfStar gt 0}">
-										      <i class="bi bi-star-half"></i> <!-- 평점의 정수 부분에 반개짜리 별 아이콘을 출력 -->
-										    </c:when>
-										    <c:otherwise>
-										      <i class="bi bi-star"></i> <!-- 나머지 빈 별 아이콘을 출력 -->
-										    </c:otherwise>
-										  </c:choose>
-										</c:forEach>
-	
-								    </div>
-							    </div>
-					
-		    			</div>
-	    			</div>
-					</c:forEach>
-		    			
-		    		</div>
-		    		</div>
-		    		
-			    </div>
-			    
-			    
+									</div>
+									<div class="row mt-3  mx-4">
+										<div class="col ">
+											문의
+										</div>
+										<div class="col ">
+											응답
+										</div>
+										<div class="col ">
+											응답률
+										</div>
+									</div>
+								</div>
+								<div class="col ">
+									<div class="row mt-3 ">
+										<div class="col text-center border-bottom border-black fw-medium py-3 mx-3 border-2">
+											실시간 문의 
+										</div>
+									</div>
+									<div class="row mt-3 fs-2 mx-4">
+										<div class="col  fw-light  my-auto pt-4">
+											${todayStats.chat_count}
+										</div>
+										<div class="col fw-light  my-auto pt-4">
+											${todayStats.ended_chat_count}
+										</div>
+										<div class="col fw-light">
+											<%-- <c:set var="percent" value="${todayStats.qna_count == 0 ? 0.0 : Math.round((todayStats.reply_count / todayStats.qna_count * 100) * 10.0) / 10.0}" />
+											${percent}% --%>
+											<div>
+											  <canvas id="donutChart2" style="width:100px"></canvas>
+											</div>
+																						
+										</div>
+								<%-- 		<div class="col fw-light">
+											<c:set var="percentage" value="${todayStats.ended_chat_count == 0 ? 0.0 : Math.round((todayStats.ended_chat_count / todayStats.chat_count * 100) * 10.0) / 10.0}" />
+											${percentage}%
+									    </div> --%>
+																				
+										<%-- <div class="col fw-light">
+											${todayStats.ended_chat_count/todayStats.chat_count*100}%
+										</div> --%>
+									</div>
+									<div class="row mt-3  mx-4">
+										<div class="col ">
+											문의
+										</div>
+										<div class="col ">
+											응답
+										</div>
+										<div class="col ">
+											응답률
+										</div>
+									</div>
+								</div>
+
+
+
+
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		
+		
+		
+			<div class="row mb-4">
 			    <div class="col">
-		    		
 		    		<div class="card ">
-		    		<div class="card-body ">
-		    			<div class="row ">
-			    			<div class="col border-bottom fs-5 fw-medium pb-2">
-		    					실시간 문의 평점 
+			    		<div class="card-body ">
+			    			<div class="row mb-3">
+				    			<div class="col fs-5 ms-2 fw-medium ">
+			    					Today's &nbsp; 직원별 문의 현황 
+				    			</div>
 			    			</div>
-		    			</div>
-
-
-		    			
-		    			
-		    			<c:forEach var="dto" items="${chatRatingList}">
-		    			<div class="row  py-2 border-bottom">
-			    			<div class="col">
-							    <div class="row">
-								    <div class="col">
-							    		${dto.name} ${dto.avg_rating}
-								    </div>
-							    </div>
-							    <div class="row">
-								   <div class="col text-warning">
-								    
-									<c:set var="avgRating" value="${dto.avg_rating}" /> <!-- 가져온 평균 평점 (예시) -->
-									<c:set var="maxRating" value="5" /> <!-- 최대 평점 -->
-																    
-								    <c:set var="wholeStars" value="${avgRating - avgRating % 1}" /> <!-- 정수 부분 (예: 4.6 -> 4) -->
-									<c:set var="halfStar" value="${avgRating - wholeStars}" /> <!-- 소수 부분 (예: 4.6 -> 0.6) -->
-										
-										<c:forEach begin="1" end="${maxRating}" varStatus="loop">
-										  <c:choose>
-										    <c:when test="${loop.index le wholeStars}">
-										      <i class="bi bi-star-fill"></i> <!-- 평점의 정수 부분만큼 채워진 별 아이콘을 출력 -->
-										    </c:when>
-										    <c:when test="${loop.index eq wholeStars + 1 and halfStar gt 0}">
-										      <i class="bi bi-star-half"></i> <!-- 평점의 정수 부분에 반개짜리 별 아이콘을 출력 -->
-										    </c:when>
-										    <c:otherwise>
-										      <i class="bi bi-star"></i> <!-- 나머지 빈 별 아이콘을 출력 -->
-										    </c:otherwise>
-										  </c:choose>
-										</c:forEach>
+			    			
+			    			<div class="row py-3 fw-medium text-center border-bottom border-black border-2 mx-1">
+					    			<div class="col   ">
+				    					직원
+					    			</div>
+					    			<div class="col  ">
+				    					근무
+					    			</div>
+					    			<div class="col  ">
+				    					1대1문의
+					    			</div>
+					    			<div class="col  ">
+				    					1대1 답글
+					    			</div>
+					    			<div class="col  ">
+				    					응답 시간 
+					    			</div>
+					    			<div class="col  ">
+				    					실시간 문의
+					    			</div>
+					    			<div class="col  ">
+				    					실시간 응답
+					    			</div>
+					    			<div class="col  ">
+				    					응답 시간
+					    			</div>
+				    			</div>
+			    			
+			    			
+			    			<c:forEach var="map" items="${todayList}">
+			    			
+			    			
+				    			<div class="row border-top py-3 text-center mx-1">
+					    			<div class="col fw-semibold  my-auto">
+				    					${map.emp.name}
+					    			</div>
+					    			
+					    			<div class="col my-auto ">
+					    				<c:if test="${map.workState == '근무'}">
+					    					<span class="green_dot my-auto"></span>
+					    				</c:if>
+					    				<c:if test="${map.workState != '근무'}">
+					    					<span class="gray_dot my-auto"></span>
+					    				</c:if>
+					    				${map.workState}
+				    					<%-- ${map.workState} --%>
+					    			</div>
+					    			<div class="col  fs-5">
+				    					${map.qna.qna_count}
+					    			</div>
+					    			<div class="col  fs-5">
+				    					${map.qna.reply_count}
+					    			</div>
+					    			<div class="col fs-6 my-auto "  >
+<!-- 				    					<div class=" my-auto fw-medium mx-3"   style="background: rgba(110, 218, 165, 0.3);"> -->
+				    					<div class=" my-auto fw-medium mx-3"   style="background: rgba(251, 205, 62, 0.25);">
+				    					${map.qnaAvgTime} 분 
+				    					</div>
+					    			</div>
+					    			<div class="col fs-5 ">
+				    					${map.chat.chat_count}
+					    			</div>
+					    			<div class="col  fs-5">
+				    					${map.chat.chat_ended_count}
+					    			</div>
+					    			<div class="col mx-auto fs-5 my-auto">
+					    				<div class="btn_blue mx-auto my-auto fw-medium py-0" style="background: rgba(251, 205, 62, 0.25);" >
+				    					${map.chatAvgTime} 분 
+				    					</div>
+					    			</div>
+				    			</div>
 	
-								    </div>
-							    </div>
-					
-		    			</div>
-	    			</div>
-					</c:forEach>
-		    			
+	
+			    			</c:forEach>
+			    			
+			    			
+			    		</div>
 		    		</div>
-		    		</div>
-		    		
-		    		
 		    		
 			    </div>
 			    
 			    
 		    </div>
+		    
+		    
 			
 			
 			
@@ -265,12 +473,192 @@
 		<!-- RIGHT COL -->
 		
 	</div>
+	
+	<!-- 2ND ROW -->
+	<div class="row">
+	
+	<div class="col-1"></div>
+	<div class="col">
+	
+	
+		<div class="row">
+			    <div class="col">
+		    		<div class="card ">
+			    		<div class="card-body ">
+			    			<div class="row mb-3 border-bottom">
+				    			<div class="col fs-5 ms-2 fw-medium pb-3 ">
+			    					<!-- <span class="highlight-background"></span>
+    								<span class="highlight-text">지난 주간</span> -->
+			    					<span class="highlight"> Last Week's &nbsp; 직원 근무 현황 </span> 
+				    			</div>
+			    			</div>
+			    			
+			    			<div class="row py-3 fw-medium text-center border-bottom border-2 border-black mx-2">
+					    			<div class="col   ">
+				    					직원
+					    			</div>
+					    			<div class="col  ">
+				    					근무시간
+					    			</div>
+					    			<div class="col  ">
+				    					1대1문의
+					    			</div>
+					    			<div class="col  ">
+				    					문의 응답
+					    			</div>
+					    			<div class="col  ">
+				    					응답률
+					    			</div>
+					    			<div class="col  ">
+				    					평점
+					    			</div>
+					    			<div class="col  ">
+				    					실시간 문의
+					    			</div>
+					    			<div class="col  ">
+				    					실시간 응답
+					    			</div>
+					    			<div class="col  ">
+				    					응답률
+					    			</div>
+					    			<div class="col  ">
+				    					평점
+					    			</div>
+				    			</div>
+			    			
+			    			
+			    			<c:forEach var="map" items="${weeklyList}">
+			    			
+			    			
+				    			<div class="row border-top py-4 text-center mx-2">
+					    			<div class="col my-auto  fw-semibold ">
+				    					${map.emp.name}
+					    			</div>
+					    			<div class="col fs-5 ">
+				    					${map.weeklyHours}
+					    			</div>
+					    			<div class="col fs-5 ">
+				    					${map.qna.qna_count}
+					    			</div>
+					    			<div class="col fs-5 ">
+				    					${map.qna.reply_count}
+					    			</div>
+					    			<div class="col fs-5 ">
+					    				<c:if test="${map.qna.reply_count == 0}">
+					    					0
+					    				</c:if>
+					    				<c:if test="${map.qna.reply_count > 0}">
+					    					${map.qna.reply_count / map.qna.qna_count * 100}<span class="text-secondary" style="font-size: 0.7em">%</span>
+					    				</c:if>
+				    					<%-- 
+				    					${map.qna.reply_count == 0 ? 0 : map.qna.qna_count / map.qna.reply_count }
+									     --%>
+
+					    			</div>
+					    			
+					    			<div class="col mx-auto fw-medium my-auto fs-5">
+						    			<c:if test="${map.rating.qna_rating >= 4.8 }">
+						    				<div class="btn_good mx-auto">
+					    						${map.rating.qna_rating}
+						    				</div>
+						    			</c:if>
+						    			<c:if test="${map.rating.qna_rating < 4.8 && map.rating.qna_rating >= 4}">
+						    				<div class=" mx-auto">
+					    						${map.rating.qna_rating}
+						    				</div>
+						    			</c:if>
+						    			<c:if test="${map.rating.qna_rating < 4}">
+						    				<div class="btn_warning mx-auto">
+					    						${map.rating.qna_rating}
+						    				</div>
+						    			</c:if>
+				    				</div>
+					    			
+					    			<div class="col fs-5 ">
+				    					${map.chat.chat_count}
+					    			</div>
+					    			<div class="col fs-5 ">
+				    					${map.chat.chat_ended_count}
+					    			</div>
+					    			<div class="col fs-5 ">
+					    				${map.chat.chat_count == 0 ? 0 : map.chat.chat_ended_count / map.chat.chat_count * 100}<span class="text-secondary" style="font-size: 0.7em">%</span>
+				    				    <%-- <c:set var="ratio" value="${map.chat.chat_count == 0 ? 0 : map.chat.chat_ended_count / map.chat.chat_count}" />
+									    <% double roundedRatio = Math.round((Double)pageContext.getAttribute("ratio") * 100.0); %>
+									    <%=roundedRatio%><span class="text-secondary" style="font-size: 0.7em">%</span> --%>
+				    					<%-- ${map.chat.chat_ended_count == 0 ? 0 : map.chat.chat_count / map.chat.chat_ended_count } --%>
+					    			</div>
+					    			
+				    				<div class="col mx-auto fw-medium my-auto fs-5">
+						    			<c:if test="${map.rating.chat_rating >= 4.8 }">
+						    				<div class="btn_good mx-auto">
+					    						${map.rating.chat_rating}
+						    				</div>
+						    			</c:if>
+						    			<c:if test="${map.rating.chat_rating < 4.8 && map.rating.chat_rating >= 4}">
+						    				<div class=" mx-auto">
+					    						${map.rating.chat_rating}
+						    				</div>
+						    			</c:if>
+						    			<c:if test="${map.rating.chat_rating < 4}">
+						    				<div class="btn_warning mx-auto">
+					    						${map.rating.chat_rating}
+						    				</div>
+						    			</c:if>
+				    				</div>
+					    			
+					    			
+					    			<%-- <div class="col  ">
+				    					${map.rating.chat_rating}
+					    			</div> --%>
+				    			</div>
+	
+	
+			    			</c:forEach>
+			    			
+			    			
+			    		</div>
+		    		</div>
+		    		
+			    </div>
+			    
+			    
+		    </div>
+	
+	
+	</div>
+	<div class="col-1"></div>
+	
+	</div>
+	
+	
+	<!-- 3RD ROW -->
+	<div class="row mt-4 mb-5">
+		<div class="col-1"></div>
+		<div class="col">
+			<div class="card shadow-sm" >
+			  <div class="card-body">
+			  	<div class="row border-bottom">
+				  	<div class="col fs-5 ms-2 fw-medium pb-3 ">
+			  			그래프 
+				  	</div>
+			  	</div>
+			    <canvas id="barChart"></canvas>
+			  </div>
+			</div>
+			
+		</div>
+		<div class="col-1"></div>
+	
+	</div>
+	
+	
+	
 </div>
 
 
 <div class="card shadow-sm d-none" >
   <div class="card-body">
-  	<div class="fw-bold">상품별 주문</div>
+  	<div class="fs-5 ms-2 fw-medium pb-3">상품별 주문</div>
     <hr class="border">
     <canvas id="barChart"></canvas>
   </div>
@@ -282,6 +670,177 @@
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
 <script>
+
+
+let percentValue1 = ${todayStats.qna_count == 0 ? 0 : Math.round((todayStats.reply_count / todayStats.qna_count * 100) * 10) / 10};
+let percentValue2 = ${todayStats.chat_count == 0 ? 0 : Math.round((todayStats.ended_chat_count / todayStats.chat_count * 100) * 10) / 10};
+
+//데이터 설정
+var data1 = {
+  labels: [percentValue1+"%"], 
+  datasets: [
+    {
+      data: [percentValue1, 100 - percentValue1],
+      backgroundColor: ["#A5CDFA", "#EAEAEA"],
+      hoverBackgroundColor: ["#E0D4F1", "#EAEAEA"],
+    },
+  ],
+};
+
+//데이터 설정
+var data2 = {
+  labels: [percentValue2+"%"], 
+  datasets: [
+    {
+      data: [percentValue2, 100 - percentValue2],
+      backgroundColor: ["#A5CDFA", "#EAEAEA"],
+      hoverBackgroundColor: ["#E0D4F1", "#EAEAEA"],
+    },
+  ],
+};
+
+// 옵션 설정
+var options1 = {
+  maintainAspectRatio: false,
+  responsive: true,
+  plugins: {
+    legend: {
+    	
+    	display: true,
+        position: 'top', // 범례를 차트 영역 내에 표시
+        align: 'center', // 가운데 정렬
+        /* labels: {
+            font: {
+              size: 12, // 범례 글꼴 크기 조정
+              weight: 'bold',
+            },
+        }, */
+        
+     // display: false // 범례 숨김
+    }
+  },
+  layout: {
+    /* padding: {
+      top: 1,
+      bottom: 1,
+      left: 1,
+      right: 1
+    } */
+  },
+  datalabels: {
+	  anchor: 'center',
+      align: 'center',
+      offset: -10, 
+      formatter: function(value, context) {
+    	  return context.chart.data.labels[0] + ' ' + value + '%';
+      },
+      color: '#000000',
+      font: {
+        size: 10,
+        weight: 'bold'
+      }
+    }
+};
+
+
+// 도넛 그래프 생성
+var donutChart1 = new Chart(document.getElementById("donutChart1"), {
+  type: "doughnut",
+  data: data1,
+  options: options1,
+});
+
+
+// 도넛 그래프 생성
+var donutChart2 = new Chart(document.getElementById("donutChart2"), {
+  type: "doughnut",
+  data: data2,
+  options: options1,
+});
+
+
+
+
+
+/* 
+
+
+function getDataForChart() {
+
+	const xhr = new XMLHttpRequest();
+
+	xhr.onreadystatechange = function() {
+		if(xhr.readyState == 4 && xhr.status == 200){
+			const response = JSON.parse(xhr.responseText);
+			
+			// bar chart 
+			let barLabels = [];
+			let	barData = [];
+			response.saleList.forEach(function(data){
+				// 너무 길면 자르기
+				barLabels.push(data.TITLE.length > 10 ? data.TITLE.substring(0, 7)+".." : data.TITLE);
+				barData.push(data.SALES);
+			});
+			makeBarChart(barData,barLabels);
+			
+			// line chart 
+			let lineLabels = [];
+			let	lineData = [];
+			response.revenueList.forEach(function(data){
+				lineLabels.push(data.MONTH);
+				lineData.push(data.REVENUE);
+			});
+			makeLineChart(lineData,lineLabels);
+			
+		}
+	}
+
+	// get 방식 
+	xhr.open("get", "getDataForChart");
+	xhr.send();
+
+}
+
+
+function makeBarChart(d, l) {
+	const canvas = document.getElementById('barChart');
+	
+	new Chart(canvas, {
+	   type: 'bar',
+	   data: {
+	     labels: l,
+	     datasets: [{
+	       label: '상품별 주문',
+	       data: d,
+	       borderWidth: 1,
+	       backgroundColor: [
+	    	   'rgba(54, 162, 235, 0.5)'
+ 
+    	    ]
+	    	
+	     }]
+	   },
+	   options: {
+	     scales: {
+	       y: {
+	         beginAtZero: true
+	       }
+	   
+	   
+	     }
+	   
+	   
+	   
+	   
+	   
+	   }
+	 });
+}
+ */
+
+
+
+
 
 
 
@@ -346,8 +905,9 @@ var pastelColors = [
 	'#FCB7D0'
 ]; */
 
+
  // purple violet  
- var pastelColors = [
+var pastelColors = [
 	'#F6DFF9',
 	'#E0D5F1',
 	//'#D9C4E9',
@@ -355,6 +915,24 @@ var pastelColors = [
 	'#FFD4E4'
 	//'#FDB8CF'
 ];
+
+
+// blue
+/* 
+var pastelColors = [
+	  '#C6DAFF',
+	  '#B7CAFF',
+	  '#E0EBFF',
+	  '#D7E0FF'
+	];
+ */
+/*  var pastelColors = [
+	  '#D4E8FF',
+	  '#C4DAFF',
+	  '#E4F2FF',
+	  '#DBE7FF'
+	]; */
+
 
 
 
@@ -421,9 +999,11 @@ function formatDate(date) {
 
 let colorCount = 0;
 
+
+
 document.addEventListener('DOMContentLoaded', function() {
 	
-	
+	// getDataForChart();
 	getEmployeeListForCalendarColor();
 	
 	
@@ -436,6 +1016,11 @@ document.addEventListener('DOMContentLoaded', function() {
       center: 'title',
       right: 'listWeek,dayGridMonth,timeGridWeek,timeGridDay'
     }, */
+    
+    headerToolbar: {
+      left: 'title',
+      right: 'prev,next today'
+    },
     
     initialView: 'listWeek', // 초기 뷰 설정 (월간 보기)
     
