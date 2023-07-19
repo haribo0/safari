@@ -40,7 +40,7 @@
 				
 				<div class="row ">
 					<div class="col">
-						회원이 되어 다양한 혜택을 경험해 보세요 !
+						회원이 되어 다양한 혜택을 경험해 보세요!
 					</div>
 				</div>
 				
@@ -140,16 +140,20 @@
 							
 							
 							
-							<div class="row mt-4">
+							<div class="row mt-4 mb-1">
 								<div class="col">
 									<label class="form-check-label me-4 fw-medium" for="profile_img_link ">프로필사진</label>
 									<input type="file" class="form-control mt-2" id="profile_img_link" name="profile_img_link">						
 								</div>
 							</div>
 							
+							<div class="row mt-1">
+								<div class="col"></div>
+							</div>
 							<div class="row mt-4">
 								<div class="col d-grid">
-									<input type="button" class="btn orangeButton" value="가입하기"
+									<input type="button" class="btn orangeButton p-2" 
+									style="font-size: 20px;" value="가입하기"
 									onclick="checkValueAndSubmit()">
 								</div>
 							</div>
