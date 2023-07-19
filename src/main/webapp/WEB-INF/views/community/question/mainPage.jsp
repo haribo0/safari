@@ -42,6 +42,20 @@
 		
 	
 	
+<<<<<<< HEAD
+=======
+	 <!-- 커뮤니티 메뉴바 -->
+      <div class="row">
+         <div class="col">
+            <jsp:include page="../../community/communityTopNavi.jsp"></jsp:include>
+         </div>
+      </div>
+      <!-- 커뮤니티 메뉴바 --> 
+      
+    <div class="container text-center mt-2">
+	<h2 class="text-center fw-bold fs-3"> 궁금해요 게시판 </h2>
+	</div>
+>>>>>>> 8830acc231d3c798e2b719666d4293616f350014
 	
 	 <%--게시판 시작 --%>
 	<!-- <div class = "container"> -->
