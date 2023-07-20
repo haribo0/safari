@@ -19,6 +19,7 @@ import com.ja.safari.dto.RentalReturnKakaopayApprove;
 import com.ja.safari.dto.RentalReviewDto;
 import com.ja.safari.dto.RentalReviewImgDto;
 import com.ja.safari.dto.RentalSubCategoryDto;
+import com.ja.safari.dto.UserDto;
 import com.ja.safari.dto.RentalItemDto;
 import com.ja.safari.dto.RentalItemImgDto;
 import com.ja.safari.dto.RentalItemLikeDto;
@@ -139,6 +140,15 @@ public interface RentalSqlMapper {
 
 	// 대여 찜 리스트 가져오기
 	public List<RentalItemLikeDto> selectRentalItemLikeAll(int id);
+
+	// 아이디로 유저 찾기
+	public UserDto selectUserById(int id);
+
+	// 대여 아이템 하나 가져오기
+	public RentalItemDto selectRentalItem(int rental_id);
+
+	// 유저 리뷰 카운트 
+	public Integer selectIsOverCount(int id, int orderId);
 
 
 
