@@ -46,53 +46,54 @@
 		<div class="col ms-4">
 			<div class="row" style="border-bottom: 2px solid #222; height: 48px;">
 				<div class="col p-0">
-					<h5>찜 목록</h5>						
+					<h5>관심목록</h5>						
 				</div>
 			</div>
 			
-			<div class="row me-5" style="position: relative; right: 10px;">
-				<div class="col">
+			<div class="row" style="position: relative;">
+				<div class="col px-0">
 			
-				<c:if test="${empty list}">
+					<c:if test="${empty list}">
+						<div class="row mt-3">
+							<div class="col text-center fs-5">
+								관심 있는 중고 물품이 없습니다.
+							</div>
+						</div>	
+					</c:if>
+						
 					<div class="row mt-3">
-						<div class="col text-center fs-5">
-							관심 있는 중고 물품이 없습니다.
-						</div>
-					</div>	
-				</c:if>
-					
-				<div class="row mt-3">
-					<c:forEach items="${list}" var="map">
-						<div class="col-3">
-							<div class="row">
-								<div class="col">
-									<a href="/safari/used/productDetail/${map.productDto.id }" class="text-decoration-none d-inline-block">
-										<img src="/safarifile/${map.productImgDto.product_img_link}" class="img-fluid" alt="..."  style="height: 220px;">
-									</a>
+						<c:forEach items="${list}" var="map">
+							<div class="col-3 mb-5">
+								<div class="row">
+									<div class="col">
+										<a href="/safari/used/productDetail/${map.productDto.id }" class="text-decoration-none d-inline-block">
+											<img src="/safarifile/${map.productImgDto.product_img_link}" width="245px" alt="..."  style="height: 245px;">
+										</a>
+									</div>
 								</div>
+								
+								<div class="row mt-2">
+									<div class="col fw-bold overflow" style="width: 200px; font-size:17px;">
+										<a href="/safari/used/productDetail/${map.productDto.id }">
+										   ${map.productDto.title}</a>
+									</div>
+									<div class="col-2 text-danger fs-5 text-left px-0" style="height: 10px;"><i class="bi bi-heart-fill"></i></div>
+								</div>
+								
+								<div class="row">
+									<div class="col text-secondary" style="font-size:15px;">
+										${map.productCityDto.product_city_name } | ${map.productTownDto.product_town_name }
+									</div>
+								</div>
+								
+								<div class="row mt-2">
+									<div class="col fw-semibold" style="font-size: 18px;">
+							 			<fmt:formatNumber value="${map.productDto.price}" pattern="#,###"/>원
+									</div>
+								</div>	
 							</div>
-							
-							<div class="row mt-2">
-								<div class="col fw-bold overflow" style="width: 200px; font-size:17px;">
-									<a href="/safari/used/productDetail/${map.productDto.id }">
-									   ${map.productDto.title}</a>
-								</div>
-							</div>
-							
-							<div class="row mt-2">
-								<div class="col text-secondary">
-									${map.productCityDto.product_city_name } | ${map.productTownDto.product_town_name }
-								</div>
-							</div>
-							
-							<div class="row mt-1">
-								<div class="col" style="font-size: 18px;">
-						 			<fmt:formatNumber value="${map.productDto.price}" pattern="#,###"/>원
-								</div>
-							</div>	
-						</div>
-					</c:forEach>
-				</div>
+						</c:forEach>
+					</div>
 				</div>	
 			</div>
 		</div>
