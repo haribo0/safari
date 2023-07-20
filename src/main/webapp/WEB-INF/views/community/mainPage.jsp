@@ -26,6 +26,7 @@
 					<b>커뮤니티</b>
 				</h1>			
 			</div>
+			
 			<div class = "col d-flex align-items-center">
 				<div class = "row text-start">
 					<div class = "col">
@@ -55,8 +56,8 @@
 	
 	<%-- 배너 --%>
 	<div class = "row mt-4">
-		<div class = "col">
-			<img src="#" width = "1220px;" height ="200px;">
+		<div class = "col" >
+			<img src="/safari/resources/img/community/banerer1.png" class="img-fluid">
 		</div>
 	</div>
 	
@@ -115,7 +116,7 @@
 					<div class = "col mx-2">
 						게시물 모음
 					</div>
-				</div>
+				</div> 
 			</div>
 		</div>
 		</div>
@@ -129,7 +130,7 @@
 			<div class="card border border-1 mx-3 shadow-sm" style="width:50rem; height: 250px;">
 			<div class = "col">
 				<div class = "row">
-					<div class = "col fs-5 mt-2 mx-2 fw-semibold">
+					<div class = "col fs-5 mt-2 mx-2 fw-s	emibold">
 						리워드
 					</div>
 					<div class = "col-1 p-0 me-3 d-flex align-items-center justify-content-end text-secondary">

@@ -261,11 +261,21 @@ public class RentalServiceImpl {
 			Map<String, Object> map = new HashMap<String, Object>();
 			
 			int reviewId = i.getId();
+			int rentalId = i.getRental_id();
+			int userId = i.getUser_id();
+			
 			List<RentalReviewImgDto> rentalReviewImgDtoList = rentalSqlMapper.selectRentalReviewImgAll(reviewId);
+			UserDto reviewer = rentalSqlMapper.selectUserById(userId);
+			RentalItemDto rentalItemDto = rentalSqlMapper.selectRentalItem(rentalId);
 			
-			map.put("reviewImgList", rentalReviewImgDtoList);
 			map.put("reviewList", i);
+			map.put("reviewImgList", rentalReviewImgDtoList);
+			map.put("reviewer",reviewer);
+			map.put("rentalItemDto",rentalItemDto);
 			
+			System.out.println("RentalReviewDto?:: " + i);
+			System.out.println("rental_id?:: " + rentalId);
+			System.out.println("rentalItemDto?:: " + rentalItemDto);
 			list.add(map);
 		}
 		

@@ -18,7 +18,7 @@ select option[value=""][disabled] {
   width: 100%;
   height: 15px;
   border-radius: 5px;
-  background: #e9e9e9;
+  background: #bfbfbf;
   outline: none;
   opacity: 0.7;
   -webkit-transition: .2s;
@@ -35,7 +35,7 @@ select option[value=""][disabled] {
   width: 25px;
   height: 25px;
   border-radius: 50%;
-  background: #f68a42;
+  background: #f60;
   cursor: pointer;
 }
 
@@ -45,6 +45,17 @@ select option[value=""][disabled] {
   border-radius: 50%;
   background: #f68a42;
   cursor: pointer;
+}
+.orangeButton{
+	background: #ff6f0f;
+	font-weight: bold;
+	color: white;
+}
+.list-addr-item{
+	transition: all 0.125s ease;
+}
+.list-addr-item:hover{ 
+	box-shadow: 0 .5rem 1rem rgba(0,0,0,.15)!important;
 }
 </style>
 <head>
@@ -63,7 +74,7 @@ select option[value=""][disabled] {
 		<div class="row mb-5">
 			<div class="col">
 				<div class="row">
-					<p class="mb-4 bg-light p-3 fs-6">대여 주문 확인서</p>				
+					<p class="mb-4 bg-light p-3 fs-6 text-center">대여 주문 확인서</p>				
 				</div>
 				<div class="row">
 					<p class="fs-5 text-body-secondary pb-2 border-bottom" style="font-weight: 600"><i class="bi bi-archive"></i> 상품 정보</p>					
@@ -74,8 +85,8 @@ select option[value=""][disabled] {
 							<img alt="" src="/safariImg/${data.rentalItemDto.main_img_link}" class="rounded-1" style="width: 140px;">							
 						</div>
 						<div class="col">
-							<p class="fs-5">${data.rentalItemDto.title}</p>
-							<p>${data.rentalItemDto.item_description}</p>
+							<p class="fs-4 mb-1">${data.rentalItemDto.title}</p>
+							<p class="text-body-secondary">${data.rentalItemDto.item_description}</p>
 							<p>기본 대여비 <span class="fw-bold"><fmt:formatNumber value="${data.rentalItemDto.price }" pattern="#,##0" /></span>원 </p>
 						</div>
 					</div>
@@ -133,7 +144,8 @@ select option[value=""][disabled] {
 							</div>
 						</div>
 						<div class="col">
-							<span>반납 예정일은</span> <span class="fw-bold" id="return_box"></span> <span>입니다.</span>
+							<!-- <span>반납 예정일은</span> <span class="fw-bold" id="return_box"></span> <span>입니다.</span> -->
+							<span class="fw-bold" id="return_box">시작일과 대여 기간을 슬라이드로 설정하세요.</span> 
 						</div>
 					</div>
 					
@@ -143,19 +155,19 @@ select option[value=""][disabled] {
 						</div>
 						<div class="col">
 							<div class="row">
-								<div class="list_addr_box">
-								</div>							
+								<ul class="list-group list_addr_box">
+								</ul>							
 							</div>
 							<div class="row mt-3 ps-3">
-								<div class="col">
+								<div class="col d-none">
 									<input type="text" id="usr_address" name="prd_address" placeholder="주소입력" class="form-control w-50" onclick="searchAddr()"/>
 									<input type="text" id="sub-address" placeholder="상세주소" class="form-control w-25 mt-1"/>								
 								</div>
 							</div>
 							<div class="row ps-3 mt-2">
 								<div class="col d-flex px-0">
-								 	<p onclick="searchAddr()" class="btn btn-outline-secondary mt-2 me-3">주소찾기</p>
-									<p class="btn btn-dark mt-2" onclick="addMyAddr()">추가</p>
+								 	<p onclick="registerAddrPage()" class="btn btn-outline-secondary mt-2 me-3">주소추가</p>
+									<!-- <p class="btn btn-dark mt-2" onclick="addMyAddr()">추가</p> -->
 								</div>
 							</div>
 						</div>
@@ -184,95 +196,100 @@ select option[value=""][disabled] {
 					</div>
 				</div>
 			</div>
-			
-			
-			<%-- <form action="./rentalOrderProcess" method="post">
-				<p class="mb-4 bg-light p-3 fs-4">대여 주문 확인서</p>
-				
-				<div class="row pt-3">
-					<img alt="" src="/safariImg/${data.rentalItemDto.main_img_link}" class="rounded" style="width: 160px;">
-				</div>
-				
-				<div class="row mt-4">
-					<div class="col-2">
-						<p class="me-5 fw-bold">시작일: </p>
-					</div>
-					<div class="col">
-						<input type="date" class="form-control" id="calendar_start" name="start_date" style="height: 40px; width: 32%;" required/>
-					</div>
-				</div>
-				
-				<div class="row mt-4">
-					<div class="col-2">
-						<p class="me-5 fw-bold">대여기간: </p>
-					</div>
-					<div class="col">
-						<div class="slidecontainer">
-						  <input type="range" value="12" class="slider optionPeriod" id="myRange">
-						  <p><span id="monthly"></span>개월</p>
-						</div>
-					</div>
-					
-				</div>
-				
-				<div class="row mt-4">
-					<div class="col-2">
-						<p class="me-5 fw-bold">종료일: </p>
-					</div>
-					<div class="col">
-						<p id="return_box"></p>					
-					</div>
-				</div>
-				
-				<div class="row mt-4">
-					<div class="col-2">
-						<p class="me-5 fw-bold">배송지: </p>
-					</div>
-					<div class="col">
-						<div class="list_addr_box">
-						
-						</div>
-					</div>
-				</div>
-				
-				<div class="row mt-3">
-					<div class="col-2">
-					</div>
-					<div class="col-6 ps-4 mt-2">
-						<div class="row">
-							<div class="row">
-								<input type="text"  id="usr_address" name="prd_address" placeholder="주소입력" class="form-control"/>							
-							</div>
-							<div class="row mt-2">
-								<div class="col d-flex justify-content-between px-0">
-								 	<span onclick="searchAddr()" class="btn btn-outline-secondary mt-2">주소찾기</span>
-									<span class="btn btn-dark mt-2" onclick="addMyAddr()">추가</span>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-				
-				<div class="row mt-5 py-3">
-					<p class="fs-5 text-end"><span id="desc_price"></span>원 / <small>월</small></p>					
-				
-					<p class="fs-5 text-end">기본가격: <span class="fw-bold"><fmt:formatNumber value="${data.rentalItemDto.price }" pattern="#,##0" /></span>원 </p>					
-				
-					<p class="fs-5 text-end">보증금: <span class="fw-bold"><fmt:formatNumber value="${data.rentalItemDto.deposit }" pattern="#,##0" /></span>원</p>					
-					
-					<input type="hidden" value="${data.rentalItemDto.deposit }" name="deposit">
-					<input type="hidden" value="" name="end_date" id="hiddin_date">
-					<input type="hidden" value="${data.rentalItemDto.price }" name="original_price">
-					<input type="hidden" value="${data.rentalItemDto.id }" name="item_id">
-					<input type="hidden" value="" name="price" id="hidden_price">
-					<div class="row justify-content-end">		
-					 	<span class="btn btn-success mt-5 w-25 pe-0" onclick="checkVali()">주문신청</span>
-					</div>
-				</div>
-			</form>
-			 --%>
 	</div>
 	
+	<%-- 주소 등록 modal --%>
+<div class="modal" id="registerAddrModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-centered"> 
+    <div class="modal-content">
+      <div class="modal-header">
+     	 <div class="row mb-0">
+      			<div class="col ms-4 fs-5 fw-bold">배송지 등록</div>
+      		</div>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div> 
+      <div class="modal-body">
+      	
+      	<div class="row text-center fw-bold fs-5">
+    		
+       </div>
+       
+       <div class="row mt-3">
+       		<div class="col"></div>
+       			<div class="col-11">
+		       		
+		       		<table class="table" style="border-top: 1px solid #E2E3E5;">
+		       			<tr>
+		       				<td class="table table-light align-middle text-center " style="width: 150px;">배송지명</td>
+		       				<td class="align-middle"> 
+		       					<div class="row">
+		       						<div class="col">
+		       							 <input type="text" class="form-control ms-2" style="width: 200px; height: 30px;"
+		       							 id="address_name" > 
+		       							
+		       						</div>
+		       					</div>
+		       				</td>
+		       			</tr>	
+		       			<tr>
+							<td class="table table-light align-middle text-center" style="width: 150px;">연락처</td>
+		       				<td class="align-middle">
+		       					  <div class="row">
+				                    <div class="col">
+				                       <input type="text" class="form-control ms-2" oninput="oninputPhone(this)" maxlength="14" id="phone"
+				                      style="width: 200px; height: 30px;">
+				                    </div>
+				                  </div>
+		       				</td>		       				
+		       			</tr>
+						<tr>
+							<td class="table table-light align-middle text-center" style="width: 150px;">주소</td>
+		       				<td>
+		       					<div class="row mt-1">
+		       						<div class="col-auto">
+		       							<input type="text" class="form-control ms-2" id="postcode" style="width: 150px; height: 30px;">
+		       						</div>
+		       						<div class="col">
+		       							<input type="button" class="btn btn-sm btn-outline-secondary" value="우편번호 찾기"
+		       							onclick="daumPost()" > 
+		       						</div>
+		       					</div>
+		       					
+		       					<div class="row mt-2">
+		       						<div class="col">
+		       							<input type="text" id="address" class="form-control ms-2" style= "height: 50px;">
+		       						</div>
+		       					</div>
+		       					
+		       					<div class="row mt-2">
+		       						<div class="col">
+		       							<input type="text" id="detail_address" class="form-control ms-2" style="height: 30px;">
+		       						</div>
+		       					</div>
+		       				</td>		       				
+		       			</tr>		       			
+		       		</table>
+		       
+		  
+		      </div>
+     	    <div class="col"></div>
+      </div>
+      
+      <div class="row mt-4">
+      	<div class="col"></div>
+      </div>
+      
+      <div class="modal-footer">
+      	<input type="button" class="btn orangeButton" value="등록하기" onclick="addUserAddress()">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">창닫기</button>
+      </div>      
+   
+    </div>
+  </div>
+</div>
+</div>
+<%-- 주소 등록 modal --%>
+
 	<!-- 푸터 섹션 -->
 	<jsp:include page="../common/footer.jsp"></jsp:include>
 	<!-- 푸터 섹션 -->
@@ -280,6 +297,8 @@ select option[value=""][disabled] {
 
 	<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 	<script>
+	
+	
 	// 로그인된 세션 초기화
 	let mySessionId = null;
 	// 세션가져오기
@@ -406,7 +425,7 @@ select option[value=""][disabled] {
 	      const today = new Date();
 	      const yyyy = today.getFullYear();
 	      const mm = String(today.getMonth() + 1).padStart(2, '0');
-	      const dd = String(today.getDate()).padStart(2, '0');
+	      const dd = String(today.getDate()+7).padStart(2, '0');
 	      const formattedDate = `\${yyyy}-\${mm}-\${dd}`;
 	    
 	      document.getElementById('calendar_start').setAttribute('min', formattedDate);
@@ -446,7 +465,9 @@ select option[value=""][disabled] {
 		if(startValue > 0 && periodValue > 0) {
 			returnDate = getDayOfReturn(startValue, periodValue)
 			let returnBox = document.querySelector('#return_box')
-			returnBox.innerText = returnDate
+			returnBox.innerHTML =`
+				<small>반납 예정일은 </small> <sapn class="fw-bold">\${returnDate}</span> <small>입니다.</small>
+				`
 		  console.log(returnDate, '에 반납 하는 달...');
 		} return
 	}
@@ -549,7 +570,7 @@ select option[value=""][disabled] {
 		}
 
 	// 배송지 주소 추가
-	function addMyAddr() {
+/* 	function addMyAddr() {
         let subAddr = document.querySelector('#sub-address').value
 		let inputAddr = document.querySelector("#usr_address").value + ' ' + subAddr;
 		let usrAddress = inputAddr.trim();
@@ -572,8 +593,102 @@ select option[value=""][disabled] {
 		
 		xhr.open("get", "../user/addUserAddress?address=" + usrAddress);
 		xhr.send();	
+	} */
+
+	// 주소 등록 모달 열기
+	function registerAddrPage() {
+		
+		const registerAddrModal = bootstrap.Modal.getOrCreateInstance("#registerAddrModal");
+		
+		registerAddrModal.show();
+	}
+	
+	// 다음 주소 api
+	function daumPost(){
+	    new daum.Postcode({
+	        oncomplete: function(data) {
+	            // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분입니다.
+	            // 예제를 참고하여 다양한 활용법을 확인해 보세요.
+	            
+	            //사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
+	            if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
+	                addr = data.roadAddress;
+	            } else { // 사용자가 지번 주소를 선택했을 경우(J)
+	                addr = data.jibunAddress;
+	            }
+	            document.getElementById('postcode').value = data.zonecode;
+	            document.getElementById('address').value = addr;
+	            document.getElementById('detail_address').focus();
+	        }
+	    }).open();
 	}
 
+	// 전화번호 형식 변경 함수
+	function oninputPhone(target) {
+	    target.value = target.value
+	        .replace(/[^0-9]/g, '')
+	        .replace(/(^02.{0}|^01.{1}|[0-9]{3,4})([0-9]{3,4})([0-9]{4})/g, "$1-$2-$3");
+	}
+
+	// 주소 등록
+	function addUserAddress() {
+		
+		const address_name = document.getElementById("address_name");
+		const phone = document.getElementById("phone");
+		const postcode = document.getElementById("postcode");
+		const address = document.getElementById("address");
+		const detail_address = document.getElementById("detail_address");
+		
+		if (address_name.value == "" || phone.value == "" || address.value == "") {
+			
+			const content = document.getElementById("validateContent");
+			content.innerHTML = "";
+			
+			const validateModal = bootstrap.Modal.getOrCreateInstance("#addrValidateModal");
+			if (address_name.value == "") {
+				content.innerText = "배송지명을 입력하세요";
+			} else if (phone.value == "") {
+				content.innerText = "연락처를 입력하세요";
+			} else if (address.value == "") {
+				content.innerText = "주소를 입력하세요";
+			}
+			
+			validateModal.show();
+			
+			setTimeout(function() {
+				validateModal.hide();
+			}, 1000);
+			
+			return;
+		}
+		
+		
+		
+		const xhr = new XMLHttpRequest();	
+		xhr.onreadystatechange = function(){
+			if(xhr.readyState == 4 && xhr.status == 200){
+				const response = JSON.parse(xhr.responseText);
+				
+				const registerAddrModal = bootstrap.Modal.getOrCreateInstance("#registerAddrModal");
+				registerAddrModal.hide();
+				
+				address_name.value = "";
+				phone.value = "";
+				postcode.value = "";
+				address.value = "";
+				detail_address.value ="";
+				
+				getMyaddressList();
+				
+			}
+		}
+		xhr.open("post", "../user/addUserAddress");
+		xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded;charset=utf-8");
+		xhr.send("address_name=" + address_name.value + "&phone=" + phone.value + "&address=" + address.value + "  " + detail_address.value);	
+	}
+	
+	
+	
 	// 주소 리스트 불러오기
 	function getMyaddressList() {
 		let inputAddr = document.querySelector("#usr_address")
@@ -588,9 +703,16 @@ select option[value=""][disabled] {
 				listAddrBox.textContent=''
 				
 				response.addressList.forEach((val, i) => {
-					let p = document.createElement('p')
+					let divrow = document.createElement('div')
+					let divcol = document.createElement('div')
+					let li = document.createElement('li')
+					let span = document.createElement('span')
 					let input = document.createElement('input')
 					let label = document.createElement('label')
+					let p = document.createElement('p')
+					
+					divrow.className = 'row'
+					divcol.className = 'col'
 					
 					input.setAttribute('type', 'radio')
 					input.setAttribute('name', 'address')
@@ -599,17 +721,25 @@ select option[value=""][disabled] {
 					input.classList.add('me-2')
 					
 					label.setAttribute('for', 'addr'+ i)
-					label.innerText = val.address
+					label.className = 'w-100 p-3'
+					label.style.cursor = 'pointer'
 					
-					p.appendChild(input)
-					p.appendChild(label)
+					p.className = 'mb-0 ms-3 ps-1'
+					p.innerText = val.address
 					
-					//p.classList.add('border')
-					//p.classList.add('p-2')
-					p.classList.add('w-75')
-					p.classList.add('rounded')
+					span.className = 'fw-bold'
+					span.innerText = val.address_name
 					
-					listAddrBox.appendChild(p)
+					divcol.appendChild(input)
+					divcol.appendChild(span)
+					divcol.appendChild(p)
+					
+					divrow.appendChild(divcol)
+					label.appendChild(divrow)
+					li.appendChild(label)
+					li.className = 'list-group-item mb-2 border w-75 rounded shadow-sm list-addr-item'
+					
+					listAddrBox.appendChild(li)
 					
 				})
 

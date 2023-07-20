@@ -248,7 +248,20 @@ public class QuestionServiceImpl {
 		questionSqlMapper.completeQuestionReply(id);
 	}
 	
-	
+	//궁금해요 게시물 답변 
+	/*
+	 * public Map<String, Object> getQuestionReply(int id){
+	 * 
+	 * Map<String, Object> map = new HashMap<>();
+	 * 
+	 * QuestionReplyDto questionReplyDto =
+	 * questionSqlMapper.getQuestionReplyById(id); UserDto userDto =
+	 * userSqlMapper.selectUserDtoById(questionReplyDto.getUser_id());
+	 * 
+	 * map.put("userDto", userDto); map.put("questionReplyDto", questionReplyDto);
+	 * 
+	 * return map; }
+	 */
 	
 	//궁금해요 게시물 채택상태 update
 	public void completeQuestionBoard(int id) {

@@ -24,12 +24,12 @@
 		<div class="col-8">
 		
 		 <!-- 커뮤니티 메뉴바 -->
-	      <div class="row">
-	         <div class="col">
-	            <jsp:include page="./communityTopNavi.jsp"></jsp:include>
-	         </div>
-	      </div>
-      	 <!-- 커뮤니티 메뉴바 --> 
+      <div class="row">
+         <div class="col">
+           <jsp:include page="../../community/communityTopNavi.jsp"></jsp:include>
+         </div>
+      </div>
+      <!-- 커뮤니티 메뉴바 --> 
 		
 		<!-- 게시판 제목 글자 -->
 	      <div class="row">
@@ -39,23 +39,7 @@
 	      </div>
 	  <!-- 게시판 제목 글자 -->
 		
-		
-	
-	
-<<<<<<< HEAD
-=======
-	 <!-- 커뮤니티 메뉴바 -->
-      <div class="row">
-         <div class="col">
-            <jsp:include page="../../community/communityTopNavi.jsp"></jsp:include>
-         </div>
-      </div>
-      <!-- 커뮤니티 메뉴바 --> 
-      
-    <div class="container text-center mt-2">
-	<h2 class="text-center fw-bold fs-3"> 궁금해요 게시판 </h2>
-	</div>
->>>>>>> 8830acc231d3c798e2b719666d4293616f350014
+
 	
 	 <%--게시판 시작 --%>
 	<!-- <div class = "container"> -->
@@ -146,15 +130,24 @@
 		font-weight: bold;
 		color: white;
 		}
+		
+		.btn-link {
+	    display: flex;
+	    align-items: center;
+	    justify-content: center;
+	  }
+	  
+	  	
+	  	
 		</style>
 	
 	<div class="row">
 	<div class="col text-end" >
 	<div class="d-flex justify-content-end">
 	<a href="./questionWriteContentPage" style="text-decoration: none; display: flex; align-items: center; justify-content: center;">
-		<button type="button" class="btn btn-link orangeButton d-flex align-items-center justify-content-center" style="text-decoration: none; display: flex; align-items: center; justify-content: center;">
-			<i class="bi bi-pencil-square fa-icon text-white" style="font-size: 1.5rem;"></i>
-			<span class="ms-1 me-2" style="font-size: 0.9rem; line-height: 1;">글쓰기</span>
+		<button type="button" class="btn btn-link orangeButton d-flex align-items-center justify-content-center" style="text-decoration: none;">
+			<i class="bi bi-pencil-square fa-icon text-white" style="font-size: 1.5rem; margin-right: 0.5rem;"></i>
+			<span class="ms-1 me-2" style="font-size: 0.9rem; line-height: 1; margin-left: 0.5rem;">글쓰기</span>
 		</button>
 	</a>
 	</div>

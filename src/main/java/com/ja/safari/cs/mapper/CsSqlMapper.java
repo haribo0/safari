@@ -2,6 +2,7 @@ package com.ja.safari.cs.mapper;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
 
 import com.ja.safari.dto.CsAttendanceLogDto;
 import com.ja.safari.dto.CsCategoryDto;
@@ -11,13 +12,16 @@ import com.ja.safari.dto.CsChatResponseDto;
 import com.ja.safari.dto.CsChatResponseDto2;
 import com.ja.safari.dto.CsEmpDto;
 import com.ja.safari.dto.CsEmpRatingResponseDto;
+import com.ja.safari.dto.CsLiveChatCountResponseDto;
 import com.ja.safari.dto.CsLiveChatDto;
 import com.ja.safari.dto.CsLiveChatMsgDto;
 import com.ja.safari.dto.CsLiveChatRating;
 import com.ja.safari.dto.CsQnaDto;
 import com.ja.safari.dto.CsQnaRating;
 import com.ja.safari.dto.CsQnaCombinedDto;
+import com.ja.safari.dto.CsQnaCountResponseDto;
 import com.ja.safari.dto.CsScheduleDto;
+import com.ja.safari.dto.CsTodayStatsDto;
 import com.ja.safari.dto.UserDto;
 
 public interface CsSqlMapper {
@@ -156,8 +160,39 @@ public interface CsSqlMapper {
 	public CsEmpDto getEmpDtoByChatId(Integer chatId);
 	
 	
-	// 직원별 실시간 채팅 평균 별점 리스트 
-	public List<CsEmpRatingResponseDto> getEmpChatRatingList();
+	// 오늘 출근 직원 리스트 
+	public List<CsEmpDto> getEmpListForToday(String weekday);
+	
+	// 오늘 1대1문의 현황 
+	public List<CsQnaCountResponseDto> getQnaCountForTodayByEmpId(int empId);
+	
+	// 오늘 실시간문의 현황 
+	public List<CsLiveChatCountResponseDto> getLiveChatCountForTodayByEmpId(int empId);
+	
+	// 오늘 1대1문의 응답시간  
+	public double getAvgReplyTimeTodayByEmpId(@Param("empId") int empId);
+	
+	// 오늘 실시간문의 응답시간  
+	public double getAvgChatEndTimeTodayByEmpId(@Param("empId") int empId);
+	
+	// 지난주 1대1문의 현황 
+	public CsQnaCountResponseDto getWeeklyQnaCountByEmpId(int empId);
+	
+	// 지난주 실시간문의 현황 
+	public CsLiveChatCountResponseDto getWeeklyLiveChatCountByEmpId(int empId);
+
+	// 직원 아이디와 요일로 스케줄 찾아오기 
+	public CsScheduleDto getScheduleByEmpIdAndWeekday(@Param("empId") int empId, @Param("weekday") String weekday);
+	
+	// 직원 아이디로 평점 가져오기 
+	public CsEmpRatingResponseDto getRatingsByEmpId(int empId);
+	
+	// 직원 아이디로 주간 근무 시간 
+	public int getWeeklyHoursByEmpId(int empId);
+	
+	// 오늘 현황 통계
+	public CsTodayStatsDto getStatsToday();
+	
 	
 	
 

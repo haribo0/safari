@@ -10,6 +10,7 @@ import java.util.UUID;
 
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.text.StringEscapeUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -148,7 +149,15 @@ public class HelpController {
 		int HelpBoardLikeCount = helpService.getHelpLikeCountByBoardId(id);
 
 		model.addAttribute("HelpBoardLikeCount", HelpBoardLikeCount);
-
+		
+		//html escape
+		HelpDto helpDto = (HelpDto)map.get("helpDto");
+		String content = helpDto.getContent();
+		content = StringEscapeUtils.escapeHtml4(content);
+		content = content.replaceAll("\n", "<br>");
+		helpDto.setContent(content);
+		
+		
 		return "/community/help/readContentPage";
 
 	}

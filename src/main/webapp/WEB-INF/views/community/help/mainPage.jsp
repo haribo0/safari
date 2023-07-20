@@ -10,6 +10,15 @@
 	<!-- 메타 섹션 -->
 	<jsp:include page="../../common/meta.jsp"></jsp:include>
 	<!-- 메타 섹션 -->
+	
+	<style>
+  .cropped-image {
+    width: 126.08px;
+    height: 126.08px;
+    object-fit: cover;
+	 }
+	</style>
+
 </head>
 <body>
 	<!-- 헤더 섹션 -->
@@ -53,11 +62,11 @@
 										<div class="col">
 										<c:if test="${map.helpImgCount>=1}">
 											<img src="/uploadFiles/${map.helpImgDtoList[0].help_img_link}"
-												style="max-width: 100%; max-height: 100%;">
+												class="cropped-image">
 										</c:if>
 											<c:if test="${map.helpImgCount==0}">
 											<img src="/safari/resources/img/community/no-image.gif"
-											style="max-width: 100%; max-height: 100%;">
+											class="cropped-image">
 											</c:if>
 										</div>
 									</div>						
@@ -112,11 +121,11 @@
 								<div class="col">
 								<c:if test="${map.helpImgCount>=1}">
 									<img src="/uploadFiles/${map.helpImgDtoList[0].help_img_link}"
-										style="max-width: 100%; max-height: 100%;">
+										class="cropped-image">
 								</c:if>
 									<c:if test="${map.helpImgCount==0}">
 									<img src="/safari/resources/img/community/no-image.gif"
-									style="max-width: 100%; max-height: 100%;">
+									class="cropped-image">
 									</c:if>
 								</div>
 							</div>						
@@ -200,8 +209,8 @@
 	<div class="d-flex justify-content-end">
 	<a href="./writeContentPage" style="text-decoration: none; display: flex; align-items: center; justify-content: center;">
 		<button type="button" class="btn btn-link orangeButton d-flex align-items-center justify-content-center" style="text-decoration: none; display: flex; align-items: center; justify-content: center;">
-			<i class="bi bi-pencil-square fa-icon text-white" style="font-size: 1.5rem;"></i>
-			<span class="ms-1 me-2" style="font-size: 0.9rem; line-height: 1;">글쓰기</span>
+			<i class="bi bi-pencil-square fa-icon text-white" style="font-size: 1.5rem; margin-right: 0.5rem;"></i>
+			<span class="ms-1 me-2" style="font-size: 0.9rem; line-height: 1; margin-left: 0.5rem;">글쓰기</span>
 		</button>
 	</a>
 	</div>
