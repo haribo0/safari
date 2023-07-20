@@ -10,6 +10,7 @@ import java.util.UUID;
 
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.text.StringEscapeUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+
 
 import com.ja.safari.community.service.QuestionServiceImpl;
 import com.ja.safari.dto.HelpImgDto;
@@ -150,6 +152,14 @@ public class QuestionController {
 			int QuestionBoardLikeCount = questionService.getQuestionLikeCountByBoardId(id);
 
 			model.addAttribute("QuestionBoardLikeCount", QuestionBoardLikeCount);
+			
+			//html escape
+			QuestionDto questionDto = (QuestionDto)map.get("questionDto");
+			String content = questionDto.getContent();
+			content = StringEscapeUtils.escapeHtml4(content);
+			content = content.replaceAll("\n", "<br>");
+			questionDto.setContent(content);
+			
 
 			return "/community/question/questionReadContentPage";
 		}
@@ -197,13 +207,15 @@ public class QuestionController {
 		 @RequestMapping("question/replyQuestionContentPage/{id}") 
 			public String replyQuestionContentPage(@PathVariable int id, Model model) { 
 				 
-		    model.addAttribute("board", questionService.getQuestionBoardByBoardId(id));
+		  model.addAttribute("board", questionService.getQuestionBoardByBoardId(id));
 			 
 			
 			 List<Map<String,Object>> questionReplyBoardList = questionService.getQuestionReplyBoardList(id);
 			 
 			 model.addAttribute("questionReplyBoardList", questionReplyBoardList); 
 			 
+			
+					
 			 return "/community/question/replyQuestionContentPage";
 			 }
 
