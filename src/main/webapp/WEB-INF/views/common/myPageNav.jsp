@@ -55,7 +55,7 @@
 		  <a class="btn text fw-bolder py-1 ps-0 mt-2" href="#" >커뮤니티</a></li>
 		  	<div class="" id="">
 				<ul class="list-group">
-					<li class="list-group-item border-0 py-1 ps-0"><a href="./myAllCommunityPostListPage" class="btn py-0 text-body-secondary ps-0 fs-nav-small">내가쓴글</a></li>
+					<li class="list-group-item border-0 py-1 ps-0"><a href="./myAllCommunityPostListPage" class="btn py-0 text-body-secondary ps-0 fs-nav-small">내가쓴게시글</a></li>
 					<li class="list-group-item border-0 py-1 ps-0"><a href="./myCommunityLikesListPage" class="btn py-0 text-body-secondary ps-0 fs-nav-small">좋아요</a></li>
 				</ul>
 			</div>
