@@ -315,9 +315,13 @@ window.addEventListener("DOMContentLoaded", function(){
 						</div>
 						<div class = "col"></div>
 					</div>
+					<%-- 카테고리 --%>
 					<div class = "row mt-3">
 						<div class = "col fs-6 text-secondary">
-							Category(대여)
+							${data.rentalItemCategory.main_category_name}
+						 	<c:if test="${data.rentalItemCategory.sub_category_name != null}">
+						 	> ${data.rentalItemCategory.sub_category_name}
+						 	</c:if>
 						</div>
 					</div>
 					<div class = "row">
