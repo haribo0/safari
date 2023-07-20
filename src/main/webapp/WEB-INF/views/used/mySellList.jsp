@@ -101,26 +101,25 @@
 										<img src="/safari/resources/img/used/soso.png" style="width: 120px; height: 120px;"></a>
 									</div>
 									<div class="col ms-5" class="text-start">
-										<div class="row mt-4">
-											<div class="col" style="font-size: 14px;">
-												잡화 / 운동화
+										<div class="row mt-4 mb-1">
+											<div class="col fw-light" style="font-size: 15px;">
+												잡화 > 운동화
 											</div>
 										</div>
 										<div class="row">
 											<div class="col fw-bold">
-												<span style="font-size: 16px;"><a href="/safari/used/productDetail/1">
+												<span><a href="/safari/used/productDetail/1" style="font-size: 17px;">
 												운동화 팔아요</a></span>
 											</div>
 										</div>
 										<div class="row">
-											<div class="col" style="font-size: 14px;">
+											<div class="col text-secondary" style="font-size: 14px;">
 											 	서울시 강남구
 											</div>
 										</div>
 									</div>									
 								</div>
 							</div>	
-							
 							<div class="col-2 my-auto text-center">
 								10,000원
 							</div>
@@ -144,13 +143,168 @@
 									</div>
 								</div>
 							</div>
-							<!-- <div class="col my-auto text-center">
-								<div class="row mt-1">
-									<div class="col">
-										<button class="btn" style="background: #ff6f0f; color: white;">끌어올리기</button>
+						</div>
+						<div class="row border-bottom py-2">
+							<div class="col-5">
+								<div class="row my-auto">
+									<%-- <input type="hidden" id="bid_${bidDto.auction_item_id}" value="${bidDto.id}"> --%>
+									<div class="col-3 ms-1"  style="float: left;">
+										
+										<a href="/safari/used/productDetail/1">
+										<img src="/safari/resources/img/used/soso.png" style="width: 120px; height: 120px;"></a>
 									</div>
-								</div>	
-							</div>		 -->			
+									<div class="col ms-5" class="text-start">
+										<div class="row mt-4 mb-1">
+											<div class="col fw-light" style="font-size: 15px;">
+												잡화 > 운동화
+											</div>
+										</div>
+										<div class="row">
+											<div class="col fw-bold">
+												<span><a href="/safari/used/productDetail/1" style="font-size: 17px;">
+												운동화 팔아요</a></span><span><button class="btn btn-success btn-sm btn-sm-custom ms-2" disabled
+												style="padding: 1px 6px; font-size: 13px; margin-top: -3px;">예약중</button></span>
+											</div>
+										</div>
+										<div class="row">
+											<div class="col text-secondary" style="font-size: 14px;">
+											 	서울시 강남구
+											</div>
+										</div>
+									</div>									
+								</div>
+							</div>	
+							<div class="col-2 my-auto text-center">
+								10,000원
+							</div>
+							
+							<div class="col-2 my-auto text-center">
+								2023-07-22
+							</div>
+							
+							<div class="col my-auto text-center">
+								<div class="row">
+									<div class="col">
+										<button class="btn btn-sm btn-outline-success" style="width: 120px">예약취소</button>
+									</div>
+								</div>
+								<div class="row mt-2">
+									<div class="col text-end p-0" style="margin-right: 5px;">
+										<button class="btn btn-sm btn-outline-dark px-3">수정</button>
+									</div>
+									<div class="col text-start p-0">
+										<button class="btn btn-sm btn-outline-dark px-3">삭제</button>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="row border-bottom py-2">
+							<div class="col-5">
+								<div class="row my-auto">
+									<%-- <input type="hidden" id="bid_${bidDto.auction_item_id}" value="${bidDto.id}"> --%>
+									<div class="col-3 ms-1"  style="float: left;">
+										
+										<a href="/safari/used/productDetail/1">
+										<img src="/safari/resources/img/used/soso.png" style="width: 120px; height: 120px;"></a>
+									</div>
+									<div class="col ms-5" class="text-start">
+										<div class="row mt-4 mb-1">
+											<div class="col fw-light" style="font-size: 15px;">
+												잡화 > 운동화
+											</div>
+										</div>
+										<div class="row">
+											<div class="col fw-bold">
+												<span><a href="/safari/used/productDetail/1" style="font-size: 17px;">
+												운동화 팔아요</a></span><span><button class="btn btn-secondary btn-sm btn-sm-custom ms-2" disabled
+												style="padding: 1px 6px; font-size: 13px; margin-top: -3px;">거래완료</button></span>
+											</div>
+										</div>
+										<div class="row">
+											<div class="col text-secondary" style="font-size: 14px;">
+											 	서울시 강남구
+											</div>
+										</div>
+									</div>									
+								</div>
+							</div>	
+							<div class="col-2 my-auto text-center">
+								10,000원
+							</div>
+							
+							<div class="col-2 my-auto text-center">
+								2023-07-22
+							</div>
+							
+							<div class="col my-auto text-center">
+								<div class="row">
+									<div class="col">
+										<button class="btn btn-sm btn-outline-primary" style="width: 120px">후기보내기</button>
+									</div>
+								</div>
+								<div class="row mt-2">
+									<div class="col text-end p-0" style="margin-right: 5px;">
+										<button class="btn btn-sm btn-outline-dark px-3">수정</button>
+									</div>
+									<div class="col text-start p-0">
+										<button class="btn btn-sm btn-outline-dark px-3">삭제</button>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="row border-bottom py-2">
+							<div class="col-5">
+								<div class="row my-auto">
+									<%-- <input type="hidden" id="bid_${bidDto.auction_item_id}" value="${bidDto.id}"> --%>
+									<div class="col-3 ms-1"  style="float: left;">
+										
+										<a href="/safari/used/productDetail/1">
+										<img src="/safari/resources/img/used/soso.png" style="width: 120px; height: 120px;"></a>
+									</div>
+									<div class="col ms-5" class="text-start">
+										<div class="row mt-4 mb-1">
+											<div class="col fw-light" style="font-size: 15px;">
+												잡화 > 운동화
+											</div>
+										</div>
+										<div class="row">
+											<div class="col fw-bold">
+												<span><a href="/safari/used/productDetail/1" style="font-size: 17px;">
+												운동화 팔아요</a></span><span><button class="btn btn-secondary btn-sm btn-sm-custom ms-2" disabled
+												style="padding: 1px 6px; font-size: 13px; margin-top: -3px;">거래완료</button></span>
+											</div>
+										</div>
+										<div class="row">
+											<div class="col text-secondary" style="font-size: 14px;">
+											 	서울시 강남구
+											</div>
+										</div>
+									</div>									
+								</div>
+							</div>	
+							<div class="col-2 my-auto text-center">
+								10,000원
+							</div>
+							
+							<div class="col-2 my-auto text-center">
+								2023-07-22
+							</div>
+							
+							<div class="col my-auto text-center">
+								<div class="row">
+									<div class="col">
+										<button class="btn btn-sm btn-secondary" style="width: 120px">보낸 후기 보기</button>
+									</div>
+								</div>
+								<div class="row mt-2">
+									<div class="col text-end p-0" style="margin-right: 5px;">
+										<button class="btn btn-sm btn-outline-dark px-3">수정</button>
+									</div>
+									<div class="col text-start p-0">
+										<button class="btn btn-sm btn-outline-dark px-3">삭제</button>
+									</div>
+								</div>
+							</div>
 						</div>
 					<%-- </c:forEach>	 --%>				
 						
