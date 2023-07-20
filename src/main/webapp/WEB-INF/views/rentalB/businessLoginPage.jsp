@@ -17,10 +17,13 @@
 	<!-- 헤더 섹션 -->
 	
 	<div class="container justify-content-center mt-5">
-		<div class="row">
+		<div class="row ">
 			<div class="col"></div>
 			<div class="col-4">
-				<div class="row">
+				<div class="row mt-5 mb-5">
+					<div class="col text-center fs-4"> </div>
+				</div>
+				<div class="row mt-5">
 					<div class="col text-center fs-4">사업자 계정 로그인</div>
 				</div>
 				<form action="./businessLoginProcess" method="POST">
@@ -30,13 +33,13 @@
 				        <input type="text" class="form-control" id="uid" placeholder="아이디" value="" required="" name="business_userid">
 					</div>
 				</div>
-				<div class="row mt-2">
+				<div class="row mt-3">
 					<div class="col">
 				          <label for="upw" class="form-label">비밀번호</label>
 				          <input type="password" class="form-control" id="upw" placeholder="비밀번호" value="" required="" name="pw">
 		          	</div>
 				</div>
-				<div class="row mt-3">
+				<div class="row mt-4">
 					<div class="col d-grid">
 						<input type="submit" class="btn btn-dark" value="로그인">
 					</div>

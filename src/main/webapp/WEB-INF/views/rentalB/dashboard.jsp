@@ -115,7 +115,7 @@
 						<div class="card shadow-sm" >
 						  <div class="card-body">
 						  	<div class="row">
-						  		<div class="fw-bold col-6">주문 리스트</div>
+						  		<div class="fw-bold col-6 ps-3">주문 리스트</div>
 						    	<div class="text-end col-6 text-end fw-light  text-secondary ">
 						    		<a href="./orderListPage2" class="text-secondary text-decoration-none mb-0 pb-0 " style="font-size: 15px;">
 						    			+ 더보기
@@ -125,8 +125,7 @@
 						    <hr class="border">
 						    <!-- <hr class="border border-dark"> -->
 						    
-						    <div id="orderListContainer">
-						    	
+						    <div class="ps-2" id="orderListContainer">
 						    
 						    </div>
 						    
@@ -139,7 +138,7 @@
 						<div class="card shadow-sm" >
 						  <div class="card-body">
 						  	<div class="row">
-						  		<div class="fw-bold col-6">반품 리스트</div>
+						  		<div class="fw-bold col-6 ps-3">반품 리스트</div>
 					    		<div class="text-end col-6 text-end fw-light fs-6 text-secondary">
 						    		<a href="./orderReturnPage" class="text-secondary text-decoration-none mb-0 pb-0" style="font-size: 15px;">
 						    			+ 더보기
@@ -149,7 +148,7 @@
 						    <hr class="border">
 						    <!-- <hr class="border border-dark"> -->
 						    
-						    <div class="returnListContainer" id="returnListContainer">
+						    <div class="returnListContainer ps-2" id="returnListContainer">
 						    	<!-- <div class="row ms-2 mt-3">
 						    		<div class="col-9">스탠바이미 TV 27인치 27ART10AKP</div>
 						    		<div class="col">06/30/2023</div>
@@ -179,31 +178,57 @@
 				
 				<div class="col-2">
 						<div class="card shadow-sm" >
-						  <div class="card-body ms-2">
-						    <h5 class="fs-5  fw-bold" id="lastMonth"> 이번 달 </h5>
-						    <hr class="border">
-						    <div class="fw-bolder fs-6 text-dark mt-2">
-						    	주문
-						    </div>
-						    <div class="fw-light fs-5 text-dark mt-1">
-						    	5 건 
-						    	<span class="fw-light font-smaller text-secondary"> &nbsp; / 일주일</span>
-						    </div>
-						    <div class="fw-light fs-5 text-dark mt-1">
-						    	24 건 
-						    	<span class="fw-light font-smaller text-secondary"> &nbsp; / 한달</span>
-						    </div>
-						    <div class="fw-bolder fs-6 text-dark mt-3">
-						    	매출
-						    </div>
-						    <div class="fw-light fs-5 text-dark mt-1">
-						    	129,000 원 
-						    	<span class="fw-light font-smaller text-secondary"> &nbsp; / 일주일</span>
-						    </div>
-						    <div class="fw-light fs-5 text-dark mt-1">
-						    	1,322,600 원
-						    	<span class="fw-light font-smaller text-secondary"> &nbsp; / 한달</span>
-						    </div>
+						  <div class="card-body ">
+							  <div class="row">
+								  <div class="col ms-3">
+								      <div class="fw-bold" id="lastMonth"> 이번 달 </div>
+								  </div>
+							  </div>
+							    <hr class="border">
+							  <div class="row ps-2">
+								  <div class="col">
+								  	  <div class="row">
+										  <div class="col fw-bolder fs-6 text-dark mt-1">
+												주문
+										  </div>
+									  </div>
+									  <div class="row">
+										  <div class="col fw-light fs-5 text-dark mt-1">
+										      5 건 
+										      <span class="fw-light font-smaller text-secondary"> &nbsp; / 일주일</span>
+										  </div>
+									  </div>
+									  <div class="row">
+										  <div class="col fw-light fs-5 text-dark mt-1">
+										      24 건 <span class="fw-light font-smaller text-secondary"> &nbsp; / 한달</span>
+										  </div>
+									  </div>
+								  </div>
+							  </div>
+							  <div class="row ps-2">
+								  <div class="col">
+								      <div class="row">
+										  <div class="col fw-bolder fs-6 text-dark mt-3">
+										      매출
+										  </div>
+									  </div>
+								      <div class="row">
+										  <div class="col fw-light fs-5 text-dark mt-1">
+										      129,000 원
+										      <span class="fw-light font-smaller text-secondary"> &nbsp; / 일주일</span>
+										  </div>
+									  </div>
+								      <div class="row">
+										  <div class="col fw-light fs-5 text-dark mt-1">
+										      1,322,600 원
+										      <span class="fw-light font-smaller text-secondary"> &nbsp; / 한달</span>
+										  </div>
+									  </div>
+								  
+								  </div>
+							  </div>
+						    
+						    
 						  </div>
 						</div>
 					
@@ -405,7 +430,7 @@ function getRecentOrderList() {
 			response.list.forEach(function(map){
 				// Create outer div element with classes
 				const rowDiv = document.createElement('div');
-				rowDiv.classList.add('row', 'ms-2', 'mt-3');
+				rowDiv.classList.add('row', 'mt-3');
 
 				// Create inner div elements with classes
 				const col1Div = document.createElement('div');
@@ -456,7 +481,7 @@ const returnListContainer = document.getElementById('returnListContainer');
 			response.list.forEach(function(map){
 				// Create outer div element with classes
 				const rowDiv = document.createElement('div');
-				rowDiv.classList.add('row', 'ms-2', 'mt-3');
+				rowDiv.classList.add('row', 'mt-3');
 
 				// Create inner div elements with classes
 				const col1Div = document.createElement('div');
@@ -520,7 +545,7 @@ window.addEventListener("DOMContentLoaded",function(){
 	getRecentOrderList();
 	getRecentReturnList();
 	changeTextColor();
-	getLastMonth();
+	// getLastMonth();
 
 });
 

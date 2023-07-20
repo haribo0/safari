@@ -18,48 +18,54 @@
 	<!-- 헤더 섹션 -->
 	
 	
-	<div class="row">
+	<div class="row mb-3">
 	
 	<%--왼쪽 시작--%>
-	<div class="col-3"></div>
+	<div class="col-1"></div>
 	<%--왼쪽 끝 --%>
 	
-	<%--글쓰기 폼 시작 --%>
 	
-	<form action="/safari/community/question/writeQuestionReplyProcess" method="post">
+	<%--가운데 시작 --%>
+	<div class="col">
 	
-	<div class="container">
+		<div class="container">
+		
+	<%-- 글쓰기 폼 시작 --%>
+		<form action="/safari/community/question/writeQuestionReplyProcess" method="post">
+		
 	<div class="row">
-		<div class="col">
-			<table class="table table-hover">
-			  <tbody>
-			  	<tr>
-			  	  <td><input type="hidden" name="user_id" value="${sessionUser.id}"></td>
-			  	</tr>
-			  	<tr>
-			  	  <td><input type="hidden" name="question_id" value="${board.questionDto.id}"></td>
-			  	</tr>
-			  	<tr>
-			  	  <td>${sessionUser.nickname}</td>
-			  	</tr>
-			  	<tr>
-			  	  <td><textarea type="text" class="form-control"  name="content" maxlength="3000" style="height:400px;"></textarea></td>
-			  	</tr>
-			  </tbody>
-			</table>
+		<div class="col mt-5">
+				 ${sessionUser.nickname}님, 답변해주세요! <hr>
+			
+			  	  <input type="hidden" name="user_id" value="${sessionUser.id}">
+			  
+			  	  <input type="hidden" name="question_id" value="${board.questionDto.id}">
+			  	
+			  	  <textarea type="text" class="form-control" placeholder="답변 작성 시 서비스 운영정책을 지켜주세요."  name="content" maxlength="3000" style="height:400px;"></textarea>
+			  	
+			  
+			
 		</div>
 	</div>
-	</div>
 	
-	<div class="row">
+	<!-- 버튼 -->
+	<div class="row mt-3">
 	<div class="col text-center">
-	<button class="btn btn-primary">등록하기</button>
+	<button class="btn" style="background: #ff6f0f; font-weight: bold; color: white;">등록하기</button>
 	</div>
 	</div>
 	</form>
 	
+	
+	</div>
+		
+	</div>
+	<%--가운데 끝 --%>
+	
+
+	
 	<%--오른쪽 시작--%>
-	<div class="col-3">
+	<div class="col-1">
 	</div>
 	<%--오른쪽 끝--%>	
 

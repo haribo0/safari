@@ -148,7 +148,10 @@ window.addEventListener("DOMContentLoaded", function(){
 			<div class="col">
 				<small class="mb-2 text-secondary">${data.mainCategoryName} &#47; ${data.subCategoryName}</small>
 				<div class="pe-5">
-					<h3 class="fw-bold">${data.rentalItemDto.title}</h3>
+					<div class="d-flex justify-content-between">
+						<h3 class="fw-bold">${data.rentalItemDto.title}</h3>
+						<p><i class="bi bi-share fs-5" style="cursor: pointer" onclick="clipUrl()"></i></p>
+					</div>
 					<p class="py-2" style="line-height: 1.7; letter-spacing: -0.2px;">
 						${data.rentalItemDto.item_description}
 					</p>
@@ -185,6 +188,10 @@ window.addEventListener("DOMContentLoaded", function(){
 						  </tbody>
 						</table>
 					</div>
+					 
+					<div class="bg-body-tertiary p-3 rounded-1">
+						<p class="mb-0 text-black-50" style="font-size: 14px;"><i class="bi bi-truck"></i> <span class="fw-bold">8/4</span> 이내 도착 예정</p>
+					</div>
 					
 					<div class="d-flex justify-content-end mt-5">
 						<%-- <p class="text-body-secondary">남은 수량 ${data.rentalItemDto.quantity}</p> --%>
@@ -207,7 +214,7 @@ window.addEventListener("DOMContentLoaded", function(){
 			    <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab" tabindex="0">
  					<c:forEach items="${data.rentalItemImgDtoList}" var="img">
 						<div>
-							<img alt="" src="/safariImg/${img.img_link}" style="width: 400px;">
+							<img alt="" src="/safariImg/${img.img_link}">
 						</div>
 					</c:forEach>
 			    </div>
@@ -216,24 +223,46 @@ window.addEventListener("DOMContentLoaded", function(){
 			    <p>리뷰 ${reviewCount}</p>
 			    	<ul class="list-group list-group-flush px-5" id="review_list">
 	 		    		<c:forEach items="${reviewData}" var="review">
-			    			<li class="list-group-item py-3 border border-0">
-			    				<div class="row text-end px-4">
-						    		<p class="mb-1"><small class="text-black-50">8개월 사용</small><small>기간 로직 정리중</small></p>		    				
-			    				</div>
+			    			<li class="list-group-item py-3 mt-4 border border-0">
 			    				<div class="row w-100">
-			    					<div class="col-1">
-				    					<div class="rounded-circle bg-secondary-subtle" style="width: 48px; height: 48px;"></div>
-			    					</div>
 				    				<div class="col">
-					    				<p class="fw-bold mb-2">${review.reviewList.rental_review_title}</p>
-					    				<p>${review.reviewList.rental_review_content}</p>
-					    				<p class="reviewStarBox mb-0" data-numberof="${review.reviewList.rental_review_rating}"></p>
-				    				</div>
-				    				<div class="col d-flex justify-content-end">
-				    					<c:forEach items="${review.reviewImgList}" var="imgList">
-				    					 	<img alt="" src="/safariImg/${imgList.rental_review_img}" class="ms-2" style="width: 100px;">			    					
-				    					</c:forEach>
-				    				</div>			    				
+				    					<div class="row">
+				    						<div class="col">
+				    							<div class="row">
+				    								<div class="col-1" style="max-width: 68px;">
+								    					<div class="rounded-circle bg-secondary-subtle me-0" style="width: 40px; height: 40px;"></div>				    								
+				    								</div>
+				    								<div class="col px-0">
+											    		<p class="mb-0 mt-1"><small>${review.reviewer.nickname}</small> <small class="text-black-50">| <fmt:formatDate value="${review.reviewList.reg_date }" pattern="yyyy.MM.dd"/></small></p>		    				
+				    								</div>
+				    							</div>
+				    						</div>
+				    					</div>
+				    					
+				    					<div class="row mt-3">
+				    						<div class="row">
+				    							<div class="col">
+				    								<p>${review.rentalItemDto.title }</p>
+				    							</div>
+				    						</div>
+				    						<div class="row">
+				    							<div class="col px-1">
+						    					<c:forEach items="${review.reviewImgList}" var="imgList">
+						    					 	<img alt="" src="/safariImg/${imgList.rental_review_img}" class="ms-2" style="width: 100px;">			    					
+						    					</c:forEach>
+				    							</div>
+				    						</div>
+				    					</div>
+				    					
+				    					<div class="row mt-3">
+				    						<div class="col">
+							    				<p class="fw-bold mb-0 text-dark-emphasis">${review.reviewList.rental_review_title}</p>
+							    				<p class="mb-1 text-body-secondary">${review.reviewList.rental_review_content}</p>
+							    				<p class="reviewStarBox mb-0" data-numberof="${review.reviewList.rental_review_rating}"></p>
+				    						</div>
+				    					</div>
+				    					
+				    				</div>		    				
 			    				</div>
 							</li>
 			    		</c:forEach> 
@@ -247,7 +276,20 @@ window.addEventListener("DOMContentLoaded", function(){
 	<!-- 푸터 섹션 -->
 	<jsp:include page="../common/footer.jsp"></jsp:include>
 	<!-- 푸터 섹션 -->
+<script>
 
+function clipUrl() {
+	let url = '';
+	let textarea = document.createElement("textarea");
+	document.body.appendChild(textarea);
+	url = window.document.location.href;
+	textarea.value = url;
+	textarea.select();
+	document.execCommand("copy");
+	document.body.removeChild(textarea);
+	alert("주소가 복사되었습니다!")
+}
+</script>
 
 </body>	
 </html>

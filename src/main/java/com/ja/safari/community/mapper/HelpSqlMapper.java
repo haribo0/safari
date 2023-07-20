@@ -23,6 +23,8 @@ public interface HelpSqlMapper {
 	
 	//해주세요 메인 페이징
 	public int getHelpBoardCount();
+	
+	//해주세요 게시글 상세 조회
 	public HelpDto getHelpBoard(int id);
 	
 	//해주세요 게시글 수정
@@ -43,17 +45,19 @@ public interface HelpSqlMapper {
 	//해주세요 이미지 리스트 조회
 	public List<HelpImgDto> selectAllHelpImg(int id);
 	
+	//댓글
 	//해주세요 댓글 등록
 	public void registerHelpComment(HelpCommentDto helpCommentDto);
 	
 	//해주세요 댓글 조회
-	public List<HelpCommentDto> selectAllHelpComments(int id);
+	public List<HelpCommentDto> selectAllHelpComments(int help_id); //boardId
 	
 	//해주세요 댓글 삭제
 	public void deleteHelpComment(int id);
 	
-	//해주세요 게시물 좋아요
-	public void insertHelpLike(HelpLikeDto helpLikeDto);
+	//해주세요 댓글 수정
+	public void updateHelpComment(HelpCommentDto helpCommentDto);
+	
 	
 	
 	public int getHelpLikeCountByBoardId(int help_id);
@@ -61,17 +65,25 @@ public interface HelpSqlMapper {
 	//해주세요 댓글 개수 출력
 	public int selectAllHelpCommentCountByBoardId(int help_id);
 	
-	//해주세요 좋아요 개수 출력
+	
+	//해주세요 게시물 좋아요
+	public void insertHelpLike(HelpLikeDto helpLikeDto);
+	
+	//해주세요 좋아요 개수 출력 //countLikeByBoardId
 	public int selectAllHelpLikeCountByBoardId(int help_id);
+	
+	//해주세요 좋아요 1개 체크 //countMyLike
+	public int checkHelpLike(HelpLikeDto helpLikeDto);
+	
+	//해주세요 좋아요 1개 삭제
+	public int removeHelpLike(HelpLikeDto helpLikeDto);
 	
 	//해주세요 이미지 유무 출력
 	public int selectAllHelpImgByBoardId(int help_id);
 	
-	//해주세요 좋아요 1개 체크
-	public int checkHelpLike(HelpLikeDto helpLikeDto);
+	
 		
-	//해주세요 좋아요 1개 삭제
-	public int removeHelpLike(HelpLikeDto helpLikeDto);
+	
 	
 	//해주세요 베스트 게시글 출력
 	public List<HelpDto> selectBestHelpBoard();

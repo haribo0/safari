@@ -16,11 +16,14 @@ public interface QuestionSqlMapper {
 	//궁금해요 게시물 등록 
 		public void registerQuestionBoard(QuestionDto questionDto);
 		
+		// 궁금해요 게시물 개수
+		public int getQuestionBoardCount();
+		
 		//궁금해요 게시물 조회
 		public QuestionDto getQuestionBoardByBoardId(int id);
 		
 		//궁금해요 게시물 전체 리스트 조회
-		public List<QuestionDto> selectAllQuestionBoards(@Param("question_searchType") String question_searchType, @Param("question_searchWord") String question_searchWord);
+		public List<QuestionDto> selectAllQuestionBoards(@Param("questionPage") int questionPage, @Param("question_searchType") String question_searchType, @Param("question_searchWord") String question_searchWord);
 		
 		//궁금해요 게시물 수정
 		public void updateQuestionBoard(QuestionDto questionDto);
@@ -43,6 +46,7 @@ public interface QuestionSqlMapper {
 		//궁금해요 게시물 좋아요 insert
 		public void insertQuestionLike(QuestionLikeDto questionLikeDto);
 		
+		//궁금해요 좋아요 개수 출력
 		public int getQuestionLikeCountByBoardId(int question_id);
 			
 		
@@ -60,6 +64,9 @@ public interface QuestionSqlMapper {
 		//궁금해요 게시물 답변 채택 완료 update
 		public void completeQuestionReply(int id); 
 		
+		//궁금해요 게시물 답변 개수 출력
+		public int selectAllQuestionReplyCountByBoardId(int question_id);
+		
 		//궁금해요 게시물 채택 상태 변경 update
 		public void completeQuestionBoard(int id);
 		
@@ -68,4 +75,14 @@ public interface QuestionSqlMapper {
 		
 		//궁금해요 게시물 이미지 조회
 		public List<QuestionImgDto> selectQuestionBoardImageByQuestionId(int questionId);
+		
+		//궁금해요 게시물 이미지 유무 보드 출력
+		public int selectAllQuestionImgByBoardId(int question_id);
+		
+		//궁금해요 베스트 게시물 출력
+		public List<QuestionDto> selectBestQuestionBoard();
+		
+		// 글 채택 여부...
+		public int countQuestionReplyComplete(int question_id);
+		
 }

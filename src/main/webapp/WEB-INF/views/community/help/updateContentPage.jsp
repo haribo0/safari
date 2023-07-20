@@ -19,22 +19,15 @@
 	<!-- 헤더 섹션 -->
 	
 	
-<%-- 	<!-- 커뮤니티 메뉴바 -->
-      <div class="row">
-         <div class="col">
-            <jsp:include page="../communityTopNavi.jsp"></jsp:include>
-         </div>
-      </div>
-      <!-- 커뮤니티 메뉴바 --> --%>
 	
-	<div class="row">
+	<div class="row mb-3">
 	
 	<%--왼쪽 시작--%>
-	<div class="col-2"></div>
+	<div class="col-1"></div>
 	<%--왼쪽 끝 --%>
 	
 	<%--가운데 시작 --%>
-		<div class="col ">
+		<div class="col">
 		<div class="container">	
 	
 	<%--수정하기 폼 시작 --%>
@@ -46,7 +39,7 @@
 			<textarea type="text" class="form-control" name="content" maxlength="3000" style="height:400px; margin-top: 10px;">${map.helpDto.content }</textarea>
  			<div style="display: flex; gap: 10px;">
  			<select class="form-select" aria-label="Default select example" name="points" style="margin-top: 10px; max-width: 200px;">
-				  <option selected>포인트</option>
+				  <option value="">${map.helpDto.points}</option>
 				  <option value="100">100</option>
 				  <option value="200">200</option>
 				  <option value="300">300</option>
@@ -72,7 +65,7 @@
 	<div class="row">
 	<div class="col text-center">
 		<br>
-		<button class="btn btn-primary">수정하기</button> 
+		<button class="btn" style="background: #ff6f0f; font-weight: bold; color: white;">수정하기</button> 
 	</div>
 	</div>
 	<%--버튼--%>
@@ -88,7 +81,7 @@
 	
 
 <%--오른쪽 시작--%>
-	<div class="col-2">
+	<div class="col-1">
 	</div>
 	<%--오른쪽 끝--%>	
 </div>
