@@ -16,7 +16,7 @@ import com.ja.safari.dto.UserDto;
 @Controller
 @RequestMapping("/community/*")
 public class CommunityController {
-
+ 
 	@Autowired
 	private PromotionReviewServiceImpl promotionReviewService;
 	
