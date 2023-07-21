@@ -493,8 +493,11 @@ WHERE ROWNUM <= 4
 	ORDER BY id DESC
 </select>
 
-
-
+<!-- 내가 해당 물건에 리뷰 가져오기  -->
+<select id="selectProductReviewByproductIdAndSenderId" resultType="com.ja.safari.dto.UsedPurchaseReviewDto">
+	SELECT * FROM USED_PURCHASE_REVIEW WHERE sender_id = #{senderId}
+	AND purchase_request_id = (SELECT id FROM PRODUCT_REQUEST WHERE product_id=#{productId} AND status='거래완료')
+</select>
 
 
 
