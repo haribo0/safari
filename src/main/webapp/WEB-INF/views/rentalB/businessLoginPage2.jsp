@@ -16,30 +16,17 @@
 	<jsp:include page="../common/headerB.jsp"></jsp:include>
 	<!-- 헤더 섹션 -->
 	
-	<div class="container_fluid main_box">
+	<div class="container justify-content-center mt-5">
 		<div class="row ">
-			<div class="col-2 bg-dark h-100" style="position: fixed;"> <!-- 2023-07-01 시욱수정 -->
-				<div class="list-group list-group-flush">
-				
-					<!-- 왼쪽 카테고리 리스트 -->
-					<jsp:include page="../common/navLeft.jsp"></jsp:include>
-					
-				</div>
-				
-				<div class="row mt-5 mb-5">
-					<div class="col"> </div>
-				</div>
-			
-			</div>
-			<div class="col-5"></div>
-			<div class="col">
-				<div class="row my-5">
+			<div class="col"></div>
+			<div class="col-4">
+				<div class="row ">
 					<div class="col text-center fs-4"> 
-					<!-- 
+					
 					    <a href="./mainPage" class="navbar-brand">
 					      <img class="img-fluid my-2 ms-4 me-3" width="140px" src="/safari/resources/img/logo0.png">
 					    </a>
-					 -->
+					
 					</div>
 				</div>
 				<div class="row mt-5">
@@ -79,14 +66,9 @@
 						 
 					</div>
 				</div>
-				<div class="row my-5">
-					<div class="col d-grid">
-						 
-					</div>
-				</div>
 			
 			</div>
-			<div class="col-5"></div>
+			<div class="col"></div>
 		</div>
 		
 	</div>
