@@ -220,6 +220,14 @@
 		)
 	</insert>
 	
+	<!-- 직원 | 1대1문의 아이디로 후기 찾아오기 -->
+	<select id="getQnaRatingByQnaId" resultType="int">
+		SELECT COALESCE(r.rating, 0) AS rating
+		FROM cs_qna q
+		LEFT JOIN cs_qna_rating r ON q.id = r.qna_id
+		WHERE q.id = #{qnaId}
+	</select>
+	
 	<!-- 직원 | 미처리 답변 개수 -->
 	<select id="getLiveChatPk" resultType="int">
 		SELECT cs_live_chat_seq.nextval FROM DUAL

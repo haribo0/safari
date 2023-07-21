@@ -138,6 +138,9 @@ public interface CsSqlMapper {
 
 	// 1대1 문의 답변 후기 저장 
 	public void insertQnaReplyRating(CsQnaRating csQnaRating);
+	
+	// 1대1 문의 후기 가져오기 
+	public int getQnaRatingByQnaId(int qnaId);
 
 	// 실시간 메세지 저장 - 직원 
 	public void insertLiveChatMsgByEmp(CsLiveChatMsgDto chatMsgDto);

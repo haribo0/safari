@@ -264,8 +264,7 @@ function getInquiryList() {
 					stateDiv.innerText = "답변 완료";
 				}
 				else {
-					stateDiv.classList.add('badge', 'px-3');
-					stateDiv.style.backgroundColor = "#FF6F0F";
+					stateDiv.classList.add('badge','text-bg-primary', 'px-3');
 					stateDiv.innerText = "미답변";
 				}
 				categoryDiv.append(stateDiv);
@@ -274,20 +273,14 @@ function getInquiryList() {
 				col1Div.classList.add('col','ps-4');
 				col1Div.textContent = map.qna.qna_title;
 				
-				const col3Div = document.createElement('div');
-				col3Div.classList.add('col-auto', 'text-secondary', 'pe-0', 'me-0', "text-end", "my-auto");
-				col3Div.style.fontSize = "13px";
-				if(map.rating > 0) {
-					col3Div.innerHTML = `<span style="color:#FF6F0F;"><i class="bi bi-sm bi-star-fill"></i>&nbsp;\${map.rating}</span>`;
-				}
-				
-				
 				const col2Div = document.createElement('div');
-				col2Div.classList.add('col-auto', 'text-secondary', "text-end", "me-1", "my-auto" );
+				col2Div.classList.add('col-auto', 'text-secondary', "text-end", "me-1", "my-auto");
 				col2Div.style.fontSize = "13px";
 				// const regDate = new Date(map.qna.reg_date);
 				
 				
+				/* const innerRow1Div = document.createElement('div');
+				innerRow1Div.classList.add('row' ); */
 				
 				col2Div.textContent = dateToTimeDifference(map.qna.reg_date);
 /* 				const regDate = new Date(map.qna.reg_date);
@@ -296,7 +289,6 @@ function getInquiryList() {
 
 				row1Div.appendChild(categoryDiv);
 				row1Div.appendChild(col1Div);
-				row1Div.appendChild(col3Div);
 				row1Div.appendChild(col2Div);
 				inquiryTitleListContainer.appendChild(row1Div);
 				

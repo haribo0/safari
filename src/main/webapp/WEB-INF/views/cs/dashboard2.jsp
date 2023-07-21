@@ -933,10 +933,10 @@ function makeDonutChart(d,l) {
 	       label: '직원별 문의 배정',
 	       data: d,
 	       borderWidth: 1,
-	       backgroundColor: [
+	       /* backgroundColor: [
     	       '#54A1E5',
     	       
-	       ]
+	       ] */
 	    	
 	     }]
 	   },

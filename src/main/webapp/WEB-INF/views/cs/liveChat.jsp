@@ -102,8 +102,12 @@
 #statusButton{
 	font-size: 14px;
 }
-
+.orangeButton:hover{
+   background: #FF812C;
+   font-weight: bold;
+   color: white;
 }
+
 
 </style>
 

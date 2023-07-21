@@ -95,6 +95,8 @@ public class CsController {
 		// 실시간 현황
 		model.addAttribute("todayStats", csService.getStatsToday() );
 		
+		
+		
 		return "cs/inquiryStatus";
 	}
 	

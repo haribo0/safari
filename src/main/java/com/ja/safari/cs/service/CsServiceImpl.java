@@ -296,6 +296,7 @@ public class CsServiceImpl {
 			// 후기 있으면 가져오기 없으면 null로 넣어주기 
 			// map.put("qna", csQnaDto);
 			map.put("category", csSqlMapper.getCategoryById(csQnaDto.getCategory_id()));
+			map.put("rating", csSqlMapper.getQnaRatingByQnaId(csQnaDto.getId()));
 			list.add(map);
 		}
 		
