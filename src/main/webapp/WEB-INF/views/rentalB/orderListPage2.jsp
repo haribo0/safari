@@ -18,22 +18,58 @@
 
 <style type="text/css">
 
+.pagination-container {
+  display: flex;
+  justify-content: center;
+}
 	
 .orderTab{
 	color: #F68942;
 }
 
 .btn_search{
-padding:9px 18px; background: #e6edfe; border:none; color: #789efd; border-radius:8px; font-size: 14px;
+	padding:9px 18px; 
+	background: #e6edfe; 
+	border:none; 
+	color: #789efd; 
+	border-radius:8px; 
+	font-size: 14px; 
+	width: 74px;
 }
 .btn_delivered{
-padding:4px 12px; background: #f9e2e5; border:none; color: #dd7c7e; border-radius:8px; font-size: 14px;
-
+	padding:4px 10px; 
+	background: #f9e2e5;
+	border:none; 
+	color: #dd7c7e; 
+	border-radius:8px; 
+	font-size: 13px;
+	width: 74px;
 }
-.btn_canceled{padding:4px 12px; background: #e6edfe; border:none; color: #789efd; border-radius:8px; font-size: 14px;}
-.btn_ordered{padding:4px 12px; background: #dff5ea; border:none; color: #6db590; border-radius:8px; font-size: 14px;}
-.c_pointer{cursor: poniter;}
-.c-options {width:150px; padding: 10px 0; }
+.btn_canceled{
+	padding:4px 10px; 
+	background: #e6edfe; 
+	border:none; 
+	color: #789efd; 
+	border-radius:8px; 
+	font-size: 13px; 
+	width: 74px;
+}
+.btn_ordered{
+	padding:4px 10px; 
+	background: #dff5ea; 
+	border:none; 
+	color: #6db590; 
+	border-radius:8px; 
+	font-size: 13px; 
+	width: 74px;
+}
+.c_pointer{
+	cursor: poniter;	
+}
+.c-options {
+	width:150px; 
+	padding: 10px 0; 
+}
 
 </style>
 </head>
@@ -175,8 +211,31 @@ padding:4px 12px; background: #f9e2e5; border:none; color: #dd7c7e; border-radiu
 						
 					</div>
 				</div>
+			
+				<div class="row mt-5">
+					<div class="col pagination-container">
+						<nav aria-label="Page navigation example">
+						  <ul class="pagination ">
+						    <li class="page-item">
+						      <a class="page-link  text-dark" href="#" aria-label="Previous">
+						        <span aria-hidden="true">&laquo;</span>
+						      </a>
+						    </li>
+						    <li class="page-item"><a class="page-link text-dark" href="#">1</a></li>
+						    <li class="page-item"><a class="page-link text-dark" href="#">2</a></li>
+						    <li class="page-item"><a class="page-link text-dark" href="#">3</a></li>
+						    <li class="page-item"> 
+						      <a class="page-link  text-dark" href="#" aria-label="Next">
+						        <span aria-hidden="true">&raquo;</span>
+						      </a>
+						    </li>
+						  </ul>
+						</nav>
+					</div>
+				</div>
 				
 			</div>
+			
 			
 			<div class="col-1"></div>
 		</div>

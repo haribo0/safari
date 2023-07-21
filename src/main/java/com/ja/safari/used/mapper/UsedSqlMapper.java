@@ -153,7 +153,8 @@ public interface UsedSqlMapper {
 	public void reduceUserCoinByUsed(UserCoinDto userCoinDto);
 	// 좋아요 리스트 
 	public List<ProductLikeDto> selectProductLikeByUserId(Integer userId);
-	
+	// 나의 판매리스트(판매중, 예약중, 거래완료)
+	public List<ProductDto> selectMySellList(Integer userId, Integer status);
 	
 	
 	

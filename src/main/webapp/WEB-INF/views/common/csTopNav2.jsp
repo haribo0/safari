@@ -12,7 +12,7 @@
       <img class="img-fluid my-2 ms-4 me-3" width="74px" src="/safari/resources/img/logo0.png">
     </a>
     
-    <a class="navbar-brand" href="./mainPage">고객관리서비스</a>
+    <a class="navbar-brand" href="./mainPage">고객지원서비스</a>
     
     <!-- 왼쪽 메뉴 -->
     <ul class="navbar-nav  me-auto mb-lg-0">
@@ -108,7 +108,7 @@
 </nav>
 
 
-<div class="row  mb-5">
+<div class="row mb-5">
 <div class="col"> </div>
 </div>
 

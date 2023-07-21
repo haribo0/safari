@@ -23,6 +23,8 @@ public interface HelpSqlMapper {
 	
 	//해주세요 메인 페이징
 	public int getHelpBoardCount();
+	
+	//해주세요 게시글 상세 조회
 	public HelpDto getHelpBoard(int id);
 	
 	//해주세요 게시글 수정

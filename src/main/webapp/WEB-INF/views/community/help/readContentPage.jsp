@@ -537,7 +537,7 @@ window.addEventListener("DOMContentLoaded", function(){
 
 						<%--ajax 좋아요 연습 --%>
 						<i id="heartHelpBox" onclick="toggleHelpLike()"
-							class="fs-5 text-danger bi bi-heart"></i> <span
+							class="fs-5 text-danger bi bi-heart"></i>&nbsp;<span
 							id="totalHelpLikeCount"></span>
 						<%--ajax 좋아요 연습 --%>
 
@@ -566,10 +566,10 @@ window.addEventListener("DOMContentLoaded", function(){
 
 				<%-- 댓글 작성 글자 --%>
 				<div class="row">
-					<div class="col fw-bold">
+					<div class="col ms-3 fw-bold">
 
 						<i class="bi bi-chat-dots"></i>&nbsp;<span
-							style="font-size: 13px;">댓글</span>
+							style="font-size: 13px;">댓글 ${helpCommentCount}</span>
 					</div>
 				</div>
 				<%-- 댓글 작성 글자 --%>
@@ -577,14 +577,14 @@ window.addEventListener("DOMContentLoaded", function(){
 					<%--ajax 댓글 랜더링 --%>
 						<div class="container">
 							<div class="row mt-2">
-								<div class="col-11 d-grid ">
+								<div class="col-11 mb-3 d-grid ">
 									<textarea id="helpCommentTextBox"
 										class="form-floating border p-2 mb-2 border-opacity"
 										placeholder="댓글을 입력하세요" id="floatingTextarea2"
 										style="height: 60px; font-size: 13px;" name="content"></textarea>
 
 								</div>
-								<div class="col d-flex justify-content-center ">
+								<div class="col-1 d-flex justify-content-center ">
 									<button class="btn btn-secondary"
 										onclick="registerHelpComment()"
 										style="font-size: 22px; height: 60px; width: 68px">
@@ -595,8 +595,9 @@ window.addEventListener("DOMContentLoaded", function(){
 							
 							<%--ajax 댓글 조회 랜더링(영상) --%>
 							<div class="row">
+							<div class="col ms-2 me-3">
 								<div id="helpCommentListBox"
-									class="col border border-1 rounded-3">
+									class="colborder-none" >
 									<div class="row helpCommentOuter mt-2">
 										<div class="col-1 fw-bold">닉네임</div>
 										<div class="col-3">날짜</div>
@@ -605,6 +606,7 @@ window.addEventListener("DOMContentLoaded", function(){
 										<div class="col-1">🚨</div>
 									</div>
 								</div>
+							</div>
 							</div>
 						</div>
 						<%--ajax 댓글 랜더링 --%>
@@ -703,11 +705,11 @@ window.addEventListener("DOMContentLoaded", function(){
 
 	<div id="templete" class="d-none">
 
-		<div class="row comment">
+		<div class="row mb-2 comment">
 			<div class="col border border-1 rounded-3">
 
 				<!-- 댓글 내용-->
-				<div class="row mt-2 ">
+				<div class="row mt-2">
 					<div class="col text-start fw-bold">
 						<span style="font-size: 13px;" class="commentNickname">닉네임 공간</span>             
 						<span class="text-secondary ms-2 commentDate" style="font-size: 13px; font-weight: normal;" > 날짜 공간 </span> 
@@ -745,7 +747,7 @@ window.addEventListener("DOMContentLoaded", function(){
 
 				<div class="row mt-2">
 					
-					<div class="col-6 commentContent" style="margin-top: -5px; margin-bottom: 30px; font-size: 13px">
+					<div class="col-6 commentContent" style="margin-top: -5px; margin-bottom: 15px; font-size: 13px">
 					</div>	
 					
 					 <div class="col text-end">

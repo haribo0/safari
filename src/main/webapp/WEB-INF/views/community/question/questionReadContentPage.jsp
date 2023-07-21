@@ -258,12 +258,12 @@ window.addEventListener("DOMContentLoaded", function(){
 			
 			
 			<%-- 답변 반복문 --%>
-			<div class="row">
+			<div class="row mt-2">
 				<div class="col" style="margin-left: 10px; margin-right: 20px;">
 					<c:forEach items="${questionReplyBoardList}" var="questionReply">
 				
 			<%-- 답변 공간 --%>
-				<div class="row">
+				<div class="row mb-5">
 					<div class="col border border-1 rounded-3">
 					
 				<%--답변 내용--%>
@@ -291,6 +291,7 @@ window.addEventListener("DOMContentLoaded", function(){
 				   	  		<c:choose>
 				   	  			<c:when test="${map.replyCompleteCount > 0}">
 									<c:if test="${questionReply.questionReplyDto.status == 'Y' }">
+										
 										<span class="text-success mt-1" style="font-size: 14px; position: relative; top: 14px;">
 										<i class="bi bi-check-circle" style="font-size: 14px; color: #28a745;"></i>
 										채택 완료</span>
@@ -298,7 +299,7 @@ window.addEventListener("DOMContentLoaded", function(){
 				   	  			</c:when>
 				   	  			<c:otherwise>
 				   	  				<c:if test="${!empty sessionUser && sessionUser.id == map.userDto.id && sessionUser.id != questionReply.userDto.id}">
-										<a href="/safari/community/question/acceptQuestionReplyProcess?question_reply_id=${questionReply.questionReplyDto.id }" class="btn mt-2 btn-primary btn-sm" >채택하기</a>
+										<a href="/safari/community/question/acceptQuestionReplyProcess?question_reply_id=${questionReply.questionReplyDto.id }" class="btn mt-2 btn btn-sm" style="background: #ff6f0f; font-weight: bold; color: white;">채택하기</a>
 				   	  				</c:if>
 				   	  			</c:otherwise>
 				   	  		</c:choose>
@@ -309,7 +310,7 @@ window.addEventListener("DOMContentLoaded", function(){
 				 </div>
 				 
 				  
-				  <div class="row mt-2">
+				  <div class="row mt-3">
 				   	 <div class="col-11" style="margin-top: -5px; margin-bottom: 15px; font-size: 15px">
 				   		${questionReply.questionReplyDto.content}
 				   	 </div>
@@ -320,7 +321,7 @@ window.addEventListener("DOMContentLoaded", function(){
 				   	 	</div>
 				   	 </div>
 				   	 </div>
-				   	 <br><br><br>
+				   	 
 				   	 <!-- 알아두세요 -->
 				   	 <div class="row">
 				   	 	<div class="col">

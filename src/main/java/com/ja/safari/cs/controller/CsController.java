@@ -58,8 +58,14 @@ public class CsController {
 		CsEmpDto empUser = (CsEmpDto) session.getAttribute("empUser");
 		if(empUser==null) return "redirect:./loginPage";
 		
-		// 실시간 채팅 직원별 별점 
-		model.addAttribute("chatRatingList", csService.getEmpChatRatingList() );
+		// 실시간 현황 리스트 직원별 
+		model.addAttribute("todayList", csService.getEmpListForToday() );
+		// 실시간 현황
+		model.addAttribute("todayStats", csService.getStatsToday() );
+		
+		// 지난 주간 
+		model.addAttribute("weeklyList", csService.getLastWeekData() );
+
 		
 		return "cs/dashboard2";
 	}
@@ -78,10 +84,16 @@ public class CsController {
 	
 	// 1대1문의 현황 - 팀장용 
 	@RequestMapping("inquiryStatus") 
-	public String inquiryStatus(HttpSession session){
+	public String inquiryStatus(HttpSession session, Model model){
 		
 		CsEmpDto empUser = (CsEmpDto) session.getAttribute("empUser");
 		if(empUser==null) return "redirect:./loginPage";
+		
+
+		// 실시간 현황 리스트 직원별 
+		model.addAttribute("todayList", csService.getEmpListForToday() );
+		// 실시간 현황
+		model.addAttribute("todayStats", csService.getStatsToday() );
 		
 		return "cs/inquiryStatus";
 	}

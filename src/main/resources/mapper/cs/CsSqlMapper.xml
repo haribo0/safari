@@ -172,7 +172,7 @@
 	<select id="getInquiryListByEmpId" resultType="com.ja.safari.dto.CsQnaDto">
 		SELECT * FROM cs_qna
 		WHERE emp_id = #{empId}
-		ORDER BY id DESC
+		ORDER BY qna_reply DESC, id DESC 
 	</select>
 	
 	<!-- id로 | 1대1문의 가져오기 -->
@@ -384,18 +384,203 @@
 	</insert>
 	
 	
-	<!-- 직원별 실시간 문의 별점 (별점순) -->
-	<select id="getEmpChatRatingList" resultType="com.ja.safari.dto.CsEmpRatingResponseDto">
-		SELECT e.id AS emp_id, e.name, ROUND(AVG(r.rating), 2)  AS avg_rating
-		FROM cs_live_chat lc
-		INNER JOIN cs_emp e ON e.id = lc.emp_id
-		LEFT JOIN cs_live_chat_rating r ON r.chat_id = lc.id
-		WHERE master = 0
-		GROUP BY e.id, e.name
-		ORDER BY avg_rating DESC
+	<!-- 오늘 스케줄인 직원 리스트 -->
+	<select id="getEmpListForToday" resultType="com.ja.safari.dto.CsEmpDto">
+		SELECT * FROM CS_EMP e
+		JOIN CS_SCHEDULE s ON e.id = s.emp_id
+		WHERE weekday = #{weekday}
+		AND e.master=0
+	</select>
+	
+	<!-- 오늘 실시간 현황 -->
+	<select id="getStatsToday" resultType="com.ja.safari.dto.CsTodayStatsDto">
+		SELECT * FROM (
+			SELECT COUNT(*) AS qna_count FROM CS_QNA 
+			WHERE reg_date > TRUNC(SYSDATE) 
+		) t1, (
+			SELECT COUNT(*) AS reply_count FROM CS_QNA 
+			WHERE reply_date > TRUNC(SYSDATE) 
+		) t2, (
+			SELECT COUNT(*) AS chat_count FROM CS_LIVE_CHAT 
+			WHERE reg_date > TRUNC(SYSDATE) 
+		) t3, (
+			SELECT COUNT(*) AS ended_chat_count FROM CS_LIVE_CHAT 
+			WHERE end_date > TRUNC(SYSDATE) 
+		) t4
+	</select>
+	
+	<!-- 직원 아이디로 오늘 1대1문의 현황 -->
+	<select id="getQnaCountForTodayByEmpId" resultType="com.ja.safari.dto.CsQnaCountResponseDto">
+		SELECT t1.*, t2.* FROM (
+			SELECT COUNT(*) AS qna_count FROM CS_QNA 
+			WHERE reg_date > TRUNC(SYSDATE)
+			AND emp_id = #{empId}
+		) t1, (
+			SELECT COUNT(*) AS reply_count FROM CS_QNA 
+			WHERE reply_date > TRUNC(SYSDATE)
+			AND emp_id = #{empId}
+		) t2
+	</select>
+	
+	<!-- 직원 아이디로 오늘 실시간문의 현황 -->
+	<select id="getLiveChatCountForTodayByEmpId" resultType="com.ja.safari.dto.CsLiveChatCountResponseDto">
+		SELECT t1.*, t2.* FROM (
+			SELECT COUNT(*) AS chat_count FROM CS_live_chat
+			WHERE reg_date > TRUNC(SYSDATE)
+			AND emp_id = #{empId}
+		) t1, (
+			SELECT COUNT(*) AS chat_ended_count FROM CS_live_chat 
+			WHERE end_date > TRUNC(SYSDATE)
+			AND emp_id = #{empId}
+		) t2
 	</select>
 	
 	
+	<!-- 직원 아이디로 평균 1대1 문의 응답 시간 / 오늘  -->
+	<select id="getAvgReplyTimeTodayByEmpId" resultType="double">
+		<![CDATA[
+			SELECT AVG(reply_date-reg_date) * 24 * 60 
+			FROM CS_QNA 
+			WHERE reply_date >= TRUNC(SYSDATE)
+			AND emp_id = #{empId}
+			GROUP BY emp_id
+		]]>
+	</select>
+	
+	<!-- 직원 아이디로 평균 실시간 문의 응답 시간 / 오늘 -->
+	<select id="getAvgChatEndTimeTodayByEmpId" resultType="double">
+		<![CDATA[
+			SELECT AVG(end_date - reg_date) * 24 * 60 
+			FROM CS_LIVE_CHAT
+			WHERE end_date >= TRUNC(SYSDATE)
+			AND emp_id = #{empId}
+			GROUP BY emp_id
+		]]>
+	</select>
+	
+	
+	<!-- 직원 아이디로 평균 1대1 문의 응답 시간  -->
+	<select id="getAvgQnaReplyTimeTodayByEmpId" resultType="int">
+		SELECT avg(reply_date - reg_date) * 24 * 60 FROM CS_QNA 
+		WHERE emp_id = #{empId}
+		GROUP BY emp_id
+	</select>
+	
+	<!-- 직원 아이디로 평균 실시간 문의 응답 시간  -->
+	<select id="getAvgChatTimeTodayByEmpId" resultType="int">
+		SELECT avg(end_date - reg_date) * 24 * 60 FROM CS_LIVE_CHAT
+		WHERE emp_id = #{empId}
+		GROUP BY emp_id
+	</select>
+	
+	<!-- 직원 아이디와 요일로 오늘 스케줄 찾아오기  -->
+	<select id="getScheduleByEmpIdAndWeekday" resultType="com.ja.safari.dto.CsScheduleDto">
+		SELECT * FROM CS_SCHEDULE 
+		WHERE emp_id = #{empId}
+		AND weekday = #{weekday}
+	</select>
+	
+	<!-- 직원 아이디로 평점 가져오기  -->
+	<select id="getRatingsByEmpId" resultType="com.ja.safari.dto.CsEmpRatingResponseDto">
+		SELECT * FROM (
+			SELECT ROUND(AVG(rating),2)  AS qna_rating FROM CS_QNA_RATING qr
+			JOIN CS_QNA q ON q.id = qr.qna_id
+			WHERE emp_id = #{empId}
+			GROUP BY q.emp_id
+		) t1, (
+			SELECT ROUND(AVG(rating),2) AS chat_rating FROM cs_live_chat_rating cr
+			JOIN cs_live_chat lc ON lc.id = cr.chat_id
+			WHERE emp_id = #{empId}
+			GROUP BY lc.emp_id
+		) t2
+	</select>
+	
+	<!-- 주간 근무 시간 -->
+	<select id="getWeeklyHoursByEmpId" resultType="int">
+		SELECT SUM(end_time-start_time) FROM CS_SCHEDULE 
+		WHERE emp_id = #{empId}
+		GROUP BY emp_id
+	</select>
+	
+	
+	<!-- 직원 아이디로 주간 1대1문의 현황 -->
+	<select id="getWeeklyQnaCountByEmpId" resultType="com.ja.safari.dto.CsQnaCountResponseDto">
+		<![CDATA[
+			SELECT t1.*, t2.* FROM (
+				SELECT COUNT(*) AS qna_count FROM CS_QNA 
+				WHERE reg_date >= TRUNC(SYSDATE, 'IW') - 7
+				AND reg_date <= TRUNC(SYSDATE, 'IW') -1
+				AND emp_id = #{empId}
+			) t1, (
+				SELECT COUNT(*) AS reply_count FROM CS_QNA 
+				WHERE reply_date >= TRUNC(SYSDATE, 'IW') - 7
+				AND reply_date <= TRUNC(SYSDATE, 'IW') - 1
+				AND emp_id = #{empId}
+			) t2
+		]]>
+	</select>
+	
+	<!-- 직원 아이디로 주간 실시간문의 현황 -->
+	<select id="getWeeklyLiveChatCountByEmpId" resultType="com.ja.safari.dto.CsLiveChatCountResponseDto">
+		<![CDATA[
+			SELECT t1.*, t2.* FROM (
+				SELECT COUNT(*) AS chat_count FROM CS_live_chat
+				WHERE reg_date >= TRUNC(sysdate, 'iw') - 7
+				AND reg_date <= TRUNC(sysdate, 'iw') - 1
+				AND emp_id = #{empId}
+			) t1, (
+				SELECT COUNT(*) AS chat_ended_count FROM CS_live_chat 
+				WHERE end_date >= TRUNC(sysdate, 'iw') - 7
+				AND end_date <= TRUNC(sysdate, 'iw') - 1
+				AND emp_id = #{empId}
+			) t2
+		]]>
+	</select>
+	
+	<!-- 그래프용 | 일주일간 직원별 처리 현황 -->
+	<select id="getWeeklyEmpWorkCountList" resultType="com.ja.safari.dto.CsWeeklyEmpWorkCountDto">
+		<![CDATA[
+			SELECT e.name, (t1.chat_count + COALESCE(t2.qna_count,0)) AS total_count, t1.chat_count, t2.qna_count
+			FROM CS_EMP e
+			LEFT JOIN (
+				SELECT emp_id, COUNT(*) AS chat_count FROM CS_LIVE_CHAT lc
+				WHERE end_date < TRUNC(SYSDATE-1)
+				AND end_date >= TRUNC(SYSDATE-8)
+				GROUP BY emp_id
+			) t1 ON e.id = t1.emp_id
+			LEFT JOIN (
+				SELECT emp_id, COUNT(*) AS qna_count FROM CS_QNA q
+				WHERE reply_date < TRUNC(sysdate, 'iw') - 1
+				AND reply_date >= TRUNC(sysdate, 'iw') - 7
+				GROUP BY emp_id
+			) t2 ON e.id = t2.emp_id
+			WHERE e.master = 0
+			ORDER BY e.id
+		]]>
+	</select>
+	
+	<!-- 그래프용 | 일주일간 직원별 일 배정 현황 -->
+	<select id="getWeeklyEmpTaskCountList" resultType="com.ja.safari.dto.CsWeeklyEmpWorkCountDto">
+		<![CDATA[
+			SELECT e.name, (t1.chat_count + COALESCE(t2.qna_count,0)) AS total_count, COALESCE(t1.chat_count,0), COALESCE(t2.qna_count,0)
+			FROM CS_EMP e
+			LEFT JOIN (
+				SELECT emp_id, COUNT(*) AS chat_count FROM CS_LIVE_CHAT lc
+				WHERE reg_date < TRUNC(SYSDATE-1)
+				AND reg_date >= TRUNC(SYSDATE-8)
+				GROUP BY emp_id
+			) t1 ON e.id = t1.emp_id
+			LEFT JOIN (
+				SELECT emp_id, COUNT(*) AS qna_count FROM CS_QNA q
+				WHERE reg_date < TRUNC(sysdate, 'iw') - 1
+				AND reg_date >= TRUNC(sysdate, 'iw') - 7
+				GROUP BY emp_id
+			) t2 ON e.id = t2.emp_id
+			WHERE e.master = 0
+			ORDER BY total_count desc
+		]]>
+	</select>
+
 	
 	
 	
