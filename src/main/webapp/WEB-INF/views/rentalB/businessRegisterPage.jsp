@@ -17,98 +17,138 @@
 	<!-- 헤더 섹션 -->
 
 <div class="container mt-5">
-    <h3 class="row justify-content-center mb-4">대여 사업체 회원 등록</h3>
-    <div class="row mt-5">
-    <div class="col-2"></div>
-    <div class="col">
-    <form id="registrationForm" action="./businessRegisterProcess" method="POST" enctype="multipart/form-data">
-        <div class="form-group row mt-2">
-            <label for="businessUserId" class="col-3 col-form-label fw-bold">아이디</label>
-            <div class="col-4">
-                <input type="text" class="form-control" id="businessUserId" name="business_userid" placeholder="아이디">
-            </div>
-            <div class="col-2">
-            	<div class="btn btn-outline-secondary btn-sm mt-1" id="userIdBtn">중복확인</div>
-            </div>
-            <div class="col-3 fs-6 mt-1 text-secondary" id="idCheckAlert">
-            	
-            </div>
-        </div>
-        <div class="form-group row mt-2">
-            <label for="pw" class="col-3 col-form-label fw-bold">비밀번호</label>
-            <div class="col-6">
-                <input type="password" class="form-control" id="pw" name="pw" placeholder="비밀번호">
-            </div>
-        </div>
-        <div class="form-group row mt-2">
-            <label for="pwConfirm" class="col-3 col-form-label fw-bold">비밀번호 확인</label>
-            <div class="col-6">
-                <input type="password" class="form-control" id="pwConfirm" name="pwConfirm" placeholder="비밀번호 확인">
-            </div>
-            <div class="col fs-6 mt-1 text-secondary" id="pwCheck"></div>
-
-        </div>
-        
-        <div class="form-group row mt-2">
-            <label for="regNum" class="col-3 col-form-label fw-bold">사업자등록번호</label>
-            <div class="col-6">
-                <input type="text" class="form-control" id="regNum" name="reg_num" placeholder=" - 없이 숫자만 입력 ">
-            </div>
-        </div>
-        
-        <div class="form-group row mt-2">
-            <label for="regImg" class="col-3 col-form-label fw-bold">사업자등록증</label>
-            <div class="col">
-                <input type="file" class="form-control-file" id="regImg" name="regImg" accept="image/*">
-            </div>
-        </div>
-        
-        <div class="form-group row mt-2">
-            <label for="businessOwner" class="col-3 col-form-label fw-bold">대표자 성함</label>
-            <div class="col-6">
-                <input type="text" class="form-control" id="businessOwner" name="business_owner" placeholder="대표자">
-            </div>
-        </div>
-        
-        <div class="form-group row mt-2">
-            <label for="businessName" class="col-3 col-form-label fw-bold">상호명</label>
-            <div class="col-6">
-                <input type="text" class="form-control" id="businessName" name="business_name" placeholder="상호명">
-            </div>
-        </div>
-        
-        <div class="form-group row mt-2">
-            <label for="businessAddress" class="col-3 col-form-label fw-bold">회사 주소</label>
-            <div class="col-6">
-                <input type="text" class="form-control" id="businessAddress" name="business_address" placeholder="회사 주소">
-            </div>
-        </div>
-        
-        <div class="form-group row mt-2">
-            <label for="addressDetail" class="col-3 col-form-label fw-bold">상세 주소</label>
-            <div class="col-6">
-                <input type="text" class="form-control" id="addressDetail" name="addressDetail" placeholder="상세 주소">
-            </div>
-        </div>
-		
-        <div class="form-group row mt-2">
-            <label for="phone" class="col-3 col-form-label fw-bold">연락처</label>
-            <div class="col-6">
-                <input type="text" class="form-control" id="phone" name="phone" placeholder="연락처">
-            </div>
-        </div>
-		
-        <div class="row mt-3">
-        	<div class="col"></div>
-            <div class="col-3 me-0 d-grid">
-                <div class="btn btn-primary btn-block btn-dark" id="registerBtn">등록</div>
-            </div>
-        </div>
-        
-        
-    </form>
+	<div class="row">
+		<div class="col-3"></div>
+		<div class="col">
+			<div class="row mb-4">
+					<div class="col text-center fs-4"> 
+					    <a href="./mainPage" class="navbar-brand">
+					      <img class="img-fluid my-2 ms-4 me-3" width="100px" src="/safari/resources/img/logo0.png">
+					    </a>
+					</div>
+				</div>
+			<div class="card card-body py-3">
+			    <div class="row text-center mb-4 fs-4 fw-bold border-bottom my-1 pb-3">
+			    	<div class="col">
+			    		대여 사업체 회원 등록
+			    	</div>
+			    </div>
+			    <div class="row mt-5 mx-3">
+			    <div class="col">
+			    <form id="registrationForm" action="./businessRegisterProcess" method="POST" enctype="multipart/form-data">
+			        <div class="form-group row mt-2">
+			            <label for="businessUserId" class="col-3 col-form-label fw-bold">아이디</label>
+			            <div class="col-4">
+			                <input type="text" class="form-control" id="businessUserId" name="business_userid" placeholder="아이디">
+			            </div>
+			            <div class="col-2">
+			            	<div class="btn btn-outline-secondary btn-sm mt-1" id="userIdBtn">중복확인</div>
+			            </div>
+			            
+			        </div>
+			        <div class="form-group row my-1 mb-1">
+			            <div class="col-3 text-secondary" id="">
+			            	
+			            </div>
+			            <div class="col mt-1 text-secondary" style="font-size: 14px" id="idCheckAlert">
+			            	
+			            </div>
+			        </div>
+			        
+			        
+			        <div class="form-group row mt-2">
+			            <label for="pw" class="col-3 col-form-label fw-bold">비밀번호</label>
+			            <div class="col">
+			                <input type="password" class="form-control" id="pw" name="pw" placeholder="비밀번호">
+			            </div>
+			        </div>
+			        
+			        <div class="form-group row my-2">
+			            <div class="col">
+			            </div>
+			        </div>
+			        
+			        <div class="form-group row mt-2">
+			            <label for="pwConfirm" class="col-3 col-form-label fw-bold">비밀번호 확인</label>
+			            <div class="col">
+			                <input type="password" class="form-control" id="pwConfirm" name="pwConfirm" placeholder="비밀번호 확인">
+			            </div>
+			        </div>
+			        
+			        <div class="form-group row my-1 mb-1">
+			            <div class="col-3" id=""></div>
+			            <div class="col fs-6 mt-1 text-secondary" style="font-size: 14px" id="pwCheck"></div>
+			        </div>
+			        
+			        <div class="form-group row mt-2">
+			            <label for="regNum" class="col-3 col-form-label fw-bold">사업자등록번호</label>
+			            <div class="col">
+			                <input type="text" class="form-control" id="regNum" name="reg_num" placeholder=" - 없이 숫자만 입력 ">
+			            </div>
+			        </div>
+			        
+			        <div class="form-group row mt-2">
+			            <label for="regImg" class="col-3 col-form-label fw-bold">사업자등록증</label>
+			            <div class="col mt-1">
+			                <input type="file" class="form-control-file" id="regImg" name="regImg" accept="image/*">
+			            </div>
+			        </div>
+			        
+			        <div class="form-group row mt-2">
+			            <label for="businessOwner" class="col-3 col-form-label fw-bold">대표자 성함</label>
+			            <div class="col">
+			                <input type="text" class="form-control" id="businessOwner" name="business_owner" placeholder="대표자">
+			            </div>
+			        </div>
+			        
+			        <div class="form-group row mt-2">
+			            <label for="businessName" class="col-3 col-form-label fw-bold">상호명</label>
+			            <div class="col">
+			                <input type="text" class="form-control" id="businessName" name="business_name" placeholder="상호명">
+			            </div>
+			        </div>
+			        
+			        <div class="form-group row mt-2">
+			            <label for="businessAddress" class="col-3 col-form-label fw-bold">회사 주소</label>
+			            <div class="col">
+			                <input type="text" class="form-control" id="businessAddress" name="business_address" placeholder="회사 주소">
+			            </div>
+			        </div>
+			        
+			        <div class="form-group row mt-2">
+			            <label for="addressDetail" class="col-3 col-form-label fw-bold">상세 주소</label>
+			            <div class="col">
+			                <input type="text" class="form-control" id="addressDetail" name="addressDetail" placeholder="상세 주소">
+			            </div>
+			        </div>
+					
+			        <div class="form-group row mt-2">
+			            <label for="phone" class="col-3 col-form-label fw-bold">연락처</label>
+			            <div class="col">
+			                <input type="text" class="form-control" id="phone" name="phone" placeholder="연락처">
+			            </div>
+			        </div>
+					
+			        <div class="row mt-3">
+			        	<div class="col"></div>
+			            <div class="col-3 me-0 d-grid">
+			                <div class="btn btn-primary btn-block btn-dark" id="registerBtn">등록</div>
+			            </div>
+			        </div>
+			        
+			        
+			    </form>
+			    </div>
+			   
+		    </div>
+	    </div>
+	    
     </div>
     <div class="col-3"></div>
+    </div>
+    <div class="row my-5">
+	    <div class="col my-5">
+	    </div>
     </div>
 </div>
 
@@ -153,7 +193,13 @@ userIdButton.addEventListener("click", checkUserId);
 
 function checkUserId(){
 	
-	const userIdValue = document.getElementById("businessUserId").value;
+	const userIdValue = document.getElementById("businessUserId").value.trim();
+
+	if(!userIdValue) {
+		idCheckAlert.innerText = "사용 가능한 아이디를 입력해주세요.";
+		idChecked = false;
+		return;
+	}
 	
 	const xhr = new XMLHttpRequest();
 	
@@ -164,7 +210,7 @@ function checkUserId(){
 			const idCheckAlert = document.getElementById("idCheckAlert");
 			
 			if(response.isUserIdTaken == true){
-				idCheckAlert.innerText = "사용 불가능한 아이디입니다.";
+				idCheckAlert.innerText = "중복된 아이디입니다.";
 				idChecked = false;
 			}else{
 				idCheckAlert.innerText = "사용 가능한 아이디 입니다.";

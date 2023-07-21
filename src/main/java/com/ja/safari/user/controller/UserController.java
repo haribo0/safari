@@ -193,7 +193,17 @@ public class UserController {
 		}
 	}
 	
-	
+	// 중고 
+	@RequestMapping("selectMySellList")
+	public String selectMySellList(HttpSession session) {
+		UserDto sessionUser = (UserDto)session.getAttribute("sessionUser");
+		if(sessionUser==null) {
+			return "redirect:../user/loginPage";
+		}else {
+//			model.addAttribute("list", usedService.selectProductRequestAllByUserId(sessionUser.getId()));
+			return "used/mySellList";
+		}
+	}
 	
 	
 	

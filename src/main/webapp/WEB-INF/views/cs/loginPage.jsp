@@ -53,7 +53,7 @@
 					        </div>
 				        	<div class="row " >
 					          <div class="col fs-5 d-grid">
-					          	  고객관리서비스
+					          	  고객지원서비스
 				        	  </div>
 					        </div>
 			        	</div>

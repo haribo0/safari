@@ -148,7 +148,7 @@
 								<div class="row pt-3 mb-2">
 									<div class="col-auto" >
 										<div class="row pt-4 mb-2">
-										<div class="col-auto fw-medium ms-3 me-0 pe-0" >
+										<div class="col-auto fw-medium  me-0 pe-0" >
 											답변 완료
 										</div>
 										<div class="col" >
@@ -160,12 +160,12 @@
 									
 								</div>
 								
-								<div class="row bg-light mx-2 py-4 px-3 rounded">
+								<div class="row bg-light  py-4 px-2 rounded">
 									<div class="col  "  >
 										${qna.qna_reply}
 									</div>
 								</div>
-								<div class="row bg-light mx-2 pb-4 px-3 rounded">
+								<div class="row bg-light  pb-4 px-2 rounded">
 									<div class="col pb-1"  >
 										<span class="text-secondary"> by 고객지원팀 ${qna.empDto.nickname} </span>
 									</div>

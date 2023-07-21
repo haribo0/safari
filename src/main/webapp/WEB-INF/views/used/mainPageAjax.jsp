@@ -164,7 +164,7 @@
 		</div>
 		<div class="row mt-2">
 			<div class="col">
-				<img class="img-fluid" alt="banner2" src= "/safari/resources/img/used/bottomBanner3.png">
+				<img class="img-fluid" alt="banner2" src= "/safari/resources/img/used/bannerBottom1.png">
 			</div>
 		</div>
 	</div>

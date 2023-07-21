@@ -22,6 +22,7 @@ import com.ja.safari.dto.CsQnaCombinedDto;
 import com.ja.safari.dto.CsQnaCountResponseDto;
 import com.ja.safari.dto.CsScheduleDto;
 import com.ja.safari.dto.CsTodayStatsDto;
+import com.ja.safari.dto.CsWeeklyEmpWorkCountDto;
 import com.ja.safari.dto.UserDto;
 
 public interface CsSqlMapper {
@@ -192,6 +193,13 @@ public interface CsSqlMapper {
 	
 	// 오늘 현황 통계
 	public CsTodayStatsDto getStatsToday();
+	
+	// 지난주 직원별 문의 처리수 리스트 
+	public List<CsWeeklyEmpWorkCountDto> getWeeklyEmpWorkCountList();
+	
+	// 지난주 직원별 문의 처리수 리스트 
+	public List<CsWeeklyEmpWorkCountDto> getWeeklyEmpTaskCountList();
+	
 	
 	
 	
