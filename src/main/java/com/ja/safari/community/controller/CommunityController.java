@@ -31,8 +31,12 @@ public class CommunityController {
 			if(sessionUser != null) {
 				sessionId = sessionUser.getId();
 			}
-		   
-		   List<Map<String, Object>> newPostBypromoReviewList = promotionReviewService.newPostByPromoReview(sessionId);		
+			
+			// 최근 게시글
+			
+			
+			// 리워드 리뷰 
+		    List<Map<String, Object>> newPostBypromoReviewList = promotionReviewService.newPostByPromoReview(sessionId);		
 		   
 			
 		   
