@@ -478,7 +478,20 @@ WHERE ROWNUM <= 4
 	SELECT * FROM PRODUCT_LIKE WHERE user_id=#{userId} ORDER BY id DESC
 </select>
 
-
+<!-- 나의 판매리스트(판매중, 예약중, 거래완료) - 마이페이지  -->
+<select id="selectMySellList" resultType="com.ja.safari.dto.ProductDto">
+	SELECT * FROM PRODUCT WHERE user_id=#{userId}
+	<if test="statusId==1">  
+		AND id IN (SELECT product_id FROM PRODUCT_REQUEST WHERE status = '거래요청')
+	</if>
+	<if test="statusId==2">  
+		AND id IN (SELECT product_id FROM PRODUCT_REQUEST WHERE status = '예약중')
+	</if>
+	<if test="statusId==3">  
+		AND id IN (SELECT product_id FROM PRODUCT_REQUEST WHERE status = '거래완료')
+	</if>
+	ORDER BY id DESC
+</select>
 
 
 

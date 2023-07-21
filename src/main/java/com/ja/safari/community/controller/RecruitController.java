@@ -10,6 +10,7 @@ import java.util.UUID;
 
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.text.StringEscapeUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,6 +20,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.ja.safari.community.service.CommunityServiceImpl;
 import com.ja.safari.community.service.RecruitServiceImpl;
+import com.ja.safari.dto.PickDto;
 import com.ja.safari.dto.RecruitDto;
 import com.ja.safari.dto.RecruitImgLinkDto;
 import com.ja.safari.dto.RecruitLikeDto;
@@ -144,11 +146,51 @@ public class RecruitController  {
 			
 			model.addAttribute("map", map);
 			
+			// html escape
+			RecruitDto recruitDto = (RecruitDto)map.get("recruitDto");
+			String content = recruitDto.getContent();
+			content = StringEscapeUtils.escapeHtml4(content);
+			content = content.replaceAll("\n", "<br>");
+			recruitDto.setContent(content);
+			
 			//게시물 좋아요 count
 			int RecruitBoardLikeCount = recruitService.countLikeByRecruitBoardId(id);
 			model.addAttribute("RecruitBoardLikeCount", RecruitBoardLikeCount);
 			
 			return "/community/recruit/readContentPage";
+		}
+		
+		//골라줘요 게시판 수정하기 페이지
+		@RequestMapping("recruit/updateContentPage/{id}")
+		public String recruitUpdateContentPage(@PathVariable int id, Model model) {
+			
+			Map<String, Object> map = recruitService.getRecruitBoardById(id);
+			
+			model.addAttribute("map", map);
+			
+			return "/community/recruit/updateContentPage";
+		}
+		
+		
+		//구인구직 게시판 수정하기 프로세스
+		@RequestMapping("recruit/updateContentProcess")
+		public String recruitUpdateContentProcess(RecruitDto recruitDto) {
+			
+			recruitService.updateRecruitBoard(recruitDto);
+			int id = recruitDto.getId();
+			
+			System.out.println(id);
+			//return "redirect:/community/pick/mainPage";
+			return "redirect:/community/recruit/readContentPage/" + id;
+		}
+		
+		//구인구직 게시물 삭제하기
+		@RequestMapping("recruit/deleteContentProcess/{id}")
+		public String recruitDeleteContentProcess(@PathVariable int id) {
+			
+			recruitService.deleteRecruitBoard(id);
+			
+			return "redirect:/community/recruit/mainPage";
 		}
 		
 		//구인구직 좋아요 insert

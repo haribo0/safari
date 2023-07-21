@@ -73,7 +73,7 @@ public class PickServiceImpl {
 			
 			UserDto userDto = userSqlMapper.selectUserDtoById(pickDto.getUser_id());
 			
-			int pickLikeCount = pickSqlMapper.countPickCommentByBoardId(pickDto.getId());
+			int pickLikeCount = pickSqlMapper.countLikeByPickBoardId(pickDto.getId());
 			int pickCommentCount = pickSqlMapper.countPickCommentByBoardId(pickDto.getId());
 			
 			map.put("pickDto", pickDto);

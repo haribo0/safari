@@ -22,6 +22,7 @@ import com.ja.safari.dto.CsQnaCombinedDto;
 import com.ja.safari.dto.CsQnaCountResponseDto;
 import com.ja.safari.dto.CsScheduleDto;
 import com.ja.safari.dto.CsTodayStatsDto;
+import com.ja.safari.dto.CsWeeklyEmpWorkCountDto;
 import com.ja.safari.dto.UserDto;
 
 public interface CsSqlMapper {
@@ -137,6 +138,9 @@ public interface CsSqlMapper {
 
 	// 1대1 문의 답변 후기 저장 
 	public void insertQnaReplyRating(CsQnaRating csQnaRating);
+	
+	// 1대1 문의 후기 가져오기 
+	public int getQnaRatingByQnaId(int qnaId);
 
 	// 실시간 메세지 저장 - 직원 
 	public void insertLiveChatMsgByEmp(CsLiveChatMsgDto chatMsgDto);
@@ -192,6 +196,13 @@ public interface CsSqlMapper {
 	
 	// 오늘 현황 통계
 	public CsTodayStatsDto getStatsToday();
+	
+	// 지난주 직원별 문의 처리수 리스트 
+	public List<CsWeeklyEmpWorkCountDto> getWeeklyEmpWorkCountList();
+	
+	// 지난주 직원별 문의 처리수 리스트 
+	public List<CsWeeklyEmpWorkCountDto> getWeeklyEmpTaskCountList();
+	
 	
 	
 	

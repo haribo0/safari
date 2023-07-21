@@ -28,6 +28,7 @@ import com.ja.safari.dto.CsQnaDto;
 import com.ja.safari.dto.CsQnaRating;
 import com.ja.safari.dto.CsScheduleDto;
 import com.ja.safari.dto.CsTodayStatsDto;
+import com.ja.safari.dto.CsWeeklyEmpWorkCountDto;
 import com.ja.safari.dto.UserDto;
 import com.ja.safari.user.mapper.UserSqlMapper;
 
@@ -292,7 +293,10 @@ public class CsServiceImpl {
 		for(CsQnaDto csQnaDto :  csSqlMapper.getInquiryListByEmpId(empId)) {
 			Map<String, Object> map = new HashMap<String, Object>();
 			map.put("qna", csQnaDto);
+			// 후기 있으면 가져오기 없으면 null로 넣어주기 
+			// map.put("qna", csQnaDto);
 			map.put("category", csSqlMapper.getCategoryById(csQnaDto.getCategory_id()));
+			map.put("rating", csSqlMapper.getQnaRatingByQnaId(csQnaDto.getId()));
 			list.add(map);
 		}
 		
@@ -481,6 +485,7 @@ public class CsServiceImpl {
 			map.put("schedule", scheduleDto);
 			String workState = getWorkStateByEmpId(empDto.getId());
 			map.put("workState", workState);
+			map.put("rating", csSqlMapper.getRatingsByEmpId(empDto.getId()));
 			CsQnaCountResponseDto qnaCountResponseDto = csSqlMapper.getQnaCountForTodayByEmpId(empDto.getId()).get(0);
 			map.put("qna", qnaCountResponseDto);
 			CsLiveChatCountResponseDto chatCountResponseDto = csSqlMapper.getLiveChatCountForTodayByEmpId(empDto.getId()).get(0);
@@ -541,8 +546,6 @@ public class CsServiceImpl {
 		return list;
 		
 	}
-	
-	
 
 	private int getTimeDifferenceInMinutes(int startHour) {
         // 현재 시간 가져오기
@@ -559,6 +562,17 @@ public class CsServiceImpl {
 		return diffHours;
 	}
 	
+	// 대시보드 bar chart data 
+	public List<CsWeeklyEmpWorkCountDto> getWeeklyEmpWorkCountList(){
+		
+		return csSqlMapper.getWeeklyEmpWorkCountList();
+	}
+	
+	// 대시보드 donut chart data 
+	public List<CsWeeklyEmpWorkCountDto> getWeeklyEmpTaskCountList(){
+		
+		return csSqlMapper.getWeeklyEmpTaskCountList();
+	}
 	
 	
 	

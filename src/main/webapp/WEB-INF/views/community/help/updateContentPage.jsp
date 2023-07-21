@@ -19,22 +19,15 @@
 	<!-- 헤더 섹션 -->
 	
 	
-<%-- 	<!-- 커뮤니티 메뉴바 -->
-      <div class="row">
-         <div class="col">
-            <jsp:include page="../communityTopNavi.jsp"></jsp:include>
-         </div>
-      </div>
-      <!-- 커뮤니티 메뉴바 --> --%>
 	
-	<div class="row">
+	<div class="row mb-3">
 	
 	<%--왼쪽 시작--%>
-	<div class="col-2"></div>
+	<div class="col-1"></div>
 	<%--왼쪽 끝 --%>
 	
 	<%--가운데 시작 --%>
-		<div class="col ">
+		<div class="col">
 		<div class="container">	
 	
 	<%--수정하기 폼 시작 --%>
@@ -72,7 +65,7 @@
 	<div class="row">
 	<div class="col text-center">
 		<br>
-		<button class="btn btn-dark">수정하기</button> 
+		<button class="btn" style="background: #ff6f0f; font-weight: bold; color: white;">수정하기</button> 
 	</div>
 	</div>
 	<%--버튼--%>
@@ -88,7 +81,7 @@
 	
 
 <%--오른쪽 시작--%>
-	<div class="col-2">
+	<div class="col-1">
 	</div>
 	<%--오른쪽 끝--%>	
 </div>

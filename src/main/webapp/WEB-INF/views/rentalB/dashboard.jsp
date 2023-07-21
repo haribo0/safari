@@ -379,6 +379,31 @@ function makePieChart(d) {
 }
 
 
+function makeDonutChart(d,l) {
+	const canvas = document.getElementById('pieChart');
+
+	new Chart(canvas, {
+	  type: 'doughnut',
+	  data: data,
+	  options: {
+	    responsive: true,
+	    plugins: {
+	      legend: {
+	        position: 'top',
+	      },
+	      title: {
+	        display: true,
+	        text: 'Chart.js Doughnut Chart'
+	      }
+	    }
+	  },
+	});
+	
+}
+
+
+
+
 
 
 function makeLineChart(d, l) {

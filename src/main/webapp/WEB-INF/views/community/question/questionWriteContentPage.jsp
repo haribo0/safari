@@ -18,23 +18,26 @@
 	<!-- 헤더 섹션 -->
 	
 	
-	<div class="row">
+	
+	<div class="row mb-3">
 	
 	<%--왼쪽 시작--%>
-	<div class="col-2"></div>
+	<div class="col-1"></div>
 	<%--왼쪽 끝 --%>
 	
 	<%--가운데 시작 --%>
-	<div class="col ">
-		<div class="container">	
-	
+	<div class="col">
+		
+		<div class="container">
+		
 	<!-- 만약 파일 보내는 경우 - enctype="multipart/form-data" 꼭 변경해야 함, 무조건 post방식-->
 	<%--글쓰기 폼 시작 --%>
 	<form action="/safari/community/question/questionWriteContentProcess" method="post" enctype="multipart/form-data">
 		
 		<div class="row">
-			<div class="col">
+			<div class="col mt-5">
 			
+			<span class="fs-4 fw-semibold">${sessionUser.nickname}님, 무엇이 궁금하세요?</span><br><hr>
 				  	<input type="hidden" name="user_id" value="${sessionUser.id}">
 				  	<input type="text" class="form-control" placeholder="제목을 입력해주세요" name="title" maxlength="40" style= "margin-top: 10px;">
  					<textarea type="text" class="form-control" placeholder="내용을 입력해주세요" name="content" maxlength="3000" style="height:400px; margin-top: 10px;"></textarea>
@@ -66,7 +69,7 @@
 			<div class="row">
 			<div class="col text-center">
 				<br>
-				<button class="btn btn-dark">등록하기</button>
+				<button class="btn" style="background: #ff6f0f; font-weight: bold; color: white;">등록하기</button>
 			</div>
 			</div>
 			</form>
@@ -76,7 +79,7 @@
 	<%--가운데 끝 --%>
 	
 	<%--오른쪽 시작--%>
-	<div class="col-2">
+	<div class="col-1">
 	</div>
 	<%--오른쪽 끝--%>	
 

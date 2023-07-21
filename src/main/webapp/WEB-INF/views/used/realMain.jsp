@@ -192,7 +192,7 @@ function getViewAll(mainId2,subId2,cityId2,townId2,statusId2,orderId2){
 
                     	const button = document.createElement("button");
                     	button.type = "button";
-                    	button.classList.add("btn", "btn-outline-success", "btn-sm", "p-1", "btn-sm-custom");
+                    	button.classList.add("btn", "btn-success", "btn-sm", "p-1", "btn-sm-custom");
                     	button.disabled = true;
                     	button.textContent = "예약중";
 
@@ -206,7 +206,7 @@ function getViewAll(mainId2,subId2,cityId2,townId2,statusId2,orderId2){
 
                     	const button = document.createElement("button");
                     	button.type = "button";
-                    	button.classList.add("btn", "btn-outline-secondary", "btn-sm", "p-1", "btn-sm-custom");
+                    	button.classList.add("btn", "btn-secondary", "btn-sm", "p-1", "btn-sm-custom");
                     	button.disabled = true;
                     	button.textContent = "거래완료";
 

@@ -294,6 +294,12 @@ public class UsedController {
 		}
 	}
 	
+	
+	
+	
+	
+	
+	
 //	// 거래 예약중으로 상태 변경
 //	@RequestMapping("productRequestStatusReservation")
 //	public String productRequestReservation(HttpSession session, int productId, int userId) {
@@ -341,10 +347,6 @@ public class UsedController {
 			return "used/chatList";
 		}
 	}
-	
-	
-	
-	
 	
 	
 	

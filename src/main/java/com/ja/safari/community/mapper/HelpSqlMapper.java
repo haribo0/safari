@@ -8,6 +8,8 @@ import com.ja.safari.dto.HelpCommentDto;
 import com.ja.safari.dto.HelpDto;
 import com.ja.safari.dto.HelpImgDto;
 import com.ja.safari.dto.HelpLikeDto;
+import com.ja.safari.dto.UserCoinDto;
+import com.ja.safari.dto.UserDto;
 
 public interface HelpSqlMapper {
 
@@ -23,6 +25,8 @@ public interface HelpSqlMapper {
 	
 	//해주세요 메인 페이징
 	public int getHelpBoardCount();
+	
+	//해주세요 게시글 상세 조회
 	public HelpDto getHelpBoard(int id);
 	
 	//해주세요 게시글 수정
@@ -79,10 +83,7 @@ public interface HelpSqlMapper {
 	//해주세요 이미지 유무 출력
 	public int selectAllHelpImgByBoardId(int help_id);
 	
-	
 		
-	
-	
 	//해주세요 베스트 게시글 출력
 	public List<HelpDto> selectBestHelpBoard();
 	
@@ -94,4 +95,7 @@ public interface HelpSqlMapper {
 	
 	//해주세요 채택상태 변경
 	public void changeCompleteHelp(int id);
+	
+	//해주세요 댓글 채택 코인 리워드
+	public void helpCommentCoinReward(UserCoinDto userCoinDto);
 }

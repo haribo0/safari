@@ -14,7 +14,7 @@
 			<a href="./mainPage" class="btn"><img class="img-fluid" width="60px" src="/safari/resources/img/logopng1.png"></a>
 		</span>
 		<span class="navbar-brand mb-0 h1">
-		  <a class="navbar-brand" href="#">고객관리서비스</a>
+		  <a class="navbar-brand" href="#">고객지원서비스</a>
 		</span>
 		
 		<!-- 왼쪽 메뉴 -->

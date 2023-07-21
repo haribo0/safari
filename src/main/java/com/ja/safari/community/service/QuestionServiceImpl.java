@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.text.StringEscapeUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +15,7 @@ import com.ja.safari.dto.QuestionDto;
 import com.ja.safari.dto.QuestionImgDto;
 import com.ja.safari.dto.QuestionLikeDto;
 import com.ja.safari.dto.QuestionReplyDto;
+import com.ja.safari.dto.UserCoinDto;
 import com.ja.safari.dto.UserDto;
 import com.ja.safari.user.mapper.UserSqlMapper;
 
@@ -180,6 +182,15 @@ public class QuestionServiceImpl {
 		
 		UserDto userDto = userSqlMapper.selectUserDtoById(questionReplyDto.getUser_id());
 		
+		String content = questionReplyDto.getContent();
+		
+		content = StringEscapeUtils.escapeHtml4(content);
+		
+		
+		content = content.replaceAll("\n", "<br>");
+		questionReplyDto.setContent(content);
+		
+		
 		
 		map.put("userDto", userDto);
 		map.put("questionReplyDto", questionReplyDto);
@@ -248,7 +259,20 @@ public class QuestionServiceImpl {
 		questionSqlMapper.completeQuestionReply(id);
 	}
 	
-	
+	//궁금해요 게시물 답변 
+	/*
+	 * public Map<String, Object> getQuestionReply(int id){
+	 * 
+	 * Map<String, Object> map = new HashMap<>();
+	 * 
+	 * QuestionReplyDto questionReplyDto =
+	 * questionSqlMapper.getQuestionReplyById(id); UserDto userDto =
+	 * userSqlMapper.selectUserDtoById(questionReplyDto.getUser_id());
+	 * 
+	 * map.put("userDto", userDto); map.put("questionReplyDto", questionReplyDto);
+	 * 
+	 * return map; }
+	 */
 	
 	//궁금해요 게시물 채택상태 update
 	public void completeQuestionBoard(int id) {
@@ -259,6 +283,31 @@ public class QuestionServiceImpl {
 	public int selectAllQuestionImgByBoardId(int question_id) {
 		int questionImgCount = questionSqlMapper.selectAllQuestionImgByBoardId(question_id);
 		return questionImgCount;
+	}
+
+	// 궁금해요 채택시 코인 리워드 지급 
+	public void questionReplyCoinReward(QuestionReplyDto questionReplyDto) {
+		
+		// 누구한테 얼마를 줄지 
+		// 누구 -  replyDto의 userid
+		// 얼마 - questionDto의 point  만큼 
+		
+		// 채택시 포인트 금액 가져오기 
+		QuestionDto questionDto = questionSqlMapper.getQuestionBoardByBoardId(questionReplyDto.getQuestion_id());
+		
+		// 코인 넣을 준비 
+		UserCoinDto userCoinDto = new UserCoinDto();
+		// coin table pk  가져오기 
+		int userCoinPk = userSqlMapper.getOnChargeCoinPk();
+		userCoinDto.setId(userCoinPk);
+		userCoinDto.setUser_id(questionReplyDto.getUser_id());
+		userCoinDto.setCoin_transaction(questionDto.getPoints());
+		userCoinDto.setTransaction_detail("궁금해요 채택 리워드");
+		
+		// mapper를 이용해서 코인 지급 
+		userSqlMapper.insertUserCoin(userCoinDto);
+		
+		
 	}
 	
 	

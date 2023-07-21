@@ -14,6 +14,15 @@
 .btn-qna{position: fixed; bottom: 80px; right: 70px; background-color: #f5f5f5; width: 68px; height: 68px; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 3rem; cursor: pointer;}
 .coin-box{position: relative;}
 .coin-box::before {content: ''; width:1px; height: 60%; background: #5e5e5e; display:block; position: absolute; top: 50%; transform:translateY(-50%); left: 0px;}
+
+.orangeBtn2 {
+	background: #FF924A;
+	color: white;
+}
+.orangeBtn {
+	background: #FF6F0F;
+	color: white;
+}
 </style>
 </head>
 <body>
@@ -45,7 +54,7 @@
 					<h5>1대1 문의</h5>						
 				</div>
 				<div class="col text-end">
-					<a href="./myInquiryPostPage" class="btn btn-dark btn-sm px-5">문의 작성</a>
+					<a href="./myInquiryPostPage" class="btn orangeBtn btn-sm px-5">문의 작성</a>
 				</div>
 			</div>
 			
@@ -194,7 +203,7 @@ function getInquiryList() {
 				innerColDiv.style.width = "60px";
 				if(map.qna.qna_reply!=null) {
 					innerColDiv.textContent = "답변완료";
-					innerColDiv.classList.add('badge','text-bg-dark');
+					innerColDiv.classList.add('badge','orangeBtn2');
 				} else {
 					innerColDiv.textContent = "답변중";
 					innerColDiv.classList.add('badge','text-bg-light');

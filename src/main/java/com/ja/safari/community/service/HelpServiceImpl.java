@@ -10,11 +10,11 @@ import org.springframework.stereotype.Service;
 
 import com.ja.safari.community.mapper.CommunitySqlMapper;
 import com.ja.safari.community.mapper.HelpSqlMapper;
-import com.ja.safari.dto.HelpCommentCompleteDto;
 import com.ja.safari.dto.HelpCommentDto;
 import com.ja.safari.dto.HelpDto;
 import com.ja.safari.dto.HelpImgDto;
 import com.ja.safari.dto.HelpLikeDto;
+import com.ja.safari.dto.UserCoinDto;
 import com.ja.safari.dto.UserDto;
 import com.ja.safari.user.mapper.UserSqlMapper;
 
@@ -203,6 +203,9 @@ public class HelpServiceImpl {
 			System.out.println(userDto);
 			map.put("userDto", userDto);
 			map.put("helpCommentDto",helpCommentDto);
+			System.out.println(helpCommentDto.getContent());
+			
+			
 			
 			helpCommentsList.add(map);
 		}
@@ -247,7 +250,25 @@ public class HelpServiceImpl {
 		return helpSqlMapper.selectAllHelpLikeCountByBoardId(help_Id);
 	}
 	
-	
+	//해주세요 채택 시 코인 리워드 지급
+	public void helpCommentCoinReward(HelpCommentDto helpCommentDto) {
+		
+		// 채택 시 포인트 금액 가져오기
+		HelpDto helpDto = helpSqlMapper.getHelpBoard(helpCommentDto.getHelp_id());
+		
+		// 코인 넣을 준비
+		UserCoinDto userCoinDto = new UserCoinDto();
+		// coin table pk  가져오기
+		int userCoinPk = userSqlMapper.getOnChargeCoinPk();
+		userCoinDto.setId(userCoinPk);
+		userCoinDto.setUser_id(helpCommentDto.getUser_id());
+		userCoinDto.setCoin_transaction(helpDto.getPoints());
+		userCoinDto.setTransaction_detail("해주세요 채택 리워드");
+		
+		
+		// mapper를 이용해서 코인 지급 
+		userSqlMapper.insertUserCoin(userCoinDto);
+	}
 	
 	//해주세요 댓글 개수 조회
 //	public List<Map<String, Object>> selectAllHelpCommentCountByBoardId(int help_id){

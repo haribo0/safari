@@ -21,6 +21,7 @@ import com.ja.safari.dto.UserAddressDto;
 import com.ja.safari.dto.UserChargeCoinKakaoPayApproveDto;
 import com.ja.safari.dto.UserCoinDto;
 import com.ja.safari.dto.UserDto;
+import com.ja.safari.used.service.UsedServiceImpl;
 import com.ja.safari.user.service.UserServiceImpl;
 
 @RestController
@@ -32,6 +33,9 @@ public class UserRestController {
 	
 	@Autowired
 	private CsServiceImpl csServiceImpl;
+	
+	@Autowired
+	private UsedServiceImpl usedService;
 	
 	// 사용자 로그인
 	@RequestMapping("loginProcess")
@@ -484,6 +488,23 @@ public class UserRestController {
 			    return map;
 
 		}
+		
+	  // 마이페이지 - 중고 - 판매내역 
+	  @RequestMapping("getMySellListByStatus")
+	  public Map<String, Object> getMySellListByStatus(HttpSession session, Integer statusId){
+		  Map<String, Object> map = new HashMap<String, Object>();
+			
+		  UserDto sessionUser = (UserDto) session.getAttribute("sessionUser");
+	  if(sessionUser == null) {
+		  map.put("result", "fail");
+		  map.put("reason", "login required");
+		  return map;
+	  }else {
+		  map.put("list", usedService.selectMySellList(sessionUser.getId(), statusId));
+		  map.put("result", "success");
+			  return map;
+		  }
+	  }
 	  
 	  
 	  

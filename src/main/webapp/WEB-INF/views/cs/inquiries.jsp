@@ -15,6 +15,17 @@
 .border-left {
   border-left : 1px solid #adb5bd;
 }
+
+.orangeBtn {
+	background: #FF6F0F;
+	color: white;
+}
+.orangeButton:hover{
+   background: #FF812C;
+   font-weight: bold;
+   color: white;
+}
+
 </style>
 
 
@@ -35,19 +46,38 @@
 	<div class="row mt-0">
 		<div class="col"></div>
 		<div class="col-10">
-			<div class="row mb-2 text-start">
+		
+			
+			
+			
+			
+			<div class="row mb-1 text-start">
 				<div class="col d-grid">
 					<h4 class="fw-bolder">1대1문의</h4>
 				</div>
 				
 				<!-- count -->
 				<div class="col-2 text-end" id=""> 
-					<div class="btn btn-dark" id="qnaCount">  </div>
+					<div class="btn orangeBtn" id="qnaCount">  </div>
 				</div>
 				<!-- count -->
 				
 			</div>
 			
+			<div class="row ">
+				<div class="col " style="font-size: 14px;">
+
+						<div class="row my-2 text-secondary rounded" >
+							<div class="col-auto fw-bold ">
+								<i class="bi bi-info-circle"></i> &nbsp;상담사의 업무 수칙
+							</div>
+							<div class="col  ">
+								고객이 실수하거나 지나친 태도로 기분을 상하게 하더라도 감정을 억제하며 차분하게 응대하는 성숙한 자세를 보이며, 제어가 되지 않는 상황 속에서는 상사를 호출하여 원만한 해결이 이뤄질 수 있도록 합니다.
+							</div>
+						</div>
+						
+				</div>
+			</div>
 			
 			
 			<div class="row py-2">
@@ -234,19 +264,31 @@ function getInquiryList() {
 					stateDiv.innerText = "답변 완료";
 				}
 				else {
-					stateDiv.classList.add('badge','text-bg-primary', 'px-3');
+					stateDiv.classList.add('badge', 'px-3');
+					stateDiv.style.backgroundColor = "#FF6F0F";
 					stateDiv.innerText = "미답변";
 				}
 				categoryDiv.append(stateDiv);
 				
 				const col1Div = document.createElement('div');
-				col1Div.classList.add('col','ps-4', 'border-left');
+				col1Div.classList.add('col','ps-4');
 				col1Div.textContent = map.qna.qna_title;
 				
+				const col3Div = document.createElement('div');
+				col3Div.classList.add('col-auto', 'text-secondary', 'pe-0', 'me-0', "text-end", "my-auto");
+				col3Div.style.fontSize = "13px";
+				if(map.rating > 0) {
+					col3Div.innerHTML = `<span style="color:#FF6F0F;"><i class="bi bi-sm bi-star-fill"></i>&nbsp;\${map.rating}</span>`;
+				}
+				
+				
 				const col2Div = document.createElement('div');
-				col2Div.classList.add('col-auto', 'text-secondary', "text-end", "me-1", "my-auto");
+				col2Div.classList.add('col-auto', 'text-secondary', "text-end", "me-1", "my-auto" );
 				col2Div.style.fontSize = "13px";
 				// const regDate = new Date(map.qna.reg_date);
+				
+				
+				
 				col2Div.textContent = dateToTimeDifference(map.qna.reg_date);
 /* 				const regDate = new Date(map.qna.reg_date);
 			    const formattedRegDate = regDate.toLocaleDateString('en-US', { month: '2-digit', day: '2-digit', year: 'numeric' });
@@ -254,6 +296,7 @@ function getInquiryList() {
 
 				row1Div.appendChild(categoryDiv);
 				row1Div.appendChild(col1Div);
+				row1Div.appendChild(col3Div);
 				row1Div.appendChild(col2Div);
 				inquiryTitleListContainer.appendChild(row1Div);
 				
@@ -321,10 +364,18 @@ function getInquiryDetail(qnaId) {
 			const qna = response.qna;
 			
 			
+			const rowDiv1 =  document.createElement('div');
+			rowDiv1.classList.add('row', 'mt-4', 'text-secondary', 'pb-0', 'mb-0');
+			const colDiv1 = document.createElement('div');
+			colDiv1.style.fontSize = "14px";
+			colDiv1.classList.add('col');
+			colDiv1.innerText = qna.categoryDto.category;
+			rowDiv1.appendChild(colDiv1);
+			
 			/* Row1 */
 			// Create the first row with border-bottom
 			const row1 = document.createElement('div');
-			row1.classList.add('row', 'border-bottom', 'py-4');
+			row1.classList.add('row', 'border-bottom', 'mt-0', 'pt-0', 'pb-2');
 				// Create the first column within the first row
 				const col1 = document.createElement('div');
 				col1.classList.add('col');
@@ -394,6 +445,7 @@ function getInquiryDetail(qnaId) {
 
 			
 			
+			inquiryDetailContainer.appendChild(rowDiv1);
 			inquiryDetailContainer.appendChild(row1);
 			inquiryDetailContainer.appendChild(row2);
 			//inquiryDetailContainer.appendChild(row3);
@@ -405,12 +457,12 @@ function getInquiryDetail(qnaId) {
 				const row4 = document.createElement('div');
 				row4.classList.add('row', 'pt-4');
 					const col4 = document.createElement('div');
-					col4.classList.add('col', 'fs-5', 'ms-1');
+					col4.classList.add('col', 'fw-medium','mb-1', 'ms-2');
 					col4.textContent = '답변 완료';
 				row4.appendChild(col4);
 				
 				const firstRowDiv = document.createElement("div");
-				firstRowDiv.classList.add("row", "mt-2", "bg-light", "mx-2", "py-4", "px-3", "rounded", "text-start");
+				firstRowDiv.classList.add("row", "mt-2", "bg-light", "mx-1", "py-4", "px-3", "rounded", "text-start");
 				const firstColumnDiv = document.createElement("div");
 				firstColumnDiv.classList.add("col");
 				firstColumnDiv.innerHTML = qna.qna_reply;

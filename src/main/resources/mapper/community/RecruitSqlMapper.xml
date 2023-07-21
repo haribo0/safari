@@ -52,6 +52,25 @@
 			#{img_link}
 		)
 	</insert>
+	
+	<!-- 구인구직 게시물 삭제하기 -->
+	<delete id="deleteRecruitBoard">
+		delete from recruit_table where id=#{id}
+	</delete>
+
+	<!-- 구인구직 게시판 수정하기 -->
+	<update id="updateRecruitBoard" >
+		update recruit_table
+		set content = #{content}
+		where id = #{id}
+	</update>
+	
+	<!-- 구인구직 게시물 조회수 올리기 -->
+	<update id="increaseViewsRecruitBoard">
+		update recruit_table 
+		set views = views + 1 
+		where id = #{id}
+	</update>
 
 	<!-- 구인구직 게시판 이미지 select -->	
 	<select id="selectRecruitBoardImageByRecruitId" resultType="com.ja.safari.dto.RecruitImgLinkDto">
@@ -68,6 +87,13 @@
 		    sysdate
 		)
 	</insert>
+	
+	<!-- 구인구직 유저ID로 좋아요 여부 체크 -->
+	 <select id="checkRecruitLike" resultType="int">
+		select count(*) 
+		from recruit_like_table 
+		where recruit_id=#{recruit_id} and user_id=#{user_id}
+	</select>
 	
 	<!-- 구인구직 좋아요 delete -->	
 	<delete id="deleteRecruitLike">

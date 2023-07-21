@@ -702,7 +702,28 @@ public class UsedServiceImpl {
 		return list;
 	}
 	 
-	 
+	// 마이페이지 내 나의 판매리스트(판매중, 예약중, 거래완료) 
+	public List<Map<String, Object>> selectMySellList(Integer userId, Integer statusId){
+		List<Map<String, Object>> list = new ArrayList<Map<String,Object>>();
+		List<ProductDto> productDtoList = usedSqlMapper.selectMySellList(userId, statusId);
+		for(ProductDto productDto : productDtoList) {
+			Map<String, Object> map = new HashMap<>();
+			Integer productId = productDto.getId();
+			Integer townId = productDto.getProduct_town_id();
+			// 소분류 카테고리 
+			ProductSubCategoryDto subCategoryDto = usedSqlMapper.selectProductSubCategoryById(productDto.getProduct_sub_category());
+			map.put("productDto", productDto);
+			map.put("reservationCount", usedSqlMapper.countProductRequestReservation(productId));
+			map.put("completeCount", usedSqlMapper.countProductRequestByProductId(productId));
+			map.put("productImgDto", usedSqlMapper.countProductRequestComplete(productId));
+			map.put("productTownDto", usedSqlMapper.selectProductTownById(townId));
+			map.put("productCityDto", usedSqlMapper.selectProductCityByTownId(townId));
+			map.put("productSubCategoryDto", subCategoryDto);
+			map.put("productMainCategoryDto", usedSqlMapper.selectProductMainbCategoryById(subCategoryDto.getProduct_main_category_id()));
+			list.add(map);
+		}
+		return list;
+	}
 	 
 	 
 	 

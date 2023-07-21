@@ -18,20 +18,22 @@
 	<jsp:include page="../../common/header.jsp"></jsp:include>
 	<!-- 헤더 섹션 -->
 	
-	<div class="row">
+	<div class="row mb-3">
 	
 	<%--왼쪽 시작--%>
-	<div class="col-3"></div>
+	<div class="col-1"></div>
 	<%--왼쪽 끝 --%>
 	
-	<div class="col text-center">
 	
+	<%--가운데 시작--%>
+	<div class="col">
+	<div class="container">
 	
 <form action="/safari/community/question/updateQuestionContentProcess" method="post" enctype="multipart/form-data">
 	
 <%--수정하기 폼 시작 --%>
 	<div class="row">
-			<div class="col">
+			<div class="col mt-5">
 				  	<input type="hidden" name="id" value="${map.questionDto.id}">
 				  	<input type="text" class="form-control" name="title" maxlength="40" value="${map.questionDto.title}" style= "margin-top: 10px;">
  					<textarea type="text" class="form-control" name="content" maxlength="3000" style="height:400px; margin-top: 10px;">${map.questionDto.content}</textarea>
@@ -64,27 +66,18 @@
 	<div class="row">
 	<div class="col text-center">
 		<br>
-		<button class="btn btn-dark">수정하기</button> 
+		<button class="btn" style="background: #ff6f0f; font-weight: bold; color: white;">수정하기</button> 
 	</div>
 	</div>
 	<%--버튼--%>
 	
 </form>
-
-	<%-- 제목: <input type="text" name="title" value="${map.helpDto.title}"><br>
-	작성자: ${sessionUser.nickname }<br>
-	내용:<br>
-	<textarea rows="10" cols="60" name="content">${map.helpDto.content }</textarea><br>
-	<input type="hidden" name="id" value="${map.helpDto.id }">
-	포인트:<input type="text" name="points" value="${map.helpDto.points }"><br>
-	위치:<input type="text" name="location" value="${map.helpDto.location }"><br>
-	<br>
-	</form>
-	--%>
-	
+</div>	
 </div>
+<!-- 가운데 끝 -->
+
 <%--오른쪽 시작--%>
-	<div class="col-3">
+	<div class="col-1">
 	</div>
 	<%--오른쪽 끝--%>	
 </div>

@@ -54,21 +54,19 @@
 	<!-- 헤더 섹션 -->
 	<jsp:include page="../common/header.jsp"></jsp:include>
 	<!-- 헤더 섹션 -->
-	<div class="container-fluid d-flex align-items-center justify-content-between p-3 px-5 bg-light">
-		<div class="container">
-			<div class="row px-4">
-				<p class="mb-0 text-body-secondary"><span class="mx-2" style="font-size: 15px;">중고</span> &gt; <span class="mx-2" style="font-size: 15px;">패션의류</span> &gt;<span class="mx-2" style="font-size: 15px;">상의</span> </p>
-			</div>
-		</div>
-	</div>
 	<div class="row">
 		<div class="col">
 			<img class="img-fluid" alt="banner1" src="/safari/resources/img/used/bannerTop.jpeg" height="370px">
 		</div>
 	</div>
+	<div class="row mt-5 mb-2">
+		<div class="col text-center">
+			<img alt="bannerMiddle" src="/safari/resources/img/used/middleBanner.png" height="420px" width="1630px">
+		</div>
+	</div>
 	<div class="container mt-5 mb-5">
 		<div class="row">
-			<div class="col-auto fw-bold fs-3 mb-3">요즘 뜨는 상품</div>
+			<div class="col-auto fw-bold fs-3 mb-3 mt-2">요즘 뜨는 상품</div>
 		</div>
 		<div class="row mb-5">
 			<div class="col-auto fw-bold fs-2">
@@ -166,7 +164,7 @@
 		</div>
 		<div class="row mt-2">
 			<div class="col">
-				<img class="img-fluid" alt="banner2" src= "/safari/resources/img/used/bottomBanner3.png">
+				<img class="img-fluid" alt="banner2" src= "/safari/resources/img/used/bannerBottom1.png">
 			</div>
 		</div>
 	</div>
