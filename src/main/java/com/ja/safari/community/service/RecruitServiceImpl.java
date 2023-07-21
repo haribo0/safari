@@ -10,14 +10,6 @@ import org.springframework.stereotype.Service;
 
 import com.ja.safari.community.mapper.CommunitySqlMapper;
 import com.ja.safari.community.mapper.RecruitSqlMapper;
-import com.ja.safari.dto.HelpCommentDto;
-import com.ja.safari.dto.HelpDto;
-import com.ja.safari.dto.HelpImgDto;
-import com.ja.safari.dto.HelpLikeDto;
-import com.ja.safari.dto.PickCommentDto;
-import com.ja.safari.dto.PickDto;
-import com.ja.safari.dto.PickLikeDto;
-import com.ja.safari.dto.QuestionDto;
 import com.ja.safari.dto.RecruitDto;
 import com.ja.safari.dto.RecruitImgLinkDto;
 import com.ja.safari.dto.RecruitLikeDto;
@@ -59,7 +51,7 @@ public class RecruitServiceImpl {
 	
 	
 	
-	//구인구직 게시물 전체조회 
+	//구인구직 게시물 전체조회 //좋아요 count 추가 
 	public List<Map<String, Object>> selectAllRecruitBoards() {
 		
 		List<Map<String, Object>> recruitBoardList = new ArrayList<>();
@@ -72,8 +64,11 @@ public class RecruitServiceImpl {
 			
 			UserDto userDto = userSqlMapper.selectUserDtoById(recruitDto.getUser_id());
 			
+			int recruitLikeCount = recruitSqlMapper.countLikeByRecruitBoardId(recruitDto.getId());
+			
 			map.put("recruitDto", recruitDto);
 			map.put("userDto", userDto);
+			map.put("recruitLikeCount", recruitLikeCount);
 			
 			recruitBoardList.add(map);
 		}
@@ -109,10 +104,35 @@ public class RecruitServiceImpl {
 		return map;
 	}
 	
+	//구인구직 게시물 수정하기
+	public void updateRecruitBoard(RecruitDto recruitDto) {
+		
+		recruitSqlMapper.updateRecruitBoard(recruitDto);
+	}
+	
+
+	//구인구직 게시물 삭제하기
+	public void deleteRecruitBoard(int id) {
+		
+		recruitSqlMapper.deleteRecruitBoard(id);
+	}
+	
+	//구인구직 게시물 조회수 증가
+	public void increaseViewsRecruitBoard(int id) {
+		
+		recruitSqlMapper.increaseViewsRecruitBoard(id);
+	}
+	
 	//구인구직 좋아요 insert
 	public void insertRecruitLike(RecruitLikeDto recruitLikeDto) {
 		
 		recruitSqlMapper.insertRecruitLike(recruitLikeDto);
+	}
+	
+	//구인구직 좋아요 눌렀는지 유저ID로 체크.
+	public int checkrecruitLike(RecruitLikeDto recruitLikeDto) {
+		
+		return recruitSqlMapper.checkRecruitLike(recruitLikeDto);
 	}
 	
 	//구인구직 좋아요 count
@@ -124,7 +144,24 @@ public class RecruitServiceImpl {
 	}
 	
 	
-	
+	//골라줘요 AJAX 좋아요
+		public void toggleLike(RecruitLikeDto recruitLikeDto) {
+				
+				if(recruitSqlMapper.checkRecruitLike(recruitLikeDto) > 0) {
+					recruitSqlMapper.deleteRecruitLike(recruitLikeDto);
+				}else {
+					recruitSqlMapper.insertRecruitLike(recruitLikeDto);
+				}
+			}
+		
+		public boolean isLiked(RecruitLikeDto recruitLikeDto) {
+			return recruitSqlMapper.checkRecruitLike(recruitLikeDto) > 0;
+		}
+		
+		public int getTotalLike(int recruit_id) {
+			return recruitSqlMapper.countLikeByRecruitBoardId(recruit_id);
+		}
+		
 	
 }
 
