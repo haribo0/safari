@@ -19,7 +19,7 @@ public class CommunityController {
  
 	@Autowired
 	private PromotionReviewServiceImpl promotionReviewService;
-	
+
 	  // 커뮤니티 메인 페이지
 	   @RequestMapping("mainPage")
 	   public String main(Model model, HttpSession session) {
@@ -42,7 +42,9 @@ public class CommunityController {
 		   
 		   model.addAttribute("newPostBypromoReviewList", newPostBypromoReviewList);
 		   
+
 	      return "community/mainPage";
 	   }
+
 
 }

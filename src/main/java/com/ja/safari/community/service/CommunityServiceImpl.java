@@ -500,4 +500,3 @@ public class CommunityServiceImpl {
 	// 커뮤니티 메인 - 최근 게시글 모음
 
 
-}

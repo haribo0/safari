@@ -23,7 +23,7 @@
 	color: inherit;
 } */
 .custom-table-secondary {
-  background-color: #f4f4f4!important; /* 원하는 연한 색상으로 변경 */
+  background-color: #E2E3E5!important; /* 원하는 연한 색상으로 변경 */
 }
 </style>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>

@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 
-import com.ja.safari.dto.PromotionReivewPostRankDto;
 import com.ja.safari.dto.PromotionReviewDto;
 import com.ja.safari.dto.PromotionReviewImgDto;
 import com.ja.safari.dto.PromotionReviewLikeDto;
@@ -12,7 +11,6 @@ import com.ja.safari.dto.ProreviewRentalCategoryDto;
 import com.ja.safari.dto.RentalItemDto;
 import com.ja.safari.dto.RentalMainCategoryDto;
 import com.ja.safari.dto.RentalSubCategoryDto;
-import com.ja.safari.dto.UserCoinDto;
 
 public interface PromotionReviewMapper {
 	
@@ -72,9 +70,6 @@ public interface PromotionReviewMapper {
 	// 임시 유저 좋아요
 	public int checkPromotionReviewMyLike(int user_id);
 	
-	// 프로모션 게시물 최신순
-	public List<PromotionReviewDto> newPostByPromoReview();
-	
 	// 프로모션 게시글 조회수 높은 순
 	public List<PromotionReviewDto> topViewByPromoReview();
 	
@@ -87,7 +82,4 @@ public interface PromotionReviewMapper {
 	
 	// 메인, 서브 카테고리 이름 불러오기
 	public ProreviewRentalCategoryDto getRentalItemCategory(int id);
-	
-	// 리워드 링크 코인 적립
-	public void increaseUserCoinByPromotionReviewReward(UserCoinDto userCoinDto);
 }

@@ -128,11 +128,9 @@ window.addEventListener("DOMContentLoaded", function(){
 
 	<div class="container main_box">
 		<div class = "row mt-5">
-			<div class = "col-auto">
+			<div class = "col-1">
 				<h1 class="text-start fs-3 fw-semibold">
-				<a href="./promotionReviewMainPage" style="text-decoration: none;">
-					<b>리워드 리뷰</b>
-				</a>
+					<b>리워드</b>
 				</h1>			
 			</div>
 			<div class = "col">
@@ -199,24 +197,23 @@ window.addEventListener("DOMContentLoaded", function(){
 		<div class = "row mt-5">
 			<div class = "col">
 				<div class = "row">
-					<div class = "col text-center fw-bold fs-2" style= "color: #387538;">
+					<div class = "col text-center fw-semibold fs-2">
 						BEST
 					</div>
 				</div>
-				<div class = "row mt-1">
+				<div class = "row mt-2">
 					<div class = "col text-center fs-5">
 						사람들이 많은 후기를 남긴 제품
 					</div>
 				</div>
-			</div>
 		</div>
 			<!--  best(인기) 제품(3개) -->
 		<div class = "best container">
 		<div class = "row mt-5">
 			<div class = "col" >
-				<div class = "row">			
+				<div class = "row mb-2">			
 					<c:forEach items="${bestPromotionReviewPostList}" var="map" varStatus="status" begin="0" end="2">
-					<div class = "col" style="width: 18rem; height: 400px;">
+					<div class = "col mb-3" style="width: 18rem; height: 300px;">
 						<div class="card border border-0" >
 							<a href="./contentPromotionReviewPage?id=${map.promotionReviewDto.id }"> 
 						  <img src="/uploadPromoFiles/${map.promotionReviewImgList[0].rental_review_img }"
@@ -241,7 +238,7 @@ window.addEventListener("DOMContentLoaded", function(){
 		</div>
 		
 		<!--  간이 배너 -->
-		<div class = "row mt-4 mb-3">
+		<div class = "row mt-5 mb-3">
 			<div class = "col">
 				<img src="/safari/resources/img/community/banerer3.png" class="img-fluid">
 			</div>
@@ -267,12 +264,12 @@ window.addEventListener("DOMContentLoaded", function(){
 						<div class = "row mt-3">			
 							<c:forEach items="${promoReviewList}" var="map" varStatus="status" begin="0" end="4">
 								<div class = "col mb-3">
-									<div class="card border border-0" style="width:32rem; height: 150px;">
+									<div class="card border border-0" style="width:30rem; height: 150px;">
 									<div class = "row">
 										<div class = "col-4">
 										<a href="./contentPromotionReviewPage?id=${map.promotionReviewDto.id}" style="text-decoration: none; color: inherit;">
 										  <img src="/uploadPromoFiles/${map.promotionReviewImgList[0].rental_review_img }"
-										  	   class="card-img-top" alt="리워드게시물사진" height="150" width="150" >
+										  	   class="card-img-top" alt="리워드게시물사진" height="150" width="100" >
 									 	</a>
 									 	</div>
 									 	<div class = "col">
@@ -305,7 +302,7 @@ window.addEventListener("DOMContentLoaded", function(){
 						                    <img src="${data.userDto.profile_img_link}" class="rounded-circle" style="width: 25px; height: 25px;" alt="프로필사진">
 						                    <p class="card-text fs-6 mt-2 ms-2">${map.userDto.nickname}</p>
 						                </div>
-									    <p class="card-text fs-6 mt-2" style="display: -webkit-box; -webkit-line-clamp: 3;
+									    <p class="card-text fs-6 mt-2" style="display: -webkit-box; -webkit-line-clamp: 2;
 									       -webkit-box-orient: vertical; overflow: hidden;">${map.promotionReviewDto.promotion_review_content }
 								       </p>
 								       </a>
@@ -347,12 +344,12 @@ window.addEventListener("DOMContentLoaded", function(){
 							<c:forEach items="${orderByLikePromoReviewList}" var="map" varStatus="status" begin="0" end="4">
 								<div class = "col mb-3">
 								<a href="./contentPromotionReviewPage?id=${map.promotionReviewDto.id}" style="text-decoration: none; color: inherit;">
-									<div class="card border border-0" style="width:32rem; height: 150px;">
+									<div class="card border border-0" style="width:30rem; height: 150px;">
 									<div class = "row">
 										<div class = "col-4">
 											<a href="./contentPromotionReviewPage?id=${map.promotionReviewDto.id}" style="text-decoration: none; color: inherit;">
 											  <img src="/uploadPromoFiles/${map.promotionReviewImgList[0].rental_review_img }"
-											  	   class="card-img-top" alt="리워드게시물사진" height="150" width="150" >
+											  	   class="card-img-top" alt="리워드게시물사진" height="150" width="100" >
 								 		</a>
 								 		</div>
 									 	<div class = "col">
@@ -380,7 +377,7 @@ window.addEventListener("DOMContentLoaded", function(){
 						                    <img src="${data.userDto.profile_img_link}" class="rounded-circle" style="width: 25px; height: 25px;" alt="프로필사진">
 						                    <p class="card-text fs-6 mt-2 ms-2">${map.userDto.nickname}</p>
 						                </div>
-									    <p class="card-text fs-6 mt-2" style="display: -webkit-box; -webkit-line-clamp: 3;
+									    <p class="card-text fs-6 mt-2" style="display: -webkit-box; -webkit-line-clamp: 2;
 									       -webkit-box-orient: vertical; overflow: hidden;">${map.promotionReviewDto.promotion_review_content }</p>
 									  </div>
 									  	</div>
@@ -404,8 +401,24 @@ window.addEventListener("DOMContentLoaded", function(){
 				</div>
 			</div>
 			
-			<div class = "mt-5"></div>
+			<div>&nbsp;</div>
+				<br>
+			<div>&nbsp;</div>
 			
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

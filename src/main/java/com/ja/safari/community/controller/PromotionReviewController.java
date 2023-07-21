@@ -23,7 +23,6 @@ import com.ja.safari.community.service.PromotionReviewServiceImpl;
 import com.ja.safari.dto.PromotionReviewCommentDto;
 import com.ja.safari.dto.PromotionReviewDto;
 import com.ja.safari.dto.PromotionReviewImgDto;
-import com.ja.safari.dto.UserCoinDto;
 import com.ja.safari.dto.UserDto;
 import com.ja.safari.rental.service.RentalBusinessServiceImpl;
 import com.ja.safari.user.service.UserServiceImpl;
@@ -165,8 +164,6 @@ public class PromotionReviewController {
 		Map<String, Object> map = promotionReviewService.getPromotionReview(id);
 		List<Map<String, Object>> promoCommentDtoList = promotionReviewCommentService.getpromotionReviewCommentDtoList(id);
 
-		List<Map<String, Object>> bestPromotionReviewPostList = promotionReviewService.bestPromoReviewPost(id);
-		
 		// html escape(enter키)
 		PromotionReviewDto promotionReviewDto = (PromotionReviewDto)map.get("promotionReviewDto");
 		String promotionReviewContent = promotionReviewDto.getPromotion_review_content();
@@ -178,7 +175,6 @@ public class PromotionReviewController {
 
 		model.addAttribute("data", map);
 		model.addAttribute("promoCommentDtoList", promoCommentDtoList);
-		model.addAttribute("bestPromotionReviewPostList", bestPromotionReviewPostList);
 
 		return "/community/promotion/contentPromotionReviewPage";
 	}
@@ -379,37 +375,24 @@ public class PromotionReviewController {
 	}
 
 
-	// 리워드 적립 페이지(거쳐가는 페이지=> 여기서 포인트 적립이 되야 함.)
-	@RequestMapping("promotion/rewardPromotionReviewPage")
-	public String rewardPromotionReviewPage(int itemId, int userId, int writerId, HttpSession session) {
-		
-		UserDto sessionUser = (UserDto) session.getAttribute("sessionUser");
-		int sessionId = 0;
+	// 리워드 적립 페이지(거쳐가는 페이지=> 여기서 포인트 적립이 되야 함.)(이거 머리 안돌아가서 이상할걸 다시 수정하길)
+//	@RequestMapping("promotion/rewardPromotionReviewPage")
+//	public String rewardPromotionReviewPage(UserCoinDto userCoinDto, PromotionReviewDto promotionReviewDto) {
+//
+//		System.out.println("리워드 적립 되니? " + userCoinDto);
+//		System.out.println("제발요 : " + promotionReviewDto);
+//
+//		userService.insertPromoCoin(userCoinDto, promotionReviewDto);
+//
+//		return "redirect:/community/promotion/rentalProductPage";
+//	}
 
-		if(sessionUser != null) {
-			sessionId = sessionUser.getId();
-			if( sessionId == writerId ) {
-				System.out.println("sessionId"+sessionId);
+	// 대여 상품 상세페이지(임시!!!!!!!! 나중에 진짜 대여랑 엮으시길 바랍니다.)
+	@RequestMapping("promotion/rentalProductPage")
+	public String rentalProductPage() {
 
-				return "redirect:/rental/productDescPage?id="+itemId;
-			}
-		}
-		
-		
-		// 게시물 작성자 코인
-		System.out.println("rental_item_id"+itemId);
-		System.out.println("userId"+userId);
-		System.out.println("writerId"+writerId);
-		
-		UserCoinDto userCoinDto = new UserCoinDto();
-		userCoinDto.setUser_id(userId);
-		userCoinDto.setCoin_transaction(1);
-		userCoinDto.setTransaction_detail("리워드게시판 코인 적립");
-		
-		
-		
-		promotionReviewService.increaseUserCoinByPromoReviewReward(userCoinDto);
+		System.out.println("임시 대여 상품 페이지");
 
-		return "redirect:/rental/productDescPage?id="+itemId;
+		return "/community/promotion/rentalProductPage";
 	}
 }

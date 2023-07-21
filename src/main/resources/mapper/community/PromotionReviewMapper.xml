@@ -144,9 +144,9 @@
 </select>
 
 <select id="checkPromotionReviewMyLike" resultType="int">
-	SELECT count(*)
-	FROM promotion_review_like
-	WHERE user_id = #{user_id}
+SELECT count(*)
+FROM promotion_review_like
+WHERE user_id = #{user_id}
 </select>
 
 <select id="orderByPromotionReviewLikes" resultType="com.ja.safari.dto.PromotionReviewLikeDto">
@@ -157,16 +157,10 @@
 	ORDER BY review_like_count DESC
 </select>
 
-<select id="newPostByPromoReview" resultType="com.ja.safari.dto.PromotionReviewDto">
-	SELECT *
-	FROM promotion_review
-	ORDER BY reg_date DESC
-</select>
-
 <select id="topViewByPromoReview" resultType="com.ja.safari.dto.PromotionReviewDto">
-	SELECT *
-	FROM promotion_review
-	ORDER BY promotion_review_views DESC
+SELECT *
+FROM promotion_review
+ORDER BY promotion_review_views DESC
 </select>
 
 
@@ -206,26 +200,15 @@
 </select>
 
 <select id="getPromoReivewBestPostList" resultType="com.ja.safari.dto.PromotionReviewDto">
-	SELECT pr.*, NVL(like_count, 0) AS review_like_count, 
-           RANK() OVER (ORDER BY NVL(like_count, 0) DESC, pr.promotion_review_views DESC) AS rank
-    FROM promotion_review pr
-    LEFT JOIN (
-        SELECT review_id, COUNT(review_id) AS like_count
-        FROM promotion_review_like
-        GROUP BY review_id
-    ) pro_like ON pr.id = pro_like.review_id
-    ORDER BY RANK
+	SELECT pr.*, NVL(like_count, 0) AS review_like_count
+	FROM promotion_review pr
+	LEFT JOIN (
+	    SELECT review_id, COUNT(review_id) AS like_count
+	    FROM promotion_review_like
+	    GROUP BY review_id
+	) pro_like ON pr.id = pro_like.review_id
+	ORDER BY review_like_count DESC, pr.promotion_review_views DESC
 </select>
 
-  <insert id="increaseUserCoinByPromotionReviewReward">
-     INSERT INTO coin_table VALUES(
-        coin_table_seq.nextval,
-        #{user_id},
-        #{coin_transaction},
-        'P',
-		#{transaction_detail},
-        SYSDATE
-        )
-  </insert>
 
 </mapper>

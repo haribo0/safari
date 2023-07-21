@@ -43,6 +43,9 @@ public class RestHelpController {
 
 		helpService.changeCompleteHelp(helpCommentDto.getHelp_id());
 		
+		//코인 보상 적용
+		helpService.helpCommentCoinReward(helpCommentDto);
+		
 		map.put("result", "success");
 		
 		return map;

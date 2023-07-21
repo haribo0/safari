@@ -19,14 +19,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
-
 import com.ja.safari.community.service.QuestionServiceImpl;
-import com.ja.safari.dto.HelpImgDto;
 import com.ja.safari.dto.QuestionDto;
 import com.ja.safari.dto.QuestionImgDto;
 import com.ja.safari.dto.QuestionLikeDto;
-import com.ja.safari.dto.QuestionReplyCompleteDto;
 import com.ja.safari.dto.QuestionReplyDto;
+import com.ja.safari.dto.UserCoinDto;
 import com.ja.safari.dto.UserDto;
 import com.ja.safari.user.service.UserServiceImpl;
 
@@ -142,16 +140,6 @@ public class QuestionController {
 			questionService.increaseQuestionReadCount(id);
 
 			Map<String, Object> map = questionService.getQuestionBoardByBoardId(id);
-
-			model.addAttribute("map", map);
-			
-			List<Map<String, Object>> questionReplyBoardList = questionService.getQuestionReplyBoardList(id);
-			
-			model.addAttribute("questionReplyBoardList", questionReplyBoardList);
-
-			int QuestionBoardLikeCount = questionService.getQuestionLikeCountByBoardId(id);
-
-			model.addAttribute("QuestionBoardLikeCount", QuestionBoardLikeCount);
 			
 			//html escape
 			QuestionDto questionDto = (QuestionDto)map.get("questionDto");
@@ -159,6 +147,21 @@ public class QuestionController {
 			content = StringEscapeUtils.escapeHtml4(content);
 			content = content.replaceAll("\n", "<br>");
 			questionDto.setContent(content);
+			
+			model.addAttribute("map", map);
+			
+			List<Map<String, Object>> questionReplyBoardList = questionService.getQuestionReplyBoardList(id);
+			
+			
+			
+			model.addAttribute("questionReplyBoardList", questionReplyBoardList);
+
+			int QuestionBoardLikeCount = questionService.getQuestionLikeCountByBoardId(id);
+
+			model.addAttribute("QuestionBoardLikeCount", QuestionBoardLikeCount);
+			
+		
+			
 			
 
 			return "/community/question/questionReadContentPage";
@@ -195,9 +198,12 @@ public class QuestionController {
 
 		//답변 등록 프로세스 
 		@RequestMapping("question/writeQuestionReplyProcess")
-		public String writeQuestionReplyProcess(QuestionReplyDto questionReplyDto) {
-
+		public String writeQuestionReplyProcess(HttpSession session, QuestionReplyDto questionReplyDto) {
+			
+			
 			questionService.registerQuestionReply(questionReplyDto);
+			
+			
 			
 			return "redirect:/community/question/questionReadContentPage/" + questionReplyDto.getQuestion_id();
 
@@ -205,9 +211,16 @@ public class QuestionController {
 		
 		//궁금해요 답변 작성 페이지
 		 @RequestMapping("question/replyQuestionContentPage/{id}") 
-			public String replyQuestionContentPage(@PathVariable int id, Model model) { 
+			public String replyQuestionContentPage(@PathVariable int id, Model model, HttpSession session) { 
 				 
-		  model.addAttribute("board", questionService.getQuestionBoardByBoardId(id));
+			 UserDto sessionUser = (UserDto) session.getAttribute("sessionUser");
+				
+				if(sessionUser == null) {
+					return "redirect:/user/loginPage";
+				}
+			 
+			 
+		     model.addAttribute("board", questionService.getQuestionBoardByBoardId(id));
 			 
 			
 			 List<Map<String,Object>> questionReplyBoardList = questionService.getQuestionReplyBoardList(id);
@@ -268,6 +281,8 @@ public class QuestionController {
 		questionService.completeQuestionReply(question_reply_id);
 		questionService.completeQuestionBoard(question_reply_id);
 		
+		// 코인 더해주기 
+		questionService.questionReplyCoinReward(questionReplyDto);
 		
 		return "redirect:/community/question/questionReadContentPage/" + questionReplyDto.getQuestion_id();
 }

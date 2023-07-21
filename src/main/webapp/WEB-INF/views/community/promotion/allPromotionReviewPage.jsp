@@ -132,7 +132,7 @@ window.addEventListener("DOMContentLoaded", function(){
 		<!--  타이틀 -->
 		<div class = "row mt-5">
 			<div class = "col">
-				<h1 class="text-start fs-3 fw-semibold">
+				<h1 class="text-center fs-3 fw-semibold">
 				<a href="./allPromotionReviewPage" style="text-decoration: none; color: inherit;">
 					<b>ALL REVIEW</b>
 				</a>

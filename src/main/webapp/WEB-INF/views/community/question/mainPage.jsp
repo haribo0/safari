@@ -32,9 +32,9 @@
       <!-- 커뮤니티 메뉴바 --> 
 		
 		<!-- 게시판 제목 글자 -->
-	      <div class="row">
+	      <div class="row mb-2">
 	      <div class="col">
-	     <h4 class="text fw-bold ms-4"> 궁금해요 </h4>
+	     <h4 class="text fw-bold ms-2"> 궁금해요 </h4>
 	      </div>
 	      </div>
 	  <!-- 게시판 제목 글자 -->
@@ -122,7 +122,7 @@
 <!-- 	</div> -->
    <%--QuestionBoardList--%>
    
-    <%-- 글쓰기 버튼 --%>
+    
 		
 		<style>
 		.orangeButton {
@@ -137,27 +137,29 @@
 	    justify-content: center;
 	  }
 	  
-	  	
+	  a {
+	  	text-decoration: none;
+	  }
 	  	
 		</style>
-	
-	<div class="row">
+	<%-- 글쓰기 버튼 --%>
+	<!-- <div class="row">
 	<div class="col text-end" >
 	<div class="d-flex justify-content-end">
 	<a href="./questionWriteContentPage" style="text-decoration: none; display: flex; align-items: center; justify-content: center;">
-		<button type="button" class="btn btn-link orangeButton d-flex align-items-center justify-content-center" style="text-decoration: none;">
-			<i class="bi bi-pencil-square fa-icon text-white" style="font-size: 1.5rem; margin-right: 0.5rem;"></i>
-			<span class="ms-1 me-2" style="font-size: 0.9rem; line-height: 1; margin-left: 0.5rem;">글쓰기</span>
+		<button type="button" class="btn mt-4 btn-link orangeButton d-flex align-items-center justify-content-center" style="text-decoration: none;">
+			<i class="bi bi-pencil-square fa-icon text-white" style="font-size: 16px; margin-right: 0.7rem; margin-left: 0.3rem;"></i>
+			<span class="ms-1 me-2" style="font-size: 15px; line-height: 1; margin-left: 0.3rem;">글쓰기</span>
 		</button>
 	</a>
 	</div>
 	</div>
-	</div>
+	</div> -->
 	<%-- 글쓰기 버튼 --%>	
 	
 	<%-- 검색--%>	
 	<form action="./mainPage" method="get">
-				<div class="row"> 
+				<div class="row mt-3"> 
 					<div class="col-2">
 						<select name="question_searchType" class="form-select">
 							<option value="title" selected>제목</option>
@@ -173,6 +175,18 @@
 						  	<span class="bi bi-search"></span>
 						</button>
 					</div>
+					
+	<div class="col text-end" >
+	<div class="d-flex justify-content-end">
+	<a href="./questionWriteContentPage" style="text-decoration: none; display: flex; align-items: center; justify-content: center;">
+		<button type="button" class="btn btn-link orangeButton d-flex align-items-center justify-content-center" style="text-decoration: none;">
+			<i class="bi bi-pencil-square fa-icon text-white" style="font-size: 16px; margin-right: 0.7rem; margin-left: 0.3rem;"></i>
+			<span class="ms-1 me-2" style="font-size: 15px; line-height: 1; margin-left: 0.3rem;">글쓰기</span>
+		</button>
+	</a>
+	</div>
+	</div>
+	
 				</div>
 	</form>
 		<%-- 검색--%>	
@@ -184,8 +198,8 @@
 	}
 	</style>
 	
-	<div class="row">
-			<div class="col-5 mx-auto mt-3 mb-3">
+	<div class="row mt-5 mb-3">
+			<div class="col d-flex justify-content-center">
 				<nav aria-label="Page navigation example">
 				  <ul class="pagination mb-0">
 				   <li class="page-item"><a class="page-link" href="#">&lt;</a></li>   
