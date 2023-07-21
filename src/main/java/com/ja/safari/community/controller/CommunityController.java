@@ -24,18 +24,19 @@ public class CommunityController {
 	   @RequestMapping("mainPage")
 	   public String main(Model model, HttpSession session) {
 		   
-//		   UserDto sessionUser = (UserDto)session.getAttribute("sessionUser");
-//
-//			int sessionId = 0;
-//
-//			if(sessionUser != null) {
-//				sessionId = sessionUser.getId();
-//			}
+		   UserDto sessionUser = (UserDto)session.getAttribute("sessionUser");
+
+			int sessionId = 0;
+
+			if(sessionUser != null) {
+				sessionId = sessionUser.getId();
+			}
 		   
-	//	   List<Map<String, Object>> promoReviewList = promotionReviewService.getPromotionReviewList(sessionId);		
+		   List<Map<String, Object>> newPostBypromoReviewList = promotionReviewService.newPostByPromoReview(sessionId);		
 		   
+			
 		   
-	//	   model.addAttribute("promoReviewList", promoReviewList);
+		   model.addAttribute("newPostBypromoReviewList", newPostBypromoReviewList);
 		   
 	      return "community/mainPage";
 	   }

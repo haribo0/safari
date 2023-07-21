@@ -30,6 +30,8 @@ public class CommunityServiceImpl {
 	private CommunitySqlMapper communitySqlMapper;
 	@Autowired
 	private UserSqlMapper userSqlMapper;
+
+	
 	
 	public void registerHelpBoard(HelpDto helpDto, List<HelpImgDto> helpImgDtoList) {
 
@@ -495,7 +497,6 @@ public class CommunityServiceImpl {
 		return RecruitBoardLikeCount;
 	}
 
+	// 커뮤니티 메인 - 최근 게시글 모음
 
-
-}
 

@@ -127,7 +127,7 @@
 		<div class = "col-7">
 			<div class = "row">
 			<%-- 리워드 리뷰 --%>
-				<div class = "col card border border-1 mx-3 shadow-sm" style="height: 250px;">
+				<div class = "col card border border-1 mx-3 shadow-sm" style="height: 260px;">
 					<div class = "row">
 						<div class = "col fs-5 mt-2 mx-2 fw-semibold">
 							리워드 리뷰
@@ -139,23 +139,29 @@
 							</a>
 						</div>
 						<div class = "row">
-				<!-- 			<c:forEach items="${promoReviewList}" var="map" varStatus="status" begin="0" end="4">  -->
+				 			<c:forEach items="${newPostBypromoReviewList}" var="map" varStatus="status" begin="0" end="3">  
 							<div class = "col">
 								<div class = "row mt-3">
-									<div class = "col-1 mx-2">
+									<div class = "col mx-2">
 										<a href="./contentPromotionReviewPage?id=${map.promotionReviewDto.id}" style="text-decoration: none; color: inherit; display: block;">
 								  		<img src="/uploadPromoFiles/${map.promotionReviewImgList[0].rental_review_img }"
-								  	   	class="card-img-top" alt="리워드게시물사진" height="50" width="50" >	  
+								  	   	class="card-img-top" alt="리워드게시물사진" width="90" height="110">	  
 								 		</a>
 									</div>
 								</div>
 								<div class = "row mt-2">
-									<div class = "col-1 mx-2">
+									<div class = "col mx-2 pe-2" style = "font-size:15px;">
 										${map.promotionReviewDto.promotion_review_title} 
 									</div>
 								</div>
+								<div class = "row">
+									<div class = "col mt-1 mx-2 text-secondary text-start" style = "font-size:13px;">
+									<fmt:formatDate value="${map.promotionReviewDto.reg_date}" pattern="yyyy/MM/dd" />
+									 
+									</div>
+								</div>
 							</div>
-			<!--			</c:forEach>  -->
+						</c:forEach>  
 						</div>
 					</div>
 				</div> 
