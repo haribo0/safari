@@ -44,7 +44,7 @@
 			      					<div class="col align-items-center">
 					      				<p class="text-secondary pt-2 border-top mb-0" style="font-size: 14px;"><span class="startDateP"></span> ~ <span class="endDateP"></span></p>
 					      				<p class="modal-tit fw-bold fs-4 mb-0"></p>
-					      				<p><span class="originPriceP"></span><small>/월</small></p>
+					      				<p><span class="usedPriceP"></span><small>/월</small></p>
 			      					</div>
 			      					<div class="col-1 d-flex justify-content-end">
 					      				<img class="modalTopImage" alt="" src="" style="width: 100px;">
@@ -55,21 +55,16 @@
 	      				
 	      			</div>
 					<div class="col py-2 px-3 mt-3 border rounded-1">
+
 						<div class="row">
 							<div class="col py-2 d-flex justify-content-between">
-								<p>사용중인 월 구독료</p>
-								<p class="usedPriceP"></p>
-							</div>
-						</div>
-						<div class="row">
-							<div class="col py-2 d-flex justify-content-between">
-								<p class="mb-0">할인금액</p>
+								<p class="mb-0">해지금액</p>
 							</div>
 						</div>
 						<div class="row">
 							<div class="col pt-2 pb-0 d-flex justify-content-between">
-								<small class="text-secondary">&#x2514; 할인 금액</small>
-								<p class="mb-0">( - ) <span class="minusPriceP"></span>원</p>
+								<small class="text-secondary">&#x2514; 월 약정 할인금액</small>
+								<p class="mb-0"><span class="minusPriceP"></span>원</p>
 							</div>
 						</div>
 						<div class="row">
@@ -80,7 +75,7 @@
 						</div>
 						<div class="row mt-3 border-top">
 							<div class="col py-2 d-flex justify-content-between">
-								<p>결제금액</p>
+								<p>총계</p>
 								<p class="fw-bold fs-5"><span class="finPriceP"></span>원</p>
 							</div>
 						</div>
@@ -303,7 +298,7 @@
 	
 	// 할인 테이블 가져오기
 	function getRentalPeriodDisc(id, regiMonth, originPriceVal) {
-/*  		console.log("id:: ", id)
+/*   		console.log("id:: ", id)
 		console.log("regiMonth:: ", regiMonth)
 		console.log("originPriceVal:: ", originPriceVal) */
 		const xhr = new XMLHttpRequest()
@@ -324,7 +319,7 @@
 		for(let j = 0; j<discList.length; j++){
 			let str = originPriceVal;
 			let result = str.replace(/,/g, '');
-			//console.log("discList:: ", discList[j])
+			console.log("디스카운트 테이블:: ", discList[j])
 			if(regiMonth >= discList[j].rental_period) {
 				discPrice = discList[j].discounted_price
 				console.log("원래가격:: ", parseInt(result), "할인기준가격:: ", discPrice)
@@ -384,24 +379,23 @@ if (modalReturn) {modalReturn.addEventListener('show.bs.modal', event => {
     setRegDate()
     
     const remainMonth = getMonthDiffer(new Date(formattedDate),new Date(formattedEndDate))
-    const refundMoney = (originalPrice - price) * remainMonth
+    const calcedPrice = originalPrice - price
+    const refundMoney = calcedPrice * remainMonth
     console.log("originalPrice: ", originalPrice)
     console.log("price: ", price)
-    console.log("remainMonth: ", remainMonth)
-    
-/*     console.log("remainMonth:: ", remainMonth)
-    console.log("refundMoney:: ", refundMoney) */
+    console.log("남은 달 수:: ", remainMonth)
+    console.log("내뱉어야 하는 돈:: ", refundMoney)
    
     let span = document.createElement('span')
     let modalTit = document.querySelector('.modal-tit')
-    let originPriceP = document.querySelector('.originPriceP')
+    //let originPriceP = document.querySelector('.originPriceP')
     let originPriceVal = parseInt(originalPrice).toLocaleString('ko-KR')
     let regiMonthP = document.querySelectorAll('.regiMonthP')
     let startDateP = document.querySelector('.startDateP')
     let endDateP = document.querySelector('.endDateP')
     let finPriceP = document.querySelector('.finPriceP')
     let usedPriceP = document.querySelector('.usedPriceP')
-   // let usedMonthP = document.querySelector('.usedMonthP')
+   	//let usedMonthP = document.querySelector('.usedMonthP')
     let modalTopImage = document.querySelector('.modalTopImage')
     let minusPriceP = document.querySelector('.minusPriceP')
     
@@ -412,19 +406,13 @@ if (modalReturn) {modalReturn.addEventListener('show.bs.modal', event => {
     
     modalTit.innerText = productTitle
     usedPriceP.innerText = parseInt(price).toLocaleString()
-    originPriceP.innerText = originPriceVal+"원"
+    //originPriceP.innerText = originPriceVal+"원"
     regiMonthP[0].innerText = regiMonth
     regiMonthP[1].innerText = regiMonth
     startDateP.innerText = formattedStartedDate
     endDateP.innerText = formattedEndDate
-    //minusPriceP.innerText = ''
-    
-    //minusPriceP.innerText = parseInt(discPrice) - parseInt(originPriceVal)
+    minusPriceP.innerText = calcedPrice.toLocaleString()
     finPriceP.innerText = parseInt(refundMoney).toLocaleString('ko-KR')
-    
-    setTimeout(() => {
-    	minusPriceP.innerText = finDiscPrice
-	}, 200);
 
    // usedMonthP.innerText = calcMonth
     modalTopImage.setAttribute('src', '/safariImg/'+dataImageLink)
@@ -457,9 +445,9 @@ function getMonthDiffer(startMonth, endMonth) {
 
 
 function returnProcess(orderId,refundMoney,productTitle) {
-	console.log('리턴프로세스 매개변수 orderId:: ',orderId )
+/* 	console.log('리턴프로세스 매개변수 orderId:: ',orderId )
 	console.log('리턴프로세스 매개변수 refundMoney:: ',refundMoney )
-	console.log('리턴프로세스 매개변수 productTitle:: ',productTitle )
+	console.log('리턴프로세스 매개변수 productTitle:: ',productTitle ) */
 	const xhr = new XMLHttpRequest()
 
 	xhr.onreadystatechange = function() {

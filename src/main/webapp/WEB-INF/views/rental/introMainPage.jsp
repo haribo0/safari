@@ -68,15 +68,15 @@
 				<p class="fw-bold fs-4 mb-0">대여 상품</p>
 			</div>
 			<div class="col d-flex justify-content-end align-items-end">
-				<a href="${pageContext.request.contextPath}/rental/mainPage" class="btn fw-bold fs-6 mb-0" style="color: #ff6600;">더보기</a>
+				<a href="${pageContext.request.contextPath}/rental/mainPage" class="btn fw-bold fs-6 mb-0">더보기</a>
 			</div>
 		</div>
 		<div class="row flex-wrap justify-content-between mt-4">
-				<c:forEach items="${rentalItemList}" var="map" begin="0" end="2" step="1" varStatus="status">
-				<div class="col-4 item-box" style="cursor: pointer;">
+				<c:forEach items="${rentalItemList}" var="map" begin="0" end="3" step="1" varStatus="status">
+				<div class="col-3 item-box" style="cursor: pointer;">
 					<div class="card border border-0">
 						<a href="${pageContext.request.contextPath}/rental/productDescPage?id=${map.rentalItemDto.id}" class="text-decoration-none d-inline-block">
-						  <img src="/safariImg/${map.rentalItemDto.main_img_link}" class="card-img-top item-box-img img-fluid" alt="..." style="min-height: 420px;" >
+						  <img src="/safariImg/${map.rentalItemDto.main_img_link}" class="card-img-top item-box-img img-fluid" alt="...">
 						</a>
 					  <div class="card-body p-0 pt-2">
 					  	<div class="d-flex justify-content-between">

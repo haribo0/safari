@@ -120,6 +120,12 @@
 		</choose>
 
 	</select>
+	
+	<!-- 판매자 dto 가져오기 -->
+	<select id="selectRentalBuisnessById" resultType="com.ja.safari.dto.RentalBusinessDto">
+		select * from rental_buisness_table where id = (select business_id from rental_item_table where id = #{itemId})
+	</select>
+	
 
 	<!-- 상품 하나 가져오기 -->
 	<select id="selectById" resultType="com.ja.safari.dto.RentalItemDto">
