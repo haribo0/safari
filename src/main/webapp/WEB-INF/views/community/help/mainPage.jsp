@@ -11,13 +11,45 @@
 	<jsp:include page="../../common/meta.jsp"></jsp:include>
 	<!-- 메타 섹션 -->
 	
-	<style>
-  .cropped-image {
-    width: 126.08px;
-    height: 126.08px;
-    object-fit: cover;
-	 }
-	</style>
+<style>
+ .cropped-image {
+   width: 126.08px;
+   height: 126.08px;
+   object-fit: cover;
+ }
+ 
+
+ 
+ .overflow {
+  white-space: nowrap; /* 텍스트를 한 줄로 표시 */
+  overflow: hidden; /* 넘친 텍스트를 숨김 */
+  text-overflow: ellipsis; /* 넘친 텍스트를 "..."으로 표시 */
+} 
+
+	
+ .orangeButton {
+background: #ff6f0f;
+font-weight: bold;
+color: white;
+}
+
+.orangeButton:hover{
+   background: #FF812C;
+   font-weight: bold;
+   color: white;
+}
+
+.btn-link {
+   display: flex;
+   align-items: center;
+   justify-content: center;
+ }
+ 
+ a {
+ 	text-decoration: none;
+ }
+
+</style>
 
 </head>
 <body>
@@ -75,8 +107,8 @@
 				    	<div class="col-7">
 				    		
 				    		<a class="text-black text-decoration-none" href="/safari/community/help/readContentPage/${map.helpDto.id}">
-				    		<span style="font-size: 19px;">
-				    		<b>${map.helpDto.title}</b>
+				    		<span class = "fw-semibold" style="font-size: 16px;">
+				    		${map.helpDto.title}
 				    		<c:if test="${map.helpDto.points>=1}">
 						  	<span class="badge rounded-pill text-bg-warning opacity-75" style="font-size: 61%; position: relative; top: -3px;">${map.helpDto.points}p</span>
 						  	</c:if></span></a>
@@ -139,7 +171,7 @@
 		    	
 		    	<div class="col-7">
 		    		<a class="text-black text-decoration-none" href="/safari/community/help/readContentPage/${map.helpDto.id}">
-		    		<span style="font-size: 19px;">
+		    		<span style="font-size: 16px;">
 		    		<b>${map.helpDto.title}</b>
 		    		<c:if test="${map.helpDto.points>=1}">
 				  	<span class="badge rounded-pill text-bg-warning opacity-75" style="font-size: 61%; position: relative; top: -3px;">${map.helpDto.points}p</span>
@@ -172,16 +204,10 @@
 		
 		<%-- 글쓰기 버튼 --%>
 		
-		<style>
-		.orangeButton {
-		background: #ff6f0f;
-		font-weight: bold;
-		color: white;
-		}
-		</style>
+
 	
 	<div class="row">
-	<div class="col-9">
+	<div class="col">
 	<%-- 검색--%>	
 	<form action="./mainPage" method="get">
 				<div class="row"> 
@@ -200,23 +226,26 @@
 						 <button type="submit" class="btn btn-outline-dark">
 						  	<span class="bi bi-search"></span>
 						</button>
-					</div>
+										</div>
+						<!-- 글쓰기 버튼 -->	
+						<div class="col text-end" >
+						<div class="d-flex justify-content-end">
+						<a href="./writeContentPage" style="text-decoration: none; display: flex; align-items: center; justify-content: center;">
+							<button  class="btn btn-link orangeButton d-flex align-items-center justify-content-center" >
+								<i class="bi bi-pencil-square fa-icon text-white" style="font-size: 16px; margin-right: 0.7rem; margin-left: 0.3rem;"></i>
+								<span class="ms-1 me-2" style="font-size: 15px; line-height: 1; margin-left: 0.3rem;">글쓰기</span>
+							</button>
+						</a>
+						</div>
+						</div>
+						<!-- 글쓰기 버튼 -->		
 				</div>
 	</form>
-		<%-- 검색--%>	
+	<%-- 검색--%>	
 	</div>
-	<div class="col text-end" >
-	<div class="d-flex justify-content-end">
-	<a href="./writeContentPage" style="text-decoration: none; display: flex; align-items: center; justify-content: center;">
-		<button type="button" class="btn btn-link orangeButton d-flex align-items-center justify-content-center" style="text-decoration: none; display: flex; align-items: center; justify-content: center;">
-			<i class="bi bi-pencil-square fa-icon text-white" style="font-size: 1.5rem; margin-right: 0.5rem;"></i>
-			<span class="ms-1 me-2" style="font-size: 0.9rem; line-height: 1; margin-left: 0.5rem;">글쓰기</span>
-		</button>
-	</a>
+	
 	</div>
-	</div>
-	</div>
-	<%-- 글쓰기 버튼 --%>	
+	
 		
 		
 	<style>

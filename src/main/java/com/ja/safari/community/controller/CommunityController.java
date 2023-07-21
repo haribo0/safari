@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/community/*")
 public class CommunityController {
 
+	
 	  // 커뮤니티 메인 페이지
 	   @RequestMapping("mainPage")
 	   public String main() {

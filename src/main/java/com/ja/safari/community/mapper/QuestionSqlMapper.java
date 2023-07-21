@@ -8,6 +8,7 @@ import com.ja.safari.dto.QuestionDto;
 import com.ja.safari.dto.QuestionImgDto;
 import com.ja.safari.dto.QuestionLikeDto;
 import com.ja.safari.dto.QuestionReplyDto;
+import com.ja.safari.dto.UserCoinDto;
 
 public interface QuestionSqlMapper {
 
@@ -84,5 +85,9 @@ public interface QuestionSqlMapper {
 		
 		// 글 채택 여부...
 		public int countQuestionReplyComplete(int question_id);
+
+		// 답변 채택 코인 리워드 
+		public void questionReplyCoinReward(UserCoinDto userCoinDto);
+		
 		
 }

@@ -11,6 +11,13 @@
 	<jsp:include page="../../common/meta.jsp"></jsp:include>
 	<!-- 메타 섹션 -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+<style>
+.custom-table-secondary {
+  background-color: #f4f4f4!important; /* 원하는 연한 색상으로 변경 */
+}
+
+</style>
+
 <script>
 //현재 접속한 유저 pk
 let mySessionId = null;
@@ -170,7 +177,7 @@ window.addEventListener("DOMContentLoaded", function(){
 				<div class="col">
 					<span class="fw-medium fs-5">${map.questionDto.title}</span>
 					<c:if test="${map.questionDto.points>=1}">
-					<span class="badge rounded-pill text-bg-warning opacity-75" style="font-size: 80%; position: relative; bottom: 2px;">
+					<span class="badge rounded-pill text-bg-warning opacity-75" style="font-size: 80%; position: relative; left: 2px; bottom: 2px;">
 					<span class="text-black">${map.questionDto.points}p</span></span>
 					</c:if>
 					<c:if test="${map.questionDto.points==0}"></c:if>
@@ -180,8 +187,8 @@ window.addEventListener("DOMContentLoaded", function(){
 			
 			<div class="row">
 				<div class="col ms-1">
-				<span style="font-size: 0.9rem; color: gray;" > ${map.userDto.nickname}  &nbsp;  <i class="bi bi-eye"></i> ${map.questionDto.views} &nbsp;
-				 ${map.questionDto.status}
+				<span style="font-size: 13px; color: gray;" > ${map.userDto.nickname}  &nbsp;  <i class="bi bi-eye"></i> ${map.questionDto.views} &nbsp;
+				 <span class="fw-semibold">${map.questionDto.status}</span>
 				 </span>
 				 </div>
 				 <div class="col">
@@ -258,18 +265,18 @@ window.addEventListener("DOMContentLoaded", function(){
 			
 			
 			<%-- 답변 반복문 --%>
-			<div class="row mt-2">
+			<div class="row mt-3">
 				<div class="col" style="margin-left: 10px; margin-right: 20px;">
 					<c:forEach items="${questionReplyBoardList}" var="questionReply">
 				
-			<%-- 답변 공간 --%>
+				<%-- 답변 공간 --%>
 				<div class="row mb-5">
 					<div class="col border border-1 rounded-3">
 					
 				<%--답변 내용--%>
-					<div class="row mt-2">
+					<div class="row mt-4 ms-2">
 						<div class="col fw-bold">
-							<span style="font-size: 13px;">${questionReply.userDto.nickname}</span>
+							<span style="font-size: 14px;">${questionReply.userDto.nickname}</span>
 							<span class="text-secondary ms-2" style="font-size: 13px; font-weight: normal;">
 							 <fmt:formatDate value="${questionReply.questionReplyDto.reg_date}" pattern="yyyy.MM.dd a hh:mm"/> 
 					 		 </span>
@@ -284,7 +291,7 @@ window.addEventListener("DOMContentLoaded", function(){
 				   	   </div>
 				   	   
 				   
-				   <div class="col text-end">
+				   <div class="col me-2 text-end">
 				   	  <div class="row">
 				   	  	<div class="col">
 				   	  		<!-- 동적으로 바껴야 하는 부분 -->
@@ -299,7 +306,7 @@ window.addEventListener("DOMContentLoaded", function(){
 				   	  			</c:when>
 				   	  			<c:otherwise>
 				   	  				<c:if test="${!empty sessionUser && sessionUser.id == map.userDto.id && sessionUser.id != questionReply.userDto.id}">
-										<a href="/safari/community/question/acceptQuestionReplyProcess?question_reply_id=${questionReply.questionReplyDto.id }" class="btn mt-2 btn btn-sm" style="background: #ff6f0f; font-weight: bold; color: white;">채택하기</a>
+										<a href="/safari/community/question/acceptQuestionReplyProcess?question_reply_id=${questionReply.questionReplyDto.id}" class="btn mt-2 btn btn-sm" style="background: #ff6f0f; font-weight: bold; color: white;">채택하기</a>
 				   	  				</c:if>
 				   	  			</c:otherwise>
 				   	  		</c:choose>
@@ -310,36 +317,34 @@ window.addEventListener("DOMContentLoaded", function(){
 				 </div>
 				 
 				  
-				  <div class="row mt-3">
-				   	 <div class="col-11" style="margin-top: -5px; margin-bottom: 15px; font-size: 15px">
+				  <div class="row mt-5 ms-2">
+				   	 <div class="col-11" style="margin-top: -25px; margin-bottom: 15px; font-size: 15px">
 				   		${questionReply.questionReplyDto.content}
 				   	 </div>
 				   	 <div class="col text-end">
 				   	 	<div class="row">
-				   	 	
 				   	 	<div class="col"></div>
 				   	 	</div>
 				   	 </div>
-				   	 </div>
-				   	 
 				   	 <!-- 알아두세요 -->
-				   	 <div class="row">
-				   	 	<div class="col">
-				   	 	<div style="font-size: 13px; color:red;">
+				   	 <div class="row mt-3 mb-3">
+				   	 	<div class="col custom-table-secondary ms-2" >
+				   	 	<div class="fw-semibold mt-3 ps-2" style="font-size: 13px; color:black;">
 				   	 	<i class="bi bi-exclamation-circle"></i>&nbsp;알아두세요!<br></div>
-				   	 	<div style="font-size: 12px; color:gray;" class = "mb-3">
-				   	 	위 답변은 답변작성자가 경험과 지식을 바탕으로 작성한 내용입니다.<br> 
+				   	 	<div class = "mb-3 ps-2" style="font-size: 12px; color:gray;" class = "mb-4">
+				   	 	위 답변은 답변작성자가 경험과 지식을 바탕으로 작성한 내용입니다.
+				   	 	</div>
 				   	 	</div>
 				   	 	</div>
 				   	 </div>
-				   	 
-				   	 	
-				   	 	
-				   	 
 				   	 <!-- 알아두세요 -->
+				   	 
+				   	 </div>
+				   	 
+				   	 
 				   	  <%--답변 내용--%> 
 				</div>
-				</div>
+				
 				 <%--답변 공간--%> 
 				 </c:forEach>
 				 </div>

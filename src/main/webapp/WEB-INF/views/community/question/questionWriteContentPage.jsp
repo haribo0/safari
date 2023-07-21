@@ -37,7 +37,7 @@
 		<div class="row">
 			<div class="col mt-5">
 			
-			<strong style="font-size: 24px;">글쓰기 페이지<br></strong><hr>
+			<span class="fs-4 fw-semibold">${sessionUser.nickname}님, 무엇이 궁금하세요?</span><br><hr>
 				  	<input type="hidden" name="user_id" value="${sessionUser.id}">
 				  	<input type="text" class="form-control" placeholder="제목을 입력해주세요" name="title" maxlength="40" style= "margin-top: 10px;">
  					<textarea type="text" class="form-control" placeholder="내용을 입력해주세요" name="content" maxlength="3000" style="height:400px; margin-top: 10px;"></textarea>

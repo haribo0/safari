@@ -240,16 +240,6 @@ function formatDate(date, format) {
 					const commentContent = newCommentElement.querySelector(".commentContent");
 					commentContent.innerText = data.helpCommentDto.content;
 					
-					/* if(mySessionId != null && data.helpCommentDto.user_id){
-						const commentDelete = document.newCommentElement("span");
-						commentDelete.classList.add()
-					}
-					const commentUpdate = newCommentElement.querySelector(".commentUpdate");
-					commentUpdate.innerText = 
-						
-					const commentDelete = newCommentElement.querySelector(".commentDelete");
-					commentDelete.innerText =  */
-					
 				 	const commentDate = newCommentElement.querySelector(".commentDate");
 					const date = new Date(data.helpCommentDto.reg_date);
 					const formattedDate = formatDate(date, 'yyyy.MM.dd a hh:mm');
@@ -294,53 +284,14 @@ function formatDate(date, format) {
 			    	const pick = newCommentElement.querySelector(".pick");
 			    	pick.setAttribute("onclick", "commentPick("+data.helpCommentDto.id+")");
 			    	
-			    	
+			    	console.log(data.helpCommentDto.id);
 				    
 				    
 					helpCommentListBox.appendChild(newCommentElement);
 				}
 				
 				
-				
-				
-/* 				for(data of response.helpCommentList){
-					const row1 = document.createElement("div");
-					row1.classList.add("row");
-					row1.classList.add("helpCommentOuter");
-					row1.setAttribute("help_id", data.helpCommentDto.id);
-					//헬부분
-					const colHelpCommentBox = document.createElement("div");
-					colHelpCommentBox.classList.add("helpCommentBox");
-					colHelpCommentBox.classList.add("col-8");
-					colHelpCommentBox.classList.add("bg-primary");
-					colHelpCommentBox.innerText = data.helpCommentDto.content; //데이터 세팅
-					row1.appendChild(colHelpCommentBox);
-					
-					const colHelpNickName = document.createElement("div");
-					colHelpNickName.classList.add("col-2");
-					colHelpNickName.classList.add("bg-secondary");
-					colHelpNickName.innerText = data.userDto.nickname; //데이터 세팅
-					row1.appendChild(colHelpNickName);
-					
-					if(mySessionId != null && data.helpCommentDto.user_id){
-						const colHelpDelete = document.createElement("div");
-						colHelpDelete.classList.add("col-1");
-						colHelpDelete.innerText = "삭제";
-						colHelpDelete.setAttribute("onclick", "deleteHelpComment("+data.helpCommentDto.id+")");
-						row1.appendChild(colHelpDelete);
-						
-						const colHelpUpdate = document.createElement("div");
-						colHelpUpdate.classList.add("col-1");
-						colHelpUpdate.innerText = "수정";
-						colHelpUpdate.setAttribute("onclick", "changeInputForUpdateHelpComment(this)");
-						
-						
-						row1.appendChild(colHelpUpdate);
-						
-					} 
-					
-					document.getElementById("helpCommentListBox").appendChild(row1);
-					} */
+			
 				}
 				}
 	
@@ -488,9 +439,10 @@ window.addEventListener("DOMContentLoaded", function(){
 
 				<div class="row">
 					<div class="col ms-1">
-						<span style="font-size: 0.9rem; color: gray;">
+						<span style="font-size: 13px; color: gray;">
 							${map.userDto.nickname} &nbsp; <i class="bi bi-eye"></i>
-							${map.helpDto.views} &nbsp; ${map.helpDto.status}
+							${map.helpDto.views} &nbsp; 
+							<span class="fw-semibold">${map.helpDto.status}</span>
 						</span>
 					</div>
 					<div class="col"></div>
@@ -569,7 +521,7 @@ window.addEventListener("DOMContentLoaded", function(){
 					<div class="col ms-3 fw-bold">
 
 						<i class="bi bi-chat-dots"></i>&nbsp;<span
-							style="font-size: 13px;">댓글 ${helpCommentCount}</span>
+							style="font-size: 13px;">댓글</span>
 					</div>
 				</div>
 				<%-- 댓글 작성 글자 --%>
@@ -587,7 +539,7 @@ window.addEventListener("DOMContentLoaded", function(){
 								<div class="col-1 d-flex justify-content-center ">
 									<button class="btn btn-secondary"
 										onclick="registerHelpComment()"
-										style="font-size: 22px; height: 60px; width: 68px">
+										style="font-size: 22px; height: 60px; width: 68px; background-color: #ff6f0f; border: none;">
 										<i class="bi bi-chat-text"></i>
 									</button>
 								</div>
@@ -726,7 +678,7 @@ window.addEventListener("DOMContentLoaded", function(){
 						<div class="row">
 							<div class="col pickCol">
 								<!-- 동적으로 바껴야 하는 부분 -->
-								<input type="button" class="pick btn mt-4 btn-primary btn-sm" value="채택하기">
+								<input type="button" class="pick btn mt-2 btn btn-sm" style="background: #ff6f0f; font-weight: bold; color: white;" value="채택하기">
 
 
 							</div>
