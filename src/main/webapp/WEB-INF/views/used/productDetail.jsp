@@ -146,10 +146,10 @@
     	<div class="row mt-1">
 		   	<div class="fw-bold col title">${map.productDto.title }
 		    	<c:if test="${reservationCount > 0 }">
-		    	<span class="mt-0"><button type="button" class="btn btn-outline-success btn-sm mb-1 ms-2" disabled>예약중</button></span>
+		    	<span class="mt-0"><button type="button" class="btn btn-success btn-sm mb-1 ms-2" disabled>예약중</button></span>
 		    	</c:if>
 		    	<c:if test="${completeCount > 0 }">
-		    	<span class="mt-0"><button type="button" class="btn btn-outline-secondary btn-sm mb-1 ms-2" disabled>거래완료</button></span>
+		    	<span class="mt-0"><button type="button" class="btn btn-secondary btn-sm mb-1 ms-2" disabled>거래완료</button></span>
 		    	</c:if>
 		   	</div>
 		   	<div class="col-2 text-end my-auto">
@@ -211,7 +211,7 @@
     				<a href="./productRequestAlready?productId=${map.productDto.id }" type="button" class="btn orangeButton">채팅하기</a>
     			</c:if>
     			 <c:if test="${completeCount > 0}">
-    			 	<button type="button" class="btn btn-secondary btn-sm" disabled>채팅하기</button>
+    			 	<button type="button" class="btn btn-outline-secondary btn-sm" disabled>채팅하기</button>
     			 </c:if>
     		</div>
     		</c:if>

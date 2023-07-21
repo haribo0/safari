@@ -11,7 +11,7 @@
 <jsp:include page="../common/meta.jsp"></jsp:include>
 <!-- 메타 섹션 -->
 
-<!-- charjs -->
+<!-- Chart.js -->
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
 
@@ -124,6 +124,10 @@
 	top:1px;
 	border-radius: 50%;
 	background: #6EDAA5;
+}
+
+.border-left {
+	border-left: solid 1px;
 }
 
 .btn_blue{
@@ -474,8 +478,73 @@
 		
 	</div>
 	
+	
+	
+	<!-- 3RD ROW -->
+	<div class="row mt-4 mb-5">
+		<div class="col-1"></div>
+		<div class="col">
+			  	<div class="row border-bottom">
+				  	<div class="col-8 fs-5 ms-2 fw-medium pb-3 ">
+						<div class="card shadow-sm" >
+							<div class="card-body">
+							
+								<!-- BAR CHART -->
+								<div class="row border-bottom fs-5 fw-medium ps-2 pb-3">
+									<div class="col ">
+					  					지난 주간 문의 처리수
+									
+									</div>
+								</div>
+								
+								<div class="row ">
+									<div class="col ">
+										<canvas id="barChart" ></canvas>
+					  				  
+									
+									</div>
+								</div>
+								<!-- BAR CHART -->
+								
+				  			</div>
+					  	</div>
+					</div>
+				  	<div class="col fs-5 ms-2 fw-medium pb-3 ">
+						<div class="card shadow-sm" >
+							<div class="card-body">
+								
+								<!-- DONUT CHART -->
+								<div class="row border-bottom fs-5 fw-medium ps-2 pb-3">
+									<div class="col ">
+					  			    	지난 주간 문의 배정 비율
+									</div>
+								</div>
+								
+								<div class="row ">
+									<div class="col py-4 ">
+					  			    	<canvas id="donutChart3" ></canvas>
+									</div>
+								</div>
+								<!-- DONUT CHART -->
+								
+				  			</div>
+						  </div>
+						</div>
+			  	</div>
+			    
+			
+		</div>
+		<div class="col-1"></div>
+	
+	</div>
+	<!-- 3RD ROW -->
+	
+	
+	
+	
+	
 	<!-- 2ND ROW -->
-	<div class="row">
+	<div class="row mb-5">
 	
 	<div class="col-1"></div>
 	<div class="col">
@@ -493,7 +562,8 @@
 				    			</div>
 			    			</div>
 			    			
-			    			<div class="row py-3 fw-medium text-center border-bottom border-2 border-black mx-2">
+ 			    			<div class="row py-3 fw-medium text-center border-bottom border-2 border-black mx-2"> 
+			    			<!-- <div class="row py-3 fw-medium text-center bg-secondary-subtle mx-2"> -->
 					    			<div class="col   ">
 				    					직원
 					    			</div>
@@ -530,15 +600,20 @@
 			    			<c:forEach var="map" items="${weeklyList}">
 			    			
 			    			
-				    			<div class="row border-top py-4 text-center mx-2">
+				    			<div class="row border-top py-3 text-center mx-2">
 					    			<div class="col my-auto  fw-semibold ">
 				    					${map.emp.name}
 					    			</div>
 					    			<div class="col fs-5 ">
 				    					${map.weeklyHours}
 					    			</div>
-					    			<div class="col fs-5 ">
-				    					${map.qna.qna_count}
+					    			<div class="col fs-5  border-left">
+					    				<div class="row border-left">
+						    				<div class="col">
+					    						${map.qna.qna_count}
+						    				</div>
+					    				</div>
+				    					<%-- ${map.qna.qna_count} --%>
 					    			</div>
 					    			<div class="col fs-5 ">
 				    					${map.qna.reply_count}
@@ -574,17 +649,17 @@
 						    			</c:if>
 				    				</div>
 					    			
-					    			<div class="col fs-5 ">
+					    			<div class="col fs-5 border-left p-0">
 				    					${map.chat.chat_count}
 					    			</div>
 					    			<div class="col fs-5 ">
 				    					${map.chat.chat_ended_count}
 					    			</div>
 					    			<div class="col fs-5 ">
-					    				${map.chat.chat_count == 0 ? 0 : map.chat.chat_ended_count / map.chat.chat_count * 100}<span class="text-secondary" style="font-size: 0.7em">%</span>
-				    				    <%-- <c:set var="ratio" value="${map.chat.chat_count == 0 ? 0 : map.chat.chat_ended_count / map.chat.chat_count}" />
+					    				<%-- ${map.chat.chat_count == 0 ? 0 : map.chat.chat_ended_count / map.chat.chat_count * 100}<span class="text-secondary" style="font-size: 0.7em">%</span> --%>
+				    				    <c:set var="ratio" value="${map.chat.chat_count == 0 ? 0 : map.chat.chat_ended_count / map.chat.chat_count}" />
 									    <% double roundedRatio = Math.round((Double)pageContext.getAttribute("ratio") * 100.0); %>
-									    <%=roundedRatio%><span class="text-secondary" style="font-size: 0.7em">%</span> --%>
+									    <%=roundedRatio%><span class="text-secondary" style="font-size: 0.7em">%</span>
 				    					<%-- ${map.chat.chat_ended_count == 0 ? 0 : map.chat.chat_count / map.chat.chat_ended_count } --%>
 					    			</div>
 					    			
@@ -629,27 +704,9 @@
 	<div class="col-1"></div>
 	
 	</div>
+	<!-- 2ND ROW -->
 	
 	
-	<!-- 3RD ROW -->
-	<div class="row mt-4 mb-5">
-		<div class="col-1"></div>
-		<div class="col">
-			<div class="card shadow-sm" >
-			  <div class="card-body">
-			  	<div class="row border-bottom">
-				  	<div class="col fs-5 ms-2 fw-medium pb-3 ">
-			  			그래프 
-				  	</div>
-			  	</div>
-			    <canvas id="barChart"></canvas>
-			  </div>
-			</div>
-			
-		</div>
-		<div class="col-1"></div>
-	
-	</div>
 	
 	
 	
@@ -658,14 +715,16 @@
 
 <div class="card shadow-sm d-none" >
   <div class="card-body">
-  	<div class="fs-5 ms-2 fw-medium pb-3">상품별 주문</div>
+  	<div class="fs-5 ms-2 fw-medium pb-3">주문</div>
     <hr class="border">
     <canvas id="barChart"></canvas>
   </div>
 </div>
 
 
-
+	<!-- 푸터 섹션 -->
+	<jsp:include page="../common/footer.jsp"></jsp:include>
+	<!-- 푸터 섹션 -->
 
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
@@ -762,7 +821,9 @@ var donutChart2 = new Chart(document.getElementById("donutChart2"), {
 
 
 
-/* 
+
+
+
 
 
 function getDataForChart() {
@@ -776,27 +837,35 @@ function getDataForChart() {
 			// bar chart 
 			let barLabels = [];
 			let	barData = [];
-			response.saleList.forEach(function(data){
-				// 너무 길면 자르기
-				barLabels.push(data.TITLE.length > 10 ? data.TITLE.substring(0, 7)+".." : data.TITLE);
-				barData.push(data.SALES);
+			response.list1.forEach(function(data){
+				barLabels.push(data.name);
+				barData.push(data.total_count);
 			});
 			makeBarChart(barData,barLabels);
 			
+			// donut chart 
+			let donutLabels = [];
+			let	donutData = [];
+			response.list1.forEach(function(data){
+				donutLabels.push(data.name);
+				donutData.push(data.total_count);
+			});
+			makeDonutChart(donutData,donutLabels);
+			
 			// line chart 
-			let lineLabels = [];
+			/* let lineLabels = [];
 			let	lineData = [];
 			response.revenueList.forEach(function(data){
 				lineLabels.push(data.MONTH);
 				lineData.push(data.REVENUE);
 			});
-			makeLineChart(lineData,lineLabels);
+			makeLineChart(lineData,lineLabels); */
 			
 		}
 	}
 
 	// get 방식 
-	xhr.open("get", "getDataForChart");
+	xhr.open("get", "./getWeeklyChartData");
 	xhr.send();
 
 }
@@ -810,13 +879,29 @@ function makeBarChart(d, l) {
 	   data: {
 	     labels: l,
 	     datasets: [{
-	       label: '상품별 주문',
+	       label: '직원별 문의 처리수',
 	       data: d,
 	       borderWidth: 1,
-	       backgroundColor: [
-	    	   'rgba(54, 162, 235, 0.5)'
+	       /* backgroundColor: [
+	    	   //'rgba(54, 162, 235, 0.5)'
+	    		'#F6DFF9',
+	    		'#E0D5F1',
+	    		//'#D9C4E9',
+	    		'#FEE6EB',
+	    		'#FFD4E4'
+	    		#4DC9F6
+	    		
+				#F7464A,
+				#46BFBD,
+				#FDB45C,
+				#949FB1,
+				#4D5360,
+				#80b6f4,
+				#f49080,
+				#8ff49a,
+				#f4e280
  
-    	    ]
+    	    ] */
 	    	
 	     }]
 	   },
@@ -830,13 +915,50 @@ function makeBarChart(d, l) {
 	     }
 	   
 	   
-	   
-	   
-	   
 	   }
 	 });
 }
- */
+
+
+
+function makeDonutChart(d,l) {
+	
+	const canvas = document.getElementById('donutChart3');
+
+	new Chart(canvas, {
+	  type: 'doughnut',
+	  data: {
+	     labels: l,
+	     datasets: [{
+	       label: '직원별 문의 배정',
+	       data: d,
+	       borderWidth: 1,
+	       backgroundColor: [
+    	       '#54A1E5',
+    	       
+	       ]
+	    	
+	     }]
+	   },
+	  options: {
+	    responsive: true,
+	    plugins: {
+	      legend: {
+	        position: 'top',
+	      },
+	      title: {
+	        display: false,
+	        text: 'Chart.js Doughnut Chart'
+	      }
+	    }
+	  },
+	});
+	
+}
+
+
+
+
 
 
 
@@ -1003,7 +1125,8 @@ let colorCount = 0;
 
 document.addEventListener('DOMContentLoaded', function() {
 	
-	// getDataForChart();
+	// 초반에 실행시킬 함수 
+	getDataForChart();
 	getEmployeeListForCalendarColor();
 	
 	

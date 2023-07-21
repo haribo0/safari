@@ -14,6 +14,7 @@ import com.ja.safari.dto.PromotionReviewCommentDto;
 import com.ja.safari.dto.PromotionReviewDto;
 import com.ja.safari.dto.PromotionReviewImgDto;
 import com.ja.safari.dto.PromotionReviewLikeDto;
+import com.ja.safari.dto.ProreviewRentalCategoryDto;
 import com.ja.safari.dto.RentalItemDto;
 import com.ja.safari.dto.RentalMainCategoryDto;
 import com.ja.safari.dto.RentalSubCategoryDto;
@@ -30,8 +31,6 @@ public class PromotionReviewServiceImpl {
 	private UserSqlMapper userSqlMapper;
 	@Autowired
 	private PromotionReviewCommentMapper promotionReviewCommentMapper;
-	@Autowired
-	private RentalSqlMapper rentalSqlMapper;
 	
 	
 	// 프로모션 리뷰 게시글 목록 리스트 
@@ -47,6 +46,7 @@ public class PromotionReviewServiceImpl {
 		UserDto userDto = userSqlMapper.selectUserDtoById(promotionReviewDto.getUser_id());	
 		List<PromotionReviewImgDto> promotionReviewImgList = promotionReviewMapper.selectByPromoReviewImgId(promotionReviewDto.getId());
 				
+		
 		
 		int countPromotionReviewComment = promotionReviewCommentMapper.countPromotionReviewComment(promotionReviewDto.getId());
 
@@ -69,7 +69,7 @@ public class PromotionReviewServiceImpl {
 			map.put("countLikeByPromotionReview", countLikeByPromotionReview);
 			map.put("checkPromotionReviewMyLike", checkPromotionReviewMyLike);
 			map.put("realCheck", realCheck);
-			
+
 			
 			list.add(map);
 			
@@ -106,7 +106,10 @@ public class PromotionReviewServiceImpl {
 		Map<String, Object> map = new HashMap<>();
 		
 		PromotionReviewDto promotionReviewDto = promotionReviewMapper.selectByPromoReviewId(id);
-
+		
+		ProreviewRentalCategoryDto rentalItemCategory = promotionReviewMapper.getRentalItemCategory(promotionReviewDto.getId()); 
+		
+		System.out.println("rentalItemCategory 상세 : " + rentalItemCategory);
 		UserDto userDto = userSqlMapper.selectUserDtoById(promotionReviewDto.getUser_id());
 			
 		List<PromotionReviewImgDto> promotionReviewImgDtoList = promotionReviewMapper.selectByPromoReviewImgId(id);
@@ -114,6 +117,7 @@ public class PromotionReviewServiceImpl {
 		map.put("userDto", userDto);
 		map.put("promotionReviewDto", promotionReviewDto);
 		map.put("promotionReviewImgDtoList", promotionReviewImgDtoList);
+		map.put("rentalItemCategory", rentalItemCategory);
 
 		
 		// map 안에 map 넣기 예시
@@ -202,6 +206,7 @@ public class PromotionReviewServiceImpl {
 				
 			List<PromotionReviewImgDto> promotionReviewImgList = promotionReviewMapper.selectByPromoReviewImgId(promotionReviewDto.getId());
 			
+			
 			// 댓글 수
 			int countPromotionReviewComment = promotionReviewCommentMapper.countPromotionReviewComment(promotionReviewDto.getId());
 		
@@ -221,6 +226,7 @@ public class PromotionReviewServiceImpl {
 			map.put("countPromotionReviewComment", countPromotionReviewComment);
 			map.put("countLikeByPromotionReview", countLikeByPromotionReview);
 			map.put("realCheck", realCheck);
+
 			
 			orderByPromoReviewLikesList.add(map);
 			
@@ -247,6 +253,9 @@ public class PromotionReviewServiceImpl {
 			
 			List<PromotionReviewImgDto> promotionReviewImgList = promotionReviewMapper.selectByPromoReviewImgId(promotionReviewDto.getId());
 			
+			// 카테고리 가져오기
+			ProreviewRentalCategoryDto rentalItemCategory = promotionReviewMapper.getRentalItemCategory(promotionReviewDto.getId()); 
+			
 			// 댓글 수
 			int countPromotionReviewComment = promotionReviewCommentMapper.countPromotionReviewComment(promotionReviewDto.getId());
 		
@@ -264,6 +273,8 @@ public class PromotionReviewServiceImpl {
 			map.put("countPromotionReviewComment", countPromotionReviewComment);
 			map.put("countLikeByPromotionReview", countLikeByPromotionReview);
 			map.put("realCheck", realCheck);
+			map.put("rentalItemCategory", rentalItemCategory);
+
 			
 			topViewPromoReivewList.add(map);
 
@@ -273,6 +284,57 @@ public class PromotionReviewServiceImpl {
 		return topViewPromoReivewList;
 	}
 	
+	// 리워드 쪽 best 렌탈 상품(공감수+조회수)
+	public List<Map<String, Object>> bestPromoReviewPost (int sessionId) {
+		
+		//공감수+조회수
+		List<PromotionReviewDto> bestPromoReviewPostList = promotionReviewMapper.getPromoReivewBestPostList();
+		
+		List<Map<String, Object>> bestPromotionReviewPostList = new ArrayList<>();
+		
+		for(PromotionReviewDto promotionReviewDto : bestPromoReviewPostList) {
+			
+			Map<String, Object> map = new HashMap<>();
+				
+			
+			// 회원 pk, 닉네임
+			UserDto userDto = userSqlMapper.selectUserDtoById(promotionReviewDto.getUser_id());
+			
+			List<PromotionReviewImgDto> promotionReviewImgList = promotionReviewMapper.selectByPromoReviewImgId(promotionReviewDto.getId());
+					
+			// 카테고리 가져오기
+			ProreviewRentalCategoryDto rentalItemCategory = promotionReviewMapper.getRentalItemCategory(promotionReviewDto.getId()); 
+			
+			// 댓글 수
+			int countPromotionReviewComment = promotionReviewCommentMapper.countPromotionReviewComment(promotionReviewDto.getId());
+		
+			int countLikeByPromotionReview = promotionReviewMapper.countLikeByPromotionReviewId(promotionReviewDto.getId());
+			
+			PromotionReviewLikeDto paramForMybatis = new PromotionReviewLikeDto();
+			paramForMybatis.setReview_id(promotionReviewDto.getId());
+			paramForMybatis.setUser_id(sessionId);
+			
+			int realCheck = promotionReviewMapper.countPromotionReviewMyLike(paramForMybatis);
+			
+			map.put("userDto", userDto);
+			map.put("promotionReviewDto", promotionReviewDto);
+			map.put("promotionReviewImgList", promotionReviewImgList);
+			map.put("countPromotionReviewComment", countPromotionReviewComment);
+			map.put("countLikeByPromotionReview", countLikeByPromotionReview);
+			map.put("realCheck", realCheck);
+			map.put("rentalItemCategory", rentalItemCategory);
+
+			
+			bestPromotionReviewPostList.add(map);
+
+			
+		}		
+		
+		return bestPromotionReviewPostList;
+	}
+	
+	
+	
 	
 	public List<RentalItemDto> getRentalItems(int m, int s){
 		return promotionReviewMapper.getRentalItemList(m, s);
@@ -281,6 +343,7 @@ public class PromotionReviewServiceImpl {
 	public List<RentalSubCategoryDto> getRentalSubCategoryList(int m){
 		return promotionReviewMapper.getSubCategoryList(m);
 	}
+
 	
 	
 }

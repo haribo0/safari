@@ -84,10 +84,16 @@ public class CsController {
 	
 	// 1대1문의 현황 - 팀장용 
 	@RequestMapping("inquiryStatus") 
-	public String inquiryStatus(HttpSession session){
+	public String inquiryStatus(HttpSession session, Model model){
 		
 		CsEmpDto empUser = (CsEmpDto) session.getAttribute("empUser");
 		if(empUser==null) return "redirect:./loginPage";
+		
+
+		// 실시간 현황 리스트 직원별 
+		model.addAttribute("todayList", csService.getEmpListForToday() );
+		// 실시간 현황
+		model.addAttribute("todayStats", csService.getStatsToday() );
 		
 		return "cs/inquiryStatus";
 	}

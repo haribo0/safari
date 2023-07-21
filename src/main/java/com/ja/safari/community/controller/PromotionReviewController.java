@@ -62,15 +62,16 @@ public class PromotionReviewController {
 		if(sessionUser != null) {
 			sessionId = sessionUser.getId();
 		}
-
-		List<Map<String, Object>> promoReviewList = promotionReviewService.getPromotionReviewList(page, promoReview_searchType, promoReview_searchWord, promotionReviewCommentDto, sessionId);
-
-		List<Map<String, Object>> orderByLikePromoReviewList = promotionReviewService.orderByPromotionReviewLikes(sessionId);
-
-
+		
+		List<Map<String, Object>> promoReviewList = promotionReviewService.getPromotionReviewList(page, promoReview_searchType, promoReview_searchWord, promotionReviewCommentDto, sessionId);		
+	
+		List<Map<String, Object>> orderByLikePromoReviewList = promotionReviewService.orderByPromotionReviewLikes(sessionId); 
+		
+		List<Map<String, Object>> bestPromotionReviewPostList = promotionReviewService.bestPromoReviewPost(sessionId);
+		
 		model.addAttribute("promoReviewList", promoReviewList);
 		model.addAttribute("orderByLikePromoReviewList", orderByLikePromoReviewList);
-
+		model.addAttribute("bestPromotionReviewPostList", bestPromotionReviewPostList);
 
 		return "/community/promotion/promotionReviewMainPage";
 	}
@@ -376,7 +377,6 @@ public class PromotionReviewController {
 
 	// 리워드 적립 페이지(거쳐가는 페이지=> 여기서 포인트 적립이 되야 함.)(이거 머리 안돌아가서 이상할걸 다시 수정하길)
 //	@RequestMapping("promotion/rewardPromotionReviewPage")
-
 //	public String rewardPromotionReviewPage(UserCoinDto userCoinDto, PromotionReviewDto promotionReviewDto) {
 //
 //		System.out.println("리워드 적립 되니? " + userCoinDto);
