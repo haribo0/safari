@@ -270,18 +270,11 @@ public class HelpController {
 
 		helpService.changeCompleteHelp(helpCommentDto.getHelp_id());
 		
+		//코인 더해주기
+		//helpService.helpCommentCoinReward(helpCommentDto);
 		
 		return "redirect:/community/help/readContentPage/" + helpCommentDto.getHelp_id();
 	}
 
-	// 해주세요 미션완료 update //잘 모르겠음
-	/*@RequestMapping("help/completeHelpCommentProcess")
-	public String completeHelpCommentProcess(int id, int help_comment_id, HelpCommentDto helpCommentDto,
-			HelpCommentCompleteDto helpCommentCompleteDto) {
-
-		helpService.completeHelpComment(helpCommentDto);
-
-		return "redirect:/community/help/readContentPage/" + id;
-	}*/
 
 }

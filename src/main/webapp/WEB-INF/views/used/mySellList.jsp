@@ -19,7 +19,18 @@
   white-space: nowrap; /* 텍스트를 한 줄로 표시 */
   overflow: hidden; /* 넘친 텍스트를 숨김 */
   text-overflow: ellipsis; /* 넘친 텍스트를 "..."으로 표시 */
-}      
+}
+.orangeButton{
+   border-color: #FF6F0F;
+   font-weight: 400;
+   color: #FF6F0F;
+}
+.orangeButton:hover{
+   background: #FF812C;
+   font-weight: 400;
+   color: white;
+}
+      
 
 </style>
 </head>
@@ -57,17 +68,19 @@
 			
 			<div class="row mt-3">
 				<div class="col-auto px-1">
-					<button class="btn btn-sm btn-dark px-3">전체</button>						
+					<button class="btn btn-sm btn-dark px-3" onclick="getMySellListByStatus(0)">전체</button>						
 				</div>
 				<div class="col-auto px-1">
-					<button class="btn btn-sm btn-outline-secondary px-3">판매중</button>						
+					<button class="btn btn-sm btn-outline-secondary px-3" onclick="getMySellListByStatus(1)">판매중</button>						
 				</div>
 				<div class="col-auto px-1">
-					<button class="btn btn-sm btn-outline-secondary px-3">예약중</button>						
+					<button class="btn btn-sm btn-outline-secondary px-3" onclick="getMySellListByStatus(2)">예약중</button>						
 				</div>
 				<div class="col-auto px-1">
-					<button class="btn btn-sm btn-outline-secondary px-3">판매완료</button>						
+					<button class="btn btn-sm btn-outline-secondary px-3" onclick="getMySellListByStatus(3)">판매완료</button>						
 				</div>
+				<div class="col"></div>
+				<div class="col-auto text-end"><a href="../used/productRegister"><button class="btn btn-sm px-3 btn-dark">상품 등록</button></a></div>
 			</div>
 			
 			<div class="row mt-3">
@@ -80,17 +93,17 @@
 						</div>
 					
 						
-					<%-- <c:if test="${empty userBidList}">
+					<c:if test="${empty userBidList}">
 						<div class="row border-bottom py-2">
 						   <div class="col text-center" colspan="4">
 					           입찰한 경매가 없습니다.
 					        </div>
 					      </div>	
-					</c:if>	 --%>	
+					</c:if>
 					
 					
-					<%-- <c:forEach items="${userBidList}" var="bidItem"> --%>
-					<%-- <input type="hidden" id="user_id_${bidDto.auction_item_id}" value="${sessionUser.id}"> --%>
+					 <c:forEach items="${list}" var="map"> 
+					 	<c:if test="${map.reservationCount < 0 }">
 						<div class="row border-bottom py-2">
 							<div class="col-5">
 								<div class="row my-auto">
@@ -120,7 +133,7 @@
 									</div>									
 								</div>
 							</div>	
-							<div class="col-2 my-auto text-center">
+							<div class="col-2 my-auto text-center fw-semibold" style="font-size: 17px;">
 								10,000원
 							</div>
 							
@@ -131,7 +144,7 @@
 							<div class="col my-auto text-center">
 								<div class="row">
 									<div class="col">
-										<button class="btn btn-sm" style="background: #ff6f0f; color: white; width: 120px">끌어올리기</button>
+										<button class="btn btn-sm orangeButton"  style="width: 120px">끌어올리기</button>
 									</div>
 								</div>
 								<div class="row mt-2">
@@ -144,10 +157,11 @@
 								</div>
 							</div>
 						</div>
+						</c:if>
+						<c:if test="${map.reservationCount > 0 }">
 						<div class="row border-bottom py-2">
 							<div class="col-5">
 								<div class="row my-auto">
-									<%-- <input type="hidden" id="bid_${bidDto.auction_item_id}" value="${bidDto.id}"> --%>
 									<div class="col-3 ms-1"  style="float: left;">
 										
 										<a href="/safari/used/productDetail/1">
@@ -174,7 +188,7 @@
 									</div>									
 								</div>
 							</div>	
-							<div class="col-2 my-auto text-center">
+							<div class="col-2 my-auto text-center fw-semibold" style="font-size: 17px;">
 								10,000원
 							</div>
 							
@@ -198,10 +212,11 @@
 								</div>
 							</div>
 						</div>
+						</c:if>
+						<c:if test="${map.completeCount > 0 &&  }">
 						<div class="row border-bottom py-2">
 							<div class="col-5">
 								<div class="row my-auto">
-									<%-- <input type="hidden" id="bid_${bidDto.auction_item_id}" value="${bidDto.id}"> --%>
 									<div class="col-3 ms-1"  style="float: left;">
 										
 										<a href="/safari/used/productDetail/1">
@@ -228,7 +243,7 @@
 									</div>									
 								</div>
 							</div>	
-							<div class="col-2 my-auto text-center">
+							<div class="col-2 my-auto text-center fw-semibold" style="font-size: 17px;">
 								10,000원
 							</div>
 							
@@ -252,6 +267,8 @@
 								</div>
 							</div>
 						</div>
+						</c:if>
+						<c:if>
 						<div class="row border-bottom py-2">
 							<div class="col-5">
 								<div class="row my-auto">
@@ -282,12 +299,12 @@
 									</div>									
 								</div>
 							</div>	
-							<div class="col-2 my-auto text-center">
+							<div class="col-2 my-auto text-center fw-semibold">
 								10,000원
 							</div>
 							
 							<div class="col-2 my-auto text-center">
-								2023-07-22
+								2023.07.22
 							</div>
 							
 							<div class="col my-auto text-center">
@@ -306,11 +323,8 @@
 								</div>
 							</div>
 						</div>
-					<%-- </c:forEach>	 --%>				
-						
-					
-					
-			
+						</c:if>
+				 </c:forEach>	 				
 				</div>
 			</div>
 			
@@ -326,9 +340,8 @@
 
 <script>
 
-/* function getUserBidListIng() {
-	
-	 const xhr = new XMLHttpRequest();
+function getMySellListByStatus(statusId) {
+	const xhr = new XMLHttpRequest();
 	  xhr.onreadystatechange = function() {
 	    if (xhr.readyState === 4 && xhr.status === 200) {
 	      const response = JSON.parse(xhr.responseText);
@@ -344,18 +357,19 @@
 	    }
 	    
 	  };
-	  xhr.open("get", "/safari/auction/getMyBidListIng");
-	  xhr.send();		  
-	
-}   */
+	  xhr.open("get", "./getMySellListByStatus?statusId="+statusId);
+	  xhr.send();
+}
  
+
+
  
 
 
 window.addEventListener("DOMContentLoaded", function(){
-	
-	
+	getMySellListByStatus(0);	
 });
+
 </script>
 </body>	
 </html>

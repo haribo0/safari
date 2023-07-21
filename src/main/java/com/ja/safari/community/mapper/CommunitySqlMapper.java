@@ -17,8 +17,6 @@ import com.ja.safari.dto.UserDto;
 
 public interface CommunitySqlMapper {
 	
-
-	
 	/////////////
 	// 해주세요  //
 	/////////////
