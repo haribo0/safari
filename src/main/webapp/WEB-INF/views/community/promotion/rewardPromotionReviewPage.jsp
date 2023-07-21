@@ -17,23 +17,9 @@
 	<div class="container main_box">
 		<div class = "row">
 			<div class = "col">
-				리워드 적립 페이지...
+				리워드 리뷰 : 코인이 적립되었습니다.
 			</div>
 		</div>
-		<div class = "row">
-			<div class = "col">
-				
-			</div>
-		</div>
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 	
 	
