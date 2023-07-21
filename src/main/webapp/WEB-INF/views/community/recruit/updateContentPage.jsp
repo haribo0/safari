@@ -44,13 +44,13 @@
 			<div class="col">
 				<div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-center">
 					
-					<%-- getPickBoard --%>
+					<%-- getRecruitBoard --%>
 					<div class="row">
 						<div class="col" style="width:990px; margin: 0 auto;">
 						
 						
 						<%-- write from--%>
-						<form action="/safari/community/pick/updateContentProcess" method="post">
+						<form action="/safari/community/recruit/updateContentProcess" method="post">
 							   
 							<%-- headline --%>
 							<div class="row">
@@ -73,8 +73,8 @@
 								    
 								    <div class="form-group">
 								      <div class="form-control justify-content-end mt-2 mb-2" style="font-size: ; font-family: 'Noto Sans', sans-serif; box-shadow: none;">
-								        <textarea rows="10" name="content"  style="width: 100%; border: none; outline: none; padding: 0;">${map.pickDto.content.trim()}</textarea>
-								        <input type="hidden" name="id" value="${map.pickDto.id}">
+								        <textarea rows="10" name="content"  style="width: 100%; border: none; outline: none; padding: 0;">${map.recruitDto.content.trim()}</textarea>
+								        <input type="hidden" name="id" value="${map.recruitDto.id}">
 								      </div>
 								    </div>
 									
@@ -87,7 +87,7 @@
 						
 						</div>	
 					</div>
-					<%-- getPickBoard --%>
+					<%-- getRecruitBoard --%>
 					
 				</div>	
 			</div>	
