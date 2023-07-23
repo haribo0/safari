@@ -41,6 +41,7 @@ import com.ja.safari.dto.RentalReturnKakaopayApprove;
 import com.ja.safari.dto.RentalReviewDto;
 import com.ja.safari.dto.RentalReviewImgDto;
 import com.ja.safari.dto.UserAddressDto;
+import com.ja.safari.dto.UserCoinDto;
 import com.ja.safari.dto.UserDto;
 import com.ja.safari.rental.service.RentalServiceImpl;
 import com.ja.safari.user.service.UserServiceImpl;
@@ -134,10 +135,13 @@ public class RentalController {
 			return "redirect:../user/loginPage";
 		} else {
 			Map<String, Object> map = rentalService.getItem(id);
-			List<UserAddressDto> userAddressDtoList = userService.getUserAddressList(sessionUser.getId()); 
+			List<UserAddressDto> userAddressDtoList = userService.getUserAddressList(sessionUser.getId());
+			int userCoinBalance = userService.getUserCoinBalance(sessionUser.getId());
 			
 			model.addAttribute("data",map);
 			model.addAttribute("addressList", userAddressDtoList);
+			model.addAttribute("sessionUser",sessionUser);
+			model.addAttribute("userCoinBalance",userCoinBalance);
 			
 			return "rental/orderConfirmPage";			
 		}
@@ -237,6 +241,26 @@ public class RentalController {
 		return "redirect:../user/myOrderListPage";
 	}
 	
+	
+	// 계약금 없는 반납
+	@RequestMapping("rentalReturnZeroProcess")
+ 	public String rentalReturnZeroProcess(HttpSession session, int rental_order_id) {
+		
+		UserDto sessionUser = (UserDto)session.getAttribute("sessionUser");
+		int userId = sessionUser.getId();
+		
+		// 반납 pk 설정
+		int returnPk = rentalService.getRentalOrderReturnPk();
+		// 반납 dto 준비
+		int discount_revocation = 0;
+		RentalItemReturnDto rentalItemReturnDto = new RentalItemReturnDto();
+		rentalItemReturnDto.setId(returnPk);
+		rentalItemReturnDto.setRental_order_id(rental_order_id);
+		rentalItemReturnDto.setDiscount_revocation(discount_revocation);
+		
+		rentalService.rentalReturnZero(rentalItemReturnDto);
+		return "redirect:../user/myOrderListPage";
+	}
 	
 }
 

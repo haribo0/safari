@@ -136,6 +136,21 @@ window.addEventListener("DOMContentLoaded", function(){
 </script>
 <style>
 .btn.active{background: #eff1f5; border: none; color: #2a4158;}
+.sectionBar::after{content: ''; position: absolute; left: 50%; top: 50%; transform: translateY(-50%); display:block; width: 1px; height: 80px; background: #e2e8f5;}
+progress {
+    appearance: none;
+}
+progress::-webkit-progress-bar {
+    background:#f0f0f0;
+    border-radius:16px;
+    box-shadow: inset 3px 3px 10px #ccc;
+}
+progress::-webkit-progress-value {
+    border-radius:16px;
+    background: #1D976C;
+    background: #ffbe00;
+
+}
 </style>
 </head>
 <body>
@@ -266,7 +281,7 @@ window.addEventListener("DOMContentLoaded", function(){
 				</div>
 				
 				<div class="row mt-3">
-					<div class="col rounded-3" style="background: #f4f4f4;">
+					<div class="col rounded-3" style="background: #fbfbfb;">
 						<div class="row p-3">
 							<div class="col">
 								<p class="mb-0 fw-bold fs-5">제휴카드 할인 혜택 ></p>
@@ -341,38 +356,66 @@ window.addEventListener("DOMContentLoaded", function(){
 				    	</div>
 				    	
 				    	<div class="row px-5">
-				    		<div class="col p-5 rounded-3" style="max-width: 480px; background: #f2f5fb;">
-				    			<div class="row">
-					    			<div class="col	mt-1">
-						    			<div class="row">
-											<div class="col fs-3 text-warning">
-												<c:set var="avgRating" value="${reviewRating}" />
-												<c:set var="maxRating" value="5" />
-																			    
-											    <c:set var="wholeStars" value="${avgRating - avgRating % 1}" />
-												<c:set var="halfStar" value="${avgRating - wholeStars}" />
-													
+				    		<div class="col p-5 rounded-3" style="max-width: 540px; background: #f2f5fb;">
+					    			<div class="row position-relative sectionBar align-items-center">
+						    			<div class="col	mt-1 px-0" style="max-width: 150px;">
+							    			<div class="row">
+												<div class="col fs-4" style="color: #fdab31;">
+													<c:set var="avgRating" value="${reviewRating}" />
+													<c:set var="maxRating" value="5" />
+																				    
+												    <c:set var="wholeStars" value="${avgRating - avgRating % 1}" />
+													<c:set var="halfStar" value="${avgRating - wholeStars}" />
+														
 													<c:forEach begin="1" end="${maxRating}" varStatus="loop">
 													  <c:choose>
 													    <c:when test="${loop.index le wholeStars}">
-													      <i class="bi bi-star-fill"></i>
+													      <i class="bi bi-star-fill" style="vertical-align: -3px;"></i>
 													    </c:when>
 													    <c:when test="${loop.index eq wholeStars + 1 and halfStar gt 0}">
-													      <i class="bi bi-star-half"></i>
+													      <i class="bi bi-star-half" style="vertical-align: -3px;"></i>
 													    </c:when>
 													    <c:otherwise>
-													      <i class="bi bi-star"></i>
+													      <i class="bi bi-star" style="vertical-align: -3px;"></i>
 													    </c:otherwise>
 													  </c:choose>
 													</c:forEach>
 										   		 </div>
 									    	</div>
 							    		</div>
-							    		<div class="col">
+							    		<div class="col-2">
 							    			<p class="fs-2 mb-0" style="font-weight: 900;">${reviewRating}</p>
 							    		</div>
+    						    		<div class="col">
+						    				<div class="row mb-2">
+						    					<div class="col d-flex justify-content-center">
+						    						<progress id="progress" value="12" min="0" max="20"></progress>
+						    					</div>
+						    				</div>
+						    				<div class="row mb-2">
+						    					<div class="col d-flex justify-content-center">
+						    						<progress id="progress" value="8" min="0" max="20"></progress>
+						    					</div>
+						    				</div>
+						    				<div class="row mb-2">
+						    					<div class="col d-flex justify-content-center">
+						    						<progress id="progress" value="5" min="0" max="20"></progress>
+						    					</div>
+						    				</div>
+						    				<div class="row mb-2">
+						    					<div class="col d-flex justify-content-center">
+						    						<progress id="progress" value="3" min="0" max="20"></progress>
+						    					</div>
+						    				</div>
+						    				<div class="row mb-2">
+						    					<div class="col d-flex justify-content-center">
+						    						<progress id="progress" value="1" min="0" max="20"></progress>
+						    					</div>
+						    				</div>
+						    			</div>
 				    			</div>
 				    		</div>
+
 				    	</div>
 				    	
 				    	<div class="row">
@@ -397,7 +440,7 @@ window.addEventListener("DOMContentLoaded", function(){
 							    									<div class="row">
 							    										<div class="col">
 																			<div class="row">
-																				<div class="col text-warning" style="font-size: 13px;">
+																				<div class="col" style="font-size: 13px; color: #fdab31;">
 																					<c:set var="avgRating" value="${review.reviewList.rental_review_rating}" />
 																					<c:set var="maxRating" value="5" />
 																												    

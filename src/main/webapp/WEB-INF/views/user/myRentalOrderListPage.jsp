@@ -330,6 +330,28 @@
 		}
 	}
 	
+	// 반납시 사용기간 계산 퍼센트 처리
+	function calcEarlyReturn(startDate, oiginEndDate, endDate) {
+		  const msInDay = 24 * 60 * 60 * 1000;
+	
+		  const originDayLeft = Math.round(
+		    Math.abs(oiginEndDate - startDate) / msInDay 
+		  );
+		  
+		  const returnedLeft = Math.round(
+		    Math.abs(endDate - startDate) / msInDay 
+		  );
+	/* 	  console.log("originDayLeft:: ", originDayLeft)
+		  console.log("returnedLeft:: ", returnedLeft)
+		  console.log(Math.round(returnedLeft / originDayLeft * 100)); */
+		  
+		  const percentageValue = `\${Math.round(returnedLeft / originDayLeft * 100)}`
+		  
+		  return percentageValue
+		  
+		}
+		
+	
 // 반납하게되는 날(오늘)
 const setRegDate = () => {
       const today = new Date();
@@ -340,6 +362,7 @@ const setRegDate = () => {
       const dateReturn = document.querySelector('.date_return')
 	 // dateReturn.innerText = formattedDate
   };
+  
 
 const modalReturn = document.getElementById('modalReturn')
 const modalReview = document.getElementById('modalReview')
@@ -347,13 +370,37 @@ const modalReview = document.getElementById('modalReview')
 // 반납 안내 모달
 if (modalReturn) {modalReturn.addEventListener('show.bs.modal', event => {
 	
+	let returnPercentage
+
+    const button = event.relatedTarget
+    const startDate = button.getAttribute('data-startdate')
+    const endDate = button.getAttribute('data-enddate')
+    const orderId = button.getAttribute('data-order-id')
+    
+	let startDateObj = new Date(startDate.replace('KST', 'GMT+0900'));    
+	let endDateObj = new Date(endDate.replace('KST', 'GMT+0900'));
+
+    const yyyy2 = startDateObj.getFullYear();
+    const mm2 = String(startDateObj.getMonth() + 1).padStart(2, '0');
+    const dd2 = String(startDateObj.getDate()).padStart(2, '0');
+    formattedStartedDate = `\${yyyy2}-\${mm2}-\${dd2}`;
+    
+    const yyyy = endDateObj.getFullYear();
+    const mm = String(endDateObj.getMonth() + 1).padStart(2, '0');
+    const dd = String(endDateObj.getDate()).padStart(2, '0');
+    formattedEndDate = `\${yyyy}-\${mm}-\${dd}`;
+	
+    returnPercentage = calcEarlyReturn(new Date(formattedStartedDate), new Date(formattedEndDate), new Date(formattedDate))
+    
+    console.log({returnPercentage})
+    if(returnPercentage < 90) {
+    	alert('반납 진행됩니다!!')
+    	window.location.href = "../rental/rentalReturnZeroProcess?rental_order_id="+orderId
+    }
+	
 	const returnDesc = document.querySelector(".return_desc")
 	returnDesc.innerHTML = ''
-    const button = event.relatedTarget
-    const orderId = button.getAttribute('data-order-id')
     const endRego = new Date();
-    const endDate = button.getAttribute('data-enddate')
-    const startDate = button.getAttribute('data-startdate')
     const originalPrice= button.getAttribute('data-original-price')
     const price = button.getAttribute('data-rego-price')
     console.log("regi price", price)
@@ -362,40 +409,21 @@ if (modalReturn) {modalReturn.addEventListener('show.bs.modal', event => {
     const submitReturn = document.getElementById("submitReturn")
     const dataImageLink = button.getAttribute('data-image-link')
     const form = modalReturn.querySelector('form')
-    
-	let endDateObj = new Date(endDate.replace('KST', 'GMT+0900'));
-	let startDateObj = new Date(startDate.replace('KST', 'GMT+0900'));
-    
-    const yyyy = endDateObj.getFullYear();
-    const mm = String(endDateObj.getMonth() + 1).padStart(2, '0');
-    const dd = String(endDateObj.getDate()).padStart(2, '0');
-    formattedEndDate = `\${yyyy}-\${mm}-\${dd}`;
-    
-    const yyyy2 = startDateObj.getFullYear();
-    const mm2 = String(startDateObj.getMonth() + 1).padStart(2, '0');
-    const dd2 = String(startDateObj.getDate()).padStart(2, '0');
-    formattedStartedDate = `\${yyyy2}-\${mm2}-\${dd2}`;
-    
+
     setRegDate()
     
     const remainMonth = getMonthDiffer(new Date(formattedDate),new Date(formattedEndDate))
     const calcedPrice = originalPrice - price
     const refundMoney = calcedPrice * remainMonth
-    console.log("originalPrice: ", originalPrice)
-    console.log("price: ", price)
-    console.log("남은 달 수:: ", remainMonth)
-    console.log("내뱉어야 하는 돈:: ", refundMoney)
    
     let span = document.createElement('span')
     let modalTit = document.querySelector('.modal-tit')
-    //let originPriceP = document.querySelector('.originPriceP')
     let originPriceVal = parseInt(originalPrice).toLocaleString('ko-KR')
     let regiMonthP = document.querySelectorAll('.regiMonthP')
     let startDateP = document.querySelector('.startDateP')
     let endDateP = document.querySelector('.endDateP')
     let finPriceP = document.querySelector('.finPriceP')
     let usedPriceP = document.querySelector('.usedPriceP')
-   	//let usedMonthP = document.querySelector('.usedMonthP')
     let modalTopImage = document.querySelector('.modalTopImage')
     let minusPriceP = document.querySelector('.minusPriceP')
     
@@ -406,15 +434,15 @@ if (modalReturn) {modalReturn.addEventListener('show.bs.modal', event => {
     
     modalTit.innerText = productTitle
     usedPriceP.innerText = parseInt(price).toLocaleString()
-    //originPriceP.innerText = originPriceVal+"원"
     regiMonthP[0].innerText = regiMonth
     regiMonthP[1].innerText = regiMonth
     startDateP.innerText = formattedStartedDate
     endDateP.innerText = formattedEndDate
     minusPriceP.innerText = calcedPrice.toLocaleString()
     finPriceP.innerText = parseInt(refundMoney).toLocaleString('ko-KR')
+    
+ 
 
-   // usedMonthP.innerText = calcMonth
     modalTopImage.setAttribute('src', '/safariImg/'+dataImageLink)
     submitReturn.setAttribute('onclick', 'returnProcess(' + orderId + ',' + refundMoney + ', "'+ productTitle + '")')
     

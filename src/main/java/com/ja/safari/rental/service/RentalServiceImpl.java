@@ -186,6 +186,11 @@ public class RentalServiceImpl {
 		int returnPk = rentalSqlMapper.getRentalOrderReturnPk();
 		return returnPk;
 	}
+	
+	// 대여 반환금 없이 반납
+	public void rentalReturnZero(RentalItemReturnDto rentalItemReturnDto) {
+		rentalSqlMapper.insertRentalReturn(rentalItemReturnDto);
+	}
 
 	// 대여 반납
 	public void rentalReturn(RentalItemReturnDto rentalItemReturnDto) {

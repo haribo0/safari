@@ -20,6 +20,10 @@
 .carousel-item-2{background: url("${pageContext.request.contextPath}/resources/img/rental/rental-banner-2.jpg") 50% 50% no-repeat; background-size: cover;}
 
 .carousel-control-next, .carousel-control-prev{width: 8%;}
+.boxCategory{transition: all 0.2s}
+.boxCategory:hover {
+	box-shadow: 0px 2px 14px -2px rgba(0, 0, 0, 0.125);
+}
 </style>
 </head>
 <body>
@@ -118,7 +122,7 @@
 					<p class="mb-0 mt-3 ps-0 fs-5 fw-bold">카테고리</p>
 				</div>
 				<div class="row">
-					<div class="col text-center">
+					<div class="col text-center boxCategory">
 						<a href="${pageContext.request.contextPath}/rental/mainPage/?main_category_id=1" class="btn">
 							<div class="row">
 								<div>
@@ -132,7 +136,7 @@
 							</div>
 						</a>
 					</div>
-					<div class="col text-center">
+					<div class="col text-center boxCategory">
 						<a href="${pageContext.request.contextPath}/rental/mainPage/?sub_category_id=1" class="btn">
 						<div class="row">
 							<div>
@@ -146,7 +150,7 @@
 						</div>
 						</a>
 					</div>
-					<div class="col text-center">
+					<div class="col text-center boxCategory">
 						<a href="${pageContext.request.contextPath}/rental/mainPage/?sub_category_id=4" class="btn">
 						<div class="row">
 							<div>
@@ -160,21 +164,21 @@
 						</div>
 						</a>
 					</div>
-					<div class="col text-center">
+					<div class="col text-center boxCategory">
 						<a href="${pageContext.request.contextPath}/rental/mainPage/?main_category_id=2" class="btn">
 						<div class="row">
 							<div>
 								<img class="img-fluid" alt="" src="${pageContext.request.contextPath}/resources/img/rental/category/lifeIt.png">
 							</div>
 						</div>
-						<div class="row mt-2">
+						<div class="row mt-2 boxCategory">
 							<div>
 								<p class="fw-bold">생활가전</p>
 							</div>
 						</div>
 						</a>
 					</div>
-					<div class="col text-center">
+					<div class="col text-center boxCategory">
 						<a href="${pageContext.request.contextPath}/rental/mainPage/?sub_category_id=12" class="btn">
 						<div class="row">
 							<div>
@@ -188,7 +192,7 @@
 						</div>
 						</a>
 					</div>
-					<div class="col text-center">
+					<div class="col text-center boxCategory">
 						<a href="${pageContext.request.contextPath}/rental/mainPage/?sub_category_id=13" class="btn">
 						<div class="row">
 							<div>
@@ -202,7 +206,7 @@
 						</div>
 						</a>
 					</div>
-					<div class="col text-center">
+					<div class="col text-center boxCategory">
 						<a href="${pageContext.request.contextPath}/rental/mainPage/?sub_category_id=14" class="btn">
 						<div class="row">
 							<div>
@@ -216,7 +220,7 @@
 						</div>
 						</a>
 					</div>
-					<div class="col text-center">
+					<div class="col text-center boxCategory">
 						<a href="${pageContext.request.contextPath}/rental/mainPage/?main_category_id=3" class="btn">
 						<div class="row">
 							<div>
@@ -230,7 +234,7 @@
 						</div>
 						</a>
 					</div>
-					<div class="col text-center">
+					<div class="col text-center boxCategory">
 						<a href="${pageContext.request.contextPath}/rental/mainPage/?sub_category_id=5" class="btn">
 						<div class="row">
 							<div>
@@ -244,7 +248,7 @@
 						</div>
 						</a>
 					</div>
-					<div class="col text-center">
+					<div class="col text-center boxCategory">
 						<a href="${pageContext.request.contextPath}/rental/mainPage/?sub_category_id=6" class="btn">
 						<div class="row">
 							<div>
@@ -304,7 +308,7 @@
 								<p class="text-secondary mb-0" style="font-size: 13px;">${map.rentalBusinessDto.business_name }</p>
 						    	<p class="text-dark mb-0"><a href="${pageContext.request.contextPath}/rental/productDescPage?id=${map.rentalItemDto.id}" class="text-decoration-none d-inline-block text-dark" style="font-size: 16px;">${map.rentalItemDto.title}</a></p>
 							    <p class="mb-1"><a href="${pageContext.request.contextPath}/rental/productDescPage?id=${map.rentalItemDto.id}" class="text-decoration-none d-inline-block text-dark" style="font-weight: 900; font-size: 18px;"><fmt:formatNumber value="${map.rentalItemDto.price}" pattern="#,##0" /> 원 </a><span style="font-size: 13px;">/ 월</span></p>
-								<p class="mb-0"><span style="font-size: 13px; color: #5a5a5a;"><i class="bi bi-heart-fill"></i> </span><span style="font-size: 13px; color: #5a5a5a; font-weight: 900;">${map.itemLikeCount}</span> <span class="ms-2" style="font-size: 13px; color: #5a5a5a;">리뷰</span> <span style="font-size: 13px; color: #5a5a5a; font-weight: 900;">${map.itemReviewCount}</span></p>
+								<p class="mb-0"><span style="font-size: 13px; color: #5a5a5a;"><i class="bi bi-heart"></i> </span><span class="fw-bold" style="font-size: 13px; color: #7e7e7e;">${map.itemLikeCount}</span> <span class="ms-2" style="font-size: 13px; color: #5a5a5a;"><i class="bi bi-chat-right"></i></span> <span class="fw-bold" style="font-size: 13px; color: #7e7e7e;">${map.itemReviewCount}</span></p>
 								<p><span style="background: #e5e5e5; border-radius: 6px; font-size: 12px; padding: 3px 6px;">무료배송</span></p>
 							</div>
 						

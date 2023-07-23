@@ -213,7 +213,8 @@
 	    #{original_price},
 	    #{deposit},
 	    SYSDATE,
-	    'N'
+	    'N',
+	    #{name}
 		)
 	</insert>
 	
