@@ -18,6 +18,26 @@
 			    SYSDATE
 			)
 		</insert>
+
+		<!-- 카카오 회원가입 -->
+		<insert id="insertKakaoUser">
+			INSERT INTO user_table VALUES(
+			    user_table_seq.nextval,
+			    #{email},
+			    NULL,
+			    #{nickname},
+			    NULL,
+			    NULL,
+			    NULL,
+			    NULL,
+			    SYSDATE
+			)
+		</insert>
+		
+		<!-- 카카오 회원가입 여부 체크 -->
+		<select id="selectUserDtoByUserId" resultType="com.ja.safari.dto.UserDto">
+			SELECT * FROM user_table WHERE email = #{email}
+		</select>
 		
 		<!-- 로그인 -->
 		<select id="selectByIdAndPw" resultType="com.ja.safari.dto.UserDto">

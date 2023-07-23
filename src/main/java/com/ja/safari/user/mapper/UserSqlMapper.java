@@ -17,6 +17,12 @@ public interface UserSqlMapper {
 	//회원가입
 	public void insert(UserDto uerDto);
 	
+	// 카카오 로그인시 최초 1회 정보 등록 
+	public void insertKakaoUser(UserDto uerDto);
+	
+	// 카카오로그인시 회원 있나 없나 체크 
+	public UserDto selectUserDtoByUserId(UserDto userDto); 
+	
 	//로그인
 	public UserDto selectByIdAndPw(UserDto uerDto);
 	

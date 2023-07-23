@@ -60,6 +60,69 @@ public class UserController {
 		return "/main/loginPage";
 	}
 	
+	
+	// 로그인 페이지 테스트중 
+	@RequestMapping("loginPage2")
+	public String loginPage2() {
+		
+		return "/main/loginPage2";
+	}
+	
+	
+	// 로그인
+	@RequestMapping("kakaoLogin")
+	public String kakaoLogin(HttpSession session, String code, String error, String error_description, String state) {
+		
+		System.out.println("kakaoLogin");
+		
+		if(code != null) {
+			System.out.println(code);
+			return "redirect:./kakaoLoginProcessPage?code="+code;
+		}
+		
+		if(error != null) {
+			System.out.println(error);
+			return "redirect:./loginPage";
+		}
+		
+		if(error_description != null) {
+			System.out.println(error_description);
+			return "redirect:./loginPage";
+		}
+		
+		if(state != null) {
+			System.out.println(state);
+			return "redirect:./loginPage";
+		}
+		
+		return "redirect:./loginPage";
+	}
+	
+	// 로그인
+	@RequestMapping("kakaoLoginProcessPage")
+	public String kakaoLoginProcessPage(String code, Model model) {
+		
+		System.out.println(code);
+		model.addAttribute("code", code);
+		
+		
+		return "/main/kakaoLoginProcess";
+	}
+	
+//	// 로그인
+//	@RequestMapping("kakaoLoginProcess")
+//	public String kakaoLoginProcess(String code, Model model) {
+//		
+//		System.out.println(code);
+//		model.addAttribute("code", code);
+//		
+//		
+//		return "/main/kakaoLoginProcess";
+//	}
+	
+
+	
+	
 	// 회원정보 수정 페이지
 	@RequestMapping("modifyProfile") 
 	public String modifyProfile(HttpSession session, Model model) {

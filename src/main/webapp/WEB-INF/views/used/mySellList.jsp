@@ -213,7 +213,7 @@
 							</div>
 						</div>
 						</c:if>
-						<c:if test="${map.completeCount > 0 &&  }">
+						<c:if test="${map.completeCount > 0  }">
 						<div class="row border-bottom py-2">
 							<div class="col-5">
 								<div class="row my-auto">
@@ -268,7 +268,6 @@
 							</div>
 						</div>
 						</c:if>
-						<c:if>
 						<div class="row border-bottom py-2">
 							<div class="col-5">
 								<div class="row my-auto">
@@ -323,7 +322,6 @@
 								</div>
 							</div>
 						</div>
-						</c:if>
 				 </c:forEach>	 				
 				</div>
 			</div>
