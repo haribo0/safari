@@ -715,6 +715,7 @@ public class UsedServiceImpl {
 			map.put("productDto", productDto);
 			map.put("reservationCount", usedSqlMapper.countProductRequestReservation(productId));
 			map.put("completeCount", usedSqlMapper.countProductRequestByProductId(productId));
+			map.put("usedPurchaseReviewDto", usedSqlMapper.selectProductReviewByproductIdAndSenderId(productId, userId));
 			map.put("productImgDto", usedSqlMapper.countProductRequestComplete(productId));
 			map.put("productTownDto", usedSqlMapper.selectProductTownById(townId));
 			map.put("productCityDto", usedSqlMapper.selectProductCityByTownId(townId));

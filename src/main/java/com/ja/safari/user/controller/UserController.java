@@ -261,7 +261,7 @@ public class UserController {
 	public String selectMySellList(HttpSession session) {
 		UserDto sessionUser = (UserDto)session.getAttribute("sessionUser");
 		if(sessionUser==null) {
-			return "redirect:../user/loginPage";
+			return "redirect:./user/loginPage";
 		}else {
 			return "used/mySellList";
 		}

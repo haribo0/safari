@@ -81,7 +81,16 @@ public class RentalServiceImpl {
 		
 		for(RentalItemDto item : rentalItemDtoList) {
 			Map<String, Object> map = new HashMap<String, Object>();
+			int itemId = item.getId();
+			
+			int itemLikeCount = rentalSqlMapper.countLikeById(itemId);
+			int itemReviewCount = rentalSqlMapper.selectReviewCount(itemId);
+			RentalBusinessDto rentalBusinessDto = rentalSqlMapper.selectRentalBuisnessById(itemId);
+			
 			map.put("rentalItemDto", item);
+			map.put("itemLikeCount", itemLikeCount);
+			map.put("itemReviewCount", itemReviewCount);
+			map.put("rentalBusinessDto", rentalBusinessDto);
 			
 			list.add(map);
 		}
@@ -125,11 +134,14 @@ public class RentalServiceImpl {
 		
 		List<RentalItemImgDto> rentalItemImgDtoList = rentalSqlMapper.selectItemImageByItemId(id);
 		
+		RentalBusinessDto rentalBusinessDto = rentalSqlMapper.selectRentalBuisnessById(id);
+		
 		map.put("rentalItemDto", rentalItemDto);
 		map.put("mainCategoryName", mainCategoryName);
 		map.put("subCategoryName", subCategoryName);
 		map.put("rentalItemImgDtoList", rentalItemImgDtoList);
 		map.put("rentalPeriodDiscDtoList", rentalPeriodDiscDtoList);
+		map.put("rentalBusinessDto", rentalBusinessDto);
 		
 		return map;
 	}
@@ -173,6 +185,11 @@ public class RentalServiceImpl {
 	public int getRentalOrderReturnPk() {
 		int returnPk = rentalSqlMapper.getRentalOrderReturnPk();
 		return returnPk;
+	}
+	
+	// 대여 반환금 없이 반납
+	public void rentalReturnZero(RentalItemReturnDto rentalItemReturnDto) {
+		rentalSqlMapper.insertRentalReturn(rentalItemReturnDto);
 	}
 
 	// 대여 반납

@@ -20,10 +20,6 @@
 .carousel-item-2{background: url("${pageContext.request.contextPath}/resources/img/rental/rental-banner-2.jpg") 50% 50% no-repeat; background-size: cover;}
 
 .carousel-control-next, .carousel-control-prev{width: 8%;}
-.boxCategory{transition: all 0.2s}
-.boxCategory:hover {
-	box-shadow: 0px 2px 14px -2px rgba(0, 0, 0, 0.125);
-}
 </style>
 </head>
 <body>
@@ -80,14 +76,14 @@
 				</div> -->
 
 				<div class="row border-bottom pb-2">
-					<p class="mb-0 mt-3 ps-0"><i class="bi bi-badge-ad-fill fs-5" style="color: #f68a42; vertical-align: -2px;"></i> <span style="color: #000;">파워광고상품</span></p>
+					<p class="mb-0 mt-3 ps-0"><i class="bi bi-badge-ad" style="color: #f68a42"></i> <span style="color: #000;">파워광고상품</span></p>
 				</div>
 
 				<!-- 광고 대여 물품 row 작업중 -->
 				<div class="row flex justify-content-between pt-3 pb-4 my-2 border-bottom">
 	 				<c:forEach items="${rentalItemList}" var="map" begin="0" end="5" step="1" varStatus="status">
-						<div class="col-2 position-relative">
-							<div class="position-absolute shadow-sm px-2" style="top: 12px; right: 12px; background:#ffb87b; color: #fff; border-radius: 24px; z-index: 50; font-size: 12px;">
+						<div class="col-2 position-relative" cursor: pointer;">
+							<div class="position-absolute bg-dark-subtle shadow-sm px-2" style="top: 12px; right: 12px; background:#fff; border-radius: 24px; z-index: 50; font-size: 12px;">
 								AD
 							</div>
 							<div class="card border border-0">
@@ -122,11 +118,11 @@
 					<p class="mb-0 mt-3 ps-0 fs-5 fw-bold">카테고리</p>
 				</div>
 				<div class="row">
-					<div class="col text-center boxCategory">
+					<div class="col text-center">
 						<a href="${pageContext.request.contextPath}/rental/mainPage/?main_category_id=1" class="btn">
 							<div class="row">
 								<div>
-									<img class="img-fluid" alt="" src="${pageContext.request.contextPath}/resources/img/rental/category/furniture.png">
+									<img class="img-fluid" alt="" src="https://image.ohou.se/i/bucketplace-v2-development/uploads/category/store_home_categories/165698403420736265.png?gif=1&w=144&h=144&c=c&webp=1">
 								</div>
 							</div>
 							<div class="row mt-2">
@@ -136,11 +132,11 @@
 							</div>
 						</a>
 					</div>
-					<div class="col text-center boxCategory">
+					<div class="col text-center">
 						<a href="${pageContext.request.contextPath}/rental/mainPage/?sub_category_id=1" class="btn">
 						<div class="row">
 							<div>
-								<img class="img-fluid" alt="" src="${pageContext.request.contextPath}/resources/img/rental/category/sofa.png">
+								<img class="img-fluid" alt="" src="https://image.ohou.se/i/bucketplace-v2-development/uploads/category/store_home_categories/168489250261646598.png?gif=1&w=144&h=144&c=c&webp=1">
 							</div>
 						</div>
 						<div class="row mt-2">
@@ -150,11 +146,11 @@
 						</div>
 						</a>
 					</div>
-					<div class="col text-center boxCategory">
+					<div class="col text-center">
 						<a href="${pageContext.request.contextPath}/rental/mainPage/?sub_category_id=4" class="btn">
 						<div class="row">
 							<div>
-								<img class="img-fluid" alt="" src="${pageContext.request.contextPath}/resources/img/rental/category/closet.png">
+								<img class="img-fluid" alt="" src="https://image.ohou.se/i/bucketplace-v2-development/uploads/category/store_home_categories/168489364569786421.png?gif=1&w=144&h=144&c=c&webp=1">
 							</div>
 						</div>
 						<div class="row mt-2">
@@ -164,25 +160,25 @@
 						</div>
 						</a>
 					</div>
-					<div class="col text-center boxCategory">
+					<div class="col text-center">
 						<a href="${pageContext.request.contextPath}/rental/mainPage/?main_category_id=2" class="btn">
 						<div class="row">
 							<div>
-								<img class="img-fluid" alt="" src="${pageContext.request.contextPath}/resources/img/rental/category/lifeIt.png">
+								<img class="img-fluid" alt="" src="https://image.ohou.se/i/bucketplace-v2-development/uploads/category/store_home_categories/165443714334272236.png?gif=1&w=144&h=144&c=c&webp=1">
 							</div>
 						</div>
-						<div class="row mt-2 boxCategory">
+						<div class="row mt-2">
 							<div>
 								<p class="fw-bold">생활가전</p>
 							</div>
 						</div>
 						</a>
 					</div>
-					<div class="col text-center boxCategory">
+					<div class="col text-center">
 						<a href="${pageContext.request.contextPath}/rental/mainPage/?sub_category_id=12" class="btn">
 						<div class="row">
 							<div>
-								<img class="img-fluid" alt="" src="${pageContext.request.contextPath}/resources/img/rental/category/airCleaner.png">
+								<img class="img-fluid" alt="" src="https://image.ohou.se/i/bucketplace-v2-development/uploads/category/store_home_categories/166727583625644946.png?gif=1&w=144&h=144&c=c&webp=1">
 							</div>
 						</div>
 						<div class="row mt-2">
@@ -192,11 +188,11 @@
 						</div>
 						</a>
 					</div>
-					<div class="col text-center boxCategory">
+					<div class="col text-center">
 						<a href="${pageContext.request.contextPath}/rental/mainPage/?sub_category_id=13" class="btn">
 						<div class="row">
 							<div>
-								<img class="img-fluid" alt="" src="${pageContext.request.contextPath}/resources/img/rental/category/airConditioner.png">
+								<img class="img-fluid" alt="" src="https://image.ohou.se/i/bucketplace-v2-development/uploads/category/store_home_categories/165443713935676588.png?gif=1&w=144&h=144&c=c&webp=1">
 							</div>
 						</div>
 						<div class="row mt-2">
@@ -206,11 +202,11 @@
 						</div>
 						</a>
 					</div>
-					<div class="col text-center boxCategory">
+					<div class="col text-center">
 						<a href="${pageContext.request.contextPath}/rental/mainPage/?sub_category_id=14" class="btn">
 						<div class="row">
 							<div>
-								<img class="img-fluid" alt="" src="${pageContext.request.contextPath}/resources/img/rental/category/tv.png">
+								<img class="img-fluid" alt="" src="https://image.ohou.se/i/bucketplace-v2-development/uploads/category/store_home_categories/165443714917341657.png?gif=1&w=144&h=144&c=c&webp=1">
 							</div>
 						</div>
 						<div class="row mt-2">
@@ -220,11 +216,11 @@
 						</div>
 						</a>
 					</div>
-					<div class="col text-center boxCategory">
+					<div class="col text-center">
 						<a href="${pageContext.request.contextPath}/rental/mainPage/?main_category_id=3" class="btn">
 						<div class="row">
 							<div>
-								<img class="img-fluid" alt="" src="${pageContext.request.contextPath}/resources/img/rental/category/kitchenIt.png">
+								<img class="img-fluid" alt="" src="https://image.ohou.se/i/bucketplace-v2-development/uploads/category/store_home_categories/165519431107541334.png?gif=1&w=144&h=144&c=c&webp=1">
 							</div>
 						</div>
 						<div class="row mt-2">
@@ -234,11 +230,11 @@
 						</div>
 						</a>
 					</div>
-					<div class="col text-center boxCategory">
+					<div class="col text-center">
 						<a href="${pageContext.request.contextPath}/rental/mainPage/?sub_category_id=5" class="btn">
 						<div class="row">
 							<div>
-								<img class="img-fluid" alt="" src="${pageContext.request.contextPath}/resources/img/rental/category/water.png">
+								<img class="img-fluid" alt="" src="https://image.ohou.se/i/bucketplace-v2-development/uploads/category/store_home_categories/165579048228622395.png?gif=1&w=144&h=144&c=c&webp=1">
 							</div>
 						</div>
 						<div class="row mt-2">
@@ -248,11 +244,11 @@
 						</div>
 						</a>
 					</div>
-					<div class="col text-center boxCategory">
+					<div class="col text-center">
 						<a href="${pageContext.request.contextPath}/rental/mainPage/?sub_category_id=6" class="btn">
 						<div class="row">
 							<div>
-								<img class="img-fluid" alt="" src="${pageContext.request.contextPath}/resources/img/rental/category/refrigerator.png">
+								<img class="img-fluid" alt="" src="https://image.ohou.se/i/bucketplace-v2-development/uploads/category/store_home_categories/166598560990637620.png?gif=1&w=144&h=144&c=c&webp=1">
 							</div>
 						</div>
 						<div class="row mt-2">
@@ -295,7 +291,7 @@
 
 				<div class="row flex-wrap pt-2">
 	 				<c:forEach items="${rentalItemList}" var="map">
-						<div class="col-3 mb-5 item-box" style="cursor: pointer;">
+						<div class="col-3 item-box" style="cursor: pointer;">
 							<div class="row imgBox">
 								<div class="col">
 									<a href="${pageContext.request.contextPath}/rental/productDescPage?id=${map.rentalItemDto.id}" class="text-decoration-none d-inline-block">
@@ -304,11 +300,11 @@
 								</div>
 							</div>
 							
-							<div class="row mt-3 descBox">
+							<div class="row mt-2 descBox">
 								<p class="text-secondary mb-0" style="font-size: 13px;">${map.rentalBusinessDto.business_name }</p>
-						    	<p class="text-dark mb-0"><a href="${pageContext.request.contextPath}/rental/productDescPage?id=${map.rentalItemDto.id}" class="text-decoration-none d-inline-block text-dark" style="font-size: 16px;">${map.rentalItemDto.title}</a></p>
-							    <p class="mb-1"><a href="${pageContext.request.contextPath}/rental/productDescPage?id=${map.rentalItemDto.id}" class="text-decoration-none d-inline-block text-dark" style="font-weight: 900; font-size: 18px;"><fmt:formatNumber value="${map.rentalItemDto.price}" pattern="#,##0" /> 원 </a><span style="font-size: 13px;">/ 월</span></p>
-								<p class="mb-0"><span style="font-size: 13px; color: #5a5a5a;"><i class="bi bi-heart"></i> </span><span class="fw-bold" style="font-size: 13px; color: #7e7e7e;">${map.itemLikeCount}</span> <span class="ms-2" style="font-size: 13px; color: #5a5a5a;"><i class="bi bi-chat-right"></i></span> <span class="fw-bold" style="font-size: 13px; color: #7e7e7e;">${map.itemReviewCount}</span></p>
+						    	<p class="text-dark mb-0"><a href="${pageContext.request.contextPath}/rental/productDescPage?id=${map.rentalItemDto.id}" class="text-decoration-none d-inline-block text-dark" style="font-size: 17px;">${map.rentalItemDto.title}</a></p>
+							    <p class="mb-0"><a href="${pageContext.request.contextPath}/rental/productDescPage?id=${map.rentalItemDto.id}" class="text-decoration-none d-inline-block text-dark" style="font-weight: 900; font-size: 18px;"><fmt:formatNumber value="${map.rentalItemDto.price}" pattern="#,##0" /> 원 </a><span style="font-size: 13px;">/ 월</span></p>
+								<p class="mb-1"><span style="font-size: 13px; color: #000;">좋아요</span><span style="font-size: 13px; color: #000; font-weight: 900;">${map.itemLikeCount}</span> <span class="ms-2" style="font-size: 13px; color: #adadad; font-weight: 900;">리뷰 ${map.itemReviewCount}</span></p>
 								<p><span style="background: #e5e5e5; border-radius: 6px; font-size: 12px; padding: 3px 6px;">무료배송</span></p>
 							</div>
 						
@@ -343,7 +339,7 @@
 						        <span aria-hidden="true">&laquo;</span>
 						      </a>
 						    </li>
-						    <li class="page-item"><a class="page-link active border bg-secondary" href="#">1</a></li>
+						    <li class="page-item"><a class="page-link active bg-secondary" href="#">1</a></li>
 						    <li class="page-item"><a class="page-link text-secondary" href="#">2</a></li>
 						    <li class="page-item"><a class="page-link text-secondary" href="#">3</a></li>
 						    <li class="page-item">

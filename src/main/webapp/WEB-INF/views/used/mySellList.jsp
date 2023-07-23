@@ -92,11 +92,11 @@
 							<div class="col text-center">비고</div>
 						</div>
 					
-						
-					<c:if test="${empty userBidList}">
+					<div class="cotainer">	
+					<c:if test="${empty list}">
 						<div class="row border-bottom py-2">
 						   <div class="col text-center" colspan="4">
-					           입찰한 경매가 없습니다.
+					          등록된 상품이 없습니다.
 					        </div>
 					      </div>	
 					</c:if>
@@ -213,7 +213,7 @@
 							</div>
 						</div>
 						</c:if>
-						<c:if test="${map.completeCount > 0  }">
+						<c:if test="${map.completeCount > 0 && map.usedPurchaseReviewDto == null}">
 						<div class="row border-bottom py-2">
 							<div class="col-5">
 								<div class="row my-auto">
@@ -268,6 +268,7 @@
 							</div>
 						</div>
 						</c:if>
+						<c:if test="${map.completeCount > 0 && map.usedPurchaseReviewDto != null}">
 						<div class="row border-bottom py-2">
 							<div class="col-5">
 								<div class="row my-auto">
@@ -322,7 +323,9 @@
 								</div>
 							</div>
 						</div>
-				 </c:forEach>	 				
+						</c:if>
+				 </c:forEach>
+				 </div>	 				
 				</div>
 			</div>
 			
@@ -344,14 +347,6 @@ function getMySellListByStatus(statusId) {
 	    if (xhr.readyState === 4 && xhr.status === 200) {
 	      const response = JSON.parse(xhr.responseText);
 	      
-	      for(data of response.getAuctionList) {
-	    	  
-	    	  let currentPrice = 0;
-	    	  
-	    	  getCurrentPrice(data.id);
-	    	  updateAuctionCountDown(data.id);
-	    	  getBidCount(data.id);
-	      }
 	    }
 	    
 	  };

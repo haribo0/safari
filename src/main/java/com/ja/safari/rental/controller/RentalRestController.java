@@ -285,14 +285,11 @@ public class RentalRestController {
 		
 		return null;
 	}
-
-	
-	
-	
 	
 	// 대여 반납 프로세스
 		@RequestMapping("rentalReturnProcess")
 		public Map<String, Object> rentalReturnProcess(HttpSession session, int rental_order_id, int discount_revocation, String product_title) {
+
 			Map<String, Object> map = new HashMap<String, Object>();
 			
 			// 반납 pk 설정
@@ -372,8 +369,8 @@ public class RentalRestController {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+			
 			return map;
-
 		}
 		
 		

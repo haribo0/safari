@@ -137,11 +137,14 @@ public class UserServiceImpl {
 		
 		for(RentalOrderDto item: RentalOrderDtolist) {
 			Map<String, Object> map = new HashMap<String, Object>();
-			String isCompleted = rentalSqlMapper.selectIsCompletedById(item.getId());
+			int orderId = item.getId();
+			String isCompleted = rentalSqlMapper.selectIsCompletedById(orderId);
 			System.out.println("isCompleted:: " + isCompleted);
 			
 			RentalItemDto rentalItem = rentalSqlMapper.selectById(item.getItem_id());
-			RentalItemReturnDto rentalItemReturnDto = rentalSqlMapper.selectRentalItemRetrunById(item.getId());
+			RentalItemReturnDto rentalItemReturnDto = rentalSqlMapper.selectRentalItemRetrunById(orderId);
+			//Integer isOverCount = rentalSqlMapper.selectIsOverCount(id, orderId);
+			//System.out.println("isOverCount:: "+ isOverCount);
 			
 			map.put("isCompleted", isCompleted);
 			map.put("orderedItem", item);

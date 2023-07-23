@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-<div class="container-fluid border-bottom mb-5">
+<div class="container-fluid border-bottom my-5 py-5">
 </div>
 <div class="container footer">  
 	<footer class="py-4 my-5 text-center">
