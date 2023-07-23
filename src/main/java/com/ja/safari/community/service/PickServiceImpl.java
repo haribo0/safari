@@ -199,9 +199,9 @@ public class PickServiceImpl {
 	//골라줘요 좋아요 count
 	public int countLikeByPickBoardId(int pick_id) {
 		
-		int HelpBoardLikeCount = pickSqlMapper.countLikeByPickBoardId(pick_id);
+		int PickBoardLikeCount = pickSqlMapper.countLikeByPickBoardId(pick_id);
 		
-		return HelpBoardLikeCount;
+		return PickBoardLikeCount;
 	}
 	
 	//골라줘요 게시물 옵션 insert

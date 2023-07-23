@@ -17,6 +17,18 @@
         height: 50px; /* Adjust the height as needed */
         
     }
+    
+	.orangeButton {
+	background: #ff6f0f;
+	font-weight: bold;
+	color: white;
+	}
+	
+	.orangeButton:hover{
+	   background: #FF812C;
+	   font-weight: bold;
+	   color: white;
+	}
  </style>
 
 </head>
@@ -42,8 +54,8 @@
 			<div class="row">
 			
 			<!-- 왼쪽 -->
-			<div class="col" style="background-color:lightgrey;" >
-				왼쪽
+			<div class="col" >
+				
 			</div>
 			<!-- 왼쪽 -->
 			
@@ -53,7 +65,7 @@
 					
 					
 					<%-- 카드 recruitBoardList sample--%>
-					<div class="card mb-2" >
+					<div class="card mb-3" style="padding: 8px;">
 						<div class="card-body">
 					  	<div class="row">
 					  	
@@ -65,13 +77,24 @@
 						  	
 							  	<div class="row">
 						  		<div class="col">
-								    <h5 class="card-title">주식회사 다온</h5>
-								    <p class="card-text">물류팀 직원구인 경력무관</p>
+								    <h4 class="card-title">
+										주식회사 다온
+									</h4>
+								    <p class="card-text">
+								    	<div class="d-flex align-items-center">
+											<!-- <span class="badge border border-primary text-primary me-1" style="font-size: 13px;">영업</span> -->
+											<span class="badge rounded-pill mt-1 me-2" style="font-size: 12px; position: relative; top: -3px; color: #0095ff; background-color: transparent; border: 1px solid #0095ff;">영업</span>
+											<span class="text-align-center mb-1">물류팀 직원구인 경력무관</span>
+										</div>
+										<span class="text-secondary mt-2" >인천 서구 · </span>
+										<strong class="mt-1" style="color: #ff501b;"> 월 </strong>
+										<strong class="text-secondary mt-1"> 250만원</strong>
+									</p>
 								</div></div>
 								
 								<div class="row">
-						  		<div class="col d-flex align-items-center ">
-								    <a href="#" class="btn btn-primary">공고 지원하기</a>
+						  		<div class="col d-flex align-items-center justify-content-start">
+								    <a href="#" class="btn btn-primary">공고 지원하기 <i class="bi bi-box-arrow-up-right"></i></a>
 								</div></div>
 								
 						    </div>
@@ -87,7 +110,7 @@
 					
 					<%-- 카드 recruitBoardList --%>
 					<c:forEach items="${recruitBoardList}" var="recruitDto">
-					<div class="card mb-2" >
+					<div class="card mb-3" style="padding: 8px;">
 						<div class="card-body">
 					  	<div class="row">
 					  	
@@ -100,20 +123,29 @@
 							  	<div class="row">
 						  		<div class="col">
 								    <h5 class="card-title">${recruitDto.userDto.nickname}</h5>
-								    <p class="card-text"><a class="text-black text-decoration-none" href="/safari/community/recruit/readContentPage/${recruitDto.recruitDto.id}">
-										${recruitDto.recruitDto.title}</a></p>
+								    <p class="card-text">
+										${recruitDto.recruitDto.title}<br>
+										<span class="text-secondary mt-1" >${recruitDto.recruitDto.location} · </span>
+										<strong class="mt-1" style="color: #ff501b;"> 월 </strong>
+										<strong class="text-secondary mt-1"> ${recruitDto.recruitDto.salary}만원</strong>
+									</p>
 								</div></div>
 								
 								<div class="row">
 						  		<div class="col d-flex align-items-center ">
-								    <a href="#" class="btn btn-primary">공고 지원하기</a>
+								    
+								<button type="button" class="btn btn-primary" onclick="window.location.href='/safari/community/recruit/readContentPage/${recruitDto.recruitDto.id}'">공고 지원하기 <i class="bi bi-box-arrow-up-right"></i></button>
+								
 								</div></div>
 								
 						    </div>
 						    
+						    <%-- 좋아요 & 조회수 --%>
 						    <div class="col-1 d-flex align-items-start justify-content-end me-3" style="font-size: 20px;">
+						    	<%-- <i class="bi bi-eye me-2"></i> <span class="me-3" style="font-size: 15px;">${recruitDto.recruitDto.views}</span>  --%>
 						    	<i class="bi bi-heart" ></i>
 						    </div>
+						    <%-- 좋아요 & 조회수 --%>
 						    
 					  	</div>
 					  </div>
@@ -121,7 +153,17 @@
 					</c:forEach>
 					<%-- 카드 recruitBoardList --%>
 					
-					<%-- recruitBoardList --%>
+					<%-- 글쓰기버튼 --%>
+					<div class="row">
+						<div class="col text-end pe-5">
+							<c:if test="${!empty sessionUser }">
+								<a href="/safari/community/recruit/writeContentPage" class="btn btn-default px-2 text-body-secondary">글쓰기</a>
+							</c:if>
+						</div>
+					</div>
+					<%-- 글쓰기버튼 --%>
+					
+<%-- 					recruitBoardList
 					<div class="row"  style="text-align:center">
 						<div class="col">
 						
@@ -142,21 +184,9 @@
 										<br>
 									</div><hr>
 								</c:forEach>	
-								
-							 
-							<%-- 글쓰기버튼 --%>
-							<div class="row">
-								<div class="col text-end pe-5">
-									<c:if test="${!empty sessionUser }">
-										<a href="/safari/community/recruit/writeContentPage" class="btn btn-default px-2 text-body-secondary">글쓰기</a>
-									</c:if>
-								</div>
-							</div>
-							<%-- 글쓰기버튼 --%>
-							
 						</div>	
 					</div>	
-					<%-- recruitBoardList --%>
+					recruitBoardList --%>
 						
 				</div>	
 			</div>
@@ -164,11 +194,11 @@
 			 
 			
 			<!-- 오른쪽 -->
-			<div class="col" style="background-color:lightgrey;">
-				오른쪽
+			<div class="col" >
+				<img class="img-fluid ms-3" src="https://apple.contentsfeed.com/RealMedia/ads/Creatives/jobkorea/230718_seoul_al_ssky/230718_seoul_120600.png" alt="...">
+		
 			</div>
 			<!-- 오른쪽 -->
-			
 			</div>
 		</div>
 		<!-- 커뮤니티 컨테이너 -->

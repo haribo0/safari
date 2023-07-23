@@ -135,6 +135,12 @@ public class RecruitServiceImpl {
 		return recruitSqlMapper.checkRecruitLike(recruitLikeDto);
 	}
 	
+	//구인구직 좋아요 삭제
+	public void deleteRecruitLike(RecruitLikeDto recruitLikeDto) {
+		
+		recruitSqlMapper.deleteRecruitLike(recruitLikeDto);
+	}
+	
 	//구인구직 좋아요 count
 	public int countLikeByRecruitBoardId(int recruit_id) {
 		
@@ -145,22 +151,22 @@ public class RecruitServiceImpl {
 	
 	
 	//골라줘요 AJAX 좋아요
-		public void toggleLike(RecruitLikeDto recruitLikeDto) {
-				
-				if(recruitSqlMapper.checkRecruitLike(recruitLikeDto) > 0) {
-					recruitSqlMapper.deleteRecruitLike(recruitLikeDto);
-				}else {
-					recruitSqlMapper.insertRecruitLike(recruitLikeDto);
-				}
+	public void toggleLike(RecruitLikeDto recruitLikeDto) {
+			
+			if(recruitSqlMapper.checkRecruitLike(recruitLikeDto) > 0) {
+				recruitSqlMapper.deleteRecruitLike(recruitLikeDto);
+			}else {
+				recruitSqlMapper.insertRecruitLike(recruitLikeDto);
 			}
-		
-		public boolean isLiked(RecruitLikeDto recruitLikeDto) {
-			return recruitSqlMapper.checkRecruitLike(recruitLikeDto) > 0;
 		}
-		
-		public int getTotalLike(int recruit_id) {
-			return recruitSqlMapper.countLikeByRecruitBoardId(recruit_id);
-		}
+	
+	public boolean isLiked(RecruitLikeDto recruitLikeDto) {
+		return recruitSqlMapper.checkRecruitLike(recruitLikeDto) > 0;
+	}
+	
+	public int getTotalLike(int recruit_id) {
+		return recruitSqlMapper.countLikeByRecruitBoardId(recruit_id);
+	}
 		
 	
 }
