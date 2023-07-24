@@ -17,6 +17,8 @@ import com.ja.safari.dto.CsLiveChatMsgDto;
 import com.ja.safari.dto.CsLiveChatRating;
 import com.ja.safari.dto.CsQnaDto;
 import com.ja.safari.dto.CsQnaRating;
+import com.ja.safari.dto.KakaoLoginDto;
+import com.ja.safari.dto.KakaoUserInfo;
 import com.ja.safari.dto.UserAddressDto;
 import com.ja.safari.dto.UserChargeCoinKakaoPayApproveDto;
 import com.ja.safari.dto.UserCoinDto;
@@ -52,6 +54,28 @@ public class UserRestController {
 		return map;
 		
 	}
+
+	
+	// 카카오로그인 유저 정보 가져오기  
+	@RequestMapping("saveKakaoUser")
+	public Map<String, Object> saveKakaoLoginToken(KakaoUserInfo kakaoUserInfo, HttpSession session) {
+		
+		Map<String, Object> map = new HashMap<>();
+		
+		UserDto userDto = new UserDto();
+		userDto.setEmail(kakaoUserInfo.getId());
+		userDto.setNickname(kakaoUserInfo.getNickname());
+		
+		UserDto sessionUser = userService.kakaoLogin(userDto);
+		
+		session.setAttribute("sessionUser", sessionUser);
+		
+		map.put("result", "success");
+			
+		return map;
+	}
+	
+	
 
 	// 사용자 로그인 확인
 	@RequestMapping("getMyId")

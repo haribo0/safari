@@ -162,6 +162,7 @@
 							<div class="col-2 fw-bold text-body-tertiary">상품</div>
 							<div class="col fw-bold text-body-tertiary">연락처</div>
 							<div class="col fw-bold text-body-tertiary">대여시작</div>
+							<div class="col fw-bold text-body-tertiary">이름</div>
 							<div class="col-2 fw-bold text-body-tertiary">주소</div>
 							
 							<div class="col fw-bold text-body-tertiary">가격</div>
@@ -319,6 +320,10 @@ function reloadList() {
 				col4Div.classList.add('col', 'my-auto');
 				col4Div.textContent = new Intl.DateTimeFormat('en-US', { month: '2-digit', day: '2-digit', year: 'numeric' }).format(map.order.start_date);
 
+				const col8Div = document.createElement('div');
+				col8Div.classList.add('col', 'my-auto');
+				col8Div.textContent = map.order.name;
+				
 				const col5Div = document.createElement('div');
 				col5Div.classList.add('col-2', 'my-auto');
 				col5Div.textContent = map.order.address;
@@ -354,28 +359,14 @@ function reloadList() {
 				rowDiv1.appendChild(col2Div);
 				rowDiv1.appendChild(col3Div);
 				rowDiv1.appendChild(col4Div);
+				rowDiv1.appendChild(col8Div);
 				rowDiv1.appendChild(col5Div);
 				rowDiv1.appendChild(col6Div);
 				rowDiv1.appendChild(col7Div);
 
-				// Create hr element
-				// const hrElement = document.createElement('hr');
-				// hrElement.classList.add('border');
-
-				// Create another row div element
-				// const rowDiv2 = document.createElement('div');
-				// rowDiv2.classList.add('row', 'text-center');
-
-				// Append hr element to the second row div
-				// rowDiv2.appendChild(hrElement);
-
-				// Append both row divs to a container element in the DOM
 				listContainer.appendChild(rowDiv1);
-				// listContainer.appendChild(rowDiv2);
-
 				
 			});
-			
 			
 		}
 	}

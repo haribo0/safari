@@ -604,10 +604,10 @@
 					    			<div class="col my-auto  fw-semibold ">
 				    					${map.emp.name}
 					    			</div>
-					    			<div class="col fs-5 ">
+					    			<div class="col  ">
 				    					${map.weeklyHours}
 					    			</div>
-					    			<div class="col fs-5  border-left">
+					    			<div class="col   border-left">
 					    				<div class="row border-left">
 						    				<div class="col">
 					    						${map.qna.qna_count}
@@ -615,15 +615,15 @@
 					    				</div>
 				    					<%-- ${map.qna.qna_count} --%>
 					    			</div>
-					    			<div class="col fs-5 ">
+					    			<div class="col  ">
 				    					${map.qna.reply_count}
 					    			</div>
-					    			<div class="col fs-5 ">
+					    			<div class="col  ">
 					    				<c:if test="${map.qna.reply_count == 0}">
 					    					0
 					    				</c:if>
 					    				<c:if test="${map.qna.reply_count > 0}">
-					    					${map.qna.reply_count / map.qna.qna_count * 100}<span class="text-secondary" style="font-size: 0.7em">%</span>
+					    					${map.qna.reply_count / map.qna.qna_count * 100 > 100 ? 100 : map.qna.reply_count / map.qna.qna_count * 100}<span class="text-secondary" style="font-size: 0.7em">%</span>
 					    				</c:if>
 				    					<%-- 
 				    					${map.qna.reply_count == 0 ? 0 : map.qna.qna_count / map.qna.reply_count }
@@ -631,7 +631,7 @@
 
 					    			</div>
 					    			
-					    			<div class="col mx-auto fw-medium my-auto fs-5">
+					    			<div class="col mx-auto fw-medium my-auto ">
 						    			<c:if test="${map.rating.qna_rating >= 4.8 }">
 						    				<div class="btn_good mx-auto">
 					    						${map.rating.qna_rating}
@@ -649,13 +649,13 @@
 						    			</c:if>
 				    				</div>
 					    			
-					    			<div class="col fs-5 border-left p-0">
+					    			<div class="col  border-left p-0">
 				    					${map.chat.chat_count}
 					    			</div>
-					    			<div class="col fs-5 ">
+					    			<div class="col  ">
 				    					${map.chat.chat_ended_count}
 					    			</div>
-					    			<div class="col fs-5 ">
+					    			<div class="col  ">
 					    				<%-- ${map.chat.chat_count == 0 ? 0 : map.chat.chat_ended_count / map.chat.chat_count * 100}<span class="text-secondary" style="font-size: 0.7em">%</span> --%>
 				    				    <c:set var="ratio" value="${map.chat.chat_count == 0 ? 0 : map.chat.chat_ended_count / map.chat.chat_count}" />
 									    <% double roundedRatio = Math.round((Double)pageContext.getAttribute("ratio") * 100.0); %>
@@ -663,7 +663,7 @@
 				    					<%-- ${map.chat.chat_ended_count == 0 ? 0 : map.chat.chat_count / map.chat.chat_ended_count } --%>
 					    			</div>
 					    			
-				    				<div class="col mx-auto fw-medium my-auto fs-5">
+				    				<div class="col mx-auto fw-medium my-auto ">
 						    			<c:if test="${map.rating.chat_rating >= 4.8 }">
 						    				<div class="btn_good mx-auto">
 					    						${map.rating.chat_rating}

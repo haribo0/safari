@@ -86,11 +86,11 @@
 					const heartBox = document.getElementById("heartBox");
 					
 					if(response.isLiked){
-						heartBox.classList.remove("bi-bookmark");
-						heartBox.classList.add("bi-bookmark-fill");
+						heartBox.classList.remove("bi-heart");
+						heartBox.classList.add("bi-heart-fill");
 					}else{
-						heartBox.classList.remove("bi-bookmark-fill");
-						heartBox.classList.add("bi-bookmark");
+						heartBox.classList.remove("bi-heart-fill");
+						heartBox.classList.add("bi-heart");
 					}
 				}
 			}
@@ -136,6 +136,26 @@ window.addEventListener("DOMContentLoaded", function(){
 </script>
 <style>
 .btn.active{background: #eff1f5; border: none; color: #2a4158;}
+.sectionBar::after{content: ''; position: absolute; left: 42%; top: 50%; transform: translateY(-50%); display:block; width: 1px; height: 80px; background: #e2e8f5;}
+progress {
+    appearance: none;
+    width: 340px;
+    height: 10px;
+}
+progress::-webkit-progress-bar {
+    background:#E5E5E5;
+    border-radius:16px;
+}
+progress::-webkit-progress-value {
+    border-radius:16px;
+    background: #EEEEEE;
+    background: #FFAF33;
+}
+
+.bgBox {
+	background: #F9F9F9;
+}
+
 </style>
 </head>
 <body>
@@ -170,7 +190,7 @@ window.addEventListener("DOMContentLoaded", function(){
 						<div class="row">
 							<div class="col">
 								<div style="height: 26px;">
-									<i id="heartBox" onclick="toggleLike()" class="fs-4 bi bi-bookmark"></i>
+									<i id="heartBox" onclick="toggleLike()" class="fs-4 bi bi-heart"></i>
 								</div>
 								<div class="text-center">
 									<span id="totalLikeCount" style="font-size: 12px;"></span>
@@ -186,7 +206,7 @@ window.addEventListener("DOMContentLoaded", function(){
 				</div>
 				
 				<div class="row">
-				   <div class="col-2 pe-0" style="min-width: 120px; color: #f68a42;">
+				   <div class="col-2 pe-0" style="min-width: 120px; color: #fda231;">
 					<c:set var="avgRating" value="${reviewRating}" /> <!-- 가져온 평균 평점 (예시) -->
 					<c:set var="maxRating" value="5" /> <!-- 최대 평점 -->
 												    
@@ -208,7 +228,7 @@ window.addEventListener("DOMContentLoaded", function(){
 						</c:forEach>
 				    </div>
 				    <div class="col">
-				    	<span style="font-weight: 900; font-size: 14px; color: #f68a42">${reviewCount}개 리뷰</span>
+				    	<span style="font-weight: 900; font-size: 14px; color: #f68a42">${reviewCount.total_review_count}개 리뷰</span>
 				    </div>
 			    </div>
 			    
@@ -266,7 +286,7 @@ window.addEventListener("DOMContentLoaded", function(){
 				</div>
 				
 				<div class="row mt-3">
-					<div class="col rounded-3" style="background: #f4f4f4;">
+					<div class="col rounded-3" style="background: #fbfbfb;">
 						<div class="row p-3">
 							<div class="col">
 								<p class="mb-0 fw-bold fs-5">제휴카드 할인 혜택 ></p>
@@ -334,45 +354,79 @@ window.addEventListener("DOMContentLoaded", function(){
 				    		<div class="col">
 				    			<div class="row">
 				    				<div class="col">
-				    					<p class="fw-bold fs-5">리뷰 <span style="color: #f68a42;">${reviewCount}</span></p>
+				    					<p class="fw-bold fs-5">리뷰 <span style="color: #f68a42;">${reviewCount.total_review_count}</span></p>
 				    				</div>
 				    			</div>
 				    		</div>
 				    	</div>
 				    	
 				    	<div class="row px-5">
-				    		<div class="col p-5 rounded-3" style="max-width: 480px; background: #f2f5fb;">
-				    			<div class="row">
-					    			<div class="col	mt-1">
-						    			<div class="row">
-											<div class="col fs-3 text-warning">
-												<c:set var="avgRating" value="${reviewRating}" />
-												<c:set var="maxRating" value="5" />
-																			    
-											    <c:set var="wholeStars" value="${avgRating - avgRating % 1}" />
-												<c:set var="halfStar" value="${avgRating - wholeStars}" />
-													
+				    		<div class="col p-5 bgBox rounded-3">
+					    			<div class="row position-relative sectionBar align-items-center">
+					    				<div class="col-1"></div>
+						    			<div class="col	mt-1 px-0" style="max-width: 150px;">
+							    			<div class="row">
+												<div class="col fs-4" style="color: #fdab31;">
+													<c:set var="avgRating" value="${reviewRating}" />
+													<c:set var="maxRating" value="5" />
+																				    
+												    <c:set var="wholeStars" value="${avgRating - avgRating % 1}" />
+													<c:set var="halfStar" value="${avgRating - wholeStars}" />
+														
 													<c:forEach begin="1" end="${maxRating}" varStatus="loop">
 													  <c:choose>
 													    <c:when test="${loop.index le wholeStars}">
-													      <i class="bi bi-star-fill"></i>
+													      <i class="bi bi-star-fill" style="vertical-align: -3px;"></i>
 													    </c:when>
 													    <c:when test="${loop.index eq wholeStars + 1 and halfStar gt 0}">
-													      <i class="bi bi-star-half"></i>
+													      <i class="bi bi-star-half" style="vertical-align: -3px;"></i>
 													    </c:when>
 													    <c:otherwise>
-													      <i class="bi bi-star"></i>
+													      <i class="bi bi-star" style="vertical-align: -3px;"></i>
 													    </c:otherwise>
 													  </c:choose>
 													</c:forEach>
 										   		 </div>
 									    	</div>
 							    		</div>
-							    		<div class="col">
+							    		<div class="col-2">
 							    			<p class="fs-2 mb-0" style="font-weight: 900;">${reviewRating}</p>
 							    		</div>
+    						    		<div class="col ms-5">
+						    				<div class="row mb-2">
+						    					<div class="col d-flex justify-content-center my-auto">
+						    						<span>5점</span> <progress class=" my-auto ms-3 progress me-3" id="progress5" value="83" min="0" max="100"></progress>
+						    						<span id="review5" class="text-secondary" style="font-size: 14px"></span>
+						    					</div>
+						    				</div>
+						    				<div class="row mb-2">
+						    					<div class="col d-flex justify-content-center">
+						    						<span>4점</span> <progress  class=" my-auto ms-3 progress me-3" id="progress4" value="8" min="0" max="100"></progress>
+							    					<span id="review4" class="text-secondary" style="font-size: 14px"></span>
+						    					</div>
+						    				</div>
+						    				<div class="row mb-2">
+						    					<div class="col d-flex justify-content-center">
+						    						<span>3점</span> <progress  class=" my-auto ms-3 progress me-3" id="progress3" value="5" min="0" max="100"></progress>
+						    						<span id="review3" class="text-secondary" style="font-size: 14px"></span>
+						    					</div>
+						    				</div>
+						    				<div class="row mb-2">
+						    					<div class="col d-flex justify-content-center">
+						    						<span>2점</span> <progress class=" my-auto ms-3 progress me-3" id="progress2" value="3" min="0" max="100"></progress>
+						    						<span id="review2" class="text-secondary" style="font-size: 14px"></span>
+						    					</div>
+						    				</div>
+						    				<div class="row mb-2">
+						    					<div class="col d-flex justify-content-center">
+						    						<span>1점</span> <progress class=" my-auto ms-3 progress me-3" id="progress1" value="1" min="0" max="100"></progress>
+						    						<span id="review1" class="text-secondary" style="font-size: 14px"></span>
+						    					</div>
+						    				</div>
+						    			</div>
 				    			</div>
 				    		</div>
+
 				    	</div>
 				    	
 				    	<div class="row">
@@ -397,7 +451,7 @@ window.addEventListener("DOMContentLoaded", function(){
 							    									<div class="row">
 							    										<div class="col">
 																			<div class="row">
-																				<div class="col text-warning" style="font-size: 13px;">
+																				<div class="col" style="font-size: 13px; color: #fdab31;">
 																					<c:set var="avgRating" value="${review.reviewList.rental_review_rating}" />
 																					<c:set var="maxRating" value="5" />
 																												    
@@ -485,6 +539,66 @@ function clipUrl() {
 function alert_warning(){
 	alert('준비중 입니다!')
 }
+
+
+function updateProgressBar() {
+	
+	const p5 = document.getElementById("progress5");
+	const p4 = document.getElementById("progress4");
+	const p3 = document.getElementById("progress3");
+	const p2 = document.getElementById("progress2");
+	const p1 = document.getElementById("progress1");
+	
+	const r5 = document.getElementById("review5");
+	const r4 = document.getElementById("review4");
+	const r3 = document.getElementById("review3");
+	const r2 = document.getElementById("review2");
+	const r1 = document.getElementById("review1");
+	
+	
+	
+	const p = [p5,p4,p3,p2,p1];
+	const r = [r5,r4,r3,r2,r1];
+
+
+	const total = ${reviewCount.total_review_count};
+	
+	const star5 = ${reviewCount.review_count5};
+	const star4 = ${reviewCount.review_count4};
+	const star3 = ${reviewCount.review_count3};
+	const star2 = ${reviewCount.review_count2};
+	const star1 = ${reviewCount.review_count1};
+	
+	const star = [star5,star4,star3,star2,star1];
+	
+	
+	
+	if(total === 0 ) {
+		for (let i=0;i<5;i++) {
+			p[i].value = 1;
+			r[i].innerText = 0;
+		}
+	} else {
+		
+		for (let i=0;i<5;i++) {
+			p[i].value = ( star[i] === 0 ? 1 : Math.round((star[i] / total) * 100) );
+			r[i].innerText = star[i];
+		}
+	}
+	
+
+	
+	
+}
+
+window.addEventListener("DOMContentLoaded",function(){
+	updateProgressBar();
+	
+
+});
+
+
+
 </script>
 
 </body>	

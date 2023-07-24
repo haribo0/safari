@@ -20,6 +20,10 @@
 .carousel-item-2{background: url("${pageContext.request.contextPath}/resources/img/rental/rental-banner-2.jpg") 50% 50% no-repeat; background-size: cover;}
 
 .carousel-control-next, .carousel-control-prev{width: 8%;}
+.boxCategory{transition: all 0.2s}
+.boxCategory:hover {
+	box-shadow: 0px 2px 14px -2px rgba(0, 0, 0, 0.125);
+}
 </style>
 </head>
 <body>
@@ -81,9 +85,9 @@
 
 				<!-- 광고 대여 물품 row 작업중 -->
 				<div class="row flex justify-content-between pt-3 pb-4 my-2 border-bottom">
-	 				<c:forEach items="${rentalItemList}" var="map" begin="0" end="5" step="1" varStatus="status">
+	 				<c:forEach items="${rentalItemList}" var="map" begin="0" end="5" step="1">
 						<div class="col-2 position-relative">
-							<div class="position-absolute shadow-sm px-2" style="top: 12px; right: 12px; background:#ffb87b; color: #fff; border-radius: 24px; z-index: 50; font-size: 12px;">
+							<div class="position-absolute px-2" style="top: 8px; right: 20px; background:#f68a42; color: #fff; border-radius: 24px; z-index: 50; font-size: 12px;">
 								AD
 							</div>
 							<div class="card border border-0">
@@ -91,18 +95,31 @@
 								  <img src="/safariImg/${map.rentalItemDto.main_img_link}" class="card-img-top rounded-0 img-fluid item-box-img-ad" alt="..." style="min-height: 150px;">
 								</a>
 							  <div class="card-body p-0 mt-2">
-							  	<div class="d-flex justify-content-between">
+								  <div class="row mt-1 descBox">
+									<div class="col">
+										<p class="text-secondary mb-0" style="font-size: 13px;">${map.rentalBusinessDto.business_name }</p>
+								    	<p class="text-dark mb-2"><a href="${pageContext.request.contextPath}/rental/productDescPage?id=${map.rentalItemDto.id}" class="text-decoration-none d-inline-block text-dark" style="font-size: 16px;">${map.rentalItemDto.title}</a></p>
+									    <p class="mb-0"><a href="${pageContext.request.contextPath}/rental/productDescPage?id=${map.rentalItemDto.id}" class="text-decoration-none d-inline-block text-dark" style="font-weight: 900; font-size: 18px;"><fmt:formatNumber value="${map.rentalItemDto.price}" pattern="#,##0" /> 원 </a><span style="font-size: 13px;">/ 월</span></p>
+										<p class="mb-0"><span style="font-size: 13px; color: #5a5a5a;"><i class="bi bi-heart"></i> </span><span class="fw-bold" style="font-size: 13px; color: #7e7e7e;">${map.itemLikeCount}</span> <span class="ms-1" style="font-size: 13px; color: #5a5a5a;"><i class="bi bi-chat"></i></span> <span class="fw-bold" style="font-size: 13px; color: #7e7e7e;">${map.itemReviewCount}</span></p>
+										<p class="mt-1"><span style="background: #e5e5e5; border-radius: 6px; font-size: 12px; padding: 3px 6px;">무료배송</span></p>								
+									</div>
+								</div>
+<%-- 							  	<div class="d-flex justify-content-between">
 							    	<p class="text-dark mb-0"><a href="${pageContext.request.contextPath}/rental/productDescPage?id=${map.rentalItemDto.id}" class="text-decoration-none d-inline-block text-dark fw-bold" style="font-size: 15px;">${map.rentalItemDto.title}</a></p>
 							  	</div>
 							    <p class="mb-0"><a href="${pageContext.request.contextPath}/rental/productDescPage?id=${map.rentalItemDto.id}" class="w-100 text-decoration-none d-inline-block text-body-secondary" style="overflow:hidden; text-overflow:ellipsis; white-space:nowrap; font-size: 14px;">${map.rentalItemDto.item_description}</a></p>
 							    <div class="d-flex justify-content-between">
-								    <p><b class="text-dark"><a href="${pageContext.request.contextPath}/rental/productDescPage?id=${map.rentalItemDto.id}" class="text-decoration-none d-inline-block text-dark" style="font-size: 15px;"><fmt:formatNumber value="${map.rentalItemDto.price}" pattern="#,##0" /> 원 </a></b><span style="font-size: 13px;">/ 월</span></p>
-							  		<p class="mb-0">
-							  			<span style="font-size: 12px;">좋아요</span>
-							  			<span  onclick="toggleLike(${map.rentalItemDto.id})" class="fw-bold totalLikeCount" style="font-size: 12px;"></span>
-							  			<%-- <i id="heartBox" onclick="toggleLike(${map.rentalItemDto.id})" class="bi bi-heart heart_box text-danger" data-item-id="${map.rentalItemDto.id}" style="font-size: 18px;"></i> --%>
-							  		</p>
+								    <p class="mb-0"><b class="text-dark"><a href="${pageContext.request.contextPath}/rental/productDescPage?id=${map.rentalItemDto.id}" class="text-decoration-none d-inline-block text-dark" style="font-size: 15px;"><fmt:formatNumber value="${map.rentalItemDto.price}" pattern="#,##0" /> 원 </a></b><span style="font-size: 13px;">/ 월</span></p>
 							    </div>
+							    <div>
+							  		<p class="mb-0">
+							  			<!-- <span style="font-size: 12px;">좋아요</span> -->
+							  			<i class="bi bi-heart"></i>
+							  			<span  onclick="toggleLike(${map.rentalItemDto.id})" class="fw-bold totalLikeCount" style="font-size: 12px;"></span>
+							  			<i id="heartBox" onclick="toggleLike(${map.rentalItemDto.id})" class="bi bi-heart heart_box text-danger" data-item-id="${map.rentalItemDto.id}" style="font-size: 18px;"></i>
+							  		</p>							    
+							    </div> --%>
+							    
 							  </div>
 							 </div>
 						</div>
@@ -118,7 +135,7 @@
 					<p class="mb-0 mt-3 ps-0 fs-5 fw-bold">카테고리</p>
 				</div>
 				<div class="row">
-					<div class="col text-center">
+					<div class="col text-center boxCategory">
 						<a href="${pageContext.request.contextPath}/rental/mainPage/?main_category_id=1" class="btn">
 							<div class="row">
 								<div>
@@ -132,7 +149,7 @@
 							</div>
 						</a>
 					</div>
-					<div class="col text-center">
+					<div class="col text-center boxCategory">
 						<a href="${pageContext.request.contextPath}/rental/mainPage/?sub_category_id=1" class="btn">
 						<div class="row">
 							<div>
@@ -146,7 +163,7 @@
 						</div>
 						</a>
 					</div>
-					<div class="col text-center">
+					<div class="col text-center boxCategory">
 						<a href="${pageContext.request.contextPath}/rental/mainPage/?sub_category_id=4" class="btn">
 						<div class="row">
 							<div>
@@ -160,21 +177,21 @@
 						</div>
 						</a>
 					</div>
-					<div class="col text-center">
+					<div class="col text-center boxCategory">
 						<a href="${pageContext.request.contextPath}/rental/mainPage/?main_category_id=2" class="btn">
 						<div class="row">
 							<div>
 								<img class="img-fluid" alt="" src="${pageContext.request.contextPath}/resources/img/rental/category/lifeIt.png">
 							</div>
 						</div>
-						<div class="row mt-2">
+						<div class="row mt-2 boxCategory">
 							<div>
 								<p class="fw-bold">생활가전</p>
 							</div>
 						</div>
 						</a>
 					</div>
-					<div class="col text-center">
+					<div class="col text-center boxCategory">
 						<a href="${pageContext.request.contextPath}/rental/mainPage/?sub_category_id=12" class="btn">
 						<div class="row">
 							<div>
@@ -188,7 +205,7 @@
 						</div>
 						</a>
 					</div>
-					<div class="col text-center">
+					<div class="col text-center boxCategory">
 						<a href="${pageContext.request.contextPath}/rental/mainPage/?sub_category_id=13" class="btn">
 						<div class="row">
 							<div>
@@ -202,7 +219,7 @@
 						</div>
 						</a>
 					</div>
-					<div class="col text-center">
+					<div class="col text-center boxCategory">
 						<a href="${pageContext.request.contextPath}/rental/mainPage/?sub_category_id=14" class="btn">
 						<div class="row">
 							<div>
@@ -216,7 +233,7 @@
 						</div>
 						</a>
 					</div>
-					<div class="col text-center">
+					<div class="col text-center boxCategory">
 						<a href="${pageContext.request.contextPath}/rental/mainPage/?main_category_id=3" class="btn">
 						<div class="row">
 							<div>
@@ -230,7 +247,7 @@
 						</div>
 						</a>
 					</div>
-					<div class="col text-center">
+					<div class="col text-center boxCategory">
 						<a href="${pageContext.request.contextPath}/rental/mainPage/?sub_category_id=5" class="btn">
 						<div class="row">
 							<div>
@@ -244,7 +261,7 @@
 						</div>
 						</a>
 					</div>
-					<div class="col text-center">
+					<div class="col text-center boxCategory">
 						<a href="${pageContext.request.contextPath}/rental/mainPage/?sub_category_id=6" class="btn">
 						<div class="row">
 							<div>
@@ -290,44 +307,34 @@
 				</div> -->
 
 				<div class="row flex-wrap pt-2">
-	 				<c:forEach items="${rentalItemList}" var="map">
-						<div class="col-3 mb-5 item-box" style="cursor: pointer;">
+	 				<c:forEach items="${rentalItemList}" var="map" varStatus="status">
+		 				<c:if test="${status.index % 6 == 5}">
+		 					<div class="col-2 mb-5 item-box" style="cursor: pointer;">
+		 				</c:if>
+						<div class="col mb-5 item-box" style="cursor: pointer;">
 							<div class="row imgBox">
 								<div class="col">
 									<a href="${pageContext.request.contextPath}/rental/productDescPage?id=${map.rentalItemDto.id}" class="text-decoration-none d-inline-block">
-									  <img src="/safariImg/${map.rentalItemDto.main_img_link}" class="card-img-top rounded-0 img-fluid item-box-img" alt="..." style="min-height: 260px;" >
+									  <img src="/safariImg/${map.rentalItemDto.main_img_link}" class="card-img-top rounded-0 img-fluid item-box-img" alt="..." >
 									</a>																
 								</div>
 							</div>
 							
 							<div class="row mt-3 descBox">
-								<p class="text-secondary mb-0" style="font-size: 13px;">${map.rentalBusinessDto.business_name }</p>
-						    	<p class="text-dark mb-0"><a href="${pageContext.request.contextPath}/rental/productDescPage?id=${map.rentalItemDto.id}" class="text-decoration-none d-inline-block text-dark" style="font-size: 16px;">${map.rentalItemDto.title}</a></p>
-							    <p class="mb-1"><a href="${pageContext.request.contextPath}/rental/productDescPage?id=${map.rentalItemDto.id}" class="text-decoration-none d-inline-block text-dark" style="font-weight: 900; font-size: 18px;"><fmt:formatNumber value="${map.rentalItemDto.price}" pattern="#,##0" /> 원 </a><span style="font-size: 13px;">/ 월</span></p>
-								<p class="mb-0"><span style="font-size: 13px; color: #5a5a5a;"><i class="bi bi-heart-fill"></i> </span><span style="font-size: 13px; color: #5a5a5a; font-weight: 900;">${map.itemLikeCount}</span> <span class="ms-2" style="font-size: 13px; color: #5a5a5a;">리뷰</span> <span style="font-size: 13px; color: #5a5a5a; font-weight: 900;">${map.itemReviewCount}</span></p>
-								<p><span style="background: #e5e5e5; border-radius: 6px; font-size: 12px; padding: 3px 6px;">무료배송</span></p>
+								<div class="col">
+									<p class="text-secondary mb-0" style="font-size: 13px;">${map.rentalBusinessDto.business_name }</p>
+							    	<p class="text-dark mb-2"><a href="${pageContext.request.contextPath}/rental/productDescPage?id=${map.rentalItemDto.id}" class="text-decoration-none d-inline-block text-dark" style="font-size: 16px;">${map.rentalItemDto.title}</a></p>
+								    <p class="mb-0"><a href="${pageContext.request.contextPath}/rental/productDescPage?id=${map.rentalItemDto.id}" class="text-decoration-none d-inline-block text-dark" style="font-weight: 900; font-size: 18px;"><fmt:formatNumber value="${map.rentalItemDto.price}" pattern="#,##0" /> 원 </a><span style="font-size: 13px;">/ 월</span></p>
+									<p class="mb-0"><span style="font-size: 13px; color: #5a5a5a;"><i class="bi bi-heart"></i> </span><span class="fw-bold" style="font-size: 13px; color: #7e7e7e;">${map.itemLikeCount}</span> <span class="ms-1" style="font-size: 13px; color: #5a5a5a;"><i class="bi bi-chat"></i></span> <span class="fw-bold" style="font-size: 13px; color: #7e7e7e;">${map.itemReviewCount}</span></p>
+									<p class="mt-1"><span style="background: #e5e5e5; border-radius: 6px; font-size: 12px; padding: 3px 6px;">무료배송</span></p>								
+								</div>
 							</div>
-						
-						
-<%-- 							<div class="card border border-0">
-							  <div class="card-body p-0 pt-2">
-							  	<div class="d-flex justify-content-between">
-							  	</div>
-							    <p class="mb-1"><a href="${pageContext.request.contextPath}/rental/productDescPage?id=${map.rentalItemDto.id}" class="w-100 text-decoration-none d-inline-block text-body-secondary" style="overflow:hidden; text-overflow:ellipsis; white-space:nowrap; font-size: 15px;">${map.rentalItemDto.item_description}</a></p>
-							    <div class="d-flex  justify-content-between">
-							  		<p class="mb-0">
-							  			<span style="font-size: 12px;" data-itemId="${map.rentalItemDto.id }">좋아요</span>
-							  			<span onclick="toggleLike(${map.rentalItemDto.id})" class="fw-bold totalLikeCount" style="font-size: 12px;">${map.itemLikeCount}</span>
-							  			<i id="heartBox" onclick="toggleLike(${map.rentalItemDto.id})" class="bi bi-heart heart_box text-danger" data-item-id="${map.rentalItemDto.id}" style="font-size: 18px;"></i>
-							  		</p>
-							    </div>
-							  </div>
-							  <p>리뷰수 ${map.itemReviewCount }</p>
-							  <p>${map.rentalBusinessDto.business_name }</p>
-							 </div> --%>
-							 
 						</div>
+					      <c:if test="${status.index % 5 == 4}">
+					        </div><div class="row flex-wrap pt-2">
+					      </c:if>
 					</c:forEach>
+					</div>
 				</div>
 				
 				<div class="row mt-5 pt-3">

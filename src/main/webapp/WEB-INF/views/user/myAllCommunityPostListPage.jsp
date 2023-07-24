@@ -339,8 +339,12 @@
 													<div class = "row">
 														<div class = "col">
 															<div class= "row mt-1">
+															<!--  카테고리 -->
 																<div class = "col">
-																	카테고리
+																	${map.rentalItemCategory.main_category_name}
+																 	<c:if test="${map.rentalItemCategory.sub_category_name != null}">
+																 	> ${map.rentalItemCategory.sub_category_name}
+																 	</c:if>
 																</div>
 															</div>
 														 	<div class= "row mt-1">

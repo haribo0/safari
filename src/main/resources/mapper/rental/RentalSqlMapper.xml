@@ -187,6 +187,22 @@
 		WHERE item_id = #{item_id}
 	</select>
 	
+	<!-- 리뷰 별점 별 갯수  -->
+	<select id="getRentalReviewCountByRating" resultType="com.ja.safari.dto.RentalReviewCountDto">
+		SELECT
+		    COUNT(*) AS total_review_count,
+		    SUM(CASE WHEN rrt.rental_review_rating = 5 THEN 1 ELSE 0 END) AS review_count5,
+		    SUM(CASE WHEN rrt.rental_review_rating = 4 THEN 1 ELSE 0 END) AS review_count4,
+		    SUM(CASE WHEN rrt.rental_review_rating = 3 THEN 1 ELSE 0 END) AS review_count3,
+		    SUM(CASE WHEN rrt.rental_review_rating = 2 THEN 1 ELSE 0 END) AS review_count2,
+		    SUM(CASE WHEN rrt.rental_review_rating = 1 THEN 1 ELSE 0 END) AS review_count1
+		FROM rental_review_table rrt
+		JOIN RENTAL_ORDER_TABLE rot ON rrt.rental_id = rot.id
+		WHERE rot.item_id = #{itemId}
+	</select>
+	
+	
+	
 	<!-- 기간별 할인 리스트  -->
 	<select id="selectPeriodDiscById" resultType="com.ja.safari.dto.RentalPeriodDiscDto">
 		SELECT * FROM rental_period_disc_table
@@ -213,7 +229,8 @@
 	    #{original_price},
 	    #{deposit},
 	    SYSDATE,
-	    'N'
+	    'N',
+	    #{name}
 		)
 	</insert>
 	
@@ -244,8 +261,8 @@
 	    #{rental_review_content},
 	    #{rental_review_rating},
 	    '0',
-	    'test',
-	    SYSDATE,
+	    NULL,
+	    NULL,
 	    SYSDATE
 		)
 	</insert>
@@ -292,7 +309,7 @@
 	</select>
 	
 	<!-- 사용자 리뷰 1개 이상체크 -->
-	<select id="selectIsOverCount" resultType="Integer">
+	<select id="selectMyReviewCount" resultType="int">
 		SELECT COUNT(*) FROM rental_review_table WHERE user_id = #{id} AND rental_id = #{orderId}
 	</select>
 	
@@ -425,24 +442,6 @@
 	</select>
 	
 	
-	
-	
-	
-	<!-- 
-	<update id="updateCustomerInfo">
-		update m_customer 
-			set user_id = #{user_id},
-			 user_pw = #{user_pw},
-			 nickname = #{nickname},
-			 gender = #{gender},
-			 email = #{email},
-			 birth = #{birth},
-			 phone = #{phone}
-			where id = #{id}
-	</update>
-	
-	 resultType="com.ja.safari.dto.RentalBusinessDto"
- -->
 	
 	
 	

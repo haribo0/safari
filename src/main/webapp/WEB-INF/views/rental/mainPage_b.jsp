@@ -36,7 +36,7 @@
 	</div>
 
 	<div class="container">
-		<%-- <div class="row">
+		<div class="row">
  			<div class="col-2 mt-4">
 				<ul class="list-group" style="top: 115.23px; z-index: 50;">
 				  <li class="list-group-item border border-0 ps-0 pt-2 pb-0"><a href="${pageContext.request.contextPath}/rental/mainPage" class="btn ps-0 text fw-bold py-1" href="#" style="font-size: 17px;">전체보기</a></li>
@@ -51,7 +51,7 @@
 						</div>
 				  </c:forEach>
 				</ul>
-			</div>  --%>
+			</div>  
 			
 			<div class="col">
 <!-- 				<div class="row">

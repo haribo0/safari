@@ -6,6 +6,7 @@ import com.ja.safari.dto.CsQnaDto;
 import com.ja.safari.dto.HelpDto;
 import com.ja.safari.dto.PickDto;
 import com.ja.safari.dto.PromotionReviewDto;
+import com.ja.safari.dto.QuestionDto;
 import com.ja.safari.dto.RecruitDto;
 import com.ja.safari.dto.RentalOrderDto;
 import com.ja.safari.dto.UserAddressDto;
@@ -16,6 +17,12 @@ public interface UserSqlMapper {
 
 	//회원가입
 	public void insert(UserDto uerDto);
+	
+	// 카카오 로그인시 최초 1회 정보 등록 
+	public void insertKakaoUser(UserDto uerDto);
+	
+	// 카카오로그인시 회원 있나 없나 체크 
+	public UserDto selectUserDtoByUserId(UserDto userDto); 
 	
 	//로그인
 	public UserDto selectByIdAndPw(UserDto uerDto);
@@ -95,6 +102,21 @@ public interface UserSqlMapper {
 	
 	// 커뮤니티 골라줘요 내가 쓴 게시글
 	public List<PickDto> selectPickByMyPost(int user_id);
+	
+	// 커뮤니티 궁금해요 내가 쓴 게시글
+	public List<QuestionDto> selectQuestionByMyPost(int user_id);
+	
+	// 커뮤니티 구인구직 내가 좋아요한 게시글
+	public List<RecruitDto> selectRecruitByPostMyLike(int user_id);
+	
+	// 커뮤니티 해주세요 내가 좋아요한 게시글
+	public List<HelpDto> selectHelpByPostMyLike(int user_id);
+	
+	// 커뮤니티 골라줘요 내가 좋아요한 게시글
+	public List<PickDto> selectPickByPostMyLike(int user_id);
+	
+	// 커뮤니티 궁금해요 내가 좋아요한 게시글(나중에 db합치면 xml 다시 확인)
+	public List<QuestionDto> selectQuestionByPostMyLike(int user_id);
 	
 	
 }

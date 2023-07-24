@@ -99,7 +99,7 @@
 	<delete id="deleteRecruitLike">
 		delete from recruit_like_table
 		where recruit_id = #{recruit_id}
-		and user_id = {user_id}
+		and user_id = #{user_id}
 	</delete>
 	
 	<!-- 구인구직 좋아요 개수 count -->

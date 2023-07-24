@@ -139,6 +139,8 @@ public class RecruitController  {
 		@RequestMapping("recruit/readContentPage/{id}")
 		public String recruitReadContentPage(@PathVariable int id, Model model) {
 			
+			recruitService.increaseViewsRecruitBoard(id);//조회수 증가.
+			
 			Map<String, Object> map = recruitService.getRecruitBoardById(id);
 			
 			System.out.println(map);
@@ -194,17 +196,53 @@ public class RecruitController  {
 		}
 		
 		//구인구직 좋아요 insert
+		/*
+		 * @RequestMapping("recruit/insertRecruitLikeProcess/{id}") public String
+		 * insertRecruitLikeProcess(HttpSession session, RecruitLikeDto
+		 * recruitLikeDto, @PathVariable int id) {
+		 * 
+		 * UserDto sessionUser = (UserDto) session.getAttribute("sessionUser");
+		 * 
+		 * recruitLikeDto.setUser_id(sessionUser.getId());
+		 * recruitLikeDto.setRecruit_id(id);
+		 * 
+		 * recruitService.insertRecruitLike(recruitLikeDto);
+		 * 
+		 * return "redirect:/community/recruit/readContentPage/" + id; }
+		 */
+		
+		//구인구직 좋아요 insert
 		@RequestMapping("recruit/insertRecruitLikeProcess/{id}")
 		public String insertRecruitLikeProcess(HttpSession session, RecruitLikeDto recruitLikeDto, @PathVariable int id) {
 			
 			UserDto sessionUser = (UserDto) session.getAttribute("sessionUser");
 			
-			recruitLikeDto.setUser_id(sessionUser.getId());
-			recruitLikeDto.setRecruit_id(id);
+			//로그인 안되어 있을 때
+			if (sessionUser == null) {
+				
+				return "redirect:/user/loginPage";
+			} 
 			
-			recruitService.insertRecruitLike(recruitLikeDto);
+			// 로그인이 되어 있을 때
+			else {
+				
+				recruitLikeDto.setUser_id(sessionUser.getId());
+				recruitLikeDto.setRecruit_id(id);
+		
+				// 유저의 게시글 좋아요 여부 확인
+				int likeCount = recruitService.checkrecruitLike(recruitLikeDto);
+				
+				
+				if (likeCount > 0) {
+					recruitService.deleteRecruitLike(recruitLikeDto);
+				} else {
+					recruitService.insertRecruitLike(recruitLikeDto);
+				}
+				
+				return "redirect:/community/recruit/readContentPage/" + id;
+			}
 			
-			return "redirect:/community/recruit/readContentPage/" + id;
+			
 		}
 	
 }
