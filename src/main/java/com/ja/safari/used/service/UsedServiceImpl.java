@@ -714,9 +714,9 @@ public class UsedServiceImpl {
 			ProductSubCategoryDto subCategoryDto = usedSqlMapper.selectProductSubCategoryById(productDto.getProduct_sub_category());
 			map.put("productDto", productDto);
 			map.put("reservationCount", usedSqlMapper.countProductRequestReservation(productId));
-			map.put("completeCount", usedSqlMapper.countProductRequestByProductId(productId));
+			map.put("completeCount", usedSqlMapper.countProductRequestComplete(productId));
 			map.put("usedPurchaseReviewDto", usedSqlMapper.selectProductReviewByproductIdAndSenderId(productId, userId));
-			map.put("productImgDto", usedSqlMapper.countProductRequestComplete(productId));
+			map.put("productImgDto", usedSqlMapper.selectProductImg(productId));
 			map.put("productTownDto", usedSqlMapper.selectProductTownById(townId));
 			map.put("productCityDto", usedSqlMapper.selectProductCityByTownId(townId));
 			map.put("productSubCategoryDto", subCategoryDto);

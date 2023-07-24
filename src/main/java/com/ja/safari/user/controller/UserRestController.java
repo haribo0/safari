@@ -493,18 +493,18 @@ public class UserRestController {
 	  @RequestMapping("getMySellListByStatus")
 	  public Map<String, Object> getMySellListByStatus(HttpSession session, Integer statusId){
 		  Map<String, Object> map = new HashMap<String, Object>();
-			
 		  UserDto sessionUser = (UserDto) session.getAttribute("sessionUser");
-	  if(sessionUser == null) {
-		  map.put("result", "fail");
-		  map.put("reason", "login required");
-		  return map;
-	  }else {
-		  map.put("list", usedService.selectMySellList(sessionUser.getId(), statusId));
-		  map.put("result", "success");
+		  if(sessionUser == null) {
+			  map.put("result", "fail");
+			  map.put("reason", "login required");
+			  return map;
+		  }else {
+			  map.put("list", usedService.selectMySellList(sessionUser.getId(), statusId));
+			  map.put("result", "success");
 			  return map;
 		  }
 	  }
+	  
 	  
 	  
 	  

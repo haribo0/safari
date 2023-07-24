@@ -186,7 +186,7 @@ public class UserController {
 	public String wishList(HttpSession session, Model model) {
 		UserDto sessionUser = (UserDto)session.getAttribute("sessionUser");
 		if(sessionUser==null) {
-			return "redirect:./user/loginPage";
+			return "redirect:./loginPage";
 		}else {
 			model.addAttribute("list", usedService.selectProductLikeByUserId(sessionUser.getId()));
 			return "used/wishList";
@@ -198,7 +198,7 @@ public class UserController {
 	public String selectMySellList(HttpSession session) {
 		UserDto sessionUser = (UserDto)session.getAttribute("sessionUser");
 		if(sessionUser==null) {
-			return "redirect:./user/loginPage";
+			return "redirect:./loginPage";
 		}else {
 			return "used/mySellList";
 		}
