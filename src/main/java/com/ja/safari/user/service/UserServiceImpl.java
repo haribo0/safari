@@ -56,6 +56,24 @@ public class UserServiceImpl {
 		return user;
 	}
 	
+	// 카카오 로그인 
+	public UserDto kakaoLogin(UserDto userDto) {
+	
+		// 테이블에 유저 있는지 확인 
+		UserDto user = userSqlMapper.selectUserDtoByUserId(userDto);
+		
+		// 없으면 정보 저장 - 아이디랑 닉네임만
+		if(user==null) {
+			userSqlMapper.insertKakaoUser(userDto);
+			// 정보 없다면 파라미터로 받은 객체를 그대로 리턴 
+			return userDto;
+		} 
+		
+		// 기존에 로그인한적 있다면 DB에서 찾아온 userDto를 리턴 
+		return user;
+		
+	}
+	
 	// 회원정보 수정 - 현재 비밀번호 확인
 	public UserDto checkUserPw(int id) {
 		return userSqlMapper.checkUserPw(id);

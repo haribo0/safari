@@ -233,10 +233,7 @@
 							    ${RecruitBoardLikeCount} -->
 							    <!-- 버튼 태그로 변경 -->
 							    
-							    <%-- AJAX 좋아요 --%>
-								<i id="heartBox" onclick="toggleLike()" class="fs-1 text-danger bi bi-heart"></i>
-								<span id="totalLikeCount"></span>
-								<%-- AJAX 좋아요 --%>
+							   
 							  
 								</div>
 								<%-- 좋아요 --%>
@@ -254,7 +251,7 @@
 								
 								급여: ${map.recruitDto.salary }만원<br>
 								성별: ${map.recruitDto.gender }<br>
-								나이제한: 만 &nbsp${map.recruitDto.age_limit }세<br>
+								나이제한: 만 &nbsp ${map.recruitDto.age_limit }세<br>
 								
 								위치: ${map.recruitDto.location }<br>
 								등록일: <fmt:formatDate value="${map.recruitDto.reg_date}" pattern="yyyy.MM.dd"/><br>
@@ -269,6 +266,7 @@
 															작성자: ${map.userDto.nickname }<br>
 															연락처: ${map.recruitDto.phone }<br>
 															이메일: ${map.recruitDto.email }<br>
+															 views👀 · ${map.recruitDto.views}
 															</div>
 															</div>
 								
@@ -299,6 +297,11 @@
 						</div>	
 					</div>	
 					<%-- recruitBoardList --%>
+					
+					 <%-- AJAX 좋아요 --%>
+						<i id="heartBox" onclick="toggleLike()" class="fs-1 text-danger bi bi-heart"></i>
+						<span id="totalLikeCount"></span>
+					<%-- AJAX 좋아요 --%>
 						
 				</div>	
 			</div>
