@@ -38,6 +38,7 @@ import com.ja.safari.dto.RentalOrderKakaopayApprove;
 import com.ja.safari.dto.RentalOrderKakaopayReady;
 import com.ja.safari.dto.RentalReturnKakaopayAmount;
 import com.ja.safari.dto.RentalReturnKakaopayApprove;
+import com.ja.safari.dto.RentalReviewCountDto;
 import com.ja.safari.dto.RentalReviewDto;
 import com.ja.safari.dto.RentalReviewImgDto;
 import com.ja.safari.dto.UserAddressDto;
@@ -117,7 +118,7 @@ public class RentalController {
 		
 		Map<String, Object> map = rentalService.getItem(id);
 		List<Map<String, Object>> reviewMap = rentalService.getRentalReview(id);
-		int reviewCount = rentalService.getRentalReviewCount(id);
+		RentalReviewCountDto reviewCount = rentalService.getRentalReviewCount(id);
 		Double reviewRating = rentalService.getRentalReviewRating(id);
 	
 		model.addAttribute("data", map); // 대여 아이템 상품 하나

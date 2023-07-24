@@ -228,7 +228,7 @@ progress::-webkit-progress-value {
 						</c:forEach>
 				    </div>
 				    <div class="col">
-				    	<span style="font-weight: 900; font-size: 14px; color: #f68a42">${reviewCount}개 리뷰</span>
+				    	<span style="font-weight: 900; font-size: 14px; color: #f68a42">${reviewCount.total_review_count}개 리뷰</span>
 				    </div>
 			    </div>
 			    
@@ -354,7 +354,7 @@ progress::-webkit-progress-value {
 				    		<div class="col">
 				    			<div class="row">
 				    				<div class="col">
-				    					<p class="fw-bold fs-5">리뷰 <span style="color: #f68a42;">${reviewCount}</span></p>
+				    					<p class="fw-bold fs-5">리뷰 <span style="color: #f68a42;">${reviewCount.total_review_count}</span></p>
 				    				</div>
 				    			</div>
 				    		</div>
@@ -395,27 +395,32 @@ progress::-webkit-progress-value {
     						    		<div class="col ms-5">
 						    				<div class="row mb-2">
 						    					<div class="col d-flex justify-content-center my-auto">
-						    						<span>5점</span> <progress class=" my-auto ms-3" id="progress" value="83" min="0" max="100"></progress>
+						    						<span>5점</span> <progress class=" my-auto ms-3 progress me-3" id="progress5" value="83" min="0" max="100"></progress>
+						    						<span id="review5" class="text-secondary" style="font-size: 14px"></span>
 						    					</div>
 						    				</div>
 						    				<div class="row mb-2">
 						    					<div class="col d-flex justify-content-center">
-						    						<span>4점</span> <progress  class=" my-auto ms-3" id="progress" value="8" min="0" max="100"></progress>
+						    						<span>4점</span> <progress  class=" my-auto ms-3 progress me-3" id="progress4" value="8" min="0" max="100"></progress>
+							    					<span id="review4" class="text-secondary" style="font-size: 14px"></span>
 						    					</div>
 						    				</div>
 						    				<div class="row mb-2">
 						    					<div class="col d-flex justify-content-center">
-						    						<span>3점</span> <progress  class=" my-auto ms-3" id="progress" value="5" min="0" max="100"></progress>
+						    						<span>3점</span> <progress  class=" my-auto ms-3 progress me-3" id="progress3" value="5" min="0" max="100"></progress>
+						    						<span id="review3" class="text-secondary" style="font-size: 14px"></span>
 						    					</div>
 						    				</div>
 						    				<div class="row mb-2">
 						    					<div class="col d-flex justify-content-center">
-						    						<span>2점</span> <progress class=" my-auto ms-3" id="progress" value="3" min="0" max="100"></progress>
+						    						<span>2점</span> <progress class=" my-auto ms-3 progress me-3" id="progress2" value="3" min="0" max="100"></progress>
+						    						<span id="review2" class="text-secondary" style="font-size: 14px"></span>
 						    					</div>
 						    				</div>
 						    				<div class="row mb-2">
 						    					<div class="col d-flex justify-content-center">
-						    						<span>1점</span> <progress class=" my-auto ms-3" id="progress" value="1" min="0" max="100"></progress>
+						    						<span>1점</span> <progress class=" my-auto ms-3 progress me-3" id="progress1" value="1" min="0" max="100"></progress>
+						    						<span id="review1" class="text-secondary" style="font-size: 14px"></span>
 						    					</div>
 						    				</div>
 						    			</div>
@@ -534,6 +539,66 @@ function clipUrl() {
 function alert_warning(){
 	alert('준비중 입니다!')
 }
+
+
+function updateProgressBar() {
+	
+	const p5 = document.getElementById("progress5");
+	const p4 = document.getElementById("progress4");
+	const p3 = document.getElementById("progress3");
+	const p2 = document.getElementById("progress2");
+	const p1 = document.getElementById("progress1");
+	
+	const r5 = document.getElementById("review5");
+	const r4 = document.getElementById("review4");
+	const r3 = document.getElementById("review3");
+	const r2 = document.getElementById("review2");
+	const r1 = document.getElementById("review1");
+	
+	
+	
+	const p = [p5,p4,p3,p2,p1];
+	const r = [r5,r4,r3,r2,r1];
+
+
+	const total = ${reviewCount.total_review_count};
+	
+	const star5 = ${reviewCount.review_count5};
+	const star4 = ${reviewCount.review_count4};
+	const star3 = ${reviewCount.review_count3};
+	const star2 = ${reviewCount.review_count2};
+	const star1 = ${reviewCount.review_count1};
+	
+	const star = [star5,star4,star3,star2,star1];
+	
+	
+	
+	if(total === 0 ) {
+		for (let i=0;i<5;i++) {
+			p[i].value = 1;
+			r[i].innerText = 0;
+		}
+	} else {
+		
+		for (let i=0;i<5;i++) {
+			p[i].value = ( star[i] === 0 ? 1 : Math.round((star[i] / total) * 100) );
+			r[i].innerText = star[i];
+		}
+	}
+	
+
+	
+	
+}
+
+window.addEventListener("DOMContentLoaded",function(){
+	updateProgressBar();
+	
+
+});
+
+
+
 </script>
 
 </body>	

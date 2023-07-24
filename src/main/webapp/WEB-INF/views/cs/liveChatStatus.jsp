@@ -46,7 +46,9 @@
 </div>
 
 
-
+	<!-- 푸터 섹션 -->
+	<jsp:include page="../common/footer.jsp"></jsp:include>
+	<!-- 푸터 섹션 -->
 
 
 

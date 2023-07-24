@@ -38,6 +38,7 @@ import com.ja.safari.dto.RentalOrderKakaopayReady;
 import com.ja.safari.dto.RentalPeriodDiscDto;
 import com.ja.safari.dto.RentalReturnKakaopayAmount;
 import com.ja.safari.dto.RentalReturnKakaopayApprove;
+import com.ja.safari.dto.RentalReviewCountDto;
 import com.ja.safari.dto.RentalReviewDto;
 import com.ja.safari.dto.RentalReviewImgDto;
 import com.ja.safari.dto.RentalSubCategoryDto;
@@ -300,9 +301,16 @@ public class RentalServiceImpl {
 	}
 
 	// 리뷰 카운트
-	public Integer getRentalReviewCount(int id) {
-		Integer count = rentalSqlMapper.selectReviewCount(id);
-		return count;
+	public RentalReviewCountDto getRentalReviewCount(int id) {
+		
+		List<RentalReviewCountDto> reviewCountDtos = rentalSqlMapper.getRentalReviewCountByRating(id);
+		
+		if(reviewCountDtos.size() == 0) {
+			return new RentalReviewCountDto(0,0,0,0,0,0);
+		} else {
+			return reviewCountDtos.get(0);
+		}
+		
 	}
 
 	// 리뷰 평점
