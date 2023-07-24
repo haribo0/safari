@@ -199,8 +199,9 @@
 		FROM rental_review_table rrt
 		JOIN RENTAL_ORDER_TABLE rot ON rrt.rental_id = rot.id
 		WHERE rot.item_id = #{itemId}
-		GROUP BY rrt.rental_id
 	</select>
+	
+	
 	
 	<!-- 기간별 할인 리스트  -->
 	<select id="selectPeriodDiscById" resultType="com.ja.safari.dto.RentalPeriodDiscDto">

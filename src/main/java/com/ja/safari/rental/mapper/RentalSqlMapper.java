@@ -19,6 +19,7 @@ import com.ja.safari.dto.RentalReturnKakaopayApprove;
 import com.ja.safari.dto.RentalReviewCountDto;
 import com.ja.safari.dto.RentalReviewDto;
 import com.ja.safari.dto.RentalReviewImgDto;
+import com.ja.safari.dto.RentalReviewRatingCountDto;
 import com.ja.safari.dto.RentalSubCategoryDto;
 import com.ja.safari.dto.UserDto;
 import com.ja.safari.dto.RentalItemDto;
@@ -56,7 +57,7 @@ public interface RentalSqlMapper {
 	
 	// 리뷰 별점별 갯수 가져오기 
 	public List<RentalReviewCountDto> getRentalReviewCountByRating(int itemId);
-
+	
 	// 상품 좋아요 여부확인
 	public int countMyLike(RentalItemLikeDto rentalItemLikeDto);
 	// 좋아요 지우기
