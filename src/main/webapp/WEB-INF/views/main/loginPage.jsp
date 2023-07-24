@@ -122,9 +122,9 @@ a {
 						</div>
 						
 						<div class="row">
-							<div class="col d-flex justify-content-center">
+							<div class="col">
 								<div class="row mt-3">
-									<div class="col"  onclick="kakaoLogin()">
+									<div class="col text-center"  onclick="kakaoLogin()" style="cursor: pointer;">
 										<img src="/safari/resources/img/user/kakao_login_medium_wide.png" class="img-fluid">
 									</div>
 									<!-- <div class="col-auto">

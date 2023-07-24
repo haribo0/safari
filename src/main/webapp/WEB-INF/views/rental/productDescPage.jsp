@@ -136,14 +136,14 @@ window.addEventListener("DOMContentLoaded", function(){
 </script>
 <style>
 .btn.active{background: #eff1f5; border: none; color: #2a4158;}
-.sectionBar::after{content: ''; position: absolute; left: 50%; top: 50%; transform: translateY(-50%); display:block; width: 1px; height: 80px; background: #e2e8f5;}
+.sectionBar::after{content: ''; position: absolute; left: 42%; top: 50%; transform: translateY(-50%); display:block; width: 1px; height: 80px; background: #e2e8f5;}
 progress {
     appearance: none;
+    width: 340px;
 }
 progress::-webkit-progress-bar {
     background:#f0f0f0;
     border-radius:16px;
-    box-shadow: inset 3px 3px 10px #ccc;
 }
 progress::-webkit-progress-value {
     border-radius:16px;
@@ -356,8 +356,9 @@ progress::-webkit-progress-value {
 				    	</div>
 				    	
 				    	<div class="row px-5">
-				    		<div class="col p-5 rounded-3" style="max-width: 540px; background: #f2f5fb;">
+				    		<div class="col p-5 rounded-3" style="background: #f6fbff;">
 					    			<div class="row position-relative sectionBar align-items-center">
+					    				<div class="col-1"></div>
 						    			<div class="col	mt-1 px-0" style="max-width: 150px;">
 							    			<div class="row">
 												<div class="col fs-4" style="color: #fdab31;">
@@ -386,7 +387,7 @@ progress::-webkit-progress-value {
 							    		<div class="col-2">
 							    			<p class="fs-2 mb-0" style="font-weight: 900;">${reviewRating}</p>
 							    		</div>
-    						    		<div class="col">
+    						    		<div class="col ms-5">
 						    				<div class="row mb-2">
 						    					<div class="col d-flex justify-content-center">
 						    						<progress id="progress" value="12" min="0" max="100"></progress>
