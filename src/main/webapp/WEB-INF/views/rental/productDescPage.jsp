@@ -391,28 +391,27 @@ progress::-webkit-progress-value {
     						    		<div class="col ms-5">
 						    				<div class="row mb-2">
 						    					<div class="col d-flex justify-content-center my-auto">
-						    						5점
-						    						 <progress class=" my-auto ms-3" id="progress" value="83" min="0" max="100"></progress>
+						    						<span>5점</span> <progress class=" my-auto ms-3" id="progress" value="83" min="0" max="100"></progress>
 						    					</div>
 						    				</div>
 						    				<div class="row mb-2">
 						    					<div class="col d-flex justify-content-center">
-						    						4점 <progress  class=" my-auto ms-3" id="progress" value="8" min="0" max="100"></progress>
+						    						<span>4점</span> <progress  class=" my-auto ms-3" id="progress" value="8" min="0" max="100"></progress>
 						    					</div>
 						    				</div>
 						    				<div class="row mb-2">
 						    					<div class="col d-flex justify-content-center">
-						    						3점 <progress  class=" my-auto ms-3" id="progress" value="5" min="0" max="100"></progress>
+						    						<span>3점</span> <progress  class=" my-auto ms-3" id="progress" value="5" min="0" max="100"></progress>
 						    					</div>
 						    				</div>
 						    				<div class="row mb-2">
 						    					<div class="col d-flex justify-content-center">
-						    						2점 <progress class=" my-auto ms-3" id="progress" value="3" min="0" max="100"></progress>
+						    						<span>2점</span> <progress class=" my-auto ms-3" id="progress" value="3" min="0" max="100"></progress>
 						    					</div>
 						    				</div>
 						    				<div class="row mb-2">
 						    					<div class="col d-flex justify-content-center">
-						    						1점 <progress class=" my-auto ms-3" id="progress" value="1" min="0" max="100"></progress>
+						    						<span>1점</span> <progress class=" my-auto ms-3" id="progress" value="1" min="0" max="100"></progress>
 						    					</div>
 						    				</div>
 						    			</div>
