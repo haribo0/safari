@@ -86,11 +86,11 @@
 					const heartBox = document.getElementById("heartBox");
 					
 					if(response.isLiked){
-						heartBox.classList.remove("bi-bookmark");
-						heartBox.classList.add("bi-bookmark-fill");
+						heartBox.classList.remove("bi-heart");
+						heartBox.classList.add("bi-heart-fill");
 					}else{
-						heartBox.classList.remove("bi-bookmark-fill");
-						heartBox.classList.add("bi-bookmark");
+						heartBox.classList.remove("bi-heart-fill");
+						heartBox.classList.add("bi-heart");
 					}
 				}
 			}
@@ -185,7 +185,7 @@ progress::-webkit-progress-value {
 						<div class="row">
 							<div class="col">
 								<div style="height: 26px;">
-									<i id="heartBox" onclick="toggleLike()" class="fs-4 bi bi-bookmark"></i>
+									<i id="heartBox" onclick="toggleLike()" class="fs-4 bi bi-heart"></i>
 								</div>
 								<div class="text-center">
 									<span id="totalLikeCount" style="font-size: 12px;"></span>
@@ -389,27 +389,27 @@ progress::-webkit-progress-value {
     						    		<div class="col">
 						    				<div class="row mb-2">
 						    					<div class="col d-flex justify-content-center">
-						    						<progress id="progress" value="12" min="0" max="20"></progress>
+						    						<progress id="progress" value="12" min="0" max="100"></progress>
 						    					</div>
 						    				</div>
 						    				<div class="row mb-2">
 						    					<div class="col d-flex justify-content-center">
-						    						<progress id="progress" value="8" min="0" max="20"></progress>
+						    						<progress id="progress" value="8" min="0" max="100"></progress>
 						    					</div>
 						    				</div>
 						    				<div class="row mb-2">
 						    					<div class="col d-flex justify-content-center">
-						    						<progress id="progress" value="5" min="0" max="20"></progress>
+						    						<progress id="progress" value="5" min="0" max="100"></progress>
 						    					</div>
 						    				</div>
 						    				<div class="row mb-2">
 						    					<div class="col d-flex justify-content-center">
-						    						<progress id="progress" value="3" min="0" max="20"></progress>
+						    						<progress id="progress" value="3" min="0" max="100"></progress>
 						    					</div>
 						    				</div>
 						    				<div class="row mb-2">
 						    					<div class="col d-flex justify-content-center">
-						    						<progress id="progress" value="1" min="0" max="20"></progress>
+						    						<progress id="progress" value="1" min="0" max="100"></progress>
 						    					</div>
 						    				</div>
 						    			</div>
