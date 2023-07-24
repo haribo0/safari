@@ -17,6 +17,10 @@
 
 .listHover{transition: all 0.125s ease;}
 .listHover:hover{background-color: #f0f1f3;}
+
+.btnMyReview:hover {
+	background: #e1732a !important;
+}
 </style>
 </head>
 <body>
@@ -185,7 +189,9 @@
 							<div class="row">
 								
 								<div class="col-2" >
-									<img alt="" src="/safariImg/${data.product.main_img_link}" class="rounded-1 img-fluid " >
+									<a href="${pageContext.request.contextPath}/rental/productDescPage?id=${data.product.id}">
+										<img alt="" src="/safariImg/${data.product.main_img_link}" class="rounded-1 img-fluid " >
+									</a>
 								</div>
 								<div class="col my-auto">
 									<div class="row ">
@@ -236,9 +242,14 @@
 									<div class="row">
 										<div class="col">
 											<c:choose>
-											    <c:when test="${data.isCompleted == 'Y'}">
+											    <c:when test="${data.isCompleted == 'Y' && data.myReviewCount == 0}">
 											        <button type="button" class="btn btn-outline-dark my-2" data-order-id="${data.orderedItem.id}" data-bs-toggle="modal" data-bs-target="#modalReview">대여리뷰작성</button>																				
 											    </c:when>
+											    <c:when test="${data.isCompleted == 'Y' && data.myReviewCount >= 1}">
+											        <a href="${pageContext.request.contextPath}/rental/productDescPage?id=${data.product.id}#v-pills-profile-tab" class="btn my-2 btnMyReview" style="background:#f68a42; color: #fff; border: none;">내가쓴리뷰</a>																				
+											    </c:when>
+											    
+											    
 											    
 											    <c:when test="${data.isCompleted != 'Y'}">
 											        <c:choose>

@@ -308,7 +308,7 @@
 	</select>
 	
 	<!-- 사용자 리뷰 1개 이상체크 -->
-	<select id="selectIsOverCount" resultType="Integer">
+	<select id="selectMyReviewCount" resultType="int">
 		SELECT COUNT(*) FROM rental_review_table WHERE user_id = #{id} AND rental_id = #{orderId}
 	</select>
 	
@@ -441,24 +441,6 @@
 	</select>
 	
 	
-	
-	
-	
-	<!-- 
-	<update id="updateCustomerInfo">
-		update m_customer 
-			set user_id = #{user_id},
-			 user_pw = #{user_pw},
-			 nickname = #{nickname},
-			 gender = #{gender},
-			 email = #{email},
-			 birth = #{birth},
-			 phone = #{phone}
-			where id = #{id}
-	</update>
-	
-	 resultType="com.ja.safari.dto.RentalBusinessDto"
- -->
 	
 	
 	

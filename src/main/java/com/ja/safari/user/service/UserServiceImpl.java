@@ -146,14 +146,13 @@ public class UserServiceImpl {
 			Map<String, Object> map = new HashMap<String, Object>();
 			int orderId = item.getId();
 			String isCompleted = rentalSqlMapper.selectIsCompletedById(orderId);
-			System.out.println("isCompleted:: " + isCompleted);
 			
 			RentalItemDto rentalItem = rentalSqlMapper.selectById(item.getItem_id());
 			RentalItemReturnDto rentalItemReturnDto = rentalSqlMapper.selectRentalItemRetrunById(orderId);
 			// 리뷰 숫자 세기 작업중
-			//int myReviewCount = rentalSqlMapper.selectMyReviewCount(id, orderId);
-			//System.out.println("myReviewCount:: "+ myReviewCount);
+			int myReviewCount = rentalSqlMapper.selectMyReviewCount(id, orderId);
 			
+			map.put("myReviewCount", myReviewCount);
 			map.put("isCompleted", isCompleted);
 			map.put("orderedItem", item);
 			map.put("product", rentalItem);
