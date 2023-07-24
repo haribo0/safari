@@ -19,11 +19,12 @@ public class CommunityController {
  
 	@Autowired
 	private PromotionReviewServiceImpl promotionReviewService;
+	
 
 	  // 커뮤니티 메인 페이지
 	   @RequestMapping("mainPage")
 	   public String main(Model model, HttpSession session) {
-		   
+			
 		   UserDto sessionUser = (UserDto)session.getAttribute("sessionUser");
 
 			int sessionId = 0;
@@ -31,9 +32,9 @@ public class CommunityController {
 			if(sessionUser != null) {
 				sessionId = sessionUser.getId();
 			}
-			
+		   
 			// 최근 게시글
-			
+
 			
 			// 리워드 리뷰 
 		    List<Map<String, Object>> newPostBypromoReviewList = promotionReviewService.newPostByPromoReview(sessionId);		

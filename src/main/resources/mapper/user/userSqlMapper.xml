@@ -240,4 +240,41 @@
 		FROM pick_table
 		WHERE user_id = #{user_id}
 		</select>
+		
+		<!--  커뮤니티 궁금해요 내가 쓴 게시글 가져오기 -->
+		<select id="selectQuestionByMyPost" resultType="com.ja.safari.dto.QuestionDto">
+		SELECT *
+		FROM question_table
+		WHERE user_id = #{user_id}
+		</select>
+		
+		<!--  커뮤니티 구인구직 내가 좋아요한 게시글 가져오기 -->
+		<select id="selectRecruitByPostMyLike" resultType="com.ja.safari.dto.RecruitDto">
+		SELECT re.*
+		FROM recruit_table re
+		INNER JOIN recruit_like_table re_like ON re.id = re_like.recruit_id
+		WHERE re_like.user_id = #{user_id}
+		</select>
+		
+		<select id="selectHelpByPostMyLike" resultType="com.ja.safari.dto.HelpDto">
+		SELECT hp.*
+		FROM help_table hp
+		INNER JOIN help_like_table hp_like ON hp.id = hp_like.help_id
+		WHERE hp_like.user_id = #{user_id}
+		</select>
+		
+		<select id="selectPickByPostMyLike" resultType="com.ja.safari.dto.PickDto">
+		SELECT pi.*
+		FROM pick_table pi
+		INNER JOIN pick_like_table pi_like ON pi.id = pi_like.PICK_ID
+		WHERE pi_like.user_id = #{user_id}
+		</select>
+		
+		<select id="selectQuestionByPostMyLike" resultType="com.ja.safari.dto.QuestionDto">
+		SELECT qu.*
+		FROM question_table qu
+		INNER JOIN question_like_table qu_like ON qu.id = qu_like.question_id
+		WHERE qu_like.user_id = #{user_id}
+		</select>
+		
 </mapper>

@@ -385,7 +385,6 @@ public class PromotionReviewServiceImpl {
 	
 	
 	
-	
 	public List<RentalItemDto> getRentalItems(int m, int s){
 		return promotionReviewMapper.getRentalItemList(m, s);
 	}

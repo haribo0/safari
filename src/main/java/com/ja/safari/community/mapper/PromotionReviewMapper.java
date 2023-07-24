@@ -65,10 +65,13 @@ public interface PromotionReviewMapper {
 	public int countPromotionReviewMyLike(PromotionReviewLikeDto promotionReviewLikeDto);
 	public int countLikeByPromotionReviewId(int reviewId);
 	
+	// 프로모션 내가 누른 좋아요 모음
+	public List<PromotionReviewDto> getPromoReviewLikePost(int user_id);
+	
 	// 프로모션 게시물 공감순으로 정렬
 	public List<PromotionReviewLikeDto> orderByPromotionReviewLikes();
-
-	// 임시 유저 좋아요
+	
+	// 유저 좋아요
 	public int checkPromotionReviewMyLike(int user_id);
 	
 	// 프로모션 게시물 최신순

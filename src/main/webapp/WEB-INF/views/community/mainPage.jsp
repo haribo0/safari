@@ -69,11 +69,20 @@
 				<div class = "col card border border-1 mx-3 shadow-sm"  style="height: 250px;">
 					<div class = "row">
 						<div class = "col fs-5 mt-2 mx-2 fw-semibold">
-							최근 게시글
+							최신 게시글
 						</div>
 						<div class = "row mt-3">
 							<div class = "col mx-2">
-								게시물 모음
+				<!--  			<c:forEach items="${}" var="map" varStatus="status" begin="0" end="5"> -->
+								<div class = "row">
+									<div class = "col">
+										각자내용
+									</div>
+									<div class = "col text-secondary" style = "font-size:13px;"> 
+				<!--					<fmt:formatDate value="${map.helpDto.reg_date}" pattern="yyyy/MM/dd" /> -->
+									</div>
+								</div>
+				<!--			</c:forEach> -->
 							</div>
 						</div>
 					</div>
@@ -130,7 +139,9 @@
 				<div class = "col card border border-1 mx-3 shadow-sm" style="height: 260px;">
 					<div class = "row">
 						<div class = "col fs-5 mt-2 mx-2 fw-semibold">
+						<a href="./promotion/promotionReviewMainPage" onclick="clip(); return false;" style="text-decoration: none; color: inherit;">
 							리워드 리뷰
+						</a>
 						</div>
 						<div class = "col-1 p-0 me-3 d-flex align-items-center justify-content-end text-secondary">
 						<!--  공유버튼 -->
@@ -141,16 +152,17 @@
 						<div class = "row">
 				 			<c:forEach items="${newPostBypromoReviewList}" var="map" varStatus="status" begin="0" end="3">  
 							<div class = "col">
+							<a href="./promotion/contentPromotionReviewPage?id=${map.promotionReviewDto.id}" style="text-decoration: none; color: inherit; display: block;">
 								<div class = "row mt-3">
 									<div class = "col mx-2">
-										<a href="./contentPromotionReviewPage?id=${map.promotionReviewDto.id}" style="text-decoration: none; color: inherit; display: block;">
+										
 								  		<img src="/uploadPromoFiles/${map.promotionReviewImgList[0].rental_review_img }"
-								  	   	class="card-img-top" alt="리워드게시물사진" width="90" height="110">	  
-								 		</a>
+								  	   	class="card-img-top" alt="리워드게시물사진" width="100" height="120">	  
+								 		
 									</div>
 								</div>
 								<div class = "row mt-2">
-									<div class = "col mx-2 pe-2" style = "font-size:15px;">
+									<div class = "col mx-2 pe-2 fw-semibold" style = "font-size:15px;">
 										${map.promotionReviewDto.promotion_review_title} 
 									</div>
 								</div>
@@ -160,6 +172,7 @@
 									 
 									</div>
 								</div>
+							</a>
 							</div>
 						</c:forEach>  
 						</div>

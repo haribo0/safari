@@ -14,6 +14,7 @@ import com.ja.safari.dto.HelpCommentDto;
 import com.ja.safari.dto.HelpDto;
 import com.ja.safari.dto.HelpImgDto;
 import com.ja.safari.dto.HelpLikeDto;
+import com.ja.safari.dto.PromotionReviewDto;
 import com.ja.safari.dto.QuestionDto;
 import com.ja.safari.dto.QuestionLikeDto;
 import com.ja.safari.dto.QuestionReplyDto;
@@ -268,6 +269,29 @@ public class CommunityServiceImpl {
 		communitySqlMapper.changeCompleteHelp(helpDto);
 	}
 	
+	// 해주세요 최신 게시글순
+	public List<Map<String, Object>> newPostByHelpBoard(){
+		
+		List<HelpDto> newPostHelpList = communitySqlMapper.newPostByHelpBoard();
+		
+		List<Map<String, Object>> newPostByHelpList = new ArrayList<>();
+		
+		for(HelpDto helpDto : newPostHelpList) {
+			
+			Map<String, Object> map = new HashMap<>();
+			
+			UserDto userDto = userSqlMapper.selectUserDtoById(helpDto.getUser_id());
+			
+			map.put("userDto", userDto);
+			map.put("helpDto", helpDto);
+
+			
+			newPostByHelpList.add(map);
+			
+		}
+			return newPostByHelpList;
+	}
+	
 	////////////////////////////////////////////////////////////////
 	
 	//궁금해요 게시물 등록 
@@ -497,7 +521,7 @@ public class CommunityServiceImpl {
 		return RecruitBoardLikeCount;
 	}
 
-	// 커뮤니티 메인 - 최근 게시글 모음
+
 
 
 }
