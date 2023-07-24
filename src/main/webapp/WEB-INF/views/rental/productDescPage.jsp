@@ -143,15 +143,19 @@ progress {
     height: 10px;
 }
 progress::-webkit-progress-bar {
-    background:#f0f0f0;
+    background:#E5E5E5;
     border-radius:16px;
 }
 progress::-webkit-progress-value {
     border-radius:16px;
-    background: #1D976C;
-    background: #ffbe00;
-
+    background: #EEEEEE;
+    background: #FFAF33;
 }
+
+.bgBox {
+	background: #F9F9F9;
+}
+
 </style>
 </head>
 <body>
@@ -202,7 +206,7 @@ progress::-webkit-progress-value {
 				</div>
 				
 				<div class="row">
-				   <div class="col-2 pe-0" style="min-width: 120px; color: #f68a42;">
+				   <div class="col-2 pe-0" style="min-width: 120px; color: #fda231;">
 					<c:set var="avgRating" value="${reviewRating}" /> <!-- 가져온 평균 평점 (예시) -->
 					<c:set var="maxRating" value="5" /> <!-- 최대 평점 -->
 												    
@@ -357,7 +361,7 @@ progress::-webkit-progress-value {
 				    	</div>
 				    	
 				    	<div class="row px-5">
-				    		<div class="col p-5 rounded-3" style="background: #f6fbff;">
+				    		<div class="col p-5 bgBox rounded-3">
 					    			<div class="row position-relative sectionBar align-items-center">
 					    				<div class="col-1"></div>
 						    			<div class="col	mt-1 px-0" style="max-width: 150px;">
