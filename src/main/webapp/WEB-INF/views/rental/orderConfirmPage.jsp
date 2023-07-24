@@ -176,22 +176,22 @@ select option[value=""][disabled] {
 								</table>
 							</div>
 						</div>
-						<div class="row">
+						<div class="row mt-2">
 							<div class="col">
-								<p>대여 시작일</p>
+								<p class="fw-bold text-secondary mb-2">대여 시작일</p>
 								<input type="date" class="form-control" id="calendar_start" name="start_date" style="height: 40px;" required/>
 							</div>
-							<div class="col">
-								<p>대여 종료일</p>
+							<div class="col px-5">
+								<p class="fw-bold text-secondary mb-2">대여 종료일</p>
 								<div class="slidecontainer">
 									<!-- <input type="range" value="12" class="slider optionPeriod" id="myRange"> -->
 								</div>
 								
 								<div class="counter d-flex">
-								  <span class="btn btn-outline-dark py-2 px-3 me-2" id="decrease">- </span> 
-								  <input type="text" value="1" id="myRange" class="slider optionPeriod form-control p-3 w-25">
-								  <span class="btn btn-outline-dark py-2 px-3 ms-2"  id="increase"> +</span>
-								  <p class="ms-4"><span id="monthly"></span>개월</p>
+								  <span class="btn py-2 px-3 me-2" id="decrease"><i class="bi bi-dash-lg"></i></span> 
+								  <input type="text" value="1" id="myRange" class="slider optionPeriod form-control p-3" style="width: 52px;">
+								  <span class="btn py-2 px-3 ms-2"  id="increase"><i class="bi bi-plus-lg"></i></span>
+								 <!--  <p class="ms-4"><span id="monthly"></span>개월</p> -->
 								</div>
 							</div>
 						</div>
@@ -204,7 +204,7 @@ select option[value=""][disabled] {
 						<div class="row" style="border-top: 1px solid #c1c1c1;">
 							<div class="col mt-3">
 								<div class="row">
-									<div class="col px-0">
+									<div class="col">
 										<p class="mb-1 fs-5">보증금 <span class="fw-bold"><fmt:formatNumber value="${data.rentalItemDto.deposit }" pattern="#,##0" /></span>원</p>
 									</div>
 								</div>
@@ -219,7 +219,7 @@ select option[value=""][disabled] {
 											</div>
 										</div> -->
 										<div class="row">
-											<div class="col mt-2 px-0">
+											<div class="col mt-2">
 												<p class="mb-1" style="font-size: 16px;">사용 가능코인 <span class="fw-bold" style="color: #f68a42;"><fmt:formatNumber value="${userCoinBalance }" pattern="#,##0" /></span></p>
 											</div>
 											<div class="col text-end">
@@ -237,8 +237,8 @@ select option[value=""][disabled] {
 								<p class="fs-5 fw-bold mb-2">결제수단</p>
 							</div>
 						</div>
-						<div class="row" style="border-top: 1px solid #c1c1c1;">
-							<div class="col-2 mt-3" style="border: 1px solid #ffa336; background: #fff4e7; cursor: pointer;">
+						<div class="row px-2" style="border-top: 1px solid #c1c1c1;">
+							<div class="col-2 mt-3 rounded-3" style="border: 1px solid #ffa336; background: #fff4e7; cursor: pointer;">
 								<div class="row">
 									<div class="col p-2 pt-3 text-center">
 										<p class="mb-0" style="font-size: 14px; font-weight: bold; color: #555;">카카오페이</p>
@@ -256,8 +256,11 @@ select option[value=""][disabled] {
 				</div>
 			</div>
 			
+			<!-- 오른쪽 결제 스티키 -->
 			<div class="col">
-				<div class="row sticky-top rounded-2 px-3 py-4 bg-white" style="top:130px; box-shadow: 0px 2px 16px -6px rgba(0, 0, 0, 0.125); border: 1px solid #ccc; z-index: 50;">
+				<div class="row sticky-top" style="top:130px;">
+					<div class="col">
+				<div class="row rounded-2 px-3 py-4 bg-white" style="top:130px; box-shadow: 0px 2px 16px -6px rgba(0, 0, 0, 0.125); border: 1px solid #ccc; z-index: 50;">
 					<div class="col">
 						<div class="row">
 							<div class="col">
@@ -267,29 +270,23 @@ select option[value=""][disabled] {
 						
 						<div class="row mt-3 justify-content-between">
 							<div class="col">
-								<p class="mb-2 text-secondary fw-bold">보증금액</p>
+								<p class="mb-2 text-secondary fw-bold">월 기본금액</p>
 							</div>
 							<div class="col text-end">
-								<p class="mb-2 fw-bold"><fmt:formatNumber value="${data.rentalItemDto.deposit }" pattern="#,##0" /></p>
+								<p class="mb-2 fw-bold"><fmt:formatNumber value="${data.rentalItemDto.price}" pattern="#,##0" />원</p>
 							</div>
 						</div>
 						
-						<div class="row">
-							<div class="col px-0 text-danger">
-								<p class="coinDesc"></p>
-							</div>
-						</div>
-						
-						<div class="row mt-3 justify-content-between">
+						<div class="row mt-1 justify-content-between">
 							<div class="col">
-								<p class="mb-2 text-secondary fw-bold">총 상품 금액</p>
+								<p class="mb-2 text-secondary fw-bold">월 약정 개월</p>
 							</div>
 							<div class="col text-end">
-								<p class="mb-2 fw-bold">17,900원</p>
+								<p class="mb-2 fw-bold monthly"></p>
 							</div>
 						</div>
 						
-						<div class="row justify-content-between">
+						<div class="row mt-1 justify-content-between">
 							<div class="col">
 								<p class="mb-2 text-secondary fw-bold">배송비</p>
 							</div>
@@ -299,7 +296,7 @@ select option[value=""][disabled] {
 							</div>
 						</div>
 						
-						<div class="row">
+						<div class="row mt-3">
 							<div class="col">
 								<p><span class="fw-bold" id="return_box">시작일과 대여 기간을 설정하세요.</span></p>
 							</div>
@@ -307,11 +304,12 @@ select option[value=""][disabled] {
 						
 						<div class="row border-top pt-3 mt-3 justify-content-between">
 							<div class="col">
+								<p class="mb-1"><small class="paymentDate"></small></p>
 								<p class="fs-5 fw-bold">월 결제 금액</p>					
 							</div>
 							
 							<div class="col text-end">
-								<p class="fs-4"><span id="desc_price" style="color: #f68a42; font-weight: 900;"></span>원<small class="text-secondary">/월</small></p>
+								<p class="fs-4"><span id="desc_price" style="color: #f68a42; font-weight: 900;"><fmt:formatNumber value="${data.rentalItemDto.price}" pattern="#,##0" /></span>원<small class="text-secondary">/월</small></p>
 							</div>
 						</div>
 						
@@ -321,14 +319,43 @@ select option[value=""][disabled] {
 								<input type="hidden" value="" name="end_date" id="hiddin_date">
 								<input type="hidden" value="${data.rentalItemDto.price }" name="original_price">
 								<input type="hidden" value="${data.rentalItemDto.id }" name="item_id">
-								<input type="hidden" value="" name="price" id="hidden_price">
+								<input type="hidden" value="${data.rentalItemDto.price}" name="price" id="hidden_price">
 								<p class="btn w-100 btnOrder orangeButton" onclick="checkVali()">주문신청</p>							
 							</div>
 						</div>
 					</div>
 				</div>
+				
+				<div class="row rounded-2 px-3 py-4 bg-white mt-3" class="row sticky-top rounded-2 px-3 py-4 bg-white" style="top: 636px; box-shadow: 0px 2px 16px -6px rgba(0, 0, 0, 0.125); border: 1px solid #ccc; z-index: 50;">
+					<div class="col">
+						<div class="row">
+							<div class="col">
+								<p class="fs-5 fw-bold"><i class="bi bi-cash-stack"></i> 보증금</p>					
+							</div>
+						</div>
+						
+						<div class="row mt-3 justify-content-between">
+							<div class="col">
+								<div class="row">
+									<div class="col">
+										<p class="mb-2 text-secondary fw-bold">보증금액</p>
+									</div>
+									<div class="col text-end">
+										<p class="mb-2 fw-bold"><fmt:formatNumber value="${data.rentalItemDto.deposit }" pattern="#,##0" /></p>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col text-secondary">
+										<p class="coinDesc"></p>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
 			</div>
-		
+			</div>
+		</div>
 		</div>
 	</div>
 	
@@ -424,44 +451,6 @@ select option[value=""][disabled] {
 </div>
 </div>
 <%-- 주소 등록 modal --%>
-
-<!-- 코인 충전 모달 -->
-<div class="modal" id="modalCoin" tabindex="-1">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">코인 충전하기</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-      	<div class="row">
-      		<div class="col">
-		        <select class="form-select form-select-lg mb-3" id="inputCoin" aria-label=".form-select-lg example">
-				  <option selected>금액 선택</option>
-				  <option value="5000">5,000원</option>
-				  <option value="10000">10,000원</option>
-				  <option value="30000">30,000원</option>
-				  <option value="50000">50,000원</option>
-				  <option value="100000">100,000원</option>
-				</select>
-			</div>
-		</div>
-		
-		<div class="row mt-1 ms-1">
-			<div class="col">
-				코인은 한 번에 최대 <span class="fw-bold">100,000원</span>까지 충전하실 수 있습니다.
-			</div>
-		</div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
-        <button type="button" class="btn orangeButton" onclick="onChargeCoin()">충전하기</button>
-      </div>
-    </div>
-  </div>
-</div>
-<!-- 코인 충전 모달 -->
-
 	<!-- 푸터 섹션 -->
 	<jsp:include page="../common/footer.jsp"></jsp:include>
 	<!-- 푸터 섹션 -->
@@ -528,7 +517,9 @@ select option[value=""][disabled] {
 			coinDesc.innerText = '보증금을 결제할 코인이 부족합니다!'
 		} else {
 			let remainCoin = coinBalance - itemDeposit
-			coinDesc.innerText = '보유하고 계신 코인으로 결제진행후 잔액 코인은 '+ remainCoin.toLocaleString() + '입니다.'			
+			coinDesc.innerHTML = `
+				보증금 결제후 잔액 코인은 <small class="fw-bold">\${remainCoin.toLocaleString()}</small> 입니다.
+			`		
 		}
 	}
 	
@@ -621,7 +612,11 @@ select option[value=""][disabled] {
 	      document.getElementById('calendar_start').setAttribute('min', formattedDate);
 	  };
 	
-	 
+		// 개월수 슬라이더
+		let slider = document.getElementById("myRange");
+		let output = document.getElementsByClassName("monthly")[0];
+		output.innerHTML = `\${slider.value}<small>개월</small>`;
+
 	  
 	// 종료일 및 할인가격
 		// console.log(new Date('2023-06-22'))
@@ -642,6 +637,7 @@ select option[value=""][disabled] {
 		let count = 1; // 초기 값은 1로 설정
 		
 		function updateCount(value) {
+		output.innerHTML = `\${value}<small>개월</small>`
 		  count = value;
 		  optionPeriod.value = count;
 		  
@@ -649,6 +645,14 @@ select option[value=""][disabled] {
 			calcRentDate()
 			hiddinDate.value = returnDate
 			showDescPrice()
+			
+			if(periodValue < 12) {
+				let descPrice = document.querySelector("#desc_price")
+				let originalPrice = ${data.rentalItemDto.price}
+				console.log(originalPrice.toLocaleString('ko-KR'))
+				descPrice.innerText = originalPrice.toLocaleString('ko-KR')
+				hiddenPrice.value = originalPrice
+			}
 		}
 		
 		function increaseCount() {
@@ -751,14 +755,6 @@ select option[value=""][disabled] {
 		
 		//console.log('호갱님 지금 반납하게 되시면 ',calcEarlyReturn(new Date('2023-06-17'), new Date('2023-09-19'), new Date('2023-08-19')),'대여 이용 하시게 되어 보증금 1000만원이 차감됩니다.' )
 		
-		// 개월수 슬라이더
-		let slider = document.getElementById("myRange");
-		let output = document.getElementById("monthly");
-		output.innerHTML = slider.value;
-		
-		slider.oninput = function() {
-		  output.innerHTML = this.value;
-		}
 
 		// 렌탈 최소, 최대 기간 설정
 		let rentalPeriodList = []
@@ -774,36 +770,17 @@ select option[value=""][disabled] {
 		slider.setAttribute('min',minMonthVal)
 		slider.setAttribute('max',maxMonthVal)
 		
-
-			
+		
 		function showDescPrice() {
-			let periodDiscList = []
-			let itemObj
-			
+		let calcPrice
+		let descPrice = document.querySelector("#desc_price")
 			<c:forEach items="${data.rentalPeriodDiscDtoList}" var="list">
-				itemObj ={'${list.rental_period}':'${list.discounted_price}'}
-				periodDiscList.push(itemObj)
-			</c:forEach>
-				
-			for(let i=0; i<periodDiscList.length; i++) {
-				console.log(periodDiscList)
-			}
-				
-			<c:forEach items="${data.rentalPeriodDiscDtoList}" var="list">
-			if(periodValue >= ${list.rental_period} ){
-				console.log(${list.discounted_price})
-				let descPrice = document.querySelector("#desc_price")
-				let calcPrice = ${list.discounted_price}
-				console.log(calcPrice.toLocaleString('ko-KR'))
-				descPrice.innerText = calcPrice.toLocaleString('ko-KR')
-				hiddenPrice.value =${list.discounted_price}
-			} else if(periodValue < ${list.rental_period}) {
-				console.log("less then?", periodValue)
-				let descPrice = document.querySelector("#desc_price")
-				let calcPrice =	${data.rentalItemDto.price}
-				descPrice.innerText = calcPrice.toLocaleString('ko-KR')
-				hiddenPrice.value = ${data.rentalItemDto.price}
-			}
+				if(periodValue >= ${list.rental_period} ){
+					calcPrice = ${list.discounted_price}
+					console.log(calcPrice.toLocaleString('ko-KR'))
+					descPrice.innerText = calcPrice.toLocaleString('ko-KR')
+					hiddenPrice.value = calcPrice
+				}
 			</c:forEach>
 			
 		}
@@ -923,6 +900,7 @@ select option[value=""][disabled] {
 					let label = document.createElement('label')
 					let p = document.createElement('p')
 					let p2 = document.createElement('p')
+					let formattedPhoneNumber
 					
 					divrow.className = 'row'
 					divcol.className = 'col px-0'
@@ -938,7 +916,11 @@ select option[value=""][disabled] {
 					label.style.cursor = 'pointer'
 					
 					p2.className = 'mb-0 ms-3 mt-1 ps-1 text-secondary';
-	 				p2.innerText = addrUsrName + ' ' + val.phone
+					let phoneNumber = val.phone
+					console.log("뎅화:: ",phoneNumber)
+					formattedPhoneNumber = `\${phoneNumber.slice(0, 3)}-\${phoneNumber.slice(3, 7)}-\${phoneNumber.slice(7)}`
+					console.log('전화번호:: ', formattedPhoneNumber)
+	 				p2.innerText = addrUsrName + ' ' + formattedPhoneNumber
 					
 					p.className = 'mb-0 ms-3 mt-2 ps-1'
 					p.innerText = val.address

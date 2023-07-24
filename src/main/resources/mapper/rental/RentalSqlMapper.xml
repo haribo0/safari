@@ -260,8 +260,8 @@
 	    #{rental_review_content},
 	    #{rental_review_rating},
 	    '0',
-	    'test',
-	    SYSDATE,
+	    NULL,
+	    NULL,
 	    SYSDATE
 		)
 	</insert>

@@ -136,7 +136,7 @@
 		
 		<!-- 렌탈리스트 가져오기 -->
  		<select id="selectRentalOrderedListById" resultType="com.ja.safari.dto.RentalOrderDto">
-			select * from rental_order_table WHERE user_id = #{id}
+			select * from rental_order_table WHERE user_id = #{id} order by reg_date DESC
 		</select>
 		
 

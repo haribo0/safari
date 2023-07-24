@@ -152,7 +152,7 @@ public interface RentalSqlMapper {
 	public RentalItemDto selectRentalItem(int rental_id);
 
 	// 유저 리뷰 카운트 
-	public Integer selectIsOverCount(int id, int orderId);
+	public Integer selectMyReviewCount(int id, int orderId);
 
 	// 판매자 dto 가져오기
 	public RentalBusinessDto selectRentalBuisnessById(int itemId);

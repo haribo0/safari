@@ -150,8 +150,9 @@ public class UserServiceImpl {
 			
 			RentalItemDto rentalItem = rentalSqlMapper.selectById(item.getItem_id());
 			RentalItemReturnDto rentalItemReturnDto = rentalSqlMapper.selectRentalItemRetrunById(orderId);
-			//Integer isOverCount = rentalSqlMapper.selectIsOverCount(id, orderId);
-			//System.out.println("isOverCount:: "+ isOverCount);
+			// 리뷰 숫자 세기 작업중
+			//int myReviewCount = rentalSqlMapper.selectMyReviewCount(id, orderId);
+			//System.out.println("myReviewCount:: "+ myReviewCount);
 			
 			map.put("isCompleted", isCompleted);
 			map.put("orderedItem", item);
