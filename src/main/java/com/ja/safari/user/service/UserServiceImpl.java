@@ -14,7 +14,6 @@ import com.ja.safari.community.mapper.PromotionReviewCommentMapper;
 import com.ja.safari.community.mapper.PromotionReviewMapper;
 import com.ja.safari.community.mapper.QuestionSqlMapper;
 import com.ja.safari.community.mapper.RecruitSqlMapper;
-import com.ja.safari.community.service.PromotionReviewServiceImpl;
 import com.ja.safari.dto.HelpDto;
 import com.ja.safari.dto.HelpImgDto;
 import com.ja.safari.dto.PickDto;
