@@ -159,7 +159,8 @@ public interface UsedSqlMapper {
 	public List<ProductDto> selectMySellList(@Param("userId") Integer userId, @Param("statusId") Integer statusId);
 	// 나의 판매리스트 중 - 예약중 -> 예약취소로 바꾸기
 	public void updateProductRequestStatusByproductId(Integer productId);
-	
+	// productRequestDto 가져오기 - productId 
+	public ProductRequestDto selectProductRequestByProductIdAndStatus(Integer productId);
 	
 	
 	

@@ -892,6 +892,8 @@ function getMyWroteReviewHideAndShow(senderId, receiverId, requestId, modalName)
 	const modalBodyBox = document.getElementById('modalBody3');
 	// 닫을 때
 	modalHide(modalName);
+	
+	/* modalHide('writeReviewModalMy'); */
 	// 열 때
 	const wroteReviewModal = bootstrap.Modal.getOrCreateInstance('#myWroteReviewModal');
 

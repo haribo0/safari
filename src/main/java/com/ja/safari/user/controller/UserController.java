@@ -255,7 +255,16 @@ public class UserController {
 		}
 	}
 	
-	
+	// 중고 -- 마이페이지 : 구매목록
+		@RequestMapping("selectMyBuyList")
+		public String selectMyBuyList(HttpSession session) {
+			UserDto sessionUser = (UserDto)session.getAttribute("sessionUser");
+			if(sessionUser==null) {
+				return "redirect:./loginPage";
+			}else {
+				return "used/myBuyList";
+			}
+		}
 	
 	/*
 	 * 로직처리 

@@ -499,13 +499,15 @@ WHERE ROWNUM <= 4
 	AND purchase_request_id = (SELECT id FROM PRODUCT_REQUEST WHERE product_id=#{productId} AND status='거래완료')
 </select>
 
-
+<!-- 예약중에서 거래요청으로 변경  -->
 <update id="updateProductRequestStatusByproductId">
 	UPDATE PRODUCT_REQUEST SET status = '거래요청' WHERE product_id = #{productId} and status='예약중'
 </update>
 
-
-
+<!-- 리뷰 작성 하기 전 productId로 정보 불러오기  -->
+<select id="selectProductRequestByProductIdAndStatus" resultType="com.ja.safari.dto.ProductRequestDto">
+	SELECT * FROM PRODUCT_REQUEST WHERE product_id=#{productId} AND status = '거래완료'
+</select>	
 
 
 
