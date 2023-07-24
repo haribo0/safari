@@ -73,7 +73,7 @@ public class UserController {
 	@RequestMapping("kakaoLogin")
 	public String kakaoLogin(HttpSession session, String code, String error, String error_description, String state) {
 		
-		System.out.println("kakaoLogin");
+		// System.out.println("kakaoLogin");
 		
 		if(code != null) {
 			System.out.println(code);
@@ -102,23 +102,11 @@ public class UserController {
 	@RequestMapping("kakaoLoginProcessPage")
 	public String kakaoLoginProcessPage(String code, Model model) {
 		
-		System.out.println(code);
+		// System.out.println(code);
 		model.addAttribute("code", code);
-		
 		
 		return "/main/kakaoLoginProcess";
 	}
-	
-//	// 로그인
-//	@RequestMapping("kakaoLoginProcess")
-//	public String kakaoLoginProcess(String code, Model model) {
-//		
-//		System.out.println(code);
-//		model.addAttribute("code", code);
-//		
-//		
-//		return "/main/kakaoLoginProcess";
-//	}
 	
 
 	

@@ -56,7 +56,7 @@
 				<div class="row  ms-4">
 					
 				    <div class="col"></div>
-				    <div class="col-2 text-end me-3">
+				    <div class="col-2 text-end">
 				    	<div class="btn btn-dark btn-sm px-5" onclick="openModal()">정보 수정</div>
 				    </div>
 				    
@@ -64,169 +64,98 @@
 				
 				<!-- <hr class="border"> -->
 				
-				<div class="row mt-5">
-					<div class="col ms-3">
-						<!-- card -->
-						<div class="card pt-4">
-							
-							<div class="row fw-medium my-3 pt-3  mx-5"> 
-								<div class="col fw-medium "> 
-									계정
-								</div>
+				<!-- card -->
+				<div class="card mt-4 pb-3 pt-2 ps-5 ms-4">
+					<div class="row mt-5 ms-5 mt-2 mb-3 fw-medium">
+						
+						<div class="col ms-3">
+							<div class="row fw-light text-secondary">
+								아이디
 							</div>
-							
-							<div class="row fw-medium my-3 ">
-								
-								<div class="col-1"></div>
-								<div class="col">
-									<div class="row fw-light text-secondary">
-										<div class="col">아이디</div>
-									</div>
-									<div class="row mt-2 fw-medium ">
-										<div class="col">
-										${dto.business_userid}
-										</div>
-									</div>
-								</div>
-								
-								<div class="col ">
-									<div class="row fw-light text-secondary">
-										<div class="col">판매허가</div>
-									</div>
-									<div class="row mt-2  fw-medium ">
-										<div class="col">
-										
-										<c:choose>
-											<c:when test="${dto.permission == 'Y'}">
-												허가 완료
-											</c:when>
-											<c:otherwise>
-												미허가
-											</c:otherwise>
-										</c:choose>
-										</div>
-									</div>
-								</div>
-								
-								<div class="col">
-									<div class="row fw-light text-secondary">
-										
-										<div class="col">계정 등록일</div>
-									</div>
-									<div class="row mt-2 fw-medium ">
-										<div class="col">
-										<fmt:formatDate value="${dto.reg_date}" pattern="MM/dd/yyyy" />
-										</div>
-									</div>
-			
-								</div>
-								
+							<div class="row mt-2 fw-bold fs-5">
+								${dto.business_userid}
 							</div>
-							
-							
-							<div class="row fw-medium my-3 pt-5 border-top mx-5"> 
-								<div class="col fw-medium "> 
-									상점
-								</div>
+						</div>
+						<div class="col">
+							<div class="row fw-light text-secondary">
+								상호명
 							</div>
-							
-							
-							
-							<div class="row fw-medium my-3 " >
-								<div class="col-1"></div>
-								<div class="col">
-									<div class="row fw-light text-secondary">
-										<div class="col">상호명</div>
-									</div>
-									<div class="row mt-2 fw-medium ">
-										<div class="col">
-										${dto.business_name}
-										</div>
-									</div>
-								</div>
-								
-								<div class="col ">
-									<div class="row fw-light text-secondary">
-										
-										<div class="col">사업자 등록번호</div>
-									</div>
-									<div class="row mt-2 fw-medium ">
-										<div class="col">
-										${dto.reg_num}
-										</div>
-										
-									</div>
-								</div>
-								<div class="col">
-									<div class="row fw-light text-secondary">
-										
-										<div class="col">대표자</div>
-										
-									</div>
-									<div class="row mt-2 fw-medium ">
-										<div class="col">
-										${dto.business_owner}
-										</div>
-									</div>
-								</div>
-								
-								
+							<div class="row mt-2 fw-bold fs-5">
+								${dto.business_name}
 							</div>
-							
-							
-							
-							<!-- <div class="row fw-medium my-3 "> 
-								<div class="col-1 "> </div>
-								<div class="col fw-medium "> 
-									상태
-								</div>
-							</div> -->
-							
-							
-							<div class="row my-3 mb-5">
-								<div class="col-1"></div>
-								<div class="col">
-									<div class="row fw-light text-secondary">
-										
-										<div class="col">주소지</div>
-									</div>
-									<div class="row mt-2 fw-medium " id="compAddress">
-										<div class="col">
-										${dto.business_address}
-										</div>
-									</div>
-								</div>
+	
+						</div>
+						<div class="col">
+							<div class="row fw-light text-secondary">
+								대표자
+							</div>
+							<div class="row mt-2 fw-bold fs-5">
+								${dto.business_owner}
+							</div>
+						</div>
+						
+						<div class="col">
+							<div class="row fw-light text-secondary">
+								연락처
+							</div>
+							<div class="row mt-2 fw-bold fs-5">
+								<c:set var="formattedPhone" value="${dto.phone.substring(0, 3)}-${dto.phone.substring(3, 7)}-${dto.phone.substring(7)}" />
+								${formattedPhone}
+							</div>
+						</div>
+						
+					</div>
+					
+					
+					<div class="row ms-5 mt-5 mb-5 fw-medium">
+					
+						<div class="col ms-3">
+							<div class="row fw-light text-secondary">
+								사업자 등록번호
+							</div>
+							<div class="row mt-2 fw-bold fs-5">
 								
-								<div class="col">
-									<div class="row fw-light text-secondary">
-										
-									<div class="col">연락처</div>
-									</div>
-									<div class="row mt-2 fw-medium ">
-										<div class="col">
-										<c:set var="formattedPhone" value="${dto.phone.substring(0, 3)}-${dto.phone.substring(3, 7)}-${dto.phone.substring(7)}" />
-										${formattedPhone}
-										</div>
-									</div>
-								</div>
-								<div class="col"></div>
+								${dto.reg_num}
 								
 							</div>
 						</div>
-						<!-- card -->
-				
-				
-					</div>
-					<div class="col-5">
-				
-							<div class="row ">
-					
-								<div class="rounded" id="map" style="width:540px;height:500px;"></div>
-							    
+						<div class="col">
+							<div class="row fw-light text-secondary">
+								등록일
 							</div>
+							<div class="row mt-2 fw-bold fs-5">
+								<fmt:formatDate value="${dto.reg_date}" pattern="MM/dd/yyyy" />
 							
+							</div>
+	
+						</div>
+						<div class="col">
+							<div class="row fw-light text-secondary">
+								주소지
+							</div>
+							<div class="row mt-2 fw-bold fs-5" id="compAddress">
+								${dto.business_address}
+							</div>
+						</div>
+						<div class="col ms-3">
+							<div class="row fw-light text-secondary">
+								판매 허가
+							</div>
+							<div class="row mt-2  fw-bold fs-5">
+								<c:choose>
+									<c:when test="${dto.permission == 'Y'}">
+										허가 완료
+									</c:when>
+									<c:otherwise>
+										미허가
+									</c:otherwise>
+								</c:choose>
+							</div>
+						</div>
+						
 					</div>
 				</div>
+				<!-- card -->
 				
 				<div class="row ms-4 mt-3 mb-3 fw-medium">
 					
@@ -239,7 +168,11 @@
 				<!-- <hr class="border"> -->
 				
 			
-				
+				<div class="row ms-4 mt-5 mb-2">
+					
+					<div id="map" style="width:500px;height:400px;"></div>
+				    
+				</div>
 				
 				<div class="row mt-5 mb-5">
 					
