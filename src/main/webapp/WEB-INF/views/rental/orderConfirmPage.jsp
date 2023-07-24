@@ -53,8 +53,6 @@ select option[value=""][disabled] {
 }
 .btn-coin-hover{transition: all 0.2s ease; border: 1px solid #f68a42; color: #f68a42;}
 .btn-coin-hover:hover{background: #f68a42 !important; color: #fff !important;}
-.btn-order-hover{transition: all 0.2s ease; background:#e78341 !important; border: none;"}
-.btn-order-hover:hover{background-color:#d57433 !important;}
 
 .addr-list-item{transition: all 0.2s !important; cursor: pointer; }
 .addr-list-item:hover{background-color: #f9f9f9 !important;}
@@ -89,15 +87,15 @@ select option[value=""][disabled] {
 								<p class="fs-5 mb-2 fw-bold">배송지</p>
 							</div>
 							<div class="col text-end">
-								<p onclick="registerAddrPage()" class="btn btn-outline-secondary mb-0">주소추가</p>							
+								<p onclick="registerAddrPage()" class="btn btn-outline-secondary mb-0 position-relative" style="bottom: 8px;">주소추가</p>							
 							</div>
 						</div>
-						<div class="row" style="border-top: 1px solid #c1c1c1;">
+						<div class="row pt-3" style="border-top: 1px solid #c1c1c1;">
 							<ul class="list-group list_addr_box">
 							</ul>							
 						</div>
 						
-						<div class="row" style="margin-top: 60px;">
+						<div class="row" style="margin-top: 100px;">
 							<div class="col">
 								<p class="fs-5 fw-bold mb-2">주문자</p>
 							</div>
@@ -133,12 +131,12 @@ select option[value=""][disabled] {
 							</div>
 						</div>
 						
-						<div class="row" style="margin-top: 60px;">
+						<div class="row" style="margin-top: 100px;">
 							<div class="col">
 								<p class="fs-5 fw-bold mb-2">주문상품</p>
 							</div>
 						</div>
-						<div class="row" style="border-top: 1px solid #c1c1c1;">
+						<div class="row px-2" style="border-top: 1px solid #c1c1c1;">
 							<div class="col border rounded-3 mt-4 overflow-hidden">
 								<div class="row">
 									<div class="col" style="background: #f5f5f5;">
@@ -152,12 +150,13 @@ select option[value=""][disabled] {
 									<div class="col">
 										<p class="mb-1">${data.rentalItemDto.title}</p>
 										<p class="text-body-secondary">${data.rentalItemDto.item_description}</p>
-										<p>17,900원</p>
+										<p class="mb-0 fw-bold">보증금<fmt:formatNumber value="${data.rentalItemDto.deposit }" pattern="#,##0" /></p>
+										<p>기본 <fmt:formatNumber value="${data.rentalItemDto.price}" pattern="#,##0" />원 <small>/월</small></p>
 									</div>
 								</div>
 							</div>
 						</div>
-						<div class="row mt-2">
+						<div class="row px-2 mt-2">
 							<div class="col rounded-2 overflow-hidden px-0">
 								<table class="table table-bordered">
 								  <thead>
@@ -189,24 +188,24 @@ select option[value=""][disabled] {
 								</div>
 								
 								<div class="counter d-flex">
-								  <span class="btn btn-outline-dark p-2 me-2" id="decrease">- </span> 
-								   <input type="text" value="1" id="myRange" class="slider optionPeriod form-control p-3 w-25">
-								  <span class="btn btn-outline-dark p-2 ms-2"  id="increase"> +</span>
-								  <p><span id="monthly"></span>개월</p>
+								  <span class="btn btn-outline-dark py-2 px-3 me-2" id="decrease">- </span> 
+								  <input type="text" value="1" id="myRange" class="slider optionPeriod form-control p-3 w-25">
+								  <span class="btn btn-outline-dark py-2 px-3 ms-2"  id="increase"> +</span>
+								  <p class="ms-4"><span id="monthly"></span>개월</p>
 								</div>
 							</div>
 						</div>
 						
-						<div class="row" style="margin-top: 60px;">
+						<div class="row" style="margin-top: 100px;">
 							<div class="col">
-								<p class="mb-2"><span class="fs-5 mb-0 fw-bold">코인 </span><span class="mb-0" style="font-size: 12px;">*보증금을 위한 결제로 보유하고 계신 코인보다 초과로 있어야 합니다.</span></p>
+								<p class="mb-2"><span class="fs-5 mb-0 fw-bold">코인 </span><span class="ms-2 mb-0" style="font-size: 12px;">*보증금을 위한 결제로 보유하고 계신 코인보다 초과로 있어야 합니다.</span></p>
 							</div>
 						</div>
 						<div class="row" style="border-top: 1px solid #c1c1c1;">
 							<div class="col mt-3">
 								<div class="row">
 									<div class="col px-0">
-										<p class="fs-5">보증금 <span class="fw-bold"><fmt:formatNumber value="${data.rentalItemDto.deposit }" pattern="#,##0" /></span>원</p>
+										<p class="mb-1 fs-5">보증금 <span class="fw-bold"><fmt:formatNumber value="${data.rentalItemDto.deposit }" pattern="#,##0" /></span>원</p>
 									</div>
 								</div>
 								<div class="row">
@@ -224,12 +223,7 @@ select option[value=""][disabled] {
 												<p class="mb-1" style="font-size: 16px;">사용 가능코인 <span class="fw-bold" style="color: #f68a42;"><fmt:formatNumber value="${userCoinBalance }" pattern="#,##0" /></span></p>
 											</div>
 											<div class="col text-end">
-											<button class="btn orangeButton" onclick="openModal()">충전하기</button>	
-											</div>
-										</div>
-										<div class="row">
-											<div class="col px-0 text-danger">
-												<p class="coinDesc"></p>
+											<button class="btn orangeButton" onclick="toMyCoinPage()">충전하러가기</button>	
 											</div>
 										</div>
 									</div>
@@ -238,7 +232,7 @@ select option[value=""][disabled] {
 							</div>
 						</div>
 						
-						<div class="row" style="margin-top: 60px;">
+						<div class="row" style="margin-top: 100px;">
 							<div class="col">
 								<p class="fs-5 fw-bold mb-2">결제수단</p>
 							</div>
@@ -251,7 +245,7 @@ select option[value=""][disabled] {
 									</div>
 								</div>
 								<div class="row">
-									<div class="col pb-3 text-center">
+									<div class="col pb-3 pt-2 text-center">
 										<img alt="" src="${pageContext.request.contextPath}/resources/img/rental/img_kakaopay.png" class="rounded-1 img-fluid" style="width: 80px;">										
 									</div>
 								</div>
@@ -277,6 +271,12 @@ select option[value=""][disabled] {
 							</div>
 							<div class="col text-end">
 								<p class="mb-2 fw-bold"><fmt:formatNumber value="${data.rentalItemDto.deposit }" pattern="#,##0" /></p>
+							</div>
+						</div>
+						
+						<div class="row">
+							<div class="col px-0 text-danger">
+								<p class="coinDesc"></p>
 							</div>
 						</div>
 						
@@ -307,11 +307,11 @@ select option[value=""][disabled] {
 						
 						<div class="row border-top pt-3 mt-3 justify-content-between">
 							<div class="col">
-								<p class="fs-5 fw-bold">최종 결제 금액</p>					
+								<p class="fs-5 fw-bold">월 결제 금액</p>					
 							</div>
 							
 							<div class="col text-end">
-								<p class="fs-4"><span id="desc_price" style="color: #f68a42; font-weight: 900;"></span>원</p>
+								<p class="fs-4"><span id="desc_price" style="color: #f68a42; font-weight: 900;"></span>원<small class="text-secondary">/월</small></p>
 							</div>
 						</div>
 						
@@ -322,7 +322,7 @@ select option[value=""][disabled] {
 								<input type="hidden" value="${data.rentalItemDto.price }" name="original_price">
 								<input type="hidden" value="${data.rentalItemDto.id }" name="item_id">
 								<input type="hidden" value="" name="price" id="hidden_price">
-								<p class="btn w-100 btn-order-hover text-white" onclick="checkVali()">주문신청</p>							
+								<p class="btn w-100 btnOrder orangeButton" onclick="checkVali()">주문신청</p>							
 							</div>
 						</div>
 					</div>
@@ -332,132 +332,6 @@ select option[value=""][disabled] {
 		</div>
 	</div>
 	
-	
-	
-	
-	
-	
-	
-	<%-- <div class="container my-5 py-4">
-		<div class="row mb-5">
-			<div class="col">
-				<div class="row">
-					<p class="fs-5 text-body-secondary pb-2 border-bottom" style="font-weight: 600"><i class="bi bi-archive"></i> 상품 정보</p>					
-				</div>
-				<div class="row mt-2" >
-					<div class="row">
-						<div class="col-2">
-							<img alt="" src="/safariImg/${data.rentalItemDto.main_img_link}" class="rounded-1" style="width: 140px;">							
-						</div>
-						<div class="col">
-							<p class="fs-4 mb-1">${data.rentalItemDto.title}</p>
-							<p class="text-body-secondary">${data.rentalItemDto.item_description}</p>
-							<p>기본 대여비 <span class="fw-bold"><fmt:formatNumber value="${data.rentalItemDto.price }" pattern="#,##0" /></span>원 </p>
-						</div>
-					</div>
-					
-					<div class="row mt-4 py-2">
-						<div class="col">
-							<table class="table table-bordered">
-							  <thead>
-							    <tr>
-							    	<c:forEach items="${data.rentalPeriodDiscDtoList}" var="periodItem">
-								      <td class="text-center bg-body-tertiary" scope="col">${periodItem.rental_period }개월</td>
-							    	</c:forEach>
-							    </tr>
-							  </thead>
-							  <tbody>
-							    <tr>
-							      	<c:forEach items="${data.rentalPeriodDiscDtoList}" var="periodItem">
-								      <td class="text-center fw-bold" scope="col"><fmt:formatNumber value="${periodItem.discounted_price }" pattern="#,##0" />원</td>
-							    	</c:forEach>
-							    </tr>
-							  </tbody>
-							</table>
-						</div>
-					</div>
-
-				</div>
-				</div>
-			</div>
-			
-
-			
-			
-			<div class="row mt-5">
-				<p class="fs-5 text-body-secondary pb-2 border-bottom" style="font-weight: 600"><i class="bi bi-file-earmark-text"></i> 계약 정보</p>
-			</div>
-			<div class="row pb-3 mt-2">
-				<div class="col">
-					<div class="row">
-						<div class="col-2">
-							<p class="me-5">시작일 </p>
-						</div>
-
-					</div>
-					
-					<div class="row mt-4">
-						<div class="col-2">
-							<p class="me-5">대여기간 </p>
-						</div>
-						<div class="col">
-							<div class="slidecontainer">
-								<input type="range" value="12" class="slider optionPeriod" id="myRange">
-								<p><span id="monthly"></span>개월</p>
-							</div>
-						</div>
-						<div class="col">
-							<span class="fw-bold" id="return_box">시작일과 대여 기간을 슬라이드로 설정하세요.</span> 
-						</div>
-					</div>
-					
-					<div class="row mt-4">
-						<div class="col-2">
-							<p class="me-5">배송지 </p>
-						</div>
-						<div class="col">
-							<div class="row">
-								<ul class="list-group list_addr_box">
-								</ul>							
-							</div>
-							<div class="row mt-3 ps-3">
-								<div class="col d-none">
-									<input type="text" id="usr_address" name="prd_address" placeholder="주소입력" class="form-control w-50" onclick="searchAddr()"/>
-									<input type="text" id="sub-address" placeholder="상세주소" class="form-control w-25 mt-1"/>								
-								</div>
-							</div>
-							<div class="row ps-3 mt-2">
-								<div class="col d-flex px-0">
-								 	<p onclick="registerAddrPage()" class="btn btn-outline-secondary mt-2 me-3">주소추가</p>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			
-			<div class="row mt-5">
-				<p class="fs-5 text-body-secondary pb-2 border-bottom" style="font-weight: 600"><i class="bi bi-wallet2"></i> 결제 정보</p>
-			</div>
-			<div class="row">
-				<div class="col">
-					<div class="row">
-						<p class="fs-5"><span id="desc_price"></span>원 / <small>월</small></p>				
-				
-						<p class="fs-5">보증금 <span class="fw-bold"><fmt:formatNumber value="${data.rentalItemDto.deposit }" pattern="#,##0" /></span>원</p>		
-					</div>
-					
-					<div class="row">
-						<input type="hidden" value="${data.rentalItemDto.deposit }" name="deposit">
-						<input type="hidden" value="" name="end_date" id="hiddin_date">
-						<input type="hidden" value="${data.rentalItemDto.price }" name="original_price">
-						<input type="hidden" value="${data.rentalItemDto.id }" name="item_id">
-						<input type="hidden" value="" name="price" id="hidden_price">
-						<span class="btn mt-5 w-25 pe-0 btn-dark" onclick="checkVali()">주문신청</span>
-					</div>
-				</div>
-			</div>
-	</div> --%>
 	
 	<%-- 주소 등록 modal --%>
 <div class="modal" id="registerAddrModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -649,6 +523,8 @@ select option[value=""][disabled] {
 	
 	function checkCoinBalance() {
 		if(coinBalance < itemDeposit) {
+			let btnOrder = document.querySelector('.btnOrder')
+			btnOrder.classList.add('disabled')
 			coinDesc.innerText = '보증금을 결제할 코인이 부족합니다!'
 		} else {
 			let remainCoin = coinBalance - itemDeposit
@@ -898,9 +774,22 @@ select option[value=""][disabled] {
 		slider.setAttribute('min',minMonthVal)
 		slider.setAttribute('max',maxMonthVal)
 		
+
+			
 		function showDescPrice() {
+			let periodDiscList = []
+			let itemObj
+			
 			<c:forEach items="${data.rentalPeriodDiscDtoList}" var="list">
-			console.log("is workd??", periodValue)
+				itemObj ={'${list.rental_period}':'${list.discounted_price}'}
+				periodDiscList.push(itemObj)
+			</c:forEach>
+				
+			for(let i=0; i<periodDiscList.length; i++) {
+				console.log(periodDiscList)
+			}
+				
+			<c:forEach items="${data.rentalPeriodDiscDtoList}" var="list">
 			if(periodValue >= ${list.rental_period} ){
 				console.log(${list.discounted_price})
 				let descPrice = document.querySelector("#desc_price")
@@ -908,6 +797,12 @@ select option[value=""][disabled] {
 				console.log(calcPrice.toLocaleString('ko-KR'))
 				descPrice.innerText = calcPrice.toLocaleString('ko-KR')
 				hiddenPrice.value =${list.discounted_price}
+			} else if(periodValue < ${list.rental_period}) {
+				console.log("less then?", periodValue)
+				let descPrice = document.querySelector("#desc_price")
+				let calcPrice =	${data.rentalItemDto.price}
+				descPrice.innerText = calcPrice.toLocaleString('ko-KR')
+				hiddenPrice.value = ${data.rentalItemDto.price}
 			}
 			</c:forEach>
 			
@@ -1059,7 +954,7 @@ select option[value=""][disabled] {
 					divrow.appendChild(divcol)
 					label.appendChild(divrow)
 					li.appendChild(label)
-					li.className = 'list-group-item w-100 list-addr-item border-0 px-0'
+					li.className = 'list-group-item w-100 list-addr-item border-0 shadow mb-3 px-3 rounded-3'
 					
 					listAddrBox.appendChild(li)
 					
@@ -1072,133 +967,9 @@ select option[value=""][disabled] {
 		xhr.send();	
 	}
 
-	function openModal() {
-		const modal = bootstrap.Modal.getOrCreateInstance('#modalCoin');
-		modal.show();
+	function toMyCoinPage() {
+		window.location.href = "/safari/user/myCoinPage"
 	}
-
-	// 코인 충전 pk 받아오기
-	function onChargeCoin() {
-		
-		const xhr = new XMLHttpRequest();
-
-		xhr.onreadystatechange = function() {
-			if(xhr.readyState == 4 && xhr.status == 200){
-				const response = JSON.parse(xhr.responseText);
-				
-				const orderId = response.partnerOrderId;
-				
-				chargeCoinProcess(orderId);
-				
-			}
-		}
-
-		xhr.open("get", "/safari/user/getOnChargeCoinPk");
-		xhr.send();
-	}
-	
-	// 코인 충전하기
-	function chargeCoinProcess(orderId){
-			
-	   
-	   const cid = 'TC0ONETIME';
-	   const partner_order_id = orderId;
-	   const partner_user_id = mySessionId;
-	  
-	   
-	   const quantity = 1;
-	   const total_amount = document.querySelector('#inputCoin').value; // 충전 금액
-	   const tax_free_amount = 0;
-	   
-	   const item_name = "사파리 코인 " + new Intl.NumberFormat('ko-KR').format(total_amount) + "원 충전";
-	   
-	   const url = new URL(window.location.href)
-	   const urlHref = url.href
-	   
-	   const approval_url = urlHref;
-	   const cancel_url = "http://localhost:8181/safari/user/myCoinPage";
-	   const fail_url = "http://localhost:8181/safari/user/myCoinPage";
-	   
-	   // 잘 찍히는지 확인
-	   console.log(cid);
-	   console.log(partner_order_id);
-	   console.log(partner_user_id);
-	   console.log(total_amount);
-	   console.log(quantity);
-	   console.log(tax_free_amount);
-	   console.log(approval_url);
-	   console.log(cancel_url);
-	   console.log(fail_url);
-	   
-	 
-	   
-	   const xhr = new XMLHttpRequest();
-	   
-	   xhr.onreadystatechange = function() {
-		   if (xhr.readyState === XMLHttpRequest.DONE) {
-		   if (xhr.status === 200) {
-	           const response = JSON.parse(xhr.responseText);
-
-	            const tid = response.tid;      	
-		
-	            const width = 600;
-	            const height = 600;
-	            const left = (window.screen.width - width) / 2;
-	            const top = (window.screen.height - height) / 2;
-	            const windowFeatures = "width=" + width + ",height=" + height + ",top=" + top + ",left=" + left + ",location=no,status=no,scrollbars=yes";
-	            const paymentWindow = window.open(response.next_redirect_pc_url, "_blank", windowFeatures);
-	            
-	            if (paymentWindow) {
-	               // 팝업이 정상적으로 열린 경우
-	               paymentWindow.focus();
-	            } else {
-	               // 팝업이 차단되었을 경우
-	               alert("팝업 차단이 감지되었습니다. 결제를 진행하려면 팝업 차단을 해제해주세요.");
-	            }
-	         	
-	      
-	         	
-	            // tid를 세션에 저장
-	            saveChargeCoinTidToSession(cid, partner_order_id, partner_user_id, tid, item_name, response.next_redirect_pc_url);
-	           
-	       } else {
-	    	   
-	       }
-		   }
-	   };	
-	   
-	   
-	   xhr.open("POST", "https://kapi.kakao.com/v1/payment/ready");
-	   xhr.setRequestHeader("Authorization", "KakaoAK 88927c6d047da3940394d71e197276c3");
-	   xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded;charset=utf-8");
-	   xhr.send("cid="+cid+"&partner_order_id="+partner_order_id+"&partner_user_id="+partner_user_id+"&item_name="+item_name+
-			   "&quantity="+quantity+"&total_amount="+total_amount+"&tax_free_amount="+tax_free_amount+
-			   "&approval_url="+approval_url+"&cancel_url="+cancel_url+"&fail_url="+fail_url);
-	 
-	}
-		
-	//tid 세션에 저장하기
-	function saveChargeCoinTidToSession(cid, partner_order_id, partner_user_id, tid, item_name, 
-			 next_redirect_pc_url) {
-		
-		 	const xhr = new XMLHttpRequest();
-
-
-		    xhr.onreadystatechange = function() {
-		        if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
-		            
-		        	
-		        	
-		        }
-		    };
-		    
-		    xhr.open("post", "/safari/user/saveChargeCoinTidToSession");
-		    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-		    xhr.send("cid="+cid+"&partner_order_id="+partner_order_id+"&partner_user_id="+partner_user_id+"&tid="+tid+"&item_name="+item_name);	
-			
-	}	
-		
-
 
 	window.addEventListener("DOMContentLoaded", function(){
 		getSessionId()

@@ -88,7 +88,6 @@ public class RentalController {
 	// 대여 메인 페이지
 	@RequestMapping("mainPageBackup")
 	public String mainPageBackup(Model model, Integer sub_category_id, Integer main_category_id, String orderly) {
-		System.out.println("orderly:: " + orderly);
 		List<Map<String, Object>> categoryList = rentalService.getCategoryList();
 		List<Map<String, Object>> rentalItemList = rentalService.getRentalItemList(sub_category_id, main_category_id, orderly);
 		

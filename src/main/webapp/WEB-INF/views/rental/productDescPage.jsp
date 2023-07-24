@@ -140,6 +140,7 @@ window.addEventListener("DOMContentLoaded", function(){
 progress {
     appearance: none;
     width: 340px;
+    height: 10px;
 }
 progress::-webkit-progress-bar {
     background:#f0f0f0;
@@ -389,28 +390,29 @@ progress::-webkit-progress-value {
 							    		</div>
     						    		<div class="col ms-5">
 						    				<div class="row mb-2">
-						    					<div class="col d-flex justify-content-center">
-						    						<progress id="progress" value="12" min="0" max="100"></progress>
+						    					<div class="col d-flex justify-content-center my-auto">
+						    						5점
+						    						 <progress class=" my-auto ms-3" id="progress" value="83" min="0" max="100"></progress>
 						    					</div>
 						    				</div>
 						    				<div class="row mb-2">
 						    					<div class="col d-flex justify-content-center">
-						    						<progress id="progress" value="8" min="0" max="100"></progress>
+						    						4점 <progress  class=" my-auto ms-3" id="progress" value="8" min="0" max="100"></progress>
 						    					</div>
 						    				</div>
 						    				<div class="row mb-2">
 						    					<div class="col d-flex justify-content-center">
-						    						<progress id="progress" value="5" min="0" max="100"></progress>
+						    						3점 <progress  class=" my-auto ms-3" id="progress" value="5" min="0" max="100"></progress>
 						    					</div>
 						    				</div>
 						    				<div class="row mb-2">
 						    					<div class="col d-flex justify-content-center">
-						    						<progress id="progress" value="3" min="0" max="100"></progress>
+						    						2점 <progress class=" my-auto ms-3" id="progress" value="3" min="0" max="100"></progress>
 						    					</div>
 						    				</div>
 						    				<div class="row mb-2">
 						    					<div class="col d-flex justify-content-center">
-						    						<progress id="progress" value="1" min="0" max="100"></progress>
+						    						1점 <progress class=" my-auto ms-3" id="progress" value="1" min="0" max="100"></progress>
 						    					</div>
 						    				</div>
 						    			</div>

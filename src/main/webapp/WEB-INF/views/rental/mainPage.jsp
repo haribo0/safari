@@ -87,7 +87,7 @@
 				<div class="row flex justify-content-between pt-3 pb-4 my-2 border-bottom">
 	 				<c:forEach items="${rentalItemList}" var="map" begin="0" end="5" step="1">
 						<div class="col-2 position-relative">
-							<div class="position-absolute shadow-sm px-2" style="top: 8px; right: 20px; background:#f68a42; color: #fff; border-radius: 24px; z-index: 50; font-size: 12px;">
+							<div class="position-absolute px-2" style="top: 8px; right: 20px; background:#f68a42; color: #fff; border-radius: 24px; z-index: 50; font-size: 12px;">
 								AD
 							</div>
 							<div class="card border border-0">
@@ -308,6 +308,9 @@
 
 				<div class="row flex-wrap pt-2">
 	 				<c:forEach items="${rentalItemList}" var="map" varStatus="status">
+		 				<c:if test="${status.index % 6 == 5}">
+		 					<div class="col-2 mb-5 item-box" style="cursor: pointer;">
+		 				</c:if>
 						<div class="col mb-5 item-box" style="cursor: pointer;">
 							<div class="row imgBox">
 								<div class="col">
