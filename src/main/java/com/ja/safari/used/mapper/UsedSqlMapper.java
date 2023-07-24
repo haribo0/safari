@@ -157,7 +157,8 @@ public interface UsedSqlMapper {
 	public List<ProductLikeDto> selectProductLikeByUserId(Integer userId);
 	// 나의 판매리스트(판매중, 예약중, 거래완료)
 	public List<ProductDto> selectMySellList(@Param("userId") Integer userId, @Param("statusId") Integer statusId);
-	
+	// 나의 판매리스트 중 - 예약중 -> 예약취소로 바꾸기
+	public void updateProductRequestStatusByproductId(Integer productId);
 	
 	
 	

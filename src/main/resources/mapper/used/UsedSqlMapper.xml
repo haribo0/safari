@@ -500,7 +500,9 @@ WHERE ROWNUM <= 4
 </select>
 
 
-
+<update id="updateProductRequestStatusByproductId">
+	UPDATE PRODUCT_REQUEST SET status = '거래요청' WHERE product_id = #{productId} and status='예약중'
+</update>
 
 
 

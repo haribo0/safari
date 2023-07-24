@@ -726,7 +726,10 @@ public class UsedServiceImpl {
 		return list;
 	}
 	 
-	 
+	 // 마이페이지 내 판매리스트(예약중 -> 거래요청으로 변경)
+	public void updateProductRequestStatusByproductId(Integer productId) {
+		usedSqlMapper.updateProductRequestStatusByproductId(productId);
+	}
 	 
 	 
 	 
