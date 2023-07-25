@@ -44,6 +44,13 @@
 	select * from question_table where id=#{id}
 	</select>
 	
+	<!-- 궁금해요 게시물 전체 select 커뮤 메인페이지 -->
+	<select id="selectAllQuestionMainBoards" resultType="com.ja.safari.dto.QuestionDto">
+	select * 
+	from question_table 
+	order by id desc
+	</select>
+	
 	<!-- 궁금해요 게시물 전체 select -->
 	<select id="selectAllQuestionBoards" resultType="com.ja.safari.dto.QuestionDto" >
 	select qt2.* from(
