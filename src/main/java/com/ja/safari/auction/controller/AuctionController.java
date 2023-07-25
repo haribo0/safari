@@ -24,14 +24,23 @@ public class AuctionController {
 	private UserServiceImpl userService;
 	
 
-   // 경매 메인 페이지
+	// 메인 페이지
 	@RequestMapping("mainPage")
+	public String mainpage(Model model) {
+		return "auction/mainPage";
+	}
+	
+	
+	
+	
+   // 경매 리스트페이지
+	@RequestMapping("List")
 	public String main(Model model) {
 		
 		model.addAttribute("auctionList", auctionService.getAuctionList());
 		model.addAttribute("productMainCategories", auctionService.getProductMainCategories());   
 		
-		return "auction/mainPage";
+		return "auction/List";
 	}
 	
 
@@ -42,23 +51,21 @@ public class AuctionController {
 		auctionService.removeAuctionProduct(id);
 		
 		//  "redirect:../mainPage";
-		return "redirect:/auction/mainPage";
+		return "redirect:/auction/List";
 	}
 	
 	// 경매 물품 상세페이지
 	@RequestMapping("productDetail/{id}") 
 	public String productDetail(Model model, @PathVariable int id) {
-		
+
 		model.addAttribute("productDetail", auctionService.getAuctionProductDetail(id));
 		model.addAttribute("productMainCategories", auctionService.getProductMainCategories());  
-		
-		//ProductSubCategoryDto productSubCategoryDto = auctionService.getProductSubCategory(auctionService.getAuctionItem(id).getAuction_sub_category_id());
-		// ProductMainCategoryDto productMainCategoryDto = auctionService.getProductMainCategory(productSubCategoryDto.getId());
 		
 	    model.addAttribute("sellerInfo", userService.selectUserDtoById((auctionService.getAuctionItem(id).getUser_seller_id())));
 		
 		model.addAttribute("productSubCategory", 
 				auctionService.getProductSubCategory(auctionService.getAuctionItem(id).getAuction_sub_category_id()));		
+		
 		
 		return "auction/productDetail";
 	}

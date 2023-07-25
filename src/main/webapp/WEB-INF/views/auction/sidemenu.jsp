@@ -1,24 +1,33 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
- <link rel="stylesheet" href="/safari/resources/style/sidemenu.css" />   
+ <link rel="stylesheet" href="/safari/resources/style/sidemenu.css" />  
+ 
+<style>
+  .sticky{
+       position:sticky;
+       top:0px;
+   }
+</style>  
 	<%-- 사이드 메뉴바시작 --%>	
-	<div class="col">
+	<div class="col mb-5" >
 		
 		<div class="row mt-4 mb-2">
 			<div class="col"></div>
 		</div>
 	
-		<div class="row mt-5 fs-4 fw-bold">
+		<div class="row sticky">
 			<div class="col">
-				<a href="/safari/auction/mainPage">전체보기</a>
+				<div class="row mt-5 fs-4 fw-bold">
+					<div class="col">
+						<a href="/safari/auction/mainPage">전체보기</a>
+					</div>
+				</div>
+		
+
+		 		<div id="categoryList">
+		 		</div>
 			</div>
 		</div>
-		
-
-		 <div id="categoryList">
-		 </div>
-		
-
 	</div>
 	<%-- 사이드 메뉴바 끝 --%>
 <script>
