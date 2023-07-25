@@ -16,6 +16,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.ja.safari.community.service.CommunityServiceImpl;
@@ -45,13 +46,18 @@ public class RecruitController  {
 
 	
 	
-		//구인구직 메인 페이지
+		//구인구직 메인 페이지 //페이징 추가.
 		@RequestMapping("recruit/mainPage") 
-		public String recruitMainPage(Model model) {
+		public String recruitMainPage(Model model, @RequestParam(value = "recruitPage", defaultValue = "1") int recruitPage, String recruit_searchType, String recruit_searchWord) {
 		  
-			List<Map<String, Object>> recruitBoardList = recruitService.selectAllRecruitBoards();
+			List<Map<String, Object>> recruitBoardList = recruitService.selectAllRecruitBoards(recruitPage, recruit_searchType, recruit_searchWord);
+			int recruitBoardCount = recruitService.getRecruitBoardCount();
+			int totalRecruitPage = (int) Math.ceil(recruitBoardCount / 10.0);
 			
 			model.addAttribute("recruitBoardList", recruitBoardList);
+			model.addAttribute("totalRecruitPage", totalRecruitPage);
+			
+			model.addAttribute("currentRecruitPage", recruitPage);
 			
 			return "/community/recruit/mainPage"; 
 		}

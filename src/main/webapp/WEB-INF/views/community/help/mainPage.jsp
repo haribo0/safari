@@ -257,7 +257,7 @@ color: white;
 	
 	<%-- 페이지 버튼 --%>
 	<div class="row">
-			<div class="col-5 mx-auto mt-3 mb-3">
+			<div class="col d-flex align-items-center justify-content-center">
 				<nav aria-label="Page navigation example">
 				  <ul class="pagination mb-0">
 				   <li class="page-item"><a class="page-link" href="#">&lt;</a></li>   

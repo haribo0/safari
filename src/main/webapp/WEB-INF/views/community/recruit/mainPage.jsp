@@ -89,6 +89,10 @@
     .reset-btn:hover {
         background-color: lightgray;
     }
+    
+    .pagination .page-link {
+    color: black !important;
+	}
  </style>
 
 </head>
@@ -136,14 +140,14 @@
 							<div class="col d-grid">
 							</div>
 							<div class="col-2">
-								<select name="question_searchType" class="form-select">
+								<select name="recruit_searchType" class="form-select">
 									<option value="title" selected>제목</option>
 									<option value="content">내용</option>
 									<option value="nickname">작성자</option>
 								</select>				
 							</div>
 							<div class="col-3">
-								<input name="question_searchWord" type="text" class="form-control">
+								<input name="recruit_searchWord" type="text" class="form-control">
 							</div>
 							<div class="col-1 ms-3" style="position:relative;">
 								 <button type="submit" class="btn btn-outline-dark">
@@ -378,8 +382,8 @@
 											<span class="text-align-center mb-1">물류팀 직원구인 경력무관</span>
 										</div>
 										<span class="text-secondary mt-2" >인천 서구 · </span>
-										<strong class="mt-1" style="color: #ff501b;"> 월 </strong>
-										<strong class="text-secondary mt-1"> 250만원</strong>
+										<strong class="mt-1 " style="color: #ff501b;"> 월 </strong>
+										<strong class=" mt-1" style="color: #ff501b;"> 250만원</strong>
 									</p>
 								</div></div>
 								
@@ -417,8 +421,8 @@
 								    <p class="card-text">
 										${recruitDto.recruitDto.title}<br>
 										<span class="text-secondary mt-1" >${recruitDto.recruitDto.location} · </span>
-										<strong class="mt-1" style="color: #ff501b;"> 월 </strong>
-										<strong class="text-secondary mt-1"> ${recruitDto.recruitDto.salary}만원</strong>
+										<strong class="mt-1 " style="color: #ff501b;"> 월 </strong>
+										<strong class=" mt-1" style="color: #ff501b;"> ${recruitDto.recruitDto.salary}만원</strong>
 									</p>
 								</div></div>
 								
@@ -454,6 +458,30 @@
 					</div>
 					<%-- 글쓰기버튼 --%>
 					
+						<%-- 페이지 버튼 --%>
+						<div class="row">
+								<div class="col d-flex align-items-center justify-content-center">
+									<nav aria-label="Page navigation example">
+									  <ul class="pagination mb-0">
+									   <li class="page-item"><a class="page-link" href="#">&lt;</a></li>   
+									   <c:forEach begin="1" end="${totalRecruitPage}" var="recruitIndex">
+									   		<c:choose>
+									   			<c:when test="${recriotIndex == currentRecruitPage}">
+									   				<li class="page-item"><a class="page-link" href="/safari/community/recruit/mainPage?recruitPage=${recruitIndex}"><strong>${recruitIndex}</strong></a></li>
+									   			</c:when>
+									   			<c:otherwise>
+									   				<li class="page-item"><a class="page-link" href="/safari/community/recruit/mainPage?recruitPage=${recruitIndex}">${recruitIndex}</a></li>
+									   			</c:otherwise>
+									   		</c:choose>
+									   	
+									   </c:forEach>
+									   <li class="page-item"><a class="page-link" href="#">&gt;</a></li>
+									  </ul>
+									 </nav>
+								</div>
+							</div>
+						<%--페이지 버튼  --%>
+						
 <%-- 					recruitBoardList
 					<div class="row"  style="text-align:center">
 						<div class="col">
