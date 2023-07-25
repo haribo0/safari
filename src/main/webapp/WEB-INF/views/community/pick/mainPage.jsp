@@ -6,7 +6,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>사파리 | 골라줘요 메인</title>
+<link rel="icon" type="image/png" sizes="96x96"  href="/safari/resources/img/main/logoOrange.png"/>
+<title>482 | 사고 파는 이웃들의 이야기</title>
 
 <!-- 메타 섹션 -->
 <jsp:include page="../../common/meta.jsp"></jsp:include>
