@@ -54,12 +54,157 @@
 	</div>
 	
 	<div class="container mt-5">
-		<div class="row">
+		<div class="row mt-5 pb-2">
+					<p class="mb-0 mt-3 ps-0 fs-5 fw-bold">카테고리</p>
+				</div>
+				<div class="row px-0">
+					<div class="col text-center boxCategory">
+						<a href="${pageContext.request.contextPath}/rental/mainPage/?main_category_id=1" class="btn">
+							<div class="row">
+								<div>
+									<img class="img-fluid" alt="" src="${pageContext.request.contextPath}/resources/img/rental/category/furniture.png">
+								</div>
+							</div>
+							<div class="row mt-2">
+								<div>
+									<p class="fw-bold">가구</p>
+								</div>
+							</div>
+						</a>
+					</div>
+					<div class="col text-center boxCategory">
+						<a href="${pageContext.request.contextPath}/rental/mainPage/?sub_category_id=1" class="btn">
+						<div class="row">
+							<div>
+								<img class="img-fluid" alt="" src="${pageContext.request.contextPath}/resources/img/rental/category/sofa.png">
+							</div>
+						</div>
+						<div class="row mt-2">
+							<div>
+								<p class="fw-bold">소파</p>
+							</div>
+						</div>
+						</a>
+					</div>
+					<div class="col text-center boxCategory">
+						<a href="${pageContext.request.contextPath}/rental/mainPage/?sub_category_id=4" class="btn">
+						<div class="row">
+							<div>
+								<img class="img-fluid" alt="" src="${pageContext.request.contextPath}/resources/img/rental/category/closet.png">
+							</div>
+						</div>
+						<div class="row mt-2">
+							<div>
+								<p class="fw-bold">수납장</p>
+							</div>
+						</div>
+						</a>
+					</div>
+					<div class="col text-center boxCategory">
+						<a href="${pageContext.request.contextPath}/rental/mainPage/?main_category_id=2" class="btn">
+						<div class="row">
+							<div>
+								<img class="img-fluid" alt="" src="${pageContext.request.contextPath}/resources/img/rental/category/lifeIt.png">
+							</div>
+						</div>
+						<div class="row mt-2 boxCategory">
+							<div>
+								<p class="fw-bold">생활가전</p>
+							</div>
+						</div>
+						</a>
+					</div>
+					<div class="col text-center boxCategory">
+						<a href="${pageContext.request.contextPath}/rental/mainPage/?sub_category_id=12" class="btn">
+						<div class="row">
+							<div>
+								<img class="img-fluid" alt="" src="${pageContext.request.contextPath}/resources/img/rental/category/airCleaner.png">
+							</div>
+						</div>
+						<div class="row mt-2">
+							<div>
+								<p class="fw-bold">공기청정기</p>
+							</div>
+						</div>
+						</a>
+					</div>
+					<div class="col text-center boxCategory">
+						<a href="${pageContext.request.contextPath}/rental/mainPage/?sub_category_id=13" class="btn">
+						<div class="row">
+							<div>
+								<img class="img-fluid" alt="" src="${pageContext.request.contextPath}/resources/img/rental/category/airConditioner.png">
+							</div>
+						</div>
+						<div class="row mt-2">
+							<div>
+								<p class="fw-bold">에어컨</p>
+							</div>
+						</div>
+						</a>
+					</div>
+					<div class="col text-center boxCategory">
+						<a href="${pageContext.request.contextPath}/rental/mainPage/?sub_category_id=14" class="btn">
+						<div class="row">
+							<div>
+								<img class="img-fluid" alt="" src="${pageContext.request.contextPath}/resources/img/rental/category/tv.png">
+							</div>
+						</div>
+						<div class="row mt-2">
+							<div>
+								<p class="fw-bold">티비</p>
+							</div>
+						</div>
+						</a>
+					</div>
+					<div class="col text-center boxCategory">
+						<a href="${pageContext.request.contextPath}/rental/mainPage/?main_category_id=3" class="btn">
+						<div class="row">
+							<div>
+								<img class="img-fluid" alt="" src="${pageContext.request.contextPath}/resources/img/rental/category/kitchenIt.png">
+							</div>
+						</div>
+						<div class="row mt-2">
+							<div>
+								<p class="fw-bold">주방가전</p>
+							</div>
+						</div>
+						</a>
+					</div>
+					<div class="col text-center boxCategory">
+						<a href="${pageContext.request.contextPath}/rental/mainPage/?sub_category_id=5" class="btn">
+						<div class="row">
+							<div>
+								<img class="img-fluid" alt="" src="${pageContext.request.contextPath}/resources/img/rental/category/water.png">
+							</div>
+						</div>
+						<div class="row mt-2">
+							<div>
+								<p class="fw-bold">정수기</p>
+							</div>
+						</div>
+						</a>
+					</div>
+					<div class="col text-center boxCategory">
+						<a href="${pageContext.request.contextPath}/rental/mainPage/?sub_category_id=6" class="btn">
+						<div class="row">
+							<div>
+								<img class="img-fluid" alt="" src="${pageContext.request.contextPath}/resources/img/rental/category/refrigerator.png">
+							</div>
+						</div>
+						<div class="row mt-2">
+							<div>
+								<p class="fw-bold">냉장고</p>
+							</div>
+						</div>
+						</a>
+					</div>
+				</div>
+<%-- 		<div class="row">
 			<div class="col">
 				<p class="fw-bold fs-4">카테고리</p>
 				 <img src="${pageContext.request.contextPath}/resources/img/rental/banner_category.png" class="d-block w-100" alt="...">
 			</div>
-		</div>
+		</div> --%>
 	</div>
 	
 	<div class="container mt-5">
@@ -72,7 +217,7 @@
 			</div>
 		</div>
 		<div class="row flex-wrap justify-content-between mt-4">
-				<c:forEach items="${rentalItemList}" var="map" begin="0" end="3" step="1" varStatus="status">
+				<c:forEach items="${rentalItemList}" var="map" begin="0" end="4" step="1" varStatus="status">
 				<div class="col-3 item-box" style="cursor: pointer;">
 					<div class="card border border-0">
 						<a href="${pageContext.request.contextPath}/rental/productDescPage?id=${map.rentalItemDto.id}" class="text-decoration-none d-inline-block">

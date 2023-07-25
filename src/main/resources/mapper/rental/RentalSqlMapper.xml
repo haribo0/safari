@@ -312,8 +312,10 @@
 	<select id="selectMyReviewCount" resultType="int">
 		SELECT COUNT(*) FROM rental_review_table WHERE user_id = #{id} AND rental_id = #{orderId}
 	</select>
-	
-	
+	<!-- 사용자 대여 아이템 리뷰 가져오기  -->
+	<select id="selectMyReview" resultType="com.ja.safari.dto.RentalReviewDto">
+		SELECT * FROM rental_review_table WHERE user_id = #{myId} AND rental_id = #{id}
+	</select>
 	<!--대여 리뷰 이미지 불러오기  -->
 	<select id="selectRentalReviewImgAll" resultType="com.ja.safari.dto.RentalReviewImgDto">
 		SELECT * FROM rental_review_img_table WHERE review_id = #{id}

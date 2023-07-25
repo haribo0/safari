@@ -155,6 +155,9 @@ public interface RentalSqlMapper {
 
 	// 판매자 dto 가져오기
 	public RentalBusinessDto selectRentalBuisnessById(int itemId);
+	
+	// 대여 아이템 리뷰 하나 가져오기
+	public RentalReviewDto selectMyReview(@Param("id") int id, @Param("myId") int myId);
 
 
 

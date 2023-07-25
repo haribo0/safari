@@ -168,18 +168,31 @@
 				</div>
 			</div>
 			
-			<div class="row mt-4">
+			<div class="row mt-3" style="border-top: 2px solid #919191; border-bottom: 1px solid #919191; background: #f7f7f7;">
+				<div class="col text-center">
+					<p class="mb-0 py-3 fw-bold">주문일자</p>
+				</div>
+				<div class="col-4 text-center">
+					<p class="mb-0 py-3 fw-bold">상품정보</p>
+				</div>
+				<div class="col text-center">
+					<p class="mb-0 py-3 fw-bold">수량</p>
+				</div>
+				<div class="col text-center">
+					<p class="mb-0 py-3 fw-bold">월 대여비</p>
+				</div>
+				<div class="col text-center">
+					<p class="mb-0 py-3 fw-bold">진행상태</p>
+				</div>
+				<div class="col text-center">
+					<p class="mb-0 py-3 fw-bold">접수 및 기타</p>
+				</div>
+			</div>
+			
+			<div class="row">
+			
+				<div class="col px-0">
 				<ul class="list-group myOrderedList pe-0">
-					<!-- <li class="list-group-item border-0 fw-medium border-bottom border-secondary">
-						<div class="row">
-							<div class="col text-center">
-								대여상품
-							</div>
-							<div class="col text-center">
-								상태
-							</div>
-						</div>
-					</li> -->
 					<c:if test="${rentalOrderDtoList.size() == 0}">
 						<h3 class="text-center mt-5">주문한 대여 상품이 없습니다!</h3>
 					</c:if>
@@ -187,58 +200,66 @@
 					<c:forEach items="${rentalOrderDtoList}" var="data">
 						<li class="list-group-item  py-4 border-0 border-bottom listHover">
 							<div class="row">
-								
-								<div class="col-2" >
-									<a href="${pageContext.request.contextPath}/rental/productDescPage?id=${data.product.id}">
-										<img alt="" src="/safariImg/${data.product.main_img_link}" class="rounded-1 img-fluid " >
-									</a>
+								<div class="col d-flex justify-content-center align-items-center">
+									<p><fmt:formatDate value="${data.orderedItem.reg_date}" pattern="yyyy-MM-dd" /></p>
 								</div>
-								<div class="col my-auto">
-									<div class="row ">
-										<div class="col-auto justify-content-center text-center my-auto">
-											<c:choose>
-												<c:when test="${data.isCompleted == 'Y'}">
-													<p class="btn-finished mb-0">대여종료</p>				
-											    </c:when>
-											    
-												<c:when test="${data.rentalItemReturnDto.is_item_returned == 'N'}">
-													<p class="btn-finished mb-0">회수중</p>				
-											    </c:when>
-											    
-											    <c:when test="${data.rentalItemReturnDto.is_item_returned == 'Y'}">
-													<p class="btn-finished mb-0">정산중</p>				
-											    </c:when>
-											    
-											    
-												<c:otherwise>
-													<c:choose>
-														<c:when test="${data.orderedItem.is_shipped == 'N' }">
-															<p class="btn-shipping mb-0">주문완료</p>										
-														</c:when>
-														<c:when test="${data.orderedItem.is_shipped == 'Y'}">
-															<p class="btn-ordered mb-0">대여중</p>
-														</c:when>
-													</c:choose>
-												</c:otherwise>
-											    
-											</c:choose>
+								
+								<div class="col-4 d-flex justify-content-center align-items-center">
+									<div class="row">
+										<div class="col-3" >
+											<a href="${pageContext.request.contextPath}/rental/productDescPage?id=${data.product.id}">
+												<img alt="" src="/safariImg/${data.product.main_img_link}" class="rounded-1 img-fluid " >
+											</a>
 										</div>
-									
-									</div>
-									
-									<div class="row mt-2">
 										<div class="col">
-											<p class="mb-1 fs-5">${data.product.title }</p>
-											<p class="text-body-secondary" style="font-size: 15px;"><span><fmt:formatDate pattern="yyyy-MM-dd" value="${data.orderedItem.start_date }" /></span> <span class="ms-2"> ~ <fmt:formatDate pattern="yyyy-MM-dd" value="${data.orderedItem.end_date }" /></span></p>
-											<p><fmt:formatNumber value="${data.orderedItem.price }" pattern="#,##0" />원 <small>/월</small></p>
+										<a href="${pageContext.request.contextPath}/rental/productDescPage?id=${data.product.id}">
+											<p class="mb-0"><small>${data.rentalBusinessDto.business_name}</small></p>
+											<p class="mb-1 fw-bold">${data.product.title }</p>
+											<p class="text-body-secondary" style="font-size: 15px;"><span><fmt:formatDate pattern="yyyy-MM-dd" value="${data.orderedItem.start_date }" /></span><span> ~ <fmt:formatDate pattern="yyyy-MM-dd" value="${data.orderedItem.end_date }" /></span></p>
+										</a>
 										</div>
 									</div>
-									
 								</div>
 								
+								<div class="col d-flex justify-content-center align-items-center">
+									<p>1</p>
+								</div>
 								
-								<div class="col-3 d-flex justify-content-center align-items-center">
-									
+								<div class="col d-flex justify-content-center align-items-center">
+									<p><fmt:formatNumber value="${data.orderedItem.price }" pattern="#,##0" />원 <small>/월</small></p>
+								</div>
+							
+							<div class="col d-flex justify-content-center align-items-center">
+							<c:choose>
+									<c:when test="${data.isCompleted == 'Y'}">
+										<span class="btn-finished mb-0">대여종료</span>				
+								    </c:when>
+								    
+									<c:when test="${data.rentalItemReturnDto.is_item_returned == 'N'}">
+										<span class="btn-finished mb-0">회수중</span>				
+								    </c:when>
+								    
+								    <c:when test="${data.rentalItemReturnDto.is_item_returned == 'Y'}">
+										<span class="btn-finished mb-0">정산중</span>				
+								    </c:when>
+								    
+								    
+									<c:otherwise>
+										<c:choose>
+											<c:when test="${data.orderedItem.is_shipped == 'N' }">
+												<span class="btn-shipping mb-0">주문완료</span>										
+											</c:when>
+											<c:when test="${data.orderedItem.is_shipped == 'Y'}">
+												<span class="btn-ordered mb-0">대여중</span>
+											</c:when>
+										</c:choose>
+									</c:otherwise>
+								    
+								</c:choose>
+							</div>
+								
+								
+								<div class="col d-flex justify-content-center align-items-center">
 									<div class="row">
 										<div class="col">
 											<c:choose>
@@ -246,7 +267,7 @@
 											        <button type="button" class="btn btn-outline-dark my-2" data-order-id="${data.orderedItem.id}" data-bs-toggle="modal" data-bs-target="#modalReview">대여리뷰작성</button>																				
 											    </c:when>
 											    <c:when test="${data.isCompleted == 'Y' && data.myReviewCount >= 1}">
-											        <a href="${pageContext.request.contextPath}/rental/productDescPage?id=${data.product.id}#v-pills-profile-tab" class="btn my-2 btnMyReview" style="background:#f68a42; color: #fff; border: none;">내가쓴리뷰</a>																				
+											        <button class="btn my-2 btnMyReview" onclick="placeReviewDate(${data.orderedItem.id})" style="background:#f68a42; color: #fff; border: none;">내가쓴리뷰</button>																				
 											    </c:when>
 											    
 											    
@@ -290,24 +311,48 @@
 											        </c:choose>
 											    </c:when>
 											</c:choose>
-										
-										
-										
 										</div>
-									
 									</div>
-									
-
 								</div>	
 							</div>
-							
 						</li>
 					</c:forEach>
 				</ul>
+				</div>
 			</div>
 		</div>
 		</div>
 	</div>
+	
+	<div class="modal" id="showMyReviewModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-md modal-dialog-centered"> 
+    <div class="modal-content">
+      <div class="modal-header">
+     	 <div class="row mb-0">
+      			<div class="col ms-4 fs-5 fw-bold">
+      				<p class="reviewTitle"></p>
+      			</div>
+      	 </div>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div> 
+      <div class="modal-body">
+      		<div class="row">
+      			<div class="col">
+      				<h1>ui변경중</h1>
+      				<p class="reviewDesc">테스트 리뷰</p>
+      			</div>
+      		</div>
+      		<div class="row ratingBox">
+      		</div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">창닫기</button>
+	      </div>     
+	  </div>
+  </div>
+</div>
+</div>
+	
+	
 	
 	<!-- 푸터 섹션 -->
 	<jsp:include page="../common/footer.jsp"></jsp:include>
@@ -539,6 +584,44 @@ function returnProcess(orderId,refundMoney,productTitle) {
 	
 	xhr.open("get", "../rental/rentalReturnProcess?rental_order_id="+orderId+"&discount_revocation="+refundMoney+"&product_title="+productTitle);
 	xhr.send();	
+}
+
+/* 내 리뷰보기 */
+function showMyReview() {
+	const showMyReviewModal = bootstrap.Modal.getOrCreateInstance("#showMyReviewModal");
+	
+	showMyReviewModal.show();
+	
+}
+
+/* 리뷰AJAX호출먼저!! */
+function placeReviewDate(id) {
+	const xhr = new XMLHttpRequest();
+	
+	xhr.onreadystatechange = function(){
+		if(xhr.readyState == 4 && xhr.status == 200){
+			const response = JSON.parse(xhr.responseText);
+			if(response.result == "success"){
+				let rentalReviewDto = response.rentalReviewDto
+				console.log(rentalReviewDto.rental_review_title)
+				console.log(rentalReviewDto.rental_review_content)
+				console.log(rentalReviewDto.rental_review_rating)
+				console.log(rentalReviewDto.reg_date)
+				
+				showMyReview()
+				let reviewTitle = document.querySelector('.reviewTitle')
+				let reviewDesc = document.querySelector('.reviewDesc')
+				let ratingBox = document.querySelector('.ratingBox')
+				
+				reviewTitle.innerText = rentalReviewDto.rental_review_title
+				reviewDesc.innerText = rentalReviewDto.rental_review_content
+				ratingBox.innerText = rentalReviewDto.rental_review_rating
+			}
+		}
+	}
+	
+	xhr.open("get", "/safari/rental/getMyItemReview?id="+id, false);
+	xhr.send();
 }
 
 window.addEventListener("DOMContentLoaded", function(){

@@ -40,22 +40,22 @@
 	</div>
 
 	<div class="container">
-		<%-- <div class="row">
+		<div class="row">
  			<div class="col-2 mt-4">
 				<ul class="list-group" style="top: 115.23px; z-index: 50;">
 				  <li class="list-group-item border border-0 ps-0 pt-2 pb-0"><a href="${pageContext.request.contextPath}/rental/mainPage" class="btn ps-0 text fw-bold py-1" href="#" style="font-size: 17px;">전체보기</a></li>
 				  <c:forEach items="${categoryList}" var="map" varStatus="status">
-					  <li class="list-group-item border border-0 ps-0 pb-0 pt-3"><a href="${pageContext.request.contextPath}/rental/mainPage/?main_category_id=${map.categoryItem.id}" class="btn text fw-bold ps-0 py-1" style="font-size: 17px;">${map.categoryItem.main_category_name} ${map.categoryItem.id}</a></li>
+					  <li class="list-group-item border border-0 ps-0 pb-0 pt-3"><a href="${pageContext.request.contextPath}/rental/mainPage/?main_category_id=${map.categoryItem.id}" class="btn text fw-bold ps-0 py-1" style="font-size: 17px;">${map.categoryItem.main_category_name}</a></li>
 	  				  	<div class="" id="">
 							<ul class="list-group">
 								<c:forEach items="${map.subTitleList}" var="subTitle">
-										<li class="list-group-item border-0 ps-0 py-2"><a href="${pageContext.request.contextPath}/rental/mainPage/?sub_category_id=${subTitle.id}" class="btn ps-0 py-0 text-body-secondary" style="font-size: 16px;">${subTitle.sub_category_name} ${subTitle.id}</a></li>
+										<li class="list-group-item border-0 ps-0 py-2"><a href="${pageContext.request.contextPath}/rental/mainPage/?sub_category_id=${subTitle.id}" class="btn ps-0 py-0 text-body-secondary" style="font-size: 16px;">${subTitle.sub_category_name}</a></li>
 								</c:forEach>
 							</ul>
 						</div>
 				  </c:forEach>
 				</ul>
-			</div>  --%>
+			</div>
 			
 			<div class="col">
 <!-- 				<div class="row">
@@ -79,12 +79,12 @@
 					</div>
 				</div> -->
 
-				<div class="row border-bottom pb-2">
-					<p class="mb-0 mt-3 ps-0"><i class="bi bi-badge-ad-fill fs-5" style="color: #f68a42; vertical-align: -2px;"></i> <span style="color: #000;">파워광고상품</span></p>
+				<div class="row pb-2">
+					<p class="mb-0 mt-3 ps-0"><i class="bi bi-badge-ad-fill fs-4" style="color: #f68a42; vertical-align: -2px;"></i> <span style="color: #000;" class="fw-bold">파워광고상품</span></p>
 				</div>
 
 				<!-- 광고 대여 물품 row 작업중 -->
-				<div class="row flex justify-content-between pt-3 pb-4 my-2 border-bottom">
+				<div class="row flex justify-content-between pt-1 pb-2 my-2 mt-1">
 	 				<c:forEach items="${rentalItemList}" var="map" begin="0" end="5" step="1">
 						<div class="col-2 position-relative">
 							<div class="position-absolute px-2" style="top: 8px; right: 20px; background:#f68a42; color: #fff; border-radius: 24px; z-index: 50; font-size: 12px;">
@@ -104,6 +104,7 @@
 										<p class="mt-1"><span style="background: #e5e5e5; border-radius: 6px; font-size: 12px; padding: 3px 6px;">무료배송</span></p>								
 									</div>
 								</div>
+							
 <%-- 							  	<div class="d-flex justify-content-between">
 							    	<p class="text-dark mb-0"><a href="${pageContext.request.contextPath}/rental/productDescPage?id=${map.rentalItemDto.id}" class="text-decoration-none d-inline-block text-dark fw-bold" style="font-size: 15px;">${map.rentalItemDto.title}</a></p>
 							  	</div>
@@ -130,6 +131,18 @@
 				<!-- 카테고리 id 를 통한 하드 코딩 참고 -->
 				<%-- <a href="${pageContext.request.contextPath}/rental/mainPage/?main_category_id=${map.categoryItem.id}" --%>
 				<%-- <a href="${pageContext.request.contextPath}/rental/mainPage/?sub_category_id=${subTitle.id}" --%>
+				
+				<div class="row mt-1 pb-2">
+					<p class="mb-0 mt-3 ps-0 fs-5 fw-bold">금주의 스페셜딜</p>
+				</div>
+				<div class="row">
+ 					<div class="col ps-0" style="cursor: pointer;">
+						<img class="img-fluid rounded-2" alt="" src="${pageContext.request.contextPath}/resources/img/rental/b1.png">
+					</div>
+ 					<div class="col pe-0" style="cursor: pointer;">
+						<img class="img-fluid rounded-2" alt="" src="${pageContext.request.contextPath}/resources/img/rental/b2.png">
+					</div>
+				</div>
 				
 				<div class="row mt-5 pb-2">
 					<p class="mb-0 mt-3 ps-0 fs-5 fw-bold">카테고리</p>
@@ -275,7 +288,6 @@
 						</div>
 						</a>
 					</div>
-					
 				</div>
 				
 				<div class="row justify-content-between mt-5 pb-2">

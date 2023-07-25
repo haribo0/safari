@@ -22,6 +22,7 @@ import com.ja.safari.dto.PromotionReviewImgDto;
 import com.ja.safari.dto.QuestionDto;
 import com.ja.safari.dto.QuestionImgDto;
 import com.ja.safari.dto.RecruitDto;
+import com.ja.safari.dto.RentalBusinessDto;
 import com.ja.safari.dto.RentalItemDto;
 import com.ja.safari.dto.RentalItemLikeDto;
 import com.ja.safari.dto.RentalItemReturnDto;
@@ -152,11 +153,15 @@ public class UserServiceImpl {
 			// 리뷰 숫자 세기 작업중
 			int myReviewCount = rentalSqlMapper.selectMyReviewCount(id, orderId);
 			
+			int itemId = rentalItem.getId();
+			RentalBusinessDto rentalBusinessDto = rentalSqlMapper.selectRentalBuisnessById(itemId);
+			
 			map.put("myReviewCount", myReviewCount);
 			map.put("isCompleted", isCompleted);
 			map.put("orderedItem", item);
 			map.put("product", rentalItem);
 			map.put("rentalItemReturnDto",rentalItemReturnDto);
+			map.put("rentalBusinessDto",rentalBusinessDto);
 		
 			list.add(map);
 		}

@@ -515,7 +515,8 @@ progress::-webkit-progress-value {
 			    </div>
 			  </div>
 			  </div>
-			</div>
+			</div>					
+			
     	</div>
 	
 	

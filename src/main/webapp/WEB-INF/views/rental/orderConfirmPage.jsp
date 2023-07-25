@@ -182,7 +182,7 @@ select option[value=""][disabled] {
 								<input type="date" class="form-control" id="calendar_start" name="start_date" style="height: 40px;" required/>
 							</div>
 							<div class="col px-5">
-								<p class="fw-bold text-secondary mb-2">대여 종료일</p>
+								<p class="fw-bold text-secondary mb-2">대여 기간</p>
 								<div class="slidecontainer">
 									<!-- <input type="range" value="12" class="slider optionPeriod" id="myRange"> -->
 								</div>
