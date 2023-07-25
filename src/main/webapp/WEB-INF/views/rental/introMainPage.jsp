@@ -90,7 +90,7 @@
 				<a href="${pageContext.request.contextPath}/rental/mainPage/?sub_category_id=4" class="btn">
 				<div class="row">
 					<div>
-						<img class="img-fluid" alt="" src="${pageContext.request.contextPath}/resources/img/rental/category/closet.png">
+						<img class="img-fluid" alt="" src="${pageContext.request.contextPath}/resources/img/rental/category/d3.png">
 					</div>
 				</div>
 				<div class="row mt-2">
@@ -104,7 +104,7 @@
 				<a href="${pageContext.request.contextPath}/rental/mainPage/?main_category_id=2" class="btn">
 				<div class="row">
 					<div>
-						<img class="img-fluid" alt="" src="${pageContext.request.contextPath}/resources/img/rental/category/lifeIt.png">
+						<img class="img-fluid" alt="" src="${pageContext.request.contextPath}/resources/img/rental/category/fan2.png">
 					</div>
 				</div>
 				<div class="row mt-2 boxCategory">
@@ -118,7 +118,7 @@
 				<a href="${pageContext.request.contextPath}/rental/mainPage/?sub_category_id=12" class="btn">
 				<div class="row">
 					<div>
-						<img class="img-fluid" alt="" src="${pageContext.request.contextPath}/resources/img/rental/category/airCleaner.png">
+						<img class="img-fluid" alt="" src="${pageContext.request.contextPath}/resources/img/rental/category/a1.png">
 					</div>
 				</div>
 				<div class="row mt-2">
@@ -146,7 +146,7 @@
 				<a href="${pageContext.request.contextPath}/rental/mainPage/?sub_category_id=14" class="btn">
 				<div class="row">
 					<div>
-						<img class="img-fluid" alt="" src="${pageContext.request.contextPath}/resources/img/rental/category/tv.png">
+						<img class="img-fluid" alt="" src="${pageContext.request.contextPath}/resources/img/rental/category/tv1.png">
 					</div>
 				</div>
 				<div class="row mt-2">
@@ -160,7 +160,7 @@
 				<a href="${pageContext.request.contextPath}/rental/mainPage/?main_category_id=3" class="btn">
 				<div class="row">
 					<div>
-						<img class="img-fluid" alt="" src="${pageContext.request.contextPath}/resources/img/rental/category/kitchenIt.png">
+						<img class="img-fluid" alt="" src="${pageContext.request.contextPath}/resources/img/rental/category/k1.png">
 					</div>
 				</div>
 				<div class="row mt-2">
@@ -188,7 +188,7 @@
 				<a href="${pageContext.request.contextPath}/rental/mainPage/?sub_category_id=6" class="btn">
 				<div class="row">
 					<div>
-						<img class="img-fluid" alt="" src="${pageContext.request.contextPath}/resources/img/rental/category/refrigerator.png">
+						<img class="img-fluid" alt="" src="${pageContext.request.contextPath}/resources/img/rental/category/r.png">
 					</div>
 				</div>
 				<div class="row mt-2">

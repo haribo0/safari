@@ -34,7 +34,9 @@
 	.btn-circle i{color: #5e5e5e; font-size: 24px;}
 	.btn-tit{font-size:13px;}
       
-
+.gray-line{
+	border: 1px solid rgba(128, 128, 128, 0.3);
+}
 </style>
 </head>
 <body>
@@ -432,32 +434,41 @@
 <!-- 상대방 리뷰 모달 -->
 
 <!-- 끌올 모달(시간 충족) -->
-<div class="modal" id="updateRegDate1" tabindex="-1">
-	  <div class="modal-dialog">
-	    <div class="modal-content">
-	      <div class="modal-header position-relative" style="background: #EAEAEA;">
- 	        <div class="modal-title">
-	        	<h5 class="modal-title ms-1">
-					끌어올리기
-	        	</h5>
- 	        </div>
-	        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-	      </div>
-	      <div class="modal-body px-0 pb-0 pt-0" style="height: 490px; width: 460px;">
-			<div class="chat-container overflow-y-scroll overflow-x-hidden" style="height:480px; width:480px" id="updateRegDate1">
-				<div class="row">
-					<div class="col fw-bold">지금 가격을 낮추고</div>
-				</div>
-				<div class="row">
-					<div class="col fw-bold">게시글을 끌어올려 보세요</div>
-				</div>
-			</div>
-	      </div>
-	      <div class="modal-footer p-0">
-	      	<img class="img-fluid m-0" alt="chatAds" src="/safari/resources/img/used/updaateDateBanner5.png">
-	      </div>
-	    </div>
-	  </div>
+<div class="modal" id="updateRegDate3" tabindex="-1" >
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header position-relative px-3" style="padding: 10px 0px; height: 55px;">
+       	<h5 class="modal-title ms-1 position-absolute top-50 start-50 translate-middle" style="font-weight: 600 ;">끌어올리기</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+     <div class="modal-body ms-2" style="height: 240px">
+	  <div class="chat-container overflow-y-scroll overflow-x-hidden" style="height:220px;">
+	  		<div class="row mt-2">
+	  			<div class="col fw-bold fs-5" style="color: #ff6f0f;">1일 23시간 59분 뒤에</div>
+	  		</div>
+	  		<div class="row">
+	  			<div class="col fw-bold fs-5">끌어올릴 수 있어요</div>
+	  		</div>
+	  		<div class="row mt-3">
+	     		<div class="col-auto">
+	     			<img alt="mod" src="/safari/resources/img/used/mod.png" width="50px" height="50px" style="border-radius: 6px;">
+	     		</div>
+	     		<div class="col my-auto">
+	     			<div class="row">
+	     				<div class="col">렉슨 버섯등 새상품</div>
+	     			</div>
+	     			<div class="row">
+	     				<div class="col fw-bold">20,000원</div>
+	     			</div>
+	     		</div>
+	     	</div>
+	  		<div class="row mt-4">
+	  			<div class="col text-center fw-medium btn mx-2 py-2 btn btn-secondary disabled">끌어올리기</div>
+	  		</div>
+      </div>
+     </div>
+  </div>
+</div>
 </div>
 <!-- 끌올 모달 -->
 
@@ -469,17 +480,61 @@
        	<h5 class="modal-title ms-1 position-absolute top-50 start-50 translate-middle" style="font-weight: 600 ;">끌어올리기</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-      <div class="modal-header ms-2" id="modalHeader2">
-	     <div class="my-custom-header-wrapper" id="modalHeaderWrapper2My">
+      <div class="modal-header" style="background: #d3d3d336;">
+	     <div class="my-custom-header-wrapper">
+	     	<div class="row">
+	     		<div class="col-auto">
+	     			<img alt="mod" src="/safari/resources/img/used/mod.png" width="75px" height="75px" style="border-radius: 6px;">
+	     		</div>
+	     		<div class="col my-auto">
+	     			<div class="row">
+	     				<div class="col fw-semibold fs-6">렉슨 버섯등 새상품</div>
+	     			</div>
+	     			<div class="row">
+	     				<div class="col fw-semibold fs-6">20,000원</div>
+	     			</div>
+	     		</div>
+	     	</div>
        </div>
       </div>
      <div class="modal-body ms-2" style="height: 500px">
-	  <div class="chat-container overflow-y-scroll overflow-x-hidden" style="height:480px;" id="modalBody2My">
+	  <div class="chat-container overflow-y-scroll overflow-x-hidden" style="height:480px;">
+	  		<div class="row mt-3">
+	  			<div class="col fw-bold fs-5">사파리주인님, 끌어올리기 전에</div>
+	  		</div>
+	  		<div class="row">
+	  			<div class="col fw-bold fs-5">가격을 낮춰보세요.</div>
+	  		</div>
+	  		<div class="row mt-3">
+	  			<div class="col">판매 확률이 올라간답니다.</div>
+	  		</div>
+	  		<div class="row mt-3">
+	  			<div class="col ms-1" style="font-size: 24px; font-weight: 500;">₩ 20,000</div>
+	  		</div>
+	  		<div class="row mt-2 mb-2">
+	  			<div class="col gray-line"></div>
+	  		</div>
+	  		<div class="row ms-1 my-auto">
+	  			<div class="col-2 text-center" style="background: #e4e0e094; border-radius: 15px; padding: 2px 4px;">5%</div>
+	  			<div class="col-2 text-center ms-1" style="background: #e4e0e094; border-radius: 15px; padding: 2px 4px;">10%</div>
+	  			<div class="col-2 text-center ms-1" style="background: #e4e0e094; border-radius: 15px; padding: 2px 4px;">15%</div>
+	  			<div class="col-2 text-start">할인</div>
+	  		</div>
+	  		<div class="row mt-5">
+	  			<div class="col fw-bold fs-5">가격을 변경하지 않고</div>
+	  			<!-- <div class="col fw-bold fs-5">가격을 ₩ 32,000원으로 변경하고</div> -->
+	  		</div>
+	  		<div class="row">
+	  			<div class="col fw-bold fs-5">지금 끌어올리시겠어요?</div>
+	  		</div>
+	  		<div class="row mt-3">
+	  			<div class="col">다음 끌어올리기는<span style="font-weight: 600; color: #ff6f0f;"> 2일 12시간 </span>뒤에 할 수 있어요.</div>
+	  		</div>
+	  		<div class="row mt-5">
+	  			<div class="col text-center fw-medium btn mx-2 py-2" style="background: #ff6f0f;color: white;border-radius: 10px;">끌어올리기</div>
+	  		</div>
       </div>
      </div>
-     <div class="modal-footer p-0">
-	    <img class="img-fluid m-0" alt="chatAds" src="/safari/resources/img/used/updaateDateBanner5.png">
-	 </div>
   </div>
 </div>
 </div>
