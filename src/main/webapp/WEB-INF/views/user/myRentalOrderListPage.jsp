@@ -11,8 +11,16 @@
 <jsp:include page="../common/meta.jsp"></jsp:include>
 <!-- 메타 섹션 -->
 <style>
-.btn-ordered{padding: 4px 12px; background:#dff5ea; color:#6db590; border-radius: 8px; font-size:14px; font-weight: bold;}
-.btn-shipping{padding: 4px 12px; background:#dfebf5; color:#689cdd; border-radius: 8px; font-size:14px; font-weight: bold;}
+.btn-ordered{padding: 2px 8px; background:#dff5ea; color:#6db590; border-radius: 8px; font-size:12px; font-weight: bold; width: 64px; }
+.btn-shipping{padding: 2px 8px; background:#dfebf5; color:#689cdd; border-radius: 8px; font-size:12px; font-weight: bold; width: 64px;}
+.btn-finished{padding: 2px 8px; background:#cbcbcb; color:#fff; border-radius: 8px; font-size:12px; width: 64px;}
+
+.listHover{transition: all 0.125s ease;}
+.listHover:hover{background-color: #f0f1f3;}
+
+.btnMyReview:hover {
+	background: #e1732a !important;
+}
 </style>
 </head>
 <body>
@@ -40,7 +48,7 @@
 			      					<div class="col align-items-center">
 					      				<p class="text-secondary pt-2 border-top mb-0" style="font-size: 14px;"><span class="startDateP"></span> ~ <span class="endDateP"></span></p>
 					      				<p class="modal-tit fw-bold fs-4 mb-0"></p>
-					      				<p><span class="originPriceP"></span><small>/월</small></p>
+					      				<p><span class="usedPriceP"></span><small>/월</small></p>
 			      					</div>
 			      					<div class="col-1 d-flex justify-content-end">
 					      				<img class="modalTopImage" alt="" src="" style="width: 100px;">
@@ -51,21 +59,16 @@
 	      				
 	      			</div>
 					<div class="col py-2 px-3 mt-3 border rounded-1">
+
 						<div class="row">
 							<div class="col py-2 d-flex justify-content-between">
-								<p>사용중인 월 구독료</p>
-								<p class="usedPriceP"></p>
-							</div>
-						</div>
-						<div class="row">
-							<div class="col py-2 d-flex justify-content-between">
-								<p class="mb-0">할인금액</p>
+								<p class="mb-0">해지금액</p>
 							</div>
 						</div>
 						<div class="row">
 							<div class="col pt-2 pb-0 d-flex justify-content-between">
-								<small class="text-secondary">&#x2514; 할인 금액</small>
-								<p class="mb-0">( - ) <span class="minusPriceP"></span>원</p>
+								<small class="text-secondary">&#x2514; 월 약정 할인금액</small>
+								<p class="mb-0"><span class="minusPriceP"></span>원</p>
 							</div>
 						</div>
 						<div class="row">
@@ -76,7 +79,7 @@
 						</div>
 						<div class="row mt-3 border-top">
 							<div class="col py-2 d-flex justify-content-between">
-								<p>결제금액</p>
+								<p>총계</p>
 								<p class="fw-bold fs-5"><span class="finPriceP"></span>원</p>
 							</div>
 						</div>
@@ -157,95 +160,194 @@
 				</div>
 			</div>
 			
+			<div class="row mt-3">
+				<div class="col">
+					<p class="mb-1 text-secondary">· 아래는 대여한 목록 리스트 입니다.</p>
+					<p class="mb-1 text-secondary">· 렌탈 기간동안 고객의 책임 없는 사유로 상품의 고장·훼손 시 무상으로 수리 및 부품 교환을 해 드립니다.</p>
+					<p class="mb-1 text-secondary">· 단, 소비자의 귀책으로 인한 경우는 수리비 및 부품 교환 비용을 소비자가 보증금에서 부담해야 합니다.</p>
+				</div>
+			</div>
+			
+			<div class="row mt-3" style="border-top: 2px solid #919191; border-bottom: 1px solid #919191; background: #f7f7f7;">
+				<div class="col text-center">
+					<p class="mb-0 py-3 fw-bold">진행상태</p>
+				</div>
+				<div class="col-4 text-center">
+					<p class="mb-0 py-3 fw-bold">상품정보</p>
+				</div>
+				<div class="col text-center">
+					<p class="mb-0 py-3 fw-bold">월 대여비</p>
+				</div>
+				<div class="col text-center">
+					<p class="mb-0 py-3 fw-bold">주문일자</p>
+				</div>
+				<div class="col text-center">
+					<p class="mb-0 py-3 fw-bold">접수 및 기타</p>
+				</div>
+			</div>
+			
 			<div class="row">
-				<ul class="list-group myOrderedList">
+			
+				<div class="col px-0">
+				<ul class="list-group myOrderedList pe-0">
 					<c:if test="${rentalOrderDtoList.size() == 0}">
 						<h3 class="text-center mt-5">주문한 대여 상품이 없습니다!</h3>
 					</c:if>
+					
 					<c:forEach items="${rentalOrderDtoList}" var="data">
-						<li class="list-group-item pt-2 pb-4 my-2 border-0 border-bottom">
+						<li class="list-group-item  py-4 border-0 border-bottom listHover">
 							<div class="row">
-								<div class="col-2">
-									<img alt="" src="/safariImg/${data.product.main_img_link}" class="rounded-1" style="width: 140px;">
-								</div>
-								<div class="col mx-4">
-									<p class="fw-bold mb-2 fs-5">${data.product.title }</p>
-									<p><span>시작 | <fmt:formatDate pattern="yyyy-MM-dd" value="${data.orderedItem.start_date }" /></span> <span class="ms-2">종료 | <fmt:formatDate pattern="yyyy-MM-dd" value="${data.orderedItem.end_date }" /></span></p>
-									<p><fmt:formatNumber value="${data.orderedItem.price }" pattern="#,##0" />원 <small>/월</small></p>
-								</div>
-								
-								<div class="col-2 d-flex align-items-center justify-content-center">
-									<c:choose>
+														
+								<div class="col d-flex justify-content-center align-items-center">
+								<c:choose>
 										<c:when test="${data.isCompleted == 'Y'}">
-											<button type="button" class="btn btn-secondary" disabled="disabled">대여종료</button>				
+											<span class="btn-finished mb-0">대여종료</span>				
 									    </c:when>
 									    
-										<c:when test="${data.isCompleted != 'Y'}">
+										<c:when test="${data.rentalItemReturnDto.is_item_returned == 'N'}">
+											<span class="btn-finished mb-0">회수중</span>				
+									    </c:when>
+									    
+									    <c:when test="${data.rentalItemReturnDto.is_item_returned == 'Y'}">
+											<span class="btn-finished mb-0">정산중</span>				
+									    </c:when>
+									    
+									    
+										<c:otherwise>
 											<c:choose>
 												<c:when test="${data.orderedItem.is_shipped == 'N' }">
-													<p class="btn-shipping mb-0">주문완료</p>										
+													<span class="btn-shipping mb-0">주문완료</span>										
 												</c:when>
 												<c:when test="${data.orderedItem.is_shipped == 'Y'}">
-													<p class="btn-ordered mb-0">대여중</p>
-												</c:when>
-												<c:when test="${data.rentalItemReturnDto.is_item_returned == 'N'}">
-													<p class="btn-ordered mb-0">회수중</p>
+													<span class="btn-ordered mb-0">대여중</span>
 												</c:when>
 											</c:choose>
-										</c:when>
+										</c:otherwise>
 									    
 									</c:choose>
 								</div>
-								
-								<div class="col-3 d-flex justify-content-center align-items-center">
-									<c:choose>
-									    <c:when test="${data.isCompleted == 'Y'}">
-									        <button type="button" class="btn btn-outline-dark my-2" data-order-id="${data.orderedItem.id}" data-bs-toggle="modal" data-bs-target="#modalReview">대여리뷰작성</button>																				
-									    </c:when>
-									    <c:when test="${data.isCompleted != 'Y'}">
-									        <c:choose>
-									            <c:when test="${data.orderedItem.is_shipped != 'Y'}">
-									                <button type="button" class="btn btn-outline-secondary" disabled>배송중</button>
-									            </c:when>
-									            <c:otherwise>
-									            	<c:choose>
-									            		<c:when test="${data.rentalItemReturnDto.is_item_returned != 'Y'}">
-											                <button type="button" class="btn btn-primary" 
-											                	data-image-link="${data.product.main_img_link}" 
-											                	data-product-title="${data.product.title}" 
-											                	data-order-id="${data.orderedItem.id}" 
-											                	data-original-price="${data.orderedItem.original_price}" 
-											                	data-rego-price="${data.orderedItem.price}" 
-											                	data-startdate="${data.orderedItem.start_date }" 
-											                	data-enddate="${data.orderedItem.end_date}" 
-											                	data-deposit="${data.orderedItem.deposit}" 
-											                	data-bs-toggle="modal" 
-											                	data-bs-target="#modalReturn">
-											               		 대여반납신청
-											                </button>
-									            		</c:when>
-									            		<c:when test="${data.rentalItemReturnDto.is_item_returned == 'Y' && data.isCompleted != 'Y' }">
-									            			<button type="button" class="btn btn-outline-secondary" disabled>최종 정산중</button>
-									            		</c:when>
-									            		<c:otherwise>
-									            			<button type="button" class="btn btn-outline-secondary" disabled>회수중</button>
-									            		</c:otherwise>
-									            	</c:choose>
-									            </c:otherwise>
-									        </c:choose>
-									    </c:when>
-									</c:choose>
 
+								
+								<div class="col-4 d-flex justify-content-center align-items-center">
+									<div class="row">
+										<div class="col-3 d-flex align-items-center" >
+											<a href="${pageContext.request.contextPath}/rental/productDescPage?id=${data.product.id}">
+												<img alt="" src="/safariImg/${data.product.main_img_link}" class="rounded-1 img-fluid my-auto" >
+											</a>
+										</div>
+										<div class="col">
+										<a href="${pageContext.request.contextPath}/rental/productDescPage?id=${data.product.id}">
+											<p class="mb-0"><small>${data.rentalBusinessDto.business_name}</small></p>
+											<p class="mb-1 fw-bold">${data.product.title }</p>
+											<p class="text-body-secondary" style="font-size: 15px;"><span><fmt:formatDate pattern="yyyy-MM-dd" value="${data.orderedItem.start_date }" /></span><span> ~ <fmt:formatDate pattern="yyyy-MM-dd" value="${data.orderedItem.end_date }" /></span></p>
+										</a>
+										</div>
+									</div>
+								</div>
+								
+								<div class="col d-flex justify-content-center align-items-center">
+									<p class="mb-0"><fmt:formatNumber value="${data.orderedItem.price }" pattern="#,##0" />원 <small>/월</small></p>
+								</div>
+
+															
+								<div class="col d-flex justify-content-center align-items-center">
+									<p class="mb-0"><fmt:formatDate value="${data.orderedItem.reg_date}" pattern="yyyy-MM-dd" /></p>
+								</div>
+								
+								<div class="col d-flex justify-content-center align-items-center">
+									<div class="row">
+										<div class="col">
+											<c:choose>
+											    <c:when test="${data.isCompleted == 'Y' && data.myReviewCount == 0}">
+											        <button type="button" class="btn btn-outline-dark my-2" data-order-id="${data.orderedItem.id}" data-bs-toggle="modal" data-bs-target="#modalReview">대여리뷰작성</button>																				
+											    </c:when>
+											    <c:when test="${data.isCompleted == 'Y' && data.myReviewCount >= 1}">
+											        <button class="btn my-2 btnMyReview" onclick="placeReviewDate(${data.orderedItem.id})" style="background:#f68a42; color: #fff; border: none;">내가쓴리뷰</button>																				
+											    </c:when>
+											    
+											    
+											    
+											    <c:when test="${data.isCompleted != 'Y'}">
+											        <c:choose>
+											            <c:when test="${data.orderedItem.is_shipped != 'Y'}">
+											                <button type="button" class="btn btn-outline-secondary" disabled>배송중</button>
+											            </c:when>
+											            
+									            		<c:when test="${data.rentalItemReturnDto.is_item_returned == 'N' && data.isCompleted == 'N' }">
+									            			<button type="button" class="btn btn-outline-secondary" disabled>회수중</button>
+									            		</c:when>
+											            		
+											            <c:otherwise>
+											            	<c:choose>
+											            		<c:when test="${data.rentalItemReturnDto.is_item_returned != 'Y'}">
+													                <button type="button" class="btn btn-primary" 
+													                	data-image-link="${data.product.main_img_link}" 
+													                	data-product-title="${data.product.title}" 
+													                	data-order-id="${data.orderedItem.id}" 
+													                	data-original-price="${data.orderedItem.original_price}" 
+													                	data-rego-price="${data.orderedItem.price}" 
+													                	data-startdate="${data.orderedItem.start_date }" 
+													                	data-enddate="${data.orderedItem.end_date}" 
+													                	data-deposit="${data.orderedItem.deposit}" 
+													                	data-bs-toggle="modal" 
+													                	data-bs-target="#modalReturn">
+													               		 대여반납신청
+													                </button>
+											            		</c:when>
+											            		
+											            		<c:when test="${data.rentalItemReturnDto.is_item_returned == 'Y' && data.isCompleted != 'Y' }">
+											            			<button type="button" class="btn btn-outline-secondary" disabled>최종 정산중</button>
+											            		</c:when>
+											            		
+											            		<c:otherwise>
+											            		</c:otherwise>
+											            	</c:choose>
+											            </c:otherwise>
+											        </c:choose>
+											    </c:when>
+											</c:choose>
+										</div>
+									</div>
 								</div>	
 							</div>
-							
 						</li>
 					</c:forEach>
 				</ul>
+				</div>
 			</div>
 		</div>
 		</div>
 	</div>
+	
+	<div class="modal" id="showMyReviewModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-md modal-dialog-centered"> 
+    <div class="modal-content">
+      <div class="modal-header">
+     	 <div class="row mb-0">
+      			<div class="col ms-4 fs-5 fw-bold">
+      				<p class="reviewTitle"></p>
+      			</div>
+      	 </div>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div> 
+      <div class="modal-body">
+      		<div class="row">
+      			<div class="col">
+      				<h1>ui변경중</h1>
+      				<p class="reviewDesc">테스트 리뷰</p>
+      			</div>
+      		</div>
+      		<div class="row ratingBox">
+      		</div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">창닫기</button>
+	      </div>     
+	  </div>
+  </div>
+</div>
+</div>
+	
+	
 	
 	<!-- 푸터 섹션 -->
 	<jsp:include page="../common/footer.jsp"></jsp:include>
@@ -279,6 +381,9 @@
 	
 	// 할인 테이블 가져오기
 	function getRentalPeriodDisc(id, regiMonth, originPriceVal) {
+/*   		console.log("id:: ", id)
+		console.log("regiMonth:: ", regiMonth)
+		console.log("originPriceVal:: ", originPriceVal) */
 		const xhr = new XMLHttpRequest()
 		xhr.onreadystatechange = function() {
 			if(xhr.readyState == 4 && xhr.status == 200){
@@ -295,17 +400,40 @@
 	
 	function afterAjaxRequest(regiMonth, originPriceVal) {
 		for(let j = 0; j<discList.length; j++){
-			console.log(discList[j])
 			let str = originPriceVal;
 			let result = str.replace(/,/g, '');
-				if(regiMonth > discList[j].rental_period) {
-					discPrice = discList[j].discounted_price
-					console.log("원래가격:: ", parseInt(result), "할인기준가격:: ", discPrice)
-					finDiscPrice = parseInt(result) - discPrice
-					
-				}
+			console.log("디스카운트 테이블:: ", discList[j])
+			if(regiMonth >= discList[j].rental_period) {
+				discPrice = discList[j].discounted_price
+				console.log("원래가격:: ", parseInt(result), "할인기준가격:: ", discPrice)
+				console.log("계산가격:: ", parseInt(result) - discPrice)
+				finDiscPrice = parseInt(result) - discPrice
+				
+			}
 		}
 	}
+	
+	// 반납시 사용기간 계산 퍼센트 처리
+	function calcEarlyReturn(startDate, oiginEndDate, endDate) {
+		  const msInDay = 24 * 60 * 60 * 1000;
+	
+		  const originDayLeft = Math.round(
+		    Math.abs(oiginEndDate - startDate) / msInDay 
+		  );
+		  
+		  const returnedLeft = Math.round(
+		    Math.abs(endDate - startDate) / msInDay 
+		  );
+	/* 	  console.log("originDayLeft:: ", originDayLeft)
+		  console.log("returnedLeft:: ", returnedLeft)
+		  console.log(Math.round(returnedLeft / originDayLeft * 100)); */
+		  
+		  const percentageValue = `\${Math.round(returnedLeft / originDayLeft * 100)}`
+		  
+		  return percentageValue
+		  
+		}
+		
 	
 // 반납하게되는 날(오늘)
 const setRegDate = () => {
@@ -317,6 +445,7 @@ const setRegDate = () => {
       const dateReturn = document.querySelector('.date_return')
 	 // dateReturn.innerText = formattedDate
   };
+  
 
 const modalReturn = document.getElementById('modalReturn')
 const modalReview = document.getElementById('modalReview')
@@ -324,49 +453,60 @@ const modalReview = document.getElementById('modalReview')
 // 반납 안내 모달
 if (modalReturn) {modalReturn.addEventListener('show.bs.modal', event => {
 	
-	const returnDesc = document.querySelector(".return_desc")
-	returnDesc.innerHTML = ''
+	let returnPercentage
+
     const button = event.relatedTarget
-    const orderId = button.getAttribute('data-order-id')
-    const endRego = new Date();
-    const endDate = button.getAttribute('data-enddate')
     const startDate = button.getAttribute('data-startdate')
-    const originalPrice= button.getAttribute('data-original-price')
-    const price = button.getAttribute('data-rego-price')
-    const deposit = button.getAttribute('data-deposit')
-    const productTitle = button.getAttribute('data-product-title')
-    const submitReturn = document.getElementById("submitReturn")
-    const dataImageLink = button.getAttribute('data-image-link')
-    const form = modalReturn.querySelector('form')
+    const endDate = button.getAttribute('data-enddate')
+    const orderId = button.getAttribute('data-order-id')
     
+	let startDateObj = new Date(startDate.replace('KST', 'GMT+0900'));    
 	let endDateObj = new Date(endDate.replace('KST', 'GMT+0900'));
-	let startDateObj = new Date(startDate.replace('KST', 'GMT+0900'));
-    
-    const yyyy = endDateObj.getFullYear();
-    const mm = String(endDateObj.getMonth() + 1).padStart(2, '0');
-    const dd = String(endDateObj.getDate()).padStart(2, '0');
-    formattedEndDate = `\${yyyy}-\${mm}-\${dd}`;
-    
+
     const yyyy2 = startDateObj.getFullYear();
     const mm2 = String(startDateObj.getMonth() + 1).padStart(2, '0');
     const dd2 = String(startDateObj.getDate()).padStart(2, '0');
     formattedStartedDate = `\${yyyy2}-\${mm2}-\${dd2}`;
     
+    const yyyy = endDateObj.getFullYear();
+    const mm = String(endDateObj.getMonth() + 1).padStart(2, '0');
+    const dd = String(endDateObj.getDate()).padStart(2, '0');
+    formattedEndDate = `\${yyyy}-\${mm}-\${dd}`;
+	
+    returnPercentage = calcEarlyReturn(new Date(formattedStartedDate), new Date(formattedEndDate), new Date(formattedDate))
+    
+    console.log({returnPercentage})
+    if(returnPercentage < 90) {
+    	alert('반납 진행됩니다!!')
+    	window.location.href = "../rental/rentalReturnZeroProcess?rental_order_id="+orderId
+    }
+	
+	const returnDesc = document.querySelector(".return_desc")
+	returnDesc.innerHTML = ''
+    const endRego = new Date();
+    const originalPrice= button.getAttribute('data-original-price')
+    const price = button.getAttribute('data-rego-price')
+    console.log("regi price", price)
+    const deposit = button.getAttribute('data-deposit')
+    const productTitle = button.getAttribute('data-product-title')
+    const submitReturn = document.getElementById("submitReturn")
+    const dataImageLink = button.getAttribute('data-image-link')
+    const form = modalReturn.querySelector('form')
+
     setRegDate()
     
     const remainMonth = getMonthDiffer(new Date(formattedDate),new Date(formattedEndDate))
-    const refundMoney = (originalPrice - price) * remainMonth
+    const calcedPrice = originalPrice - price
+    const refundMoney = calcedPrice * remainMonth
    
     let span = document.createElement('span')
     let modalTit = document.querySelector('.modal-tit')
-    let originPriceP = document.querySelector('.originPriceP')
     let originPriceVal = parseInt(originalPrice).toLocaleString('ko-KR')
     let regiMonthP = document.querySelectorAll('.regiMonthP')
     let startDateP = document.querySelector('.startDateP')
     let endDateP = document.querySelector('.endDateP')
     let finPriceP = document.querySelector('.finPriceP')
     let usedPriceP = document.querySelector('.usedPriceP')
-   // let usedMonthP = document.qu'.<small>'r('.usedMonthP')
     let modalTopImage = document.querySelector('.modalTopImage')
     let minusPriceP = document.querySelector('.minusPriceP')
     
@@ -376,22 +516,16 @@ if (modalReturn) {modalReturn.addEventListener('show.bs.modal', event => {
     getRentalPeriodDisc(orderId, regiMonth, originPriceVal)
     
     modalTit.innerText = productTitle
-    usedPriceP.innerText = price
-    originPriceP.innerText = originPriceVal+"원"
+    usedPriceP.innerText = parseInt(price).toLocaleString()
     regiMonthP[0].innerText = regiMonth
     regiMonthP[1].innerText = regiMonth
     startDateP.innerText = formattedStartedDate
     endDateP.innerText = formattedEndDate
-    minusPriceP.innerText = ''
-    
-    minusPriceP.innerText = parseInt(discPrice) - parseInt(originPriceVal)
+    minusPriceP.innerText = calcedPrice.toLocaleString()
     finPriceP.innerText = parseInt(refundMoney).toLocaleString('ko-KR')
     
-    setTimeout(() => {
-    	minusPriceP.innerText = finDiscPrice
-	}, 500);
+ 
 
-   // usedMonthP.innerText = calcMonth
     modalTopImage.setAttribute('src', '/safariImg/'+dataImageLink)
     submitReturn.setAttribute('onclick', 'returnProcess(' + orderId + ',' + refundMoney + ', "'+ productTitle + '")')
     
@@ -422,10 +556,9 @@ function getMonthDiffer(startMonth, endMonth) {
 
 
 function returnProcess(orderId,refundMoney,productTitle) {
-	console.log('리턴프로세스 매개변수 orderId:: ',orderId )
+/* 	console.log('리턴프로세스 매개변수 orderId:: ',orderId )
 	console.log('리턴프로세스 매개변수 refundMoney:: ',refundMoney )
-	console.log('리턴프로세스 매개변수 productTitle:: ',productTitle )
-	console.log(orderId,refundMoney,productTitle)
+	console.log('리턴프로세스 매개변수 productTitle:: ',productTitle ) */
 	const xhr = new XMLHttpRequest()
 
 	xhr.onreadystatechange = function() {
@@ -441,12 +574,49 @@ function returnProcess(orderId,refundMoney,productTitle) {
 				
 			}
 			
-			
 		}
 	}
 	
 	xhr.open("get", "../rental/rentalReturnProcess?rental_order_id="+orderId+"&discount_revocation="+refundMoney+"&product_title="+productTitle);
 	xhr.send();	
+}
+
+/* 내 리뷰보기 */
+function showMyReview() {
+	const showMyReviewModal = bootstrap.Modal.getOrCreateInstance("#showMyReviewModal");
+	
+	showMyReviewModal.show();
+	
+}
+
+/* 리뷰AJAX호출먼저!! */
+function placeReviewDate(id) {
+	const xhr = new XMLHttpRequest();
+	
+	xhr.onreadystatechange = function(){
+		if(xhr.readyState == 4 && xhr.status == 200){
+			const response = JSON.parse(xhr.responseText);
+			if(response.result == "success"){
+				let rentalReviewDto = response.rentalReviewDto
+				console.log(rentalReviewDto.rental_review_title)
+				console.log(rentalReviewDto.rental_review_content)
+				console.log(rentalReviewDto.rental_review_rating)
+				console.log(rentalReviewDto.reg_date)
+				
+				showMyReview()
+				let reviewTitle = document.querySelector('.reviewTitle')
+				let reviewDesc = document.querySelector('.reviewDesc')
+				let ratingBox = document.querySelector('.ratingBox')
+				
+				reviewTitle.innerText = rentalReviewDto.rental_review_title
+				reviewDesc.innerText = rentalReviewDto.rental_review_content
+				ratingBox.innerText = rentalReviewDto.rental_review_rating
+			}
+		}
+	}
+	
+	xhr.open("get", "/safari/rental/getMyItemReview?id="+id, false);
+	xhr.send();
 }
 
 window.addEventListener("DOMContentLoaded", function(){

@@ -17,6 +17,7 @@ import com.ja.safari.cs.service.CsServiceImpl;
 import com.ja.safari.dto.CsEmpDto;
 import com.ja.safari.dto.CsLiveChatMsgDto;
 import com.ja.safari.dto.CsQnaDto;
+import com.ja.safari.dto.UserDto;
 
 @RestController
 @RequestMapping("/cs/*")
@@ -25,6 +26,24 @@ public class CsRestController {
 	@Autowired
 	private CsServiceImpl csService;
 	
+	
+	// 직원 리스트 조회 
+	@RequestMapping("login")
+	public  Map<String, Object> login(HttpSession session, CsEmpDto empDto) {
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		CsEmpDto empUser = csService.getEmpDtoByUserNameAndPw(empDto);
+		
+		if (empUser != null) {
+		   session.setAttribute("empUser", empUser);
+		   map.put("result", "success");
+	   } else {
+		   map.put("result", "fail");
+	   }
+		
+		return map;
+	}
 	
 	// 직원 리스트 조회 
 	@RequestMapping("getEmployeeList")
@@ -331,6 +350,26 @@ public class CsRestController {
 		csService.endLiveChatById(chatId);
 		
 		map.put("result", "success");
+		
+		return map;
+	}
+	
+	// 대시보드 그래프 // 주간 직원 업무량 데이터 가져오기 
+	@RequestMapping("getWeeklyChartData")
+	public  Map<String, Object> getWeeklyChartData(HttpSession session) {
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		CsEmpDto empUser = (CsEmpDto) session.getAttribute("empUser");
+		if(empUser == null) {
+			map.put("result", "fail");
+			map.put("reason", "login required");
+			return map;
+		}
+		
+		map.put("result", "success");
+		map.put("list1", csService.getWeeklyEmpWorkCountList());
+		map.put("list2", csService.getWeeklyEmpTaskCountList());
 		
 		return map;
 	}

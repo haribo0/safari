@@ -14,6 +14,15 @@
 .btn-qna{position: fixed; bottom: 80px; right: 70px; background-color: #f5f5f5; width: 68px; height: 68px; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 3rem; cursor: pointer;}
 .coin-box{position: relative;}
 .coin-box::before {content: ''; width:1px; height: 60%; background: #5e5e5e; display:block; position: absolute; top: 50%; transform:translateY(-50%); left: 0px;}
+
+.orangeBtn2 {
+	background: #FF924A;
+	color: white;
+}
+.orangeBtn {
+	background: #FF6F0F;
+	color: white;
+}
 </style>
 </head>
 <body>
@@ -45,7 +54,7 @@
 					<h5>1대1 문의</h5>						
 				</div>
 				<div class="col text-end">
-					<a href="./myInquiryPostPage" class="btn btn-dark btn-sm px-5">문의 작성</a>
+					<a href="./myInquiryPostPage" class="btn orangeBtn btn-sm px-5">문의 작성</a>
 				</div>
 			</div>
 			
@@ -58,10 +67,13 @@
 				<div class="col-1">
 					#			
 				</div>
-				<div class="col-2">
+				<div class="col-auto">
+					진행상태
+				</div>
+				<div class="col-1">
 					카테고리	
 				</div>
-				<div class="col-7">
+				<div class="col">
 					제목			
 				</div>
 				<div class="col-2">
@@ -69,12 +81,10 @@
 				</div>
 			</div>
 			
-			<!-- <hr class="m-0 p-0"> -->
-
 			
 			<div id="inquiryListContainer">
 			
-				<div class="row  py-3 text-center border-bottom">
+				<!-- <div class="row  py-3 text-center border-bottom">
 					<div class="col-1">
 						3
 					</div>
@@ -88,7 +98,6 @@
 						07/13/2023			
 					</div>
 				</div>
-				<!-- <hr class="m-0 p-0"> -->
 				
 				<div class="row  py-3 text-center border-bottom">
 					<div class="col-1">
@@ -104,7 +113,6 @@
 						06/10/2023				
 					</div>
 				</div>
-				<!-- <hr class="m-0 p-0"> -->
 				
 				<div class="row py-3 text-center bg-light  border-bottom">
 					<div class="col-1 text-end">
@@ -120,7 +128,6 @@
 						06/10/2023				
 					</div>
 				</div>
-				<!-- <hr class="m-0 p-0"> -->
 				
 				<div class="row  py-3 text-center  border-bottom">
 					<div class="col-1">
@@ -135,8 +142,7 @@
 					<div class="col-2">
 						03/10/2023			
 					</div>
-				</div>
-				<!-- <hr class="m-0 p-0"> -->
+				</div> -->
 				
 				
 			</div>
@@ -187,12 +193,26 @@ function getInquiryList() {
 
 				// Create the col-2 div
 				const col2Div = document.createElement('div');
-				col2Div.classList.add('col-2');
+				col2Div.classList.add('col-1');
 				col2Div.textContent = map.category.category;
+
+				// Create the col-2 div
+				const colStatusDiv = document.createElement('div');
+				colStatusDiv.classList.add('col-auto');
+				const innerColDiv = document.createElement('div');
+				innerColDiv.style.width = "60px";
+				if(map.qna.qna_reply!=null) {
+					innerColDiv.textContent = "답변완료";
+					innerColDiv.classList.add('badge','orangeBtn2');
+				} else {
+					innerColDiv.textContent = "답변중";
+					innerColDiv.classList.add('badge','text-bg-light');
+				}
+				colStatusDiv.appendChild(innerColDiv);
 
 				// Create the col3Div div
 				const col3Div = document.createElement('div');
-				col3Div.classList.add('col-7');
+				col3Div.classList.add('col');
 				const link1 = document.createElement('a');
 				link1.className = 'text-black text-decoration-none';
 				link1.setAttribute('href', './myInquiryDetail?id='+map.qna.id);
@@ -208,12 +228,19 @@ function getInquiryList() {
 
 				// Append the inner divs to the main container div
 				row1Div.appendChild(col1Div);
+				row1Div.appendChild(colStatusDiv);
 				row1Div.appendChild(col2Div);
 				row1Div.appendChild(col3Div);
 				row1Div.appendChild(col4Div);
+				
+				/* row1Div.addEventListener("click", function() {
+					
+				}); */
 				listContainer.appendChild(row1Div);
 				
-				if(map.qna.qna_reply!=null) {
+			
+				
+				/* if(map.qna.qna_reply!=null) {
 					// Create the main container div
 					const rowDiv = document.createElement('div');
 					rowDiv.classList.add('row', 'py-3', 'text-center', 'bg-light', 'border-bottom');
@@ -253,7 +280,7 @@ function getInquiryList() {
 					rowDiv.appendChild(col3Div1);
 					rowDiv.appendChild(col4Div1);
 					listContainer.appendChild(rowDiv);
-				}
+				} */
 
 				
 			});

@@ -10,6 +10,7 @@ import java.util.UUID;
 
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.text.StringEscapeUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,12 +20,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.ja.safari.community.service.QuestionServiceImpl;
-import com.ja.safari.dto.HelpImgDto;
 import com.ja.safari.dto.QuestionDto;
 import com.ja.safari.dto.QuestionImgDto;
 import com.ja.safari.dto.QuestionLikeDto;
-import com.ja.safari.dto.QuestionReplyCompleteDto;
 import com.ja.safari.dto.QuestionReplyDto;
+import com.ja.safari.dto.UserCoinDto;
 import com.ja.safari.dto.UserDto;
 import com.ja.safari.user.service.UserServiceImpl;
 
@@ -41,12 +41,29 @@ public class QuestionController {
 	
 	// 궁금해요 메인 페이지
 		@RequestMapping("question/mainPage")
-		public String question(Model model, String question_searchType, String question_searchWord) {
+		public String mainPage(Model model, @RequestParam(value="questionPage", defaultValue="1") int questionPage,
+			String question_searchType, String question_searchWord) {
 
-			List<Map<String, Object>> questionBoardList = questionService.getQuestionBoardList(question_searchType, question_searchWord);
-
+			
+			
+			List<Map<String, Object>> questionBoardList = questionService.getQuestionBoardList(questionPage, question_searchType, question_searchWord);
+			
+			int questionBoardCount = questionService.getQuestionBoardCount();
+			int totalQuestionPage = (int)Math.ceil(questionBoardCount/10.0);
+			/*
+			 * int questionReplyCount =
+			 * questionService.selectAllQuestionReplyCountByBoardId(); int questionImgCount
+			 * = questionService.selectAllQuestionImgByBoardId();
+			 */
+			
+			List<Map<String, Object>> questionBestBoardList = questionService.selectBestQuestionBoards();
+			
 			model.addAttribute("questionBoardList", questionBoardList);
-
+			model.addAttribute("totalQuestionPage", totalQuestionPage);
+			model.addAttribute("currentQuestionPage", questionPage);
+			model.addAttribute("questionBestBoardList", questionBestBoardList);
+			
+			
 			return "/community/question/mainPage";
 		}
 
@@ -123,16 +140,29 @@ public class QuestionController {
 			questionService.increaseQuestionReadCount(id);
 
 			Map<String, Object> map = questionService.getQuestionBoardByBoardId(id);
-
+			
+			//html escape
+			QuestionDto questionDto = (QuestionDto)map.get("questionDto");
+			String content = questionDto.getContent();
+			content = StringEscapeUtils.escapeHtml4(content);
+			content = content.replaceAll("\n", "<br>");
+			questionDto.setContent(content);
+			
 			model.addAttribute("map", map);
 			
 			List<Map<String, Object>> questionReplyBoardList = questionService.getQuestionReplyBoardList(id);
+			
+			
 			
 			model.addAttribute("questionReplyBoardList", questionReplyBoardList);
 
 			int QuestionBoardLikeCount = questionService.getQuestionLikeCountByBoardId(id);
 
 			model.addAttribute("QuestionBoardLikeCount", QuestionBoardLikeCount);
+			
+		
+			
+			
 
 			return "/community/question/questionReadContentPage";
 		}
@@ -151,9 +181,10 @@ public class QuestionController {
 		@RequestMapping("question/updateQuestionContentProcess")
 		public String updateQuestionContentProcess(QuestionDto questionDto) {
 			questionService.updateQuestionBoard(questionDto);
-			//System.out.println(questionDto.getId());
+			int id = questionDto.getId();
+			System.out.println(id);
 
-			return "redirect:/community/question/questionReadContentPage/"+ questionDto.getId();
+			return "redirect:/community/question/mainPage";//"redirect:/community/question/questionReadContentPage/"+ id;
 		}
 
 		// 궁금해요 게시물 삭제
@@ -167,9 +198,12 @@ public class QuestionController {
 
 		//답변 등록 프로세스 
 		@RequestMapping("question/writeQuestionReplyProcess")
-		public String writeQuestionReplyProcess(QuestionReplyDto questionReplyDto) {
-
+		public String writeQuestionReplyProcess(HttpSession session, QuestionReplyDto questionReplyDto) {
+			
+			
 			questionService.registerQuestionReply(questionReplyDto);
+			
+			
 			
 			return "redirect:/community/question/questionReadContentPage/" + questionReplyDto.getQuestion_id();
 
@@ -177,15 +211,24 @@ public class QuestionController {
 		
 		//궁금해요 답변 작성 페이지
 		 @RequestMapping("question/replyQuestionContentPage/{id}") 
-			public String replyQuestionContentPage(@PathVariable int id, Model model) { 
+			public String replyQuestionContentPage(@PathVariable int id, Model model, HttpSession session) { 
 				 
-		    model.addAttribute("board", questionService.getQuestionBoardByBoardId(id));
+			 UserDto sessionUser = (UserDto) session.getAttribute("sessionUser");
+				
+				if(sessionUser == null) {
+					return "redirect:/user/loginPage";
+				}
+			 
+			 
+		     model.addAttribute("board", questionService.getQuestionBoardByBoardId(id));
 			 
 			
 			 List<Map<String,Object>> questionReplyBoardList = questionService.getQuestionReplyBoardList(id);
 			 
 			 model.addAttribute("questionReplyBoardList", questionReplyBoardList); 
 			 
+			
+					
 			 return "/community/question/replyQuestionContentPage";
 			 }
 
@@ -229,17 +272,17 @@ public class QuestionController {
 		
 	  //궁금해요 게시물 채택 
 		@RequestMapping("question/acceptQuestionReplyProcess")
-		public String acceptQuestionReplyProcess(int question_reply_id, QuestionReplyCompleteDto questionReplyCompleteDto) {
+		public String acceptQuestionReplyProcess(int question_reply_id) {
 		
 		// 궁금해요 채택완료 테이블
-		questionReplyCompleteDto.setQuestion_reply_id(question_reply_id);
 		
 		QuestionReplyDto questionReplyDto = questionService.getQuestionReplyById(question_reply_id);
 			
-		questionService.acceptQuestionReply(question_reply_id);
 		questionService.completeQuestionReply(question_reply_id);
 		questionService.completeQuestionBoard(question_reply_id);
 		
+		// 코인 더해주기 
+		questionService.questionReplyCoinReward(questionReplyDto);
 		
 		return "redirect:/community/question/questionReadContentPage/" + questionReplyDto.getQuestion_id();
 }

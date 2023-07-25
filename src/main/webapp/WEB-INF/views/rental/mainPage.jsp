@@ -12,13 +12,18 @@
 <!-- 메타 섹션 -->
 <style>
 .item-box-img, .item-box-img-ad{transition: 0.3s ease;}
-.item-box-img:hover{transform: scale(1.05);}
-.item-box-img-ad:hover{transform: scale(1.02);}
+.item-box-img:hover{transform: scale(1.01);}
+.item-box-img-ad:hover{transform: scale(1.01);}
 
 .carousel-item{height: 240px;}
-.carousel-item-1{background: url("${pageContext.request.contextPath}/resources/img/rental/rental-banner-2.jpg") 50% 50% no-repeat;}
-.carousel-item-2{background: url("${pageContext.request.contextPath}/resources/img/rental/rental-banner-1.jpg") 50% 50% no-repeat;}
+.carousel-item-1{background: url("${pageContext.request.contextPath}/resources/img/rental/rental-banner-1.jpg") 50% 50% no-repeat; background-size: cover;}
+.carousel-item-2{background: url("${pageContext.request.contextPath}/resources/img/rental/rental-banner-2.jpg") 50% 50% no-repeat; background-size: cover;}
 
+.carousel-control-next, .carousel-control-prev{width: 8%;}
+.boxCategory{transition: all 0.2s}
+.boxCategory:hover {
+	box-shadow: 0px 2px 14px -2px rgba(0, 0, 0, 0.125);
+}
 </style>
 </head>
 <body>
@@ -26,17 +31,37 @@
 	<jsp:include page="../common/header.jsp"></jsp:include>
 	<!-- 헤더 섹션 -->
 
-	<div class="container-fluid d-flex align-items-center justify-content-between p-3 px-5 mb-3 bg-light">
-		<div class="container">
-			<div class="row">
-				<p class="mb-0 px-0 text-body-secondary"><a href="${pageContext.request.contextPath}/rental/mainPage" class="btn" style="font-size: 15px;">대여</a> &gt; <span class="mx-2" style="font-size: 15px;">전체보기</span></p>
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col">
+				<div id="carouselExample" class="carousel slide">
+				  <div class="carousel-inner">
+				    <div class="carousel-item active">
+				      <img src="${pageContext.request.contextPath}/resources/img/rental/rental_banner_1.jpg" class="d-block w-100" alt="...">
+				    </div>
+				    <div class="carousel-item">
+				      <img src="${pageContext.request.contextPath}/resources/img/rental/rental_banner_2.jpg" class="d-block w-100" alt="...">
+				    </div>
+				    <div class="carousel-item">
+				      <img src="${pageContext.request.contextPath}/resources/img/rental/rental_banner_3.jpg" class="d-block w-100" alt="...">
+				    </div>
+				  </div>
+				  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+				    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+				    <span class="visually-hidden">Previous</span>
+				  </button>
+				  <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+				    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+				    <span class="visually-hidden">Next</span>
+				  </button>
+				</div>
 			</div>
 		</div>
 	</div>
 
 	<div class="container">
 		<div class="row">
-			<div class="col-2 mt-4">
+ 			<div class="col-2 mt-4">
 				<ul class="list-group" style="top: 115.23px; z-index: 50;">
 				  <li class="list-group-item border border-0 ps-0 pt-2 pb-0"><a href="${pageContext.request.contextPath}/rental/mainPage" class="btn ps-0 text fw-bold py-1" href="#" style="font-size: 17px;">전체보기</a></li>
 				  <c:forEach items="${categoryList}" var="map" varStatus="status">
@@ -51,10 +76,10 @@
 				  </c:forEach>
 				</ul>
 			</div>
-
-			<div class="col mt-4 px-4">
-				<div class="row">
-					<div class="col">
+			
+			<div class="col">
+<!-- 				<div class="row">
+					<div class="col px-0">
 						<div id="carouselExample" class="carousel slide">
 						  <div class="carousel-inner">
 						    <div class="carousel-item active carousel-item carousel-item-1">
@@ -72,66 +97,307 @@
 						  </button>
 						</div>
 					</div>
-				</div>
+				</div> -->
+				
 
-				<div class="row border-bottom pb-2">
-					<p class="mb-0 mt-3 text-body-tertiary text-end">파워광고상품</p>
+				<div class="row pb-2">
+					<p class="mb-0 mt-3 ps-0 fs-5 fw-bold">파워광고상품</p>
+					<!-- <p class="mb-0 mt-3 ps-0"><i class="bi bi-badge-ad-fill fs-4" style="color: #f68a42; vertical-align: -2px;"></i> <span style="color: #000;" class="fw-bold">파워광고상품</span></p> -->
 				</div>
 
 				<!-- 광고 대여 물품 row 작업중 -->
-				<div class="row flex justify-content-between py-2 my-2">
-	 				<c:forEach items="${rentalItemList}" var="map" begin="0" end="4" step="1" varStatus="status">
-						<div class="col-2 px-0" style="min-width:200px; cursor: pointer;">
+				<div class="row flex justify-content-between pt-1 pb-3 my-2 mt-1">
+	 				<c:forEach items="${rentalItemList}" var="map" begin="0" end="5" step="1">
+						<div class="col-2 position-relative">
+							<div class="position-absolute px-2" style="top: 8px; right: 20px; background:#f68a42; color: #fff; border-radius: 24px; z-index: 50; font-size: 12px;">
+								AD
+							</div>
 							<div class="card border border-0">
 								<a href="${pageContext.request.contextPath}/rental/productDescPage?id=${map.rentalItemDto.id}" class="text-decoration-none d-inline-block">
-								  <img src="/safariImg/${map.rentalItemDto.main_img_link}" class="card-img-top img-fluid item-box-img-ad" alt="..." style="min-height: 200px;">
+								  <img src="/safariImg/${map.rentalItemDto.main_img_link}" class="card-img-top rounded-0 img-fluid item-box-img-ad" alt="..." style="min-height: 150px;">
 								</a>
 							  <div class="card-body p-0 mt-2">
-							  	<div class="d-flex justify-content-between">
+								  <div class="row mt-1 descBox">
+									<div class="col">
+										<p class="text-secondary mb-0" style="font-size: 13px;">${map.rentalBusinessDto.business_name }</p>
+								    	<p class="text-dark mb-2"><a href="${pageContext.request.contextPath}/rental/productDescPage?id=${map.rentalItemDto.id}" class="text-decoration-none d-inline-block text-dark" style="font-size: 16px;">${map.rentalItemDto.title}</a></p>
+									    <p class="mb-0"><a href="${pageContext.request.contextPath}/rental/productDescPage?id=${map.rentalItemDto.id}" class="text-decoration-none d-inline-block text-dark" style="font-weight: 900; font-size: 18px;"><fmt:formatNumber value="${map.rentalItemDto.price}" pattern="#,##0" /> 원 </a><span style="font-size: 13px;">/ 월</span></p>
+										<p class="mb-0"><span style="font-size: 13px; color: #5a5a5a;"><i class="bi bi-heart"></i> </span><span class="fw-bold" style="font-size: 13px; color: #7e7e7e;">${map.itemLikeCount}</span> <span class="ms-1" style="font-size: 13px; color: #5a5a5a;"><i class="bi bi-chat"></i></span> <span class="fw-bold" style="font-size: 13px; color: #7e7e7e;">${map.itemReviewCount}</span></p>
+										<p class="mt-1"><span style="background: #e5e5e5; border-radius: 6px; font-size: 12px; padding: 3px 6px;">무료배송</span></p>								
+									</div>
+								</div>
+							
+<%-- 							  	<div class="d-flex justify-content-between">
 							    	<p class="text-dark mb-0"><a href="${pageContext.request.contextPath}/rental/productDescPage?id=${map.rentalItemDto.id}" class="text-decoration-none d-inline-block text-dark fw-bold" style="font-size: 15px;">${map.rentalItemDto.title}</a></p>
 							  	</div>
 							    <p class="mb-0"><a href="${pageContext.request.contextPath}/rental/productDescPage?id=${map.rentalItemDto.id}" class="w-100 text-decoration-none d-inline-block text-body-secondary" style="overflow:hidden; text-overflow:ellipsis; white-space:nowrap; font-size: 14px;">${map.rentalItemDto.item_description}</a></p>
 							    <div class="d-flex justify-content-between">
-								    <p><b class="text-dark"><a href="${pageContext.request.contextPath}/rental/productDescPage?id=${map.rentalItemDto.id}" class="text-decoration-none d-inline-block text-dark" style="font-size: 14px;"><fmt:formatNumber value="${map.rentalItemDto.price}" pattern="#,##0" /> 원 </a></b><span style="font-size: 13px;">/ 월</span></p>
-							  		<p class="mb-0"><span class="fw-bold" id="totalLikeCount"></span><i id="heartBox" onclick="toggleLike(${map.rentalItemDto.id})" class="bi bi-heart heart_box text-danger" data-item-id="${map.rentalItemDto.id}" style="font-size: 18px;"></i></p>
+								    <p class="mb-0"><b class="text-dark"><a href="${pageContext.request.contextPath}/rental/productDescPage?id=${map.rentalItemDto.id}" class="text-decoration-none d-inline-block text-dark" style="font-size: 15px;"><fmt:formatNumber value="${map.rentalItemDto.price}" pattern="#,##0" /> 원 </a></b><span style="font-size: 13px;">/ 월</span></p>
 							    </div>
+							    <div>
+							  		<p class="mb-0">
+							  			<!-- <span style="font-size: 12px;">좋아요</span> -->
+							  			<i class="bi bi-heart"></i>
+							  			<span  onclick="toggleLike(${map.rentalItemDto.id})" class="fw-bold totalLikeCount" style="font-size: 12px;"></span>
+							  			<i id="heartBox" onclick="toggleLike(${map.rentalItemDto.id})" class="bi bi-heart heart_box text-danger" data-item-id="${map.rentalItemDto.id}" style="font-size: 18px;"></i>
+							  		</p>							    
+							    </div> --%>
+							    
 							  </div>
 							 </div>
 						</div>
 					</c:forEach>
 				</div>
 				<!-- 광고 대여 물품 row 작업중 -->
-
-				<div class="row justify-content-end py-2 border-bottom">
-					<div class="col-3 d-flex justify-content-end align-items-center">
+				
+				<!-- 카테고리 id 를 통한 하드 코딩 참고 -->
+				<%-- <a href="${pageContext.request.contextPath}/rental/mainPage/?main_category_id=${map.categoryItem.id}" --%>
+				<%-- <a href="${pageContext.request.contextPath}/rental/mainPage/?sub_category_id=${subTitle.id}" --%>
+				
+				<div class="row mt-1 pb-2">
+					<p class="mb-0 mt-3 ps-0 fs-5 fw-bold">금주의 스페셜딜</p>
+				</div>
+				<div class="row">
+ 					<div class="col ps-0" style="cursor: pointer;">
+						<img class="img-fluid rounded-2" alt="" src="${pageContext.request.contextPath}/resources/img/rental/b1.png">
+					</div>
+ 					<div class="col pe-0" style="cursor: pointer;">
+						<img class="img-fluid rounded-2" alt="" src="${pageContext.request.contextPath}/resources/img/rental/b2.png">
+					</div>
+				</div>
+				
+				<div class="row justify-content-between mt-5 pb-2">
+					<div class="col px-0">
+						<p class="mb-0 mt-3 ps-0 fs-5 fw-bold">카테고리</p>
+					</div>
+					
+					<div class="col px-0 pt-3 text-end">
+						<a href="${pageContext.request.contextPath}/rental/mainPage" style="font-size: 14px;">전체보기</a>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col text-center boxCategory">
+						<a href="${pageContext.request.contextPath}/rental/mainPage/?main_category_id=1" class="btn">
+							<div class="row">
+								<div>
+									<img class="img-fluid" alt="" src="${pageContext.request.contextPath}/resources/img/rental/category/furniture.png">
+								</div>
+							</div>
+							<div class="row mt-2">
+								<div>
+									<p class="fw-bold">가구</p>
+								</div>
+							</div>
+						</a>
+					</div>
+					<div class="col text-center boxCategory">
+						<a href="${pageContext.request.contextPath}/rental/mainPage/?sub_category_id=1" class="btn">
+						<div class="row">
+							<div>
+								<img class="img-fluid" alt="" src="${pageContext.request.contextPath}/resources/img/rental/category/sofa.png">
+							</div>
+						</div>
+						<div class="row mt-2">
+							<div>
+								<p class="fw-bold">소파</p>
+							</div>
+						</div>
+						</a>
+					</div>
+					<div class="col text-center boxCategory">
+						<a href="${pageContext.request.contextPath}/rental/mainPage/?sub_category_id=4" class="btn">
+						<div class="row">
+							<div>
+								<img class="img-fluid" alt="" src="${pageContext.request.contextPath}/resources/img/rental/category/closet.png">
+							</div>
+						</div>
+						<div class="row mt-2">
+							<div>
+								<p class="fw-bold">수납장</p>
+							</div>
+						</div>
+						</a>
+					</div>
+					<div class="col text-center boxCategory">
+						<a href="${pageContext.request.contextPath}/rental/mainPage/?main_category_id=2" class="btn">
+						<div class="row">
+							<div>
+								<img class="img-fluid" alt="" src="${pageContext.request.contextPath}/resources/img/rental/category/lifeIt.png">
+							</div>
+						</div>
+						<div class="row mt-2 boxCategory">
+							<div>
+								<p class="fw-bold">생활가전</p>
+							</div>
+						</div>
+						</a>
+					</div>
+					<div class="col text-center boxCategory">
+						<a href="${pageContext.request.contextPath}/rental/mainPage/?sub_category_id=12" class="btn">
+						<div class="row">
+							<div>
+								<img class="img-fluid" alt="" src="${pageContext.request.contextPath}/resources/img/rental/category/airCleaner.png">
+							</div>
+						</div>
+						<div class="row mt-2">
+							<div>
+								<p class="fw-bold">공기청정기</p>
+							</div>
+						</div>
+						</a>
+					</div>
+					<div class="col text-center boxCategory">
+						<a href="${pageContext.request.contextPath}/rental/mainPage/?sub_category_id=13" class="btn">
+						<div class="row">
+							<div>
+								<img class="img-fluid" alt="" src="${pageContext.request.contextPath}/resources/img/rental/category/airConditioner.png">
+							</div>
+						</div>
+						<div class="row mt-2">
+							<div>
+								<p class="fw-bold">에어컨</p>
+							</div>
+						</div>
+						</a>
+					</div>
+					<div class="col text-center boxCategory">
+						<a href="${pageContext.request.contextPath}/rental/mainPage/?sub_category_id=14" class="btn">
+						<div class="row">
+							<div>
+								<img class="img-fluid" alt="" src="${pageContext.request.contextPath}/resources/img/rental/category/tv.png">
+							</div>
+						</div>
+						<div class="row mt-2">
+							<div>
+								<p class="fw-bold">티비</p>
+							</div>
+						</div>
+						</a>
+					</div>
+					<div class="col text-center boxCategory">
+						<a href="${pageContext.request.contextPath}/rental/mainPage/?main_category_id=3" class="btn">
+						<div class="row">
+							<div>
+								<img class="img-fluid" alt="" src="${pageContext.request.contextPath}/resources/img/rental/category/kitchenIt.png">
+							</div>
+						</div>
+						<div class="row mt-2">
+							<div>
+								<p class="fw-bold">주방가전</p>
+							</div>
+						</div>
+						</a>
+					</div>
+					<div class="col text-center boxCategory">
+						<a href="${pageContext.request.contextPath}/rental/mainPage/?sub_category_id=5" class="btn">
+						<div class="row">
+							<div>
+								<img class="img-fluid" alt="" src="${pageContext.request.contextPath}/resources/img/rental/category/water.png">
+							</div>
+						</div>
+						<div class="row mt-2">
+							<div>
+								<p class="fw-bold">정수기</p>
+							</div>
+						</div>
+						</a>
+					</div>
+					<div class="col text-center boxCategory">
+						<a href="${pageContext.request.contextPath}/rental/mainPage/?sub_category_id=6" class="btn">
+						<div class="row">
+							<div>
+								<img class="img-fluid" alt="" src="${pageContext.request.contextPath}/resources/img/rental/category/refrigerator.png">
+							</div>
+						</div>
+						<div class="row mt-2">
+							<div>
+								<p class="fw-bold">냉장고</p>
+							</div>
+						</div>
+						</a>
+					</div>
+				</div>
+				
+				<div class="row justify-content-between mt-3 pb-2">
+					<div class="col">
+						<p class="mb-0 ps-0 fs-5 fw-bold">대여상품</p>
+					</div>
+					
+					<div class="col d-flex justify-content-end">
+						<div class="dropdown">
+						  <a class="btn bg-light dropdown-toggle dropdownName" href="#" role="button" data-bs-toggle="dropdown">
+						    일반순
+						  </a>
+						
+						  <ul class="dropdown-menu bg-light">
+						    <li><a class="dropdown-item btnLikesOrder" href="#">좋아요순</a></li>
+						    <li><a class="dropdown-item btnReviewOrder" href="#">리뷰순</a></li>
+						    <li><a class="dropdown-item btnRentOrder" href="#">구매순</a></li>
+						  </ul>
+						</div>
+					</div>
+				</div>
+				
+<!-- 				<div class="row py-2 mb-3 mt-5">
+					<div class="col-3 px-0 d-flex align-items-center">
 						<a href="#" class="btn p-2 mx-3 btnLikesOrder" style="cursor: pointer;">찜</a> |
 						<a href="#" class="btn p-2 mx-3 btnReviewOrder" style="cursor: pointer;">리뷰</a> |
 						<a href="#" class="btn p-2 ms-3 btnRentOrder" style="cursor: pointer;">구매</a>
 					</div>
-				</div>
+				</div> -->
 
-				<div class="row flex-wrap pt-2 mt-3">
-	 				<c:forEach items="${rentalItemList}" var="map">
-						<div class="col-3 item-box mt-5" style="cursor: pointer;">
-							<div class="card border border-0">
-								<a href="${pageContext.request.contextPath}/rental/productDescPage?id=${map.rentalItemDto.id}" class="text-decoration-none d-inline-block">
-								  <img src="/safariImg/${map.rentalItemDto.main_img_link}" class="card-img-top img-fluid item-box-img" alt="..." style="min-height: 260px;" >
-								</a>
-							  <div class="card-body p-0 pt-2">
-							  	<div class="d-flex justify-content-between">
-							    	<p class="text-dark mb-0"><a href="${pageContext.request.contextPath}/rental/productDescPage?id=${map.rentalItemDto.id}" class="text-decoration-none d-inline-block text-dark fw-bold" style="font-size: 18px;">${map.rentalItemDto.title}</a></p>
-							  	</div>
-							    <p class="mb-1"><a href="${pageContext.request.contextPath}/rental/productDescPage?id=${map.rentalItemDto.id}" class="w-100 text-decoration-none d-inline-block text-body-secondary" style="overflow:hidden; text-overflow:ellipsis; white-space:nowrap; font-size: 15px;">${map.rentalItemDto.item_description}</a></p>
-							    <div class="d-flex  justify-content-between">
-								    <p><b class="text-dark"><a href="${pageContext.request.contextPath}/rental/productDescPage?id=${map.rentalItemDto.id}" class="text-decoration-none d-inline-block text-dark"><fmt:formatNumber value="${map.rentalItemDto.price}" pattern="#,##0" /> 원 </a></b><span style="font-size: 13px;">/ 월</span></p>
-							  		<p class="mb-0"><span class="fw-bold" id="totalLikeCount"></span><i id="heartBox" onclick="toggleLike(${map.rentalItemDto.id})" class="bi bi-heart heart_box text-danger" data-item-id="${map.rentalItemDto.id}" style="font-size: 18px;"></i></p>
-							    </div>
-							  </div>
-							 </div>
+				<div class="row flex-wrap pt-2">
+	 				<c:forEach items="${rentalItemList}" var="map" varStatus="status">
+		 				<c:if test="${status.index % 6 == 5}">
+		 					<div class="col-2 mb-5 item-box" style="cursor: pointer;">
+		 				</c:if>
+						<div class="col mb-5 item-box" style="cursor: pointer;">
+							<div class="row imgBox">
+								<div class="col">
+									<a href="${pageContext.request.contextPath}/rental/productDescPage?id=${map.rentalItemDto.id}" class="text-decoration-none d-inline-block">
+									  <img src="/safariImg/${map.rentalItemDto.main_img_link}" class="card-img-top rounded-0 img-fluid item-box-img" alt="..." >
+									</a>																
+								</div>
+							</div>
+							
+							<div class="row mt-3 descBox">
+								<div class="col">
+									<p class="text-secondary mb-0" style="font-size: 13px;">${map.rentalBusinessDto.business_name }</p>
+							    	<p class="text-dark mb-2"><a href="${pageContext.request.contextPath}/rental/productDescPage?id=${map.rentalItemDto.id}" class="text-decoration-none d-inline-block text-dark" style="font-size: 16px;">${map.rentalItemDto.title}</a></p>
+								    <p class="mb-0"><a href="${pageContext.request.contextPath}/rental/productDescPage?id=${map.rentalItemDto.id}" class="text-decoration-none d-inline-block text-dark" style="font-weight: 900; font-size: 18px;"><fmt:formatNumber value="${map.rentalItemDto.price}" pattern="#,##0" /> 원 </a><span style="font-size: 13px;">/ 월</span></p>
+									<p class="mb-0"><span style="font-size: 13px; color: #5a5a5a;"><i class="bi bi-heart"></i> </span><span class="fw-bold" style="font-size: 13px; color: #7e7e7e;">${map.itemLikeCount}</span> <span class="ms-1" style="font-size: 13px; color: #5a5a5a;"><i class="bi bi-chat"></i></span> <span class="fw-bold" style="font-size: 13px; color: #7e7e7e;">${map.itemReviewCount}</span></p>
+									<p class="mt-1"><span style="background: #e5e5e5; border-radius: 6px; font-size: 12px; padding: 3px 6px;">무료배송</span></p>								
+								</div>
+							</div>
 						</div>
+					      <c:if test="${status.index % 5 == 4}">
+					        </div><div class="row flex-wrap pt-2">
+					      </c:if>
 					</c:forEach>
+					</div>
 				</div>
-
+				
+				<div class="row mt-5 pt-3">
+					<div class="col py-3 d-flex justify-content-center">
+						<nav aria-label="Page navigation example">
+						  <ul class="pagination">
+						    <li class="page-item disabled">
+						      <a class="page-link" href="#" aria-label="Previous">
+						        <span aria-hidden="true">&laquo;</span>
+						      </a>
+						    </li>
+						    <li class="page-item"><a class="page-link active border bg-secondary" href="#">1</a></li>
+						    <li class="page-item"><a class="page-link text-secondary" href="#">2</a></li>
+						    <li class="page-item"><a class="page-link text-secondary" href="#">3</a></li>
+						    <li class="page-item">
+						      <a class="page-link text-secondary" href="#" aria-label="Next">
+						        <span aria-hidden="true">&raquo;</span>
+						      </a>
+						    </li>
+						  </ul>
+						</nav>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -179,7 +445,7 @@ function getSessionId(){
 		if(xhr.readyState == 4 && xhr.status == 200){
 			const response = JSON.parse(xhr.responseText);
 			refreshMyHeart(val);
-//			refreshTotalLikeCount();
+			refreshTotalLikeCount(val);
 		}
 	}
 
@@ -188,6 +454,31 @@ function getSessionId(){
 
 }
 
+	// 좋아요 모든 이용자가 누른 갯수
+	function refreshTotalLikeCount(val){
+		if(!val) {
+			return
+		}
+	const xhr = new XMLHttpRequest();
+	
+	xhr.onreadystatechange = function(){
+		if(xhr.readyState == 4 && xhr.status == 200){
+			const response = JSON.parse(xhr.responseText);
+			const totalLikeCountBox = document.querySelectorAll(".totalLikeCountBox");
+			
+			for(let i =0; i<totalLikeCountBox.length; i++){
+				let likeItemId = heartBox[i].dataset.itemId
+				if(val == likeItemId){
+					totalLikeCountBox.innerText = response.count;					
+				}
+			}
+			
+		}
+	}
+	
+	xhr.open("get", "./getTotalLikeCount?id=" + itemId);
+	xhr.send();		
+}
 
 // 내가(로그인한 사용자)가 좋아요 누름 리프레시
 	function refreshMyHeart(val){
@@ -201,7 +492,16 @@ function getSessionId(){
 		xhr.onreadystatechange = function(){
 			if(xhr.readyState == 4 && xhr.status == 200){
 				const response = JSON.parse(xhr.responseText);
-				const heartBox = document.querySelectorAll(".heart_box");
+				
+				if(val == itemId) {
+					if(response.isLiked) {
+						console.log('좋아요')
+					}else{
+						console.log('안안좋아요')						
+					}
+				}
+				
+/* 				const heartBox = document.querySelectorAll(".heart_box");
 
  				for(let i =0; i<heartBox.length; i++){
 					let itemId = heartBox[i].dataset.itemId
@@ -214,7 +514,7 @@ function getSessionId(){
 							heartBox[i].classList.add("bi-heart");
 						}
 					}
-				}
+				} */
 			}
 		}
 
@@ -223,6 +523,8 @@ function getSessionId(){
 	}
 	
  	function setOrderLink() {
+ 		const dropdownName = document.querySelector('.dropdownName')
+ 		
  		const orderlyObj = [
  			{orderly: "likes"},
  			{orderly: "reviews"},
@@ -234,11 +536,19 @@ function getSessionId(){
 		const btnRentOrder = document.querySelector('.btnRentOrder')
 		
 		let url = new URL(window.location.href)
- 		console.log(url)
+ 		//console.log(url)
  		let isIncludeMainCat = url.search.includes('main_category_id')
  		let isIncludeSubCat = url.search.includes('sub_category_id')
  		let originUrl
  		let querySign
+ 		
+ 		if(url.search.includes('likes')) {
+			dropdownName.innerText = '좋아요순'
+ 		} else if(url.search.includes('reviews')) {		
+			dropdownName.innerText = '리뷰순'
+ 		} else if(url.search.includes('purchase')) {	
+			dropdownName.innerText = '구매순'
+ 		}
  		
   		if(isIncludeMainCat || isIncludeSubCat) {
   			let urlSearch = url.search
@@ -266,13 +576,13 @@ function getSessionId(){
 		btnReviewOrder.addEventListener('click',(e) => {
 			const oderlyParams = new URLSearchParams(orderlyObj[1])
 			e.preventDefault();
-			window.location.href = originUrl + querySign + oderlyParams		
+			window.location.href = originUrl + querySign + oderlyParams
 		})
 				
 		btnRentOrder.addEventListener('click',(e) => {
 			const oderlyParams = new URLSearchParams(orderlyObj[2])
 			e.preventDefault();
-			window.location.href = originUrl + querySign + oderlyParams		
+			window.location.href = originUrl + querySign + oderlyParams	
 		})
 		
 

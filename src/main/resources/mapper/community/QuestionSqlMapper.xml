@@ -4,14 +4,21 @@
 
 <mapper namespace="com.ja.safari.community.mapper.QuestionSqlMapper">
 
+	<select id="creatPk" resultType="int">
+	select question_table_seq.nextval from dual
+	</select>
 	
 	<!-- 유저 -->
 	<select id="selectUserByUserId" resultType="com.ja.safari.dto.UserDto">
 	select * from user_table where id=#{id}
 	</select>
 	
-	
 	<!--              궁금해요                   -->
+	<!-- 궁금해요 게시물 개수 -->
+	<select id="getQuestionBoardCount" resultType="int">
+		select count(*) from question_table
+	</select>
+	
 	<!-- 궁금해요 게시물 댓글 -->
 	<select id="getQuestionReplyById" resultType="com.ja.safari.dto.QuestionReplyDto">
 	select * from question_reply_table where id=#{id}
@@ -20,7 +27,7 @@
 	<!-- 궁금해요 게시물 insert -->
 	<insert id="registerQuestionBoard">
 	insert into question_table values(
-    question_table_seq.nextval,
+    #{id},
     #{user_id},
     #{question_category_id},
     #{title},
@@ -59,9 +66,11 @@
 					</choose>
 				</if>
 				order by qt.id desc
-    		
         	) qt1
      	)qt2
+     	<![CDATA[
+     	where qt2.rnum >= ((#{questionPage}-1)*10)+1 and qt2.rnum <= #{questionPage}*10
+     	]]>
 	</select>
 	
 	<!-- 궁금해요 게시물 update -->
@@ -154,6 +163,12 @@
      		 where id = #{id}
 	</update>
 	
+	<!-- 궁금해요 답변수 보드에 출력 -->
+	<select id="selectAllQuestionReplyCountByBoardId" resultType="int">
+	select count(*) from question_reply_table where question_id=#{question_id}	
+	</select>
+	
+	
 	<!-- 궁금해요 게시물 이미지 등록 -->
 	<insert id="insertQuestionBoardImage">
 	  insert into question_img_table values(
@@ -164,13 +179,48 @@
 	  )
 	</insert>
 	
+	<!-- 궁금해요 게시물 이미지 수 보드에 출력 -->
+	<select id="selectAllQuestionImgByBoardId" resultType="int">
+	select count(*) from question_img_table where question_id = #{question_id}
+	</select>
+	
+	
+	
 	<!-- 궁금해요 게시물 이미지 상세 조회 -->
 	<select id="selectQuestionBoardImageByQuestionId" resultType="com.ja.safari.dto.QuestionImgDto">
 	select * from question_img_table
 	where question_id = #{questionId}
-	
-	
 	</select>
+	
+	<!-- 궁금해요 베스트 게시물 -->
+	<select id="selectBestQuestionBoard" resultType="com.ja.safari.dto.QuestionDto">
+	select t1.* from(
+	select qt.*,(select count(*) from question_like_table qlt where qlt.question_id = qt.id)+ qt.views as questionlikeAndViewCount
+	from question_table qt 
+	order by (select count(*) from question_like_table qlt where qlt.question_id = qt.id)*10 + qt.views*0.5 desc
+	)t1
+	<![CDATA[
+	where rownum <=4
+	]]> 
+	</select>
+	
+	<!--  궁금해요 게시물 최신순 -->
+	<select id="newPostByQuestion" resultType="com.ja.safari.dto.QuestionDto">
+	SELECT *
+	FROM question_table
+	ORDER BY reg_date DESC
+	</select>
+	
+	<!-- 강사 쿼리 -->
+	<select id="countQuestionReplyComplete" resultType="int">
+		SELECT COUNT(*) FROM question_reply_table WHERE question_id = #{question_id} AND status = 'Y'	
+	</select>
+	
+	
+	
+	
+	
+	
 	
 	
 	

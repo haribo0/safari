@@ -30,6 +30,7 @@ import com.ja.safari.dto.RentalOrderKakaopayReady;
 import com.ja.safari.dto.RentalPeriodDiscDto;
 import com.ja.safari.dto.RentalReturnKakaopayAmount;
 import com.ja.safari.dto.RentalReturnKakaopayApprove;
+import com.ja.safari.dto.RentalReviewDto;
 import com.ja.safari.dto.RentalItemDto;
 import com.ja.safari.dto.RentalItemLikeDto;
 import com.ja.safari.dto.RentalItemReturnDto;
@@ -285,14 +286,11 @@ public class RentalRestController {
 		
 		return null;
 	}
-
-	
-	
-	
 	
 	// 대여 반납 프로세스
 		@RequestMapping("rentalReturnProcess")
 		public Map<String, Object> rentalReturnProcess(HttpSession session, int rental_order_id, int discount_revocation, String product_title) {
+
 			Map<String, Object> map = new HashMap<String, Object>();
 			
 			// 반납 pk 설정
@@ -372,8 +370,8 @@ public class RentalRestController {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+			
 			return map;
-
 		}
 		
 		
@@ -471,5 +469,18 @@ public class RentalRestController {
 			return map;
 		}
 
+		// 마이대여리스트 내가 쓴 리뷰
+		@RequestMapping("getMyItemReview")
+		public Map<String, Object> getMyItemReview(HttpSession session, int id) {
+			Map<String, Object> map = new HashMap<String, Object>();
+			UserDto sessionUser = (UserDto)session.getAttribute("sessionUser");
+			int myId = sessionUser.getId();
+			
+			RentalReviewDto rentalReviewDto = rentalService.getRentalMyReview(id, myId);
+			map.put("result", "success");
+			map.put("rentalReviewDto",rentalReviewDto);
+			
+			return map;
+		}
 }
 

@@ -17,8 +17,6 @@ import com.ja.safari.dto.UserDto;
 
 public interface CommunitySqlMapper {
 	
-
-	
 	/////////////
 	// 해주세요  //
 	/////////////
@@ -91,6 +89,9 @@ public interface CommunitySqlMapper {
 	
 	//해주세요 채택상태 변경
 	public void changeCompleteHelp(HelpDto helpDto);
+	
+	// 해주세요 최신 게시글순 조회
+	public List<HelpDto> newPostByHelpBoard();
 	
 	//궁금해요 게시물 등록 
 	public void registerQuestionBoard(QuestionDto questionDto);
@@ -176,8 +177,6 @@ public interface CommunitySqlMapper {
 		//구인구직 좋아요 개수 count
 		public int countLikeByRecruitBoardId(int recruit_id);
 	
-	
-		
 	
 	
 	}

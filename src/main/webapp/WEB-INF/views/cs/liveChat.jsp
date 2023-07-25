@@ -102,8 +102,12 @@
 #statusButton{
 	font-size: 14px;
 }
-
+.orangeButton:hover{
+   background: #FF812C;
+   font-weight: bold;
+   color: white;
 }
+
 
 </style>
 
@@ -123,23 +127,10 @@
     line-height: 20px;
 }
 .orangeBtn {
-	background: #F68942;
-	color: white;
-	transition: background-color 0.3s ease;
-}
-
-.orangeBtn:hover {
-	background-color: rgba(246, 137, 66, 0.8);
-	/* background-color: #D5732D; */
+	background: #FF6F0F;
 	color: white;
 }
 
-.orangeBtn2 {
-	border: 2px solid #F68942;
-	background : white;
-	color:  #F68942;
-	font-weight: 2px;
-}
 </style>
 
 
@@ -169,19 +160,36 @@
 	<div class="row mt-0">
 		<div class="col"></div>
 		<div class="col-10">
-			<div class="row mb-2">
+		
+			
+			
+			
+			<div class="row mb-1">
 				<div class="col d-grid">
 					<h4 class="fw-bolder">실시간문의</h4>
 				</div>
 				
 				<!-- count -->
 				<div class="col-2 text-end" id=""> 
-					<div class="btn btn-dark fw-medium" id="chatCount">  </div>
+					<div class="btn orangeBtn fw-medium" id="chatCount">  </div>
 				</div>
 				<!-- count -->
 				
 			</div>
-			
+			<div class="row ">
+				<div class="col " style="font-size: 14px;">
+
+						<div class="row my-2 text-secondary rounded" >
+							<div class="col-auto fw-bold ">
+								<i class="bi bi-info-circle"></i> &nbsp;상담사의 업무 수칙
+							</div>
+							<div class="col  ">
+								고객이 실수하거나 지나친 태도로 기분을 상하게 하더라도 감정을 억제하며 차분하게 응대하는 성숙한 자세를 보이며, 제어가 되지 않는 상황 속에서는 상사를 호출하여 원만한 해결이 이뤄질 수 있도록 합니다.
+							</div>
+						</div>
+						
+				</div>
+			</div>
 			
 			
 			<div class="row py-2">
@@ -282,7 +290,9 @@
  --%>
 
 
-
+	<!-- 푸터 섹션 -->
+	<jsp:include page="../common/footer.jsp"></jsp:include>
+	<!-- 푸터 섹션 -->
 
 
 

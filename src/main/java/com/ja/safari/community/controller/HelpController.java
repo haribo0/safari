@@ -10,6 +10,7 @@ import java.util.UUID;
 
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.text.StringEscapeUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -55,8 +56,10 @@ public class HelpController {
 		List<Map<String, Object>> helpBestBoardList = helpService.selectBestHelpBoards();
 		model.addAttribute("helpBestBoardList", helpBestBoardList);
 
-		// int helpCommentCount = communityService.selectAllHelpBoards();
-		// model.addAttribute("helpCommentCount", helpCommentCount);
+		/*
+		 * int helpCommentCount = helpService.selectAllHelpBoards();
+		 * model.addAttribute("helpCommentCount", helpCommentCount);
+		 */
 
 		return "/community/help/mainPage";
 	}
@@ -67,7 +70,7 @@ public class HelpController {
 		return "/community/help/writeContentPage";
 	}
 
-	//해주세요 글쓰기 프로세스
+	//해주세요 글쓰기 프로세
 	@RequestMapping("help/writeContentProcess")
 	public String writeContentProcess(HttpSession session, HelpDto helpDto, MultipartFile[] helpBoardFiles) {
 		// 세션이 null일 때 로그인 페이지로 리다이렉트시키기
@@ -146,7 +149,15 @@ public class HelpController {
 		int HelpBoardLikeCount = helpService.getHelpLikeCountByBoardId(id);
 
 		model.addAttribute("HelpBoardLikeCount", HelpBoardLikeCount);
-
+		
+		//html escape
+		HelpDto helpDto = (HelpDto)map.get("helpDto");
+		String content = helpDto.getContent();
+		content = StringEscapeUtils.escapeHtml4(content);
+		content = content.replaceAll("\n", "<br>");
+		helpDto.setContent(content);
+		
+		
 		return "/community/help/readContentPage";
 
 	}
@@ -259,18 +270,11 @@ public class HelpController {
 
 		helpService.changeCompleteHelp(helpCommentDto.getHelp_id());
 		
+		//코인 더해주기
+		//helpService.helpCommentCoinReward(helpCommentDto);
 		
 		return "redirect:/community/help/readContentPage/" + helpCommentDto.getHelp_id();
 	}
 
-	// 해주세요 미션완료 update //잘 모르겠음
-	/*@RequestMapping("help/completeHelpCommentProcess")
-	public String completeHelpCommentProcess(int id, int help_comment_id, HelpCommentDto helpCommentDto,
-			HelpCommentCompleteDto helpCommentCompleteDto) {
-
-		helpService.completeHelpComment(helpCommentDto);
-
-		return "redirect:/community/help/readContentPage/" + id;
-	}*/
 
 }

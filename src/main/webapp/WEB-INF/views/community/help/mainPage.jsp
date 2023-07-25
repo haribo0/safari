@@ -10,6 +10,47 @@
 	<!-- 메타 섹션 -->
 	<jsp:include page="../../common/meta.jsp"></jsp:include>
 	<!-- 메타 섹션 -->
+	
+<style>
+ .cropped-image {
+   width: 126.08px;
+   height: 126.08px;
+   object-fit: cover;
+ }
+ 
+
+ 
+ .overflow {
+  white-space: nowrap; /* 텍스트를 한 줄로 표시 */
+  overflow: hidden; /* 넘친 텍스트를 숨김 */
+  text-overflow: ellipsis; /* 넘친 텍스트를 "..."으로 표시 */
+} 
+
+	
+ .orangeButton {
+background: #ff6f0f;
+font-weight: bold;
+color: white;
+}
+
+.orangeButton:hover{
+   background: #FF812C;
+   font-weight: bold;
+   color: white;
+}
+
+.btn-link {
+   display: flex;
+   align-items: center;
+   justify-content: center;
+ }
+ 
+ a {
+ 	text-decoration: none;
+ }
+
+</style>
+
 </head>
 <body>
 	<!-- 헤더 섹션 -->
@@ -32,15 +73,74 @@
       </div>
       <!-- 커뮤니티 메뉴바 --> 
       
+      <!-- 게시판 제목 글자 -->
       <div class="row">
       <div class="col">
      <h4 class="text fw-bold ms-4"> 해주세요 </h4>
       </div>
       </div>
-	
-	
+	  <!-- 게시판 제목 글자 -->
+		<%--best helpBoardList forEach  --%>
 		<div class="row">
+			<c:forEach items="${helpBestBoardList}" var="map">
+			    <div class="col-6 mb-4 p-3">
+			    	<div class="card" style="border-top: 3px solid #ff6f0f;">
+			    	${helpImgDto.help_img_link}
+			    	<div class="card-body">
+				    	<div class="row">
+				    		<div class="col-3">
+				    		<%-- img --%>
+									<div class="row mt-2">
+										<div class="col">
+										<c:if test="${map.helpImgCount>=1}">
+											<img src="/uploadFiles/${map.helpImgDtoList[0].help_img_link}"
+												class="cropped-image">
+										</c:if>
+											<c:if test="${map.helpImgCount==0}">
+											<img src="/safari/resources/img/community/no-image.gif"
+											class="cropped-image">
+											</c:if>
+										</div>
+									</div>						
+				    		</div>
+				    	
+				    	<div class="col-7">
+				    		
+				    		<a class="text-black text-decoration-none" href="/safari/community/help/readContentPage/${map.helpDto.id}">
+				    		<span class = "fw-semibold" style="font-size: 16px;">
+				    		${map.helpDto.title}
+				    		<c:if test="${map.helpDto.points>=1}">
+						  	<span class="badge rounded-pill text-bg-warning opacity-75" style="font-size: 61%; position: relative; top: -3px;">${map.helpDto.points}p</span>
+						  	</c:if></span></a>
+						  	<span class="badge rounded-pill text-bg-danger opacity-75" style="font-size: 61%; position: relative; top: -3px;">Best</span>
+						  	<div class="row">
+			  				<div class="col">
+			  				${map.helpDto.location}
+			  				</div>
+				  			</div>
+				  			 <div class="row">
+				  				<div class="col" style="font-size: 15px;">
+				  				조회수 ${map.helpDto.views}
+				  				</div>
+				  			</div> 
+					    </div>
+				    	
+				    	<div class="col text-end">
+				    	<i class="bi bi-heart text-danger" style="font-size: 21px;"></i>
+				    	<span style="font-size: 12px; position: relative; bottom: 3px; left: 2px;">${map.helpLikeCount}</span>
+				    	
+				    	</div>
+			  			
+			  		</div>
+			  		</div>
+			  		</div></div>
+			    	</c:forEach>
+				</div>
+				<%--best helpBoardList forEach  --%>
+		
+		
 		<%-- helpBoardList forEach  --%>
+		<div class="row">
 		<c:forEach items="${helpBoardList}" var="map">
 	    <div class="col-6 mb-4 p-3">
 	    	<div class="card">
@@ -53,11 +153,11 @@
 								<div class="col">
 								<c:if test="${map.helpImgCount>=1}">
 									<img src="/uploadFiles/${map.helpImgDtoList[0].help_img_link}"
-										style="max-width: 100%; max-height: 100%;">
+										class="cropped-image">
 								</c:if>
 									<c:if test="${map.helpImgCount==0}">
 									<img src="/safari/resources/img/community/no-image.gif"
-									style="max-width: 100%; max-height: 100%;">
+									class="cropped-image">
 									</c:if>
 								</div>
 							</div>						
@@ -71,7 +171,7 @@
 		    	
 		    	<div class="col-7">
 		    		<a class="text-black text-decoration-none" href="/safari/community/help/readContentPage/${map.helpDto.id}">
-		    		<span style="font-size: 19px;">
+		    		<span style="font-size: 16px;">
 		    		<b>${map.helpDto.title}</b>
 		    		<c:if test="${map.helpDto.points>=1}">
 				  	<span class="badge rounded-pill text-bg-warning opacity-75" style="font-size: 61%; position: relative; top: -3px;">${map.helpDto.points}p</span>
@@ -92,50 +192,23 @@
 		    	<i class="bi bi-heart text-danger" style="font-size: 21px;"></i>
 		    	<span style="font-size: 12px; position: relative; bottom: 3px; left: 2px;">${map.helpLikeCount}</span>
 		    	
-		    	<%-- <c:choose>
-				<c:when test="${HelpBoardLikeCount >= 1}">
-		        	<a class="bi bi-heart-fill text-danger" style="font-size: 21px;" href="/safari/community/help/insertHelpLikeProcess/${map.helpDto.id}"></a>
-			        &nbsp;${HelpBoardLikeCount} 
-				</c:when>
-				<c:otherwise>
-			        <a class="bi bi-heart text-danger" style="font-size: 21px;" href="/safari/community/help/insertHelpLikeProcess/${map.helpDto.id}"></a>
-			        &nbsp;${HelpBoardLikeCount}
-			    </c:otherwise>
-			</c:choose>  --%>
 		    	</div>
 	  			
-				  
-				  
-				  
 	  		</div>
 	  		</div>
 	  		</div></div>
-	    	</c:forEach>
+	    	</c:forEach></div>
 		<%-- helpBoardList forEach  --%>
+		
+		
 		
 		<%-- 글쓰기 버튼 --%>
 		
-		<style>
-		.orangeButton {
-		background: #ff6f0f;
-		font-weight: bold;
-		color: white;
-		}
-		</style>
+
 	
 	<div class="row">
-	<div class="col text-end" >
-	<a href="./writeContentPage" style="text-decoration: none; display: flex; align-items: center; justify-content: flex-end;">
-		<button type="button" class="btn btn-link orangeButton d-flex align-items-center justify-content-center" style="text-decoration: none; display: flex; align-items: center; justify-content: center;">
-			<i class="bi bi-pencil-square fa-icon text-white" style="font-size: 1.5rem;"></i>
-			<span class="ms-1 me-5" style="font-size: 0.9rem; line-height: 1;">글쓰기</span>
-		</button></a>
-	</div>
-	</div>
-	<%-- 글쓰기 버튼 --%>	
-		
-		
-		<%-- 검색--%>	
+	<div class="col">
+	<%-- 검색--%>	
 	<form action="./mainPage" method="get">
 				<div class="row"> 
 					<div class="col-2">
@@ -153,10 +226,27 @@
 						 <button type="submit" class="btn btn-outline-dark">
 						  	<span class="bi bi-search"></span>
 						</button>
-					</div>
+										</div>
+						<!-- 글쓰기 버튼 -->	
+						<div class="col text-end" >
+						<div class="d-flex justify-content-end">
+						<a href="./writeContentPage" style="text-decoration: none; display: flex; align-items: center; justify-content: center;">
+							<button  class="btn btn-link orangeButton d-flex align-items-center justify-content-center" >
+								<i class="bi bi-pencil-square fa-icon text-white" style="font-size: 16px; margin-right: 0.7rem; margin-left: 0.3rem;"></i>
+								<span class="ms-1 me-2" style="font-size: 15px; line-height: 1; margin-left: 0.3rem;">글쓰기</span>
+							</button>
+						</a>
+						</div>
+						</div>
+						<!-- 글쓰기 버튼 -->		
 				</div>
 	</form>
-		<%-- 검색--%>	
+	<%-- 검색--%>	
+	</div>
+	
+	</div>
+	
+		
 		
 	<style>
 	.pagination .page-link {
@@ -164,6 +254,7 @@
 	}
 	</style>
 	
+	<%-- 페이지 버튼 --%>
 	<div class="row">
 			<div class="col-5 mx-auto mt-3 mb-3">
 				<nav aria-label="Page navigation example">
@@ -189,7 +280,7 @@
 	<%--페이지 버튼  --%>
 		
 		
-		</div>
+		
 		
 		
 		
@@ -283,27 +374,6 @@
 	</div>
 	글쓰기 버튼 끝	
 	
-	new 검색 
-	<form action="./page" method="get">
-				<div class="row"> 
-					<div class="col-2">
-						<select name="promoReview_searchType" class="form-select">
-							<option value="title" selected>제목</option>
-							<option value="content">내용</option>
-							<option value="content">제목+내용</option>
-							<option value="nickname">작성자</option>
-						</select>				
-					</div>
-					<div class="col-3">
-						<input name="promoReview_searchWord" type="text" class="form-control">
-					</div>
-					<div class="col-1 ms-1" style="position:relative; right: 30px;">
-						 <button type="submit" class="btn btn-outline-dark">
-						  	<span class="bi bi-search"></span>
-						</button>
-					</div>
-				</div>
-	</form>
 	
 
 

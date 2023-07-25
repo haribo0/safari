@@ -38,6 +38,7 @@ import com.ja.safari.dto.RentalOrderKakaopayReady;
 import com.ja.safari.dto.RentalPeriodDiscDto;
 import com.ja.safari.dto.RentalReturnKakaopayAmount;
 import com.ja.safari.dto.RentalReturnKakaopayApprove;
+import com.ja.safari.dto.RentalReviewCountDto;
 import com.ja.safari.dto.RentalReviewDto;
 import com.ja.safari.dto.RentalReviewImgDto;
 import com.ja.safari.dto.RentalSubCategoryDto;
@@ -81,7 +82,16 @@ public class RentalServiceImpl {
 		
 		for(RentalItemDto item : rentalItemDtoList) {
 			Map<String, Object> map = new HashMap<String, Object>();
+			int itemId = item.getId();
+			
+			int itemLikeCount = rentalSqlMapper.countLikeById(itemId);
+			int itemReviewCount = rentalSqlMapper.selectReviewCount(itemId);
+			RentalBusinessDto rentalBusinessDto = rentalSqlMapper.selectRentalBuisnessById(itemId);
+			
 			map.put("rentalItemDto", item);
+			map.put("itemLikeCount", itemLikeCount);
+			map.put("itemReviewCount", itemReviewCount);
+			map.put("rentalBusinessDto", rentalBusinessDto);
 			
 			list.add(map);
 		}
@@ -125,11 +135,14 @@ public class RentalServiceImpl {
 		
 		List<RentalItemImgDto> rentalItemImgDtoList = rentalSqlMapper.selectItemImageByItemId(id);
 		
+		RentalBusinessDto rentalBusinessDto = rentalSqlMapper.selectRentalBuisnessById(id);
+		
 		map.put("rentalItemDto", rentalItemDto);
 		map.put("mainCategoryName", mainCategoryName);
 		map.put("subCategoryName", subCategoryName);
 		map.put("rentalItemImgDtoList", rentalItemImgDtoList);
 		map.put("rentalPeriodDiscDtoList", rentalPeriodDiscDtoList);
+		map.put("rentalBusinessDto", rentalBusinessDto);
 		
 		return map;
 	}
@@ -173,6 +186,11 @@ public class RentalServiceImpl {
 	public int getRentalOrderReturnPk() {
 		int returnPk = rentalSqlMapper.getRentalOrderReturnPk();
 		return returnPk;
+	}
+	
+	// 대여 반환금 없이 반납
+	public void rentalReturnZero(RentalItemReturnDto rentalItemReturnDto) {
+		rentalSqlMapper.insertRentalReturn(rentalItemReturnDto);
 	}
 
 	// 대여 반납
@@ -261,11 +279,21 @@ public class RentalServiceImpl {
 			Map<String, Object> map = new HashMap<String, Object>();
 			
 			int reviewId = i.getId();
+			int rentalId = i.getRental_id();
+			int userId = i.getUser_id();
+			
 			List<RentalReviewImgDto> rentalReviewImgDtoList = rentalSqlMapper.selectRentalReviewImgAll(reviewId);
+			UserDto reviewer = rentalSqlMapper.selectUserById(userId);
+			RentalItemDto rentalItemDto = rentalSqlMapper.selectRentalItem(rentalId);
 			
-			map.put("reviewImgList", rentalReviewImgDtoList);
 			map.put("reviewList", i);
+			map.put("reviewImgList", rentalReviewImgDtoList);
+			map.put("reviewer",reviewer);
+			map.put("rentalItemDto",rentalItemDto);
 			
+			System.out.println("RentalReviewDto?:: " + i);
+			System.out.println("rental_id?:: " + rentalId);
+			System.out.println("rentalItemDto?:: " + rentalItemDto);
 			list.add(map);
 		}
 		
@@ -273,9 +301,16 @@ public class RentalServiceImpl {
 	}
 
 	// 리뷰 카운트
-	public Integer getRentalReviewCount(int id) {
-		Integer count = rentalSqlMapper.selectReviewCount(id);
-		return count;
+	public RentalReviewCountDto getRentalReviewCount(int id) {
+		
+		List<RentalReviewCountDto> reviewCountDtos = rentalSqlMapper.getRentalReviewCountByRating(id);
+		
+		if(reviewCountDtos.size() == 0) {
+			return new RentalReviewCountDto(0,0,0,0,0,0);
+		} else {
+			return reviewCountDtos.get(0);
+		}
+		
 	}
 
 	// 리뷰 평점
@@ -346,6 +381,12 @@ public class RentalServiceImpl {
 	public void saveReturnKakaoApproveAmount(RentalReturnKakaopayAmount rentalReturnKakaopayAmount) {
 		rentalSqlMapper.insertReturnKakaoApproveAmount(rentalReturnKakaopayAmount);
 		return;
+	}
+
+	// 내 대여 아이템 리뷰 하나 가져오기
+	public RentalReviewDto getRentalMyReview(int id, int myId) {
+		RentalReviewDto rentalReviewDto = rentalSqlMapper.selectMyReview(id, myId);
+		return rentalReviewDto;
 	}
 
 	

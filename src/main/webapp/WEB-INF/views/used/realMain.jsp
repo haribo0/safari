@@ -39,6 +39,11 @@
 	background: #ff6f0f;
 	color: white;
     }   
+    .overflow {
+	  white-space: nowrap; /* 텍스트를 한 줄로 표시 */
+	  overflow: hidden; /* 넘친 텍스트를 숨김 */
+	  text-overflow: ellipsis; /* 넘친 텍스트를 "..."으로 표시 */
+	}
 </style>
 
 </head>
@@ -169,7 +174,7 @@ function getViewAll(mainId2,subId2,cityId2,townId2,statusId2,orderId2){
                     divRow2.classList.add("row");
                   
                     const divCol1 = document.createElement("div");
-                    divCol1.classList.add("col", "mt-2");
+                    divCol1.classList.add("col", "mt-2", "overflow");
                   
                     const link2 = document.createElement("a");
                     link2.href = `./productDetail?productId=\${map.productDto.id}`;
@@ -187,7 +192,7 @@ function getViewAll(mainId2,subId2,cityId2,townId2,statusId2,orderId2){
 
                     	const button = document.createElement("button");
                     	button.type = "button";
-                    	button.classList.add("btn", "btn-outline-success", "btn-sm", "p-1", "btn-sm-custom");
+                    	button.classList.add("btn", "btn-success", "btn-sm", "p-1", "btn-sm-custom");
                     	button.disabled = true;
                     	button.textContent = "예약중";
 
@@ -201,7 +206,7 @@ function getViewAll(mainId2,subId2,cityId2,townId2,statusId2,orderId2){
 
                     	const button = document.createElement("button");
                     	button.type = "button";
-                    	button.classList.add("btn", "btn-outline-secondary", "btn-sm", "p-1", "btn-sm-custom");
+                    	button.classList.add("btn", "btn-secondary", "btn-sm", "p-1", "btn-sm-custom");
                     	button.disabled = true;
                     	button.textContent = "거래완료";
 

@@ -144,9 +144,9 @@
 </select>
 
 <select id="checkPromotionReviewMyLike" resultType="int">
-SELECT count(*)
-FROM promotion_review_like
-WHERE user_id = #{user_id}
+	SELECT count(*)
+	FROM promotion_review_like
+	WHERE user_id = #{user_id}
 </select>
 
 <select id="orderByPromotionReviewLikes" resultType="com.ja.safari.dto.PromotionReviewLikeDto">
@@ -157,10 +157,16 @@ WHERE user_id = #{user_id}
 	ORDER BY review_like_count DESC
 </select>
 
+<select id="newPostByPromoReview" resultType="com.ja.safari.dto.PromotionReviewDto">
+	SELECT *
+	FROM promotion_review
+	ORDER BY reg_date DESC
+</select>
+
 <select id="topViewByPromoReview" resultType="com.ja.safari.dto.PromotionReviewDto">
-SELECT *
-FROM promotion_review
-ORDER BY promotion_review_views DESC
+	SELECT *
+	FROM promotion_review
+	ORDER BY promotion_review_views DESC
 </select>
 
 
@@ -186,7 +192,47 @@ ORDER BY promotion_review_views DESC
 	ORDER BY rit.TITLE 
 </select>
 
+<select id="getRentalItemSubCategoryList" resultType="com.ja.safari.dto.RentalSubCategoryDto">
+	SELECT * FROM rental_sub_category_table
+</select>
 
+<select id="getRentalItemCategory" resultType="com.ja.safari.dto.ProreviewRentalCategoryDto">
+	SELECT rs.*, rm.MAIN_CATEGORY_NAME
+	FROM promotion_review pr
+	JOIN rental_item_table rt ON pr.rental_item_id = rt.ID 
+	JOIN rental_sub_category_table rs ON rt.SUB_CATEGORY_ID = rs.ID 
+	JOIN rental_main_category_table rm ON RS.MAIN_CATEGORY_ID = rm.ID 
+	WHERE pr.id=#{id}
+</select>
 
+<select id="getPromoReivewBestPostList" resultType="com.ja.safari.dto.PromotionReviewDto">
+	SELECT pr.*, NVL(like_count, 0) AS review_like_count, 
+           RANK() OVER (ORDER BY NVL(like_count, 0) DESC, pr.promotion_review_views DESC) AS rank
+    FROM promotion_review pr
+    LEFT JOIN (
+        SELECT review_id, COUNT(review_id) AS like_count
+        FROM promotion_review_like
+        GROUP BY review_id
+    ) pro_like ON pr.id = pro_like.review_id
+    ORDER BY RANK
+</select>
+
+  <insert id="increaseUserCoinByPromotionReviewReward">
+     INSERT INTO coin_table VALUES(
+        coin_table_seq.nextval,
+        #{user_id},
+        #{coin_transaction},
+        'P',
+		#{transaction_detail},
+        SYSDATE
+        )
+  </insert>
+
+<select id="getPromoReviewLikePost" resultType="com.ja.safari.dto.PromotionReviewDto">
+	SELECT pr.*
+	FROM promotion_review pr
+	INNER JOIN promotion_review_like pro_like ON pr.id = pro_like.review_id
+	WHERE pro_like.user_id = #{user_id}
+</select>
 
 </mapper>

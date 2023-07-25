@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>promotion Review Main Page</title>
+<title>사파리 | 리워드메인</title>
 <!-- 메타 섹션 -->
 <jsp:include page="../../common/meta.jsp"></jsp:include>
 <!-- 메타 섹션 -->
@@ -128,13 +128,15 @@ window.addEventListener("DOMContentLoaded", function(){
 
 	<div class="container main_box">
 		<div class = "row mt-5">
-			<div class = "col-1">
+			<div class = "col-auto">
 				<h1 class="text-start fs-3 fw-semibold">
-					<b>리워드</b>
+				<a href="./promotionReviewMainPage" style="text-decoration: none;">
+					<b>리워드 리뷰</b>
+				</a>
 				</h1>			
 			</div>
 			<div class = "col">
-				<div class = "row text-start ms-2">
+				<div class = "row text-start ms-2 d-flex align-items-center">
 					<div class = "col">
 					<a href="./allPromotionReviewPage" style="text-decoration: none; color: inherit;">
 						전체
@@ -175,11 +177,18 @@ window.addEventListener("DOMContentLoaded", function(){
 			</div>
 
 			<div class = "col-1">
-			<c:if test="${!empty sessionUser }">
-			<form action="writePromotionReviewPage" method = "post">
-				<button class = "form-control btn orangeButton">글쓰기</button>
-			</form>
-			</c:if>
+				<c:choose>
+					<c:when test="${!empty sessionUser }">
+						<form action="writePromotionReviewPage" method = "post">
+							<button class = "form-control btn orangeButton">글쓰기</button>
+						</form>
+					</c:when>
+					<c:otherwise>
+						<form action="../../user/loginPage" method = "post">
+							<button class = "form-control btn orangeButton">글쓰기</button>
+						</form>
+					</c:otherwise>
+				</c:choose>
 			</div>
 		</div>
 
@@ -190,46 +199,55 @@ window.addEventListener("DOMContentLoaded", function(){
 		<div class = "row mt-5">
 			<div class = "col">
 				<div class = "row">
-					<div class = "col text-center fw-semibold fs-2">
+					<div class = "col text-center fw-bold fs-2" style= "color: #387538;">
 						BEST
 					</div>
 				</div>
-				<div class = "row mt-2">
+				<div class = "row mt-1">
 					<div class = "col text-center fs-5">
-						월간 사람들이 많이 작성한 제품
+						사람들이 많은 후기를 남긴 제품
 					</div>
 				</div>
+			</div>
 		</div>
-			<!--  best(인기) 게시물(3개) -->
+			<!--  best(인기) 제품(3개) -->
 		<div class = "best container">
 		<div class = "row mt-5">
-			<div class = "col">
-				<div class = "row mb-2">			
-					<!--  반복문 foreach 들어갈 자리 -->
-					<div class = "col mb-3">
-						<div class="card border border-0" style="width: 18rem; height: 350px;">
-							<a href="./contentPromotionReviewPage?id=${map.promotionReviewDto.id }"> <%-- 여기에 사진 누르면 들어가는 구매창 링크 --%> 	
+			<div class = "col" >
+				<div class = "row">			
+					<c:forEach items="${bestPromotionReviewPostList}" var="map" varStatus="status" begin="0" end="2">
+					<div class = "col" style="width: 18rem; height: 400px;">
+						<div class="card border border-0" >
+							<a href="./contentPromotionReviewPage?id=${map.promotionReviewDto.id }"> 
 						  <img src="/uploadPromoFiles/${map.promotionReviewImgList[0].rental_review_img }"
-						  	   class="card-img-top" alt="리워드게시물사진" height="300" >
+						  	   class="card-img-top" alt="리워드게시물사진" height="300">
 						  </a>
 						  <div class="card-body text-center">
-						  	<p class="card-text secondary fs-6 mt-1">${map.promotionReviewDto.rental_item_id }</p> <%-- 나중에 대여 카테고리 가져오면 여기 수정하기 --%>
+						  	<p class="card-text secondary fs-6 mt-1">
+						  		${map.rentalItemCategory.main_category_name}
+							 	<c:if test="${map.rentalItemCategory.sub_category_name != null}">
+							 	> ${map.rentalItemCategory.sub_category_name}
+							 	</c:if>
+						  	</p> 
 						    <h5 class="card-title fs-5 mt-1 fw-semibold">${map.promotionReviewDto.promotion_review_title }</h5>
-						    <p class="card-text fs-6 mt-3">${map.userDto.nickname }</p>
 						  </div>
 						</div>
 					</div>
-					
+					</c:forEach>
 					
 				</div>
 			</div>
 		</div>
 		</div>
 		
+		<!--  간이 배너 -->
+		<div class = "row mt-4 mb-3">
+			<div class = "col">
+				<img src="/safari/resources/img/community/banerer3.png" class="img-fluid">
+			</div>
+		</div>
 		
-		
-			 <!--  최신순 / 공감(인기)순 => 나중에 수정 -->
-			 
+			 <!--  최신순 / 공감(인기)순 -->
 			<div class = "row mt-5">
 				<!--  최신 순 -->
 				<div class = "col">
@@ -242,55 +260,60 @@ window.addEventListener("DOMContentLoaded", function(){
 						</div>
 					</div>
 					<div class = "row">
-						<div class = "col">
-									
+						<div class = "col">		
 						<!--  업로드된 게시글 목록들 -->
 						 <div class="mt-3">
 						<div class = "reviewlist container border border-1 shadow-sm" style="border-radius: 10px;">
 						<div class = "row mt-3">			
 							<c:forEach items="${promoReviewList}" var="map" varStatus="status" begin="0" end="4">
 								<div class = "col mb-3">
-								<a href="./contentPromotionReviewPage?id=${map.promotionReviewDto.id}" style="text-decoration: none; color: inherit;">
-									<div class="card border border-0" style="width:30rem; height: 150px;">
+									<div class="card border border-0" style="width:32rem; height: 150px;">
 									<div class = "row">
 										<div class = "col-4">
+										<a href="./contentPromotionReviewPage?id=${map.promotionReviewDto.id}" style="text-decoration: none; color: inherit;">
 										  <img src="/uploadPromoFiles/${map.promotionReviewImgList[0].rental_review_img }"
-										  	   class="card-img-top" alt="리워드게시물사진" height="150" width="100" >
+										  	   class="card-img-top" alt="리워드게시물사진" height="150" width="150" >
+									 	</a>
 									 	</div>
 									 	<div class = "col">
-									  <div class="card-body">
+									  <div class="card-body px-0 pt-1">
 									  <div class = "row">
 									  	  <div class = "col">
-										  	<h5 class="card-title fs-5 fw-semibold">   
+									  	  	<a href="./contentPromotionReviewPage?id=${map.promotionReviewDto.id}" style="text-decoration: none; color: inherit;">
+										  	<h5 class="card-title fw-semibold" style="font-size: 18px;">   
 											    ${map.promotionReviewDto.promotion_review_title }
 										     	<span class="comment-count">[${map.countPromotionReviewComment}]</span>
 										    </h5>
+										    </a>
 									  	  </div>
 									  	  <!--  공감버튼. 내가 누른 하트 유무-->
 									  	  <div class = "col-1 text-end">
 									  		<c:choose>
 									  			<c:when test="${!empty sessionUser && (map.realCheck != 0)}">
 									  				<i id = "heartBox${map.promotionReviewDto.id}" class = "text-danger bi bi-heart-fill fs-5"
-									  				onclick="togglePromotionReviewLike(${map.promotionReviewDto.id})"></i>	
+									  				onclick="togglePromotionReviewLike(${map.promotionReviewDto.id}); location.reload();"></i>	
 									  			</c:when>
 									  			<c:otherwise>
 									  				<i id = "heartBox${map.promotionReviewDto.id }" class = "text-danger bi bi-heart fs-5"
-									  				onclick="togglePromotionReviewLike(${map.promotionReviewDto.id})"></i>
+									  				onclick="togglePromotionReviewLike(${map.promotionReviewDto.id}); location.reload();"></i>
 									  			</c:otherwise>
 									  		</c:choose>	
 							  			  </div>
 									  </div>
+								  		<a href="./contentPromotionReviewPage?id=${map.promotionReviewDto.id}" style="text-decoration: none; color: inherit;">
 									    <div class="d-flex align-items-center">
 						                    <img src="${data.userDto.profile_img_link}" class="rounded-circle" style="width: 25px; height: 25px;" alt="프로필사진">
 						                    <p class="card-text fs-6 mt-2 ms-2">${map.userDto.nickname}</p>
 						                </div>
-									    <p class="card-text fs-6 mt-2" style="display: -webkit-box; -webkit-line-clamp: 2;
-									       -webkit-box-orient: vertical; overflow: hidden;">${map.promotionReviewDto.promotion_review_content }</p>
+									    <p class="card-text fs-6 mt-2" style="display: -webkit-box; -webkit-line-clamp: 3;
+									       -webkit-box-orient: vertical; overflow: hidden;">${map.promotionReviewDto.promotion_review_content }
+								       </p>
+								       </a>
 									  </div>
 									  	</div>
 									</div>
 									</div>
-								</a>
+							
 								</div>		
 							<c:if test="${status.count % 1 == 0}">
 						</div>
@@ -317,8 +340,6 @@ window.addEventListener("DOMContentLoaded", function(){
 					</div>
 					<div class = "row">
 						<div class = "col">
-							
-							
 							<!--  업로드된 게시글 목록들 -->
 						<div class="mt-3">
 						<div class = "reviewlist container border border-1 shadow-sm" style="border-radius: 10px;">
@@ -326,17 +347,19 @@ window.addEventListener("DOMContentLoaded", function(){
 							<c:forEach items="${orderByLikePromoReviewList}" var="map" varStatus="status" begin="0" end="4">
 								<div class = "col mb-3">
 								<a href="./contentPromotionReviewPage?id=${map.promotionReviewDto.id}" style="text-decoration: none; color: inherit;">
-									<div class="card border border-0" style="width:30rem; height: 150px;">
+									<div class="card border border-0" style="width:32rem; height: 150px;">
 									<div class = "row">
 										<div class = "col-4">
-									  <img src="/uploadPromoFiles/${map.promotionReviewImgList[0].rental_review_img }"
-									  	   class="card-img-top" alt="리워드게시물사진" height="150" width="100" >
-									 		 </div>
+											<a href="./contentPromotionReviewPage?id=${map.promotionReviewDto.id}" style="text-decoration: none; color: inherit;">
+											  <img src="/uploadPromoFiles/${map.promotionReviewImgList[0].rental_review_img }"
+											  	   class="card-img-top" alt="리워드게시물사진" height="150" width="150" >
+								 		</a>
+								 		</div>
 									 	<div class = "col">
-									  <div class="card-body">
+									  <div class="card-body px-0 pt-1">
 									    <div class = "row">
 									  	  <div class = "col">
-										  	<h5 class="card-title fs-5 fw-semibold">
+										  	<h5 class="card-title fw-semibold" style="font-size: 18px;">
 											    ${map.promotionReviewDto.promotion_review_title }
 										     	<span class="comment-count">[${map.countPromotionReviewComment}]</span>
 										    </h5>
@@ -357,7 +380,7 @@ window.addEventListener("DOMContentLoaded", function(){
 						                    <img src="${data.userDto.profile_img_link}" class="rounded-circle" style="width: 25px; height: 25px;" alt="프로필사진">
 						                    <p class="card-text fs-6 mt-2 ms-2">${map.userDto.nickname}</p>
 						                </div>
-									    <p class="card-text fs-6 mt-2" style="display: -webkit-box; -webkit-line-clamp: 2;
+									    <p class="card-text fs-6 mt-2" style="display: -webkit-box; -webkit-line-clamp: 3;
 									       -webkit-box-orient: vertical; overflow: hidden;">${map.promotionReviewDto.promotion_review_content }</p>
 									  </div>
 									  	</div>
@@ -381,24 +404,8 @@ window.addEventListener("DOMContentLoaded", function(){
 				</div>
 			</div>
 			
-			<div>&nbsp;</div>
-				<br>
-			<div>&nbsp;</div>
+			<div class = "mt-5"></div>
 			
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

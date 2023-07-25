@@ -10,11 +10,15 @@ import org.springframework.stereotype.Service;
 
 import com.ja.safari.community.mapper.CommunitySqlMapper;
 import com.ja.safari.community.mapper.HelpSqlMapper;
-import com.ja.safari.dto.HelpCommentCompleteDto;
 import com.ja.safari.dto.HelpCommentDto;
 import com.ja.safari.dto.HelpDto;
 import com.ja.safari.dto.HelpImgDto;
 import com.ja.safari.dto.HelpLikeDto;
+import com.ja.safari.dto.PromotionReviewDto;
+import com.ja.safari.dto.PromotionReviewImgDto;
+import com.ja.safari.dto.PromotionReviewLikeDto;
+import com.ja.safari.dto.ProreviewRentalCategoryDto;
+import com.ja.safari.dto.UserCoinDto;
 import com.ja.safari.dto.UserDto;
 import com.ja.safari.user.mapper.UserSqlMapper;
 
@@ -109,6 +113,8 @@ public class HelpServiceImpl {
 			
 			UserDto userDto = userSqlMapper.selectUserDtoById(helpDto.getUser_id());
 			
+			List<HelpImgDto> helpImgDtoList = helpSqlMapper.selectAllHelpImg(helpDto.getId());
+			
 			int helpCommentCount = helpSqlMapper.selectAllHelpCommentCountByBoardId(helpDto.getId());
 			
 			int helpLikeCount = helpSqlMapper.selectAllHelpLikeCountByBoardId(helpDto.getId());
@@ -121,7 +127,7 @@ public class HelpServiceImpl {
 			map.put("helpCommentCount", helpCommentCount);
 			map.put("userDto", userDto);
 			map.put("helpDto", helpDto);
-		
+			map.put("helpImgDtoList", helpImgDtoList);
 			
 			helpBoardList.add(map);
 		}
@@ -173,15 +179,45 @@ public class HelpServiceImpl {
 	
 	//해주세요 댓글 작성
 	public void registerHelpComment(HelpCommentDto helpCommentDto) {
-		
 		helpSqlMapper.registerHelpComment(helpCommentDto);
-			
 	}
 
 	//해주세요 댓글 삭제
 	public void deleteHelpComment(int id) {
 		helpSqlMapper.deleteHelpComment(id);
 	}
+	
+	//해주세요 댓글 수정
+	public void updateHelpComment(HelpCommentDto helpCommentDto) {
+		helpSqlMapper.updateHelpComment(helpCommentDto);
+	}
+	
+	//해주세요 댓글 조회 id:boardId
+	public  List<Map<String, Object>> getHelpCommentList(int help_id){ 
+		
+		List<Map<String, Object>> helpCommentsList = new ArrayList<>();
+		
+		List<HelpCommentDto> helpCommentDtoList = helpSqlMapper.selectAllHelpComments(help_id);
+		
+		for(HelpCommentDto helpCommentDto : helpCommentDtoList) {
+			
+			Map<String, Object> map = new HashMap<>();
+			
+			UserDto userDto = userSqlMapper.selectUserDtoById(helpCommentDto.getUser_id());
+			System.out.println(userDto);
+			map.put("userDto", userDto);
+			map.put("helpCommentDto",helpCommentDto);
+			System.out.println(helpCommentDto.getContent());
+			
+			
+			
+			helpCommentsList.add(map);
+		}
+		
+			return helpCommentsList;
+		
+			
+		}
 	
 	//해주세요 좋아요 insert
 	public void insertHelpLike(HelpLikeDto helpLikeDto) {
@@ -198,6 +234,46 @@ public class HelpServiceImpl {
 	public void removeHelpLike(HelpLikeDto helpLikeDto) {
 		helpSqlMapper.removeHelpLike(helpLikeDto);
 	}
+	
+	//해주세요 좋아요 통합
+	public void toggleHelpLike(HelpLikeDto helpLikeDto) {
+		
+		if(helpSqlMapper.checkHelpLike(helpLikeDto)>0) {
+			helpSqlMapper.removeHelpLike(helpLikeDto);
+		}else {
+			helpSqlMapper.insertHelpLike(helpLikeDto);
+		}
+	}
+	
+	public boolean isHelpLiked(HelpLikeDto helpLikeDto) {
+		
+		return helpSqlMapper.checkHelpLike(helpLikeDto) > 0;
+	}
+	
+	public int getTotalHelpLike(int help_Id) {
+		return helpSqlMapper.selectAllHelpLikeCountByBoardId(help_Id);
+	}
+	
+	//해주세요 채택 시 코인 리워드 지급
+	public void helpCommentCoinReward(HelpCommentDto helpCommentDto) {
+		
+		// 채택 시 포인트 금액 가져오기
+		HelpDto helpDto = helpSqlMapper.getHelpBoard(helpCommentDto.getHelp_id());
+		
+		// 코인 넣을 준비
+		UserCoinDto userCoinDto = new UserCoinDto();
+		// coin table pk  가져오기
+		int userCoinPk = userSqlMapper.getOnChargeCoinPk();
+		userCoinDto.setId(userCoinPk);
+		userCoinDto.setUser_id(helpCommentDto.getUser_id());
+		userCoinDto.setCoin_transaction(helpDto.getPoints());
+		userCoinDto.setTransaction_detail("해주세요 채택 리워드");
+		
+		
+		// mapper를 이용해서 코인 지급 
+		userSqlMapper.insertUserCoin(userCoinDto);
+	}
+	
 	//해주세요 댓글 개수 조회
 //	public List<Map<String, Object>> selectAllHelpCommentCountByBoardId(int help_id){
 //		
@@ -224,29 +300,7 @@ public class HelpServiceImpl {
 //		return helpAllCommentsList;
 	
 	
-	//해주세요 댓글 조회
-	public  List<Map<String, Object>> getHelpCommentList(int id){
-		
-		List<Map<String, Object>> helpCommentsList = new ArrayList<>();
-		
-		List<HelpCommentDto> helpCommentDtoList = helpSqlMapper.selectAllHelpComments(id);
-		
-		for(HelpCommentDto helpCommentDto : helpCommentDtoList) {
-			
-			Map<String, Object> map = new HashMap<>();
-			
-			UserDto userDto = userSqlMapper.selectUserDtoById(helpCommentDto.getUser_id());
-			System.out.println(userDto);
-			map.put("userDto", userDto);
-			map.put("helpCommentDto",helpCommentDto);
-			
-			helpCommentsList.add(map);
-		}
-		
-			return helpCommentsList;
-		
-			
-		}
+
 				
 
 	
@@ -280,5 +334,41 @@ public class HelpServiceImpl {
 	//해주세요 채택상태 변경
 	public void changeCompleteHelp(int id) {
 		helpSqlMapper.changeCompleteHelp(id);
+	}
+	
+	//해주세요 게시물 최신순 정렬
+	public List<Map<String, Object>> newPostByHelp(int sessionId) {
+		
+		List<HelpDto> newPostHelpList = helpSqlMapper.newPostByHelp();
+		
+		List<Map<String, Object>> newPostByHelpList = new ArrayList<>();
+		
+		for(HelpDto helpDto : newPostHelpList) {
+			Map<String, Object> map = new HashMap<>();
+						
+			// 회원 pk, 닉네임
+			UserDto userDto = userSqlMapper.selectUserDtoById(helpDto.getUser_id());		
+			
+			// 사진
+		//	List<HelpImgDto> helpImgList = helpSqlMapper.selectHelpBoardImageByHelpId(helpDto.getId());
+
+			// 댓글
+	//		int countHelpComment = helpSqlMapper.selectAllHelpCommentCountByBoardId(helpDto.getId());
+			// 좋아요
+		//	int countLikeByHelp= helpSqlMapper.selectAllHelpLikeCountByBoardId(helpDto.getId());
+			
+			map.put("userDto", userDto);
+			map.put("helpDto", helpDto);
+		//	map.put("helpImgList", helpImgList);
+		//	map.put("countHelpComment", countHelpComment);
+		//	map.put("countLikeByHelp", countLikeByHelp);
+
+			
+			newPostByHelpList.add(map);
+
+			
+		}		
+		
+		return newPostByHelpList;
 	}
 }

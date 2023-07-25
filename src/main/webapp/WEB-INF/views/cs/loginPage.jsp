@@ -32,7 +32,7 @@
 	<!-- 헤더 섹션 -->
 	
 	<div class="container d-flex justify-content-center content">
-		<form action="loginProcess" method="post" id="loginForm">
+		<!-- <form action="loginProcess" method="post" id="loginForm"> -->
 			
 		    <div class="row " >
 		        <div class="col">
@@ -53,7 +53,7 @@
 					        </div>
 				        	<div class="row " >
 					          <div class="col fs-5 d-grid">
-					          	  고객관리서비스
+					          	  고객지원서비스
 				        	  </div>
 					        </div>
 			        	</div>
@@ -80,7 +80,7 @@
 				      
 				      <div class="row mt-5" >
 				        <div class="col d-grid">
-				        	<button class="btn btn-dark">로그인</button>
+				        	<button class="btn btn-dark" onclick="loginAjax()">로그인</button>
 			        	</div>
 				      </div>
 		        	  
@@ -97,7 +97,7 @@
 	        </div>
 		        
 		   
-		</form>		
+		<!-- </form>		 -->
 		
 
 	      
@@ -115,14 +115,58 @@
         
     </div>
 	
-	
-<%-- 	<div class="d-flex justify-content-center my-5" style="max-width: 480px;">
-	    <c:if test="${!empty empUser && empUser.mater == 1}">
-     		<a href="./joinPage" class="btn btn-primary text-center">직원추가</a>	
-	    </c:if>
-	</div> --%>
-	
-	
+
+<%-- 로그인 실패 Modal --%>
+<div class="modal" id="fillOutInputModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered"> 
+    <div class="modal-content">
+    <div class="modal-header bg-light py-2">
+        <button type="button" class="btn-close btn-sm" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+    	<div class="row mt-3">
+    		<div class="col text-center" id="modalTxt">
+    			아이디를 입력해주세요.
+    		</div>
+    	</div>
+	    <div class="row mt-2">
+    		<div class="col text-end">
+    			<button type="button" class="btn  btn-sm btn-dark" data-bs-dismiss="modal">확인</button>
+    		</div>
+    	</div>
+      </div>
+      <!-- <div class="modal-footer">
+        <button type="button" class="btn btn-sm btn-outline-dark" data-bs-dismiss="modal">창닫기</button>
+      </div>   -->    
+    </div>
+  </div>
+</div>
+<%--  Modal --%>
+
+<%-- 로그인 실패 Modal --%>
+<div class="modal" id="loginFailModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered"> 
+    <div class="modal-content">
+     <div class="modal-header bg-light py-2">
+        <button type="button" class="btn-close btn-sm" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+    	<div class="row mt-2">
+    		<div class="col text-center">
+    			아이디 혹은 비밀번호를 잘못 입력하셨습니다.
+    		</div>
+    	</div>
+    	<div class="row mt-2">
+    		<div class="col text-end">
+    			<button type="button" class="btn  btn-sm btn-dark" data-bs-dismiss="modal">확인</button>
+    		</div>
+    	</div>
+      </div>
+    </div>
+  </div>
+</div>
+<%--  Modal --%>
+
 	
 	
 	<!-- 푸터 섹션 -->
@@ -135,22 +179,79 @@
 
 <script >
 
+const idBox = document.getElementById("uid");
+const pwBox = document.getElementById("upw");
 
-function ajaxTemplate() {
+//로그인 실패 modal
+function loginFailModal() {
+	
+	const loginFailModal = bootstrap.Modal.getOrCreateInstance("#loginFailModal");
+	loginFailModal.show();
+}
+
+// 엔터로 로그인 
+function keyUpEvent(e) {
+	if (e.key === "Enter" && !e.shiftKey) {
+		loginAjax();
+	}
+}
+
+//엔터로 로그인 
+function enter() {
+	// 이벤트 리스너 추가 
+	idBox.addEventListener("keyup", keyUpEvent);
+	pwBox.addEventListener("keyup", keyUpEvent);
+}
+
+window.addEventListener("DOMContentLoaded",function(){
+	enter();
+});
+
+function loginAjax() {
 
 	const id = document.getElementById("uid").value.trim();
 	const pw = document.getElementById("upw").value.trim();
 	const loginForm = document.getElementById("loginForm");
+	const fillOutInputModal = bootstrap.Modal.getOrCreateInstance("#fillOutInputModal");
+	const modalTxt = document.getElementById("modalTxt");
 	
-	if(!id || ) {
+	if(!id) {
+		modalTxt.innerText = "아이디를 입력해주세요.";
+		fillOutInputModal.show();
 		id.focus();
 		return
 	}
 	if(!pw) {
+		modalTxt.innerText = "비밀번호를 입력해주세요.";
+		fillOutInputModal.show();
 		pw.focus();
 		return
 	}
 	
+
+	
+	const xhr = new XMLHttpRequest();
+	
+	xhr.onreadystatechange = function() {
+	  if (xhr.readyState === 4 && xhr.status === 200) {
+	    const response = JSON.parse(xhr.responseText);
+	    if (response.result === "success") {
+	      console.log(response.result);
+	      location.href = "./mainPage";
+	    } else {
+	      idBox.value = "";
+	      pwBox.value = "";
+	      loginFailModal();
+	
+	     // alert("아이디 혹은 비밀번호가 일치하지 않습니다");
+	      return;
+	    }
+	  }
+	};
+	
+	xhr.open("post", "./login");
+	xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+	xhr.send("username=" + id + "&password=" + pw);
 	
 
 }

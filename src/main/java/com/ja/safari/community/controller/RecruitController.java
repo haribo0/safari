@@ -10,6 +10,7 @@ import java.util.UUID;
 
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.text.StringEscapeUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,6 +20,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.ja.safari.community.service.CommunityServiceImpl;
 import com.ja.safari.community.service.RecruitServiceImpl;
+import com.ja.safari.dto.PickDto;
 import com.ja.safari.dto.RecruitDto;
 import com.ja.safari.dto.RecruitImgLinkDto;
 import com.ja.safari.dto.RecruitLikeDto;
@@ -137,12 +139,21 @@ public class RecruitController  {
 		@RequestMapping("recruit/readContentPage/{id}")
 		public String recruitReadContentPage(@PathVariable int id, Model model) {
 			
+			recruitService.increaseViewsRecruitBoard(id);//조회수 증가.
+			
 			Map<String, Object> map = recruitService.getRecruitBoardById(id);
 			
 			System.out.println(map);
 			System.out.println(map.get("recruitImgLinkDtoList").toString());
 			
 			model.addAttribute("map", map);
+			
+			// html escape
+			RecruitDto recruitDto = (RecruitDto)map.get("recruitDto");
+			String content = recruitDto.getContent();
+			content = StringEscapeUtils.escapeHtml4(content);
+			content = content.replaceAll("\n", "<br>");
+			recruitDto.setContent(content);
 			
 			//게시물 좋아요 count
 			int RecruitBoardLikeCount = recruitService.countLikeByRecruitBoardId(id);
@@ -151,18 +162,87 @@ public class RecruitController  {
 			return "/community/recruit/readContentPage";
 		}
 		
+		//골라줘요 게시판 수정하기 페이지
+		@RequestMapping("recruit/updateContentPage/{id}")
+		public String recruitUpdateContentPage(@PathVariable int id, Model model) {
+			
+			Map<String, Object> map = recruitService.getRecruitBoardById(id);
+			
+			model.addAttribute("map", map);
+			
+			return "/community/recruit/updateContentPage";
+		}
+		
+		
+		//구인구직 게시판 수정하기 프로세스
+		@RequestMapping("recruit/updateContentProcess")
+		public String recruitUpdateContentProcess(RecruitDto recruitDto) {
+			
+			recruitService.updateRecruitBoard(recruitDto);
+			int id = recruitDto.getId();
+			
+			System.out.println(id);
+			//return "redirect:/community/pick/mainPage";
+			return "redirect:/community/recruit/readContentPage/" + id;
+		}
+		
+		//구인구직 게시물 삭제하기
+		@RequestMapping("recruit/deleteContentProcess/{id}")
+		public String recruitDeleteContentProcess(@PathVariable int id) {
+			
+			recruitService.deleteRecruitBoard(id);
+			
+			return "redirect:/community/recruit/mainPage";
+		}
+		
+		//구인구직 좋아요 insert
+		/*
+		 * @RequestMapping("recruit/insertRecruitLikeProcess/{id}") public String
+		 * insertRecruitLikeProcess(HttpSession session, RecruitLikeDto
+		 * recruitLikeDto, @PathVariable int id) {
+		 * 
+		 * UserDto sessionUser = (UserDto) session.getAttribute("sessionUser");
+		 * 
+		 * recruitLikeDto.setUser_id(sessionUser.getId());
+		 * recruitLikeDto.setRecruit_id(id);
+		 * 
+		 * recruitService.insertRecruitLike(recruitLikeDto);
+		 * 
+		 * return "redirect:/community/recruit/readContentPage/" + id; }
+		 */
+		
 		//구인구직 좋아요 insert
 		@RequestMapping("recruit/insertRecruitLikeProcess/{id}")
 		public String insertRecruitLikeProcess(HttpSession session, RecruitLikeDto recruitLikeDto, @PathVariable int id) {
 			
 			UserDto sessionUser = (UserDto) session.getAttribute("sessionUser");
 			
-			recruitLikeDto.setUser_id(sessionUser.getId());
-			recruitLikeDto.setRecruit_id(id);
+			//로그인 안되어 있을 때
+			if (sessionUser == null) {
+				
+				return "redirect:/user/loginPage";
+			} 
 			
-			recruitService.insertRecruitLike(recruitLikeDto);
+			// 로그인이 되어 있을 때
+			else {
+				
+				recruitLikeDto.setUser_id(sessionUser.getId());
+				recruitLikeDto.setRecruit_id(id);
+		
+				// 유저의 게시글 좋아요 여부 확인
+				int likeCount = recruitService.checkrecruitLike(recruitLikeDto);
+				
+				
+				if (likeCount > 0) {
+					recruitService.deleteRecruitLike(recruitLikeDto);
+				} else {
+					recruitService.insertRecruitLike(recruitLikeDto);
+				}
+				
+				return "redirect:/community/recruit/readContentPage/" + id;
+			}
 			
-			return "redirect:/community/recruit/readContentPage/" + id;
+			
 		}
 	
 }

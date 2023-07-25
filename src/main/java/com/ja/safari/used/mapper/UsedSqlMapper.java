@@ -141,6 +141,8 @@ public interface UsedSqlMapper {
 	public int selectMyWroteReviewCount(@Param("requestId")Integer requestId, @Param("senderId")Integer senderId);
 	// 해당 거래에 대한 내가 쓴 리뷰내용 가져오기 
 	public UsedPurchaseReviewDto selectPurchaseReviewByRequestIdAndSenderId(@Param("requestId")Integer requestId, @Param("senderId")Integer senderId);
+	// 내 아이디와 물건 id로 내가 쓴 리뷰내용 가져오기 
+	public UsedPurchaseReviewDto selectProductReviewByproductIdAndSenderId(@Param("productId")Integer productId, @Param("senderId")Integer senderId);
 	// 해당 거래에 대한 내가 쓴 리뷰체크 박스 가져오기 
 	public List<UsedReviewCheckboxCategoryDto> selectCheckboxSelectedReviewByRequestIdAndSenderId(@Param("requestId")Integer requestId, @Param("senderId")Integer senderId);
 	// 메인에서 나눔 물건 리스트 
@@ -151,6 +153,23 @@ public interface UsedSqlMapper {
 	public List<ProductDto> selectRelatedProductByFive(@Param("id")Integer id, @Param("subId")Integer subId);
 	// 코인 결제하고 나서 마이너스 
 	public void reduceUserCoinByUsed(UserCoinDto userCoinDto);
+	// 좋아요 리스트 
+	public List<ProductLikeDto> selectProductLikeByUserId(Integer userId);
+	// 나의 판매리스트(판매중, 예약중, 거래완료)
+	public List<ProductDto> selectMySellList(@Param("userId") Integer userId, @Param("statusId") Integer statusId);
+	// 나의 판매리스트 중 - 예약중 -> 예약취소로 바꾸기
+	public void updateProductRequestStatusByproductId(Integer productId);
+	// productRequestDto 가져오기 - productId 
+	public ProductRequestDto selectProductRequestByProductIdAndStatus(Integer productId);
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	

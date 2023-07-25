@@ -122,17 +122,17 @@ a {
 						</div>
 						
 						<div class="row">
-							<div class="col d-flex justify-content-center">
+							<div class="col">
 								<div class="row mt-3">
-									<div class="col-auto">
-										<img src="/safari/resources/img/user/kakao.png">
+									<div class="col text-center"  onclick="kakaoLogin()" style="cursor: pointer;">
+										<img src="/safari/resources/img/user/kakao_login_medium_wide.png" class="img-fluid">
 									</div>
-									<div class="col-auto">
+									<!-- <div class="col-auto">
 										<img src="/safari/resources/img/user/naver.png">
 									</div>
 									<div class="col">
 										<img src="/safari/resources/img/user/facebook.png">
-									</div>
+									</div> -->
 								</div>
 							</div>
 						</div>
@@ -140,6 +140,11 @@ a {
 					
 					</div>
 					<div class="col"></div>
+				</div>
+				<div class="row my-5">
+					<div class="col">
+				
+					</div>
 				</div>
 				
 
@@ -338,6 +343,17 @@ function loginProcess() {
 }
 
 
+// 카카오로그인 
+function kakaoLogin() {
+	
+	const client_id = "0bfc8526a72f845c4e47508748e79a4a";
+	const redirect_uri = "http://localhost:8181/safari/user/kakaoLogin";
+
+	const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=\${client_id}&redirect_uri=\${redirect_uri}&response_type=code` ;
+	window.location.href = KAKAO_AUTH_URL;
+	
+
+}
 
 
 

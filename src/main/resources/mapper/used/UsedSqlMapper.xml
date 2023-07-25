@@ -473,19 +473,41 @@ WHERE ROWNUM <= 4
        )
  </insert>
 
+<!-- 좋아요 목록 -->
+<select id="selectProductLikeByUserId" resultType="com.ja.safari.dto.ProductLikeDto">
+	SELECT * FROM PRODUCT_LIKE WHERE user_id=#{userId} ORDER BY id DESC
+</select>
 
+<!-- 나의 판매리스트(판매중, 예약중, 거래완료) - 마이페이지  -->
+<select id="selectMySellList" resultType="com.ja.safari.dto.ProductDto">
+	SELECT * FROM PRODUCT WHERE user_id=#{userId}
+	<if test="statusId==1">  
+		AND id NOT IN (SELECT product_id FROM PRODUCT_REQUEST WHERE status = '거래완료' OR status = '예약중')
+	</if>
+	<if test="statusId==2">  
+		AND id IN (SELECT product_id FROM PRODUCT_REQUEST WHERE status = '예약중')
+	</if>
+	<if test="statusId==3">  
+		AND id IN (SELECT product_id FROM PRODUCT_REQUEST WHERE status = '거래완료')
+	</if>
+	ORDER BY id DESC
+</select>
 
+<!-- 내가 해당 물건에 리뷰 가져오기  -->
+<select id="selectProductReviewByproductIdAndSenderId" resultType="com.ja.safari.dto.UsedPurchaseReviewDto">
+	SELECT * FROM USED_PURCHASE_REVIEW WHERE sender_id = #{senderId}
+	AND purchase_request_id = (SELECT id FROM PRODUCT_REQUEST WHERE product_id=#{productId} AND status='거래완료')
+</select>
 
+<!-- 예약중에서 거래요청으로 변경  -->
+<update id="updateProductRequestStatusByproductId">
+	UPDATE PRODUCT_REQUEST SET status = '거래요청' WHERE product_id = #{productId} and status='예약중'
+</update>
 
-
-
-
-
-
-
-
-
-
+<!-- 리뷰 작성 하기 전 productId로 정보 불러오기  -->
+<select id="selectProductRequestByProductIdAndStatus" resultType="com.ja.safari.dto.ProductRequestDto">
+	SELECT * FROM PRODUCT_REQUEST WHERE product_id=#{productId} AND status = '거래완료'
+</select>	
 
 
 

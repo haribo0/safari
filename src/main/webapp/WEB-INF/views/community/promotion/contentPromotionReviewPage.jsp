@@ -271,7 +271,7 @@ window.addEventListener("DOMContentLoaded", function(){
 					</div>
 					<div class = "row">
 						<div class = "col">
-							<form action="./rewardPromotionReviewPage" method="post">
+							<form action="./rewardPromotionReviewPage?itemId=${data.promotionReviewDto.rental_item_id}&userId=${data.userDto.id}&writerId=${data.promotionReviewDto.user_id}" method="post">
 							<button class = "form-control btn orangeButton me-2">
 									<i class="bi bi-fast-forward"></i>&nbsp; 더 알아보기 &nbsp;<i class="bi bi-fast-forward"></i>
 							</button>
@@ -303,21 +303,29 @@ window.addEventListener("DOMContentLoaded", function(){
 				<div class = "col">
 					<div class = "row mt-2">
 						<div class = "col">
+						
 							<!--  공감수 + 조회수 top5 -->
-							<c:choose>
-								<c:when test="">
-									<span class="badge text-bg-warning">BEST</span>
-								</c:when>
-								<c:otherwise>
-									
-								</c:otherwise>
-							</c:choose>
+							
+							<c:forEach items="${bestPromotionReviewPostList}" var="map" varStatus="status">
+							<c:if test="${map.promoReviewPostRankDto.promoReview_rank < 6}">
+								<span class="badge text-bg-warning">BEST</span>
+							</c:if>
+							${map.promoReivewPostRank.promoReview_rank }
+							</c:forEach>
+					
+							 
+							
+							 
 						</div>
 						<div class = "col"></div>
 					</div>
+					<%-- 카테고리 --%>
 					<div class = "row mt-3">
 						<div class = "col fs-6 text-secondary">
-							Category(대여)
+							${data.rentalItemCategory.main_category_name}
+						 	<c:if test="${data.rentalItemCategory.sub_category_name != null}">
+						 	> ${data.rentalItemCategory.sub_category_name}
+						 	</c:if>
 						</div>
 					</div>
 					<div class = "row">

@@ -18,22 +18,58 @@
 
 <style type="text/css">
 
+.pagination-container {
+  display: flex;
+  justify-content: center;
+}
 	
 .orderTab{
 	color: #F68942;
 }
 
 .btn_search{
-padding:9px 18px; background: #e6edfe; border:none; color: #789efd; border-radius:8px; font-size: 14px;
+	padding:9px 18px; 
+	background: #e6edfe; 
+	border:none; 
+	color: #789efd; 
+	border-radius:8px; 
+	font-size: 14px; 
+	width: 74px;
 }
 .btn_delivered{
-padding:4px 12px; background: #f9e2e5; border:none; color: #dd7c7e; border-radius:8px; font-size: 14px;
-
+	padding:4px 10px; 
+	background: #f9e2e5;
+	border:none; 
+	color: #dd7c7e; 
+	border-radius:8px; 
+	font-size: 13px;
+	width: 74px;
 }
-.btn_canceled{padding:4px 12px; background: #e6edfe; border:none; color: #789efd; border-radius:8px; font-size: 14px;}
-.btn_ordered{padding:4px 12px; background: #dff5ea; border:none; color: #6db590; border-radius:8px; font-size: 14px;}
-.c_pointer{cursor: poniter;}
-.c-options {width:150px; padding: 10px 0; }
+.btn_canceled{
+	padding:4px 10px; 
+	background: #e6edfe; 
+	border:none; 
+	color: #789efd; 
+	border-radius:8px; 
+	font-size: 13px; 
+	width: 74px;
+}
+.btn_ordered{
+	padding:4px 10px; 
+	background: #dff5ea; 
+	border:none; 
+	color: #6db590; 
+	border-radius:8px; 
+	font-size: 13px; 
+	width: 74px;
+}
+.c_pointer{
+	cursor: poniter;	
+}
+.c-options {
+	width:150px; 
+	padding: 10px 0; 
+}
 
 </style>
 </head>
@@ -126,6 +162,7 @@ padding:4px 12px; background: #f9e2e5; border:none; color: #dd7c7e; border-radiu
 							<div class="col-2 fw-bold text-body-tertiary">상품</div>
 							<div class="col fw-bold text-body-tertiary">연락처</div>
 							<div class="col fw-bold text-body-tertiary">대여시작</div>
+							<div class="col fw-bold text-body-tertiary">이름</div>
 							<div class="col-2 fw-bold text-body-tertiary">주소</div>
 							
 							<div class="col fw-bold text-body-tertiary">가격</div>
@@ -175,8 +212,31 @@ padding:4px 12px; background: #f9e2e5; border:none; color: #dd7c7e; border-radiu
 						
 					</div>
 				</div>
+			
+				<div class="row mt-5">
+					<div class="col pagination-container">
+						<nav aria-label="Page navigation example">
+						  <ul class="pagination ">
+						    <li class="page-item">
+						      <a class="page-link  text-dark" href="#" aria-label="Previous">
+						        <span aria-hidden="true">&laquo;</span>
+						      </a>
+						    </li>
+						    <li class="page-item"><a class="page-link text-dark" href="#">1</a></li>
+						    <li class="page-item"><a class="page-link text-dark" href="#">2</a></li>
+						    <li class="page-item"><a class="page-link text-dark" href="#">3</a></li>
+						    <li class="page-item"> 
+						      <a class="page-link  text-dark" href="#" aria-label="Next">
+						        <span aria-hidden="true">&raquo;</span>
+						      </a>
+						    </li>
+						  </ul>
+						</nav>
+					</div>
+				</div>
 				
 			</div>
+			
 			
 			<div class="col-1"></div>
 		</div>
@@ -260,6 +320,10 @@ function reloadList() {
 				col4Div.classList.add('col', 'my-auto');
 				col4Div.textContent = new Intl.DateTimeFormat('en-US', { month: '2-digit', day: '2-digit', year: 'numeric' }).format(map.order.start_date);
 
+				const col8Div = document.createElement('div');
+				col8Div.classList.add('col', 'my-auto');
+				col8Div.textContent = map.order.name;
+				
 				const col5Div = document.createElement('div');
 				col5Div.classList.add('col-2', 'my-auto');
 				col5Div.textContent = map.order.address;
@@ -295,28 +359,14 @@ function reloadList() {
 				rowDiv1.appendChild(col2Div);
 				rowDiv1.appendChild(col3Div);
 				rowDiv1.appendChild(col4Div);
+				rowDiv1.appendChild(col8Div);
 				rowDiv1.appendChild(col5Div);
 				rowDiv1.appendChild(col6Div);
 				rowDiv1.appendChild(col7Div);
 
-				// Create hr element
-				// const hrElement = document.createElement('hr');
-				// hrElement.classList.add('border');
-
-				// Create another row div element
-				// const rowDiv2 = document.createElement('div');
-				// rowDiv2.classList.add('row', 'text-center');
-
-				// Append hr element to the second row div
-				// rowDiv2.appendChild(hrElement);
-
-				// Append both row divs to a container element in the DOM
 				listContainer.appendChild(rowDiv1);
-				// listContainer.appendChild(rowDiv2);
-
 				
 			});
-			
 			
 		}
 	}

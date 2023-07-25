@@ -38,9 +38,11 @@ import com.ja.safari.dto.RentalOrderKakaopayApprove;
 import com.ja.safari.dto.RentalOrderKakaopayReady;
 import com.ja.safari.dto.RentalReturnKakaopayAmount;
 import com.ja.safari.dto.RentalReturnKakaopayApprove;
+import com.ja.safari.dto.RentalReviewCountDto;
 import com.ja.safari.dto.RentalReviewDto;
 import com.ja.safari.dto.RentalReviewImgDto;
 import com.ja.safari.dto.UserAddressDto;
+import com.ja.safari.dto.UserCoinDto;
 import com.ja.safari.dto.UserDto;
 import com.ja.safari.rental.service.RentalServiceImpl;
 import com.ja.safari.user.service.UserServiceImpl;
@@ -83,6 +85,18 @@ public class RentalController {
 		return "rental/mainPage";
 	}
 	
+	
+	// 대여 메인 페이지
+	@RequestMapping("mainPageBackup")
+	public String mainPageBackup(Model model, Integer sub_category_id, Integer main_category_id, String orderly) {
+		List<Map<String, Object>> categoryList = rentalService.getCategoryList();
+		List<Map<String, Object>> rentalItemList = rentalService.getRentalItemList(sub_category_id, main_category_id, orderly);
+		
+		model.addAttribute("categoryList", categoryList);
+		model.addAttribute("rentalItemList", rentalItemList);
+		return "rental/mainPage_b";
+	}
+	
 	// 회원가입 페이지 
 	@RequestMapping("businessRegisterPage")
 	public String businessRegisterPage(HttpSession session) {
@@ -104,7 +118,7 @@ public class RentalController {
 		
 		Map<String, Object> map = rentalService.getItem(id);
 		List<Map<String, Object>> reviewMap = rentalService.getRentalReview(id);
-		int reviewCount = rentalService.getRentalReviewCount(id);
+		RentalReviewCountDto reviewCount = rentalService.getRentalReviewCount(id);
 		Double reviewRating = rentalService.getRentalReviewRating(id);
 	
 		model.addAttribute("data", map); // 대여 아이템 상품 하나
@@ -134,10 +148,13 @@ public class RentalController {
 			return "redirect:../user/loginPage";
 		} else {
 			Map<String, Object> map = rentalService.getItem(id);
-			List<UserAddressDto> userAddressDtoList = userService.getUserAddressList(sessionUser.getId()); 
+			List<UserAddressDto> userAddressDtoList = userService.getUserAddressList(sessionUser.getId());
+			int userCoinBalance = userService.getUserCoinBalance(sessionUser.getId());
 			
 			model.addAttribute("data",map);
 			model.addAttribute("addressList", userAddressDtoList);
+			model.addAttribute("sessionUser",sessionUser);
+			model.addAttribute("userCoinBalance",userCoinBalance);
 			
 			return "rental/orderConfirmPage";			
 		}
@@ -201,7 +218,7 @@ public class RentalController {
 				}
 			
 	
-			String rootFolder = "C:\\uploadFiles";
+			String rootFolder = "C:\\uploadFiles\\";
 	
 			// 날짜별 폴더 생성 로직 
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
@@ -237,6 +254,26 @@ public class RentalController {
 		return "redirect:../user/myOrderListPage";
 	}
 	
+	
+	// 계약금 없는 반납
+	@RequestMapping("rentalReturnZeroProcess")
+ 	public String rentalReturnZeroProcess(HttpSession session, int rental_order_id) {
+		
+		UserDto sessionUser = (UserDto)session.getAttribute("sessionUser");
+		int userId = sessionUser.getId();
+		
+		// 반납 pk 설정
+		int returnPk = rentalService.getRentalOrderReturnPk();
+		// 반납 dto 준비
+		int discount_revocation = 0;
+		RentalItemReturnDto rentalItemReturnDto = new RentalItemReturnDto();
+		rentalItemReturnDto.setId(returnPk);
+		rentalItemReturnDto.setRental_order_id(rental_order_id);
+		rentalItemReturnDto.setDiscount_revocation(discount_revocation);
+		
+		rentalService.rentalReturnZero(rentalItemReturnDto);
+		return "redirect:../user/myOrderListPage";
+	}
 	
 }
 

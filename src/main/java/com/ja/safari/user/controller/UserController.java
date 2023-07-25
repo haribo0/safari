@@ -15,6 +15,7 @@ import com.ja.safari.cs.service.CsServiceImpl;
 import com.ja.safari.dto.PromotionReviewDto;
 import com.ja.safari.dto.UserChargeCoinKakaoPayApproveDto;
 import com.ja.safari.dto.UserDto;
+import com.ja.safari.used.service.UsedServiceImpl;
 import com.ja.safari.user.service.UserServiceImpl;
 
 @Controller
@@ -23,6 +24,9 @@ public class UserController {
 	
 	@Autowired
 	private UserServiceImpl userService;
+	
+	@Autowired
+	private UsedServiceImpl usedService;
 	
 	@Autowired
 	private AuctionServiceImpl auctionService;
@@ -55,6 +59,57 @@ public class UserController {
 		
 		return "/main/loginPage";
 	}
+	
+	
+	// 로그인 페이지 테스트중 
+	@RequestMapping("loginPage2")
+	public String loginPage2() {
+		
+		return "/main/loginPage2";
+	}
+	
+	
+	// 로그인
+	@RequestMapping("kakaoLogin")
+	public String kakaoLogin(HttpSession session, String code, String error, String error_description, String state) {
+		
+		// System.out.println("kakaoLogin");
+		
+		if(code != null) {
+			System.out.println(code);
+			return "redirect:./kakaoLoginProcessPage?code="+code;
+		}
+		
+		if(error != null) {
+			System.out.println(error);
+			return "redirect:./loginPage";
+		}
+		
+		if(error_description != null) {
+			System.out.println(error_description);
+			return "redirect:./loginPage";
+		}
+		
+		if(state != null) {
+			System.out.println(state);
+			return "redirect:./loginPage";
+		}
+		
+		return "redirect:./loginPage";
+	}
+	
+	// 로그인
+	@RequestMapping("kakaoLoginProcessPage")
+	public String kakaoLoginProcessPage(String code, Model model) {
+		
+		// System.out.println(code);
+		model.addAttribute("code", code);
+		
+		return "/main/kakaoLoginProcess";
+	}
+	
+
+	
 	
 	// 회원정보 수정 페이지
 	@RequestMapping("modifyProfile") 
@@ -177,9 +232,39 @@ public class UserController {
 		return "user/myInquiryDetail";
 	}
 	
+	// 중고 -- 마이페이지 : 관심목록 
+	@RequestMapping("wishList")
+	public String wishList(HttpSession session, Model model) {
+		UserDto sessionUser = (UserDto)session.getAttribute("sessionUser");
+		if(sessionUser==null) {
+			return "redirect:./loginPage";
+		}else {
+			model.addAttribute("list", usedService.selectProductLikeByUserId(sessionUser.getId()));
+			return "used/wishList";
+		}
+	}
 	
+	// 중고 -- 마이페이지 : 판매목록
+	@RequestMapping("selectMySellList")
+	public String selectMySellList(HttpSession session) {
+		UserDto sessionUser = (UserDto)session.getAttribute("sessionUser");
+		if(sessionUser==null) {
+			return "redirect:./loginPage";
+		}else {
+			return "used/mySellList";
+		}
+	}
 	
-	
+	// 중고 -- 마이페이지 : 구매목록
+		@RequestMapping("selectMyBuyList")
+		public String selectMyBuyList(HttpSession session) {
+			UserDto sessionUser = (UserDto)session.getAttribute("sessionUser");
+			if(sessionUser==null) {
+				return "redirect:./loginPage";
+			}else {
+				return "used/myBuyList";
+			}
+		}
 	
 	/*
 	 * 로직처리 
@@ -273,7 +358,7 @@ public class UserController {
 		return "user/chargeCoinSucceed";
 	}
 	
-	// 세연 마이페이지 - 커뮤니티 게시글 리스트
+	// 세연 마이페이지 - 커뮤니티 게시글모음 리스트
 	@RequestMapping("myAllCommunityPostListPage")
 	public String myAllCommunityPostListPage(Model model, HttpSession session, PromotionReviewDto promotionReviewDto) {
 
@@ -289,11 +374,13 @@ public class UserController {
 			List<Map<String, Object>> pickByMyPost = userService.getPickByMyPost(sessionId);
 			List<Map<String, Object>> helpByMyPost = userService.getHelpByMyPost(sessionId);
 			List<Map<String, Object>> recruitByMyPost = userService.getRecruitByMyPost(sessionId);
+			List<Map<String, Object>> questionByMyPost = userService.getQuestionByMyPost(sessionId);
 			List<Map<String, Object>> proreviewByMyPost = userService.getProreviewByMyPost(sessionId);
 			
 			model.addAttribute("pickByMyPost", pickByMyPost);
 			model.addAttribute("helpByMyPost", helpByMyPost);
 			model.addAttribute("recruitByMyPost", recruitByMyPost);
+			model.addAttribute("questionByMyPost", questionByMyPost);
 			model.addAttribute("proreviewByMyPost", proreviewByMyPost);
 			
 			return "user/myAllCommunityPostListPage";
@@ -302,30 +389,36 @@ public class UserController {
 	}
 	
 
-	// 세연 마이페이지 - 커뮤니티 좋아요 리스트
+	// 세연 마이페이지 - 커뮤니티 좋아요모음 리스트
 	@RequestMapping("myCommunityLikesListPage")
-	public String myCommunityLikesListPage(HttpSession session) {
+	public String myCommunityLikesListPage(HttpSession session, Model model) {
 		
 		UserDto sessionUser = (UserDto)session.getAttribute("sessionUser");
 		
 		if(sessionUser==null) {
 			return "redirect:../user/loginPage";
 		}else {
+			
+			int sessionId = 0;
+			sessionId = sessionUser.getId();
+			
+			List<Map<String, Object>> recruitByMyLikePost = userService.getRecruitByUserLikes(sessionId);
+			List<Map<String, Object>> helpByMyLikePost = userService.getHelpByUserLikes(sessionId);
+			List<Map<String, Object>> questionByMyLikePost = userService.getQuestionByUserLikes(sessionId);
+			List<Map<String, Object>> pickByMyLikePost = userService.getPickByUserLikes(sessionId);
+			List<Map<String, Object>> proreviewByMyLikePost = userService.getPromoReviewByUserLikes(sessionId);
+			
+			
+			model.addAttribute("recruitByMyLikePost", recruitByMyLikePost);
+			model.addAttribute("helpByMyLikePost", helpByMyLikePost);
+			model.addAttribute("questionByMyLikePost", questionByMyLikePost);
+			model.addAttribute("pickByMyLikePost", pickByMyLikePost);
+			model.addAttribute("proreviewByMyLikePost", proreviewByMyLikePost);
+			
+			
 			return "user/myCommunityLikesListPage";
 		}
 	
 	}
 	
-	// 세연 마이페이지 - (임시) 리워드 찜 리스트 
-	@RequestMapping("rewardLikesListPage")
-	public String rewardLikesListPage(HttpSession session) {
-		
-		UserDto sessionUser = (UserDto)session.getAttribute("sessionUser");
-		
-		if(sessionUser==null) {
-			return "redirect:../user/loginPage";
-		}else {
-			return "user/rewardLikesListPage";
-		}
-	}
 }

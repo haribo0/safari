@@ -25,10 +25,10 @@
       </div>
       <!-- 커뮤니티 메뉴바 --> --%>
 	
-	<div class="row">
+	<div class="row mb-3">
 	
 	<%--왼쪽 시작--%>
-	<div class="col-2"></div>
+	<div class="col-1"></div>
 	<%--왼쪽 끝 --%>
 	
 	
@@ -43,8 +43,9 @@
 	<form action="/safari/community/help/writeContentProcess" method="post" enctype="multipart/form-data">
 		
 		<div class="row">
-			<div class="col">
+			<div class="col mt-5">
 			 	
+			 	  <strong style="font-size: 24px;">글쓰기 페이지<br></strong><hr>
 				  <input type="hidden" name="user_id" value="${sessionUser.id}">
 				  <input type="text" class="form-control" placeholder="제목을 입력해주세요" name="title" maxlength="40" style= "margin-top: 10px;">
 				  <textarea type="text" class="form-control" placeholder="내용을 입력해주세요" name="content" maxlength="3000" style="height:400px; margin-top: 10px;"></textarea>
@@ -77,7 +78,7 @@
 			<div class="row">
 			<div class="col text-center">
 				<br>
-				<button class="btn btn-dark">작성완료</button> 
+				<button class="btn" style="background: #ff6f0f; font-weight: bold; color: white;">작성하기</button> 
 			</div>
 			</div>
 			</form>
@@ -87,7 +88,7 @@
 	<%--가운데 끝 --%>
 	
 	<%--오른쪽 시작--%>
-	<div class="col-2">
+	<div class="col-1">
 	</div>
 	<%--오른쪽 끝--%>	
 

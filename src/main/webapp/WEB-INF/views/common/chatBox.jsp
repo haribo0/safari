@@ -430,12 +430,12 @@ body1 {
 	      </div> -->
 	      <div class="modal-header ms-2 " id="modalHeader">
 		     <div class="my-custom-header-wrapper text-secondary" id="" style="font-size: 14px">
-		     	<div class="row mb-2">
+		     	<div class="row mb-2 text-center">
 			     	<div class="col ms-1 fs-6">
 		     			문의 카테고리를 선택하시면 실시간 채팅이 시작됩니다
 		     		</div>
 		     	</div>
-		     	<div class="row">
+		     	<div class="row text-center">
 		     		<div class="col">
 		     			<div class="btn btn-sm btn-outline-dark mx-1 rnd categoryBtn"
 		     				id="btn1" onclick="startLiveChat(1)">#중고</div>
@@ -500,7 +500,7 @@ body1 {
 				문의 평가
 	      	</div>
       	</div>
-      	<div class="row py-3">
+      	<div class="row py-2">
 	      	<div class="col ">
       			<div id="full-stars-example-two">
 				    <div class="rating-group">
@@ -892,6 +892,8 @@ function getMyWroteReviewHideAndShow(senderId, receiverId, requestId, modalName)
 	const modalBodyBox = document.getElementById('modalBody3');
 	// 닫을 때
 	modalHide(modalName);
+	
+	/* modalHide('writeReviewModalMy'); */
 	// 열 때
 	const wroteReviewModal = bootstrap.Modal.getOrCreateInstance('#myWroteReviewModal');
 
@@ -1945,7 +1947,7 @@ function getProductInformation(requestId) {
     				row2col1Icon.classList.add('bi', 'bi-coin');
     				const row2col1Span = document.createElement('span');
     				row2col1Span.innerText = ' 송금하기';
-    				row2col1Span.setAttribute("onclick", "processPayment("+partner_order_id+","+partner_user_id+","+item_name+","+item_code+","+total_amount+")");
+    				row2col1Span.setAttribute("onclick", "processPayment("+partner_order_id+","+partner_user_id+",'"+item_name+"',"+item_code+","+total_amount+")");
 
     	            const row2col4 = document.createElement('div');
     	            row2col4.classList.add('col');
