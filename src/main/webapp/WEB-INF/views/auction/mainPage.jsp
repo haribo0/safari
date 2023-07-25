@@ -65,6 +65,13 @@
 
 
 	<div class="container main_box mt-5">
+	
+		<div class="row mb-2">
+			<div class="col">
+				<a href="/safari/auction/List">경매 리스트 이동 > </a>
+			</div>
+		</div>
+	
 		<div class="row">
 			<div class="col">
 			 
@@ -90,6 +97,8 @@
 						지금 Hot한 경매에요!
 					</div>
 				</div>
+				
+				
 				
 			
 			
@@ -154,7 +163,7 @@ function getDeadlineList() {
 	      	const endDate = countdownFromEndDate(data.auctionDto.end_date);
         	
         	// !!!!!!!!!!!!!  여기 너무 중요 함수 호출
-        	updateAuctionCountDown(data.auctionDto.id, endDate);
+        	//updateAuctionCountDown(data.auctionDto.id, data.auctionDto.end_date);
         	getCurrentPrice(data.auctionDto.id);
         	// 여기 너무 중요 함수 호출
         	
@@ -208,7 +217,7 @@ function getDeadlineList() {
         	
         	
             const priceRow = document.createElement("div");
-            priceRow.classList.add("row", "mt-1");
+            priceRow.classList.add("row");
             
             const priceCol = document.createElement("div");
             priceCol.classList.add("col-auto");
@@ -346,7 +355,7 @@ function updateAuctionCountDown(id, endDate) {
          	const timeSpan2 = document.createElement("span");
 	        timeSpan2.classList.add("fw-bold");
 	        timeSpan2.innerText = "00"+":";
-	        //timeSpan.appendChild(timeSpan2);
+	        timeSpan.appendChild(timeSpan2);
          }
       
       if (auctionCountDown.minutes > 0) {
@@ -365,7 +374,7 @@ function updateAuctionCountDown(id, endDate) {
           const timeSpan3 = document.createElement("span");
           timeSpan3.classList.add("fw-bold");
           timeSpan3.innerText = "00"+":";
-          //timeSpan.appendChild(timeSpan3);
+          timeSpan.appendChild(timeSpan3);
          	
          }		         
 
@@ -376,7 +385,7 @@ function updateAuctionCountDown(id, endDate) {
 	     } else {
 	  	   timeSpan4.innerText = auctionCountDown.seconds;
 	     }
-	     //timeSpan.appendChild(timeSpan4);
+	     timeSpan.appendChild(timeSpan4);
 
 
 	     setTimeout(function() {

@@ -7,7 +7,6 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<link rel="stylesheet" href="/safari/resources/style/auction.css" type="text/css">
 <title>사파리 | 메인</title>
 <!-- 메타 섹션 -->
 <jsp:include page="../common/meta.jsp"></jsp:include>
