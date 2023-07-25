@@ -19,6 +19,7 @@ import com.ja.safari.dto.RentalReviewCountDto;
 import com.ja.safari.dto.RentalReviewDto;
 import com.ja.safari.dto.RentalReviewImgDto;
 import com.ja.safari.dto.RentalSubCategoryDto;
+import com.ja.safari.dto.UserCoinDto;
 import com.ja.safari.dto.UserDto;
 import com.ja.safari.dto.RentalItemDto;
 import com.ja.safari.dto.RentalItemImgDto;
@@ -161,9 +162,6 @@ public interface RentalSqlMapper {
 
 	// 주문번호로 주문 dto 가져오기 
 	public RentalOrderDto getRentalOrderDtoById(int id);
-
-
-
 
 
 	

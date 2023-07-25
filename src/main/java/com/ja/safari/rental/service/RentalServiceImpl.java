@@ -42,6 +42,7 @@ import com.ja.safari.dto.RentalReviewCountDto;
 import com.ja.safari.dto.RentalReviewDto;
 import com.ja.safari.dto.RentalReviewImgDto;
 import com.ja.safari.dto.RentalSubCategoryDto;
+import com.ja.safari.dto.UserCoinDto;
 import com.ja.safari.dto.UserDto;
 import com.ja.safari.rental.mapper.RentalSqlMapper;
 import com.ja.safari.user.mapper.UserSqlMapper;
@@ -53,6 +54,10 @@ public class RentalServiceImpl {
 	
 	@Autowired
 	RentalSqlMapper rentalSqlMapper;
+	
+	@Autowired
+	UserSqlMapper userSqlMapper;
+	
 	
 	// 중복 확인 
 	public boolean isUserIdTaken(String userId) { 
@@ -391,6 +396,10 @@ public class RentalServiceImpl {
 	public RentalOrderDto getRentalOrderDtoById(int id) {
 		
 		return rentalSqlMapper.getRentalOrderDtoById(id);
+	}
+
+	public void reduceCoin(UserCoinDto userCoinDto) {
+		userSqlMapper.reduceUserCoin(userCoinDto);
 	}
 
 

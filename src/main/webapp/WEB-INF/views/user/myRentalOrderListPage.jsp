@@ -28,56 +28,50 @@
   position: relative;
 }
 
+/*  */ /* 별점 */ /*  */
 #full-stars-example-two {
-
   /* use display:inline-flex to prevent whitespace issues. alternatively, you can put all the children of .rating-group on a single line */
   .rating-group {
     display: inline-flex;
   }
-  
   /* make hover effect work properly in IE */
   .rating__icon {
     pointer-events: none;
   }
-  
   /* hide radio inputs */
   .rating__input {
    position: absolute !important;
    left: -9999px !important;
   }
-  
   /* hide 'none' input from screenreaders */
   .rating__input--none {
     display: none
   }
-
   /* set icon padding and size */
   .rating__label {
     cursor: pointer;
     padding: 0 0.1em;
     font-size: 2rem;
   }
-  
   /* set default star color */
-  .rating__icon—star {
+  .rating__icon--star {
     color: orange;
   }
-
   /* if any input is checked, make its following siblings grey */
-  .rating__input:checked ~ .rating__label .rating__icon—star {
+  .rating__input:checked ~ .rating__label .rating__icon--star {
     color: #ddd;
   }
-  
   /* make all stars orange on rating group hover */
-  .rating-group:hover .rating__label .rating__icon—star {
+  .rating-group:hover .rating__label .rating__icon--star {
     color: orange;
   }
-
   /* make hovered input's following siblings grey on hover */
-  .rating__input:hover ~ .rating__label .rating__icon—star {
+  .rating__input:hover ~ .rating__label .rating__icon--star {
     color: #ddd;
   }
 }
+/*  */ /* 별점 */ /*  */
+
 
 </style>
 </head>
@@ -185,32 +179,33 @@
 	      	<div class="row">
 	      		<div class="col">
 					제목: <input type="text" name="rental_review_title" class="form-control"><br />
-					별점: <input type="number" min="1" max="5" class="form-control" name="rental_review_rating"><br />
-					내용: <textarea rows="" cols="" class="form-control" name="rental_review_content"></textarea>
+					내용: <textarea rows="" cols="" class="form-control" name="rental_review_content"></textarea><br>
 					이미지첨부: <input name="rental_review_img" type="file" multiple accept="image/*" class="form-control">
 	      		</div>
 	      	</div>
 	      	
-	      	<div class="row">
-	      		<div class="col">
+			<div class="row mt-3">
+				<div class="col ">
+					<p class="mb-0">별점</p>
 	      			<div id="full-stars-example-two">
+	      			<input type="hidden" value="" name="rental_review_rating" class="ratingVal">
 					    <div class="rating-group">
-					        <input disabled checked class="rating__input rating__input--none" name="rating3" id="rating3-none" value="0" type="radio">
-					        <label aria-label="1 star" class="rating__label" for="rating3-1"><i class="rating__icon rating__icon--star fa fa-2xs fa-star"></i></label>
+					        <input disabled="" checked="" class="rating__input rating__input--none" name="rating3" id="rating3-none" value="0" type="radio">
+					        <label aria-label="1 star" class="rating__label" for="rating3-1"><i class="rating__icon rating__icon--star fa fa-sm fa-star" aria-hidden="true"></i></label>
 					        <input class="rating__input" name="rating3" id="rating3-1" value="1" type="radio">
-					        <label aria-label="2 stars" class="rating__label" for="rating3-2"><i class="rating__icon rating__icon--star fa fa-2xs fa-star"></i></label>
+					        <label aria-label="2 stars" class="rating__label" for="rating3-2"><i class="rating__icon rating__icon--star fa fa-sm fa-star" aria-hidden="true"></i></label>
 					        <input class="rating__input" name="rating3" id="rating3-2" value="2" type="radio">
-					        <label aria-label="3 stars" class="rating__label" for="rating3-3"><i class="rating__icon rating__icon--star fa fa-2xs fa-star"></i></label>
+					        <label aria-label="3 stars" class="rating__label" for="rating3-3"><i class="rating__icon rating__icon--star fa fa-sm fa-star" aria-hidden="true"></i></label>
 					        <input class="rating__input" name="rating3" id="rating3-3" value="3" type="radio">
-					        <label aria-label="4 stars" class="rating__label" for="rating3-4"><i class="rating__icon rating__icon—star fa fa-2xs fa-star"></i></label>
+					        <label aria-label="4 stars" class="rating__label" for="rating3-4"><i class="rating__icon rating__icon--star fa fa-sm fa-star" aria-hidden="true"></i></label>
 					        <input class="rating__input" name="rating3" id="rating3-4" value="4" type="radio">
-					        <label aria-label="5 stars" class="rating__label" for="rating3-5"><i class="rating__icon rating__icon—star fa fa-2xs fa-star"></i></label>
+					        <label aria-label="5 stars" class="rating__label" for="rating3-5"><i class="rating__icon rating__icon--star fa fa-sm fa-star" aria-hidden="true"></i></label>
 					        <input class="rating__input" name="rating3" id="rating3-5" value="5" type="radio">
 					    </div>
 					</div>
-	      		</div>
-	      	</div>
-	      	
+		      	</div>
+			</div>
+			
 	      </div>
 	      <div class="modal-footer">
 	        <span class="btn btn-secondary" data-bs-dismiss="modal">취소</span>
@@ -621,7 +616,23 @@ if (modalReview) {
     const button = event.relatedTarget
     const orderId = button.getAttribute('data-order-id')
     const form = modalReview.querySelector('form')
+    const ratingGroup = document.querySelector('.rating-group')
     
+    ratingGroup.addEventListener('click', function() {
+        let rentalReviewRating = document.querySelector('.ratingVal')
+        // Get the star rating group element
+    	let ratingGroup = document.querySelector('#full-stars-example-two .rating-group');
+    	// Get the checked input element within the rating group
+    	let checkedInput = ratingGroup.querySelector('input:checked');
+    	// Get the value of the checked input element
+    	let ratingValue = checkedInput ? checkedInput.value : null;
+    	
+    	rentalReviewRating.setAttribute('value',ratingValue)
+    	
+    })
+	
+	
+	
     form.setAttribute('action', `../rental/writeRentalReviewProcess?rental_id=\${orderId}`)
     
     setRegDate()
@@ -832,8 +843,6 @@ function placeReviewDate(id) {
 					card.appendChild(cardBody);
 					testBox.appendChild(card);
 				
-				
-				
 			}
 		}
 	}
@@ -841,6 +850,7 @@ function placeReviewDate(id) {
 	xhr.open("get", "/safari/rental/getMyItemReview?id="+id, false);
 	xhr.send();
 }
+
 
 window.addEventListener("DOMContentLoaded", function(){
 	getSessionId()

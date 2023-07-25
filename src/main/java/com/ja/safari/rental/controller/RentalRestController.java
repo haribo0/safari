@@ -31,6 +31,7 @@ import com.ja.safari.dto.RentalPeriodDiscDto;
 import com.ja.safari.dto.RentalReturnKakaopayAmount;
 import com.ja.safari.dto.RentalReturnKakaopayApprove;
 import com.ja.safari.dto.RentalReviewDto;
+import com.ja.safari.dto.UserCoinDto;
 import com.ja.safari.dto.RentalItemDto;
 import com.ja.safari.dto.RentalItemLikeDto;
 import com.ja.safari.dto.RentalItemReturnDto;
@@ -40,6 +41,7 @@ import com.ja.safari.dto.RentalOrderKakaopayApprove;
 import com.ja.safari.dto.UserDto;
 import com.ja.safari.rental.mapper.RentalSqlMapper;
 import com.ja.safari.rental.service.RentalServiceImpl;
+import com.ja.safari.user.service.UserServiceImpl;
 
 @RestController
 @RequestMapping("/rental/*")
@@ -47,6 +49,9 @@ public class RentalRestController {
 	
 	@Autowired
 	RentalServiceImpl rentalService;
+	
+	@Autowired
+	UserServiceImpl userService;
 	
 	@RequestMapping("isUserIdTaken")
 	public Map<String, Object> isUserIdTaken(String userId) {
@@ -202,6 +207,7 @@ public class RentalRestController {
 	@RequestMapping("onKakaopayProcess")
 	public String onKakaopayProcess(HttpSession session, HttpServletResponse response, int id, String pg_token) {
 		
+		UserDto sessionUser = (UserDto)session.getAttribute("sessionUser");
 		System.out.println("PGTOKEN:: " + pg_token);
 		System.out.println("partner_order_id:: " + id);
 		
@@ -264,6 +270,16 @@ public class RentalRestController {
 				rentalService.saveKakaoApproveAmount(rentalOrderKakaopayAmount);
 				
 				System.out.println("Amount?:: " + rentalOrderKakaopayAmount.toString());
+				
+				// 보증금 코인차감
+				int deposit = rentalOrderDto.getDeposit();
+				UserCoinDto userCoinDto = new UserCoinDto();
+				userCoinDto.setCoin_transaction(deposit);
+				userCoinDto.setTransaction_detail("대여 보증금 차감");
+				userCoinDto.setUser_id(sessionUser.getId());
+				
+				rentalService.reduceCoin(userCoinDto);
+				
 				
 			} catch (IOException e) {
 				// TODO Auto-generated catch block

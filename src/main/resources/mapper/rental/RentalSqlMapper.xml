@@ -85,7 +85,8 @@
 		FROM rental_sub_category_table
 		WHERE main_category_id = #{mainCategoryId}
 	</select>
-	
+
+		
 	<!-- 렌탈 상품 리스트 -->
 	<select id="selectRentalItemListAll" resultType="com.ja.safari.dto.RentalItemDto">
 		SELECT
