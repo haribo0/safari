@@ -227,8 +227,12 @@
 			where id=#{id}
 	</update>
 	
-	
-	
+	<!--  해주세요 게시물 최신순 -->
+	<select id="newPostByHelp" resultType="com.ja.safari.dto.HelpDto">
+	SELECT *
+	FROM help_table
+	ORDER BY reg_date DESC
+</select>
 	
 	
 	

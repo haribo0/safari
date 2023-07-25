@@ -535,7 +535,7 @@ public class UserServiceImpl {
 
 	    return questionByMyLikeList;
 	}
-	
+
 	
 	// 대여 - 좋아요 리스트 불러오기
 	public List<Map<String, Object>> getRentalItemLikeList(int id) {

@@ -408,6 +408,7 @@ public class UserController {
 			List<Map<String, Object>> pickByMyLikePost = userService.getPickByUserLikes(sessionId);
 			List<Map<String, Object>> proreviewByMyLikePost = userService.getPromoReviewByUserLikes(sessionId);
 			
+			
 			model.addAttribute("recruitByMyLikePost", recruitByMyLikePost);
 			model.addAttribute("helpByMyLikePost", helpByMyLikePost);
 			model.addAttribute("questionByMyLikePost", questionByMyLikePost);

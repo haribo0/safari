@@ -18,6 +18,10 @@ import com.ja.safari.dto.PickOptionValuesForVoteDto;
 import com.ja.safari.dto.PickOptionVoteDto;
 import com.ja.safari.dto.PickShowCardDto;
 import com.ja.safari.dto.ProductDto;
+import com.ja.safari.dto.PromotionReviewDto;
+import com.ja.safari.dto.PromotionReviewImgDto;
+import com.ja.safari.dto.PromotionReviewLikeDto;
+import com.ja.safari.dto.ProreviewRentalCategoryDto;
 import com.ja.safari.dto.UserDto;
 import com.ja.safari.used.mapper.UsedSqlMapper;
 import com.ja.safari.user.mapper.UserSqlMapper;
@@ -264,6 +268,28 @@ public class PickServiceImpl {
 		}
 		
 		return list;
+	}
+	
+	// 골라줘요 최신글 정렬
+	public List<Map<String, Object>> newPostByPick(int sessionId) {
+		
+		List<PickDto> newPostPickList = pickSqlMapper.newPostByPick();
+		
+		List<Map<String, Object>> newPostByPickList = new ArrayList<>();
+		
+		for(PickDto pickDto : newPostPickList) {
+			Map<String, Object> map = new HashMap<>();
+						
+			UserDto userDto = userSqlMapper.selectUserDtoById(pickDto.getUser_id());        
+			
+			map.put("userDto", userDto);
+			map.put("pickDto", pickDto);
+
+			newPostByPickList.add(map);
+		
+		}		
+		
+		return newPostByPickList;
 	}
 	
 	// 강사...

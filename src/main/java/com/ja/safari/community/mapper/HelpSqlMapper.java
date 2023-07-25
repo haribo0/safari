@@ -47,6 +47,9 @@ public interface HelpSqlMapper {
 	//해주세요 이미지 리스트 조회
 	public List<HelpImgDto> selectAllHelpImg(int id);
 	
+	//해주세요 게시글 최신순
+	public List<HelpDto> newPostByHelp();
+	
 	//댓글
 	//해주세요 댓글 등록
 	public void registerHelpComment(HelpCommentDto helpCommentDto);
@@ -82,7 +85,6 @@ public interface HelpSqlMapper {
 	
 	//해주세요 이미지 유무 출력
 	public int selectAllHelpImgByBoardId(int help_id);
-	
 		
 	//해주세요 베스트 게시글 출력
 	public List<HelpDto> selectBestHelpBoard();

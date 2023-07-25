@@ -153,6 +153,16 @@
 		JOIN product_img pIMG ON p.id = pIMG.product_id
 		WHERE p.id = #{id}
 		GROUP BY p.title, p.price, pimg.product_img_link -->
+		
+	<!--  골라줘요 최신글 정렬 -->	
+	<select id="newPostByPick" resultType="com.ja.safari.dto.PickDto">
+		SELECT *
+		FROM pick_table
+		ORDER BY reg_date DESC
+	</select>
+	
+	
+	
 	<!-- 강사 코드 -->
 	<!-- 글 쓰기용 중고 거래 상품 리스트 뽑기 -->
 	<select id="getProductPickOptionList" resultType="com.ja.safari.dto.ProductDto">
