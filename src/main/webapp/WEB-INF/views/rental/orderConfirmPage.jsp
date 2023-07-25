@@ -813,12 +813,25 @@ select option[value=""][disabled] {
 	    }).open();
 	}
 
+	
+	// 연락처 숫자만 
+	const phoneBox = document.getElementById("phone");
+
+	phoneBox.addEventListener("blur", function() {
+	  const inputValue = phoneBox.value;
+	  const numericValue = inputValue.replace(/\D/g, "");
+	  phoneBox.value = numericValue;
+	});
+
+
+	
 	// 전화번호 형식 변경 함수
 	function oninputPhone(target) {
 	    target.value = target.value
 	        .replace(/[^0-9]/g, '')
 	        .replace(/(^02.{0}|^01.{1}|[0-9]{3,4})([0-9]{3,4})([0-9]{4})/g, "$1-$2-$3");
 	}
+	
 
 	// 주소 등록
 	function addUserAddress() {
