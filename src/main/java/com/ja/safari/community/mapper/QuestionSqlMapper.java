@@ -23,6 +23,9 @@ public interface QuestionSqlMapper {
 		//궁금해요 게시물 조회
 		public QuestionDto getQuestionBoardByBoardId(int id);
 		
+		//궁금해요 게시물 전체 리스트 커뮤 메인 조회
+		public List<QuestionDto> selectAllQuestionMainBoards();
+		
 		//궁금해요 게시물 전체 리스트 조회
 		public List<QuestionDto> selectAllQuestionBoards(@Param("questionPage") int questionPage, @Param("question_searchType") String question_searchType, @Param("question_searchWord") String question_searchWord);
 		
@@ -88,6 +91,7 @@ public interface QuestionSqlMapper {
 
 		// 답변 채택 코인 리워드 
 		public void questionReplyCoinReward(UserCoinDto userCoinDto);
+		
 		
 		
 }

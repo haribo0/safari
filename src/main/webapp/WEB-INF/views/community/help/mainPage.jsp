@@ -227,7 +227,15 @@ color: white;
 						  	<span class="bi bi-search"></span>
 						</button>
 										</div>
-						<!-- 글쓰기 버튼 -->	
+							
+				</div>
+	</form>
+	<%-- 검색--%>	
+	</div>
+	
+	</div>
+	
+	<!-- 글쓰기 버튼 -->	
 						<div class="col text-end" >
 						<div class="d-flex justify-content-end">
 						<a href="./writeContentPage" style="text-decoration: none; display: flex; align-items: center; justify-content: center;">
@@ -238,14 +246,7 @@ color: white;
 						</a>
 						</div>
 						</div>
-						<!-- 글쓰기 버튼 -->		
-				</div>
-	</form>
-	<%-- 검색--%>	
-	</div>
-	
-	</div>
-	
+						<!-- 글쓰기 버튼 -->	
 		
 		
 	<style>

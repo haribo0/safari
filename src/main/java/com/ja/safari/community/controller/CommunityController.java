@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.ja.safari.community.service.PromotionReviewServiceImpl;
+import com.ja.safari.community.service.QuestionServiceImpl;
 import com.ja.safari.dto.UserDto;
 
 @Controller
@@ -20,6 +21,8 @@ public class CommunityController {
 	@Autowired
 	private PromotionReviewServiceImpl promotionReviewService;
 
+	@Autowired
+	private QuestionServiceImpl questionService;
 	  // 커뮤니티 메인 페이지
 	   @RequestMapping("mainPage")
 	   public String main(Model model, HttpSession session) {
@@ -33,6 +36,12 @@ public class CommunityController {
 			}
 			
 			// 최근 게시글
+			
+			
+			// 궁금해요
+			List<Map<String, Object>> questionBoardList = questionService.selectAllQuestionMainBoards();
+			
+			model.addAttribute("questionBoardList", questionBoardList);
 			
 			
 			// 리워드 리뷰 
