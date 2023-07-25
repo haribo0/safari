@@ -170,19 +170,16 @@
 			
 			<div class="row mt-3" style="border-top: 2px solid #919191; border-bottom: 1px solid #919191; background: #f7f7f7;">
 				<div class="col text-center">
-					<p class="mb-0 py-3 fw-bold">주문일자</p>
+					<p class="mb-0 py-3 fw-bold">진행상태</p>
 				</div>
 				<div class="col-4 text-center">
 					<p class="mb-0 py-3 fw-bold">상품정보</p>
 				</div>
 				<div class="col text-center">
-					<p class="mb-0 py-3 fw-bold">수량</p>
-				</div>
-				<div class="col text-center">
 					<p class="mb-0 py-3 fw-bold">월 대여비</p>
 				</div>
 				<div class="col text-center">
-					<p class="mb-0 py-3 fw-bold">진행상태</p>
+					<p class="mb-0 py-3 fw-bold">주문일자</p>
 				</div>
 				<div class="col text-center">
 					<p class="mb-0 py-3 fw-bold">접수 및 기타</p>
@@ -200,15 +197,42 @@
 					<c:forEach items="${rentalOrderDtoList}" var="data">
 						<li class="list-group-item  py-4 border-0 border-bottom listHover">
 							<div class="row">
+														
 								<div class="col d-flex justify-content-center align-items-center">
-									<p><fmt:formatDate value="${data.orderedItem.reg_date}" pattern="yyyy-MM-dd" /></p>
+								<c:choose>
+										<c:when test="${data.isCompleted == 'Y'}">
+											<span class="btn-finished mb-0">대여종료</span>				
+									    </c:when>
+									    
+										<c:when test="${data.rentalItemReturnDto.is_item_returned == 'N'}">
+											<span class="btn-finished mb-0">회수중</span>				
+									    </c:when>
+									    
+									    <c:when test="${data.rentalItemReturnDto.is_item_returned == 'Y'}">
+											<span class="btn-finished mb-0">정산중</span>				
+									    </c:when>
+									    
+									    
+										<c:otherwise>
+											<c:choose>
+												<c:when test="${data.orderedItem.is_shipped == 'N' }">
+													<span class="btn-shipping mb-0">주문완료</span>										
+												</c:when>
+												<c:when test="${data.orderedItem.is_shipped == 'Y'}">
+													<span class="btn-ordered mb-0">대여중</span>
+												</c:when>
+											</c:choose>
+										</c:otherwise>
+									    
+									</c:choose>
 								</div>
+
 								
 								<div class="col-4 d-flex justify-content-center align-items-center">
 									<div class="row">
-										<div class="col-3" >
+										<div class="col-3 d-flex align-items-center" >
 											<a href="${pageContext.request.contextPath}/rental/productDescPage?id=${data.product.id}">
-												<img alt="" src="/safariImg/${data.product.main_img_link}" class="rounded-1 img-fluid " >
+												<img alt="" src="/safariImg/${data.product.main_img_link}" class="rounded-1 img-fluid my-auto" >
 											</a>
 										</div>
 										<div class="col">
@@ -222,42 +246,13 @@
 								</div>
 								
 								<div class="col d-flex justify-content-center align-items-center">
-									<p>1</p>
+									<p class="mb-0"><fmt:formatNumber value="${data.orderedItem.price }" pattern="#,##0" />원 <small>/월</small></p>
 								</div>
-								
+
+															
 								<div class="col d-flex justify-content-center align-items-center">
-									<p><fmt:formatNumber value="${data.orderedItem.price }" pattern="#,##0" />원 <small>/월</small></p>
+									<p class="mb-0"><fmt:formatDate value="${data.orderedItem.reg_date}" pattern="yyyy-MM-dd" /></p>
 								</div>
-							
-							<div class="col d-flex justify-content-center align-items-center">
-							<c:choose>
-									<c:when test="${data.isCompleted == 'Y'}">
-										<span class="btn-finished mb-0">대여종료</span>				
-								    </c:when>
-								    
-									<c:when test="${data.rentalItemReturnDto.is_item_returned == 'N'}">
-										<span class="btn-finished mb-0">회수중</span>				
-								    </c:when>
-								    
-								    <c:when test="${data.rentalItemReturnDto.is_item_returned == 'Y'}">
-										<span class="btn-finished mb-0">정산중</span>				
-								    </c:when>
-								    
-								    
-									<c:otherwise>
-										<c:choose>
-											<c:when test="${data.orderedItem.is_shipped == 'N' }">
-												<span class="btn-shipping mb-0">주문완료</span>										
-											</c:when>
-											<c:when test="${data.orderedItem.is_shipped == 'Y'}">
-												<span class="btn-ordered mb-0">대여중</span>
-											</c:when>
-										</c:choose>
-									</c:otherwise>
-								    
-								</c:choose>
-							</div>
-								
 								
 								<div class="col d-flex justify-content-center align-items-center">
 									<div class="row">

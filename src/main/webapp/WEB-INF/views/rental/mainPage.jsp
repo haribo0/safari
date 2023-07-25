@@ -78,13 +78,15 @@
 						</div>
 					</div>
 				</div> -->
+				
 
 				<div class="row pb-2">
-					<p class="mb-0 mt-3 ps-0"><i class="bi bi-badge-ad-fill fs-4" style="color: #f68a42; vertical-align: -2px;"></i> <span style="color: #000;" class="fw-bold">파워광고상품</span></p>
+					<p class="mb-0 mt-3 ps-0 fs-5 fw-bold">파워광고상품</p>
+					<!-- <p class="mb-0 mt-3 ps-0"><i class="bi bi-badge-ad-fill fs-4" style="color: #f68a42; vertical-align: -2px;"></i> <span style="color: #000;" class="fw-bold">파워광고상품</span></p> -->
 				</div>
 
 				<!-- 광고 대여 물품 row 작업중 -->
-				<div class="row flex justify-content-between pt-1 pb-2 my-2 mt-1">
+				<div class="row flex justify-content-between pt-1 pb-3 my-2 mt-1">
 	 				<c:forEach items="${rentalItemList}" var="map" begin="0" end="5" step="1">
 						<div class="col-2 position-relative">
 							<div class="position-absolute px-2" style="top: 8px; right: 20px; background:#f68a42; color: #fff; border-radius: 24px; z-index: 50; font-size: 12px;">
@@ -144,8 +146,14 @@
 					</div>
 				</div>
 				
-				<div class="row mt-5 pb-2">
-					<p class="mb-0 mt-3 ps-0 fs-5 fw-bold">카테고리</p>
+				<div class="row justify-content-between mt-5 pb-2">
+					<div class="col px-0">
+						<p class="mb-0 mt-3 ps-0 fs-5 fw-bold">카테고리</p>
+					</div>
+					
+					<div class="col px-0 pt-3 text-end">
+						<a href="${pageContext.request.contextPath}/rental/mainPage" style="font-size: 14px;">전체보기</a>
+					</div>
 				</div>
 				<div class="row">
 					<div class="col text-center boxCategory">
@@ -290,21 +298,21 @@
 					</div>
 				</div>
 				
-				<div class="row justify-content-between mt-5 pb-2">
+				<div class="row justify-content-between mt-3 pb-2">
 					<div class="col">
-						<p class="mb-0 mt-3 ps-0 fs-5 fw-bold">대여상품</p>
+						<p class="mb-0 ps-0 fs-5 fw-bold">대여상품</p>
 					</div>
 					
 					<div class="col d-flex justify-content-end">
 						<div class="dropdown">
-						  <a class="btn bg-light dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+						  <a class="btn bg-light dropdown-toggle dropdownName" href="#" role="button" data-bs-toggle="dropdown">
 						    일반순
 						  </a>
 						
 						  <ul class="dropdown-menu bg-light">
 						    <li><a class="dropdown-item btnLikesOrder" href="#">좋아요순</a></li>
-						    <li><a class="dropdown-item btnReviewOrder" href="#">리뷰</a></li>
-						    <li><a class="dropdown-item btnRentOrder" href="#">구매</a></li>
+						    <li><a class="dropdown-item btnReviewOrder" href="#">리뷰순</a></li>
+						    <li><a class="dropdown-item btnRentOrder" href="#">구매순</a></li>
 						  </ul>
 						</div>
 					</div>
@@ -495,6 +503,8 @@ function getSessionId(){
 	}
 	
  	function setOrderLink() {
+ 		const dropdownName = document.querySelector('.dropdownName')
+ 		
  		const orderlyObj = [
  			{orderly: "likes"},
  			{orderly: "reviews"},
@@ -506,11 +516,19 @@ function getSessionId(){
 		const btnRentOrder = document.querySelector('.btnRentOrder')
 		
 		let url = new URL(window.location.href)
- 		console.log(url)
+ 		//console.log(url)
  		let isIncludeMainCat = url.search.includes('main_category_id')
  		let isIncludeSubCat = url.search.includes('sub_category_id')
  		let originUrl
  		let querySign
+ 		
+ 		if(url.search.includes('likes')) {
+			dropdownName.innerText = '좋아요순'
+ 		} else if(url.search.includes('reviews')) {		
+			dropdownName.innerText = '리뷰순'
+ 		} else if(url.search.includes('purchase')) {	
+			dropdownName.innerText = '구매순'
+ 		}
  		
   		if(isIncludeMainCat || isIncludeSubCat) {
   			let urlSearch = url.search
@@ -538,13 +556,13 @@ function getSessionId(){
 		btnReviewOrder.addEventListener('click',(e) => {
 			const oderlyParams = new URLSearchParams(orderlyObj[1])
 			e.preventDefault();
-			window.location.href = originUrl + querySign + oderlyParams		
+			window.location.href = originUrl + querySign + oderlyParams
 		})
 				
 		btnRentOrder.addEventListener('click',(e) => {
 			const oderlyParams = new URLSearchParams(orderlyObj[2])
 			e.preventDefault();
-			window.location.href = originUrl + querySign + oderlyParams		
+			window.location.href = originUrl + querySign + oderlyParams	
 		})
 		
 

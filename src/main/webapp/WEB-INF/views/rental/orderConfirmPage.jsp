@@ -518,7 +518,7 @@ select option[value=""][disabled] {
 		} else {
 			let remainCoin = coinBalance - itemDeposit
 			coinDesc.innerHTML = `
-				보증금 결제후 잔액 코인은 <small class="fw-bold">\${remainCoin.toLocaleString()}</small> 입니다.
+				보증금 결제후 잔액 코인은 <u><small class="fw-bold">\${remainCoin.toLocaleString()}</small></u> 입니다.
 			`		
 		}
 	}

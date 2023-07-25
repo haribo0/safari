@@ -294,7 +294,7 @@ progress::-webkit-progress-value {
 							</div>
 							<div class="col text-end">
 								<p class="mb-0">월 최대</p>
-								<p class="mb-0  mt-2 fw-bold fs-5">-23,000원</p>
+								<p class="mb-0  mt-2 fw-bold fs-6 text-secondary">23,000원 <small >할인</small></p>
 							</div>
 						</div>
 					</div>
