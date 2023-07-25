@@ -185,13 +185,13 @@
 														<div class = "col-4 d-flex justify-content-end">
 													  		<div class="square-img-container">
 														 		<c:choose>
-																	<c:when test="${map.helpImgDtoList[0].help_img_link}">
-																  		<img src="/uploadPromoFiles/${map.helpImgDtoList[0].help_img_link}"
+																	<c:when test="${!empty map.helpImgList[0].help_img_link}">
+																  		<img src="/uploadPromoFiles/${map.helpImgList[0].help_img_link}"
 							  	 										  class="card-img-top" alt="해주세요게시물사진" height="120" width="120" >
 															  		</c:when>
 															  		<c:otherwise>
 																	  	 <img src="/safari/resources/img/community/no-image.gif"
-								  	 									  class="card-img-top" alt="해주세요임시사진" height="120" width="120" >
+								  	 									  class="card-img-top" alt="해주세요사진없음" height="120" width="120" >
 															  		</c:otherwise>
 																</c:choose>
 				  	 										</div>

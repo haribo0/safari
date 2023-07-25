@@ -322,7 +322,9 @@ public class AuctionServiceImpl {
 	
 	// 경매 상품 당 문의 리스트 조회 
 	public List<AuctionQnADto> getAuctionQnAList(int auctionItemId) {
-		return auctionSqlMapper.getAuctionQnAList(auctionItemId);
+		
+		
+		return  auctionSqlMapper.getAuctionQnAList(auctionItemId);
 	}
 	
 	
@@ -348,6 +350,22 @@ public class AuctionServiceImpl {
 			 }
 		
 }
+	
+	// 경매 상세페이지에서 내 입찰목록 (진행중) 조회 
+	public List<AuctionItemDto> getMyBidListIng(int userBuyerId) {
+		return auctionSqlMapper.getMyBidListIng(userBuyerId);
+	}
+	
+	// 경매 상세페이지에서 입찰 리스트 중 입찰가만 계속 조회
+	public List<AuctionItemDto> getMyBidPrice(int userBuyerId) {
+		return auctionSqlMapper.getMyBidPrice(userBuyerId);
+	}
+	
+	
+	// 회원의 경매 입찰 수
+	public int getUserBidCount(int userBuyerId) {
+		return auctionSqlMapper.getUserBidCount(userBuyerId);
+	}
 
 	
 	// 한 경매의 입찰 순위 3위까지 출력
@@ -533,29 +551,7 @@ public class AuctionServiceImpl {
 	public void removeMessageInAuctionChatroom(int id) {
 		auctionSqlMapper.removeMessageInAuctionChatroom(id);
 	}
-	
-	// 경매 마이페이지에서 내 입찰 기록 조회
-	public List<Map<String, Object>> getBidHistoryByUser(int userBuyerId) {
-		
-		List<Map<String, Object>> bidHistoryList = new ArrayList<>();
-		
-		List<AuctionBidDto> bidHistoryDtoList = auctionSqlMapper.getBidHistoryByUser(userBuyerId);
-		
-		for (AuctionBidDto  bidHistoryDto : bidHistoryDtoList) {
-			
-			Map<String, Object> map = new HashMap<>();
-			
-			map.put("bidHistoryItemDto", auctionSqlMapper.getAuctionProductDetail(bidHistoryDto.getAuction_item_id()));
-		
-			map.put("bidHistoryImgDto", auctionSqlMapper.getAuctionImg(bidHistoryDto.getAuction_item_id()));
-			
-			map.put("bidHistoryDto", bidHistoryDto);
-			
-			 bidHistoryList.add(map);
 
-		}
-		return bidHistoryList;
-	}
 	
 	// 마이페이지 - 내가 입찰한 기록 조회 (시간 업데이트 용도, id값만 필요함)
 	public List<AuctionBidDto> getMyBidListForRealTime(int userBuyerId) {
@@ -563,15 +559,10 @@ public class AuctionServiceImpl {
 	}
 	
 
-	
-	 // 마이페이지 - 내가 입찰한 기록 조회
+	// 마이페이지 - 내가 입찰한 기록 조회 
 	public List<AuctionItemDto> getMyBidList(int userBuyerId) {
+
 		return auctionSqlMapper.getMyBidList(userBuyerId);
-	}
-	
-	// 마이페이지 - 내가 입찰한 기록 조회 (진행중)
-	public List<AuctionItemDto> getMyBidListIng(int userBuyerId) {
-		return auctionSqlMapper.getMyBidListIng(userBuyerId);
 	}
 	
 	// 마이페이지 - 낙찰된 경매 하나하나 결제하기 위해 주문 창 조회

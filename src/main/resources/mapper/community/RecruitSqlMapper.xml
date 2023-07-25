@@ -122,5 +122,10 @@
 		where id=#{id}
 	</select>
 	
-	
+	<!--  구인구직 게시물 최신순 -->
+	<select id="newPostByRecruit" resultType="com.ja.safari.dto.RecruitDto">
+	SELECT *
+	FROM recruit_table
+	ORDER BY reg_date DESC
+	</select>
 </mapper>
