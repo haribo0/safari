@@ -234,7 +234,7 @@
 											<div class="" style="margin-left: 5px; margin-bottom: 6px;">
   							      				${map.userDto.nickname}
   							     			</div>
-  							     			<div class="" style="margin-bottom: 15px;">
+  							     			<div class="" style="margin-bottom: 0px;">
 												<h3>${map.recruitDto.title }</h3>
 											</div>
 										</div>
@@ -264,6 +264,16 @@
 				   						
 	  							    	</div>
   							    	</div>
+  							    	
+  							    	<%-- 제목 카드 --%>
+	  							    <div class="row">
+										<div class="col-12 d-flex align-items-center ms-2 text-secondary" style="">
+							    		<i class="bi bi-eye me-1" style="font-size: 20px;"></i>
+							    		${map.recruitDto.views} &nbsp
+							    		<i class="bi bi-clock me-1" style="font-size: 16px;"></i>
+							    		<fmt:formatDate value="${map.recruitDto.reg_date}" pattern="yyyy.MM.dd"/>
+							    		</div>
+						    		</div>
 								<%-- 제목 카드 --%>
 								
 								<hr>
@@ -315,7 +325,6 @@
 								<div class="col ms-2 me-2">
 								<c:forEach items="${map.recruitImgLinkDtoList}" var="recruitImgLinkDto">
 									<img src="/uploadFiles/${recruitImgLinkDto.img_link}"><br>
-									<fmt:formatDate value="${map.recruitDto.reg_date}" pattern="yyyy.MM.dd"/><br>
 								</c:forEach>
 								</div>
 								</div>
@@ -343,12 +352,10 @@
 								
 															
 															<br><h5>입사지원</h5>
-															<div class="card my-2">
+															<div class="card my-3">
 							  							      <div class="card-body">
-															작성자: ${map.userDto.nickname }<br>
-															연락처: ${map.recruitDto.phone }<br>
-															이메일: ${map.recruitDto.email }<br>
-															 views👀 · ${map.recruitDto.views}
+															<i class="bi bi-telephone-fill me-1 mb-3"></i> ${map.recruitDto.phone }<br>
+															<i class="bi bi-envelope-fill me-1" style="font-size: 17px;"></i> ${map.recruitDto.email }<br>
 															</div>
 															</div>
 								

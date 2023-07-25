@@ -1188,6 +1188,26 @@
 
 
 
+	  <!--  메인 페이지 -->
+	  
+	  
+	  <!--  곧 마감 되는 경매 내림차순 정렬 6개 -->
+	  <select id="deadlineApproachingAuctonList" resultType="com.ja.safari.dto.AuctionItemDto">
+		  SELECT 
+			  ROWNUM, at.*
+			  FROM
+			    (
+			    SELECT * 
+			    	FROM 
+			    	auction_item 
+				    WHERE auction_status = '진행중'
+				    ORDER BY end_date) at
+				     <![CDATA[		
+				  	WHERE ROWNUM <= 6
+				     ]]>
+	  </select>
+
+
 
 
 </mapper>

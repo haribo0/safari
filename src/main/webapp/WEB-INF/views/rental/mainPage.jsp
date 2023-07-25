@@ -31,10 +31,30 @@
 	<jsp:include page="../common/header.jsp"></jsp:include>
 	<!-- 헤더 섹션 -->
 
-	<div class="container-fluid d-flex align-items-center justify-content-between p-3 px-5 mb-3 bg-light">
-		<div class="container">
-			<div class="row">
-				<p class="mb-0 px-0 text-body-secondary"><a href="${pageContext.request.contextPath}/rental/mainPage" class="btn" style="font-size: 15px;">대여</a> &gt; <span class="mx-2" style="font-size: 15px;">전체보기</span></p>
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col">
+				<div id="carouselExample" class="carousel slide">
+				  <div class="carousel-inner">
+				    <div class="carousel-item active">
+				      <img src="${pageContext.request.contextPath}/resources/img/rental/rental_banner_1.jpg" class="d-block w-100" alt="...">
+				    </div>
+				    <div class="carousel-item">
+				      <img src="${pageContext.request.contextPath}/resources/img/rental/rental_banner_2.jpg" class="d-block w-100" alt="...">
+				    </div>
+				    <div class="carousel-item">
+				      <img src="${pageContext.request.contextPath}/resources/img/rental/rental_banner_3.jpg" class="d-block w-100" alt="...">
+				    </div>
+				  </div>
+				  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+				    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+				    <span class="visually-hidden">Previous</span>
+				  </button>
+				  <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+				    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+				    <span class="visually-hidden">Next</span>
+				  </button>
+				</div>
 			</div>
 		</div>
 	</div>

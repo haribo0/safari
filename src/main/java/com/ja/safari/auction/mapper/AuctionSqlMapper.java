@@ -307,5 +307,12 @@ public interface AuctionSqlMapper {
 	
 	
 	
+	// 메인 페이지
+	
+	
+	// 곧 마감 되는 경매 내림차순 정렬 6개
+	public List<AuctionItemDto> deadlineApproachingAuctonList();
+	
+	
 	
 }
