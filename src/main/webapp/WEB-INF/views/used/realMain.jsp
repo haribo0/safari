@@ -58,7 +58,7 @@
 			</div>
 		</div>
 	</div>
-	<div class="row">
+	<div class="row mb-4">
 		<div class="col">
 			<img alt="banner1" src= "/safari/resources/img/used/listBanner.jpeg" width="100%">
 		</div>

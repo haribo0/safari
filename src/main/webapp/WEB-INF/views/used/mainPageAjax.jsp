@@ -121,7 +121,7 @@
 		</div>	
 		<div class="row mb-3">
 			<div class="col-auto fw-bold fs-3">전체 상품</div>
-			<div class="col fw-bold fs-5 text-end my-auto"><a class="text-decoration-none text-black" href="./productList">더보기 ></a></div>
+			<div class="col fw-bold fs-5 text-end my-auto"><a class="text-decoration-none text-black" href="./productList">더보기</a></div>
 		</div>
 		<div class="row mb-5">
 			<c:forEach items="${eightList}" var="map">

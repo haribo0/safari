@@ -84,6 +84,12 @@
 				<div class="col-auto px-1">
 					<button class="btn btn-sm px-3" onclick="getMySellListByStatus(3)" id="sold">판매완료</button>						
 				</div>
+				<!-- <div class="col-auto px-1 ms-4 my-auto">
+					<input class="text-start form-control rounded-pill search_box" style="font-size: 15px; height:30px; border-radius: 2px;" placeholder=" 상품명으로 검색">					
+				</div> -->
+				<div class="col-auto px-1 ms-4 my-auto">
+					<input type="search" class="text-start form-control search_box" style="font-size: 15px; height:30px; border-radius: 2px;" placeholder=" 상품명으로 검색">					
+				</div>
 				<div class="col"></div>
 				<div class="col-auto text-end"><a href="../used/productRegister"><button class="btn btn-sm px-3 btn-dark">상품 등록</button></a></div>
 			</div>
@@ -425,6 +431,85 @@
 </div>
 <!-- 상대방 리뷰 모달 -->
 
+<!-- 끌올 모달(시간 충족) -->
+<div class="modal" id="updateRegDate1" tabindex="-1">
+	  <div class="modal-dialog">
+	    <div class="modal-content">
+	      <div class="modal-header position-relative" style="background: #EAEAEA;">
+ 	        <div class="modal-title">
+	        	<h5 class="modal-title ms-1">
+					끌어올리기
+	        	</h5>
+ 	        </div>
+	        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+	      </div>
+	      <div class="modal-body px-0 pb-0 pt-0" style="height: 490px; width: 460px;">
+			<div class="chat-container overflow-y-scroll overflow-x-hidden" style="height:480px; width:480px" id="updateRegDate1">
+				<div class="row">
+					<div class="col fw-bold">지금 가격을 낮추고</div>
+				</div>
+				<div class="row">
+					<div class="col fw-bold">게시글을 끌어올려 보세요</div>
+				</div>
+			</div>
+	      </div>
+	      <div class="modal-footer p-0">
+	      	<img class="img-fluid m-0" alt="chatAds" src="/safari/resources/img/used/updaateDateBanner5.png">
+	      </div>
+	    </div>
+	  </div>
+</div>
+<!-- 끌올 모달 -->
+
+<!-- 끌올 모달(시간 충족 안됨) -->
+<div class="modal" id="updateRegDate2" tabindex="-1" >
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header position-relative px-3" style="padding: 10px 0px; height: 55px;">
+       	<h5 class="modal-title ms-1 position-absolute top-50 start-50 translate-middle" style="font-weight: 600 ;">끌어올리기</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-header ms-2" id="modalHeader2">
+	     <div class="my-custom-header-wrapper" id="modalHeaderWrapper2My">
+       </div>
+      </div>
+     <div class="modal-body ms-2" style="height: 500px">
+	  <div class="chat-container overflow-y-scroll overflow-x-hidden" style="height:480px;" id="modalBody2My">
+      </div>
+     </div>
+     <div class="modal-footer p-0">
+	    <img class="img-fluid m-0" alt="chatAds" src="/safari/resources/img/used/updaateDateBanner5.png">
+	 </div>
+  </div>
+</div>
+</div>
+
+
+
+<!-- <div class="modal" id="updateRegDate2" tabindex="-1">
+	  <div class="modal-dialog">
+	    <div class="modal-content">
+	      <div class="modal-header position-relative">
+ 	        <div class="modal-title">
+	        	<h5 class="modal-title ms-1">
+					끌어올리기
+	        	</h5>
+ 	        </div>
+	        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+	      </div>
+	      <div class="modal-body px-0 pb-0 pt-0" style="height: 490px; width: 460px;">
+			<div class="chat-container overflow-y-scroll overflow-x-hidden" style="height:480px; width:480px" id="updateRegDate2">
+				지
+			</div>
+	      </div>
+	      <div class="modal-footer p-0">
+	      	<img class="img-fluid m-0" alt="chatAds" src="/safari/resources/img/used/updaateDateBanner5.png">
+	      </div>
+	    </div>
+	  </div>
+</div> -->
+<!-- 끌올 모달 -->
+
 <script>
 const listContainerBox = document.getElementById('listContainer');
 const allBox = document.getElementById('all');
@@ -688,7 +773,16 @@ function selling(map) {
 	  buttonBoost.classList.add('btn', 'btn-sm', 'orangeButton1');
 	  buttonBoost.style.width = '120px';
 	  buttonBoost.textContent = '끌어올리기';
-
+	  
+	  console.log(map.productDto.reg_date);
+	  // 끌올 가능 
+	  if(getTimeDifference(map.productDto.reg_date)=='끌올'){
+		  buttonBoost.setAttribute("onclick", "showUpdateTimeModal("+map.productDto.id+")");
+	  }else{
+		  buttonBoost.setAttribute("onclick", "showNoUpdateTimeModal("+map.productDto.id+")");
+	  }
+	  
+	  
 	  buttonsCol.appendChild(buttonBoost);
 	  buttonsRow.appendChild(buttonsCol);
 
@@ -1750,7 +1844,6 @@ function getMyWroteReviewHideAndShowMy(senderId, receiverId, requestId){
 }
 
 
-
 //날짜 변환 함수	
 function formatTime(timestamp) {
 	  const date = new Date(timestamp);
@@ -1778,6 +1871,57 @@ function productRequestStatusCancelByProduct(productId, statusId) {
 	xhr.open("get", "./productRequestStatusCancelByProduct?productId="+productId);
 	xhr.send();
 } 
+
+// 2일 12시간 - (reg_date - today)
+function getTimeDifference(reg_date) {
+	  // 현재 시간 구하기
+	  console.log(reg_date);
+	  const now = new Date();
+
+	  // 2일 12시간 후의 시간 구하기 (단위: 밀리초)
+	  const targetTime = new Date(now);
+	  targetTime.setDate(targetTime.getDate() + 2);
+	  targetTime.setHours(targetTime.getHours() + 12);
+
+	  // 시간 차이 계산 (단위: 밀리초)
+	  const timeDiffInMilliseconds = targetTime - reg_date;
+
+	  // 일, 시간, 분 계산
+	  const days = Math.floor(timeDiffInMilliseconds / (1000 * 60 * 60 * 24));
+	  const hours = Math.floor((timeDiffInMilliseconds % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+	  const minutes = Math.floor((timeDiffInMilliseconds % (1000 * 60 * 60)) / (1000 * 60));
+
+	  // 결과 문자열 생성
+	  let result = '';
+	  if (days > 0) {
+	    result += `${days}일 `;
+	  }
+	  if (hours > 0) {
+	    result += `${hours}시간 `;
+	  }
+	  if (minutes > 0) {
+	    result += `${minutes}분`;
+	  }
+	  console.log();
+	// 음수일 경우
+	  if (timeDiffInMilliseconds < 0) {
+	    return '끌올';
+	  }else{
+	  	return result; // 결과 문자열의 앞뒤 공백 제거
+	  }
+	}
+
+// 끌올 가능 모달 열기
+function showUpdateTimeModal(productId) {
+	const updateRegDate1Modal = bootstrap.Modal.getOrCreateInstance('#updateRegDate1');
+	updateRegDate1Modal.show();
+}
+
+// 끌올 못하는 모달 열기
+function showNoUpdateTimeModal(productId) {
+	const updateRegDate2Modal = bootstrap.Modal.getOrCreateInstance('#updateRegDate2');
+	updateRegDate2Modal.show();
+}
 
 
 window.addEventListener("DOMContentLoaded", function(){

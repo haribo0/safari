@@ -62,10 +62,6 @@
 .relatedTitleImg{
 	border-radius: 10px;
 }
-.relatedTitle{
-	font-weight: 500;
-	color: black;
-}
 
 </style>	
 
@@ -245,6 +241,18 @@
 						<div class="col relatedTitle">
 							${map.productDto.title }
 						</div>
+					</div>
+					<div class="row">
+						<c:choose>
+							<c:when test="${map.productDto.price == 0}">
+							    <div class="col-5">
+								<button type="button" class="btn btn-warning mb-1 custom-btn py-1 mt-1" disabled>나눔</button>
+								</div>
+							</c:when>
+							<c:otherwise>
+								        <div class="fw-bold mb-1 fs-5 col"><fmt:formatNumber value="${map.productDto.price}" pattern="#,##0원" /></div>
+							</c:otherwise>
+						</c:choose>
 					</div>
 				</a>
 				</div>

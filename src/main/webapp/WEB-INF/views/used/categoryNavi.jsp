@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>  
-		<div class="row mt-4">
+		<div class="row mt-5">
 			<div class="col-2"></div>
 			<div class="col-2">
 				<select class="form-select" aria-label="Default select example" id="product_city">
@@ -18,7 +18,6 @@
 				</select>
 			</div>
 			<div class="col"></div>
-			<div class="col-2 text-end align-items-center"><a href="./productRegister" type="button" class="btn orangeButton">상품 등록</a></div>
 		</div>
 		<div class="row mt-1" style="display: flex; flex-direction: row;">
 			<div class="col-2"></div>
@@ -36,6 +35,7 @@
 				  <label class="form-check-label" for="inlineCheckbox1">거래가능</label>
 				</div>
 			</div>
+			<div class="col-2 text-end align-items-center"><a href="./productRegister" type="button" class="btn orangeButton">상품 등록</a></div>
 		</div>
 		<div class="row">
 			<div class="col-2">
