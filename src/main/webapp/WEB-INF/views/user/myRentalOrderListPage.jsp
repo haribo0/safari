@@ -173,7 +173,7 @@
 				</div>
 			</div>
 			
-			<div class="row mt-3" style="border-top: 2px solid #919191; border-bottom: 1px solid #919191; background: #f7f7f7;">
+			<div class="row mt-3" style="border-top: 1px solid #919191; border-bottom: 1px solid #919191; background: #f7f7f7;">
 				<div class="col-1 text-center">
 					<p class="mb-0 py-3 fw-bold">주문번호</p>
 				</div>
@@ -214,7 +214,7 @@
 												<img alt="" src="/safariImg/${data.product.main_img_link}" class="rounded-1 img-fluid my-auto" >
 											</a>
 										</div>
-										<div class="col">
+										<div class="col my-auto">
 										<a href="${pageContext.request.contextPath}/rental/productDescPage?id=${data.product.id}">
 											<p class="mb-0 text-secondary"><small>${data.rentalBusinessDto.business_name}</small></p>
 											<p class="mb-2 fs-5" >${data.product.title }</p>
@@ -236,18 +236,18 @@
 									    </c:when>
 									    
 										<c:when test="${data.rentalItemReturnDto.is_item_returned == 'N'}">
-											<span class="mb-0">회수중</span>				
+											<span class="mb-0 fw-bold" style="color: #f68a42">회수중</span>				
 									    </c:when>
 									    
 									    <c:when test="${data.rentalItemReturnDto.is_item_returned == 'Y'}">
-											<span class="mb-0">정산중</span>				
+											<span class="mb-0 fw-bold" style="color: #f68a42">정산중</span>				
 									    </c:when>
 									    
 									    
 										<c:otherwise>
 											<c:choose>
 												<c:when test="${data.orderedItem.is_shipped == 'N' }">
-													<span class="mb-0">주문완료</span>										
+													<span class="mb-0 fw-bold" style="color: #f68a42">주문완료</span>										
 												</c:when>
 												<c:when test="${data.orderedItem.is_shipped == 'Y'}">
 													<span class="mb-0 fw-bold" style="color: #f68a42">대여중</span>
