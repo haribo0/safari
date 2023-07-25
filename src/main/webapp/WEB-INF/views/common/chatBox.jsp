@@ -1603,6 +1603,7 @@ function reloadChatRoomList() {
   			  col3Img.src = '/safarifile/' + data.productImgDto.product_img_link;
   			  col3Img.width = '60';
   			  col3Img.height = '60';
+  			  col3Img.style = 'border-radius: 2px;';
   			  col3.appendChild(col3Img);
 
 
@@ -1808,9 +1809,10 @@ function getProductInformation(requestId) {
     	            
 
     	            const row2col4 = document.createElement('div');
-    	            row2col4.classList.add('col', 'text-end', 'fw-bold');
-    	            row2col4.innerHTML = '<span>1,200</span><img class="ms-1" alt="chatAds" src="/safari/resources/img/used/coin.png" width="23px" height="23px">';
+    	            row2col4.classList.add('col', 'text-end', 'fw-bold', 'my-auto');
     	            
+    	            row2col4.innerHTML = '<span class="ms-1" style="font-weight: 600;font-size: 15px;background: #EAEAEA;border-radius: 14px;padding: 4px 16px;">Coin 10,200 </span>';
+    	            	
 
     	            row2.appendChild(row2col1);
     	            row2.appendChild(row2col2);
@@ -1854,9 +1856,11 @@ function getProductInformation(requestId) {
     	         // 거래완료 버튼 누르면 해당 메소드 불러오기
     				row2col3Span.setAttribute("onclick", "productRequestStatusComplete("+requestId+")");
 
-    	            const row2col4 = document.createElement('div');
-    	            row2col4.classList.add('col');
-
+    				const row2col4 = document.createElement('div');
+    	            row2col4.classList.add('col', 'text-end', 'fw-bold', 'my-auto');
+    	            
+    	            row2col4.innerHTML = '<span class="ms-1" style="font-weight: 600;font-size: 15px;background: #EAEAEA;border-radius: 14px;padding: 4px 16px;">Coin 10,200 </span>';
+    	         
     	            row2.appendChild(row2col1);
     	            row2.appendChild(row2col2);
     	            row2.appendChild(row2col3);
@@ -1880,8 +1884,10 @@ function getProductInformation(requestId) {
     				row2col1Span.innerText = ' 리뷰쓰기';
     				row2col1Span.setAttribute("onclick", "writeReview("+response.sessionId+","+response.productRequestDto.user_id+","+response.productRequestDto.id+")");
 
-    	            const row2col4 = document.createElement('div');
-    	            row2col4.classList.add('col');
+    				const row2col4 = document.createElement('div');
+    	            row2col4.classList.add('col', 'text-end', 'fw-bold', 'my-auto');
+    	            
+    	            row2col4.innerHTML = '<span class="ms-1" style="font-weight: 600;font-size: 15px;background: #EAEAEA;border-radius: 14px;padding: 4px 16px;">Coin 10,200 </span>';
 
     	            row2.appendChild(row2col1);
     	            row2.appendChild(row2col4);
@@ -1900,8 +1906,10 @@ function getProductInformation(requestId) {
     				row2col1Span.innerText = ' 보낸 후기 보기';
     				row2col1Span.setAttribute("onclick", "getMyWroteReview("+response.sessionId+","+response.productRequestDto.user_id+","+response.productRequestDto.id+")");
 
-    	            const row2col4 = document.createElement('div');
-    	            row2col4.classList.add('col');
+    				const row2col4 = document.createElement('div');
+    	            row2col4.classList.add('col', 'text-end', 'fw-bold', 'my-auto');
+    	            
+    	            row2col4.innerHTML = '<span class="ms-1" style="font-weight: 600;font-size: 15px;background: #EAEAEA;border-radius: 14px;padding: 4px 16px;">Coin 10,200 </span>';
 
     	            row2.appendChild(row2col1);
     	            row2.appendChild(row2col4);
@@ -1929,8 +1937,10 @@ function getProductInformation(requestId) {
     				row2col1Span.innerText = ' 송금하기';
     				row2col1Span.setAttribute("onclick", "processPayment("+partner_order_id+","+partner_user_id+",'"+item_name+"',"+item_code+","+total_amount+")");
 
-    	            const row2col4 = document.createElement('div');
-    	            row2col4.classList.add('col');
+    				const row2col4 = document.createElement('div');
+    	            row2col4.classList.add('col', 'text-end', 'fw-bold', 'my-auto');
+    	            
+    	            row2col4.innerHTML = '<span class="ms-1" style="font-weight: 600;font-size: 15px;background: #EAEAEA;border-radius: 14px;padding: 4px 16px;">Coin 10,200 </span>';
 
     	            row2.appendChild(row2col1);
     	            row2.appendChild(row2col4);
@@ -1953,8 +1963,10 @@ function getProductInformation(requestId) {
     				row2col1Span.innerText = ' 송금하기';
     				row2col1Span.setAttribute("onclick", "processPayment("+partner_order_id+","+partner_user_id+",'"+item_name+"',"+item_code+","+total_amount+")");
 
-    	            const row2col4 = document.createElement('div');
-    	            row2col4.classList.add('col');
+    				const row2col4 = document.createElement('div');
+    	            row2col4.classList.add('col', 'text-end', 'fw-bold', 'my-auto');
+    	            
+    	            row2col4.innerHTML = '<span class="ms-1" style="font-weight: 600;font-size: 15px;background: #EAEAEA;border-radius: 14px;padding: 4px 16px;">Coin 10,200 </span>';
 
     	            row2.appendChild(row2col1);
     	            row2.appendChild(row2col4);
@@ -1971,8 +1983,10 @@ function getProductInformation(requestId) {
     				row2col1Span.innerText = ' 리뷰쓰기';
     				row2col1Span.setAttribute("onclick", "writeReview("+response.sessionId+","+ response.map.productDto.user_id+","+response.productRequestDto.id+")");
 
-    	            const row2col4 = document.createElement('div');
-    	            row2col4.classList.add('col');
+    				const row2col4 = document.createElement('div');
+    	            row2col4.classList.add('col', 'text-end', 'fw-bold', 'my-auto');
+    	            
+    	            row2col4.innerHTML = '<span class="ms-1" style="font-weight: 600;font-size: 15px;background: #EAEAEA;border-radius: 14px;padding: 4px 16px;">Coin 10,200 </span>';
 
     	            row2.appendChild(row2col1);
     	            row2.appendChild(row2col4);
@@ -1991,8 +2005,10 @@ function getProductInformation(requestId) {
     				row2col1Span.innerText = ' 보낸 후기 보기';
     				row2col1Span.setAttribute("onclick", "getMyWroteReview("+response.sessionId+","+response.map.productDto.user_id+","+response.productRequestDto.id+")");
 
-    	            const row2col4 = document.createElement('div');
-    	            row2col4.classList.add('col');
+    				const row2col4 = document.createElement('div');
+    	            row2col4.classList.add('col', 'text-end', 'fw-bold', 'my-auto');
+    	            
+    	            row2col4.innerHTML = '<span class="ms-1" style="font-weight: 600;font-size: 15px;background: #EAEAEA;border-radius: 14px;padding: 4px 16px;">Coin 10,200 </span>';
 
     	            row2.appendChild(row2col1);
     	            row2.appendChild(row2col4);
