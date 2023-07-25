@@ -38,7 +38,7 @@ public interface AuctionSqlMapper {
 	// 경매 메인페이지에서 상태에 따른 경매 조회
 	public List<AuctionItemDto> getAuctionListByStatus(@Param("status") String status);
 	
-	
+
 	// 물품의 대규모 카테고리는 무엇일까요?
 	public ProductMainCategoryDto getProductMainCategory(int id);
 	
@@ -83,6 +83,15 @@ public interface AuctionSqlMapper {
 	
 	// 경매 물품 상세페이지 (이미지)
 	public List<AuctionItemImgDto> getAuctionProductImages(int auctionItemId);
+	
+	// 경매 상세페이지에서 내 입찰목록 (진행중) 조회 
+	public List<AuctionItemDto> getMyBidListIng(int userBuyerId);
+	
+	// 경매 상세페이지에서 입찰 리스트 중 입찰가만 계속 조회
+	public List<AuctionItemDto> getMyBidPrice(int userBuyerId);
+	
+	// 회원의 경매 입찰 수
+	public int getUserBidCount(int userBuyerId);
 	
 	// 경매 상품 문의 등록
 	public void registerAuctionInquiry(AuctionItemInquiryDto auctionItemInquiryDto);
@@ -203,15 +212,13 @@ public interface AuctionSqlMapper {
 	
 	// 경매 채팅방에 있는 채팅을 모두 삭제 (임시, 사용하면 안되는데 테스트용)
 	public void deleteAllChat(int id);
-	
-	// 마이페이지 - 내가 입찰한 기록 조회
+
+	// 마이페이지 - 내가 입찰한 기록 조회 
 	public List<AuctionItemDto> getMyBidList(int userBuyerId);
-	
-	// 마이페이지 - 내가 입찰한 기록 조회 (진행중)
-	public List<AuctionItemDto> getMyBidListIng(int userBuyerId);
 	
 	// 마이페이지 - 낙찰된 경매 하나하나 결제하기 위해 주문 창 조회
 	public AuctionItemOrderPaymentDto getOrderPageBySuccessBidPk(AuctionItemOrderPaymentDto auctionItemOrderPaymentDto);
+	
 	
 	
 	// 마이페이지 - 낙찰 기록 조회

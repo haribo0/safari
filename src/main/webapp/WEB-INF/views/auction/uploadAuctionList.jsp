@@ -69,28 +69,27 @@
 					<div class="row">
 						<div class="col">
 							<span>
-								<img class="mb-1" src="/safari/resources/img/auction/notice.png"
-									style="max-width: 25px; max-height: 25px;"></span>
-									<span class="fw-bold fs-5">참고사항</span>
+								<i class="bi bi-exclamation-circle fs-5 me-1"></i></span>
+									<span class="fw-semibold fs-5">참고사항</span>
 						
 						</div>
 					</div>	
 					
 					<div class="row">
 						<div class="col">
-							업로드하신 경매 물품의 <span class="fw-bold">현재가는 <span class="text-danger">실시간으로</span> 업데이트</span>되고 있습니다.
+							업로드하신 경매 물품의 <span class="fw-semibold">현재가는 <span class="text-danger">실시간으로</span> 업데이트</span>되고 있습니다.
 						</div>
 					</div>	
 					
 					<div class="row">
 						<div class="col">
-							경매가 종료된 후, 낙찰자가 <span class="fw-bold">7일 이내</span>에 결제하지 않으면 경매를 재시작하실 수 있습니다.
+							경매가 종료된 후, 낙찰자가 <span class="fw-semibold">7일 이내</span>에 결제하지 않으면 경매를 재시작하실 수 있습니다.
 						</div>
 					</div>		
 					
 					
 					<div class="row mt-4">
-						<div class="col fw-bold fs-5">
+						<div class="col fw-semibold fs-5">
 						 	 종료된 경매 결제 현황
 						</div>
 					</div>
@@ -119,20 +118,20 @@
 											<td>
 												<div class="row">
 								
-													<div class="col">
+													<div class="col-3">
 														<a href="/safari/auction/productDetail/${endedBidDto.auction_item_id}">
-														<img class="me-3"
+														<img 
 														src="/auctionFiles/${endedBidDto.auction_item_img_link}" style="
-														position: relative; left: 30px; width: 120px; height: 120px;"></a>
+														width: 120px; height: 120px;"></a>
 													</div>
-													<div class="col-8" class="text-start">
+													<div class="col ms-2">
 														<div class="row mt-4">
 															<div class="col" style="font-size: 14px;">
 																${endedBidDto.main_category_name} > ${endedBidDto.sub_category_name}
 															</div>
 														</div>
 														<div class="row">
-															<div class="col fw-bold">
+															<div class="col fw-semibold">
 															<input type="hidden" value="${endedBidDto.auction_item_id}">
 																<span style="font-size: 16px;"><a href="/safari/auction/productDetail/${endedBidDto.auction_item_id}">
 																${endedBidDto.title}</a></span>
@@ -145,8 +144,8 @@
 											<td class="text-center">
 												${endedBidDto.nickname}
 											</td>
-											<td class="text-center fw-bold text-danger">
-												<fmt:formatNumber value="${endedBidDto.bid_price}"  pattern="#,###"/>원
+											<td class="text-center">
+												<span class= "fw-bold" style="font-size: 18px;"><fmt:formatNumber value="${endedBidDto.bid_price}"  pattern="#,###"/></span> 원
 												<input type="hidden" id="bid_price_${endedBidDto.auction_item_id}" value="${endedBidDto.bid_price}">
 											</td>
 											
@@ -187,7 +186,7 @@
 
 				
 				<div class="row mt-4">
-						<div class="col fw-bold fs-5">
+						<div class="col fw-semibold fs-5">
 							전체 경매 목록
 						</div>
 				</div>
@@ -278,7 +277,7 @@
     <div class="modal-content">
       <div class="modal-header bg-light">
      	 <div class="row mb-0">
-      			<div class="col ms-4 fs-5 fw-bold">주문/배송 조회</div>
+      			<div class="col ms-4 fs-5 fw-semibold">주문/배송 조회</div>
       		</div>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div> 
@@ -291,8 +290,8 @@
       				<div class="col">
       					
       					<div class="row">
-      						<div class="col fw-bold fs-5">
-      							상품정보
+      						<div class="col fw-semibold fs-5">
+      							상품 정보
       						</div>
       					</div>
       					
@@ -307,19 +306,16 @@
 							<div class="col-10">
 							
 								<div class="row">
-									<div class="col-auto" id="productMainCategoryName" style="font-size: 14px;">
-										
+									<div class="col">
+										<span id="productMainCategoryName" style="font-size: 14px;"></span>
+										<span style="font-size: 14px;" class="m-1"> > </span>
+										<span id="productSubCategoryName" style="font-size: 14px;"></span>
 									</div>
-									<div class="col-auto px-0" style="font-size: 14px;">
-										>
-									</div>
-									<div class="col" id="productSubCategoryName" style="font-size: 14px;">
 									
-									</div>
 								</div>
 								
 								<div class="row">
-									<div class="col fw-bold py-0" id="productTitle" style="font-size: 18px;">
+									<div class="col fw-semibold py-0" id="productTitle" style="font-size: 18px;">
 									
 									</div>
 								</div>
@@ -344,7 +340,7 @@
 						<div class="row mt-4">
 							<div class="col">
 								<div class="row">
-									<div class="col fw-bold fs-5">
+									<div class="col fw-semibold fs-5">
 										구매자 정보
 									</div>
 								</div>
@@ -372,7 +368,7 @@
 							</div>
 							<div class="col">
 								<div class="row">
-									<div class="col fw-bold fs-5">
+									<div class="col fw-semibold fs-5">
 										결제 정보
 									</div>
 								</div>
@@ -407,7 +403,7 @@
 											
 												<div class="row">
 													<div class="col text-end py-0">
-														<span class="fw-bold text-danger" id="payPrice"> </span> 원
+														<span class="fw-semibold text-danger" id="payPrice"> </span> 원
 													</div>
 												</div>
 												
@@ -438,7 +434,7 @@
 						
 						
 						<div class="row mt-3">
-							<div class="col fw-bold fs-5">
+							<div class="col fw-semibold fs-5">
 								배송 정보
 							</div>
 							<div class="col text-end" style="position: relative; top: 5px;">
@@ -446,48 +442,70 @@
 							</div>
 						</div>
 						
-						<div class="row mt-2 mb-5">
+						<div class="row mt-2 mb-5 text-center">
 							<div class="col ms-3">
 								<div class="row">
-		      						<div class="col px-0" style="position: relative; left: 18px">
-		      							<i class="bi bi-boxes mt-1 ms-2" style="font-size: 3rem; "></i>
+		      						<div class="col px-auto mx-auto">
+		      							<i class="bi bi-boxes mt-1 ms-2" style="font-size: 32px;"></i>
 		      						</div>
-		      						<div class="col text-center fs-4 fw-medium ms-2 mt-4"> > </div>
-		      						<div class="col px-0 ms-1" style="font-size: 3rem; position: relative; left: 9px;">
-		      							<i class="bi bi-truck mt-1" style="font-size: 3rem;"></i>
+		      						<div class="col fw-medium my-auto"> > </div>
+		      						<div class="col px-auto mx-auto">
+		      							<i class="bi bi-truck mt-1 " style="font-size: 32px;"></i>
 		      						</div>
-		      						<div class="col fs-4 fw-medium text-center mt-4"> > </div>
-		      						<div class="col px-0"> 
-		      							<i class="bi bi-bag-check mt-1" style="font-size: 3rem; position: relative; left: 9px;"></i>
+		      						<div class="col fw-medium my-auto"> > </div>
+		      						<div class="col  px-auto mx-auto"> 
+		      							<i class="bi bi-bag-check mt-1" style="font-size: 32px; "></i>
 		      							
 		      						</div>
-		      						<div class="col fs-4 text-center fw-medium mt-4"> > </div>
-		      						<div class="col px-0">
-		      							<i class="bi bi-check-lg mt-1" style="font-size: 3rem;"></i>
+		      						<div class="col  fw-medium my-auto"> > </div>
+		      						<div class="col  px-auto mx-auto">
+		      							<i class="bi bi-check-lg mt-1" style="font-size: 28px;"></i>
 		      							
 		      						</div>
 		      					</div>
 		      					
-		      					  <div class="row fs-5 fw-medium">
-		      						<div class="col px-0 ms-2" id="ds_deliveryReady">
+		      					  <div class="row fw-medium">
+		      						<div class="col px-auto mx-auto" id="ds_deliveryReady">
 		      							배송준비중
 		      						</div>
-		      						<div class="col fs-4 fw-medium mt-4 text-center">  </div>
-		      						<div class="col px-0 ms-1" id="ds_deliveryIng" style="position: relative; left: 6px;">
+		      						<div class="col fw-medium">  </div>
+		      						<div class="col px-auto mx-auto" id="ds_deliveryIng">
 		      							배송중
 		      						</div>
-		      						<div class="col fs-4 fw-medium mt-4">  </div>
-		      						<div class="col px-0" id="ds_deliveryComplete">
+		      						<div class="col fw-medium">  </div>
+		      						<div class="col px-auto mx-auto" id="ds_deliveryComplete">
 		      							배송완료
 		      						</div>
-		      						<div class="col fs-4 fw-medium mt-4">  </div>
-		      						<div class="col px-0" id="ds_buyComplete" style="position: relative; right: 5px;">
+		      						<div class="col fw-medium">  </div>
+		      						<div class="col px-auto mx-auto" id="ds_buyComplete">
 		      							구매확정
 		      						</div>
 		      					</div>							
 							
 							</div>
 						
+						</div>
+						
+						
+						<div class="row mt-2">
+	      					<div class="col fw-semibold fs-5">
+	      						배송 상세 정보
+	      					</div>
+	      				</div>
+	      				
+	      				<div class="row mt-1">
+							<div class="col fw-bold text-secondary">배송지</div>
+							<div class="col-8 text-end" id="deliveryAddress"></div>
+						</div>
+	      				
+	      				<div class="row mt-1">
+							<div class="col fw-bold text-secondary">연락처</div>
+							<div class="col-8 text-end" id="paymentPhone"></div>
+						</div>
+						
+						<div class="row mt-1 mb-4">
+							<div class="col fw-bold text-secondary">배송요청사항</div>
+							<div class="col-8 text-end" id="paymentMessage"></div>
 						</div>
 				
       					
@@ -522,7 +540,7 @@
     <div class="modal-content">
       <div class="modal-header bg-light">
      	 <div class="row mb-0">
-      			<div class="col ms-4 fs-5 fw-bold">주문 조회</div>
+      			<div class="col ms-4 fs-5 fw-semibold">주문 조회</div>
       		</div>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div> 
@@ -535,8 +553,8 @@
       				<div class="col">
       					
       					<div class="row">
-      						<div class="col fw-bold fs-5">
-      							상품정보
+      						<div class="col fw-semibold fs-5">
+      							상품 정보
       						</div>
       					</div>
       					
@@ -551,19 +569,15 @@
 							<div class="col-10">
 							
 								<div class="row">
-									<div class="col-auto" id="productOrderMainCategoryName" style="font-size: 14px;">
-										
-									</div>
-									<div class="col-auto px-0" style="font-size: 14px;">
-										>
-									</div>
-									<div class="col" id="productOrderSubCategoryName" style="font-size: 14px;">
-									
+									<div class="col">
+										<span id="productOrderMainCategoryName" style="font-size: 14px;"></span>
+										<span style="font-size: 14px;" class="m-1"> > </span>
+										<span id="productOrderSubCategoryName" style="font-size: 14px;"></span>
 									</div>
 								</div>
 								
 								<div class="row">
-									<div class="col fw-bold py-0" id="productOrderTitle" style="font-size: 18px;">
+									<div class="col fw-semibold py-0" id="productOrderTitle" style="font-size: 18px;">
 									
 									</div>
 								</div>
@@ -585,10 +599,11 @@
 							
 						</div>
 						
-						<div class="row mt-4 mb-4">
+						
+						<div class="row mt-4">
 							<div class="col">
 								<div class="row">
-									<div class="col fw-bold fs-5">
+									<div class="col fw-semibold fs-5">
 										구매자 정보
 									</div>
 								</div>
@@ -616,12 +631,12 @@
 							</div>
 							<div class="col">
 								<div class="row">
-									<div class="col fw-bold fs-5">
+									<div class="col fw-semibold fs-5">
 										결제 정보
 									</div>
 								</div>
 								
-								<div class="row mt-2 mb-4">
+								<div class="row mt-2">
 									<div class="col ms-3 border border-1 rounded-3 p-3 ">
 									
 										<div class="row mt-1">
@@ -651,7 +666,7 @@
 											
 												<div class="row">
 													<div class="col text-end py-0">
-														<span class="fw-bold text-danger" id="payPriceOrder"> </span> 원
+														<span class="fw-semibold text-danger" id="payPriceOrder"> </span> 원
 													</div>
 												</div>
 												
@@ -680,6 +695,28 @@
 							</div>
 						</div>
 						
+						
+						
+						<div class="row mt-2">
+	      					<div class="col fw-semibold fs-5">
+	      						배송 상세 정보
+	      					</div>
+	      				</div>
+	      				
+	      				<div class="row mt-1">
+							<div class="col fw-bold text-secondary">배송지</div>
+							<div class="col-8 text-end" id="deliveryAddressOrder"></div>
+						</div>
+	      				
+	      				<div class="row mt-1">
+							<div class="col fw-bold text-secondary">연락처</div>
+							<div class="col-8 text-end" id="paymentPhoneOrder"></div>
+						</div>
+						
+						<div class="row mt-1 mb-4">
+							<div class="col fw-bold text-secondary">배송요청사항</div>
+							<div class="col-8 text-end" id="paymentMessageOrder"></div>
+						</div>
 						
 						
       					
@@ -744,11 +781,12 @@ function startDeliveryModal(id) {
 function checkOrderModal(id) {
 	
 
-	
 	const xhr = new XMLHttpRequest();
 	  xhr.onreadystatechange = function() {
 	    if (xhr.readyState === 4 && xhr.status === 200) {
 	      const response = JSON.parse(xhr.responseText);
+	      
+	      showOrderDeliveryDetail(id);
 	      
 		  const productImageBox = document.querySelector("#productOrderImage");
 	      productImageBox.innerHTML = "";
@@ -835,6 +873,73 @@ function checkOrderModal(id) {
   xhr.send();
 }
 
+// 베송 상세 정보
+function showOrderDeliveryDetail(id) {
+	
+	const xhr = new XMLHttpRequest();
+	
+	 xhr.onreadystatechange = function() {
+   	 if (xhr.readyState === 4 && xhr.status === 200) {
+       	 
+       	const response = JSON.parse(xhr.responseText);
+       	
+       	const deliveryAddress = document.querySelector("#deliveryAddressOrder");
+       	const paymentPhone = document.querySelector("#paymentPhoneOrder");
+       	const paymentMessage = document.querySelector("#paymentMessageOrder");
+       	deliveryAddress.innerHTML = "";
+       	paymentPhone.innerHTML = "";
+       	paymentMessage.innerHTML = "";
+       
+       	if (response.addressDetail && response.addressDetail.address) {
+       		deliveryAddress.innerText = response.addressDetail.address;
+       		paymentPhone.innerText =  response.addressDetail.phone;
+       		paymentMessage.innerText =  response.addressDetail.delivery_message;
+       	} else {
+       		
+       	}
+       	
+   	 }
+	 } 	 
+	
+	 xhr.open("get", "/safari/auction/getAddressInfoInPaymentAndDelivery?id=" + id);
+	 xhr.send();	
+	
+}
+
+//배송 상세 정보 조회하기
+function showDeliveryDetail(id) {
+	
+	const xhr = new XMLHttpRequest();
+	
+	 xhr.onreadystatechange = function() {
+    	 if (xhr.readyState === 4 && xhr.status === 200) {
+        	 
+        	const response = JSON.parse(xhr.responseText);
+        	
+        	const deliveryAddress = document.querySelector("#deliveryAddress");
+        	const paymentPhone = document.querySelector("#paymentPhone");
+        	const paymentMessage = document.querySelector("#paymentMessage");
+        	deliveryAddress.innerHTML = "";
+        	paymentPhone.innerHTML = "";
+        	paymentMessage.innerHTML = "";
+        
+        	if (response.addressDetail && response.addressDetail.address) {
+        		deliveryAddress.innerText = response.addressDetail.address;
+        		paymentPhone.innerText =  response.addressDetail.phone;
+        		paymentMessage.innerText =  response.addressDetail.delivery_message;
+        	} else {
+        		console.log("주소 정보 없음");
+        	}
+        	
+    	 }
+	 } 	 
+	
+	 xhr.open("get", "/safari/auction/getAddressInfoInPaymentAndDelivery?id=" + id);
+	 xhr.send();	
+
+}
+
+
 // 주문 내역, 배송 조회 모달
 function checkDeliveryModal(id) {
 	
@@ -870,6 +975,8 @@ function checkDeliveryModal(id) {
 	  xhr.onreadystatechange = function() {
 	    if (xhr.readyState === 4 && xhr.status === 200) {
 	      const response = JSON.parse(xhr.responseText);
+	      
+	      showDeliveryDetail(id);
 	
 		  const productImageBox = document.querySelector("#productImage");
 	      productImageBox.innerHTML = "";

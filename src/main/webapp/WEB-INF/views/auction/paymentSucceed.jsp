@@ -70,9 +70,9 @@
 				  		
 				  		
 				  		
-			  			<div class="fs-6 text-start mt-5 fw-medium">결제 ID</div>
+			  			<%-- <div class="fs-6 text-start mt-5 fw-medium">결제 ID</div>
 				  		<div class="fs-5 fw-light text-start mt-1" id="orderId">${map.auctionPayment.id}</div>
-				  		
+				  		 --%>
 						<div class="fs-6 text-start mt-4 fw-medium">상품명</div>
 				  		<div class="fs-5 fw-light text-start mt-1 fw-bold">${map.auctionPayment.item_name}</div>				  		
 				  		
