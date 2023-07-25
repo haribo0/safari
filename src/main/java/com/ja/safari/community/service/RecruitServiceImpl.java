@@ -10,6 +10,10 @@ import org.springframework.stereotype.Service;
 
 import com.ja.safari.community.mapper.CommunitySqlMapper;
 import com.ja.safari.community.mapper.RecruitSqlMapper;
+import com.ja.safari.dto.PromotionReviewDto;
+import com.ja.safari.dto.PromotionReviewImgDto;
+import com.ja.safari.dto.PromotionReviewLikeDto;
+import com.ja.safari.dto.ProreviewRentalCategoryDto;
 import com.ja.safari.dto.RecruitDto;
 import com.ja.safari.dto.RecruitImgLinkDto;
 import com.ja.safari.dto.RecruitLikeDto;
@@ -135,6 +139,12 @@ public class RecruitServiceImpl {
 		return recruitSqlMapper.checkRecruitLike(recruitLikeDto);
 	}
 	
+	//구인구직 좋아요 삭제
+	public void deleteRecruitLike(RecruitLikeDto recruitLikeDto) {
+		
+		recruitSqlMapper.deleteRecruitLike(recruitLikeDto);
+	}
+	
 	//구인구직 좋아요 count
 	public int countLikeByRecruitBoardId(int recruit_id) {
 		
@@ -144,23 +154,45 @@ public class RecruitServiceImpl {
 	}
 	
 	
-	//골라줘요 AJAX 좋아요
-		public void toggleLike(RecruitLikeDto recruitLikeDto) {
+	// 구인구직 게시물 최신순
+		public List<Map<String, Object>> newPostByRecruit(int sessionId) {
+		
+		List<RecruitDto> newPostRecruitList = recruitSqlMapper.newPostByRecruit();
+		
+		List<Map<String, Object>> newPostByRecruitList = new ArrayList<>();
+		
+		for(RecruitDto recruitDto : newPostRecruitList) {
+			Map<String, Object> map = new HashMap<>();
+						
+			UserDto userDto = userSqlMapper.selectUserDtoById(recruitDto.getUser_id());
 				
-				if(recruitSqlMapper.checkRecruitLike(recruitLikeDto) > 0) {
-					recruitSqlMapper.deleteRecruitLike(recruitLikeDto);
-				}else {
-					recruitSqlMapper.insertRecruitLike(recruitLikeDto);
-				}
+				map.put("userDto", userDto);
+				map.put("recruitDto", recruitDto);
+
+				newPostByRecruitList.add(map);
+			
+		}		
+		
+		return newPostByRecruitList;
+	}
+	
+	//골라줘요 AJAX 좋아요
+	public void toggleLike(RecruitLikeDto recruitLikeDto) {
+			
+			if(recruitSqlMapper.checkRecruitLike(recruitLikeDto) > 0) {
+				recruitSqlMapper.deleteRecruitLike(recruitLikeDto);
+			}else {
+				recruitSqlMapper.insertRecruitLike(recruitLikeDto);
 			}
-		
-		public boolean isLiked(RecruitLikeDto recruitLikeDto) {
-			return recruitSqlMapper.checkRecruitLike(recruitLikeDto) > 0;
 		}
-		
-		public int getTotalLike(int recruit_id) {
-			return recruitSqlMapper.countLikeByRecruitBoardId(recruit_id);
-		}
+	
+	public boolean isLiked(RecruitLikeDto recruitLikeDto) {
+		return recruitSqlMapper.checkRecruitLike(recruitLikeDto) > 0;
+	}
+	
+	public int getTotalLike(int recruit_id) {
+		return recruitSqlMapper.countLikeByRecruitBoardId(recruit_id);
+	}
 		
 	
 }

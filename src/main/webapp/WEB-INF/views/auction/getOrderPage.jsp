@@ -227,11 +227,11 @@
 		      													<div class="col-8 ms-3">
 		      														<div class="row mt-3">
 		      															<div class="col">
-		      																${orderInfo.main_category_name} > ${orderInfo.sub_category_name}
+		      																${orderInfo.main_category_name}<span style="font-size: 14px;" class="m-1"> > </span>  ${orderInfo.sub_category_name}
 		      															</div>
 		      														</div>
 		      														<div class="row">
-		      															<div class="col fw-bold" style="font-size: 18px;">
+		      															<div class="col fw-semibold" style="font-size: 18px;">
 		      																<a href="/safari/auction/productDetail/${orderInfo.auction_item_id}">
 		      																	${orderInfo.title}
 		      																</a>	
@@ -443,7 +443,7 @@
     									</div>
     									
     									<div class="row mt-2">
-    										<div class="col border border-1" style="border-color: black!important;" >
+    										<div class="col shadow-sm" >
     										
     											<div class="row p-2 mb-2 ">
     											
@@ -470,7 +470,8 @@
     																<div class="col">
     																	총 배송비 
     																	<span class="ms-2">
-    																		<input type="button" class="btn btn-outline-secondary btn-sm" value="상세보기">
+    																		<input type="button" class="btn btn-outline-secondary btn-sm" value="상세보기"
+    																		style="font-size: 14px;">
     																	</span>
     																</div>
     															</div>
@@ -540,7 +541,7 @@
     										</div>
     									</div>
     									
-    									<div class="row mt-2 mb-2">
+    									<div class="row mt-2 mb-5">
     										<div class="col bg-light p-2">
     											
     											<div class="row">
@@ -888,13 +889,13 @@
   <div class="modal-dialog modal-dialog-centered"> 
     <div class="modal-content">
       <div class="modal-header bg-light">
-      		<h5 class="modal-title">배송지 변경</h5>
+      		<h5 class="modal-title fw-semibold">배송지 변경</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div> 
       <div class="modal-body">
       	
       	<div class="row mt-2">
-      		<div class="col-11 ms-2" id="myAddressList" style="height: 400px; overflow:auto;">
+      		<div class="col-11 ms-3" id="myAddressList" style="height: 400px; overflow:auto;">
       			
       		
       			

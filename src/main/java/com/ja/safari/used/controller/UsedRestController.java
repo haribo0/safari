@@ -510,22 +510,6 @@ public class UsedRestController {
 		}
 	}
 	
-	// 마이페이지
-	@RequestMapping("selectMySellList1")
-	public Map<String, Object> selectMySellList(HttpSession session, Integer status){
-		Map<String, Object> map = new HashMap<String, Object>();
-		
-		UserDto sessionUser = (UserDto) session.getAttribute("sessionUser");
-		if(sessionUser == null) {
-			map.put("result", "fail");
-			map.put("reason", "login required");
-			return map;
-		}else {
-			map.put("list", usedService.selectMySellList(sessionUser.getId(), status));
-			map.put("result", "success");
-			return map;
-		}
-	}
 	
 	
 	

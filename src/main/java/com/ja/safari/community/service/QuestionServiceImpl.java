@@ -11,6 +11,10 @@ import org.springframework.stereotype.Service;
 
 import com.ja.safari.community.mapper.CommunitySqlMapper;
 import com.ja.safari.community.mapper.QuestionSqlMapper;
+import com.ja.safari.dto.PromotionReviewDto;
+import com.ja.safari.dto.PromotionReviewImgDto;
+import com.ja.safari.dto.PromotionReviewLikeDto;
+import com.ja.safari.dto.ProreviewRentalCategoryDto;
 import com.ja.safari.dto.QuestionDto;
 import com.ja.safari.dto.QuestionImgDto;
 import com.ja.safari.dto.QuestionLikeDto;
@@ -338,6 +342,28 @@ public List<Map<String, Object>> selectAllQuestionMainBoards() {
 		
 	}
 	
+	// 궁금해요 게시물 최신순 정렬
+	public List<Map<String, Object>> newPostByQuestion(int sessionId) {
+		
+		List<QuestionDto> newPostQuestionList = questionSqlMapper.newPostByQuestion();
+		
+		List<Map<String, Object>> newPostByQuestionList = new ArrayList<>();
+		
+		for(QuestionDto questionDto : newPostQuestionList) {
+			Map<String, Object> map = new HashMap<>();
+						
+			UserDto userDto = userSqlMapper.selectUserDtoById(questionDto.getUser_id());
+				
+			map.put("userDto", userDto);
+			map.put("questionDto", questionDto);
+
+			newPostByQuestionList.add(map);
+
+			
+		}		
+		
+		return newPostByQuestionList;
+	}
 	
 	
 //	public  void  getRegisterHelpBoardList() {

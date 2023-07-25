@@ -25,7 +25,7 @@
 		  	<div class="" id="">
 				<ul class="list-group">
 					<li class="list-group-item border-0 py-1 ps-0"><a href="/safari/user/selectMySellList" class="btn py-0 text-body-secondary ps-0 fs-nav-small">판매내역</a></li>
-					<li class="list-group-item border-0 py-1 ps-0"><a href="#" class="btn py-0 text-body-secondary ps-0 fs-nav-small">구매내역</a></li>
+					<li class="list-group-item border-0 py-1 ps-0"><a href="/safari/user/selectMyBuyList" class="btn py-0 text-body-secondary ps-0 fs-nav-small">구매내역</a></li>
 					<li class="list-group-item border-0 py-1 ps-0"><a href="/safari/user/wishList" class="btn py-0 text-body-secondary ps-0 fs-nav-small">관심목록</a></li>
 				</ul>
 			</div>
@@ -34,7 +34,7 @@
 		  <a class="btn text fw-bolder py-1 ps-0 mt-2" href="#">대여</a></li>
 		  	<div class="" id="">
 				<ul class="list-group">
-					<li class="list-group-item border-0 py-1 ps-0"><a href="./myOrderListPage" class="btn py-0 text-body-secondary ps-0 fs-nav-small">오더리스트</a></li>
+					<li class="list-group-item border-0 py-1 ps-0"><a href="./myOrderListPage" class="btn py-0 text-body-secondary ps-0 fs-nav-small">주문리스트</a></li>
 					<li class="list-group-item border-0 py-1 ps-0"><a href="./myRentalLikePage" class="btn py-0 text-body-secondary ps-0 fs-nav-small">찜</a></li>
 				</ul>
 			</div>

@@ -211,7 +211,12 @@
 	]]> 
 	</select>
 	
-	
+	<!--  궁금해요 게시물 최신순 -->
+	<select id="newPostByQuestion" resultType="com.ja.safari.dto.QuestionDto">
+	SELECT *
+	FROM question_table
+	ORDER BY reg_date DESC
+	</select>
 	
 	<!-- 강사 쿼리 -->
 	<select id="countQuestionReplyComplete" resultType="int">

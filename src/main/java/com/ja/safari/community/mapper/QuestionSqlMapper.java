@@ -92,6 +92,8 @@ public interface QuestionSqlMapper {
 		// 답변 채택 코인 리워드 
 		public void questionReplyCoinReward(UserCoinDto userCoinDto);
 		
+		// 궁금해요 최신 게시물
+		public List<QuestionDto> newPostByQuestion();
 		
 		
 }

@@ -892,6 +892,8 @@ function getMyWroteReviewHideAndShow(senderId, receiverId, requestId, modalName)
 	const modalBodyBox = document.getElementById('modalBody3');
 	// 닫을 때
 	modalHide(modalName);
+	
+	/* modalHide('writeReviewModalMy'); */
 	// 열 때
 	const wroteReviewModal = bootstrap.Modal.getOrCreateInstance('#myWroteReviewModal');
 
@@ -1945,7 +1947,7 @@ function getProductInformation(requestId) {
     				row2col1Icon.classList.add('bi', 'bi-coin');
     				const row2col1Span = document.createElement('span');
     				row2col1Span.innerText = ' 송금하기';
-    				row2col1Span.setAttribute("onclick", "processPayment("+partner_order_id+","+partner_user_id+","+item_name+","+item_code+","+total_amount+")");
+    				row2col1Span.setAttribute("onclick", "processPayment("+partner_order_id+","+partner_user_id+",'"+item_name+"',"+item_code+","+total_amount+")");
 
     	            const row2col4 = document.createElement('div');
     	            row2col4.classList.add('col');

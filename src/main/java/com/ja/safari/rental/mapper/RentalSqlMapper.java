@@ -2,7 +2,6 @@ package com.ja.safari.rental.mapper;
 
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
 
@@ -16,6 +15,7 @@ import com.ja.safari.dto.RentalOrderKakaopayReady;
 import com.ja.safari.dto.RentalPeriodDiscDto;
 import com.ja.safari.dto.RentalReturnKakaopayAmount;
 import com.ja.safari.dto.RentalReturnKakaopayApprove;
+import com.ja.safari.dto.RentalReviewCountDto;
 import com.ja.safari.dto.RentalReviewDto;
 import com.ja.safari.dto.RentalReviewImgDto;
 import com.ja.safari.dto.RentalSubCategoryDto;
@@ -52,7 +52,10 @@ public interface RentalSqlMapper {
 
 	// 상품 상세 이미지 가져오기
 	public List<RentalItemImgDto> selectItemImageByItemId(int itemId);
-
+	
+	// 리뷰 별점별 갯수 가져오기 
+	public List<RentalReviewCountDto> getRentalReviewCountByRating(int itemId);
+	
 	// 상품 좋아요 여부확인
 	public int countMyLike(RentalItemLikeDto rentalItemLikeDto);
 	// 좋아요 지우기
@@ -148,7 +151,13 @@ public interface RentalSqlMapper {
 	public RentalItemDto selectRentalItem(int rental_id);
 
 	// 유저 리뷰 카운트 
-	public Integer selectIsOverCount(int id, int orderId);
+	public int selectMyReviewCount(@Param("id") int id, @Param("orderId") int orderId);
+
+	// 판매자 dto 가져오기
+	public RentalBusinessDto selectRentalBuisnessById(int itemId);
+	
+	// 대여 아이템 리뷰 하나 가져오기
+	public RentalReviewDto selectMyReview(@Param("id") int id, @Param("myId") int myId);
 
 
 

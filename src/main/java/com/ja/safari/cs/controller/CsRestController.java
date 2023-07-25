@@ -17,6 +17,7 @@ import com.ja.safari.cs.service.CsServiceImpl;
 import com.ja.safari.dto.CsEmpDto;
 import com.ja.safari.dto.CsLiveChatMsgDto;
 import com.ja.safari.dto.CsQnaDto;
+import com.ja.safari.dto.UserDto;
 
 @RestController
 @RequestMapping("/cs/*")
@@ -25,6 +26,24 @@ public class CsRestController {
 	@Autowired
 	private CsServiceImpl csService;
 	
+	
+	// 직원 리스트 조회 
+	@RequestMapping("login")
+	public  Map<String, Object> login(HttpSession session, CsEmpDto empDto) {
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		CsEmpDto empUser = csService.getEmpDtoByUserNameAndPw(empDto);
+		
+		if (empUser != null) {
+		   session.setAttribute("empUser", empUser);
+		   map.put("result", "success");
+	   } else {
+		   map.put("result", "fail");
+	   }
+		
+		return map;
+	}
 	
 	// 직원 리스트 조회 
 	@RequestMapping("getEmployeeList")

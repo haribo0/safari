@@ -228,4 +228,11 @@
         )
   </insert>
 
+<select id="getPromoReviewLikePost" resultType="com.ja.safari.dto.PromotionReviewDto">
+	SELECT pr.*
+	FROM promotion_review pr
+	INNER JOIN promotion_review_like pro_like ON pr.id = pro_like.review_id
+	WHERE pro_like.user_id = #{user_id}
+</select>
+
 </mapper>

@@ -6,6 +6,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.text.StringEscapeUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -122,7 +123,7 @@ public class PickController {
 		@RequestMapping("pick/readContentPage/{id}")
 		public String pickReadContentPage(@PathVariable int id, Model model) {
 			
-			pickService.increaseViewsPickBoard(id);
+			pickService.increaseViewsPickBoard(id);//조회수 증가.
 			
 			Map<String, Object> map = pickService.getPickBoardByBoardId(id);
 			
@@ -132,6 +133,13 @@ public class PickController {
 			List<Map<String, Object>> pickCommentsList = pickService.getPickcommentList(id);
 			model.addAttribute("pickCommentsList", pickCommentsList);
 
+			// html escape
+			PickDto pickDto = (PickDto)map.get("pickDto");
+			String content = pickDto.getContent();
+			content = StringEscapeUtils.escapeHtml4(content);
+			content = content.replaceAll("\n", "<br>");
+			pickDto.setContent(content);
+			
 			//게시물 좋아요 count
 			int PickBoardLikeCount = pickService.countLikeByPickBoardId(id);
 			model.addAttribute("PickBoardLikeCount", PickBoardLikeCount);

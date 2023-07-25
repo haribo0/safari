@@ -17,6 +17,78 @@
         height: 50px; /* Adjust the height as needed */
         
     }
+    
+	.orangeButton {
+	background: #ff6f0f;
+	font-weight: bold;
+	color: white;
+	}
+	
+	.orangeButton:hover{
+	   background: #FF812C;
+	   font-weight: bold;
+	   color: white;
+	}
+	
+	/* 슬라이드 아이템 높이 설정 */
+    .carousel-inner .carousel-item {
+      height: auto; /* 높이를 자동으로 조정 */
+    }
+
+    /* 화살표 스타일 조정 */
+    .carousel-control-prev-icon,
+    .carousel-control-next-icon {
+      background-color: white; /* 배경색을 검은색으로 설정 */
+      border-radius: 50%; /* 원형으로 모양 변경 */
+      width: 10px; /* 너비 설정 */
+      height: 10px; /* 높이 설정 */
+      display: inline-block; /* 인라인 요소로 표시되도록 설정 */
+      color: black;
+    }
+
+    /* 화살표 위치 조정 */
+    .carousel-control-prev {
+      left: px; /* 왼쪽으로 30px 이동 */
+    }
+
+    .carousel-control-next {
+      right: px; /* 오른쪽으로 30px 이동 */
+    }
+    
+    /* 다음 화살표 보이도록 설정 */
+    .carousel-control-next-icon {
+      display: inline; /* 인라인 요소로 표시되도록 설정 */
+    }
+    
+    .category-item.btn {
+	  background-color: white; /* 눌렀을 때의 배경색 */
+	  color: #171717; /* 눌렀을 때의 텍스트 색상 */
+	  border-color: secondary;  /* 테두리 색상 추가 */
+	}
+	
+	.category-item.btn:hover{
+	   background: #e1e2e4;
+	   color: #171717;
+	   border-color: secondary; /* 테두리 색상 추가 */
+	}
+	
+    /* 버튼 스타일링 */
+    .reset-btn {
+        background-color: white;
+        color: #171717;
+        border: none;
+        border-radius: 20%;
+        padding: 5%;
+        cursor: pointer;
+        font-size: 16px;
+        display: flex; /* 아이콘과 텍스트를 가로로 나열하기 위해 Flexbox 사용 */
+        align-items: center; /* 아이콘과 텍스트를 수직 중앙 정렬 */
+    }
+
+    /* 버튼 호버 효과 */
+    .reset-btn:hover {
+        background-color: lightgray;
+    }
  </style>
 
 </head>
@@ -42,8 +114,8 @@
 			<div class="row">
 			
 			<!-- 왼쪽 -->
-			<div class="col" style="background-color:lightgrey;" >
-				왼쪽
+			<div class="col" >
+				
 			</div>
 			<!-- 왼쪽 -->
 			
@@ -51,9 +123,240 @@
 			<div class="col-9">
 				<div class="align-items-center justify-content-center justify-content-lg-center"> 
 					
+					<%-- 검색 --%>
+					<div class="row">
+					<div class="col">
+					
+					</div>
+					</div>
+					
+					<%-- 검색--%>	
+					<form action="./mainPage" method="get">
+						<div class="row mt-3"> 
+							<div class="col d-grid">
+							</div>
+							<div class="col-2">
+								<select name="question_searchType" class="form-select">
+									<option value="title" selected>제목</option>
+									<option value="content">내용</option>
+									<option value="nickname">작성자</option>
+								</select>				
+							</div>
+							<div class="col-3">
+								<input name="question_searchWord" type="text" class="form-control">
+							</div>
+							<div class="col-1 ms-3" style="position:relative;">
+								 <button type="submit" class="btn btn-outline-dark">
+								  	<span class="bi bi-search"></span>
+								</button>
+							</div>
+							</div>	
+					
+<!-- 						<div class="row mt-3"> 
+							<div class="col text-center justify-content-center">
+							<div class="mt-3">
+							<button type="button" class="category-item btn btn-outline-secondary rounded-pill btn-md m-1">사무</button>
+							<button type="button" class="category-item btn btn-outline-secondary rounded-pill btn-md m-1">연구</button>
+							<button type="button" class="category-item btn btn-outline-secondary rounded-pill btn-md m-1">기술</button>
+							<button type="button" class="category-item btn btn-outline-secondary rounded-pill btn-md m-1">금융</button>
+							<button type="button" class="category-item btn btn-outline-secondary rounded-pill btn-md m-1">영업</button>
+							<button type="button" class="category-item btn btn-outline-secondary rounded-pill btn-md m-1">서비스</button>
+							<button type="button" class="category-item btn btn-outline-secondary rounded-pill btn-md m-1">예술</button>
+							<button type="button" class="category-item btn btn-outline-secondary rounded-pill btn-md m-1">스포츠</button>
+							<button type="button" class="category-item btn btn-outline-secondary rounded-pill btn-md m-1">보건</button>
+							<button type="button" class="category-item btn btn-outline-secondary rounded-pill btn-md m-1">교육</button>
+							<button type="button" class="category-item btn btn-outline-secondary rounded-pill btn-md m-1">물류</button>
+							<button type="button" class="category-item btn btn-outline-secondary rounded-pill btn-md m-1">생산</button>
+							</div>
+							
+							</div>
+						</div> -->
+
+							
+							
+							<hr>
+							<div class="row">
+							<div class="col d-grid text-center justify-content-center align-items-center" style="margin-left: 70px;">
+							<strong class="me-2">원하는 카테고리를 골라보세요!</strong> 
+							</div>
+							
+							<div class="col-2 me-1">
+							<button type="reset" class="reset-btn text-end justify-content-end">
+					            <i class="bi bi-arrow-clockwise"></i> 초기화
+					        </button>
+							</div>
+							
+							</div>
+							
+							<hr>
+							
+							<%-- 직업 네비바 --%>	
+							<div class="row mt-3"> 
+							<div class="col text-start justify-content-start d-flex align-items-center">
+							<span class="ms-4" style="font-size: 20px;"><strong>직업</strong></span>
+							</div>
+							<div class="col-1 text-end justify-content-center me-3">
+							<div class="form-check">
+							    <input class="form-check-input" type="checkbox" id="seoulCheckbox">
+							    <label class="form-check-label" for="seoulCheckbox">
+							        무관
+							    </label>
+						    </div>
+							</div>
+							</div>
+							
+							<div class="row mt-1 ms-3 me-1"> 
+							<div class="col text-center justify-content-center">
+							<div id="carouselExample" class="carousel slide">
+							  <div class="carousel-inner">
+							    <div class="carousel-item active">
+							    	<button type="button" class="btn btn-outline-secondary rounded-pill btn-md m-1">사무</button>
+									<button type="button" class="btn btn-outline-secondary rounded-pill btn-md m-1">연구</button>
+									<button type="button" class="btn btn-outline-secondary rounded-pill btn-md m-1">기술</button>
+									<button type="button" class="btn btn-outline-secondary rounded-pill btn-md m-1">영업</button>
+							    	<button type="button" class="btn btn-outline-secondary rounded-pill btn-md m-1">서비스</button>
+									<button type="button" class="btn btn-outline-secondary rounded-pill btn-md m-1">예술</button>
+									<button type="button" class="btn btn-outline-secondary rounded-pill btn-md m-1">스포츠</button>
+									<button type="button" class="btn btn-outline-secondary rounded-pill btn-md m-1">보건</button>
+									<button type="button" class="btn btn-outline-secondary rounded-pill btn-md m-1">교육</button>
+									<button type="button" class="btn btn-outline-secondary rounded-pill btn-md m-1">금융</button>
+									<button type="button" class="btn btn-outline-secondary rounded-pill btn-md m-1">물류</button>
+									<button type="button" class="btn btn-outline-secondary rounded-pill btn-md m-1">생산</button>
+							      	
+							    </div>
+							    <div class="carousel-item">
+							      	<button type="button" class="btn btn-outline-secondary rounded-pill btn-md m-1">사무</button>
+									<button type="button" class="btn btn-outline-secondary rounded-pill btn-md m-1">연구</button>
+									<button type="button" class="btn btn-outline-secondary rounded-pill btn-md m-1">기술</button>
+									<button type="button" class="btn btn-outline-secondary rounded-pill btn-md m-1">영업</button>
+							    </div>
+							    <div class="carousel-item">
+							      	<button type="button" class="btn btn-outline-secondary rounded-pill btn-md m-1">서비스</button>
+									<button type="button" class="btn btn-outline-secondary rounded-pill btn-md m-1">예술</button>
+									<button type="button" class="btn btn-outline-secondary rounded-pill btn-md m-1">스포츠</button>
+							    </div>
+							    <div class="carousel-item">
+							     	<button type="button" class="btn btn-outline-secondary rounded-pill btn-md m-1">보건</button>
+									<button type="button" class="btn btn-outline-secondary rounded-pill btn-md m-1">교육</button>
+									<button type="button" class="btn btn-outline-secondary rounded-pill btn-md m-1">금융</button>
+							    </div>
+							    <div class="carousel-item">
+							      	<button type="button" class="btn btn-outline-secondary rounded-pill btn-md m-1">물류</button>
+									<button type="button" class="btn btn-outline-secondary rounded-pill btn-md m-1">생산</button>
+							    </div>
+							  </div>
+							  
+							  <!-- <div class="justify-content-start">
+							  <button class="carousel-control-prev justify-content-start" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+							    <span class="carousel-control-prev-icon" aria-hidden="true"><i class="bi bi-chevron-left"></i></span>
+							    <span class="visually-hidden">Previous</span>
+							  </button>
+							  </div>
+							  
+							  <div class="justify-content-end">
+							  <button class="carousel-control-next justify-content-end" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+							    <span class="carousel-control-next-icon" aria-hidden="true"><i class="bi bi-chevron-right"></i></span>
+							    <span class="visually-hidden">Next</span>
+							  </button>
+							  </div> -->
+							</div>
+			
+							
+							</div>
+							</div>	
+							<%-- 직업 네비바 --%>
+							
+							<%-- 지역 네비바 --%>	
+							<div class="row mt-3"> 
+							<div class="col text-start justify-content-start d-flex align-items-center">
+							<span class="ms-4" style="font-size: 20px;"><strong>지역</strong></span>
+							</div>
+							<div class="col-1 text-end justify-content-center me-3">
+							<div class="form-check">
+							    <input class="form-check-input" type="checkbox" id="seoulCheckbox">
+							    <label class="form-check-label" for="seoulCheckbox">
+							        전국
+							    </label>
+						    </div>
+							</div>
+							</div>
+							
+							<div class="row mt-1 ms-3 me-1"> 
+							<div class="col text-center justify-content-center">
+							<div id="carouselExample" class="carousel slide">
+							  <div class="carousel-inner">
+							    <div class="carousel-item active">
+							    	<button type="button" class="btn btn-outline-secondary rounded-pill btn-md m-1">서울특별시</button>
+									<button type="button" class="btn btn-outline-secondary rounded-pill btn-md m-1">경기도</button>
+									<button type="button" class="btn btn-outline-secondary rounded-pill btn-md m-1">인천광역시</button>
+									<button type="button" class="btn btn-outline-secondary rounded-pill btn-md m-1">강원특별자치도</button>
+							    	<button type="button" class="btn btn-outline-secondary rounded-pill btn-md m-1">대전광역시</button>
+									<button type="button" class="btn btn-outline-secondary rounded-pill btn-md m-1">세종특별자치시</button>
+									<button type="button" class="btn btn-outline-secondary rounded-pill btn-md m-1">충청남도</button>
+									<button type="button" class="btn btn-outline-secondary rounded-pill btn-md m-1">충청북도</button>
+									<button type="button" class="btn btn-outline-secondary rounded-pill btn-md m-1">부산광역시</button>
+									<button type="button" class="btn btn-outline-secondary rounded-pill btn-md m-1">울산광역시</button>
+									<button type="button" class="btn btn-outline-secondary rounded-pill btn-md m-1">경상남도</button>
+									<button type="button" class="btn btn-outline-secondary rounded-pill btn-md m-1">경상북도</button>
+							      	<button type="button" class="btn btn-outline-secondary rounded-pill btn-md m-1">대구광역시</button>
+									<button type="button" class="btn btn-outline-secondary rounded-pill btn-md m-1">광주광역시</button>
+									<button type="button" class="btn btn-outline-secondary rounded-pill btn-md m-1">전라남도</button>
+									<button type="button" class="btn btn-outline-secondary rounded-pill btn-md m-1">전라북도</button>
+									<button type="button" class="btn btn-outline-secondary rounded-pill btn-md m-1">제주특별자치도</button>
+							    </div>
+							    <div class="carousel-item">
+							      	<button type="button" class="btn btn-outline-secondary rounded-pill btn-md m-1">사무</button>
+									<button type="button" class="btn btn-outline-secondary rounded-pill btn-md m-1">연구</button>
+									<button type="button" class="btn btn-outline-secondary rounded-pill btn-md m-1">기술</button>
+									<button type="button" class="btn btn-outline-secondary rounded-pill btn-md m-1">영업</button>
+							    </div>
+							    <div class="carousel-item">
+							      	<button type="button" class="btn btn-outline-secondary rounded-pill btn-md m-1">서비스</button>
+									<button type="button" class="btn btn-outline-secondary rounded-pill btn-md m-1">예술</button>
+									<button type="button" class="btn btn-outline-secondary rounded-pill btn-md m-1">스포츠</button>
+							    </div>
+							    <div class="carousel-item">
+							     	<button type="button" class="btn btn-outline-secondary rounded-pill btn-md m-1">보건</button>
+									<button type="button" class="btn btn-outline-secondary rounded-pill btn-md m-1">교육</button>
+									<button type="button" class="btn btn-outline-secondary rounded-pill btn-md m-1">금융</button>
+							    </div>
+							    <div class="carousel-item">
+							      	<button type="button" class="btn btn-outline-secondary rounded-pill btn-md m-1">물류</button>
+									<button type="button" class="btn btn-outline-secondary rounded-pill btn-md m-1">생산</button>
+							    </div>
+							  </div>
+							  
+							  <!-- <div class="justify-content-start">
+							  <button class="carousel-control-prev justify-content-start" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+							    <span class="carousel-control-prev-icon" aria-hidden="true"><i class="bi bi-chevron-left"></i></span>
+							    <span class="visually-hidden">Previous</span>
+							  </button>
+							  </div>
+							  
+							  <div class="justify-content-end">
+							  <button class="carousel-control-next justify-content-end" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+							    <span class="carousel-control-next-icon" aria-hidden="true"><i class="bi bi-chevron-right"></i></span>
+							    <span class="visually-hidden">Next</span>
+							  </button>
+							  </div> -->
+							</div>
+			
+							
+							</div>
+							</div>	
+							<%-- 지역 네비바 --%>
+							
+							
+							
+							
+					
+						
+					</form>
+					<%-- 검색--%>	
+					<%-- 검색 --%>
 					
 					<%-- 카드 recruitBoardList sample--%>
-					<div class="card mb-2" >
+					<div class="card mt-4 mb-3" style="padding: 8px;">
 						<div class="card-body">
 					  	<div class="row">
 					  	
@@ -65,13 +368,24 @@
 						  	
 							  	<div class="row">
 						  		<div class="col">
-								    <h5 class="card-title">주식회사 다온</h5>
-								    <p class="card-text">물류팀 직원구인 경력무관</p>
+								    <h4 class="card-title">
+										주식회사 다온
+									</h4>
+								    <p class="card-text">
+								    	<div class="d-flex align-items-center">
+											<!-- <span class="badge border border-primary text-primary me-1" style="font-size: 13px;">영업</span> -->
+											<span class="badge rounded-pill mt-1 me-2" style="font-size: 12px; position: relative; top: -3px; color: #0095ff; background-color: transparent; border: 1px solid #0095ff;">영업</span>
+											<span class="text-align-center mb-1">물류팀 직원구인 경력무관</span>
+										</div>
+										<span class="text-secondary mt-2" >인천 서구 · </span>
+										<strong class="mt-1" style="color: #ff501b;"> 월 </strong>
+										<strong class="text-secondary mt-1"> 250만원</strong>
+									</p>
 								</div></div>
 								
 								<div class="row">
-						  		<div class="col d-flex align-items-center ">
-								    <a href="#" class="btn btn-primary">공고 지원하기</a>
+						  		<div class="col d-flex align-items-center justify-content-start">
+								    <a href="#" class="btn btn-primary">공고 지원하기 <i class="bi bi-box-arrow-up-right"></i></a>
 								</div></div>
 								
 						    </div>
@@ -87,7 +401,7 @@
 					
 					<%-- 카드 recruitBoardList --%>
 					<c:forEach items="${recruitBoardList}" var="recruitDto">
-					<div class="card mb-2" >
+					<div class="card mb-3" style="padding: 8px;">
 						<div class="card-body">
 					  	<div class="row">
 					  	
@@ -100,20 +414,29 @@
 							  	<div class="row">
 						  		<div class="col">
 								    <h5 class="card-title">${recruitDto.userDto.nickname}</h5>
-								    <p class="card-text"><a class="text-black text-decoration-none" href="/safari/community/recruit/readContentPage/${recruitDto.recruitDto.id}">
-										${recruitDto.recruitDto.title}</a></p>
+								    <p class="card-text">
+										${recruitDto.recruitDto.title}<br>
+										<span class="text-secondary mt-1" >${recruitDto.recruitDto.location} · </span>
+										<strong class="mt-1" style="color: #ff501b;"> 월 </strong>
+										<strong class="text-secondary mt-1"> ${recruitDto.recruitDto.salary}만원</strong>
+									</p>
 								</div></div>
 								
 								<div class="row">
-						  		<div class="col d-flex align-items-center ">
-								    <a href="#" class="btn btn-primary">공고 지원하기</a>
+						  		<div class="col d-flex align-items-center">
+								    
+								<button type="button" class="btn btn-primary" onclick="window.location.href='/safari/community/recruit/readContentPage/${recruitDto.recruitDto.id}'">공고 지원하기 <i class="bi bi-box-arrow-up-right"></i></button>
+								
 								</div></div>
 								
 						    </div>
 						    
+						    <%-- 좋아요 & 조회수 --%>
 						    <div class="col-1 d-flex align-items-start justify-content-end me-3" style="font-size: 20px;">
+						    	<%-- <i class="bi bi-eye me-2"></i> <span class="me-3" style="font-size: 15px;">${recruitDto.recruitDto.views}</span>  --%>
 						    	<i class="bi bi-heart" ></i>
 						    </div>
+						    <%-- 좋아요 & 조회수 --%>
 						    
 					  	</div>
 					  </div>
@@ -121,7 +444,17 @@
 					</c:forEach>
 					<%-- 카드 recruitBoardList --%>
 					
-					<%-- recruitBoardList --%>
+					<%-- 글쓰기버튼 --%>
+					<div class="row">
+						<div class="col text-end pe-5">
+							<c:if test="${!empty sessionUser }">
+								<a href="/safari/community/recruit/writeContentPage" class="btn btn-default px-2 text-body-secondary">글쓰기</a>
+							</c:if>
+						</div>
+					</div>
+					<%-- 글쓰기버튼 --%>
+					
+<%-- 					recruitBoardList
 					<div class="row"  style="text-align:center">
 						<div class="col">
 						
@@ -142,21 +475,9 @@
 										<br>
 									</div><hr>
 								</c:forEach>	
-								
-							 
-							<%-- 글쓰기버튼 --%>
-							<div class="row">
-								<div class="col text-end pe-5">
-									<c:if test="${!empty sessionUser }">
-										<a href="/safari/community/recruit/writeContentPage" class="btn btn-default px-2 text-body-secondary">글쓰기</a>
-									</c:if>
-								</div>
-							</div>
-							<%-- 글쓰기버튼 --%>
-							
 						</div>	
 					</div>	
-					<%-- recruitBoardList --%>
+					recruitBoardList --%>
 						
 				</div>	
 			</div>
@@ -164,11 +485,11 @@
 			 
 			
 			<!-- 오른쪽 -->
-			<div class="col" style="background-color:lightgrey;">
-				오른쪽
+			<div class="col" >
+				<img class="img-fluid ms-3" src="https://apple.contentsfeed.com/RealMedia/ads/Creatives/jobkorea/230718_seoul_al_ssky/230718_seoul_120600.png" alt="...">
+		
 			</div>
 			<!-- 오른쪽 -->
-			
 			</div>
 		</div>
 		<!-- 커뮤니티 컨테이너 -->

@@ -56,6 +56,7 @@ public interface RecruitSqlMapper {
 	//구인구직 좋아요 개수 count
 	public int countLikeByRecruitBoardId(int recruit_id);
 
-
+	//구인구직 게시물 최신순
+	public List<RecruitDto> newPostByRecruit();
 	
 }

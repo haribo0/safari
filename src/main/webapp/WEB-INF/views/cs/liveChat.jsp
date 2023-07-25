@@ -102,8 +102,12 @@
 #statusButton{
 	font-size: 14px;
 }
-
+.orangeButton:hover{
+   background: #FF812C;
+   font-weight: bold;
+   color: white;
 }
+
 
 </style>
 
@@ -286,7 +290,9 @@
  --%>
 
 
-
+	<!-- 푸터 섹션 -->
+	<jsp:include page="../common/footer.jsp"></jsp:include>
+	<!-- 푸터 섹션 -->
 
 
 
