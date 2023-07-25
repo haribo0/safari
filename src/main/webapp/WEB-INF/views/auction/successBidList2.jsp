@@ -28,9 +28,6 @@
 .text-orange {
 	color:#ff6f0f;
 }
-.custom-table-secondary {
-  background-color: #f4f4f4!important; /* 원하는 연한 색상으로 변경 */
-}
 </style>
 
 </head>
@@ -57,16 +54,15 @@
 				</div>
 			</div>
 			
-	
-			
 			<div class="row mt-4">
 				<div class="col">
 				
 					<div class="row">
 						<div class="col">
 							<span>
-								<i class="bi bi-exclamation-circle fs-5 me-1"></i></span>
-									<span class="fw-semibold fs-5">참고사항</span>
+								<img class="mb-1" src="/safari/resources/img/auction/notice.png"
+									style="max-width: 25px; max-height: 25px;"></span>
+									<span class="fw-bold fs-5">참고사항</span>
 						
 						</div>
 					</div>	
@@ -79,7 +75,7 @@
 					
 					
 					<div class="row mt-4 mb-2">
-						<div class="col fw-semibold fs-5">
+						<div class="col fw-bold fs-5">
 						    내가 낙찰한 경매 목록
 						</div>
 					</div>	
@@ -88,78 +84,93 @@
 					
 										
 						
-				<div class="row mt-3">
+				<div class="row mt-3 ms-1">
 					<div class="col">
 					
-						<table class="table">
-							<thead>
-								<tr class="text-center">
-									<td class="custom-table-secondary" style="width: 50%">상품정보</td>
-									<td class="custom-table-secondary">낙찰가</td>
-									<td class="custom-table-secondary">낙찰시간</td>
-									<td class="custom-table-secondary">경매종료일</td>
-									<td class="custom-table-secondary">상태</td>
-								</tr>
-							</thead>
-							<tbody>
-								<c:if test="${empty successBidList}">
-									<tr class="text-center">
-										<td colspan="5">낙찰 정보가 없습니다.</td>
-									</tr>
-								</c:if>
-								 <c:forEach items="${successBidList}" var="bidDto">
-									<tr>
-										<td class="align-middle">
-											<div class="row">
-												<div class="col-3">
-													<input type="hidden" id="bid_${bidDto.auction_item_id}" value="${bidDto.id}">
-													<a href="/safari/auction/productDetail/${bidDto.auction_item_id}"
-													id="aid_${bidDto.auction_item_id}">
-														<img src="/auctionFiles/${bidDto.auction_item_img_link}" style="
-														width: 120px; height: 120px;" class="img-fluid"></a>
-												</div>
-												<div class="col ms-2">
-													<div class="row mt-4">
-														<div class="col ms-2" style="font-size: 14px;">
-															${bidDto.main_category_name} > ${bidDto.sub_category_name}
-														</div>
-													</div>
-													<div class="row">
-														<div class="col ms-2 fw-semibold">
-														<input type="hidden" value="${bidDto.auction_item_id}">
-															<span style="font-size: 16px;"><a href="/safari/auction/productDetail/${bidDto.auction_item_id}">
-															${bidDto.title}</a></span>
-														<input type="hidden" id="title_${bidDto.auction_item_id}" value="${bidDto.title}">	
-														</div>
-													</div>											
-												</div>
-											</div>	
-										</td>
-										<td class="align-middle text-center">
-											<span class= "fw-bold" style="font-size: 18px;"><fmt:formatNumber value="${bidDto.bid_price}"  pattern="#,###"/></span> 원
-											<input type="hidden" id="bid_price_${bidDto.auction_item_id}" value="${bidDto.bid_price}">
-										</td>
-										<td class="align-middle text-center">
-											<fmt:formatDate value="${bidDto.reg_date}" pattern="yyyy.MM.dd" />
-											<br>
-											<fmt:formatDate value="${bidDto.reg_date}" pattern="a hh:mm" />
-										</td>
-										<td class="align-middle text-center">
-											<fmt:formatDate value="${bidDto.end_date}" pattern="yyyy.MM.dd" />
-											<br>
-											<fmt:formatDate value="${bidDto.end_date}" pattern="a hh:mm" />
-										
-										</td>
-										<td class="align-middle text-center">
-											<span id="myStatus_${bidDto.id}"></span>
-										</td>
-									</tr>
-								</c:forEach>
-							</tbody>
-						</table>
 					
-			
-				
+						<div class="row fw-medium border-bottom border-black border-2 py-2">
+							<div class="col-5 text-center">상품정보</div>
+							<div class="col text-center">낙찰가</div>
+							<div class="col text-center">낙찰시간</div>
+							<div class="col text-center">경매종료일</div>
+							<div class="col text-center">상태</div>
+						</div>
+						
+						  <c:if test="${empty successBidList}">
+						       <div class="row border-bottom py-2">
+							   <div class="col text-center" colspan="5">
+						            낙찰 정보가 없습니다.
+						        </div>
+						       </div>
+						    </c:if>	
+						
+						
+						 <c:forEach items="${successBidList}" var="bidDto">
+							<input type="hidden" id="user_id_${bidDto.auction_item_id}" value="${sessionUser.id}">
+								<div class="row border-bottom py-2">
+									<div class="col-5">
+										<div class="row">
+										
+											<input type="hidden" id="bid_${bidDto.auction_item_id}" value="${bidDto.id}">
+											<div class="col" id="aid_${bidDto.auction_item_id}" style="float: left;">
+												
+												<a href="/safari/auction/productDetail/${bidDto.auction_item_id}">
+												<img 
+												src="/auctionFiles/${bidDto.auction_item_img_link}" style="
+												width: 120px; height: 120px;"></a>
+											</div>
+											<div class="col-8" class="text-start">
+												<div class="row mt-4">
+													<div class="col" style="font-size: 14px;">
+														${bidDto.main_category_name} > ${bidDto.sub_category_name}
+													</div>
+												</div>
+												<div class="row">
+													<div class="col fw-bold">
+													<input type="hidden" value="${bidDto.auction_item_id}">
+														<span style="font-size: 16px;"><a href="/safari/auction/productDetail/${bidDto.auction_item_id}">
+														${bidDto.title}</a></span>
+													<input type="hidden" id="title_${bidDto.auction_item_id}" value="${bidDto.title}">	
+													</div>
+												</div>
+											</div>									
+										</div>
+									</div>	
+									
+									<div class="col mt-3 text-center">
+										<div class="row mt-4">
+											<div class="col">
+												<span class= "fw-bold text-danger"><fmt:formatNumber value="${bidDto.bid_price}"  pattern="#,###"/></span> 원
+												<input type="hidden" id="bid_price_${bidDto.auction_item_id}" value="${bidDto.bid_price}">
+											</div>
+										</div>
+									</div>
+									
+									<div class="col mt-2 text-center">
+										<div class="row mt-4">
+											<div class="col">
+												<fmt:formatDate value="${bidDto.reg_date}" pattern="yyyy.MM.dd" />
+												<br>
+												<fmt:formatDate value="${bidDto.reg_date}" pattern="a hh:mm" />
+												</div>
+										</div>
+									</div>
+									
+									<div class="col mt-2 text-center">
+										<div class="row mt-4">
+											<div class="col">
+												<fmt:formatDate value="${bidDto.end_date}" pattern="yyyy.MM.dd" />
+												<br>
+												<fmt:formatDate value="${bidDto.end_date}" pattern="a hh:mm" />
+											</div>
+										</div>
+									</div>
+									
+									<div class="col mt-3 text-center" id="myStatus_${bidDto.id}">
+									</div>						
+								
+								</div>
+							</c:forEach>
 							
 
 						</div>
@@ -207,7 +218,7 @@
     <div class="modal-content">
       <div class="modal-header bg-light">
      	 <div class="row mb-0">
-      			<div class="col ms-4 fs-5 fw-semibold">주문/배송 조회</div>
+      			<div class="col ms-4 fs-5 fw-bold">배송조회</div>
       		</div>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div> 
@@ -221,40 +232,41 @@
       			<div class="row mt-3 text-center">
       				<div class="col ms-4">
       					<div class="row">
-      						<div class="col px-auto mx-auto">
-      							<i class="bi bi-cash-coin mt-1" style="font-size: 32px;"></i>
-      						</div>
-      						<div class="col fw-medium my-auto"> > </div>
-      						<div class="col  px-auto mx-auto">
-      						<i class="bi bi-boxes mt-1  px-auto mx-auto" style="font-size: 32px;"></i>
+      						<div class="col px-0">
+      							<i class="bi bi-cash-coin ms-2 mt-1" style="font-size: 3rem; "></i>
       							
       						</div>
-      						<div class="col  fw-medium my-auto"> > </div>
-      						<div class="col  px-auto mx-auto"> 
-      							<i class="bi bi-truck mt-1" style="font-size: 32px; "></i>
+      						<div class="col fs-4 fw-medium mt-4"> > </div>
+      						<div class="col px-0 ms-1">
+      						<i class="bi bi-boxes mt-1" style="font-size: 3rem;"></i>
       							
       						</div>
-      						<div class="col  fw-medium my-auto"> > </div>
-      						<div class="col  px-auto mx-auto">
-      							<i class="bi bi-bag-check mt-1 pt-1"  style="font-size: 28px; "></i>
+      						<div class="col fs-4 fw-medium mt-4"> > </div>
+      						<div class="col px-0"> 
+      							<i class="bi bi-truck mt-1" style="font-size: 3rem; "></i>
+      							
+      						</div>
+      						<div class="col fs-4 fw-medium mt-4"> > </div>
+      						<div class="col px-0">
+      							<i class="bi bi-bag-check mt-1" style="font-size: 3rem; position: relative; bottom: 5px; right: 5px;"></i>
       							
       						</div>
       					</div>
       					
-      					  <div class="row  fw-medium">
-      						<div class="col px-auto mx-auto" id="ds_payComplete">
+      					  <div class="row mt-2 fs-5 fw-medium">
+      						<div class="col px-0 ms-2" id="ds_payComplete">
       							결제완료
       						</div>
-      						<div class="col  fw-medium">  </div>
-      						<div class="col px-auto mx-auto" id="ds_deliveryReady">
+      						<div class="col fs-4 fw-medium mt-4">  </div>
+      						<div class="col px-0 ms-1" id="ds_deliveryReady">
       							배송준비중
       						</div>
-      						<div class="col  fw-medium ">  </div>
-      						<div class="col px-auto mx-auto" id="ds_deliveryIng">
+      						<div class="col fs-4 fw-medium mt-4">  </div>
+      						<div class="col px-0" id="ds_deliveryIng">
       							배송중
       						</div>
-      						<div class="col  fw-medium ">  </div>
-      						<div class="col px-auto mx-auto" id="ds_deliveryComplete">
+      						<div class="col fs-4 fw-medium mt-4">  </div>
+      						<div class="col px-0" id="ds_deliveryComplete" style="position: relative; right: 5px;">
       							배송완료
       						</div>
       					</div>
@@ -271,12 +283,6 @@
       						<div class="col">
       						
       							<div class="row">
-      								<div class="col fw-semibold fs-5">
-      									상품 정보
-      								</div>
-      							</div>
-      						
-      							<div class="row mt-2">
       								<%-- 이미지 --%>
       								<div class="col" id="productImage">
       								
@@ -287,7 +293,7 @@
       								<div class="col-10">
       									
       									<div class="row">
-      										<div class="col fw-semibold" id="productTitle" style="font-size: 18px;">
+      										<div class="col fw-bold fs-5" id="productTitle">
       										</div>
       									</div>
       									
@@ -311,31 +317,27 @@
       						</div>
       					</div>
       					
-      					
-      					
       				</div>
       			</div>
       			
-      			
-      		
 				
       			<%-- 상품 정보 --%>
       			
       			<%-- 정보 --%>
-      			<div class = "row mt-5">
+      			<div class = "row mt-2 mb-4">
       				<div class="col ms-4">
-      					
+      					<hr>
       					
       					<div class="row">
       						<div class="col">
 		      					<div class="row">
-		      						<div class="col fw-semibold fs-5">
+		      						<div class="col fw-bold fs-5">
 		      							배송 정보
 		      							
 		      						</div>
 		      						<div class="col text-end mt-1">
 		      							<a href="/safari/user/myInquiryPostPage">
-		      							<span style="font-size: 14px">배송 관련 문의하기</span> <span style="font-size: 11px;"> ></span></a>
+		      							배송 관련 문의하기 <span style="font-size: 11px;"> ></span></a>
 		      						</div>
 		      					</div>
 		      					
@@ -343,13 +345,13 @@
 		      						<div class="col">
 		      							
 		      							<div class="row">
-		      								<div class="col fw-semibold text-secondary">배송일시</div>
+		      								<div class="col fw-bold text-secondary">배송일시</div>
 		      								<div class="col-8 text-end" id="deliveryDate"></div>
 	
 		      							</div>
 		      							
 		      							<div class="row mt-1">
-		      								<div class="col fw-semibold text-secondary">택배사</div>
+		      								<div class="col fw-bold text-secondary">택배사</div>
 		      								<div class="col-8 text-end">482</div>
 	
 		      							</div> 
@@ -364,7 +366,7 @@
       						
       						<div class="col ms-3">
 			      				<div class="row">
-		      						<div class="col fw-semibold fs-5">
+		      						<div class="col fw-bold fs-5">
 		      							결제 정보
 		      						</div>
 		      					</div>
@@ -373,15 +375,15 @@
 		      						<div class="col">
 		      							
 		      							<div class="row">
-		      								<div class="col fw-semibold text-secondary">결제일시</div>
+		      								<div class="col fw-bold text-secondary">결제일시</div>
 		      								<div class="col-8 text-end" id="paymentDate"></div>
 	
 		      							</div>
 		      							
 		      							<div class="row mt-1">
-		      								<div class="col fw-semibold text-secondary">결제금액</div>
+		      								<div class="col fw-bold text-secondary">결제금액</div>
 		      								<div class="col-8 text-end">
-		      									<span class="fw-semibold text-danger" id="paymentPrice"></span> 원
+		      									<span class="fw-bold text-danger" id="paymentPrice"></span> 원
 		      								</div>
 	
 		      							</div>
@@ -393,10 +395,10 @@
       						
       					</div>
       					
-      					
+      					<hr>
       				<%-- 주문 정보 --%>
-	      				<div class="row mt-5">
-	      					<div class="col fw-semibold fs-5">
+	      				<div class="row mt-2">
+	      					<div class="col fw-bold fs-5">
 	      						배송 상세 정보
 	      					</div>
 	      				</div>
@@ -411,7 +413,7 @@
 							<div class="col-8 text-end" id="paymentPhone"></div>
 						</div>
 						
-						<div class="row mt-1 mb-2 mb-4">
+						<div class="row mt-1 mb-2">
 							<div class="col fw-bold text-secondary">배송요청사항</div>
 							<div class="col-8 text-end" id="paymentMessage"></div>
 						</div>
@@ -819,14 +821,14 @@ function getMySuccessfulBidPayAndDeliveryStatusList() {
 	    		  
 	    		  
 	    		  const row  = document.createElement("div");
-	    		  row.classList.add("row");
+	    		  row.classList.add("row", "mt-4");
 	    		  
 	    		  const col  = document.createElement("div");
 	    		  col.classList.add("col");
 	    		  
 	    		  const payButton = document.createElement("input");
 	    		  payButton.type = "button";
-	    		  payButton.classList.add("btn", "btn-sm", "btn-outline-dark");
+	    		  payButton.classList.add("btn", "btn-sm", "btn-dark", "opacity-50");
 	    		  payButton.value = "결제하기";
 	    		  
 	    		  
@@ -857,7 +859,7 @@ function getMySuccessfulBidPayAndDeliveryStatusList() {
 	    		  // 배송처리가 되지 않았을 경우
 	    		  if (data.delivery_exists == 'No') {
 	    			  	const row = document.createElement("div");
-    				  	row.classList.add("row");
+    				  	row.classList.add("row", "mt-2");
     				  	
     				  	const col = document.createElement("div");
     				  	col.classList.add("col");
@@ -872,7 +874,7 @@ function getMySuccessfulBidPayAndDeliveryStatusList() {
     				  	
        					const selectButton = document.createElement("input");
     					selectButton.type = "button";
-    					selectButton.classList.add("btn", "btn-sm", "btn-outline-dark");
+    					selectButton.classList.add("btn", "btn-sm", "btn-outline-secondary");
     					selectButton.value = "배송조회";
     					selectButton.setAttribute("onclick", "deliveryStatusModal("+ data.id +")");
     					
@@ -899,7 +901,7 @@ function getMySuccessfulBidPayAndDeliveryStatusList() {
 	    				    	
 	    				    	
 	    				    	const row = document.createElement("div");
-		    				  	row.classList.add("row");
+		    				  	row.classList.add("row", "mt-2");
 		    				  	
 		    				  	const col = document.createElement("div");
 		    				  	col.classList.add("col");
@@ -1001,8 +1003,8 @@ function getMySuccessfulBidPayAndDeliveryStatusList() {
 	    					row3.appendChild(col3);
 	    					
 	    					myStatus.appendChild(row3);
-	    					/* myStatus.style.position = "relative";
-	    					myStatus.style.bottom = "8px"; */
+	    					myStatus.style.position = "relative";
+	    					myStatus.style.bottom = "8px";
 	    				   }
 	    				  	
 	    			        
@@ -1011,7 +1013,7 @@ function getMySuccessfulBidPayAndDeliveryStatusList() {
 	    			  else {
 	    			    	
 	    			    	const row = document.createElement("div");
-	    				  	row.classList.add("row");
+	    				  	row.classList.add("row", "mt-2");
 	    				  	
 	    				  	const col = document.createElement("div");
 	    				  	col.classList.add("col");
@@ -1142,7 +1144,7 @@ function purchaseConfirmed(id, deliveryId) {
 	        myStatusNew.innerHTML = ""; 
 
 	        const buyRow = document.createElement("div");
-	        buyRow.classList.add("row");
+	        buyRow.classList.add("row", "mt-4");
 	        
 	        const buyCol = document.createElement("div");
 	        buyCol.classList.add("col");

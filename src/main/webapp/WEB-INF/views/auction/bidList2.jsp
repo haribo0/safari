@@ -67,30 +67,11 @@
 				</div>
 			</div>
 			
-			
-			<div class="row mt-1">
-   				<div class="col">
-   					• &nbsp; 입찰하신 경매 목록 중에서 현재 진행중인 경매만 표시됩니다.
-   				</div>
-   			</div>
-   			
-   			<div class="row mt-1">
-   				<div class="col">
-   					• &nbsp; 본인이 최고입찰자일 경우 최고입찰가는 <span class="text-success">초록색</span>으로 표시됩니다.
-   				</div>
-   			</div>
-   			
-   			<div class="row mt-1">
-   				<div class="col">
-   					• &nbsp; 본인이 최고입찰자가 아닐 경우 최고입찰가는 <span class="text-danger">빨간색</span>으로 표시됩니다.
-   				</div>
-   			</div>
-   			
-   			 <div class="row mt-1">
-   				<div class="col">
-   					• &nbsp; 경매 당 최고입찰가(현재가)는 <span class="fw-semibold">실시간으로 업데이트</span>되고 있습니다.
-   				</div>
-   			</div>
+			<div class="row">
+				<div class="col">
+					진행중인 경매의 <span class="fw-semibold">현재가는 <span class="text-danger">실시간으로</span> 업데이트</span> 되고 있습니다.
+				</div>
+			</div>
 		
 		
 			<div class="row mt-4">
@@ -113,76 +94,87 @@
 			</div>
 
 				<%-- 표 공간 --%>
-				<div class="row mt-4 mb-4">
-					<div class="col">	
+				<div class="row mt-4">
+					<c:if test="${empty userBidList}">
+						<div class="col text-center">						           		
+						       입찰한 경매가 없습니다.
+						 </div>
+				   </c:if>
 				
-						<table class="table">
-							<thead>
-								<tr class="text-center">
-									<td class="custom-table-secondary" style="width: 540px">상품정보</td>
-									<td class="custom-table-secondary">내 입찰가</td>
-									<td class="custom-table-secondary">최고입찰가</td>
-									<td class="custom-table-secondary">입찰수</td>
-									<td class="custom-table-secondary">남은시간</td>
-								</tr>
-							</thead>
-							<tbody>
-								<c:if test="${empty userBidList}">
-									<tr class="text-center">
-										<td colspan="5">입찰 정보가 없습니다.</td>
-									</tr>
-								</c:if>
-								<c:forEach items="${userBidList}" var="bidDto">
-									<tr>
-										<td class="align-middle">
-										<div class="row">
-											<div class="col-3">
-												<a href="/safari/auction/productDetail/${bidDto.id}">
-													<img src="/auctionFiles/${bidDto.auction_item_img_link}" style="
-													width: 120px; height: 120px;" class="img-fluid"></a>
-											</div>
-											<div class="col ms-1">
-												<div class="row mt-4">
-													<div class="col ms-1" style="font-size: 14px;">
-														${bidDto.main_category_name} > ${bidDto.sub_category_name}
-													</div>
-												</div>
-												<div class="row">
-													<div class="col ms-1 fw-semibold">
-														<span style="font-size: 16px;"><a href="/safari/auction/productDetail/${bidDto.id}">
-														${bidDto.title}</a></span>
-													</div>
-												</div>											
-											</div>
-										</div>	
-									</td>
-									<td class="align-middle text-center">
-										<input type="hidden" id="bidPrice_${bidDto.id}" value="${bidDto.bid_price}">
-										<span class="fw-bold" style="font-size: 18px;">
-										<fmt:formatNumber value="${bidDto.bid_price}"  pattern="#,###"/></span> 원
-									</td>
-									<td class="align-middle text-center">
-										<span class="fw-bold" style="font-size: 18px;" id="currentPrice_${bidDto.id}"></span> 원
-									</td>
-									<td class="align-middle text-center">
-										<span id="bidCount_${bidDto.id}"></span>
-									</td>
-									<td class="align-middle text-center">
-										<span id="remainTime_${bidDto.id}"></span>
-									</td>
-									</tr>
-								</c:forEach>
-							</tbody>
-						</table>
-					</div>
+					<c:forEach items="${userBidList}" var="bidItem">
+						<div class="col-3 mb-5">
+							
+							<div class="row">
+								<div class="col">
+									<a href="/safari/auction/productDetail/${bidItem.id}">
+										<img src="/auctionFiles/${bidItem.auction_item_img_link}"  class="img-fluid" alt="..." 
+									  	 style="height: 220px;">
+									</a>
+								</div>
+							</div>
+							
+							
+							<div class="row mt-2">
+								<div class="col fw-medium overflow" style="width: 200px; font-size:16px;">
+									<a href="/safari/auction/productDetail/${bidItem.id}">
+									${bidItem.title}</a>
+								</div>
+							</div>
+							
+							
+							
+							<div class="row mt-1">
+								<div class="col-auto">
+									현재가 <span style="font-size: 18px;"
+									 class="fw-bold ms-1 fs-5"  id="currentPrice_${bidItem.id}"></span>
+									 <span>원</span>
+								</div>
+								<div class="col px-0" >
+									<span id="auctionStatus_${bidItem.id}"> </span> 
+								</div>
+								
+							</div>
+							
+							<div class="row mt-1">
+								<div class="col" style="font-size: 14px;">
+									<span id="bidCount_${bidItem.id}"></span>
+								</div>
+							</div>
+							
+							<%-- <div class="row mt-1">
+								<div class="col" style="font-size: 14px;">
+									즉시낙찰가
+									<span class="ms-2" >
+						 				<fmt:formatNumber value="${wish.max_price}" pattern="#,###"/>원
+						 			</span> 
+								</div>
+							</div>	 --%>
+							
+							<div class="row mt-1 mb-3">
+								<div class="col">
+							
+									<p id="remainTime_${bidItem.id}" class="mb-1"
+									style="font-size:17px;">
+									 </p>
+								</div>
+							</div>
+							
+						</div>
+					</c:forEach>
+				</div>				
+				
+						
+						
+					
+					
 			<%-- 표 공간 --%>
 				</div>
 			</div>
-		
-		</div>
-		</div>
-		
+			
 
+		
+		</div>
+	
 	
 	<!-- 푸터 섹션 -->
 	<jsp:include page="../common/footer.jsp"></jsp:include>
@@ -277,20 +269,8 @@ function getCurrentPrice(auctionItemId) {
 	        if(xhr.readyState == 4 && xhr.status == 200){
 	            const response = JSON.parse(xhr.responseText);
 	            const currentPrice = response.currentPrice;
-	            
-	            const currentPriceElement = document.getElementById("currentPrice_" + auctionItemId);
-	            const myBidPriceElement = document.getElementById("bidPrice_" + auctionItemId);
 	           
-	            
-	            if (myBidPriceElement.value < currentPrice) {
-	            
-	          	  currentPriceElement.style.color = "red";
-	            } else {
-	          	  currentPriceElement.style.color = "green";
-	            }
-	            
-	            currentPriceElement.textContent =  new Intl.NumberFormat('ko-KR').format(currentPrice);
-	           
+	            updateCurrentPrice(auctionItemId, currentPrice);
 	        }
 	  } 
 	 
@@ -304,23 +284,13 @@ function getCurrentPrice(auctionItemId) {
 }
 
 //현재가를 업데이트하여 jsp화면에 출력
-/* function updateCurrentPrice(auctionItemId, currentPrice) {
+function updateCurrentPrice(auctionItemId, currentPrice) {
   const currentPriceElement = document.getElementById("currentPrice_" + auctionItemId);
-  
-  const myBidPriceElement = document.getElementById("bidPrice_" + auctionItemId);
-  
-  if (myBidPriceElement.value < currentPrice) {
-	  currentPriceElement.style.color = "red";
-  } else {
-	  currentPriceElement.style.color = "green";
-  }
-	  
-  
   	if (currentPriceElement) {
   		 currentPriceElement.textContent =  new Intl.NumberFormat('ko-KR').format(currentPrice);
   }
 }
- */
+
 
 //경매 정보를 업데이트하고 화면에 출력하는 함수
 function updateAuctionCountDown(id) {
@@ -335,10 +305,17 @@ function updateAuctionCountDown(id) {
 
       const auctionEndDate = new Date(response.auctionItem.auctionDto.end_date); // 경매 종료일
       const auctionStartDate = new Date(response.auctionItem.auctionDto.start_date); // 경매 시작일
+      
+      const button = document.createElement("button");
+      button.style.fontSize= "14px";
+      
  
       let countDownTableBox = document.getElementById("remainTime_" + id);
       countDownTableBox.innerHTML = "";
-
+      
+  	  const statusBox = document.getElementById("auctionStatus_" + id); 
+  	  statusBox.innerHTML = "";
+      
 	  	// 경매가 종료된 경우
 	  	if (auctionEndDate <= nowDate || response.auctionItem.auctionDto.auction_status == '종료') {
 	  		
@@ -348,12 +325,17 @@ function updateAuctionCountDown(id) {
 	  		const col = document.createElement("div");
 	  		col.classList.add("col");
 	  		
-	  		col.innerText = "경매 종료";
+	  		//col.innerText = "경매 종료";
 	  		
 	  		row.appendChild(col);
 	  		
 	  		countDownTableBox.appendChild(row);
 
+	  		button.classList.add("btn_auctionEnd");
+	  		button.innerText = "경매 종료";
+	  		
+	  		statusBox.appendChild(button);
+	  		
 	  		return;
 	  	} 
 	  	// 경매가 시작되었거나 준비중인 경우
@@ -379,63 +361,41 @@ function updateAuctionCountDown(id) {
 	        col.appendChild(timeIcon);
 		        
 	         if (auctionCountDown.days > 0) {
-	        	 
-	        	 const timeSpan1 = document.createElement("span");
-	             timeSpan1.innerText = auctionCountDown.days + "일 ";
-	  
-		         col.appendChild(timeSpan1);
+		            const spanTime1 = document.createElement("span");
+		            spanTime1.classList.add("fw-bold");
+		            spanTime1.innerText = auctionCountDown.days + "일 ";  
+		            col.appendChild(spanTime1);
 	         	}
 	        
 	         if (auctionCountDown.hours > 0) {
-	        	 
-	        	   const timeSpan2 = document.createElement("span");
-	               if (auctionCountDown.hours < 10)  {
-	             	  timeSpan2.innerText = "0" + auctionCountDown.hours + ":";
-	               } 
-	               else {
-	               	timeSpan2.innerText = auctionCountDown.hours + ":";
-	               }
-	             
-	              col.appendChild(timeSpan2);
-	            }  
-	         	else {
-	          	  
-	           		const timeSpan2 = document.createElement("span");
-	                timeSpan2.innerText = "00"+":";
-	                col.appendChild(timeSpan2);
-	              }
-	         
-	         if (auctionCountDown.minutes > 0) {
-	           
-	             const timeSpan3 = document.createElement("span");
-	             if (auctionCountDown.minutes < 10)  {
-	               	timeSpan3.innerText = "0" + auctionCountDown.minutes + ":";
-	               } else {
-	                 timeSpan3.innerText = auctionCountDown.minutes + ":";
-	               }
-	              col.appendChild(timeSpan3);
-	           }
-	         
-	         else {
+	              const spanTime2 = document.createElement("span");
+	              spanTime2.classList.add("fw-bold");
+	              spanTime2.innerText = auctionCountDown.hours + "시간 ";
+	              col.appendChild(spanTime2);
+	            }
+	          if (auctionCountDown.minutes > 0) {
+	              const spanTime3  = document.createElement("span");
+	              spanTime3.classList.add("fw-bold");
+	              spanTime3.innerText = auctionCountDown.minutes + "분 ";
+	              col.appendChild(spanTime3);
+	            }		         
 
-	          	  const timeSpan3 = document.createElement("span");
-	               timeSpan3.classList.add("fw-bold");
-	               timeSpan3.innerText = "00"+":";
-	               col.appendChild(timeSpan3);
-	             }         
-
-	         const timeSpan4 = document.createElement("span");
-	         if (auctionCountDown.seconds < 10)  {
-	           	timeSpan4.innerText = "0" + auctionCountDown.seconds;
-	           } else {
-	             timeSpan4.innerText = auctionCountDown.seconds;
-	           }
-	         col.appendChild(timeSpan4);
+		       const spanTime4 = document.createElement("span");
+		       spanTime4.classList.add("fw-bold");
+		       spanTime4.innerText = auctionCountDown.seconds + "초 ";   
+	 
+		       col.appendChild(spanTime4);
 		       
 		      row.appendChild(col); 
 		      countDownTableBox.appendChild(row);
 		      
+		  	  button.classList.add("btn_auctionIng");
+		      button.innerText = "진행중";
+		  		
+		  	  statusBox.appendChild(button);
 	
+		       	//const timeDiff = Math.abs(auctionEndDate - nowDate);  // 경매 시작까지 남은 시간 계산 (밀리초 단위)
+                //const minutesDiff = Math.floor(timeDiff / (1000 * 60));  // 분 단위로 변환
       	
 		        setTimeout(function() {
 		            updateAuctionCountDown(id);
@@ -470,12 +430,14 @@ function getBidCount(id) {
             const col = document.createElement("div");
             col.classList.add("col");
             
-       
+        	const bidTitle = document.createElement("span");
+        	bidTitle.innerText = "입찰수 : "
 
             const bidCount = document.createElement("span");
             bidCount.classList.add("ms-1");
             bidCount.innerText = response.bidCount + "명";
             
+            col.appendChild(bidTitle);
             col.appendChild(bidCount);
             
            	
@@ -496,7 +458,7 @@ function getBidCount(id) {
  
  
 //경매 진행 상태
-/* let status = null;
+let status = null;
 
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -514,10 +476,10 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     
-}); */
+});
  
  
-/* function getUserBidListIng() {
+function getUserBidListIng() {
 	
 	 const xhr = new XMLHttpRequest();
 	  xhr.onreadystatechange = function() {
@@ -538,9 +500,9 @@ document.addEventListener('DOMContentLoaded', function() {
 	  xhr.open("get", "/safari/auction/getMyBidListIng");
 	  xhr.send();		  
 	
-}   */
+}  
  
-  
+ 
 function getUserBidList() {
 	
 	 const xhr = new XMLHttpRequest();
@@ -548,23 +510,23 @@ function getUserBidList() {
 	    if (xhr.readyState === 4 && xhr.status === 200) {
 	      const response = JSON.parse(xhr.responseText);
 	      
-	      if(!response.myBidList) {
+	      if(!response.getBidList) {
 	    	  return;
 	      }
 	      
 	      
-	      for(data of response.myBidList) {
+	      for(data of response.getBidList) {
 	    	  
 	    	  let currentPrice = 0;
 	    	  
-	    	  getCurrentPrice(data.id);
-	    	  updateAuctionCountDown(data.id);
-	    	  getBidCount(data.id);
+	    	  getCurrentPrice(data.auction_item_id);
+	    	  updateAuctionCountDown(data.auction_item_id);
+	    	  getBidCount(data.auction_item_id);
 	      }
 	    }
 	    
 	  };
-	  xhr.open("get", "/safari/auction/getMyBidList");
+	  xhr.open("get", "/safari/auction/getMyBidListForRealTime");
 	  xhr.send();		  
 	
 } 

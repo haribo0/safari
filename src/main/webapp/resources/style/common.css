@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap');
 body{font-family:'Noto Sans KR', sans-serif; color: #333;}
-
+a{text-decoration: none;}
 .ico_sns i{cursor: pointer;}
 
 .search_box{background-image:url('../img/magnifying-glass-solid.svg'); background-size: 16px; background-position: 90% 50%;  background-repeat:no-repeat; padding-left:20px;}

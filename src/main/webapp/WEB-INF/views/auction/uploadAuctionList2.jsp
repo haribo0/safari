@@ -399,7 +399,7 @@
 											
 											
 											</div>
-											<div class="col-8">
+											<div class="col-9">
 											
 												<div class="row">
 													<div class="col text-end py-0">
@@ -442,42 +442,42 @@
 							</div>
 						</div>
 						
-						<div class="row mt-2 mb-5 text-center">
+						<div class="row mt-2 mb-5">
 							<div class="col ms-3">
 								<div class="row">
-		      						<div class="col px-auto mx-auto">
-		      							<i class="bi bi-boxes mt-1 ms-2" style="font-size: 32px;"></i>
+		      						<div class="col px-0" style="position: relative; left: 18px">
+		      							<i class="bi bi-boxes mt-1 ms-2" style="font-size: 3rem; "></i>
 		      						</div>
-		      						<div class="col fw-medium my-auto"> > </div>
-		      						<div class="col px-auto mx-auto">
-		      							<i class="bi bi-truck mt-1 " style="font-size: 32px;"></i>
+		      						<div class="col text-center fs-4 fw-medium ms-2 mt-4"> > </div>
+		      						<div class="col px-0 ms-1" style="font-size: 3rem; position: relative; left: 9px;">
+		      							<i class="bi bi-truck mt-1" style="font-size: 3rem;"></i>
 		      						</div>
-		      						<div class="col fw-medium my-auto"> > </div>
-		      						<div class="col  px-auto mx-auto"> 
-		      							<i class="bi bi-bag-check mt-1" style="font-size: 32px; "></i>
+		      						<div class="col fs-4 fw-medium text-center mt-4"> > </div>
+		      						<div class="col px-0"> 
+		      							<i class="bi bi-bag-check mt-1" style="font-size: 3rem; position: relative; left: 9px;"></i>
 		      							
 		      						</div>
-		      						<div class="col  fw-medium my-auto"> > </div>
-		      						<div class="col  px-auto mx-auto">
-		      							<i class="bi bi-check-lg mt-1" style="font-size: 28px;"></i>
+		      						<div class="col fs-4 text-center fw-medium mt-4"> > </div>
+		      						<div class="col px-0">
+		      							<i class="bi bi-check-lg mt-1" style="font-size: 3rem;"></i>
 		      							
 		      						</div>
 		      					</div>
 		      					
-		      					  <div class="row fw-medium">
-		      						<div class="col px-auto mx-auto" id="ds_deliveryReady">
+		      					  <div class="row fs-5 fw-medium">
+		      						<div class="col px-0 ms-2" id="ds_deliveryReady">
 		      							배송준비중
 		      						</div>
-		      						<div class="col fw-medium">  </div>
-		      						<div class="col px-auto mx-auto" id="ds_deliveryIng">
+		      						<div class="col fs-4 fw-medium mt-4 text-center">  </div>
+		      						<div class="col px-0 ms-1" id="ds_deliveryIng" style="position: relative; left: 6px;">
 		      							배송중
 		      						</div>
-		      						<div class="col fw-medium">  </div>
-		      						<div class="col px-auto mx-auto" id="ds_deliveryComplete">
+		      						<div class="col fs-4 fw-medium mt-4">  </div>
+		      						<div class="col px-0" id="ds_deliveryComplete">
 		      							배송완료
 		      						</div>
-		      						<div class="col fw-medium">  </div>
-		      						<div class="col px-auto mx-auto" id="ds_buyComplete">
+		      						<div class="col fs-4 fw-medium mt-4">  </div>
+		      						<div class="col px-0" id="ds_buyComplete" style="position: relative; right: 5px;">
 		      							구매확정
 		      						</div>
 		      					</div>							

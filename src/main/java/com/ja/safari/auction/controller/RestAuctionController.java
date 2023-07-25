@@ -1067,6 +1067,21 @@ public class RestAuctionController {
 		return map;
 	}
 
+	// 메인 페이지
+	
+	
+	// 곧 마감 되는 경매 내림차순 정렬 6개
+	@RequestMapping("getdeadlineApproachingAuctonList")
+	public Map<String, Object> deadlineApproachingAuctonList()  {
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		map.put("deadlineList", auctionService.deadlineApproachingAuctonList());
+		
+		return map;
+
+	}
+	
 	
 	
 }
