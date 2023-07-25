@@ -257,11 +257,12 @@ public class UserController {
 	
 	// 중고 -- 마이페이지 : 구매목록
 		@RequestMapping("selectMyBuyList")
-		public String selectMyBuyList(HttpSession session) {
+		public String selectMyBuyList(HttpSession session, Model model) {
 			UserDto sessionUser = (UserDto)session.getAttribute("sessionUser");
 			if(sessionUser==null) {
 				return "redirect:./loginPage";
 			}else {
+				model.addAttribute("list", usedService.selectMyBuyListByUserId(sessionUser.getId()));
 				return "used/myBuyList";
 			}
 		}
