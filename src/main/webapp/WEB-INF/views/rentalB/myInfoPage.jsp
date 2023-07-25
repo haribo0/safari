@@ -64,8 +64,20 @@
 				
 				<!-- <hr class="border"> -->
 				
-				<div class="row mt-5">
-					<div class="col ms-3">
+				<div class="row mt-3">
+				
+					<div class="col-4 ">
+				
+							<div class="row ms-3">
+					
+								<div class="rounded" id="map" style="width:540px;height:500px;"></div>
+							    
+							</div>
+							
+					</div>
+					
+					<div class="col">
+						
 						<!-- card -->
 						<div class="card pt-4">
 							
@@ -217,15 +229,7 @@
 				
 				
 					</div>
-					<div class="col-5">
-				
-							<div class="row ">
 					
-								<div class="rounded" id="map" style="width:540px;height:500px;"></div>
-							    
-							</div>
-							
-					</div>
 				</div>
 				
 				<div class="row ms-4 mt-3 mb-3 fw-medium">

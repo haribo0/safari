@@ -319,8 +319,7 @@ public class RentalServiceImpl {
 		if(rentalSqlMapper.selectRatingAvg(id)!=null) return rentalSqlMapper.selectRatingAvg(id);
 		else return 0.0;
 
-		   
-		}
+	}
 
 	// 아이템 하나 title 가져오기
 	public String getItemTitle(int itemId) {
@@ -389,7 +388,10 @@ public class RentalServiceImpl {
 		return rentalReviewDto;
 	}
 
-	
+	public RentalOrderDto getRentalOrderDtoById(int id) {
+		
+		return rentalSqlMapper.getRentalOrderDtoById(id);
+	}
 
 
 

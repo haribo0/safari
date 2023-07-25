@@ -286,6 +286,12 @@
 		where b.item_id = #{id}
 	</select>
 	
+	<!-- 대여 주문 번호로 주문 가져오기   -->
+	<select id="getRentalOrderDtoById" resultType="com.ja.safari.dto.RentalOrderDto">
+		SELECT * FROM RENTAL_ORDER_TABLE rot 
+		WHERE id = #{id}
+	</select>
+	
 	<!-- 대여 평균 리뷰점수 불러오기  -->
 	<select id="selectRatingAvg" resultType="Double">
 		SELECT TRUNC(AVG(rental_review_rating),1) FROM (

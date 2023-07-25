@@ -477,7 +477,8 @@ public class RentalRestController {
 			int myId = sessionUser.getId();
 			
 			RentalReviewDto rentalReviewDto = rentalService.getRentalMyReview(id, myId);
-			Map<String, Object> rentalItemDto = rentalService.getItem(id);
+			RentalOrderDto rentalOrderDto = rentalService.getRentalOrderDtoById(id);
+			Map<String, Object> rentalItemDto = rentalService.getItem(rentalOrderDto.getItem_id());
 			map.put("result", "success");
 			map.put("rentalReviewDto",rentalReviewDto);
 			map.put("rentalItemDto",rentalItemDto);
