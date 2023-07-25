@@ -78,6 +78,9 @@ public interface PickSqlMapper {
 	//골라줘요 : 중고 상품 테이블에서 조회해서 받아오기. (이름, 가격, 좋아요 수, 이미지) productDto 받아오기
 	public List<PickShowCardDto> showAllProduct();
 	
+	// 골라줘요 최신글 정렬
+	public List<PickDto> newPostByPick();
+	
 	// 강사...
 	
 	public List<ProductDto> getProductPickOptionList();

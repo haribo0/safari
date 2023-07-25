@@ -2,7 +2,6 @@ package com.ja.safari.rental.mapper;
 
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
 
@@ -19,7 +18,6 @@ import com.ja.safari.dto.RentalReturnKakaopayApprove;
 import com.ja.safari.dto.RentalReviewCountDto;
 import com.ja.safari.dto.RentalReviewDto;
 import com.ja.safari.dto.RentalReviewImgDto;
-import com.ja.safari.dto.RentalReviewRatingCountDto;
 import com.ja.safari.dto.RentalSubCategoryDto;
 import com.ja.safari.dto.UserDto;
 import com.ja.safari.dto.RentalItemDto;
@@ -157,6 +155,9 @@ public interface RentalSqlMapper {
 
 	// 판매자 dto 가져오기
 	public RentalBusinessDto selectRentalBuisnessById(int itemId);
+	
+	// 대여 아이템 리뷰 하나 가져오기
+	public RentalReviewDto selectMyReview(@Param("id") int id, @Param("myId") int myId);
 
 
 

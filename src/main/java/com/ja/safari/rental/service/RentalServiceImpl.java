@@ -383,6 +383,12 @@ public class RentalServiceImpl {
 		return;
 	}
 
+	// 내 대여 아이템 리뷰 하나 가져오기
+	public RentalReviewDto getRentalMyReview(int id, int myId) {
+		RentalReviewDto rentalReviewDto = rentalSqlMapper.selectMyReview(id, myId);
+		return rentalReviewDto;
+	}
+
 	
 
 

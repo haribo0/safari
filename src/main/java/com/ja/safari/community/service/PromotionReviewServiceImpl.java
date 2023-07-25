@@ -5,20 +5,25 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ja.safari.community.mapper.PromotionReviewCommentMapper;
 import com.ja.safari.community.mapper.PromotionReviewMapper;
+import com.ja.safari.dto.HelpDto;
 import com.ja.safari.dto.PromotionReviewCommentDto;
 import com.ja.safari.dto.PromotionReviewDto;
 import com.ja.safari.dto.PromotionReviewImgDto;
 import com.ja.safari.dto.PromotionReviewLikeDto;
 import com.ja.safari.dto.ProreviewRentalCategoryDto;
+import com.ja.safari.dto.RentalBusinessDto;
 import com.ja.safari.dto.RentalItemDto;
 import com.ja.safari.dto.RentalSubCategoryDto;
 import com.ja.safari.dto.UserCoinDto;
 import com.ja.safari.dto.UserDto;
+import com.ja.safari.rental.mapper.RentalBusinessSqlMapper;
+import com.ja.safari.rental.mapper.RentalSqlMapper;
 import com.ja.safari.user.mapper.UserSqlMapper;
 
 @Service
@@ -30,6 +35,10 @@ public class PromotionReviewServiceImpl {
 	private UserSqlMapper userSqlMapper;
 	@Autowired
 	private PromotionReviewCommentMapper promotionReviewCommentMapper;
+	@Autowired
+	private RentalSqlMapper rentalSqlMapper;
+	@Autowired
+	private RentalBusinessSqlMapper rentalBusinessSqlMapper;
 	
 	
 	// 프로모션 리뷰 게시글 목록 리스트 
@@ -107,18 +116,28 @@ public class PromotionReviewServiceImpl {
 		PromotionReviewDto promotionReviewDto = promotionReviewMapper.selectByPromoReviewId(id);
 		
 		ProreviewRentalCategoryDto rentalItemCategory = promotionReviewMapper.getRentalItemCategory(promotionReviewDto.getId()); 
-		
-	
-		
+
 		UserDto userDto = userSqlMapper.selectUserDtoById(promotionReviewDto.getUser_id());
 			
-		List<PromotionReviewImgDto> promotionReviewImgDtoList = promotionReviewMapper.selectByPromoReviewImgId(id);
-			
+		List<PromotionReviewImgDto> promotionReviewImgDtoList = promotionReviewMapper.selectByPromoReviewImgId(id);	
+		
+//		List<PromotionReviewDto> proReviewRentalItemList = promotionReviewMapper.getProReviewRentalItem(promotionReviewDto.getId());
+		
+		
+		
+		// 실험.. 세부 페이지 상품명, 비지니스 네임
+	//	List<Map<String, Object>> proReviewRentalItemList = getProReviewRentalItemList(id);
+//	    map.put("proReviewRentalItemList", proReviewRentalItemList);
+		
+		
 		map.put("userDto", userDto);
 		map.put("promotionReviewDto", promotionReviewDto);
 		map.put("promotionReviewImgDtoList", promotionReviewImgDtoList);
 		map.put("rentalItemCategory", rentalItemCategory);
+//		map.put("proReviewRentalItemList", proReviewRentalItemList);
 
+//		System.out.println("렌탈아이템 서비스 : " + proReviewRentalItemList);
+		System.out.println("흑흑 서비스 맵 : " + map);
 		
 		// map 안에 map 넣기 예시
 		// Map<String, Object> mapRental = new HashMap<>();
@@ -142,6 +161,19 @@ public class PromotionReviewServiceImpl {
 		}
 		
 	}
+	
+	// 실험 .... 세부 페이지 상품명, 비지니스 네임
+//	public List<Map<String, Object>> getProReviewRentalItemList(@Param("id") int id) {
+//		
+//		PromotionReviewDto proReviewRentalItem = promotionReviewMapper.getProReviewRentalItem(id);
+//		
+//		 List<Map<String, Object>> proReviewRentalItemList = new ArrayList<>();
+//
+//		 우우
+//		        
+//		    
+//		return proReviewRentalItemList;
+//	}
 	
 	
 	// 프로모션 리뷰 게시물 삭제
@@ -192,8 +224,7 @@ public class PromotionReviewServiceImpl {
 		List<Map<String, Object>> orderByPromoReviewLikesList = new ArrayList<>();
 			
 		
-		for(PromotionReviewLikeDto promotionReviewLikeDto : orderByPromotionReviewLikesList) {
-									
+		for(PromotionReviewLikeDto promotionReviewLikeDto : orderByPromotionReviewLikesList) {								
 			Map<String, Object> map = new HashMap<>();
 			
 			// 내용, 제목, 
@@ -292,10 +323,8 @@ public class PromotionReviewServiceImpl {
 		List<Map<String, Object>> newPostPromotionReivewList = new ArrayList<>();
 		
 		for(PromotionReviewDto promotionReviewDto : newPostPromoReivewList) {
-			
 			Map<String, Object> map = new HashMap<>();
-				
-			
+						
 			// 회원 pk, 닉네임
 			UserDto userDto = userSqlMapper.selectUserDtoById(promotionReviewDto.getUser_id());		
 			

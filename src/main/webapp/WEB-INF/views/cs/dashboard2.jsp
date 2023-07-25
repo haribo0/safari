@@ -933,10 +933,16 @@ function makeDonutChart(d,l) {
 	       label: '직원별 문의 배정',
 	       data: d,
 	       borderWidth: 1,
-	       /* backgroundColor: [
-    	       '#54A1E5',
-    	       
-	       ] */
+	       backgroundColor: [
+			  /* '#FF6384', */
+			  
+			  '#36A2EB', '#969AB1',  '#4BC0C0', '#9966FF', '#F9A25A','#FFCE56','#73D873',
+			  '#FF7D99',  '#F8C947', '#70C05A', '#3E66A8', '#8174B6',
+			  '#E44F51', '#2D3C4D', '#FFAA2B', '#55CC55', '#5477A8', '#AE81FF',
+			  '#ED5565', '#3BAFDA', '#FFCE55', '#4A89DC', '#967ADC', '#EC87C0',
+			  '#FC6E51', '#656D78', '#FF6B6B', '#6CBF84', '#4FC1E9', '#AC92EC',
+			]
+
 	    	
 	     }]
 	   },

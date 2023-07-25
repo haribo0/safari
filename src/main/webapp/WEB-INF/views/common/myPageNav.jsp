@@ -26,7 +26,7 @@
 				<ul class="list-group">
 					<li class="list-group-item border-0 py-1 ps-0"><a href="/safari/user/selectMySellList" class="btn py-0 text-body-secondary ps-0 fs-nav-small">판매내역</a></li>
 					<li class="list-group-item border-0 py-1 ps-0"><a href="/safari/user/selectMyBuyList" class="btn py-0 text-body-secondary ps-0 fs-nav-small">구매내역</a></li>
-					<li class="list-group-item border-0 py-1 ps-0"><a href="/safari/user/wishList" class="btn py-0 text-body-secondary ps-0 fs-nav-small">관심목록</a></li>
+					<li class="list-group-item border-0 py-1 ps-0"><a href="/safari/user/wishList" class="btn py-0 text-body-secondary ps-0 fs-nav-small">좋아요</a></li>
 				</ul>
 			</div>
 			
@@ -34,8 +34,8 @@
 		  <a class="btn text fw-bolder py-1 ps-0 mt-2" href="#">대여</a></li>
 		  	<div class="" id="">
 				<ul class="list-group">
-					<li class="list-group-item border-0 py-1 ps-0"><a href="./myOrderListPage" class="btn py-0 text-body-secondary ps-0 fs-nav-small">주문리스트</a></li>
-					<li class="list-group-item border-0 py-1 ps-0"><a href="./myRentalLikePage" class="btn py-0 text-body-secondary ps-0 fs-nav-small">찜</a></li>
+					<li class="list-group-item border-0 py-1 ps-0"><a href="./myOrderListPage" class="btn py-0 text-body-secondary ps-0 fs-nav-small">주문내역</a></li>
+					<li class="list-group-item border-0 py-1 ps-0"><a href="./myRentalLikePage" class="btn py-0 text-body-secondary ps-0 fs-nav-small">좋아요</a></li>
 				</ul>
 			</div>
 			
@@ -43,10 +43,10 @@
 		  <a class="btn text fw-bolder py-1 ps-0 mt-2" href="#" >경매</a></li>
 		  	<div class="" id="">
 				<ul class="list-group">
-					<li class="list-group-item border-0 py-1 ps-0"><a href="/safari/auction/bidList" class="btn py-0 text-body-secondary ps-0 fs-nav-small">입찰목록</a></li>
-					<li class="list-group-item border-0 py-1 ps-0"><a href="/safari/auction/successBidList" class="btn py-0 text-body-secondary ps-0 fs-nav-small">낙찰목록</a></li>
+					<li class="list-group-item border-0 py-1 ps-0"><a href="/safari/auction/bidList" class="btn py-0 text-body-secondary ps-0 fs-nav-small">입찰내역</a></li>
+					<li class="list-group-item border-0 py-1 ps-0"><a href="/safari/auction/successBidList" class="btn py-0 text-body-secondary ps-0 fs-nav-small">낙찰내역</a></li>
 					<li class="list-group-item border-0 py-1 ps-0"><a href="/safari/auction/wishList" class="btn py-0 text-body-secondary ps-0 fs-nav-small">찜</a></li>
-					<li class="list-group-item border-0 py-1 ps-0"><a href="/safari/auction/uploadAuctionList" class="btn py-0 text-body-secondary ps-0 fs-nav-small">경매 업로드 목록</a></li>
+					<li class="list-group-item border-0 py-1 ps-0"><a href="/safari/auction/uploadAuctionList" class="btn py-0 text-body-secondary ps-0 fs-nav-small">경매 업로드 내역</a></li>
 			
 				</ul>
 			</div>

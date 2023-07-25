@@ -23,7 +23,7 @@
 	color: inherit;
 } */
 .custom-table-secondary {
-  background-color: #E2E3E5!important; /* 원하는 연한 색상으로 변경 */
+  background-color: #f4f4f4!important; /* 원하는 연한 색상으로 변경 */
 }
 </style>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
@@ -227,11 +227,11 @@
 		      													<div class="col-8 ms-3">
 		      														<div class="row mt-3">
 		      															<div class="col">
-		      																${orderInfo.main_category_name}<span style="font-size: 14px;" class="m-1"> > </span>  ${orderInfo.sub_category_name}
+		      																${orderInfo.main_category_name} > ${orderInfo.sub_category_name}
 		      															</div>
 		      														</div>
 		      														<div class="row">
-		      															<div class="col fw-semibold" style="font-size: 18px;">
+		      															<div class="col fw-bold" style="font-size: 18px;">
 		      																<a href="/safari/auction/productDetail/${orderInfo.auction_item_id}">
 		      																	${orderInfo.title}
 		      																</a>	
@@ -358,7 +358,7 @@
 	    									
 			    										<div class="row">
 	    													<div class="col ms-1">
-	    														결제 금액
+	    														결제 예정 금액
 	    													</div>
 	    												</div>
 	    												
@@ -443,7 +443,7 @@
     									</div>
     									
     									<div class="row mt-2">
-    										<div class="col shadow-sm" >
+    										<div class="col border border-1" style="border-color: black!important;" >
     										
     											<div class="row p-2 mb-2 ">
     											
@@ -470,8 +470,7 @@
     																<div class="col">
     																	총 배송비 
     																	<span class="ms-2">
-    																		<input type="button" class="btn btn-outline-secondary btn-sm" value="상세보기"
-    																		style="font-size: 14px;">
+    																		<input type="button" class="btn btn-outline-secondary btn-sm" value="상세보기">
     																	</span>
     																</div>
     															</div>
@@ -541,7 +540,7 @@
     										</div>
     									</div>
     									
-    									<div class="row mt-2 mb-5">
+    									<div class="row mt-2 mb-2">
     										<div class="col bg-light p-2">
     											
     											<div class="row">
@@ -889,19 +888,81 @@
   <div class="modal-dialog modal-dialog-centered"> 
     <div class="modal-content">
       <div class="modal-header bg-light">
-      		<h5 class="modal-title fw-semibold">배송지 변경</h5>
+      		<h5 class="modal-title">배송지 변경</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div> 
       <div class="modal-body">
       	
       	<div class="row mt-2">
-      		<div class="col-11 ms-3" id="myAddressList" style="height: 400px; overflow:auto;">
+      		<div class="col-11 ms-2">
       			
-      		
+      			<div class="row mb-2 p-2">
+      				<div class="col border-1 border rounded-2">
+      					
+      					<div class="row mt-2">
+      						<div class="col fw-bold" style="font-size: 18px;">
+      							친구집
+      						</div>
+      					</div>
+      					
+      					<div class="row mt-1">
+      						<div class="col">
+      							<button class="btn btn-outline-primary btn-sm disabled fw-bold">기본배송지</button>
+      						</div>
+      					</div>
+      					
+      					<div class="row mt-2">
+      						<div class="col">
+      							서울특별시 관악구 신림동
+      						</div>
+      					</div>
+      					
+      					<div class="row mt-1 mb-2">
+      						<div class="col">
+      							010-7292-4487
+      						</div>
+      						<div class="col text-end">
+      							<input type="button" class="btn orangeButton" value="선택" 
+      							style="position: relative; bottom: 7px;"> 
+      						</div>
+      					</div>
+      				</div>
+      			</div>
       			
       			
       			
-      		
+      			   <div class="row mb-2 p-2">
+      				<div class="col border-1 border rounded-2">
+      					
+      					<div class="row mt-2">
+      						<div class="col fw-bold" style="font-size: 18px;">
+      							친구집
+      						</div>
+      					</div>
+      					
+      					<div class="row mt-1">
+      						<div class="col">
+      							<button class="btn btn-outline-primary btn-sm disabled fw-bold">기본배송지</button>
+      						</div>
+      					</div>
+      					
+      					<div class="row mt-2">
+      						<div class="col">
+      							서울특별시 관악구 신림동
+      						</div>
+      					</div>
+      					
+      					<div class="row mt-1 mb-2">
+      						<div class="col">
+      							010-7292-4487
+      						</div>
+      						<div class="col text-end">
+      							<input type="button" class="btn orangeButton" value="선택" 
+      							style="position: relative; bottom: 7px;"> 
+      						</div>
+      					</div>
+      				</div>
+      			</div>
       			
       		</div>
       	</div>
@@ -1022,159 +1083,39 @@ function daumPost(){
 // 배송지 변경 모달 열기
 function modifyAddressModal() {
 	
-	const addressListBox = document.querySelector("#myAddressList");
-	addressListBox.innerHTML = "";
+	const modifyAddressModal = bootstrap.Modal.getOrCreateInstance("#modifyAddressModal");
 	
-	const xhr = new XMLHttpRequest();	
-	xhr.onreadystatechange = function(){
-		if(xhr.readyState == 4 && xhr.status == 200){
-			const response = JSON.parse(xhr.responseText);
-			const shouldAutoScroll = isScrolledToBottom(addressListBox); 
-
-			for (data of response.addressList) {
-				
-				//console.log(response.addressList[0]);
-				const row = document.createElement("div");
-				row.classList.add("row", "mb-2", "p-1");
-				
-				const col = document.createElement("div");
-				col.classList.add("col", "border", "border-1", "rounded-2");
-				
-				const addressNameRow = document.createElement("div");
-				addressNameRow.classList.add("row", "mt-2");
-				
-				const addressNameCol = document.createElement("div");
-				addressNameCol.classList.add("col", "fw-bold");
-				addressNameCol.style.fontSize = "18px";
-				addressNameCol.innerText = data.address_name;
-				
-				addressNameRow.appendChild(addressNameCol);
-				
-				
-				const selectedRow = document.createElement("div");
-				selectedRow.classList.add("row", "mt-1");
-				
-				const selectedCol = document.createElement("div");
-				selectedCol.classList.add("col");
-				
-				
-				if (data == response.addressList[0]) {
-					const button = document.createElement("button");
-					button.classList.add("btn", "btn-outline-primary", "btn-sm", "disabled", "fw-bold");
-					button.innerText = "기본배송지";
-					
-					selectedCol.appendChild(button);
-				}
-				selectedRow.appendChild(selectedCol);
-				
-				const addressRow = document.createElement("div");
-				addressRow.classList.add("row", "mt-2");
-				
-				const addressCol = document.createElement("div");
-				addressCol.classList.add("col");
-				
-				addressCol.innerText = data.address;
-				
-				addressRow.appendChild(addressCol);
-				
-				const finalRow = document.createElement("div");
-				finalRow.classList.add("row", "mt-1", "mb-2");
-				
-				const phoneCol = document.createElement("div");
-				phoneCol.classList.add("col");
-				phoneCol.innerText = data.phone;
-				
-				const buttonCol = document.createElement("div");
-				buttonCol.classList.add("col", "text-end");
-				
-				const selectButton = document.createElement("input");
-				selectButton.type = "button";
-				selectButton.classList.add("btn", "orangeButton");
-				selectButton.value = "선택";
-				selectButton.style.position = "relative";
-				selectButton.style.bottom = "7px";
-				selectButton.setAttribute("onclick", "modifyAddress("+ data.id +")");
-				
-				buttonCol.appendChild(selectButton);
-				
-				finalRow.appendChild(phoneCol);
-				finalRow.appendChild(buttonCol);
-				
-				col.appendChild(addressNameRow);
-				col.appendChild(selectedRow);
-				col.appendChild(addressRow);
-				col.appendChild(finalRow);
-				
-				row.appendChild(col);
-
-				addressListBox.appendChild(row);
-				
-			}
-			
-			const addRow = document.createElement("div");
-			addRow.classList.add("row", "mt-3");
-			
-			const addCol = document.createElement("div");
-			addCol.classList.add("col", "d-grid", "ps-0", "pe-0");
-			
-			const addButton = document.createElement("input");
-			addButton.type = "button";
-			addButton.classList.add("btn", "btn-outline-primary");
-			addButton.value = "+  배송지 추가";
-			
-			addCol.appendChild(addButton);
-			addRow.appendChild(addCol);	
-			
-			//const addInputRow = document.createElement("")
-			// 이건 나중애....
-			
-			
-			addressListBox.appendChild(addRow);
-			
-			if (shouldAutoScroll) {
-				addressListBox.scrollTop = addressListBox.scrollHeight;
-         	}
-			
-			const modifyAddressModal = bootstrap.Modal.getOrCreateInstance("#modifyAddressModal");
-			
-			modifyAddressModal.show();
-			
-		}
-	}
-	xhr.open("get", "/safari/auction/getMyAddressListInOrderPage?userId=" + mySessionId);
-	xhr.send();	
+	modifyAddressModal.show();
+	
 }
 
 
-// 주소 수정
-function modifyAddress(id) {
+// 주소 등록 모달 열기
+function registerAddrPage() {
+	
+	const registerAddrModal = bootstrap.Modal.getOrCreateInstance("#registerAddrModal");
+	
+	registerAddrModal.show();
+}
 
-	const addressName = document.querySelector("#addressName");
-	const deliveryAddress = document.querySelector("#deliveryAddress");
-	const addressPhone = document.querySelector("#addressPhone");
-	const addressMessage = document.querySelector("#addressMessage");
+
+//주소 수정 모달 열기
+function modifyAddrPage(id) {
 	
 	const xhr = new XMLHttpRequest();	
 	xhr.onreadystatechange = function(){
 		if(xhr.readyState == 4 && xhr.status == 200){
 			const response = JSON.parse(xhr.responseText);
 			
-			  addressName.innerText = response.selectedAddress.address_name; 
-		      deliveryAddress.innerText = response.selectedAddress.address;
-		      addressPhone.innerText = response.selectedAddress.phone;
-		      
-			 const modifyAddressModal = bootstrap.Modal.getOrCreateInstance("#modifyAddressModal");
-			 modifyAddressModal.hide();
-			/*  setTimeout(function() {
-				 modifyAddressModal.hide();
-				}, 1000);
- */
-			
+	
+	
+			const modifyAddrModal = bootstrap.Modal.getOrCreateInstance("#modifyAddrModal");
+			modifyAddrModal._element.dataset.id = id; // id 값을 data-id 속성에 설정
+			modifyAddrModal.show();
 		}
 	}
-	
-	xhr.open("get", "/safari/auction/changeAddressInOrderPage?id=" + id);
-	xhr.send();
+	xhr.open("get", "/safari/user/getAddressInfoByPk?id=" +id);
+	xhr.send();	
 	
 }
 
@@ -1595,12 +1536,6 @@ function getNowCoinBalance() {
  		xhr.send();		
  	
  }
-
-//스크롤이 맨 아래에 있는지 확인하는 함수
-function isScrolledToBottom(element) {
-  return element.scrollHeight - element.clientHeight <= element.scrollTop + 1;
-}
-
 
 
 window.addEventListener("DOMContentLoaded", function(){

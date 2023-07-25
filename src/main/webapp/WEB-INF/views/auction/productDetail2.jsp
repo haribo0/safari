@@ -26,6 +26,7 @@
 	color:#ff6f0f;
 }
 
+
 .text-like {
 	color: #FF7777;
 }
@@ -142,7 +143,9 @@ input[id="tab03"]:checked ~ .con3 {
   display: inline-block;
   width: auto;
 }
-
+body {
+    font-family: 'SUIT Variable';
+}
 .orangeButton{
 	background: #ff6f0f;
 	font-weight: bold;
@@ -186,38 +189,22 @@ input[id="tab03"]:checked ~ .con3 {
 	 	<c:if test="${!empty sessionUser }">
 		 	<div class="row">
 		 		<div class="col fw-semibold" style="font-size: 18px">
-		 			<i class="bi bi-list-ul me-2"></i><span onclick="myBidListModal()" style="cursor:pointer;">내 입찰목록 실시간 확인</span>
+		 			<i class="bi bi-list-ul me-2"></i><span onclick="myBidListModal()" style="cursor:pointer;">내 입찰목록</span>
 		 		</div>
 		 	</div> 
 	 	
 	 	</c:if>
 	 
-	 	<div class="row mt-3">
+	 	<div class="row mt-4">
 	 	
 	 		<div class="col">
 	 			
 	 			<div class="row">
 	 				<%-- 1열 --%>
 	 				<div class="col">
-	 				
-	 					<div class="row">
-							<div class="col-11 px-0 ms-4">
-								
-								<div class="row mb-1">
-									<div class="col-11" id="countDownTable">
-									
-									</div>
-									<div class="col"></div>
-								</div>
-							</div>
-							
-						</div>
-	 					
-	 				
 	 					
 	 					<div class="row">
 	 						<div class="col-11 text-center">
-	 						
 	 						
 	 							<img src="/auctionFiles/${productDetail.auctionMainImgDto.auction_item_img_link}"
 	 							class="img-fluid" onclick="auctionInfoPage()" style="cursor: pointer;">
@@ -232,7 +219,7 @@ input[id="tab03"]:checked ~ .con3 {
 	 						</div>
 	 					</div>
 	 					
-	 	<!-- 				<div class="row mt-5">
+	 					<div class="row mt-5">
 	 						<div class="col">
 	 						
 	 							<div class="row">
@@ -282,7 +269,7 @@ input[id="tab03"]:checked ~ .con3 {
 	 							</div>
 	 
 	 						</div>
-	 					</div> -->
+	 					</div>
 	 					
 	 					
 	 					<div class="row mt-5">
@@ -393,7 +380,7 @@ input[id="tab03"]:checked ~ .con3 {
 	 								<div class="col">
 	 									
 	 									<div class="row">
-	 										<div class="col fs-5 mt-2 fw-medium text-secondary" id="priceTitle"
+	 										<div class="col fs-5 mt-2 fw-medium" id="priceTitle"
 	 										> </div>
 	 										<div class="col text-end fw-bold">
 	 										
@@ -407,8 +394,8 @@ input[id="tab03"]:checked ~ .con3 {
 	 									
 	 									
 	 									<%-- 행 --%>
-	 									<div class="row mt-2 mb-2">
-	 										<div class="col text-secondary fw-medium">
+	 									<div class="row mt-2">
+	 										<div class="col">
 	 											<div class="row">
 	 												<div class="col">
 	 													즉시낙찰가
@@ -446,66 +433,7 @@ input[id="tab03"]:checked ~ .con3 {
 	 									<%-- 행 --%>
 	 									
 	 									
-			 					<div class="row mt-4">
-			 						<div class="col p-1 rounded-1 bg-light">
-			 						
-			 							<div class="row mt-1">
-			 								<div class="col ms-3">
-					 							<div class="row mt-1">
-					 								<div class="col fw-bold" style="font-size: 18px">
-					 									입찰 안내
-					 								</div>
-					 								<div class="col mt-1 fw-semibold text-end me-4" style="cursor: pointer; font-size: 15px" onclick="bidNoticeModal()">
-			 											상세보기 <span class="ms-1" style="font-size: 13px"> > </span>
-			 										</div>
-					 							</div>
-				 							
-					 							<div class="row mt-2">
-					 								<div class="col"> 
-					 									 <div class="row">
-					 										<div class="col-auto">
-					 											• 최소 <span class="text-danger">1,000원</span> 단위로 입찰하실 수 있습니다.
-					 										</div>
-					 										<!-- <div class="col fw-bold px-0" style="cursor: pointer;" onclick="bidNoticeModal()">
-					 											상세보기
-					 										</div> -->
-					 									</div>
-					 									
-					 									 <div class="row">
-					 									 	<div class="col">
-					 									 		• 현재 보유하신 코인보다 더 높은 금액은 입찰하실 수 없습니다.
-					 									 	</div>
-					 									 </div>
-					 									 
-					 									
-					 									 
-					 									 <div class="row mb-3">
-					 									 	<div class="col text-danger"> <!-- style="color: #ff6f0f;" --> 
-					 									 		• 경매 종료 시간 30초 이전 입찰 시, 경매 종료시간이 30초씩 자동연장됩니다.
-					 									 	</div>
-					 									 </div>	 									 
-					 									
-					 									<!-- <div class="row mb-1">
-					 										<div class="col">
-					 											• 같은 경매에 다른 회원과 동시에 입찰하였을 경우, 입찰에 실패하실 수 있습니다.
-					 										</div>
-					 									</div> -->
-					 									
-				 									<!-- 	<div class="row">
-					 										<div class="col">
-					 											• 낙찰하신 후, 7일 이내에 결제하지 않으실 경우 유찰 처리되오니 주의하세요.
-					 										</div>
-					 									</div>	 		 -->							
-					 				
-					 								</div>
-					 							</div>
-				 							</div>
-			 							</div>
-			 						</div>
-			 					</div>
-	 									
-	 									
-	 									<div class="row mt-3">
+	 									<div class="row mt-2">
 	 										<div class="col">
  												<div class="row mt-2">
 													<div class="col fw-semibold fs-5" id="currentStatus" 
@@ -517,7 +445,7 @@ input[id="tab03"]:checked ~ .con3 {
 	 									
 	 									
 	 									<%-- 행 --%>
-	 									<!-- <div class="row mt-1">
+	 									<div class="row mt-1">
 	 										<div class="col fw-bold">
 	 											
 	 											<div class="row">
@@ -527,7 +455,7 @@ input[id="tab03"]:checked ~ .con3 {
 												
 												</div>
 	 										</div>
-	 									</div> -->
+	 									</div>
 	 									<%-- 행 --%>
 	 									
 	 									
@@ -579,8 +507,7 @@ input[id="tab03"]:checked ~ .con3 {
 	 								<!-- <div class="row mt-5">
 	 									<div class="col"></div>
 	 								</div> -->
-	 								
-	 						
+	 							
 	 								<div class="row mt-5">
  										<div class="col fw-bold fs-5">
  											실시간 채팅
@@ -590,18 +517,18 @@ input[id="tab03"]:checked ~ .con3 {
  									<div class="row mt-3">
  										<div class="col">
  											<div class="row">
-	 											<div class="col ms-2 shadow-sm" id="chatMessageBox" style="height: 500px; overflow: auto">
+	 											<div class="col ms-2 border border-1" id="chatMessageBox" style="height: 500px; overflow: auto">
 	 											
 	 											</div>
  											</div>
  											
  											<div class="row mt-2">
- 												<div class="col-10 pe-2 ps-2">
+ 												<div class="col-10 pe-2 ps-1">
  													<input type="text" class="form-control" id="chatContentBox" placeholder="실시간 채팅에 참여해보세요!"
 													onkeydown="checkSendMessage(event)">
  												</div>
  												<div class="col px-0 d-grid">
- 													<input type="button" class="btn orangeButton" value="입력"  onclick="sendMessage()">
+ 													<input type="button" class="btn btn-dark" value="입력"  onclick="sendMessage()">
  												</div>
  											</div>
  										</div>
@@ -723,11 +650,11 @@ style="position: absolute; transform: translateX(70%);right: 50%;">
 								data-bs-target="#auctioninfo" type="button" role="tab" aria-controls="auctioninfo"
 								aria-selected="true">상품정보</button>
 						</li>	
-					   <!-- <li class="nav-item" role="presentation">
+					   <li class="nav-item" role="presentation">
 		                <button class="nav-link text-dark fw-bold" id="review-tab" data-bs-toggle="tab"
 		                    data-bs-target="#review" type="button" role="tab"
 		                    aria-controls="review" aria-selected="false">입금/배송정보</button>
-	            		</li> -->
+	            		</li>
 			            <li class="nav-item" role="presentation">
 			                <button class="nav-link text-dark fw-bold" id="question-tab" data-bs-toggle="tab"
 			                    data-bs-target="#question" type="button" role="tab"
@@ -793,13 +720,14 @@ style="position: absolute; transform: translateX(70%);right: 50%;">
 						
 						<div class="row mt-4">
 							
-							<div class="col-11 ms-4">
+							<div class="col-11 ms-3">
+							
 								<div class="row">
-									<div class="col-auto text-start mt-2 ms-1" style="font-size: 15px;">
+									<div class="col-auto text-start mt-2 ms-1" style="font-size: 17px;">
 										<a href="/safari/user/myInquiryPostPage">※ 상품 문의사항이 아닌 반품관련 문의는 고객센터 1:1 문의를 이용해주시기 바랍니다.</a>
 									</div>
 									<div class="col text-end">
-										<button class="btn btn-sm orangeButton" onclick="toggleInquiryInputBox()">
+										<button class="btn orangeButton" onclick="toggleInquiryInputBox()">
 											  상품문의
 											  <i class="bi bi-pencil-square"></i>
 											</button>
@@ -1931,7 +1859,7 @@ function showAuctionInfo() {
 	    		timeAttackBox.innerHTML = "";
 	    		  
 	    		const remainTitleRow = document.createElement("div"); 
-	    		remainTitleRow.classList.add("row");
+	    		remainTitleRow.classList.add("row", "mt-2");
 	    		 
 	    		const remainTitleCol = document.createElement("div"); 
 	    		remainTitleCol.classList.add("col");
@@ -1942,7 +1870,7 @@ function showAuctionInfo() {
 	    		remainTimeRow.classList.add("row");
 	    		    
 	    	    const timeSpan = document.createElement("div");
-	    	    timeSpan.classList.add("col", "rounded-1", "py-1", "text-white", "fs-5", "fw-bold", "text-center");
+	    	    timeSpan.classList.add("col", "border", "border-1", "rounded-1", "p-2", "text-white", "fs-4", "fw-bold", "text-center");
 	    	    timeSpan.style.backgroundColor = "#FF7777";
 
 	    	
@@ -1951,7 +1879,7 @@ function showAuctionInfo() {
 
    	 	        remainTimeRow.appendChild(timeSpan);
 
-   	 	        //timeAttackBox.appendChild(remainTitleRow);
+   	 	        timeAttackBox.appendChild(remainTitleRow);
    	 	        timeAttackBox.appendChild(remainTimeRow);
 	 
             }
@@ -2437,7 +2365,7 @@ function updateAuctionCountDown() {
 
 	 
 	 const remainTitleRow = document.createElement("div"); 
-	 remainTitleRow.classList.add("row");
+	 remainTitleRow.classList.add("row", "mt-2");
 	 
 	 const remainTitleCol = document.createElement("div"); 
 	 remainTitleCol.classList.add("col");
@@ -2448,7 +2376,7 @@ function updateAuctionCountDown() {
 	 remainTimeRow.classList.add("row");
 	    
      const timeSpan = document.createElement("div");
-     timeSpan.classList.add("col", "rounded-1", "py-1", "text-white", "fs-5", "fw-bold", "text-center");
+     timeSpan.classList.add("col", "border", "border-1", "rounded-1", "p-2", "text-white", "fs-4", "fw-bold", "text-center");
      timeSpan.style.backgroundColor = "#FF7777";
 	 
 
@@ -2466,7 +2394,7 @@ function updateAuctionCountDown() {
    	  } else {
    		const currentStatusBox = document.getElementById("currentStatus");
         const statusText = document.createElement("span");
-        statusText.innerText = "";
+        statusText.innerText = "경매에 참여하세요";
         
   		currentStatusBox.appendChild(statusText);
 
@@ -2495,8 +2423,8 @@ function updateAuctionCountDown() {
    
    	
      const timeIcon = document.createElement("i");
-     timeIcon.classList.add("bi", "bi-clock", "me-2");
-     timeIcon.style.fontSize = "18px";
+     timeIcon.classList.add("bi", "bi-clock", "me-2", "fs-4");
+     timeIcon.style.position = "relative";
      //timeIcon.style.bottom = "3px";
      timeSpan.appendChild(timeIcon);
    
@@ -2580,7 +2508,7 @@ function updateAuctionCountDown() {
    
    remainTimeRow.appendChild(timeSpan);
     
-	//timeAttackBox.appendChild(remainTitleRow);
+	timeAttackBox.appendChild(remainTitleRow);
     timeAttackBox.appendChild(remainTimeRow);
    }
 
@@ -3244,7 +3172,7 @@ function renewAuctionItemStatusEnd() {
 	    		timeAttackBox.innerHTML = "";
 	    		  
 	    		const remainTitleRow = document.createElement("div"); 
-	    		remainTitleRow.classList.add("row");
+	    		remainTitleRow.classList.add("row", "mt-2");
 	    		 
 	    		const remainTitleCol = document.createElement("div"); 
 	    		remainTitleCol.classList.add("col");
@@ -3255,7 +3183,7 @@ function renewAuctionItemStatusEnd() {
 	    		remainTimeRow.classList.add("row");
 	    		    
 	    	    const timeSpan = document.createElement("div");
-	    	    timeSpan.classList.add("col", "rounded-1", "py-1", "text-white", "fs-5", "fw-bold", "text-center");
+	    	    timeSpan.classList.add("col", "border", "border-1", "rounded-1", "p-2", "text-white", "fs-4", "fw-bold", "text-center");
 	    	    timeSpan.style.backgroundColor = "#FF7777";
 
 	    	
@@ -3264,7 +3192,7 @@ function renewAuctionItemStatusEnd() {
 
    	 	        remainTimeRow.appendChild(timeSpan);
 
-   	 	        //timeAttackBox.appendChild(remainTitleRow);
+   	 	        timeAttackBox.appendChild(remainTitleRow);
    	 	        timeAttackBox.appendChild(remainTimeRow);
 
 	    		const auctionEndModal = bootstrap.Modal.getOrCreateInstance("#auctionEndModal");
@@ -3500,7 +3428,7 @@ function bidRequest() {
 	xhr.send("&userId=" + sessionId + "&bid_price=" + bidPriceBox.value);
 }
 
-// 즉시 낙찰
+
 function renewSuccessfulImmediateBid(auctionItemId) {
     const timeAttackBox = document.getElementById("timeAttack");
     timeAttackBox.innerHTML = "";
@@ -3511,7 +3439,7 @@ function renewSuccessfulImmediateBid(auctionItemId) {
     priceTitle.innerText = "낙찰가";
 
     const remainTitleRow = document.createElement("div");
-    remainTitleRow.classList.add("row");
+    remainTitleRow.classList.add("row", "mt-2");
 
     const remainTitleCol = document.createElement("div");
     remainTitleCol.classList.add("col");
@@ -3522,14 +3450,14 @@ function renewSuccessfulImmediateBid(auctionItemId) {
     remainTimeRow.classList.add("row");
 
     const timeSpan = document.createElement("div");
-    timeSpan.classList.add("col", "rounded-1", "py-1", "text-white", "fs-5", "fw-bold", "text-center");
+    timeSpan.classList.add("col", "border", "border-1", "rounded-1", "p-2", "text-white", "fs-4", "fw-bold", "text-center");
     timeSpan.style.backgroundColor = "#FF7777";
 
     timeSpan.innerText = "경매가 종료되었습니다";
 
     remainTimeRow.appendChild(timeSpan);
 
-    //timeAttackBox.appendChild(remainTitleRow);
+    timeAttackBox.appendChild(remainTitleRow);
     timeAttackBox.appendChild(remainTimeRow);
 
     const auctionEndModal = bootstrap.Modal.getOrCreateInstance("#auctionEndModal");

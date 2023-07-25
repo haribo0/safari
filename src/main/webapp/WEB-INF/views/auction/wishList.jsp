@@ -19,6 +19,9 @@
   overflow: hidden; /* 넘친 텍스트를 숨김 */
   text-overflow: ellipsis; /* 넘친 텍스트를 "..."으로 표시 */
 }
+.btn_auctionEnd{padding:3px 10px; background: #e9ecef; border:none; color: black; border-radius:8px; font-size: 13px; font-weight: meidum; }
+.btn_auctionReady{padding:3px 10px; background: #e6edfe; border:none; color: #789efd; border-radius:8px; font-size: 13px; font-weight: bold;}
+.btn_auctionIng{padding:3px 10px; background: #dff5ea; border:none; color: #6db590; border-radius:8px; font-size: 13px; font-weight: bold;}
 </style>
 <body>
 
@@ -49,9 +52,8 @@
 				<div class="row mt-4">
 					<div class="col">
 						<span>
-							<img class="mb-1" src="/safari/resources/img/auction/notice.png"
-								style="max-width: 25px; max-height: 25px;"></span>
-								<span class="fw-bold fs-5">참고사항</span>
+							<i class="bi bi-exclamation-circle fs-5 me-1"></i></span>
+								<span class="fw-semibold fs-5">참고사항</span>
 					</div>
 				</div>
 				
@@ -63,12 +65,12 @@
 		
 			    <div class="row">
 					<div class="col">
-						진행중인 경매의 <span class="fw-bold">현재가는 <span class="text-danger">실시간으로</span> 업데이트</span> 되고 있습니다.
+						진행중인 경매의 <span class="fw-semibold">현재가는 <span class="text-danger">실시간으로</span> 업데이트</span> 되고 있습니다.
 					</div>
 				</div>		
 				
 				<div class="row mt-4">
-					<div class="col fw-bold fs-5">
+					<div class="col fw-semibold fs-5">
 					 	 관심 있는 경매 목록
 					</div>
 				</div>			
@@ -82,9 +84,9 @@
 					</div>	
 				</c:if>
 					
-				<div class="row mt-3">
+				<div class="row mt-3 mb-5">
 					<c:forEach items="${auctionWishList}" var="wish">
-						<div class="col-3">
+						<div class="col-3 mb-5">
 							
 							<div class="row">
 								<div class="col">
@@ -97,7 +99,7 @@
 							
 							
 							<div class="row mt-2">
-								<div class="col fw-bold overflow" style="width: 200px; font-size:17px;">
+								<div class="col overflow fw-medium" style="width: 200px; font-size:16px;">
 									<a href="/safari/auction/productDetail/${wish.id}">
 									   ${wish.title}</a>
 								</div>
@@ -106,9 +108,9 @@
 							
 							
 							<div class="row mt-1">
-								<div class="col-auto text-secondary">
+								<div class="col-auto">
 									현재가 <span style="font-size: 18px;"
-									 class="text-danger fw-bold ms-1 fs-5" id="currentPrice_${wish.id}"></span>
+									 class="fw-bold ms-1 fs-5" id="currentPrice_${wish.id}"></span>
 									 <span>원</span>
 								</div>
 								<div class="col px-0" >
@@ -125,6 +127,12 @@
 						 			</span> 
 								</div>
 							</div>	
+							
+							<div class="row mt-1">
+								<div class="col">
+									<span id="bidCount_${bidItem.id}"></span>
+								</div>
+							</div>
 							
 							<div class="row mt-1 mb-0">
 								<div class="col">
@@ -230,18 +238,16 @@ function updateAuctionCountDown(id) {
       
       const statusButton = document.createElement("button");
       statusButton.classList.add("btn");
-      statusButton.classList.add("btn-sm");
-      statusButton.classList.add("fw-bold");
-      statusButton.classList.add("disabled");
+
       if (auctionEndDate <= nowDate || response.auctionItem.auctionDto.auction_status == '종료') {  
-    	  statusButton.classList.add("btn-outline-danger");
+    	  statusButton.classList.add("btn_auctionEnd");
           statusButton.innerText = "경매 종료";
     	  
       } else if (auctionStartDate <= nowDate) {
-    	  statusButton.classList.add("btn-outline-success");
+    	  statusButton.classList.add("btn_auctionIng");
           statusButton.innerText = "진행중";
       } else {
-      	 statusButton.classList.add("btn-outline-primary");
+      	 statusButton.classList.add("btn_auctionReady");
       	 statusButton.innerText = "준비중";
       }
       

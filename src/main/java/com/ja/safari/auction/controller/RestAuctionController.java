@@ -392,17 +392,20 @@ public class RestAuctionController {
 	}
 	
 	// 미이페이지 - 입찰 목록에서 상태에 따른 경매 조회 
-	@RequestMapping("getMyBidListIng")
-	public Map<String, Object> getBidListByStatus(HttpSession session) {
-		
-		Map<String, Object> map  =  new HashMap<>();
-		
-		UserDto sessionUser = (UserDto) session.getAttribute("sessionUser");
-		
-		map.put("getAuctionList", auctionService.getMyBidListIng(sessionUser.getId()));
-		
-		return map;
-	}
+	/*
+	 * @RequestMapping("getMyBidListIng") public Map<String, Object>
+	 * getBidListByStatus(HttpSession session) {
+	 * 
+	 * Map<String, Object> map = new HashMap<>();
+	 * 
+	 * UserDto sessionUser = (UserDto) session.getAttribute("sessionUser");
+	 * 
+	 * map.put("getAuctionList",
+	 * auctionService.getMyBidListIng(sessionUser.getId()));
+	 * 
+	 * return map; }
+	 */
+	
 
 
 	
@@ -440,6 +443,36 @@ public class RestAuctionController {
 		
 	} 
 	
+	// 경매 상세페이지에서 내 입찰목록 모달 조회
+	@RequestMapping("getMyBidListIng") 
+	public Map<String, Object> getMyBidListIng(HttpSession session) {
+		
+		Map<String, Object> map = new HashMap<>();
+		
+		UserDto sessionUser = (UserDto) session.getAttribute("sessionUser");
+		
+		map.put("myBidList", auctionService.getMyBidListIng(sessionUser.getId()));
+		map.put("myBidCount", auctionService.getUserBidCount(sessionUser.getId()));
+		
+		return map;
+		
+	}
+	
+	// 경매 상세페이지에서 입찰 리스트 중 입찰가만 계속 조회
+	@RequestMapping("getMyBidPrice")
+	public Map<String, Object> getMyBidPrice(HttpSession session) {
+		
+		Map<String, Object> map = new HashMap<>();
+		
+		UserDto sessionUser = (UserDto) session.getAttribute("sessionUser");
+		
+		map.put("myBidPrice", auctionService.getMyBidPrice(sessionUser.getId()));
+	
+		return map;
+	}
+	
+	
+	
 	//  한 경매의 입찰 순위 3위까지 출력
 	@RequestMapping("getTop3BidList") 
 	public Map<String, Object> getTop3BidList(int auctionItemId) {
@@ -461,25 +494,42 @@ public class RestAuctionController {
 		
 		map.put("bidList", auctionService.getBidList(auctionItemId));
 		
-		//map.put("bidCount", auctionService.getBidCount(auctionItemId));
+		map.put("bidCount", auctionService.getBidCount(auctionItemId));
 		
 		return map;
 		
 	}
 	
-	// 마이페이지 - 내가 입찰한 기록 조회 (시간 업데이트 용도, id값만 필요함)
-	@RequestMapping("getMyBidListForRealTime")
-	public  Map<String, Object> getMyBidListForRealTime(HttpSession session) {
+	// 마이페이지 - 내가 입찰한 기록 조회
+	@RequestMapping("getMyBidList") 
+	public Map<String, Object> getMyBidList(HttpSession session)  {
 		
 		Map<String, Object> map = new HashMap<>();
 		
 		UserDto sessionUser = (UserDto) session.getAttribute("sessionUser");
 		
-		map.put("getBidList", auctionService.getMyBidListForRealTime(sessionUser.getId()));
+		map.put("myBidList", auctionService.getMyBidList(sessionUser.getId()));
 		
 		return map;
-		
 	}
+	
+	
+	// 마이페이지 - 내가 입찰한 기록 조회 (시간 업데이트 용도, id값만 필요함)
+	/*
+	 * @RequestMapping("getMyBidListForRealTime") public Map<String, Object>
+	 * getMyBidListForRealTime(HttpSession session) {
+	 * 
+	 * Map<String, Object> map = new HashMap<>();
+	 * 
+	 * UserDto sessionUser = (UserDto) session.getAttribute("sessionUser");
+	 * 
+	 * map.put("getBidList",
+	 * auctionService.getMyBidListForRealTime(sessionUser.getId()));
+	 * 
+	 * return map;
+	 * 
+	 * }
+	 */
 	
 	// 입찰 버튼 갱신
 	@RequestMapping("getStatusForRenewInputBidBox/{auctionItemId}")
@@ -556,6 +606,8 @@ public class RestAuctionController {
 		
 		auctionService.renewAuctionItemStatusEnd(auctionItemId);
 		
+		//System.out.println(auctionItemId + "번 제품의 경매가 종료됩니다");
+		
 		return map;
 		
 	}
@@ -578,7 +630,7 @@ public class RestAuctionController {
 		
 		Map<String, Object> map = new HashMap<>();
 		
-		auctionService.renewImmediateSuccessfulBid(auctionItemId);
+		//auctionService.renewImmediateSuccessfulBid(auctionItemId);
 		
 		auctionService.renewImmediateSuccessfulBidEndDate(auctionItemId);
 		
@@ -834,6 +886,7 @@ public class RestAuctionController {
 	}
 	
 	
+	
    // 마이페이지 - 낙찰된 건 (배송 조회)
 	@RequestMapping("getMySuccessfulBidPayAndDeliveryStatusList")
 	public Map<String, Object> getMySuccessfulBidAndDeliveryStatusList(HttpSession session) {
@@ -1014,6 +1067,21 @@ public class RestAuctionController {
 		return map;
 	}
 
+	// 메인 페이지
+	
+	
+	// 곧 마감 되는 경매 내림차순 정렬 6개
+	@RequestMapping("getdeadlineApproachingAuctonList")
+	public Map<String, Object> deadlineApproachingAuctonList()  {
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		map.put("deadlineList", auctionService.deadlineApproachingAuctonList());
+		
+		return map;
+
+	}
+	
 	
 	
 }

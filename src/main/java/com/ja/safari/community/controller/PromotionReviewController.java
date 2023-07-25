@@ -26,7 +26,6 @@ import com.ja.safari.dto.PromotionReviewImgDto;
 import com.ja.safari.dto.UserCoinDto;
 import com.ja.safari.dto.UserDto;
 import com.ja.safari.rental.service.RentalBusinessServiceImpl;
-import com.ja.safari.user.service.UserServiceImpl;
 
 @Controller
 @RequestMapping("/community/*")
@@ -36,8 +35,6 @@ public class PromotionReviewController {
 	private PromotionReviewServiceImpl promotionReviewService;
 	@Autowired
 	private PromotionReviewCommentServiceImpl promotionReviewCommentService;
-	@Autowired
-	private UserServiceImpl userService;
 	@Autowired
 	private RentalBusinessServiceImpl rentalBusinessService;
 	////////////

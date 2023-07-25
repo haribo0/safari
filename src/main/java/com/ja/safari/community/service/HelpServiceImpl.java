@@ -14,6 +14,10 @@ import com.ja.safari.dto.HelpCommentDto;
 import com.ja.safari.dto.HelpDto;
 import com.ja.safari.dto.HelpImgDto;
 import com.ja.safari.dto.HelpLikeDto;
+import com.ja.safari.dto.PromotionReviewDto;
+import com.ja.safari.dto.PromotionReviewImgDto;
+import com.ja.safari.dto.PromotionReviewLikeDto;
+import com.ja.safari.dto.ProreviewRentalCategoryDto;
 import com.ja.safari.dto.UserCoinDto;
 import com.ja.safari.dto.UserDto;
 import com.ja.safari.user.mapper.UserSqlMapper;
@@ -330,5 +334,41 @@ public class HelpServiceImpl {
 	//해주세요 채택상태 변경
 	public void changeCompleteHelp(int id) {
 		helpSqlMapper.changeCompleteHelp(id);
+	}
+	
+	//해주세요 게시물 최신순 정렬
+	public List<Map<String, Object>> newPostByHelp(int sessionId) {
+		
+		List<HelpDto> newPostHelpList = helpSqlMapper.newPostByHelp();
+		
+		List<Map<String, Object>> newPostByHelpList = new ArrayList<>();
+		
+		for(HelpDto helpDto : newPostHelpList) {
+			Map<String, Object> map = new HashMap<>();
+						
+			// 회원 pk, 닉네임
+			UserDto userDto = userSqlMapper.selectUserDtoById(helpDto.getUser_id());		
+			
+			// 사진
+		//	List<HelpImgDto> helpImgList = helpSqlMapper.selectHelpBoardImageByHelpId(helpDto.getId());
+
+			// 댓글
+	//		int countHelpComment = helpSqlMapper.selectAllHelpCommentCountByBoardId(helpDto.getId());
+			// 좋아요
+		//	int countLikeByHelp= helpSqlMapper.selectAllHelpLikeCountByBoardId(helpDto.getId());
+			
+			map.put("userDto", userDto);
+			map.put("helpDto", helpDto);
+		//	map.put("helpImgList", helpImgList);
+		//	map.put("countHelpComment", countHelpComment);
+		//	map.put("countLikeByHelp", countLikeByHelp);
+
+			
+			newPostByHelpList.add(map);
+
+			
+		}		
+		
+		return newPostByHelpList;
 	}
 }

@@ -31,31 +31,51 @@
 	<jsp:include page="../common/header.jsp"></jsp:include>
 	<!-- 헤더 섹션 -->
 
-	<div class="container-fluid d-flex align-items-center justify-content-between p-3 px-5 mb-3 bg-light">
-		<div class="container">
-			<div class="row">
-				<p class="mb-0 px-0 text-body-secondary"><a href="${pageContext.request.contextPath}/rental/mainPage" class="btn" style="font-size: 15px;">대여</a> &gt; <span class="mx-2" style="font-size: 15px;">전체보기</span></p>
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col">
+				<div id="carouselExample" class="carousel slide">
+				  <div class="carousel-inner">
+				    <div class="carousel-item active">
+				      <img src="${pageContext.request.contextPath}/resources/img/rental/rental_banner_1.jpg" class="d-block w-100" alt="...">
+				    </div>
+				    <div class="carousel-item">
+				      <img src="${pageContext.request.contextPath}/resources/img/rental/rental_banner_2.jpg" class="d-block w-100" alt="...">
+				    </div>
+				    <div class="carousel-item">
+				      <img src="${pageContext.request.contextPath}/resources/img/rental/rental_banner_3.jpg" class="d-block w-100" alt="...">
+				    </div>
+				  </div>
+				  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+				    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+				    <span class="visually-hidden">Previous</span>
+				  </button>
+				  <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+				    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+				    <span class="visually-hidden">Next</span>
+				  </button>
+				</div>
 			</div>
 		</div>
 	</div>
 
 	<div class="container">
-		<%-- <div class="row">
+		<div class="row">
  			<div class="col-2 mt-4">
 				<ul class="list-group" style="top: 115.23px; z-index: 50;">
 				  <li class="list-group-item border border-0 ps-0 pt-2 pb-0"><a href="${pageContext.request.contextPath}/rental/mainPage" class="btn ps-0 text fw-bold py-1" href="#" style="font-size: 17px;">전체보기</a></li>
 				  <c:forEach items="${categoryList}" var="map" varStatus="status">
-					  <li class="list-group-item border border-0 ps-0 pb-0 pt-3"><a href="${pageContext.request.contextPath}/rental/mainPage/?main_category_id=${map.categoryItem.id}" class="btn text fw-bold ps-0 py-1" style="font-size: 17px;">${map.categoryItem.main_category_name} ${map.categoryItem.id}</a></li>
+					  <li class="list-group-item border border-0 ps-0 pb-0 pt-3"><a href="${pageContext.request.contextPath}/rental/mainPage/?main_category_id=${map.categoryItem.id}" class="btn text fw-bold ps-0 py-1" style="font-size: 17px;">${map.categoryItem.main_category_name}</a></li>
 	  				  	<div class="" id="">
 							<ul class="list-group">
 								<c:forEach items="${map.subTitleList}" var="subTitle">
-										<li class="list-group-item border-0 ps-0 py-2"><a href="${pageContext.request.contextPath}/rental/mainPage/?sub_category_id=${subTitle.id}" class="btn ps-0 py-0 text-body-secondary" style="font-size: 16px;">${subTitle.sub_category_name} ${subTitle.id}</a></li>
+										<li class="list-group-item border-0 ps-0 py-2"><a href="${pageContext.request.contextPath}/rental/mainPage/?sub_category_id=${subTitle.id}" class="btn ps-0 py-0 text-body-secondary" style="font-size: 16px;">${subTitle.sub_category_name}</a></li>
 								</c:forEach>
 							</ul>
 						</div>
 				  </c:forEach>
 				</ul>
-			</div>  --%>
+			</div>
 			
 			<div class="col">
 <!-- 				<div class="row">
@@ -78,13 +98,15 @@
 						</div>
 					</div>
 				</div> -->
+				
 
-				<div class="row border-bottom pb-2">
-					<p class="mb-0 mt-3 ps-0"><i class="bi bi-badge-ad-fill fs-5" style="color: #f68a42; vertical-align: -2px;"></i> <span style="color: #000;">파워광고상품</span></p>
+				<div class="row pb-2">
+					<p class="mb-0 mt-3 ps-0 fs-5 fw-bold">파워광고상품</p>
+					<!-- <p class="mb-0 mt-3 ps-0"><i class="bi bi-badge-ad-fill fs-4" style="color: #f68a42; vertical-align: -2px;"></i> <span style="color: #000;" class="fw-bold">파워광고상품</span></p> -->
 				</div>
 
 				<!-- 광고 대여 물품 row 작업중 -->
-				<div class="row flex justify-content-between pt-3 pb-4 my-2 border-bottom">
+				<div class="row flex justify-content-between pt-1 pb-3 my-2 mt-1">
 	 				<c:forEach items="${rentalItemList}" var="map" begin="0" end="5" step="1">
 						<div class="col-2 position-relative">
 							<div class="position-absolute px-2" style="top: 8px; right: 20px; background:#f68a42; color: #fff; border-radius: 24px; z-index: 50; font-size: 12px;">
@@ -104,6 +126,7 @@
 										<p class="mt-1"><span style="background: #e5e5e5; border-radius: 6px; font-size: 12px; padding: 3px 6px;">무료배송</span></p>								
 									</div>
 								</div>
+							
 <%-- 							  	<div class="d-flex justify-content-between">
 							    	<p class="text-dark mb-0"><a href="${pageContext.request.contextPath}/rental/productDescPage?id=${map.rentalItemDto.id}" class="text-decoration-none d-inline-block text-dark fw-bold" style="font-size: 15px;">${map.rentalItemDto.title}</a></p>
 							  	</div>
@@ -131,8 +154,26 @@
 				<%-- <a href="${pageContext.request.contextPath}/rental/mainPage/?main_category_id=${map.categoryItem.id}" --%>
 				<%-- <a href="${pageContext.request.contextPath}/rental/mainPage/?sub_category_id=${subTitle.id}" --%>
 				
-				<div class="row mt-5 pb-2">
-					<p class="mb-0 mt-3 ps-0 fs-5 fw-bold">카테고리</p>
+				<div class="row mt-1 pb-2">
+					<p class="mb-0 mt-3 ps-0 fs-5 fw-bold">금주의 스페셜딜</p>
+				</div>
+				<div class="row">
+ 					<div class="col ps-0" style="cursor: pointer;">
+						<img class="img-fluid rounded-2" alt="" src="${pageContext.request.contextPath}/resources/img/rental/b1.png">
+					</div>
+ 					<div class="col pe-0" style="cursor: pointer;">
+						<img class="img-fluid rounded-2" alt="" src="${pageContext.request.contextPath}/resources/img/rental/b2.png">
+					</div>
+				</div>
+				
+				<div class="row justify-content-between mt-5 pb-2">
+					<div class="col px-0">
+						<p class="mb-0 mt-3 ps-0 fs-5 fw-bold">카테고리</p>
+					</div>
+					
+					<div class="col px-0 pt-3 text-end">
+						<a href="${pageContext.request.contextPath}/rental/mainPage" style="font-size: 14px;">전체보기</a>
+					</div>
 				</div>
 				<div class="row">
 					<div class="col text-center boxCategory">
@@ -275,24 +316,23 @@
 						</div>
 						</a>
 					</div>
-					
 				</div>
 				
-				<div class="row justify-content-between mt-5 pb-2">
+				<div class="row justify-content-between mt-3 pb-2">
 					<div class="col">
-						<p class="mb-0 mt-3 ps-0 fs-5 fw-bold">대여상품</p>
+						<p class="mb-0 ps-0 fs-5 fw-bold">대여상품</p>
 					</div>
 					
 					<div class="col d-flex justify-content-end">
 						<div class="dropdown">
-						  <a class="btn bg-light dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+						  <a class="btn bg-light dropdown-toggle dropdownName" href="#" role="button" data-bs-toggle="dropdown">
 						    일반순
 						  </a>
 						
 						  <ul class="dropdown-menu bg-light">
 						    <li><a class="dropdown-item btnLikesOrder" href="#">좋아요순</a></li>
-						    <li><a class="dropdown-item btnReviewOrder" href="#">리뷰</a></li>
-						    <li><a class="dropdown-item btnRentOrder" href="#">구매</a></li>
+						    <li><a class="dropdown-item btnReviewOrder" href="#">리뷰순</a></li>
+						    <li><a class="dropdown-item btnRentOrder" href="#">구매순</a></li>
 						  </ul>
 						</div>
 					</div>
@@ -483,6 +523,8 @@ function getSessionId(){
 	}
 	
  	function setOrderLink() {
+ 		const dropdownName = document.querySelector('.dropdownName')
+ 		
  		const orderlyObj = [
  			{orderly: "likes"},
  			{orderly: "reviews"},
@@ -494,11 +536,19 @@ function getSessionId(){
 		const btnRentOrder = document.querySelector('.btnRentOrder')
 		
 		let url = new URL(window.location.href)
- 		console.log(url)
+ 		//console.log(url)
  		let isIncludeMainCat = url.search.includes('main_category_id')
  		let isIncludeSubCat = url.search.includes('sub_category_id')
  		let originUrl
  		let querySign
+ 		
+ 		if(url.search.includes('likes')) {
+			dropdownName.innerText = '좋아요순'
+ 		} else if(url.search.includes('reviews')) {		
+			dropdownName.innerText = '리뷰순'
+ 		} else if(url.search.includes('purchase')) {	
+			dropdownName.innerText = '구매순'
+ 		}
  		
   		if(isIncludeMainCat || isIncludeSubCat) {
   			let urlSearch = url.search
@@ -526,13 +576,13 @@ function getSessionId(){
 		btnReviewOrder.addEventListener('click',(e) => {
 			const oderlyParams = new URLSearchParams(orderlyObj[1])
 			e.preventDefault();
-			window.location.href = originUrl + querySign + oderlyParams		
+			window.location.href = originUrl + querySign + oderlyParams
 		})
 				
 		btnRentOrder.addEventListener('click',(e) => {
 			const oderlyParams = new URLSearchParams(orderlyObj[2])
 			e.preventDefault();
-			window.location.href = originUrl + querySign + oderlyParams		
+			window.location.href = originUrl + querySign + oderlyParams	
 		})
 		
 

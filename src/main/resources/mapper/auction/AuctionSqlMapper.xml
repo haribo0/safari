@@ -343,8 +343,50 @@
 			SET end_date = SYSDATE  
 			WHERE id = #{auctionItemId}
 	</update>	
-		
 	
+	<!-- 경매 상세페이지에서 내 입찰목록 (진행중) 조회 -->
+	<select id="getMyBidListIng" resultType="com.ja.safari.dto.AuctionItemDto">
+		 SELECT at.id, title, bid_price, end_date, auction_item_img_link, auction_status
+			FROM auction_item at 
+			JOIN auction_item_bid_request bt ON at.id = bt.auction_item_id
+			JOIN (
+			    SELECT auction_item_id, MIN(auction_item_img_link) AS auction_item_img_link
+			    FROM auction_item_img
+			    GROUP BY auction_item_id
+			) ati ON at.id = ati.auction_item_id
+			WHERE bt.user_buyer_id = #{userBuyerId}
+			  AND auction_status = '진행중'
+			  AND bid_price = (
+			    SELECT MAX(bid_price)
+			    FROM auction_item_bid_request
+			    WHERE auction_item_id = at.id AND user_buyer_id = #{userBuyerId}
+			  )
+			ORDER BY bt.reg_date DESC
+	</select>
+	
+	<!--  경매 상세페이지에서 입찰 리스트 중 입찰가만 계속 조회 -->
+	<select id="getMyBidPrice" resultType="com.ja.safari.dto.AuctionItemDto">
+		SELECT at.id, bid_price
+			FROM auction_item at 
+			JOIN auction_item_bid_request bt ON at.id = bt.auction_item_id
+			WHERE bt.user_buyer_id = #{userBuyerId}
+			  AND auction_status = '진행중'
+			  AND bid_price = (
+			    SELECT MAX(bid_price)
+			    FROM auction_item_bid_request
+			    WHERE auction_item_id = at.id AND user_buyer_id = #{userBuyerId}
+			  )
+			ORDER BY bt.reg_date DESC
+	</select>
+	
+	<!--  회원의 경매 입찰 수 -->
+	<select id="getUserBidCount" resultType="int">
+	 SELECT COUNT(*) 
+	        FROM auction_item_bid_request bt
+	        JOIN auction_item at ON bt.auction_item_id = at.id
+	        WHERE auction_status = '진행중'
+	              AND user_buyer_id = #{userBuyerId}
+	</select>
 	
 	<!--  회원의 입찰 기록 조회 -->
 	<select id="getBidHistoryByUser" resultType="com.ja.safari.dto.AuctionBidDto">
@@ -362,6 +404,7 @@
 		  FROM auction_item
 		  WHERE id = #{id}
 	</select>
+	
 	
 	<!--  경매 종료일 도달 시 경매 종료 처리 -->
 	<update id="renewAuctionItemStatusEnd">
@@ -389,11 +432,11 @@
 	
 	
 	<!-- 낙찰 시 경매 종료로 상태 업데이트 -->
-	<update id="renewImmediateSuccessfulBid">
+<!-- 	<update id="renewImmediateSuccessfulBid">
 		UPDATE auction_item
 			SET auction_status = '종료'
 			WHERE id = #{id}
-	</update>
+	</update> -->
 	
 
 	
@@ -470,37 +513,9 @@
 		DELETE FROM auction_item_like WHERE auction_item_id = #{id}
 	</delete>
 	
-	<!-- 마이페이지 - 내가 입찰한 기록 조회 -->
-	<select id="getMyBidList" resultType="com.ja.safari.dto.AuctionItemDto">
-		SELECT at.id, title, start_price,
-		       max_price, bid_price,
-		       start_date, end_date, 
-		       auction_status,
-		       auction_item_img_link,
-           	   main_category_name, sub_category_name
-	   	   FROM
-	        	auction_item at 
-	    		JOIN auction_item_bid_request bt ON at.id = bt.auction_item_id
-         			JOIN product_sub_category psc ON at.auction_sub_category_id = psc.id
-				JOIN product_main_category pmc ON psc.product_main_category_id = pmc.id
-		        JOIN (
-		              SELECT auction_item_id,
-		              MIN(auction_item_img_link) AS auction_item_img_link
-		              FROM auction_item_img
-		              GROUP BY auction_item_id
-		             ) ati ON at.id = ati.auction_item_id
-	        WHERE 
-	        	bt.user_buyer_id = #{userBuyerId}
-	        	AND bid_price IN (
-		        SELECT MAX(bid_price) 
-		            FROM auction_item_bid_request bt
-		            WHERE user_buyer_id = #{userBuyerId}
-		            GROUP BY auction_item_id)
-			ORDER BY bt.reg_date DESC         
-	</select>
 	
 	<!--  마이페이지 - 내가 입찰한 기록 조회 (시간 업데이트 용도, id값만 필요함) -->
-	<select id="getMyBidListForRealTime" resultType="com.ja.safari.dto.AuctionBidDto">
+<!-- 	<select id="getMyBidListForRealTime" resultType="com.ja.safari.dto.AuctionBidDto">
 	 SELECT * 
 		FROM 
 		auction_item_bid_request
@@ -511,38 +526,34 @@
 				            WHERE user_buyer_id = #{userBuyerId}
 				            GROUP BY auction_item_id)
 	</select>
-
+ -->
 	
 	
 	
-	<!-- 마이페이지 - 내가 입찰한 기록 조회 (진행중) -->
-	<select id="getMyBidListIng" resultType="com.ja.safari.dto.AuctionItemDto">
-		SELECT at.id, title, start_price,
-		       max_price, bid_price,
-		       start_date, end_date, 
-		       auction_status,
+	<!-- 마이페이지 - 내가 입찰한 기록 조회 -->
+	<select id="getMyBidList" resultType="com.ja.safari.dto.AuctionItemDto">
+		SELECT at.id, title,
+		       bid_price, end_date, 
 		       auction_item_img_link,
-           	   main_category_name, sub_category_name
-	   	   FROM
-	        	auction_item at 
-	    		JOIN auction_item_bid_request bt ON at.id = bt.auction_item_id
-         			JOIN product_sub_category psc ON at.auction_sub_category_id = psc.id
-				JOIN product_main_category pmc ON psc.product_main_category_id = pmc.id
-		        JOIN (
-		              SELECT auction_item_id,
-		              MIN(auction_item_img_link) AS auction_item_img_link
-		              FROM auction_item_img
-		              GROUP BY auction_item_id
-		             ) ati ON at.id = ati.auction_item_id
-	        WHERE 
-	        	bt.user_buyer_id = #{userBuyerId}
-				AND auction_status = '진행중'
-	        	AND bid_price IN (
-		        SELECT MAX(bid_price) 
-		            FROM auction_item_bid_request bt
-		            WHERE user_buyer_id = #{userBuyerId}
-		            GROUP BY auction_item_id)
-			ORDER BY bt.reg_date DESC         
+		       auction_status,
+		       main_category_name, sub_category_name
+		FROM auction_item at 
+		JOIN (
+		    SELECT auction_item_id, MAX(bid_price) AS max_bid_price
+		    FROM auction_item_bid_request
+		    WHERE user_buyer_id = #{userBuyerId}
+		    GROUP BY auction_item_id
+		) max_bid ON at.id = max_bid.auction_item_id
+		JOIN auction_item_bid_request bt ON at.id = bt.auction_item_id AND bt.bid_price = max_bid.max_bid_price
+		JOIN product_sub_category psc ON at.auction_sub_category_id = psc.id
+		JOIN product_main_category pmc ON psc.product_main_category_id = pmc.id
+		JOIN (
+		    SELECT auction_item_id, MIN(auction_item_img_link) AS auction_item_img_link
+		    FROM auction_item_img
+		    GROUP BY auction_item_id
+		) ati ON at.id = ati.auction_item_id
+		WHERE bt.user_buyer_id = #{userBuyerId}
+		ORDER BY bt.reg_date DESC
 	</select>
 	
 	
@@ -590,10 +601,15 @@
 		SELECT bt.id, bt.auction_item_id, main_category_name, sub_category_name, title, bid_price,
 		       bt.reg_date, at.end_date, ati.auction_item_img_link,
 		       CASE WHEN akp.partner_order_id IS NOT NULL THEN 'Yes' ELSE 'No' END AS payment_exists
-			FROM auction_item_bid_request bt
+		  FROM auction_item_bid_request bt
 			JOIN auction_item at ON bt.auction_item_id = at.id
 			JOIN product_sub_category psc ON at.auction_sub_category_id = psc.id
 			JOIN product_main_category pmc ON psc.product_main_category_id = pmc.id
+			JOIN (
+			    SELECT auction_item_id, MAX(bid_price) AS max_bid_price  
+			    FROM auction_item_bid_request
+			    GROUP BY auction_item_id
+			) max_bt ON bt.auction_item_id = max_bt.auction_item_id AND bt.bid_price = max_bt.max_bid_price 
 			JOIN (
 			    SELECT auction_item_id, MIN(auction_item_img_link) AS auction_item_img_link
 			    FROM auction_item_img
@@ -601,12 +617,8 @@
 			) ati ON at.id = ati.auction_item_id
 			LEFT JOIN auction_kakao_payment akp ON bt.id = akp.partner_order_id
 			WHERE bt.user_buyer_id = #{userBuyerId}
-			AND at.auction_status = '종료'
-			AND bid_price IN (
-			    SELECT MAX(bid_price)
-			    FROM auction_item_bid_request
-			    GROUP BY auction_item_id
-			) ORDER BY end_date DESC
+			  AND at.auction_status = '종료'
+			ORDER BY at.end_date DESC
 	</select>
 	
 	<!-- 경매 마이페이지 - 낙찰된 건 (배송 조회) -->
@@ -839,7 +851,51 @@
 	
 	<!--  경매 업로더 입장에서 낙찰자 정보와 경매 물품 정보 조회 -->
 	<select id="getAuctionAndBidInfoByUploader" resultType="com.ja.safari.dto.AuctionBidDto">
-			SELECT
+		SELECT
+		    bt.id, bt.auction_item_id, bt.user_buyer_id, ut.nickname,
+		    pmc.main_category_name, psc.sub_category_name, at.title,
+		    bt.bid_price, at.end_date, ati.auction_item_img_link,
+		    CASE WHEN akp.partner_order_id IS NOT NULL THEN 'Yes' ELSE 'No' END AS payment_exists
+		FROM
+		    auction_item_bid_request bt
+		JOIN
+		    auction_item at ON bt.auction_item_id = at.id
+		JOIN
+		    product_sub_category psc ON at.auction_sub_category_id = psc.id
+		JOIN
+		    product_main_category pmc ON psc.product_main_category_id = pmc.id
+    	JOIN (
+			    SELECT auction_item_id, MAX(bid_price) AS max_bid_price  
+			    FROM auction_item_bid_request
+			    GROUP BY auction_item_id
+			) max_bt ON bt.auction_item_id = max_bt.auction_item_id AND bt.bid_price = max_bt.max_bid_price     
+		JOIN
+		    (
+		        SELECT
+		            auction_item_id,
+		            MIN(auction_item_img_link) AS auction_item_img_link
+		        FROM
+		            auction_item_img
+		        GROUP BY
+		            auction_item_id
+		    ) ati ON at.id = ati.auction_item_id
+		LEFT JOIN
+		    auction_kakao_payment akp ON bt.id = akp.partner_order_id
+		JOIN
+		    user_table ut ON bt.user_buyer_id = ut.id
+		WHERE
+		    at.user_seller_id = #{userSellerId}
+		    AND at.auction_status = '종료'
+		    AND bt.bid_price IN (
+		        SELECT
+		            MAX(bid_price)
+		        FROM
+		            auction_item_bid_request
+		        GROUP BY
+		            auction_item_id
+		    ) ORDER BY at.end_date DESC
+  
+		<!-- 	SELECT
 			    bt.auction_item_id,
 			    at.title,
 			    bt.bid_price,
@@ -881,7 +937,7 @@
 			          auction_item_id
 			    ) ati ON at.id = ati.auction_item_id
 			WHERE
-			    at.user_seller_id = #{userSellerId}
+			    at.user_seller_id = #{userSellerId} -->
 	</select>
 	
 	
@@ -919,6 +975,11 @@
 		       CASE WHEN akp.partner_order_id IS NOT NULL THEN 'Yes' ELSE 'No' END AS payment_exists
 			FROM auction_item_bid_request bt
 			JOIN auction_item at ON bt.auction_item_id = at.id
+      		JOIN (
+			    SELECT auction_item_id, MAX(bid_price) AS max_bid_price  
+			    FROM auction_item_bid_request
+			    GROUP BY auction_item_id
+			) max_bt ON bt.auction_item_id = max_bt.auction_item_id AND bt.bid_price = max_bt.max_bid_price     
 			LEFT JOIN auction_kakao_payment akp ON bt.id = akp.partner_order_id
 			WHERE at.user_seller_id = #{userSellerId}
 			AND at.auction_status = '종료'
@@ -926,7 +987,7 @@
 			    SELECT MAX(bid_price)
 			    FROM auction_item_bid_request
 			    GROUP BY auction_item_id
-			) ORDER BY at.end_date DESC	
+			) ORDER BY at.end_date DESC	 
 	</select>
 	
 	
@@ -945,6 +1006,11 @@
 		    product_sub_category psc ON at.auction_sub_category_id = psc.id
 		JOIN
 		    product_main_category pmc ON psc.product_main_category_id = pmc.id
+   		JOIN (
+			    SELECT auction_item_id, MAX(bid_price) AS max_bid_price  
+			    FROM auction_item_bid_request
+			    GROUP BY auction_item_id
+			) max_bt ON bt.auction_item_id = max_bt.auction_item_id AND bt.bid_price = max_bt.max_bid_price             
 		JOIN
 		    (
 		        SELECT
@@ -992,6 +1058,11 @@
 			    product_sub_category psc ON at.auction_sub_category_id = psc.id
 			JOIN
 			    product_main_category pmc ON psc.product_main_category_id = pmc.id
+			JOIN (
+			    SELECT auction_item_id, MAX(bid_price) AS max_bid_price  
+			    FROM auction_item_bid_request
+			    GROUP BY auction_item_id
+			) max_bt ON bt.auction_item_id = max_bt.auction_item_id AND bt.bid_price = max_bt.max_bid_price     			    
 			JOIN
 			    (
 			        SELECT
@@ -1021,53 +1092,6 @@
 			        GROUP BY
 			            auction_item_id
 			    ) ORDER BY at.end_date DESC
-	
-	
-	
-<!-- 		SELECT
-		    bt.id, bt.auction_item_id, bt.user_buyer_id, ut.nickname,
-		    pmc.main_category_name, psc.sub_category_name, at.title,
-		    bt.bid_price, at.end_date, ati.auction_item_img_link, akp.reg_date AS payment_reg_date,
-        dt.reg_date AS delivery_reg_date,
-         CASE WHEN dt.partner_order_id IS NOT NULL THEN 'Yes' ELSE 'No' END AS delivery_exists,
-		    CASE WHEN akp.partner_order_id IS NOT NULL THEN 'Yes' ELSE 'No' END AS payment_exists
-		FROM
-		    auction_item_bid_request bt
-		JOIN
-		    auction_item at ON bt.auction_item_id = at.id
-		JOIN
-		    product_sub_category psc ON at.auction_sub_category_id = psc.id
-		JOIN
-		    product_main_category pmc ON psc.product_main_category_id = pmc.id
-		JOIN
-		    (
-		        SELECT
-		            auction_item_id,
-		            MIN(auction_item_img_link) AS auction_item_img_link
-		        FROM
-		            auction_item_img
-		        GROUP BY
-		            auction_item_id
-		    ) ati ON at.id = ati.auction_item_id
-		LEFT JOIN
-			    auction_kakao_payment akp ON bt.id = akp.partner_order_id
-	    LEFT JOIN 
-	        	auction_delivery_after_payment dt ON bt.id = dt.partner_order_id
-			JOIN
-			    user_table ut ON bt.user_buyer_id = ut.id
-			WHERE
-			    at.user_seller_id = #{userSellerId}
-			    AND at.auction_status = '종료'
-			    AND bt.bid_price IN (
-			        SELECT
-			            MAX(bid_price)
-			        FROM
-			            auction_item_bid_request
-			        GROUP BY
-			            auction_item_id
-			    ) ORDER BY at.end_date DESC -->
-	
-	
 	</select>
 	
 	
@@ -1162,6 +1186,26 @@
 	</select>
 
 
+
+
+	  <!--  메인 페이지 -->
+	  
+	  
+	  <!--  곧 마감 되는 경매 내림차순 정렬 6개 -->
+	  <select id="deadlineApproachingAuctonList" resultType="com.ja.safari.dto.AuctionItemDto">
+		  SELECT 
+			  ROWNUM, at.*
+			  FROM
+			    (
+			    SELECT * 
+			    	FROM 
+			    	auction_item 
+				    WHERE auction_status = '진행중'
+				    ORDER BY end_date) at
+				     <![CDATA[		
+				  	WHERE ROWNUM <= 6
+				     ]]>
+	  </select>
 
 
 

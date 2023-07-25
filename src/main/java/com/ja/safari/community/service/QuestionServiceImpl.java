@@ -11,10 +11,15 @@ import org.springframework.stereotype.Service;
 
 import com.ja.safari.community.mapper.CommunitySqlMapper;
 import com.ja.safari.community.mapper.QuestionSqlMapper;
+import com.ja.safari.dto.PromotionReviewDto;
+import com.ja.safari.dto.PromotionReviewImgDto;
+import com.ja.safari.dto.PromotionReviewLikeDto;
+import com.ja.safari.dto.ProreviewRentalCategoryDto;
 import com.ja.safari.dto.QuestionDto;
 import com.ja.safari.dto.QuestionImgDto;
 import com.ja.safari.dto.QuestionLikeDto;
 import com.ja.safari.dto.QuestionReplyDto;
+import com.ja.safari.dto.RecruitDto;
 import com.ja.safari.dto.UserCoinDto;
 import com.ja.safari.dto.UserDto;
 import com.ja.safari.user.mapper.UserSqlMapper;
@@ -78,6 +83,32 @@ public class QuestionServiceImpl {
 		
 		return questionSqlMapper.getQuestionBoardCount();
 	}
+	
+	//궁금해요 게시물 전체 커뮤 메인페이지 조회
+public List<Map<String, Object>> selectAllQuestionMainBoards() {
+		
+		List<Map<String, Object>> questionBoardList = new ArrayList<>();
+		
+		List<QuestionDto> questionDtoList = questionSqlMapper.selectAllQuestionMainBoards();
+		
+		for(QuestionDto questionDto : questionDtoList) {
+			
+			Map<String, Object> map = new HashMap<>();
+			
+			UserDto userDto = userSqlMapper.selectUserDtoById(questionDto.getUser_id());
+			
+			int questionLikeCount = questionSqlMapper.getQuestionLikeCountByBoardId(questionDto.getId());
+			
+			map.put("questionDto", questionDto);
+			map.put("userDto", userDto);
+			map.put("questionLikeCount", questionLikeCount);
+			
+			questionBoardList.add(map);
+		}
+		
+		return questionBoardList;
+	}
+	
 	
 	//궁금해요 메인페이지 전체 조회
 	public List<Map<String, Object>> getQuestionBoardList(int questionPageNum, String question_searchType, String question_searchWord){
@@ -167,6 +198,7 @@ public class QuestionServiceImpl {
 		int questionReplyCount = questionSqlMapper.selectAllQuestionReplyCountByBoardId(question_id);
 		return questionReplyCount;
 	}
+	
 	
 	
 	//궁금해요 게시물 답변 전체 조회
@@ -310,6 +342,28 @@ public class QuestionServiceImpl {
 		
 	}
 	
+	// 궁금해요 게시물 최신순 정렬
+	public List<Map<String, Object>> newPostByQuestion(int sessionId) {
+		
+		List<QuestionDto> newPostQuestionList = questionSqlMapper.newPostByQuestion();
+		
+		List<Map<String, Object>> newPostByQuestionList = new ArrayList<>();
+		
+		for(QuestionDto questionDto : newPostQuestionList) {
+			Map<String, Object> map = new HashMap<>();
+						
+			UserDto userDto = userSqlMapper.selectUserDtoById(questionDto.getUser_id());
+				
+			map.put("userDto", userDto);
+			map.put("questionDto", questionDto);
+
+			newPostByQuestionList.add(map);
+
+			
+		}		
+		
+		return newPostByQuestionList;
+	}
 	
 	
 //	public  void  getRegisterHelpBoardList() {

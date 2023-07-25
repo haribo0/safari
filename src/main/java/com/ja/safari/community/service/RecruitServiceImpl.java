@@ -5,11 +5,16 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ja.safari.community.mapper.CommunitySqlMapper;
 import com.ja.safari.community.mapper.RecruitSqlMapper;
+import com.ja.safari.dto.PromotionReviewDto;
+import com.ja.safari.dto.PromotionReviewImgDto;
+import com.ja.safari.dto.PromotionReviewLikeDto;
+import com.ja.safari.dto.ProreviewRentalCategoryDto;
 import com.ja.safari.dto.RecruitDto;
 import com.ja.safari.dto.RecruitImgLinkDto;
 import com.ja.safari.dto.RecruitLikeDto;
@@ -52,11 +57,11 @@ public class RecruitServiceImpl {
 	
 	
 	//구인구직 게시물 전체조회 //좋아요 count 추가 
-	public List<Map<String, Object>> selectAllRecruitBoards() {
+	public List<Map<String, Object>> selectAllRecruitBoards(int recruitPageNum, String recruit_searchType, String recruit_searchWord) {
 		
 		List<Map<String, Object>> recruitBoardList = new ArrayList<>();
 		
-		List<RecruitDto> recruitDtoList = recruitSqlMapper.selectAllRecruitBoards();
+		List<RecruitDto> recruitDtoList = recruitSqlMapper.selectAllRecruitBoards(recruitPageNum, recruit_searchType, recruit_searchWord);
 		
 		for(RecruitDto recruitDto : recruitDtoList) {
 			
@@ -74,6 +79,12 @@ public class RecruitServiceImpl {
 		}
 		
 		return recruitBoardList;
+	}
+	
+	//구인구직 게시물 개수 count
+	public int getRecruitBoardCount() {
+		
+		return recruitSqlMapper.getRecruitBoardCount();
 	}
 	
 	
@@ -149,6 +160,28 @@ public class RecruitServiceImpl {
 		return RecruitBoardLikeCount;
 	}
 	
+	
+	// 구인구직 게시물 최신순
+		public List<Map<String, Object>> newPostByRecruit(int sessionId) {
+		
+		List<RecruitDto> newPostRecruitList = recruitSqlMapper.newPostByRecruit();
+		
+		List<Map<String, Object>> newPostByRecruitList = new ArrayList<>();
+		
+		for(RecruitDto recruitDto : newPostRecruitList) {
+			Map<String, Object> map = new HashMap<>();
+						
+			UserDto userDto = userSqlMapper.selectUserDtoById(recruitDto.getUser_id());
+				
+				map.put("userDto", userDto);
+				map.put("recruitDto", recruitDto);
+
+				newPostByRecruitList.add(map);
+			
+		}		
+		
+		return newPostByRecruitList;
+	}
 	
 	//골라줘요 AJAX 좋아요
 	public void toggleLike(RecruitLikeDto recruitLikeDto) {
