@@ -2,6 +2,9 @@ package com.ja.safari.community.mapper;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
+import com.ja.safari.dto.HelpDto;
 import com.ja.safari.dto.PickCommentDto;
 import com.ja.safari.dto.PickDto;
 import com.ja.safari.dto.PickLikeDto;
@@ -29,6 +32,9 @@ public interface RecruitSqlMapper {
 	//구인구직 게시물 이미지 게시물 아이디로 조회
 	public List<RecruitImgLinkDto> selectRecruitBoardImageByRecruitId(int recruit_id);
 	
+	//구인구직 게시물 개수 count
+	public int getRecruitBoardCount();
+	
 	//구인구직 게시물 삭제
 	public void deleteRecruitBoard(int id);
 
@@ -36,7 +42,8 @@ public interface RecruitSqlMapper {
 	public void updateRecruitBoard(RecruitDto recruitDto);
 	
 	//구인구직 게시물 전체조회
-	public List<RecruitDto> selectAllRecruitBoards();
+	//public List<RecruitDto> selectAllRecruitBoards();
+	public List<RecruitDto> selectAllRecruitBoards(@Param("recruitPage") int recruitPage, @Param("recruit_searchType") String recruit_searchType, @Param("recruit_searchWord") String recruit_searchWord);
 	
 	//구인구직 게시물 아이디로 선택
 	public RecruitDto getRecruitBoardById(int id);

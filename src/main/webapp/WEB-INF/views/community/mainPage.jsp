@@ -24,7 +24,7 @@
 		<div class = "col-auto">
 				<h1 class="text-start fs-3 fw-semibold ">
 					<b>커뮤니티</b>
-				</h1>			
+				</h1>			 
 			</div>
 			
 			<div class = "col mx-3 d-flex align-items-center">

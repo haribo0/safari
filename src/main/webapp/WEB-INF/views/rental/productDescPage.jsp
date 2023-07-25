@@ -182,11 +182,11 @@ progress::-webkit-progress-value {
 					</div>
 				</div>
 				
-				<div class="row justify-content-between">
+				<div class="row justify-content-between" style="margin-top: 3px;">
 					<div class="col">
 						<h3>${data.rentalItemDto.title}</h3>				
 					</div>
-					<div class="col d-flex justify-content-end">
+					<div class="col-3 d-flex justify-content-end">
 						<div class="row">
 							<div class="col">
 								<div style="height: 26px;">
@@ -227,8 +227,8 @@ progress::-webkit-progress-value {
 						  </c:choose>
 						</c:forEach>
 				    </div>
-				    <div class="col">
-				    	<span style="font-weight: 900; font-size: 14px; color: #f68a42">${reviewCount.total_review_count}개 리뷰</span>
+				    <div class="col ps-0">
+				    	<span style="font-weight: 900; font-size: 14px; color: #f68a42">리뷰 ${reviewCount.total_review_count}개</span>
 				    </div>
 			    </div>
 			    

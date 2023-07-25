@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -56,11 +57,11 @@ public class RecruitServiceImpl {
 	
 	
 	//구인구직 게시물 전체조회 //좋아요 count 추가 
-	public List<Map<String, Object>> selectAllRecruitBoards() {
+	public List<Map<String, Object>> selectAllRecruitBoards(int recruitPageNum, String recruit_searchType, String recruit_searchWord) {
 		
 		List<Map<String, Object>> recruitBoardList = new ArrayList<>();
 		
-		List<RecruitDto> recruitDtoList = recruitSqlMapper.selectAllRecruitBoards();
+		List<RecruitDto> recruitDtoList = recruitSqlMapper.selectAllRecruitBoards(recruitPageNum, recruit_searchType, recruit_searchWord);
 		
 		for(RecruitDto recruitDto : recruitDtoList) {
 			
@@ -78,6 +79,12 @@ public class RecruitServiceImpl {
 		}
 		
 		return recruitBoardList;
+	}
+	
+	//구인구직 게시물 개수 count
+	public int getRecruitBoardCount() {
+		
+		return recruitSqlMapper.getRecruitBoardCount();
 	}
 	
 	
