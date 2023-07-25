@@ -651,7 +651,11 @@ public class UsedServiceImpl {
 		productChatDto.setPurchase_request_id(requestId);
 		productChatDto.setSender_id(id);
 		productChatDto.setReceiver_id(productRequestDto.getUser_id());
-		productChatDto.setContent("송금 요청 메시지가 도착했습니다.\n\n- 요청 금액 : "+productDto.getPrice()+"원\n\n상단에 있는 송금하기를 클릭하여 빠르게\n 송금하세요!");
+		DecimalFormat decimalFormat = new DecimalFormat("#,###");
+
+		// price 값을 천단위마다 쉼표를 찍어서 문자열로 변환
+		String formattedPrice = decimalFormat.format(productDto.getPrice());
+		productChatDto.setContent("송금 요청 메시지가 도착했습니다.\n\n- 요청 금액 : "+formattedPrice+"원\n\n상단에 있는 송금하기를 클릭하여 빠르게\n 송금하세요!");
 		usedSqlMapper.insertProductChat(productChatDto);
 	}
 	 
@@ -680,7 +684,11 @@ public class UsedServiceImpl {
 			productChatDto.setPurchase_request_id(requestId);
 			productChatDto.setSender_id(userCoinDto.getUser_id());
 			productChatDto.setReceiver_id(productDto.getUser_id());
-			productChatDto.setContent("입금 완료 메시지가 도착했습니다.\n\n- 입금된 금액 : "+productDto.getPrice()+"원\n\n자세한 코인 내역은 마이페이지-코인관리에서 확인 가능합니다.");
+			DecimalFormat decimalFormat = new DecimalFormat("#,###");
+
+			// price 값을 천단위마다 쉼표를 찍어서 문자열로 변환
+			String formattedPrice = decimalFormat.format(productDto.getPrice());
+			productChatDto.setContent("입금 완료 메시지가 도착했습니다.\n\n- 입금된 금액 : "+formattedPrice+"원\n\n자세한 코인 내역은 마이페이지-코인관리에서 확인 가능합니다.");
 			usedSqlMapper.insertProductChat(productChatDto);
 		}
 	}
@@ -714,19 +722,23 @@ public class UsedServiceImpl {
 			ProductSubCategoryDto subCategoryDto = usedSqlMapper.selectProductSubCategoryById(productDto.getProduct_sub_category());
 			map.put("productDto", productDto);
 			map.put("reservationCount", usedSqlMapper.countProductRequestReservation(productId));
-			map.put("completeCount", usedSqlMapper.countProductRequestByProductId(productId));
+			map.put("completeCount", usedSqlMapper.countProductRequestComplete(productId));
 			map.put("usedPurchaseReviewDto", usedSqlMapper.selectProductReviewByproductIdAndSenderId(productId, userId));
-			map.put("productImgDto", usedSqlMapper.countProductRequestComplete(productId));
+			map.put("productImgDto", usedSqlMapper.selectProductImg(productId));
 			map.put("productTownDto", usedSqlMapper.selectProductTownById(townId));
 			map.put("productCityDto", usedSqlMapper.selectProductCityByTownId(townId));
 			map.put("productSubCategoryDto", subCategoryDto);
 			map.put("productMainCategoryDto", usedSqlMapper.selectProductMainbCategoryById(subCategoryDto.getProduct_main_category_id()));
+			map.put("productRequestDto", usedSqlMapper.selectProductRequestByProductIdAndStatus(productId));
 			list.add(map);
 		}
 		return list;
 	}
 	 
-	 
+	 // 마이페이지 내 판매리스트(예약중 -> 거래요청으로 변경)
+	public void updateProductRequestStatusByproductId(Integer productId) {
+		usedSqlMapper.updateProductRequestStatusByproductId(productId);
+	}
 	 
 	 
 	 
