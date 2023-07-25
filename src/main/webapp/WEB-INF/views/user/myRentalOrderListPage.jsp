@@ -21,6 +21,11 @@
 .btnMyReview:hover {
 	background: #e1732a !important;
 }
+.review-reply {
+  background-color: #f5f5f5;
+  border-radius: 10px;
+  position: relative;
+}
 </style>
 </head>
 <body>
@@ -73,8 +78,8 @@
 						</div>
 						<div class="row">
 							<div class="col pt-2 pb-0 d-flex justify-content-between">
-								<small class="text-secondary">&#x2514; 남은 개월수 </small>
-								<p class="mb-0">( * ) <span class="regiMonthP"></span>개월</p>
+								<small class="text-secondary">&#x2514; 사용 개월수 </small>
+								<p class="mb-0">( * ) <span class="usedMonthP"></span>개월</p>
 							</div>
 						</div>
 						<div class="row mt-3 border-top">
@@ -169,20 +174,20 @@
 			</div>
 			
 			<div class="row mt-3" style="border-top: 2px solid #919191; border-bottom: 1px solid #919191; background: #f7f7f7;">
-				<div class="col text-center">
-					<p class="mb-0 py-3 fw-bold">진행상태</p>
+				<div class="col-1 text-center">
+					<p class="mb-0 py-3 fw-bold">주문번호</p>
 				</div>
-				<div class="col-4 text-center">
+				<div class="col-6 text-center">
 					<p class="mb-0 py-3 fw-bold">상품정보</p>
 				</div>
 				<div class="col text-center">
 					<p class="mb-0 py-3 fw-bold">월 대여비</p>
 				</div>
 				<div class="col text-center">
-					<p class="mb-0 py-3 fw-bold">주문일자</p>
+					<p class="mb-0 py-3 fw-bold">주문상태</p>
 				</div>
 				<div class="col text-center">
-					<p class="mb-0 py-3 fw-bold">접수 및 기타</p>
+					<p class="mb-0 py-3 fw-bold"></p>
 				</div>
 			</div>
 			
@@ -197,38 +202,12 @@
 					<c:forEach items="${rentalOrderDtoList}" var="data">
 						<li class="list-group-item  py-4 border-0 border-bottom listHover">
 							<div class="row">
-														
-								<div class="col d-flex justify-content-center align-items-center">
-								<c:choose>
-										<c:when test="${data.isCompleted == 'Y'}">
-											<span class="btn-finished mb-0">대여종료</span>				
-									    </c:when>
-									    
-										<c:when test="${data.rentalItemReturnDto.is_item_returned == 'N'}">
-											<span class="btn-finished mb-0">회수중</span>				
-									    </c:when>
-									    
-									    <c:when test="${data.rentalItemReturnDto.is_item_returned == 'Y'}">
-											<span class="btn-finished mb-0">정산중</span>				
-									    </c:when>
-									    
-									    
-										<c:otherwise>
-											<c:choose>
-												<c:when test="${data.orderedItem.is_shipped == 'N' }">
-													<span class="btn-shipping mb-0">주문완료</span>										
-												</c:when>
-												<c:when test="${data.orderedItem.is_shipped == 'Y'}">
-													<span class="btn-ordered mb-0">대여중</span>
-												</c:when>
-											</c:choose>
-										</c:otherwise>
-									    
-									</c:choose>
+								<div class="col-1 d-flex justify-content-center align-items-center">
+									<p class="mb-0">${data.orderedItem.id }</p>
+									<%-- <p class="mb-0"><fmt:formatDate value="${data.orderedItem.reg_date}" pattern="yyyy-MM-dd" /></p> --%>
 								</div>
-
 								
-								<div class="col-4 d-flex justify-content-center align-items-center">
+								<div class="col-6 d-flex justify-content-center align-items-center">
 									<div class="row">
 										<div class="col-3 d-flex align-items-center" >
 											<a href="${pageContext.request.contextPath}/rental/productDescPage?id=${data.product.id}">
@@ -237,21 +216,46 @@
 										</div>
 										<div class="col">
 										<a href="${pageContext.request.contextPath}/rental/productDescPage?id=${data.product.id}">
-											<p class="mb-0"><small>${data.rentalBusinessDto.business_name}</small></p>
-											<p class="mb-1 fw-bold">${data.product.title }</p>
-											<p class="text-body-secondary" style="font-size: 15px;"><span><fmt:formatDate pattern="yyyy-MM-dd" value="${data.orderedItem.start_date }" /></span><span> ~ <fmt:formatDate pattern="yyyy-MM-dd" value="${data.orderedItem.end_date }" /></span></p>
+											<p class="mb-0 text-secondary"><small>${data.rentalBusinessDto.business_name}</small></p>
+											<p class="mb-2 fs-5" >${data.product.title }</p>
+											<p class="mb-0" style="font-size: 15px;">대여기간 <fmt:formatDate pattern="yyyy-MM-dd" value="${data.orderedItem.start_date }" /> - <fmt:formatDate pattern="yyyy-MM-dd" value="${data.orderedItem.end_date }" /></p>	
 										</a>
 										</div>
 									</div>
 								</div>
 								
 								<div class="col d-flex justify-content-center align-items-center">
-									<p class="mb-0"><fmt:formatNumber value="${data.orderedItem.price }" pattern="#,##0" />원 <small>/월</small></p>
+									<p class="mb-0"><span class="fw-bold"><fmt:formatNumber value="${data.orderedItem.price }" pattern="#,##0" />원</span> <small>/월</small></p>
 								</div>
-
-															
+								
+																						
 								<div class="col d-flex justify-content-center align-items-center">
-									<p class="mb-0"><fmt:formatDate value="${data.orderedItem.reg_date}" pattern="yyyy-MM-dd" /></p>
+								<c:choose>
+										<c:when test="${data.isCompleted == 'Y'}">
+											<span class="mb-0">대여종료</span>				
+									    </c:when>
+									    
+										<c:when test="${data.rentalItemReturnDto.is_item_returned == 'N'}">
+											<span class="mb-0">회수중</span>				
+									    </c:when>
+									    
+									    <c:when test="${data.rentalItemReturnDto.is_item_returned == 'Y'}">
+											<span class="mb-0">정산중</span>				
+									    </c:when>
+									    
+									    
+										<c:otherwise>
+											<c:choose>
+												<c:when test="${data.orderedItem.is_shipped == 'N' }">
+													<span class="mb-0">주문완료</span>										
+												</c:when>
+												<c:when test="${data.orderedItem.is_shipped == 'Y'}">
+													<span class="mb-0 fw-bold" style="color: #f68a42">대여중</span>
+												</c:when>
+											</c:choose>
+										</c:otherwise>
+									    
+									</c:choose>
 								</div>
 								
 								<div class="col d-flex justify-content-center align-items-center">
@@ -259,10 +263,10 @@
 										<div class="col">
 											<c:choose>
 											    <c:when test="${data.isCompleted == 'Y' && data.myReviewCount == 0}">
-											        <button type="button" class="btn btn-outline-dark my-2" data-order-id="${data.orderedItem.id}" data-bs-toggle="modal" data-bs-target="#modalReview">대여리뷰작성</button>																				
+											        <button type="button" class="btn btn-outline-dark my-2 p-1" style="font-size:13px;" data-order-id="${data.orderedItem.id}" data-bs-toggle="modal" data-bs-target="#modalReview">대여리뷰작성</button>																				
 											    </c:when>
 											    <c:when test="${data.isCompleted == 'Y' && data.myReviewCount >= 1}">
-											        <button class="btn my-2 btnMyReview" onclick="placeReviewDate(${data.orderedItem.id})" style="background:#f68a42; color: #fff; border: none;">내가쓴리뷰</button>																				
+											        <button class="btn btn-outline-dark my-2 p-1" onclick="placeReviewDate(${data.orderedItem.id})" style="font-size:13px;">내가 쓴 리뷰</button>																				
 											    </c:when>
 											    
 											    
@@ -270,17 +274,17 @@
 											    <c:when test="${data.isCompleted != 'Y'}">
 											        <c:choose>
 											            <c:when test="${data.orderedItem.is_shipped != 'Y'}">
-											                <button type="button" class="btn btn-outline-secondary" disabled>배송중</button>
+											                <button type="button" class="btn btn-outline-secondary p-1" style="font-size:13px;" disabled>배송중</button>
 											            </c:when>
 											            
 									            		<c:when test="${data.rentalItemReturnDto.is_item_returned == 'N' && data.isCompleted == 'N' }">
-									            			<button type="button" class="btn btn-outline-secondary" disabled>회수중</button>
+									            			<button type="button" class="btn btn-outline-secondary p-1" style="font-size:13px;" disabled>회수중</button>
 									            		</c:when>
 											            		
 											            <c:otherwise>
 											            	<c:choose>
 											            		<c:when test="${data.rentalItemReturnDto.is_item_returned != 'Y'}">
-													                <button type="button" class="btn btn-primary" 
+													                <button type="button" class="btn btn-outline-dark p-1" style="font-size:13px;"
 													                	data-image-link="${data.product.main_img_link}" 
 													                	data-product-title="${data.product.title}" 
 													                	data-order-id="${data.orderedItem.id}" 
@@ -296,7 +300,7 @@
 											            		</c:when>
 											            		
 											            		<c:when test="${data.rentalItemReturnDto.is_item_returned == 'Y' && data.isCompleted != 'Y' }">
-											            			<button type="button" class="btn btn-outline-secondary" disabled>최종 정산중</button>
+											            			<button type="button" class="btn btn-outline-secondary p-1" style="font-size:13px;" disabled>최종 정산중</button>
 											            		</c:when>
 											            		
 											            		<c:otherwise>
@@ -324,24 +328,52 @@
     <div class="modal-content">
       <div class="modal-header">
      	 <div class="row mb-0">
-      			<div class="col ms-4 fs-5 fw-bold">
-      				<p class="reviewTitle"></p>
+      			<div class="col fs-5 fw-bold">
+      				<p class="mb-0"><small class="text-secondary bussinessName"></small></p>
+      				<p class="mb-0 itemTitle"></p>
       			</div>
       	 </div>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div> 
       <div class="modal-body">
-      		<div class="row">
-      			<div class="col">
-      				<h1>ui변경중</h1>
-      				<p class="reviewDesc">테스트 리뷰</p>
+      	      
+	      <div id="testBox">
+	      
+	      </div>   
+<!--       		<div class="row px-2">
+      			<div class="col-2 bg-body-secondary d-flex justify-content-center align-items-center py-2 border-bottom">
+      				<p class="mb-0">제목</p>
+      			</div>
+      			<div class="col d-flex">
+      				<p class="reviewTitle"></p>
       			</div>
       		</div>
-      		<div class="row ratingBox">
+      		
+      		<div class="row px-2">
+      			<div class="col-2 bg-body-secondary d-flex justify-content-center align-items-center py-2">
+      				<p class="mb-0">내용</p>
+      			</div>
+      			<div class="col d-flex">
+      				<p class="reviewDesc"></p>
+      			</div>
       		</div>
+      		
+      		  <div class="row px-2">
+      			<div class="col-2 bg-body-secondary d-flex justify-content-center align-items-center py-2">
+      				<p class="mb-0">별점</p>
+      			</div>
+      			<div class="col">
+      				<div class="row" id="ratingBox">
+      			</div>
+      			</div>
+      		</div> -->
+      		
 	      <div class="modal-footer">
 	        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">창닫기</button>
-	      </div>     
+	      </div> 
+	      
+	      
+ 
 	  </div>
   </div>
 </div>
@@ -360,6 +392,7 @@
 	let discPrice
 	let finDiscPrice
 	let formattedDate
+	let userNickname
 	//로그인된 세션 초기화
 	let mySessionId = null;
 	// 세션가져오기
@@ -371,6 +404,7 @@
 				const response = JSON.parse(xhr.responseText);
 				if(response.result == "success"){
 					mySessionId = response.id; 
+					userNickname = response.nickname
 				}
 			}
 		}
@@ -476,11 +510,11 @@ if (modalReturn) {modalReturn.addEventListener('show.bs.modal', event => {
     returnPercentage = calcEarlyReturn(new Date(formattedStartedDate), new Date(formattedEndDate), new Date(formattedDate))
     
     console.log({returnPercentage})
-    if(returnPercentage < 90) {
+/*     if(returnPercentage < 90) {
     	alert('반납 진행됩니다!!')
     	window.location.href = "../rental/rentalReturnZeroProcess?rental_order_id="+orderId
     }
-	
+	 */
 	const returnDesc = document.querySelector(".return_desc")
 	returnDesc.innerHTML = ''
     const endRego = new Date();
@@ -502,11 +536,12 @@ if (modalReturn) {modalReturn.addEventListener('show.bs.modal', event => {
     let span = document.createElement('span')
     let modalTit = document.querySelector('.modal-tit')
     let originPriceVal = parseInt(originalPrice).toLocaleString('ko-KR')
-    let regiMonthP = document.querySelectorAll('.regiMonthP')
+    let regiMonthP = document.querySelector('.regiMonthP')
     let startDateP = document.querySelector('.startDateP')
     let endDateP = document.querySelector('.endDateP')
     let finPriceP = document.querySelector('.finPriceP')
     let usedPriceP = document.querySelector('.usedPriceP')
+    let usedMonthP = document.querySelector('.usedMonthP')
     let modalTopImage = document.querySelector('.modalTopImage')
     let minusPriceP = document.querySelector('.minusPriceP')
     
@@ -517,8 +552,9 @@ if (modalReturn) {modalReturn.addEventListener('show.bs.modal', event => {
     
     modalTit.innerText = productTitle
     usedPriceP.innerText = parseInt(price).toLocaleString()
-    regiMonthP[0].innerText = regiMonth
-    regiMonthP[1].innerText = regiMonth
+    regiMonthP.innerText = regiMonth
+    usedMonthP.innerText = calcMonth
+    //regiMonthP[1].innerText = regiMonth
     startDateP.innerText = formattedStartedDate
     endDateP.innerText = formattedEndDate
     minusPriceP.innerText = calcedPrice.toLocaleString()
@@ -598,19 +634,159 @@ function placeReviewDate(id) {
 			const response = JSON.parse(xhr.responseText);
 			if(response.result == "success"){
 				let rentalReviewDto = response.rentalReviewDto
-				console.log(rentalReviewDto.rental_review_title)
+				let rentalItemDto = response.rentalItemDto
+/* 				console.log(rentalReviewDto.rental_review_title)
 				console.log(rentalReviewDto.rental_review_content)
 				console.log(rentalReviewDto.rental_review_rating)
-				console.log(rentalReviewDto.reg_date)
+				console.log(rentalReviewDto.reg_date) */
+				console.log(rentalItemDto)
 				
 				showMyReview()
-				let reviewTitle = document.querySelector('.reviewTitle')
-				let reviewDesc = document.querySelector('.reviewDesc')
-				let ratingBox = document.querySelector('.ratingBox')
 				
+/* 				let reviewTitle = document.querySelector('.reviewTitle')
+				let reviewDesc = document.querySelector('.reviewDesc')
+				let ratingBox = document.querySelector('#ratingBox')
+				let itemTitle = document.querySelector('.itemTitle')
+				let bussinessName = document.querySelector('.bussinessName') */
+				let testBox = document.querySelector('#testBox')
+				
+				/* 별점 */
+/* 				bussinessName.innerText = rentalItemDto.rentalBusinessDto.business_name
+				itemTitle.innerText = rentalItemDto.rentalItemDto.title
 				reviewTitle.innerText = rentalReviewDto.rental_review_title
-				reviewDesc.innerText = rentalReviewDto.rental_review_content
-				ratingBox.innerText = rentalReviewDto.rental_review_rating
+				reviewDesc.innerText = rentalReviewDto.rental_review_content */
+				
+				/* const ratingCol = document.createElement("div");
+				ratingCol.classList.add("col");
+				for (let i = 0; i < 5; i++) {
+				  const starIcon = document.createElement("i");
+					  starIcon.style.color = '#f68a42'
+				  if(i < rentalReviewDto.rental_review_rating) {
+					  starIcon.classList.add("bi", "bi-star-fill", "small-icon");
+				  } else {
+					  starIcon.classList.add("bi", "bi-star", "small-icon");
+				  }
+				  ratingCol.appendChild(starIcon);
+				}
+				ratingBox.appendChild(ratingCol); */
+				
+				/* test */
+
+				
+					testBox.innerHTML = ''
+					// Create the card element
+					const card = document.createElement("div");
+					card.classList.add("card", "mb-3");
+
+					// Create the card body
+					const cardBody = document.createElement("div");
+					cardBody.classList.add("card-body");
+
+					// Create the row for review title
+					const titleRow = document.createElement("div");
+					titleRow.classList.add("row");
+					const titleCol = document.createElement("div");
+					titleCol.classList.add("col", "fs-5", "fw-normal");
+					titleCol.textContent = rentalReviewDto.rental_review_title;
+					titleRow.appendChild(titleCol);
+
+					// Create the row for user info
+					const userInfoRow = document.createElement("div");
+					userInfoRow.classList.add("row");
+					const userIdCol = document.createElement("div");
+					userIdCol.classList.add("col", "fs-6", "fw-light", "text-secondary");
+					userIdCol.textContent = userNickname; 
+					const dateCol = document.createElement("div");
+					dateCol.classList.add("col", "fs-6", "fw-light", "text-secondary", "text-end");
+					const reviewDate = new Date(rentalReviewDto.reg_date);
+					const formattedDate = reviewDate.toLocaleDateString('en-US', {
+					  year: 'numeric',
+					  month: '2-digit',
+					  day: '2-digit',
+					});
+
+					dateCol.textContent = formattedDate;
+					userInfoRow.appendChild(userIdCol);
+					userInfoRow.appendChild(dateCol);
+
+					// Create the horizontal rule
+					const hr = document.createElement("hr");
+					hr.classList.add("border");
+					
+					const productInfoRow = document.createElement("div");
+					productInfoRow.classList.add("row");
+					const productNameCol = document.createElement("div");
+					productNameCol.classList.add("col", "text-secondary", "fw-light");
+					productNameCol.textContent = rentalItemDto.title;
+					productInfoRow.appendChild(productNameCol);
+
+					// Create the row for star rating
+					const ratingRow = document.createElement("div");
+					ratingRow.classList.add("row");
+					const ratingCol = document.createElement("div");
+					ratingCol.classList.add("col");
+					for (let i = 0; i < 5; i++) {
+					  const starIcon = document.createElement("i");
+					  starIcon.style.color = '#f68a42'
+					  if(i < rentalReviewDto.rental_review_rating) {
+						  starIcon.classList.add("bi", "bi-star-fill", "small-icon");
+					  } else {
+						  starIcon.classList.add("bi", "bi-star", "small-icon");
+					  }
+					  ratingCol.appendChild(starIcon);
+					}
+					ratingRow.appendChild(ratingCol);
+
+					// Create the row for review content
+					const contentRow = document.createElement("div");
+					contentRow.classList.add("row", "mt-3", "mb-5", "fw-light");
+					const contentCol = document.createElement("div");
+					contentCol.classList.add("col");
+					contentCol.textContent =
+						rentalReviewDto.rental_review_content;
+					contentRow.appendChild(contentCol);
+
+					// Create the horizontal rule
+					const hr2 = document.createElement("hr");
+					hr2.classList.add("border");
+
+					// Create the row for reply section
+					const replyRow = document.createElement("div");
+					replyRow.classList.add("row", "mt-4");
+					const replyCol = document.createElement("div");
+					replyCol.classList.add("col", "fw-medium");
+					replyCol.textContent = "답글";
+					replyRow.appendChild(replyCol);
+					
+
+					// 답글 있을 경우 
+					// Create the row for review content
+					const replyBodyRow = document.createElement("div");
+					replyBodyRow.classList.add("row", "mt-3", "mb-5", "fw-light");
+
+					const replyBodyCol = document.createElement("div");
+					replyBodyCol.classList.add("col", "review-reply", "p-3", "mx-3");
+					replyBodyCol.textContent =rentalReviewDto.rental_reply_review;
+					replyBodyRow.appendChild(replyBodyCol);
+					
+
+					// Append all elements to the productBox
+					cardBody.appendChild(titleRow);
+					cardBody.appendChild(userInfoRow);
+					cardBody.appendChild(hr);
+					cardBody.appendChild(productInfoRow);
+					cardBody.appendChild(ratingRow);
+					cardBody.appendChild(contentRow);
+					cardBody.appendChild(hr2);
+					cardBody.appendChild(replyRow);
+					if(rentalReviewDto.rental_reply_review != null ) {
+						cardBody.appendChild(replyBodyRow);
+					} 
+					card.appendChild(cardBody);
+					testBox.appendChild(card);
+				
+				
+				
 			}
 		}
 	}

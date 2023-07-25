@@ -90,6 +90,7 @@ public class UserRestController {
 		} else {
 			map.put("result", "success");
 			map.put("id", sessionUser.getId());
+			map.put("nickname", sessionUser.getNickname());
 		}
 
 		return map;
