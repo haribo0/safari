@@ -1805,9 +1805,12 @@ function getProductInformation(requestId) {
     	            row2col3Span.innerText = ' 거래완료';
     	            // 거래완료 버튼 누르면 해당 메소드 불러오기
     				row2col3Span.setAttribute("onclick", "productRequestStatusComplete("+requestId+")");
+    	            
 
     	            const row2col4 = document.createElement('div');
-    	            row2col4.classList.add('col');
+    	            row2col4.classList.add('col', 'text-end', 'fw-bold');
+    	            row2col4.innerHTML = '<span>1,200</span><img class="ms-1" alt="chatAds" src="/safari/resources/img/used/coin.png" width="23px" height="23px">';
+    	            
 
     	            row2.appendChild(row2col1);
     	            row2.appendChild(row2col2);
@@ -1847,6 +1850,7 @@ function getProductInformation(requestId) {
     	            row2col3Icon.classList.add('bi', 'bi-check-circle-fill');
     	            const row2col3Span = document.createElement('span');
     	            row2col3Span.innerText = ' 거래완료';
+    	            
     	         // 거래완료 버튼 누르면 해당 메소드 불러오기
     				row2col3Span.setAttribute("onclick", "productRequestStatusComplete("+requestId+")");
 
