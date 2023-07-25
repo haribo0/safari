@@ -25,7 +25,9 @@
 	/*color: #fcba03;*/
 	color:#ff6f0f;
 }
-
+* {
+    font-family: 'SUIT Variable', 'sans-serif';
+    }
 
 .text-like {
 	color: #FF7777;

@@ -335,7 +335,7 @@
 		      						</div>
 		      						<div class="col text-end mt-1">
 		      							<a href="/safari/user/myInquiryPostPage">
-		      							배송 관련 문의하기 <span style="font-size: 11px;"> ></span></a>
+		      							<span style="font-size: 14px">배송 관련 문의하기</span> <span style="font-size: 11px;"> ></span></a>
 		      						</div>
 		      					</div>
 		      					
