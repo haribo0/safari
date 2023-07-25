@@ -25,14 +25,10 @@
     animation: blink 1.5s infinite;
   }
 
-.shadowList {
-	
-
-}
-   .form-check-input:checked {
-    	border-color: black;
-       background-color: black; /* 원하는 색상으로 변경 */
-   }  
+  .form-check-input:checked {
+   	border-color: black;
+      background-color: black; /* 원하는 색상으로 변경 */
+  }  
 .overflow {
   white-space: nowrap; /* 텍스트를 한 줄로 표시 */
   overflow: hidden; /* 넘친 텍스트를 숨김 */
@@ -487,7 +483,7 @@ function reloadAuctionList(mainCategoryId, subCategoryId) {
 	            for(data of response.getAuctionList) {
  	
 	            	const col = document.createElement("div");
-	            	col.classList.add("col-3", "mb-5", "mb-2", "position-relative");
+	            	col.classList.add("col-3", "mb-5", "position-relative");
 	            	col.id = "col_" + data.auctionDto.id;
 	            	
 					
@@ -979,7 +975,7 @@ window.addEventListener("DOMContentLoaded", function(){
 		
 		<div class="row mt-4">
 		
-			<div class="col mb-3 d-flex justify-content-center" style="position: relative; right: 10px;">
+			<div class="col mb-3 d-flex justify-content-center" style="position: relative; right: 10px; font-size: 14px;">
 			
 			 <input class="form-check-input me-2" type="radio" id="radioStatus" name="radioStatus" value="" style="cursor:pointer";>
 			  <label class="form-check-label me-4" for="radioStatus">

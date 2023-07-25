@@ -119,7 +119,7 @@
 						<table class="table">
 							<thead>
 								<tr class="text-center">
-									<td class="custom-table-secondary">입찰상품정보</td>
+									<td class="custom-table-secondary" style="width: 540px">상품정보</td>
 									<td class="custom-table-secondary">내 입찰가</td>
 									<td class="custom-table-secondary">최고입찰가</td>
 									<td class="custom-table-secondary">입찰수</td>
@@ -167,7 +167,7 @@
 									<td class="align-middle text-center">
 										<span id="bidCount_${bidDto.id}"></span>
 									</td>
-									<td class="align-middle text-center" style="width: 160px">
+									<td class="align-middle text-center">
 										<span id="remainTime_${bidDto.id}"></span>
 									</td>
 									</tr>
