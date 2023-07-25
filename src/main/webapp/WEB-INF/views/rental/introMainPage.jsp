@@ -104,7 +104,7 @@
 				<a href="${pageContext.request.contextPath}/rental/mainPage/?main_category_id=2" class="btn">
 				<div class="row">
 					<div>
-						<img class="img-fluid" alt="" src="${pageContext.request.contextPath}/resources/img/rental/category/fan1.png">
+						<img class="img-fluid" alt="" src="${pageContext.request.contextPath}/resources/img/rental/category/fan2.png">
 					</div>
 				</div>
 				<div class="row mt-2 boxCategory">
