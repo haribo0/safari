@@ -2,7 +2,6 @@ package com.ja.safari.rental.mapper;
 
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
 
@@ -19,7 +18,6 @@ import com.ja.safari.dto.RentalReturnKakaopayApprove;
 import com.ja.safari.dto.RentalReviewCountDto;
 import com.ja.safari.dto.RentalReviewDto;
 import com.ja.safari.dto.RentalReviewImgDto;
-import com.ja.safari.dto.RentalReviewRatingCountDto;
 import com.ja.safari.dto.RentalSubCategoryDto;
 import com.ja.safari.dto.UserDto;
 import com.ja.safari.dto.RentalItemDto;
