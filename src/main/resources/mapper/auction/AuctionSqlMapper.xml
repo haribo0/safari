@@ -104,7 +104,7 @@
 			        WHEN '준비중' THEN 2 
 			        WHEN '종료' THEN 3 
 			    END,
-			    id DESC
+			    end_date
 	</select>
 	
 	<!--  경매 메인페이지에서 경매 리스트 조회 시 메인 이미지 하나 출력 (물품 종류에 관계없이 전체보기) -->
@@ -136,12 +136,25 @@
 			  FROM product_sub_category psc
 			  JOIN product_main_category pmc ON psc.product_main_category_id = pmc.id
 			  WHERE pmc.id = #{id})
-			  ORDER BY id DESC
+			  ORDER BY 
+			  	CASE auction_status 
+			        WHEN '진행중' THEN 1 
+			        WHEN '준비중' THEN 2 
+			        WHEN '종료' THEN 3 
+			    END,
+			  	end_date
 	</select>
 
 	<!--  경매 메인페이지에서 소규모 카테고리 클릭 시 그에 해당하는 경매 리스트 조회 -->
 	<select id="getAuctionListBySubCategory" resultType="com.ja.safari.dto.AuctionItemDto">
-		SELECT * FROM auction_item WHERE auction_sub_category_id = #{id} ORDER BY id DESC
+		SELECT * FROM auction_item WHERE auction_sub_category_id = #{id} 
+		ORDER BY 
+		CASE auction_status 
+		        WHEN '진행중' THEN 1 
+		        WHEN '준비중' THEN 2 
+		        WHEN '종료' THEN 3 
+		    END,
+		    end_date
 	</select>
 	
 	
@@ -160,7 +173,7 @@
 					</when>
 				</choose>
 			</if>
-			ORDER BY id DESC	
+			ORDER BY end_date
 	</select>
 
 

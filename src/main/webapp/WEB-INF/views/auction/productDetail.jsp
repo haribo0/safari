@@ -183,14 +183,19 @@ input[id="tab03"]:checked ~ .con3 {
 	 	<%-- 공간 시작 --%>
 	 	<div class="col-8">
 	 	
-	 	<c:if test="${!empty sessionUser }">
+	 	
 		 	<div class="row">
 		 		<div class="col fw-semibold" style="font-size: 18px">
-		 			<i class="bi bi-list-ul me-2"></i><span onclick="myBidListModal()" style="cursor:pointer;">내 입찰목록 실시간 확인</span>
+		 			<c:if test="${!empty sessionUser }">
+		 				<i class="bi bi-list-ul me-2"></i><span onclick="myBidListModal()" style="cursor:pointer;">내 입찰목록 실시간 확인</span>
+		 			</c:if>
+		 		</div>
+		 		<div class="col text-end" style="font-size: 17px">
+		 			<!-- <a href="/safari/auction/mainPage" class="fw-semibold">메인 페이지 이동</a> -->
 		 		</div>
 		 	</div> 
 	 	
-	 	</c:if>
+	 
 	 
 	 	<div class="row mt-3">
 	 	
