@@ -19,7 +19,7 @@
 			<div class="col">
 				<div class="row mt-5 fs-4 fw-bold">
 					<div class="col">
-						<a href="/safari/auction/mainPage">전체보기</a>
+						<a href="/safari/auction/List">전체보기</a>
 					</div>
 				</div>
 		

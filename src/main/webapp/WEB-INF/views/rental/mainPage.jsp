@@ -9,6 +9,8 @@
 <title>사파리 | 대여메인</title>
 <!-- 메타 섹션 -->
 <jsp:include page="../common/meta.jsp"></jsp:include>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css"/>
+<script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
 <!-- 메타 섹션 -->
 <style>
 .item-box-img, .item-box-img-ad{transition: 0.3s ease;}
@@ -24,6 +26,29 @@
 .boxCategory:hover {
 	box-shadow: 0px 2px 14px -2px rgba(0, 0, 0, 0.125);
 }
+    .swiper {
+      width: 100%;
+      height: 100%;
+    }
+
+    .swiper-slide {
+      text-align: center;
+      font-size: 18px;
+      background: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .swiper-slide img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .swiper-pagination-bullets {
+    display: none;
+}
 </style>
 </head>
 <body>
@@ -35,7 +60,7 @@
 		<div class="row">
  			<div class="col-2 mt-4">
 				<ul class="list-group" style="top: 115.23px; z-index: 50;">
-				  <li class="list-group-item border border-0 ps-0 pt-2 pb-0"><a href="${pageContext.request.contextPath}/rental/mainPage" class="btn ps-0 text fw-bold py-1" href="#" style="font-size: 17px;">전체보기</a></li>
+				  <li class="list-group-item border border-0 ps-0 pt-2 pb-0"><a href="${pageContext.request.contextPath}/rental/mainPage" class="btn ps-0 text fw-bold py-1" href="#" style="font-size: 18px;">전체보기</a></li>
 				  <c:forEach items="${categoryList}" var="map" varStatus="status">
 					  <li class="list-group-item border border-0 ps-0 pb-0 pt-3"><a href="${pageContext.request.contextPath}/rental/mainPage/?main_category_id=${map.categoryItem.id}" class="btn text fw-bold ps-0 py-1" style="font-size: 17px;">${map.categoryItem.main_category_name}</a></li>
 	  				  	<div class="" id="">
@@ -49,30 +74,9 @@
 				</ul>
 			</div>
 			
-			<div class="col">
-<!-- 				<div class="row">
-					<div class="col px-0">
-						<div id="carouselExample" class="carousel slide">
-						  <div class="carousel-inner">
-						    <div class="carousel-item active carousel-item carousel-item-1">
-						    </div>
-						    <div class="carousel-item carousel-item carousel-item-2">
-						    </div>
-						  </div>
-						  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
-						    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-						    <span class="visually-hidden">Previous</span>
-						  </button>
-						  <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
-						    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-						    <span class="visually-hidden">Next</span>
-						  </button>
-						</div>
-					</div>
-				</div> -->
-				
+			<div class="col-10">
 
-				<div class="row pb-2">
+				<div class="row mt-3">
 					<p class="mb-0 mt-3 ps-0 fs-5 fw-bold">파워광고상품</p>
 					<!-- <p class="mb-0 mt-3 ps-0"><i class="bi bi-badge-ad-fill fs-4" style="color: #f68a42; vertical-align: -2px;"></i> <span style="color: #000;" class="fw-bold">파워광고상품</span></p> -->
 				</div>
@@ -81,7 +85,7 @@
 				<div class="row flex justify-content-between pt-1 pb-3 my-2 mt-1">
 	 				<c:forEach items="${rentalItemList}" var="map" begin="0" end="5" step="1">
 						<div class="col-2 position-relative">
-							<div class="position-absolute px-2" style="top: 8px; right: 20px; background:#f68a42; color: #fff; border-radius: 24px; z-index: 50; font-size: 12px;">
+							<div class="position-absolute px-2" style="top: 8px; right: 14px; background:#B0DDFF; color: #fff; border-radius: 24px; z-index: 50; font-size: 12px;">
 								AD
 							</div>
 							<div class="card border border-0">
@@ -91,11 +95,26 @@
 							  <div class="card-body p-0 mt-2">
 								  <div class="row mt-1 descBox">
 									<div class="col">
-										<p class="text-secondary mb-0" style="font-size: 13px;">${map.rentalBusinessDto.business_name }</p>
-								    	<p class="text-dark mb-2"><a href="${pageContext.request.contextPath}/rental/productDescPage?id=${map.rentalItemDto.id}" class="text-decoration-none d-inline-block text-dark" style="font-size: 16px;">${map.rentalItemDto.title}</a></p>
-									    <p class="mb-0"><a href="${pageContext.request.contextPath}/rental/productDescPage?id=${map.rentalItemDto.id}" class="text-decoration-none d-inline-block text-dark" style="font-weight: 900; font-size: 18px;"><fmt:formatNumber value="${map.rentalItemDto.price}" pattern="#,##0" /> 원 </a><span style="font-size: 13px;">/ 월</span></p>
-										<p class="mb-0"><span style="font-size: 13px; color: #5a5a5a;"><i class="bi bi-heart"></i> </span><span class="fw-bold" style="font-size: 13px; color: #7e7e7e;">${map.itemLikeCount}</span> <span class="ms-1" style="font-size: 13px; color: #5a5a5a;"><i class="bi bi-chat"></i></span> <span class="fw-bold" style="font-size: 13px; color: #7e7e7e;">${map.itemReviewCount}</span></p>
-										<p class="mt-1"><span style="background: #e5e5e5; border-radius: 6px; font-size: 12px; padding: 3px 6px;">무료배송</span></p>								
+										<div class="text-secondary mb-0 row" style="font-size: 13px;">
+											<div class="col">${map.rentalBusinessDto.business_name }</div>
+										</div>
+								    	<div class="text-dark mb-2 row">
+								    		<a href="${pageContext.request.contextPath}/rental/productDescPage?id=${map.rentalItemDto.id}" class="text-decoration-none d-inline-block text-dark text-truncate" style="font-size: 16px;"><div class="col text-truncate">${map.rentalItemDto.title}</div></a>
+								    	</div>
+								    	
+									    <div class=" row mb-0">
+									    	<div class="col"><a href="${pageContext.request.contextPath}/rental/productDescPage?id=${map.rentalItemDto.id}" class="text-decoration-none d-inline-block text-dark" style="font-weight: 900; font-size: 18px;"><fmt:formatNumber value="${map.rentalItemDto.price}" pattern="#,##0" /> 원 </a><span style="font-size: 13px;">/ 월</span></div>
+									    </div>
+										<div class=" row mb-0">
+											<div class="col">
+												<span style="font-size: 13px; color: #5a5a5a;"><i class="bi bi-heart"></i> </span><span class="fw-bold" style="font-size: 13px; color: #7e7e7e;">${map.itemLikeCount}</span> <span class="ms-1" style="font-size: 13px; color: #5a5a5a;"><i class="bi bi-chat"></i></span> <span class="fw-bold" style="font-size: 13px; color: #7e7e7e;">${map.itemReviewCount}</span>
+											</div>
+										</div>
+										<div class="row mt-1">
+											<div class="col">
+												<span style="background: #e5e5e5; border-radius: 6px; font-size: 12px; padding: 3px 6px;">무료배송</span>
+											</div>
+										</div>								
 									</div>
 								</div>
 							
@@ -129,166 +148,157 @@
 				<div class="row mt-1 pb-2">
 					<p class="mb-0 mt-3 ps-0 fs-5 fw-bold">금주의 스페셜딜</p>
 				</div>
-				<div class="row">
+				<div class="row mt-2">
  					<div class="col ps-0" style="cursor: pointer;">
-						<img class="img-fluid rounded-2" alt="" src="${pageContext.request.contextPath}/resources/img/rental/b1.png">
+						<img class="img-fluid rounded-2" alt="" src="${pageContext.request.contextPath}/resources/img/rental/b4.png">
 					</div>
  					<div class="col pe-0" style="cursor: pointer;">
 						<img class="img-fluid rounded-2" alt="" src="${pageContext.request.contextPath}/resources/img/rental/b2.png">
 					</div>
 				</div>
 				
+				
 				<div class="row justify-content-between mt-5 pb-2">
 					<div class="col px-0">
 						<p class="mb-0 mt-3 ps-0 fs-5 fw-bold">카테고리</p>
 					</div>
-					
 					<div class="col px-0 pt-3 text-end">
 						<a href="${pageContext.request.contextPath}/rental/mainPage" style="font-size: 14px;">전체보기</a>
 					</div>
 				</div>
-				<div class="row">
-					<div class="col text-center boxCategory">
-						<a href="${pageContext.request.contextPath}/rental/mainPage/?main_category_id=1" class="btn">
-							<div class="row">
-								<div>
-									<img class="img-fluid" alt="" src="${pageContext.request.contextPath}/resources/img/rental/category/furniture.png">
+				<div class="row mt-2">
+					<div class="col" style="height: 160px;">
+						  <div class="swiper mySwiper">
+						    <div class="swiper-wrapper">
+						      <div class="swiper-slide">
+							      <a href="${pageContext.request.contextPath}/rental/mainPage/?main_category_id=1" class="btn">
+										<div class="row">
+											<div class="col">
+												<img class="img-fluid" alt="" src="${pageContext.request.contextPath}/resources/img/rental/category/furniture.png">
+											</div>
+										</div>
+										<div class="row mt-2">
+												<p class="fw-bold">가구</p>
+										</div>
+									</a>
 								</div>
-							</div>
-							<div class="row mt-2">
-								<div>
-									<p class="fw-bold">가구</p>
+								
+								<div class="swiper-slide">
+									<a href="${pageContext.request.contextPath}/rental/mainPage/?sub_category_id=1" class="btn">
+									<div class="row">
+										<div class="col">
+											<img class="img-fluid" alt="" src="${pageContext.request.contextPath}/resources/img/rental/category/sofa.png">
+										</div>
+									</div>
+									<div class="row mt-2">
+											<p class="fw-bold">소파</p>
+									</div>
+									</a>
 								</div>
-							</div>
-						</a>
-					</div>
-					<div class="col text-center boxCategory">
-						<a href="${pageContext.request.contextPath}/rental/mainPage/?sub_category_id=1" class="btn">
-						<div class="row">
-							<div>
-								<img class="img-fluid" alt="" src="${pageContext.request.contextPath}/resources/img/rental/category/sofa.png">
-							</div>
-						</div>
-						<div class="row mt-2">
-							<div>
-								<p class="fw-bold">소파</p>
-							</div>
-						</div>
-						</a>
-					</div>
-					<div class="col text-center boxCategory">
-						<a href="${pageContext.request.contextPath}/rental/mainPage/?sub_category_id=4" class="btn">
-						<div class="row">
-							<div>
-								<img class="img-fluid" alt="" src="${pageContext.request.contextPath}/resources/img/rental/category/closet.png">
-							</div>
-						</div>
-						<div class="row mt-2">
-							<div>
-								<p class="fw-bold">수납장</p>
-							</div>
-						</div>
-						</a>
-					</div>
-					<div class="col text-center boxCategory">
-						<a href="${pageContext.request.contextPath}/rental/mainPage/?main_category_id=2" class="btn">
-						<div class="row">
-							<div>
-								<img class="img-fluid" alt="" src="${pageContext.request.contextPath}/resources/img/rental/category/lifeIt.png">
-							</div>
-						</div>
-						<div class="row mt-2 boxCategory">
-							<div>
-								<p class="fw-bold">생활가전</p>
-							</div>
-						</div>
-						</a>
-					</div>
-					<div class="col text-center boxCategory">
-						<a href="${pageContext.request.contextPath}/rental/mainPage/?sub_category_id=12" class="btn">
-						<div class="row">
-							<div>
-								<img class="img-fluid" alt="" src="${pageContext.request.contextPath}/resources/img/rental/category/a1.png">
-							</div>
-						</div>
-						<div class="row mt-2">
-							<div>
-								<p class="fw-bold">공기청정기</p>
-							</div>
-						</div>
-						</a>
-					</div>
-					<div class="col text-center boxCategory">
-						<a href="${pageContext.request.contextPath}/rental/mainPage/?sub_category_id=13" class="btn">
-						<div class="row">
-							<div>
-								<img class="img-fluid" alt="" src="${pageContext.request.contextPath}/resources/img/rental/category/airConditioner.png">
-							</div>
-						</div>
-						<div class="row mt-2">
-							<div>
-								<p class="fw-bold">에어컨</p>
-							</div>
-						</div>
-						</a>
-					</div>
-					<div class="col text-center boxCategory">
-						<a href="${pageContext.request.contextPath}/rental/mainPage/?sub_category_id=14" class="btn">
-						<div class="row">
-							<div>
-								<img class="img-fluid" alt="" src="${pageContext.request.contextPath}/resources/img/rental/category/tv1.png">
-							</div>
-						</div>
-						<div class="row mt-2">
-							<div>
-								<p class="fw-bold">티비</p>
-							</div>
-						</div>
-						</a>
-					</div>
-					<div class="col text-center boxCategory">
-						<a href="${pageContext.request.contextPath}/rental/mainPage/?main_category_id=3" class="btn">
-						<div class="row">
-							<div>
-								<img class="img-fluid" alt="" src="${pageContext.request.contextPath}/resources/img/rental/category/k1.png">
-							</div>
-						</div>
-						<div class="row mt-2">
-							<div>
-								<p class="fw-bold">주방가전</p>
-							</div>
-						</div>
-						</a>
-					</div>
-					<div class="col text-center boxCategory">
-						<a href="${pageContext.request.contextPath}/rental/mainPage/?sub_category_id=5" class="btn">
-						<div class="row">
-							<div>
-								<img class="img-fluid" alt="" src="${pageContext.request.contextPath}/resources/img/rental/category/water.png">
-							</div>
-						</div>
-						<div class="row mt-2">
-							<div>
-								<p class="fw-bold">정수기</p>
-							</div>
-						</div>
-						</a>
-					</div>
-					<div class="col text-center boxCategory">
-						<a href="${pageContext.request.contextPath}/rental/mainPage/?sub_category_id=6" class="btn">
-						<div class="row">
-							<div>
-								<img class="img-fluid" alt="" src="${pageContext.request.contextPath}/resources/img/rental/category/r.png">
-							</div>
-						</div>
-						<div class="row mt-2">
-							<div>
-								<p class="fw-bold">냉장고</p>
-							</div>
-						</div>
-						</a>
+								<div class="swiper-slide">
+									<a href="${pageContext.request.contextPath}/rental/mainPage/?sub_category_id=4" class="btn">
+									<div class="row">
+										<div class="col">
+											<img class="img-fluid" alt="" src="${pageContext.request.contextPath}/resources/img/rental/category/closet.png">
+										</div>
+									</div>
+									<div class="row mt-2">
+											<p class="fw-bold">수납장</p>
+									</div>
+									</a>
+								</div>
+								<div class="swiper-slide">
+									<a href="${pageContext.request.contextPath}/rental/mainPage/?main_category_id=2" class="btn">
+									<div class="row">
+										<div class="col">
+											<img class="img-fluid" alt="" src="${pageContext.request.contextPath}/resources/img/rental/category/lifeIt.png">
+										</div>
+									</div>
+									<div class="row mt-2 boxCategory">
+											<p class="fw-bold">생활가전</p>
+									</div>
+									</a>
+								</div>
+								<div class="swiper-slide">
+									<a href="${pageContext.request.contextPath}/rental/mainPage/?sub_category_id=12" class="btn">
+									<div class="row">
+										<div class="col">
+											<img class="img-fluid" alt="" src="${pageContext.request.contextPath}/resources/img/rental/category/a1.png">
+										</div>
+									</div>
+									<div class="row mt-2">
+											<p class="fw-bold">공기청정기</p>
+									</div>
+									</a>
+								</div>
+								<div class="swiper-slide">
+									<a href="${pageContext.request.contextPath}/rental/mainPage/?sub_category_id=13" class="btn">
+									<div class="row">
+										<div class="col">
+											<img class="img-fluid" alt="" src="${pageContext.request.contextPath}/resources/img/rental/category/airConditioner.png">
+										</div>
+									</div>
+									<div class="row mt-2">
+											<p class="fw-bold">에어컨</p>
+									</div>
+									</a>
+								</div>
+								<div class="swiper-slide">
+									<a href="${pageContext.request.contextPath}/rental/mainPage/?sub_category_id=14" class="btn">
+									<div class="row">
+										<div class="col">
+											<img class="img-fluid" alt="" src="${pageContext.request.contextPath}/resources/img/rental/category/tv1.png">
+										</div>
+									</div>
+									<div class="row mt-2">
+											<p class="fw-bold">티비</p>
+									</div>
+									</a>
+								</div>
+								<div class="swiper-slide">
+									<a href="${pageContext.request.contextPath}/rental/mainPage/?main_category_id=3" class="btn">
+									<div class="row">
+										<div class="col">
+											<img class="img-fluid" alt="" src="${pageContext.request.contextPath}/resources/img/rental/category/k1.png">
+										</div>
+									</div>
+									<div class="row mt-2">
+											<p class="fw-bold">주방가전</p>
+									</div>
+									</a>
+								</div>
+								<div class="swiper-slide">
+									<a href="${pageContext.request.contextPath}/rental/mainPage/?sub_category_id=5" class="btn">
+									<div class="row">
+										<div class="col">
+											<img class="img-fluid" alt="" src="${pageContext.request.contextPath}/resources/img/rental/category/water.png">
+										</div>
+									</div>
+									<div class="row mt-2">
+											<p class="fw-bold">정수기</p>
+									</div>
+									</a>
+								</div>
+								<div class="swiper-slide">
+									<a href="${pageContext.request.contextPath}/rental/mainPage/?sub_category_id=6" class="btn">
+									<div class="row">
+										<div class="col">
+											<img class="img-fluid" alt="" src="${pageContext.request.contextPath}/resources/img/rental/category/r.png">
+										</div>
+									</div>
+									<div class="row mt-2">
+											<p class="fw-bold">냉장고</p>
+									</div>
+									</a>
+								</div>
+								
+						    </div>
+						    <div class="swiper-pagination"></div>
+						  </div>
 					</div>
 				</div>
+				
+			
 				
 				<div class="row justify-content-between mt-3 pb-2">
 					<div class="col">
@@ -320,9 +330,7 @@
 
 				<div class="row flex-wrap pt-2">
 	 				<c:forEach items="${rentalItemList}" var="map" varStatus="status">
-		 				<c:if test="${status.index % 6 == 5}">
-		 					<div class="col-2 mb-5 item-box" style="cursor: pointer;">
-		 				</c:if>
+		 				
 						<div class="col mb-5 item-box" style="cursor: pointer;">
 							<div class="row imgBox">
 								<div class="col">
@@ -342,8 +350,17 @@
 								</div>
 							</div>
 						</div>
-					      <c:if test="${status.index % 5 == 4}">
+					      <c:if test="${status.index % 4 == 3}">
 					        </div><div class="row flex-wrap pt-2">
+					      </c:if>
+					      <c:if test="${status.last}">
+					          <!-- 현재 순서가 마지막인 경우에만 실행될 내용 -->
+					          <!-- 만약 나머지가 4일 경우를 제외하고는 col을 더 만들어줘야함 (5-(status%5)) -->
+					          <c:forEach begin="0" end="${2-(status.index % 4)}" varStatus="status">
+							      <!-- 빈 칼럼 추가  -->
+						  	      <div class="col"></div>
+							  </c:forEach>
+
 					      </c:if>
 					</c:forEach>
 					</div>
@@ -569,6 +586,17 @@ window.addEventListener("DOMContentLoaded", function(){
 		refreshMyHeart(id)
 	}
 });
+
+var swiper = new Swiper(".mySwiper", {
+    slidesPerView: 8,
+    centeredSlides: false,
+    spaceBetween: 24,
+    grabCursor: true,
+    pagination: {
+      el: ".swiper-pagination",
+      clickable: true,
+    },
+  });
 </script>
 
 </body>

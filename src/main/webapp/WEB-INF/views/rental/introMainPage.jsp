@@ -31,13 +31,19 @@
 				<div id="carouselExample" class="carousel slide">
 				  <div class="carousel-inner">
 				    <div class="carousel-item active">
-				      <img src="${pageContext.request.contextPath}/resources/img/rental/rental_banner_1.jpg" class="d-block w-100" alt="...">
+				      <a href="${pageContext.request.contextPath}/rental/mainPage">
+				      	<img src="${pageContext.request.contextPath}/resources/img/rental/rental_banner_1.jpg" class="d-block w-100" alt="...">
+				      </a>
 				    </div>
 				    <div class="carousel-item">
-				      <img src="${pageContext.request.contextPath}/resources/img/rental/rental_banner_2.jpg" class="d-block w-100" alt="...">
+				      <a href="${pageContext.request.contextPath}/rental/mainPage">
+				      	<img src="${pageContext.request.contextPath}/resources/img/rental/rental_banner_2.jpg" class="d-block w-100" alt="...">
+				      </a>
 				    </div>
 				    <div class="carousel-item">
-				      <img src="${pageContext.request.contextPath}/resources/img/rental/rental_banner_3.jpg" class="d-block w-100" alt="...">
+				      <a href="${pageContext.request.contextPath}/rental/mainPage">
+				      	<img src="${pageContext.request.contextPath}/resources/img/rental/rental_banner_3.jpg" class="d-block w-100" alt="...">
+				      </a>
 				    </div>
 				  </div>
 				  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
@@ -241,31 +247,6 @@
 		</div>
 	</div>
 	
-	<div class="container mt-5 pb-4">
-		<div class="row">
-			<p class="fw-bold fs-4 mb-0">이벤트</p>
-			<div class="col mt-4">
-				<div id="carouselExample2" class="carousel slide">
-				  <div class="carousel-inner">
-				    <div class="carousel-item carousel-md carousel-item-md-1 active carousel-item carousel-item-1">
-				      <img src="${ pageContext.request.contextPath}/resources/img/rental/rental-banner-1.jpg" class="d-block w-100" alt="...">
-				    </div>
-				    <div class="carousel-item carousel-md carousel-item-md-2 carousel-item carousel-item-2">
-				      <img src="${ pageContext.request.contextPath}/resources/img/rental/rental-banner-2.jpg" class="d-block w-100" alt="...">
-				    </div>
-				  </div>
-				  <button class="carousel-control-prev shadow-sm " type="button" data-bs-target="#carouselExample2" data-bs-slide="prev">
-				    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-				    <span class="visually-hidden">Previous</span>
-				  </button>
-				  <button class="carousel-control-next shadow-sm " type="button" data-bs-target="#carouselExample2" data-bs-slide="next">
-				    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-				    <span class="visually-hidden">Next</span>
-				  </button>
-				</div>
-			</div>
-		</div>
-	</div>
 		
 	<div class="container mt-5 pb-4">
 		<div class="row">
@@ -273,7 +254,7 @@
 		</div>
 		<div class="row mt-4 px-2">
 				<div class="col" style="cursor: pointer;">
-				<img class="img-fluid rounded-2" alt="" src="${pageContext.request.contextPath}/resources/img/rental/b1.png">
+				<img class="img-fluid rounded-2" alt="" src="${pageContext.request.contextPath}/resources/img/rental/b4.png">
 			</div>
 				<div class="col" style="cursor: pointer;">
 				<img class="img-fluid rounded-2" alt="" src="${pageContext.request.contextPath}/resources/img/rental/b2.png">
@@ -289,7 +270,7 @@
 		<div class="row flex justify-content-between px-2 pt-1 pb-3 my-2 mt-3">
 				<c:forEach items="${rentalItemList}" var="map" begin="0" end="5" step="1">
 				<div class="col-2 position-relative">
-					<div class="position-absolute px-2" style="top: 8px; right: 20px; background:#f68a42; color: #fff; border-radius: 24px; z-index: 50; font-size: 12px;">
+					<div class="position-absolute px-2" style="top: 8px; right: 18px; background:#B0DDFF; color: #fff; border-radius: 24px; z-index: 50; font-size: 12px;">
 						AD
 					</div>
 					<div class="card border border-0">
@@ -313,6 +294,53 @@
 		</div>
 		<!-- 광고 대여 물품 row 작업중 -->
 	</div>
+	
+			
+	<%-- <div class="container mt-5 pb-4">
+		<div class="row">
+			<p class="fw-bold fs-4 mb-0">금주의 스페셜딜</p>
+		</div>
+		<div class="row mt-4 px-2">
+				<div class="col" style="cursor: pointer;">
+				<img class="img-fluid rounded-2" alt="" src="${pageContext.request.contextPath}/resources/img/rental/b4.png">
+			</div>
+				<div class="col" style="cursor: pointer;">
+				<img class="img-fluid rounded-2" alt="" src="${pageContext.request.contextPath}/resources/img/rental/b2.png">
+			</div>
+		</div>
+	</div> --%>
+	
+	<div class="container mt-5 pb-4">
+		<div class="row">
+			<p class="fw-bold fs-4 mb-0">이벤트</p>
+			<div class="col mt-4">
+				<div id="carouselExample2" class="carousel slide">
+				  <div class="carousel-inner">
+				    <div class="carousel-item carousel-md carousel-item-md-1 active carousel-item carousel-item-1">
+					    <a href="${pageContext.request.contextPath}/rental/mainPage">
+					      <img src="${ pageContext.request.contextPath}/resources/img/rental/event3.avif" class="d-block w-100" alt="...">
+					    </a>
+				    </div>
+				    <div class="carousel-item carousel-md carousel-item-md-2 carousel-item carousel-item-2">
+				    	<a href="${pageContext.request.contextPath}/rental/mainPage">
+				      		<img src="${ pageContext.request.contextPath}/resources/img/rental/event4.avif" class="d-block w-100" alt="...">
+				      	</a>
+				    </div>
+				  </div>
+				  <button class="carousel-control-prev shadow-sm " type="button" data-bs-target="#carouselExample2" data-bs-slide="prev">
+				    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+				    <span class="visually-hidden">Previous</span>
+				  </button>
+				  <button class="carousel-control-next shadow-sm " type="button" data-bs-target="#carouselExample2" data-bs-slide="next">
+				    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+				    <span class="visually-hidden">Next</span>
+				  </button>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	
 	
 
 

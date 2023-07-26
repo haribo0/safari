@@ -12,6 +12,8 @@
 <jsp:include page="../../common/meta.jsp"></jsp:include>
 <!-- 메타 섹션 -->
 
+
+
 <style>
     .table tr {
         height: 50px; /* Adjust the height as needed */
@@ -90,9 +92,12 @@
         background-color: lightgray;
     }
     
+    /* 페이징 */
     .pagination .page-link {
     color: black !important;
 	}
+	
+	
  </style>
 
 </head>
@@ -419,8 +424,185 @@
 						  		<div class="col">
 								    <h5 class="card-title">${recruitDto.userDto.nickname}</h5>
 								    <p class="card-text">
-										${recruitDto.recruitDto.title}<br>
-										<span class="text-secondary mt-1" >${recruitDto.recruitDto.location} · </span>
+								    <div class="d-flex align-items-center">
+									<%-- 직무 --%>
+									
+									<span id="positionName_${recruitDto.recruitDto.id}" class="badge rounded-pill mt-1 me-2" style="font-size: 12px; position: relative; top: -3px; color: #0095ff; background-color: transparent; border: 1px solid #0095ff;"></span>
+									<script>
+											 // 시작
+											    var positionCode = ${recruitDto.recruitDto.position_category_id};
+
+											    // 직무 코드에 따라 직무명 설정
+											    var positionName;
+											    switch (positionCode) {
+											        case 11:
+											            positionName= "사무";
+											            //document.getElementById("positionName_${recruitDto.recruitDto.id}").style.color = "red";
+											            break;
+											        case 12:
+											            positionName= "연구";
+											            break;
+											        case 13:
+											            positionName= "기술";
+											            break;
+											        case 14:
+											            positionName= "영업";
+											            break;
+											        
+											        case 21:
+											            positionName= "서비스";
+											            break;
+											        case 22:
+											            positionName= "예술";
+											            break;
+											        case 23:
+											            positionName= "스포츠";
+											            break;
+											        
+											        case 31:
+											            positionName= "보건";
+											            break;
+											        case 32:
+											            positionName= "교육";
+											            break;
+											        case 33:
+											            positionName= "금융";
+											            break;
+
+											        case 41:
+											            positionName= "물류";
+											            break;
+											        case 42:
+											            positionName= "생산";
+											            break;
+											             
+											        default:
+											            positionName= "기타";
+											            break;
+											    }
+											     
+											 
+											    switch (Math.floor(positionCode/10)) {
+										        case 1:
+										            document.getElementById("positionName_${recruitDto.recruitDto.id}").style.color = "#0095ff";
+										            document.getElementById("positionName_${recruitDto.recruitDto.id}").style.borderColor = "#0095ff";
+										            break;
+										        
+										        case 2:
+										        	document.getElementById("positionName_${recruitDto.recruitDto.id}").style.color = "#ff9200";
+										        	document.getElementById("positionName_${recruitDto.recruitDto.id}").style.borderColor = "#ff9200";
+										            break;
+										       
+										        
+										        case 3:
+										        	document.getElementById("positionName_${recruitDto.recruitDto.id}").style.color = "#93c400";
+										        	document.getElementById("positionName_${recruitDto.recruitDto.id}").style.borderColor = "#93c400";
+										            break;
+										       
+
+										        case 4:
+										        	document.getElementById("positionName_${recruitDto.recruitDto.id}").style.color = "#7a45e6";
+										        	document.getElementById("positionName_${recruitDto.recruitDto.id}").style.borderColor = "#7a45e6";
+										            break;
+										        
+										             
+										        default:
+										        	document.getElementById("positionName_${recruitDto.recruitDto.id}").style.color = "gray";
+										            break;
+										    }
+											    
+											    // 결과를 화면에 출력
+											    document.getElementById("positionName_${recruitDto.recruitDto.id}").textContent = positionName;
+											    //console.log( document.getElementById("positionName_${recruitDto.recruitDto.id}").textContent);
+												// 끝
+											</script>
+									<%-- 직무 --%>
+									<span class="text-align-center mb-1">${recruitDto.recruitDto.title}<br></span>
+									</div>
+										<%-- 위치 --%>
+										<span class="text-secondary mt-1" id="locationName_${recruitDto.recruitDto.id}"></span>
+										<span class="text-secondary mt-1" > · </span>
+										<script>
+											// 서버로부터 받은 지역 코드
+											if (typeof ${recruitDto.recruitDto.location} === 'number') {
+												console.log("a"); // 결과 출력
+												
+												 // 시작
+											    var locationCode = ${recruitDto.recruitDto.location};
+
+											    // 지역 코드에 따라 지역명 설정
+											    var locationName;
+											    switch (locationCode) {
+											        case 1:
+											            locationName = "서울";
+											            break;
+											        case 2:
+											            locationName = "경기";
+											            break;
+											        case 3:
+											            locationName = "인천";
+											            break;
+											        case 4:
+											            locationName = "강원";
+											            break;
+											        case 5:
+											            locationName = "대전";
+											            break;
+											        case 6:
+											            locationName = "세종";
+											            break;
+											        case 7:
+											            locationName = "충남";
+											            break;
+											        case 8:
+											            locationName = "충북";
+											            break;
+											        case 9:
+											            locationName = "부산";
+											            break;
+											        case 10:
+											            locationName = "울산";
+											            break;
+											        case 11:
+											            locationName = "경남";
+											            break;
+											        case 12:
+											            locationName = "경북";
+											            break;
+											        case 13:
+											            locationName = "대구";
+											            break;
+											        case 14:
+											            locationName = "광주";
+											            break;
+											        case 15:
+											            locationName = "전남";
+											            break;
+											        case 16:
+											            locationName = "전북";
+											            break;
+											        case 17:
+											            locationName = "제주";
+											            break;
+											        default:
+											            locationName = "전국";
+											            break;
+											    }
+
+											    // 결과를 화면에 출력
+											    document.getElementById("locationName_${recruitDto.recruitDto.id}").textContent = locationName;
+												// 끝
+											} else {
+												console.log("b"); // 결과 출력 
+												
+												//시작
+												var locationName = '${recruitDto.recruitDto.location}';
+												document.getElementById("locationName").textContent = locationName;
+												//끝
+											}
+											</script>
+										<%-- 위치 --%>
+										<%-- <span class="text-secondary mt-1" >${recruitDto.recruitDto.location} · </span> --%>
 										<strong class="mt-1 " style="color: #ff501b;"> 월 </strong>
 										<strong class=" mt-1" style="color: #ff501b;"> ${recruitDto.recruitDto.salary}만원</strong>
 									</p>

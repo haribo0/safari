@@ -215,10 +215,10 @@
     		<div class="col mt-1"></div>
     		<div class="col-4 d-grid align-items-end">
     			<c:if test="${result==false && completeCount == 0 }">
-    				<a href="./productRequest?productId=${map.productDto.id }" type="button" class="btn orangeButton">채팅하기</a>
+    				<button class="btn orangeButton" onclick="productRequestByProductId()">채팅하기</button>
     			</c:if >
     			 <c:if test="${result==true && completeCount == 0 }">
-    				<a href="./productRequestAlready?productId=${map.productDto.id }" type="button" class="btn orangeButton">채팅하기</a>
+    				<button class="btn orangeButton" onclick="productRequestAlreadyByProductId()">채팅하기</button>
     			</c:if>
     			 <c:if test="${completeCount > 0}">
     			 	<button type="button" class="btn btn-secondary btn-sm" disabled>채팅하기</button>
@@ -287,8 +287,51 @@
 	<!-- 푸터 섹션 -->
 <script type="text/javascript">
 const productId = new URLSearchParams(location.search).get("productId");
-
 let mySessionId = null;
+
+// 거래요청을 처음하는 사람의 채팅 모달 열기
+function productRequestByProductId() {
+const xhr = new XMLHttpRequest();
+	
+	xhr.onreadystatechange = function(){
+		if(xhr.readyState == 4 && xhr.status == 200){
+			//map 갖고오기
+			const response = JSON.parse(xhr.responseText);
+			if(!response.sessionUser){
+        		window.location.href = '/safari/user/loginPage';
+        	}
+			
+			//js 작업
+			modalOn(response.productRequestDto.id,response.receiverDto.id,response.receiverDto.nickname);
+		}
+	}
+	
+	//get
+	xhr.open("get", "./productRequest?productId="+productId);
+	xhr.send();
+}
+
+// 거래요청을 이미 했던 사람의 채팅 모달 열기
+function productRequestAlreadyByProductId() {
+const xhr = new XMLHttpRequest();
+	
+	xhr.onreadystatechange = function(){
+		if(xhr.readyState == 4 && xhr.status == 200){
+			//map 갖고오기
+			const response = JSON.parse(xhr.responseText);
+			if(!response.sessionUser){
+        		window.location.href = '/safari/user/loginPage';
+        	}
+			
+			//js 작업
+			modalOn(response.productRequestDto.id,response.receiverDto.id,response.receiverDto.nickname);
+		}
+	}
+	
+	//get
+	xhr.open("get", "./productRequestAlready?productId="+productId);
+	xhr.send();
+}
 
 function getSessionId() {
 	const xhr = new XMLHttpRequest();
