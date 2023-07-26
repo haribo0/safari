@@ -473,16 +473,7 @@
 										<div class="col">
 											<c:choose>
 											    <c:when test="${data.isCompleted == 'Y' && data.myReviewCount == 0}">
-											        <button type="button" class="btn btn-outline-dark my-2 px-2 py-1" style="font-size:13px;" 
-											        data-order-id="${data.orderedItem.id}" 
-											        data-image-link="${data.product.main_img_link}"
-											        data-product-title="${data.product.title }"
-											        data-produce-desc="${data.product.item_description}"
-											        data-startdate="${data.orderedItem.start_date }" 
-											        data-bs-toggle="modal" 
-											        data-bs-target="#modalReview">
-											        	대여리뷰작성
-											        </button>																				
+											        <button type="button" class="btn btn-outline-dark my-2 px-2 py-1" style="font-size:13px;" data-order-id="${data.orderedItem.id}" data-bs-toggle="modal" data-bs-target="#modalReview">대여리뷰작성</button>																				
 											    </c:when>
 											    <c:when test="${data.isCompleted == 'Y' && data.myReviewCount >= 1}">
 											        <button class="btn btn-outline-dark my-2 px-2 py-1" onclick="placeReviewDate(${data.orderedItem.id})" style="font-size:13px;">내가 쓴 리뷰</button>																				
@@ -493,13 +484,12 @@
 											    <c:when test="${data.isCompleted != 'Y'}">
 											        <c:choose>
 											            <c:when test="${data.orderedItem.is_shipped == 'N'}">
-<!-- 											                <div class="p-1" style="font-size:14px;">배송중</div> -->
-											                <div class="p-1" style="font-size:14px;"></div>
+											                <!-- <div class="p-1" style="font-size:14px;">배송중</div> -->
 											            </c:when>
 											            
-									            		<%-- <c:when test="${data.rentalItemReturnDto.is_item_returned == 'N' && data.isCompleted == 'N' }">
+									            		<c:when test="${data.rentalItemReturnDto.is_item_returned == 'N' && data.isCompleted == 'N' }">
 									            			<div class=" p-1" style="font-size:14px;">회수중</div>
-									            		</c:when> --%>
+									            		</c:when>
 											            		
 											            <c:otherwise>
 											            	<c:choose>
@@ -520,7 +510,7 @@
 											            		</c:when>
 											            		
 											            		<c:when test="${data.rentalItemReturnDto.is_item_returned == 'Y' && data.isCompleted != 'Y' }">
-											            			<!-- <div class="" style="font-size:14px;" disabled>최종 정산중</div> -->
+											            			<button type="button" class="btn btn-outline-secondary px-2 py-1" style="font-size:13px;" disabled>최종 정산중</button>
 											            		</c:when>
 											            		
 											            		<c:otherwise>
@@ -790,7 +780,6 @@ function returnCheck(e) {
     confirmModalImg.setAttribute('src', '/safariImg/'+dataImageLink)
     confirmModalItemTitle.innerText = productTitle
     confirmModalItemDesc.innerText = productDesc
-    confirmModalOrderId.setAttribute('value',orderId)
     
     userDesc.innerHTML = `기존 반납일은 <span class="fw-medium">\${formattedEndDate}</span> 입니다.`
     confirmSubmitReturn.setAttribute('onclick', 'returnProcessSingle(' + orderId + ')')
