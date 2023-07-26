@@ -44,7 +44,7 @@
 	  overflow: hidden; /* 넘친 텍스트를 숨김 */
 	  text-overflow: ellipsis; /* 넘친 텍스트를 "..."으로 표시 */
 	}
-	.btn-qna{position: fixed; bottom: 80px; right: 190px; border-radius: 60px; padding: 0 0;}
+	.btn-qna{position: fixed; bottom: 80px; right: 120px; border-radius: 60px; padding: 0 0;}
 	.btn-circle{width: 50px; height: 52px; border-radius: 50%; display: flex; flex-direction:column; justify-content: center; align-items: center; font-size: 2rem; cursor: pointer;}
 	.btn-circle i{color: #5e5e5e; font-size: 24px;}
 	.btn-tit{font-size:13px;}
@@ -60,7 +60,7 @@
 	<!-- 헤더 섹션 -->
 	<div class="row">
 		<div class="col">
-			<img alt="banner1" src= "/safari/resources/img/used/listBanner.jpeg" width="100%">
+			<img alt="banner1" src= "/safari/resources/img/used/listBanner.jpeg" class="img-fluid">
 		</div>
 	</div>
 	<div class="container-fluid d-flex align-items-center justify-content-between p-3 px-5 bg-light mb-2">

@@ -14,6 +14,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=e3bf1aa0a81d63e6cdd0d60a55347bc9&libraries=services"></script>
 
 <style type="text/css">
@@ -31,6 +32,7 @@
 } 
 .location {
 	font-size: 16px;
+	color: #585757;
 }
 
 .gray-line{
@@ -62,10 +64,15 @@
 .relatedTitleImg{
 	border-radius: 10px;
 }
-.btn-qna{position: fixed; bottom: 80px; right: 190px; border-radius: 60px; padding: 0 0;}
+.btn-qna{position: fixed; bottom: 80px; right: 120px; border-radius: 60px; padding: 0 0;}
 	.btn-circle{width: 50px; height: 52px; border-radius: 50%; display: flex; flex-direction:column; justify-content: center; align-items: center; font-size: 2rem; cursor: pointer;}
 	.btn-circle i{color: #5e5e5e; font-size: 24px;}
 	.btn-tit{font-size:13px;}
+	
+.custom-progress-bar {
+      height: 30px; /* 원하는 높이를 지정합니다 */
+      background-color: #ffa500; /* 옅은 주황색 배경색을 지정합니다 */
+    }	
 </style>	
 
 </head>
@@ -95,7 +102,6 @@
 	  </div>
 	</div> -->
 	<!-- 위치 모달 -->
-
 
 <div class="container main_box mb-5">
 	<!— 테이블 헤더 —>
@@ -178,20 +184,20 @@
 			<div class="col-auto my-auto mb-2 contentTitle text-start my-auto">
 				<c:choose>
 					<c:when test="${productUser.profile_img_link == null }"> 
-						 <img style="filter:grayscale(1)" class="rounded-circle" alt="img" src="/safari/resources/img/user.jpg" width="50" height="50">
+						 <img style="filter:grayscale(1)" class="rounded-circle" alt="img" src="/safari/resources/img/user.jpg" width="50" height="50" onclick="showYourProfile()">
 					</c:when>	
 					<c:otherwise>
-						<img class="rounded-circle" alt="img" src="/safari/resources/img/used/user2.png" width="50" height="50">
+						<img class="rounded-circle" alt="img" src="/safari/resources/img/used/user2.png" width="50" height="50" onclick="showYourProfile()">
 						<%-- <img style="filter:grayscale(1)" class="img-fluid rounded-circle" alt="img" src="/safarifile/${productUser.profile_img_link}" width="35" height="35"> --%>
 					</c:otherwise> 
 				</c:choose>
 			</div>
 			<div class="col text-start ps-0 nickname">
     			<div class="row">
-       				<div class="col fw-medium">${productUser.nickname} 🦁</div>
+       				<div class="col fw-medium" onclick="showYourProfile()">${productUser.nickname} 🦁</div>
     			</div>
     			<div class="row">
-       				<div class="col text-secondary" style="font-size: 14px;">${map.productCityDto.product_city_name } ${map.productTownDto.product_town_name}</div>
+       				<div class="col text-secondary" style="font-size: 14px;" onclick="showYourProfile()">${map.productCityDto.product_city_name } ${map.productTownDto.product_town_name}</div>
     			</div>
 			</div>
 			<div class="mt-1 col-6 category text-secondary text-end">관심 <span id="totalLikeCount"></span> ∙ 채팅 ${requestCount} ∙ 조회 ${map.productDto.views }</div>
@@ -275,9 +281,8 @@
 				</div>
 		</c:forEach>
 	</div>
-	<div class="row mt-5">
-		<div class="col-6"><img class="img-fluid m-0" alt="chatAds" src="/safari/resources/img/used/detailAds2.png"></div>
-		<div class="col-6 p-0"><img class="img-fluid m-0" alt="chatAds" src="/safari/resources/img/used/detailAds1.png" style="border: 1px solid gray; height: 136px;"></div>
+	<div class="row mt-3">
+		<div class="col"><img class="img-fluid" alt="chatAds" src="/safari/resources/img/used/detailBanner3.png" style="=height: 120px;border-radius: 4px;"></div>
 	</div>
 	
 </div>
@@ -285,9 +290,99 @@
 	<!-- 푸터 섹션 -->
 	<jsp:include page="../common/footer.jsp"></jsp:include>
 	<!-- 푸터 섹션 -->
+	
+<!-- 판매자 프로필 모달 -->
+<div class="modal" id="showYourProfile" tabindex="-1" >
+  <div class="modal-dialog" style="width: 750px; max-width: 90%; height: 1100px; max-height: 90%;">
+    <div class="modal-content" style="height: 100%;">
+      <div class="modal-header position-relative px-3" style="padding: 10px 0px; height: 55px;">
+       	<h5 class="modal-title ms-1 position-absolute top-50 start-50 translate-middle" style="font-weight: 500 ;">프로필</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-header pb-0" style="background: #d3d3d336;">
+	     <div class="my-custom-header-wrapper" style="width: 400px;">
+	     	<div class="row">
+	     		<div class="col-auto ms-3">
+	     			<img class="rounded-circle" alt="mod" src="/safari/resources/img/used/user2.png" width="70px" height="70px">
+	     		</div>
+	     		<div class="col my-auto">
+	     			<div class="row">
+	     				<div class="col-auto fs-5 fw-medium">사파리판매왕</div>
+	     				<div class="col my-auto ps-1">서울시 강남구</div>
+	     			</div>
+	     			<div class="row">
+	     				<div class="col-auto fs-6 text-secondary my-auto">매너등급 Lv.4</div>
+	     				<div class="col text-start fs-3 text-secondary my-auto ps-0">🦁</div>
+	     			</div>
+	     		</div>
+	     	</div>
+	     	<div class="row mt-3 ms-2 fw-semibold">
+	  			<div class="col" style="text-decoration: underline;">매너등급<span class="ms-1"><i class="bi bi-info-circle"></i></span></div>
+	  		</div>
+	     	<div class="w3-light-grey w3-round-xlarge custom-progress-bar">
+    			<div class="w3-container w3-blue w3-round-xlarge" style="width:25%"></div>
+  			</div>
+
+	  		
+	     	<div class="row mt-3" style="font-size: 18px;">
+   				<div class="col-auto ms-3 my-auto fw-medium pb-1" style="color: #ff6f0f;border-bottom: 3px;border-bottom-color: #ff6f0f;border-bottom-style: solid;">판매 물품 (6)</div>
+   				<div class="col-auto ms- my-auto text-secondary pb-1">거래 후기 (20)</div>
+   				<div class="col-auto ms-2 my-auto text-secondary pb-1">매너 칭찬</div>
+   			</div>
+       </div>
+      </div>
+     <div class="modal-body ms-2" style="height: 500px">
+	  <div class="chat-container overflow-y-scroll overflow-x-hidden" style="height:480px;">
+	  		<div class="row mt-3">
+	  			<div class="col fw-semibold fs-5">사파리주인님, 끌어올리기 전에</div>
+	  		</div>
+	  		<div class="row">
+	  			<div class="col fw-semibold fs-5">가격을 낮춰보세요.</div>
+	  		</div>
+	  		<div class="row mt-3">
+	  			<div class="col">판매 확률이 올라간답니다.</div>
+	  		</div>
+	  		<div class="row mt-3">
+	  			<div class="col ms-1" style="font-size: 24px; font-weight: 500;">₩ 20,000</div>
+	  		</div>
+	  		<div class="row mt-2 mb-2">
+	  			<div class="col gray-line"></div>
+	  		</div>
+	  		<div class="row ms-1 my-auto">
+	  			<div class="col-2 text-center" style="background: #e4e0e094; border-radius: 15px; padding: 2px 4px;">5%</div>
+	  			<div class="col-2 text-center ms-1" style="background: #e4e0e094; border-radius: 15px; padding: 2px 4px;">10%</div>
+	  			<div class="col-2 text-center ms-1" style="background: #e4e0e094; border-radius: 15px; padding: 2px 4px;">15%</div>
+	  			<div class="col-2 text-start">할인</div>
+	  		</div>
+	  		<div class="row mt-5">
+	  			<div class="col fw-semibold fs-5">가격을 변경하지 않고</div>
+	  			<!-- <div class="col fw-bold fs-5">가격을 ₩ 32,000원으로 변경하고</div> -->
+	  		</div>
+	  		<div class="row">
+	  			<div class="col fw-semibold fs-5">지금 끌어올리시겠어요?</div>
+	  		</div>
+	  		<div class="row mt-3">
+	  			<div class="col">다음 끌어올리기는<span style="font-weight: 600; color: #ff6f0f;"> 2일 12시간 </span>뒤에 할 수 있어요.</div>
+	  		</div>
+	  		<div class="row mt-5">
+	  			<div class="col text-center fw-medium btn mx-2 py-2" style="background: #ff6f0f;color: white;border-radius: 10px;">끌어올리기</div>
+	  		</div>
+      </div>
+     </div>
+  </div>
+</div>
+</div>	
+<!-- 판매자 프로필 모달 -->
 <script type="text/javascript">
 const productId = new URLSearchParams(location.search).get("productId");
 let mySessionId = null;
+
+// 프로필 모달 열기 
+function showYourProfile() {
+	const showYourProfileModal = bootstrap.Modal.getOrCreateInstance('#showYourProfile');
+	showYourProfileModal.show();	
+}
+
 
 // 거래요청을 처음하는 사람의 채팅 모달 열기
 function productRequestByProductId() {
