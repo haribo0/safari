@@ -21,9 +21,6 @@
 <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/moonspam/NanumSquare@1.0/nanumsquare.css">
 <link rel="stylesheet" href="/safari/resources/style/auction.css" type="text/css">
 <style>
-  .blink-text {
-    animation: blink 1.5s infinite;
-  }
 
   .form-check-input:checked {
    	border-color: black;
@@ -162,7 +159,6 @@ function updateCurrentPrice(auctionItemId, currentPrice) {
 //경매 정보를 업데이트하고 화면에 출력하는 함수
 function updateAuctionCountDown(id) {
 	
-
   const xhr = new XMLHttpRequest();
   xhr.onreadystatechange = function() {
     if (xhr.readyState === 4 && xhr.status === 200) {
@@ -172,39 +168,16 @@ function updateAuctionCountDown(id) {
       const auctionStartDate = new Date(response.auctionItem.auctionDto.start_date); // 경매 시작일
       
       const nowDate = new Date();
-      
+   
 
-      
-      let auctionStatusBox = document.getElementById("auctionStatus_" + id);
-      auctionStatusBox.innerHTML = "";
-      
-
-      const statusButton = document.createElement("button");
-      statusButton.classList.add("btn");
- 
-      if (auctionEndDate <= nowDate || response.auctionItem.auctionDto.auction_status == '종료') {  
-    	  statusButton.classList.add("btn_auctionEnd");
-          statusButton.innerText = "경매 종료";
-    	  
-      } else if (auctionStartDate <= nowDate) {
-    	  statusButton.classList.add("btn_auctionIng");
-          statusButton.innerText = "진행중";
-      } else {
-      	 statusButton.classList.add("btn_auctionReady");
-      	 statusButton.innerText = "준비중";
-      }
-      
-      //auctionStatusBox.appendChild(statusButton);
-      
-      
-      
       let countDownTableBox = document.getElementById("auctionCountDownTime_" + id);
       countDownTableBox.innerHTML = "";
       
-     
-      
+
 	  	// 경매가 종료된 경우
 	  	if (auctionEndDate <= nowDate || response.auctionItem.auctionDto.auction_status == '종료') {
+	  		
+	  		renewAuctionItemStatusEnd(id);
 	  		
 	  		const colInfo = document.getElementById("col_" + id);
 	  			  		
@@ -246,13 +219,10 @@ function updateAuctionCountDown(id) {
 	  		let auctionCountDown;
 	  		// 경매가 시작된 경우
 	  		if (auctionStartDate <= nowDate) {
-	  			auctionCountDown = countdownFromEndDate(auctionEndDate);
 	  			
-	  	        const timeIcon = document.createElement("i");
-		        timeIcon.classList.add("bi", "bi-clock", "me-2");
-		
-		        //countDownTableBox.appendChild(timeIcon);
-		        
+	  			renewAuctionItemStatusIng(id);
+	  			
+	  			auctionCountDown = countdownFromEndDate(auctionEndDate);
 		        
 		        const col = document.getElementById("col_" + id);
 		       
@@ -274,24 +244,16 @@ function updateAuctionCountDown(id) {
 	 
 
 		         if (auctionCountDown.days > 0) {
-			            const spanTime1 = document.createElement("span");
-			            spanTime1.classList.add("fw-bold");
-			            spanTime1.innerText = auctionCountDown.days + "일 "; 
 			            
 			            const timeSpan1 = document.createElement("span");
 			            timeSpan1.innerText = auctionCountDown.days + "일 ";
 			            timeSpan1.classList.add("fw-bold");
 			            timeSpan.appendChild(timeSpan1);
-			            
-			            //countDownTableBox.appendChild(spanTime1);
+			          
 		         	}
 		        
 		         if (auctionCountDown.hours > 0) {
-		              const spanTime2 = document.createElement("span");
-		              spanTime2.classList.add("fw-bold");
-		              spanTime2.innerText = auctionCountDown.hours + "시간 ";
-		              
-		              
+		           
 		              const timeSpan2 = document.createElement("span");
 		              timeSpan2.classList.add("fw-bold");
 		              if (auctionCountDown.hours < 10)  {
@@ -301,9 +263,7 @@ function updateAuctionCountDown(id) {
 			          	timeSpan2.innerText = auctionCountDown.hours + ":";
 		              }
 			          timeSpan.appendChild(timeSpan2);
-		              
-		              
-		              //countDownTableBox.appendChild(spanTime2);
+		           
 		            } else {
 		            	
 		            	const timeSpan2 = document.createElement("span");
@@ -313,10 +273,7 @@ function updateAuctionCountDown(id) {
 		            	
 		            }
 		         if (auctionCountDown.minutes > 0) {
-		              const spanTime3  = document.createElement("span");
-		              spanTime3.classList.add("fw-bold");
-		              spanTime3.innerText = auctionCountDown.minutes + "분 ";
-		              
+		        
 		              const timeSpan3 = document.createElement("span");
 		              timeSpan3.classList.add("fw-bold");
 		              if (auctionCountDown.minutes < 10)  {
@@ -325,8 +282,7 @@ function updateAuctionCountDown(id) {
 		                timeSpan3.innerText = auctionCountDown.minutes + ":";
 		              }
 			          timeSpan.appendChild(timeSpan3);
-		              
-		              //countDownTableBox.appendChild(spanTime3);
+		         
 		            }  else {
 		            	
 		            	const timeSpan3 = document.createElement("span");
@@ -336,10 +292,7 @@ function updateAuctionCountDown(id) {
 		            	
 		            }		         
 
-			       const spanTime4 = document.createElement("span");
-			       spanTime4.classList.add("fw-bold");
-			       spanTime4.innerText = auctionCountDown.seconds + "초 ";    
-			       
+			    
 			       const timeSpan4 = document.createElement("span");
 			       timeSpan4.classList.add("fw-bold");
 			       if (auctionCountDown.seconds < 10) {
@@ -348,9 +301,7 @@ function updateAuctionCountDown(id) {
 			    	   timeSpan4.innerText = auctionCountDown.seconds;
 			       }
 			       timeSpan.appendChild(timeSpan4);
-			              
-
-			       //countDownTableBox.appendChild(spanTime4);
+		
 	  			
 	  		} 
 	  		
@@ -392,9 +343,7 @@ function updateAuctionCountDown(id) {
 	  			}
 	  			
 	  		}
-		        
-		       //col.appendChild(timeSpan);
-		       	
+	
 		        setTimeout(function() {
 		            updateAuctionCountDown(id);
 		          }, 1000);  
@@ -409,6 +358,73 @@ function updateAuctionCountDown(id) {
 
  }
 
+
+//경매 종료일 지났으면 경매 상태를 종료로 업데이트 (DB에 정보 업데이트)
+function renewAuctionItemStatusEnd(auctionItemId) {
+	
+	 const xhr = new XMLHttpRequest();
+
+	 xhr.onreadystatechange = function() {
+	    if (xhr.readyState === 4 && xhr.status === 200) {
+	      const response = JSON.parse(xhr.responseText);
+		  
+	      
+	      // 경매 상태 조회 시 종료가 아닐 경우에만 db에 상태 업데이트
+	      if (response.auctionItemStatus.auction_status != '종료') {
+	    	  
+	    	  const xhrUpdateStatus = new XMLHttpRequest();
+	    	  xhrUpdateStatus.onreadystatechange = function() {
+	    	  if (xhrUpdateStatus.readyState === 4 && xhrUpdateStatus.status === 200) {
+	    		  
+
+	    	  }
+	        };
+	        xhrUpdateStatus.open("get", "/safari/auction/renewAuctionItemStatusEnd/" + auctionItemId);
+	        xhrUpdateStatus.send();
+	        
+	      }
+	      
+
+		  }
+	 }
+	 
+    xhr.open("get", "/safari/auction/getAuctionStatusByAuctionItemId/" + auctionItemId); // 수정하기
+    xhr.send();  
+}
+
+
+//경매 시작되었으면 경매 상태를 진행중으로 업데이트 (DB에 정보 업데이트)
+function renewAuctionItemStatusIng(auctionItemId) {
+	
+	 const xhr = new XMLHttpRequest();
+	 
+	 xhr.onreadystatechange = function() {
+		    if (xhr.readyState === 4 && xhr.status === 200) {
+		      const response = JSON.parse(xhr.responseText);
+		      
+		      
+		      // 경매 상태 조회 시 진행중이 아닐 경우에만 db에 상태 업데이트
+		      if (response.auctionItemStatus.auction_status != '진행중') {
+		    	  
+		    	  const xhrUpdateStatus = new XMLHttpRequest();
+		    	  xhrUpdateStatus.onreadystatechange = function() {
+		    	  if (xhrUpdateStatus.readyState === 4 && xhrUpdateStatus.status === 200) {
+		    		  
+		    		  
+		    	  
+		    	  }
+		        };
+		        xhrUpdateStatus.open("get", "/safari/auction/renewAuctionItemStatusIng/" + auctionItemId);
+		        xhrUpdateStatus.send();
+		        
+		      }
+		      
+	   
+		    }
+	 }
+    xhr.open("get", "/safari/auction/getAuctionStatusByAuctionItemId/" + auctionItemId);
+    xhr.send();  
+}
 
 // 경매 진행 상태
 let status = null;
@@ -611,19 +627,7 @@ function reloadAuctionList(mainCategoryId, subCategoryId) {
 		            
 		            col.appendChild(immediatePriceRow);
 		            
-		            
-		          /*   const auctionStartDate = new Date(data.auctionDto.start_date); 
-
-	                const formattedauctionStartDate = auctionStartDate.toLocaleString('ko-KR', {
-	                  year: 'numeric',
-	                  month: '2-digit',
-	                  day: '2-digit',
-	                  hour: '2-digit',
-	                  minute: '2-digit',
-	                  //second: '2-digit',
-	                  hour12: true
-	                });	         */
-		                
+		       
 		             const startRow = document.createElement("div");
 		             startRow.classList.add("row", "mt-1");
 		               
@@ -636,18 +640,7 @@ function reloadAuctionList(mainCategoryId, subCategoryId) {
 					
 		             col.appendChild(startRow);
 		               
-	           		/*   const auctionEndDate = new Date(data.auctionDto.end_date); 
-		            	 
-		              const formattedauctionEndDate = auctionEndDate.toLocaleString('ko-KR', {
-		                  year: 'numeric',
-		                  month: '2-digit',
-		                  day: '2-digit',
-		                  hour: '2-digit',
-		                  minute: '2-digit',
-		                  //second: '2-digit',
-		                  hour12: true
-		                });	       */  
-		                
+	           		
 		              const endRow = document.createElement("div");
 		              endRow.classList.add("row");
 		               
@@ -668,14 +661,7 @@ function reloadAuctionList(mainCategoryId, subCategoryId) {
 		              
 		              col.appendChild(remainP);
 		          
-		              
-		              //const statusP = document.createElement("p");
-		               
-		            
-		               
-		             // statusP.appendChild(statusButton);
-		             
-		              //col.appendChild(statusP);
+		          
 	    
 		              auctionProductListBox.appendChild(col);
 	            }
@@ -795,6 +781,14 @@ function getProductSubcategoriesList(subCategories) {
     const subCategoryDropdown = document.getElementById('subCategoryDropdown');
     subCategoryDropdown.innerHTML = '';
 
+ // 대분류 카테고리가 선택되지 않은 경우 "소분류 선택" 옵션 추가
+    if (subCategories.length === 0) {
+        const option = document.createElement('option');
+        option.value = 0;
+        option.text = "소분류 선택";
+        subCategoryDropdown.appendChild(option);
+        return; // 함수 종료
+    }
     subCategories.forEach(function(subCategory) {
         const option = document.createElement('option');
         option.value = subCategory.id;
@@ -803,12 +797,16 @@ function getProductSubcategoriesList(subCategories) {
     });
 }
 
+// 물품 등록 가능 여부 확인
+let isChecked = false;
+
 // 경매 물품 등록
 function registerAuctionProduct() {
 	
 	   const xhr = new XMLHttpRequest();
 
 	   const titleBox = document.getElementById("title");
+	   const mainCategoryBox = document.getElementById("mainCategoryDropdown");
 	   const subCategoryBox = document.getElementById("subCategoryDropdown");
 	   const descriptionBox = document.getElementById("description");
 	   const startPriceBox = document.getElementById("start_price");
@@ -816,6 +814,53 @@ function registerAuctionProduct() {
 	   const startDateBox = document.getElementById("start_date");
 	   const endDateBox = document.getElementById("end_date");
 	   const imageFilesInput = document.getElementById("auctionItemImgFiles");
+	   
+	   if (titleBox.value == "") {
+		   alert("상품명을 입력하세요");
+		   titleBox.focus();
+		   return;
+	   }
+	   
+	   if (subCategoryBox.value == "") {
+		   alert("카테고리를 선택해주세요");
+		   mainCategoryBox.focus();
+		   return;
+	   }
+	   
+	   if (descriptionBox.value == "") {
+		   alert("상품설명을 입력하세요");
+		   descriptionBox.focus();
+		   return;
+	   }
+	   
+	   if (startPriceBox.value == "") {
+		   alert("시작가를 입력하세요");
+		   startPriceBox.focus();
+		   return;
+	   }
+	   
+	   if (maxPriceBox.value == "") {
+		   alert("즉시낙찰가를 입력하세요");
+		   maxPriceBox.focus();
+		   return;
+	   }
+	   
+	   if (startDateBox.value == "") {
+		   alert("경매시작일을 설정해주세요");
+		   startDateBox.focus();
+		   return; 
+	   }
+	   
+	   if (endDateBox.value == "") {
+		   alert("경매종료일을 설정해주세요");
+		   endDateBox.focus();
+		   return;
+	   }
+	   if (imageFilesInput.value == "") {
+		   alert("상품 이미지를 등록해주세요");
+		   imageFilesInput.focus();
+		   return;
+	   }
 	   
 	   
 	  // const mainCategoryBox =  document.getElementById("mainCategoryDropdown");
@@ -860,6 +905,13 @@ function registerAuctionProduct() {
 	    // Content-Type 헤더를 설정하여 multipart/form-data로 전송
 	 
 	    xhr.send(formData);	
+	    
+	    titleBox.value == "";
+	    descriptionBox.value == "";
+	    startPriceBox.value == "";
+	    maxPriceBox.value == "";
+	    startDateBox.value == "";
+	    endDateBox.value == "";
 	    
 
 	  }	    
@@ -938,30 +990,6 @@ window.addEventListener("DOMContentLoaded", function(){
 
 	<div class="col-10 justify-content-end ps-5 px-0 pe-2" >
 	
-	
-	
-	
-		
-		<!-- <div class="row mt-4">
-			<div class="col-3">
-				<select class="form-select" style="width: 150px">
-					<option value="">마감임박순</option>
-					<option value="">최신순</option>
-				</select>
-					
-			</div>
-		</div> -->
-		
-		
-	<!-- 	<div class="row">
-			<div class="col-auto rounded-3 border border-1 py-2" style="background-color: #FF7777; border-color:#FF7777 ">
-				<div class="row">
-					<div class="col text-center fw-bold text-white">
-					 	00:00:12 남음
-					</div>
-				</div>
-			</div>
-		</div> -->
 		
 		<div class="row mt-4 mb-3" style="position: relative; bottom: 10px;">
 			<div class="col">
@@ -979,7 +1007,7 @@ window.addEventListener("DOMContentLoaded", function(){
 		
 		<div class="row mt-4">
 		
-			<div class="col mb-3 d-flex justify-content-center" style="position: relative; right: 10px; font-size: 14px;">
+			<div class="col mb-3 d-flex justify-content-center" style="position: relative; right: 30px; font-size: 14px;">
 			
 			 <input class="form-check-input me-2" type="radio" id="radioStatus" name="radioStatus" value="" style="cursor:pointer";>
 			  <label class="form-check-label me-4" for="radioStatus">
@@ -1020,17 +1048,9 @@ window.addEventListener("DOMContentLoaded", function(){
 		
 			<!--  전체 row -->
 			<div class="row me-4" id="auctionProductList">
-				<!-- <div class="col-11" >
-					
 			
-						
-						
-				</div> -->
 			</div>
-				<!--  전체 row -->
 				
-				
-				<!--  끝 -->
 			</div>
 		</div>
 		

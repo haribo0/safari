@@ -4,6 +4,7 @@ public class UserAddressDto {
 	
 	private int id;
 	private int user_id;
+	private String addressee;
 	private String address;
 	private String address_name;
 	private String phone;
@@ -12,9 +13,10 @@ public class UserAddressDto {
 		super();
 	}
 
-	public UserAddressDto(int id, int user_id, String address, String address_name, String phone) {
+	public UserAddressDto(int id, int user_id, String addressee, String address, String address_name, String phone) {
 		this.id = id;
 		this.user_id = user_id;
+		this.addressee = addressee;
 		this.address = address;
 		this.address_name = address_name;
 		this.phone = phone;
@@ -34,6 +36,14 @@ public class UserAddressDto {
 
 	public void setUser_id(int user_id) {
 		this.user_id = user_id;
+	}
+
+	public String getAddressee() {
+		return addressee;
+	}
+
+	public void setAddressee(String addressee) {
+		this.addressee = addressee;
 	}
 
 	public String getAddress() {
@@ -60,6 +70,5 @@ public class UserAddressDto {
 		this.phone = phone;
 	}
 
-	
 
 }

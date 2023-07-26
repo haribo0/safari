@@ -59,16 +59,8 @@
 				</div>
 			</div>
 			
+	
 			<div class="row mt-4">
-				<div class="col">
-					<span>
-						<i class="bi bi-exclamation-circle fs-5 me-1"></i></span>
-							<span class="fw-semibold fs-5">참고사항</span>
-				</div>
-			</div>
-			
-			
-			<div class="row mt-1">
    				<div class="col">
    					• &nbsp; 입찰하신 경매 목록 중에서 현재 진행중인 경매만 표시됩니다.
    				</div>

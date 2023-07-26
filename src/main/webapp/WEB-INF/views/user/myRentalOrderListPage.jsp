@@ -171,68 +171,116 @@
   <div class="modal-dialog">
   	<form method="post" enctype="multipart/form-data">
 	    <div class="modal-content">
-	      <div class="modal-header">
-	        <h1 class="modal-title fs-5" id="exampleModalLabel">리뷰등록</h1>
+	      <div class="modal-header  bg-light">
+	        <h1 class="modal-title fs-5 bg-light" id="exampleModalLabel">리뷰등록</h1>
 	        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 	      </div>
 	      <div class="modal-body">
 
-	      	<div class="row">
-	      		<div class="col">
-	      			<div class="row border py-2 mx-auto rounded-2" style="width: 99%;">
-						<div class="col-4 my-auto">
+	      	<div class="row mx-3 mt-2 card ">
+	      		<div class="col ">
+	      			<div class="row border-bottom py-2 fw-medium ">
+						<div class="col my-auto">
+							상품 정보
+						</div>
+	      			</div>
+	      			<div class="row  py-4   rounded-2" >
+						<div class="col-3 my-auto">
 		 					<img class="reviewModalTopImage img-fluid" alt="" src="">
 						</div>
-			      		<div class="col d-flex flex-column justify-content-center">
-			      			<p class="reviewItemTitle mb-1 fs-5 fw-medium"></p>
-							<p class="reviewItemDesc mb-0"></p>
-							<p class="reviewPeriod"></p>
+			      		<div class="col ">
+			      			<div class="row">
+				      			<div class="col">
+				      				<div class="reviewItemTitle mb-1 fw-medium" style="font-size: 20px;"></div>
+				      			</div>
+			      			</div>
+			      			<div class="row">
+				      			<div class="col text-truncate">
+				      				<div class="reviewItemDesc mb-0 text-secondary text-truncate" style="font-size: 14px;"></div>
+				      			</div>
+			      			</div>
+			      			<div class="row">
+				      			<div class="col">
+				      				<div class="reviewPeriod"></div>
+				      			</div>
+			      			</div>
+			      			
 			      		</div>
 	      			</div>
 	      		</div>
 	      	</div>
 	      
-	      	<div class="row mt-3">
+	      	<div class="row mt-4 mx-3">
 	      		<div class="col">
-	      			<div class="row">
-	      				<div class="col">
-							<span class="fw-bold">제목</span> 
-							<input type="text" name="rental_review_title" class="form-control mt-1"><br />	      				
-	      				</div>
-	      			</div>
-	      			
-	      			<div class="row">
-	      				<div class="col">
-							<span class="fw-bold">내용</span>  
-							<textarea rows="" cols="" class="form-control" name="rental_review_content mt-1"></textarea><br>
-	      				</div>
-	      			</div>
-	      			
-					<div class="row">
+	      			<div class="row pt-0">
 						<div class="col ">
 							<p class="mb-0 fw-bold">별점</p>
 			      			<div id="full-stars-example-two">
 			      			<input type="hidden" value="" name="rental_review_rating" class="ratingVal">
 							    <div class="rating-group">
 							        <input disabled="" checked="" class="rating__input rating__input--none" name="rating3" id="rating3-none" value="0" type="radio">
-							        <label aria-label="1 star" class="rating__label" for="rating3-1"><i class="rating__icon rating__icon--star fa fa-sm fa-star" aria-hidden="true"></i></label>
+							        <label aria-label="1 star" class="rating__label" for="rating3-1"><i class="rating__icon rating__icon--star fa fa-xs fa-star" aria-hidden="true"></i></label>
 							        <input class="rating__input" name="rating3" id="rating3-1" value="1" type="radio">
-							        <label aria-label="2 stars" class="rating__label" for="rating3-2"><i class="rating__icon rating__icon--star fa fa-sm fa-star" aria-hidden="true"></i></label>
+							        <label aria-label="2 stars" class="rating__label" for="rating3-2"><i class="rating__icon rating__icon--star fa fa-xs fa-star" aria-hidden="true"></i></label>
 							        <input class="rating__input" name="rating3" id="rating3-2" value="2" type="radio">
-							        <label aria-label="3 stars" class="rating__label" for="rating3-3"><i class="rating__icon rating__icon--star fa fa-sm fa-star" aria-hidden="true"></i></label>
+							        <label aria-label="3 stars" class="rating__label" for="rating3-3"><i class="rating__icon rating__icon--star fa fa-xs fa-star" aria-hidden="true"></i></label>
 							        <input class="rating__input" name="rating3" id="rating3-3" value="3" type="radio">
-							        <label aria-label="4 stars" class="rating__label" for="rating3-4"><i class="rating__icon rating__icon--star fa fa-sm fa-star" aria-hidden="true"></i></label>
+							        <label aria-label="4 stars" class="rating__label" for="rating3-4"><i class="rating__icon rating__icon--star fa fa-xs fa-star" aria-hidden="true"></i></label>
 							        <input class="rating__input" name="rating3" id="rating3-4" value="4" type="radio">
-							        <label aria-label="5 stars" class="rating__label" for="rating3-5"><i class="rating__icon rating__icon--star fa fa-sm fa-star" aria-hidden="true"></i></label>
+							        <label aria-label="5 stars" class="rating__label" for="rating3-5"><i class="rating__icon rating__icon--star fa fa-xs fa-star" aria-hidden="true"></i></label>
 							        <input class="rating__input" name="rating3" id="rating3-5" value="5" type="radio">
 							    </div>
 							</div>
 				      	</div>
 					</div>
-					
-	      			<div class="row mt-3">
+	      			<div class="row my-3">
 	      				<div class="col">
-							이미지첨부 <input name="rental_review_img" type="file" multiple accept="image/*" class="form-control">
+	      				 	<div class="row pb-1"> 
+		      				 	<div class="col"> 
+	      				 			<span class="fw-bold">제목</span> 
+		      				 	</div>
+	      				 	</div>
+	      				 	<div class="row "> 
+		      				 	<div class="col"> 
+	      				 			<input type="text" name="rental_review_title" class="form-control mt-1"> 
+		      				 	</div>
+	      				 	</div>
+							      				
+	      				</div>
+	      			</div>
+	      			
+	      			<div class="row my-3">
+	      				<div class="col">
+	      					<div class="row pb-1"> 
+		      				 	<div class="col "> 
+	      				 			<span class="fw-bold">내용</span>  
+		      				 	</div>
+	      				 	</div>
+	      				 	<div class="row"> 
+		      				 	<div class="col"> 
+	      				 			<textarea rows="4" cols="" class="form-control" name="rental_review_content mt-1"></textarea>
+		      				 	</div>
+	      				 	</div>
+							
+							
+	      				</div>
+	      			</div>
+	      			
+					
+					
+	      			<div class="row my-3 mb-4">
+	      				<div class="col fw-bold">
+	      					<div class="row mb-1"> 
+		      				 	<div class="col"> 
+	      				 			<span class="fw-bold">이미지첨부</span>  
+		      				 	</div>
+	      				 	</div>
+	      					<div class="row"> 
+		      				 	<div class="col"> 
+	      				 			<input name="rental_review_img" type="file" multiple accept="image/*" class="form-control">
+		      				 	</div>
+	      				 	</div>
+							
 	      				</div>
 	      			</div>
 	      			
@@ -240,15 +288,64 @@
 	      	</div>
 	      </div>
 	      
-	      <div class="modal-footer">
-	        <span class="btn btn-secondary" data-bs-dismiss="modal">취소</span>
-	        <button type="submit" class="btn btn-primary">작성</button>
+	      <div class="modal-footer  bg-light">
+	        <span class="btn btn-outline-dark" data-bs-dismiss="modal">취소</span>
+	        <button type="submit" class="btn btn-dark">작성</button>
 	      </div>
+	      
 	    </div>
     </form>
   </div>
 </div>
 <!-- 대여 리뷰 모달  -->			
+
+<!-- 조건 반납 모달 -->
+	<div class="modal" tabindex="-1" id="modalConfirm">
+	  <div class="modal-dialog">
+	  <form action="">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <h5 class="modal-title">대여 반납 확인서</h5>
+		        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+		      </div>
+		      <div class="modal-body">
+		      	<div class="row border rounded-2 mx-auto" style="width: 99%;">
+		      		<div class="col-3">
+		      			<img class="confirmModalImg img-fluid" alt="" src="">
+		      		</div>
+		      		<div class="col d-flex flex-column justify-content-center">
+		      			<p class="mb-0 confirmModalItemTitle fs-5 fw-medium"></p>
+		      			<p class="mb-0 confirmModalItemDesc"></p>
+		      		</div>
+		      	</div>
+		      	
+		      	<div class="row my-3">
+		      		<div class="col mt-3 text-center">
+		      			<p class="mb-0 userDesc"></p>
+		      		</div>
+		      	</div>
+		      	
+		      </div>
+		      
+		      <div class="modal-footer flex-column justify-content-start">
+		      	<div class="row">
+		      		<div class="col px-0">
+		        		<small class="text-secondary">일주일 내 대여 제품을 택배로 보내주시면 감사하겠습니다.</small>
+		      		</div>
+		      	</div>
+		      
+		      	<div class="row">
+		      		<div class="col px-0">
+				        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">취소</button>
+				        <button type="button" class="btn btn-dark"  id="confirmSubmitReturn">반납</button>
+		      		</div>
+		      	</div>
+		      </div>
+		    </div>
+	    </form>
+	  </div>
+	</div>
+<!-- 조건충족 반납 모달 -->
 
 	<!-- 헤더 섹션 -->
 	<jsp:include page="../common/header.jsp"></jsp:include>
@@ -376,16 +473,7 @@
 										<div class="col">
 											<c:choose>
 											    <c:when test="${data.isCompleted == 'Y' && data.myReviewCount == 0}">
-											        <button type="button" class="btn btn-outline-dark my-2 px-2 py-1" style="font-size:13px;" 
-											        data-order-id="${data.orderedItem.id}" 
-											        data-image-link="${data.product.main_img_link}"
-											        data-product-title="${data.product.title }"
-											        data-produce-desc="${data.product.item_description}"
-											        data-startdate="${data.orderedItem.start_date }" 
-											        data-bs-toggle="modal" 
-											        data-bs-target="#modalReview">
-											        	대여리뷰작성
-											        </button>																				
+											        <button type="button" class="btn btn-outline-dark my-2 px-2 py-1" style="font-size:13px;" data-order-id="${data.orderedItem.id}" data-bs-toggle="modal" data-bs-target="#modalReview">대여리뷰작성</button>																				
 											    </c:when>
 											    <c:when test="${data.isCompleted == 'Y' && data.myReviewCount >= 1}">
 											        <button class="btn btn-outline-dark my-2 px-2 py-1" onclick="placeReviewDate(${data.orderedItem.id})" style="font-size:13px;">내가 쓴 리뷰</button>																				
@@ -396,13 +484,12 @@
 											    <c:when test="${data.isCompleted != 'Y'}">
 											        <c:choose>
 											            <c:when test="${data.orderedItem.is_shipped == 'N'}">
-<!-- 											                <div class="p-1" style="font-size:14px;">배송중</div> -->
-											                <div class="p-1" style="font-size:14px;"></div>
+											                <!-- <div class="p-1" style="font-size:14px;">배송중</div> -->
 											            </c:when>
 											            
-									            		<%-- <c:when test="${data.rentalItemReturnDto.is_item_returned == 'N' && data.isCompleted == 'N' }">
+									            		<c:when test="${data.rentalItemReturnDto.is_item_returned == 'N' && data.isCompleted == 'N' }">
 									            			<div class=" p-1" style="font-size:14px;">회수중</div>
-									            		</c:when> --%>
+									            		</c:when>
 											            		
 											            <c:otherwise>
 											            	<c:choose>
@@ -410,6 +497,7 @@
 													                <button type="button" class="btn btn-outline-dark px-2 py-1" style="font-size:13px;" onclick="returnCheck(this)"
 													                	data-image-link="${data.product.main_img_link}" 
 													                	data-product-title="${data.product.title}" 
+													                	data-product-desc="${data.product.item_description}"
 													                	data-order-id="${data.orderedItem.id}" 
 													                	data-original-price="${data.orderedItem.original_price}" 
 													                	data-rego-price="${data.orderedItem.price}" 
@@ -422,7 +510,7 @@
 											            		</c:when>
 											            		
 											            		<c:when test="${data.rentalItemReturnDto.is_item_returned == 'Y' && data.isCompleted != 'Y' }">
-											            			<!-- <div class="" style="font-size:14px;" disabled>최종 정산중</div> -->
+											            			<button type="button" class="btn btn-outline-secondary px-2 py-1" style="font-size:13px;" disabled>최종 정산중</button>
 											            		</c:when>
 											            		
 											            		<c:otherwise>
@@ -446,14 +534,13 @@
 		</div>
 	</div>
 	
-	<div class="modal" id="showMyReviewModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal modal-lg" id="showMyReviewModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-md modal-dialog-centered"> 
     <div class="modal-content">
-      <div class="modal-header">
+      <div class="modal-header bg-light">
      	 <div class="row mb-0">
-      			<div class="col fs-5 fw-bold">
-      				<p class="mb-0"><small class="text-secondary bussinessName"></small></p>
-      				<p class="mb-0 itemTitle"></p>
+      			<div class="col fs-5 fw-medium">
+      				마이 리뷰
       			</div>
       	 </div>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -462,11 +549,11 @@
       	      
 	      <div id="testBox">
 	      </div>
-      		
-	      <div class="modal-footer">
-	        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">창닫기</button>
-	      </div> 
+	     
 	  </div>
+	   <div class="modal-footer bg-light">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">창닫기</button>
+      </div> 
   </div>
 </div>
 </div>
@@ -590,9 +677,12 @@ const setRegDate = () => {
 
 const modalReturn = document.getElementById('modalReturn')
 const modalReview = document.getElementById('modalReview')
+const modalConfirm = document.getElementById('modalConfirm') 
+// 조건 반납 모달
+
+
 
 // 반납 안내 모달
-
 function returnCheck(e) {
 	
 	let returnPercentage
@@ -616,22 +706,19 @@ function returnCheck(e) {
     formattedEndDate = `\${yyyy}-\${mm}-\${dd}`;
     
     const currentDate = new Date();
-    
-    
-    
-    // returnPercentage = calcEarlyReturn(new Date(formattedStartedDate), new Date(formattedEndDate), new Date(formattedDate))		
-    
+	// returnPercentage = calcEarlyReturn(new Date(formattedStartedDate), new Date(formattedEndDate), new Date(formattedDate))		
 	 
 	const returnDesc = document.querySelector(".return_desc")
 	returnDesc.innerHTML = ''
     const endRego = new Date();
     const originalPrice= button.getAttribute('data-original-price')
     const price = button.getAttribute('data-rego-price')
-    console.log("regi price", price)
+    // console.log("regi price", price)
     const deposit = button.getAttribute('data-deposit')
     const productTitle = button.getAttribute('data-product-title')
     const submitReturn = document.getElementById("submitReturn")
     const dataImageLink = button.getAttribute('data-image-link')
+    const productDesc = button.getAttribute('data-product-desc')
     const form = modalReturn.querySelector('form')
 
     setRegDate()
@@ -661,7 +748,6 @@ function returnCheck(e) {
     usedPriceP.innerText = parseInt(price).toLocaleString()
     regiMonthP.innerText = regiMonth
     usedMonthP.innerText = calcMonth
-    //regiMonthP[1].innerText = regiMonth
     startDateP.innerText = formattedStartedDate
     endDateP.innerText = formattedEndDate
     minusPriceP.innerText = calcedPrice.toLocaleString()
@@ -670,7 +756,6 @@ function returnCheck(e) {
     modalTopImage.setAttribute('src', '/safariImg/'+dataImageLink)
     submitReturn.setAttribute('onclick', 'returnProcess(' + orderId + ',' + refundMoney + ', "'+ productTitle + '")')
     let days = (endDateObj - startDateObj)
-
     
    /*  console.log(returnPercentage);
     console.log(startDateObj);
@@ -685,19 +770,30 @@ function returnCheck(e) {
     // console.log(startDateObj > currentDate);
     
     
+    /* 조건모달생성 */
+    const confirmModalImg = document.querySelector('.confirmModalImg')
+    const confirmModalItemTitle = document.querySelector('.confirmModalItemTitle')
+    const confirmModalItemDesc = document.querySelector('.confirmModalItemDesc')
+    const userDesc = document.querySelector('.userDesc')
+    const confirmSubmitReturn = document.querySelector('#confirmSubmitReturn')
+    
+    confirmModalImg.setAttribute('src', '/safariImg/'+dataImageLink)
+    confirmModalItemTitle.innerText = productTitle
+    confirmModalItemDesc.innerText = productDesc
+    
+    userDesc.innerHTML = `기존 반납일은 <span class="fw-medium">\${formattedEndDate}</span> 입니다.`
+    confirmSubmitReturn.setAttribute('onclick', 'returnProcessSingle(' + orderId + ')')
     
     // 오늘 날짜가 대여 시작일 보다 이전이거나 계약 기간의 90퍼센트 이상인 경우 - 추가 정산 XXX
     if(returnPercentage > 90  || startDateObj > currentDate ) {
-    	const returnModal1 = bootstrap.Modal.getOrCreateInstance("#");
+    	const returnModal1 = bootstrap.Modal.getOrCreateInstance("#modalConfirm");
     	returnModal1.show();
-    	return;
+    	return; 
     	
     } else { // 그 외에는 할인 기간 계산 
     	const returnModal2 = bootstrap.Modal.getOrCreateInstance("#modalReturn");
     	returnModal2.show();
     }
-    
-    
     
 
 }
@@ -722,7 +818,7 @@ if (modalReview) {
     
     reviewModalTopImage.setAttribute('src', '/safariImg/'+dataImageLink)
    	itemTitle.innerText = dataItemTitle
-    itemDesc.innerText = dataProduceDesc
+    itemDesc.innerText = productDesc
     
     ratingGroup.addEventListener('click', function() {
         let rentalReviewRating = document.querySelector('.ratingVal')
@@ -793,8 +889,8 @@ function placeReviewDate(id) {
 		if(xhr.readyState == 4 && xhr.status == 200){
 			const response = JSON.parse(xhr.responseText);
 			if(response.result == "success"){
-				let rentalReviewDto = response.rentalReviewDto
-				let rentalItemDto = response.rentalItemDto
+				let rentalReviewDto = response.rentalReviewDto;
+				let rentalItemDto = response.rentalItemDto.rentalItemDto;
 				console.log(rentalItemDto)
 				
 				showMyReview()
@@ -813,18 +909,18 @@ function placeReviewDate(id) {
 					const titleRow = document.createElement("div");
 					titleRow.classList.add("row");
 					const titleCol = document.createElement("div");
-					titleCol.classList.add("col", "fs-5", "fw-normal");
+					titleCol.classList.add("col", "fs-5", "fw-medium");
 					titleCol.textContent = rentalReviewDto.rental_review_title;
 					titleRow.appendChild(titleCol);
 
 					// Create the row for user info
 					const userInfoRow = document.createElement("div");
-					userInfoRow.classList.add("row");
+					userInfoRow.classList.add("row", "mt-1");
 					const userIdCol = document.createElement("div");
-					userIdCol.classList.add("col", "fs-6", "fw-light", "text-secondary");
+					userIdCol.classList.add("col", "fs-6", "text-secondary");
 					userIdCol.textContent = userNickname; 
 					const dateCol = document.createElement("div");
-					dateCol.classList.add("col", "fs-6", "fw-light", "text-secondary", "text-end");
+					dateCol.classList.add("col", "fs-6", "text-secondary", "text-end");
 					const reviewDate = new Date(rentalReviewDto.reg_date);
 					const formattedDate = reviewDate.toLocaleDateString('en-US', {
 					  year: 'numeric',
@@ -840,10 +936,23 @@ function placeReviewDate(id) {
 					const hr = document.createElement("hr");
 					hr.classList.add("border");
 					
+					const prdRateRow = document.createElement("div");
+					prdRateRow.classList.add("row");
+					const prdRateCol1 = document.createElement("div");
+					prdRateCol1.classList.add("col-2");
+					const imgElement = document.createElement("img");
+					imgElement.setAttribute("src", `/safariImg/\${rentalItemDto.main_img_link}`); 
+					imgElement.classList.add("img-fluid");
+					prdRateCol1.appendChild(imgElement);
+					prdRateRow.appendChild(prdRateCol1);
+					
+					const prdRateCol2 = document.createElement("div");
+					prdRateCol2.classList.add("col");
+					
 					const productInfoRow = document.createElement("div");
 					productInfoRow.classList.add("row");
 					const productNameCol = document.createElement("div");
-					productNameCol.classList.add("col", "text-secondary", "fw-light");
+					productNameCol.classList.add("col");
 					productNameCol.textContent = rentalItemDto.title;
 					productInfoRow.appendChild(productNameCol);
 
@@ -863,12 +972,16 @@ function placeReviewDate(id) {
 					  ratingCol.appendChild(starIcon);
 					}
 					ratingRow.appendChild(ratingCol);
+					
+					prdRateCol2.appendChild(productInfoRow)
+					prdRateCol2.appendChild(ratingRow)
+					prdRateRow.appendChild(prdRateCol2);
 
 					// Create the row for review content
 					const contentRow = document.createElement("div");
-					contentRow.classList.add("row", "mt-3", "mb-5", "fw-light");
+					contentRow.classList.add("row", "my-4");
 					const contentCol = document.createElement("div");
-					contentCol.classList.add("col");
+					contentCol.classList.add("col", "fw-light");
 					contentCol.textContent =
 						rentalReviewDto.rental_review_content;
 					contentRow.appendChild(contentCol);
@@ -884,25 +997,24 @@ function placeReviewDate(id) {
 					replyCol.classList.add("col", "fw-medium");
 					replyCol.textContent = "답글";
 					replyRow.appendChild(replyCol);
-					
 
 					// 답글 있을 경우 
 					// Create the row for review content
 					const replyBodyRow = document.createElement("div");
-					replyBodyRow.classList.add("row", "mt-3", "mb-5", "fw-light");
+					replyBodyRow.classList.add("row", "mt-3", "mb-2", "fw-light");
 
 					const replyBodyCol = document.createElement("div");
 					replyBodyCol.classList.add("col", "review-reply", "p-3", "mx-3");
 					replyBodyCol.textContent =rentalReviewDto.rental_reply_review;
 					replyBodyRow.appendChild(replyBodyCol);
-					
 
 					// Append all elements to the productBox
 					cardBody.appendChild(titleRow);
 					cardBody.appendChild(userInfoRow);
 					cardBody.appendChild(hr);
-					cardBody.appendChild(productInfoRow);
-					cardBody.appendChild(ratingRow);
+					cardBody.appendChild(prdRateRow);
+					/* cardBody.appendChild(productInfoRow);
+					cardBody.appendChild(ratingRow); */
 					cardBody.appendChild(contentRow);
 					cardBody.appendChild(hr2);
 					cardBody.appendChild(replyRow);

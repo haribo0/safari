@@ -39,7 +39,7 @@
 			#{description},
 			#{start_price},
 			#{max_price},
-			'준비중',
+			#{auction_status},
 			#{start_date},
 			#{end_date},
 			SYSDATE
@@ -328,9 +328,9 @@
 	
 	<!-- 종료 시간이 1분 미만일 때 입찰하였을 경우, 경매 종료 시간 1분 늘리기 -->
 	<update id="renewEndTimeAuctionItem">
-	UPDATE auction_item
-		SET end_date = end_date + INTERVAL '30' SECOND   <!--INTERVAL '1' MINUTE-->
-		WHERE id = #{auctionItemId}
+		UPDATE auction_item									<!-- INTERVAL '30' SECOND -->
+			SET end_date = end_date + INTERVAL '1' MINUTE  <!---->
+			WHERE id = #{auctionItemId}
 	</update>
 	
 	

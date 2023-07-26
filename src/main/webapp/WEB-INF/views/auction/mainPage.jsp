@@ -40,6 +40,12 @@
 	font-weight: bold;
 	color: white;
 }
+
+.btn-outline-dark:hover {
+	background: white;
+	color: black;
+
+}
 </style>
 <body>
 
@@ -88,12 +94,18 @@
 			 			곧 마감 ! 놓치지 마세요
 			 		</div>
 			 		<div class="col mt-2 text-end fw-semibold" style="font-size: 16px;">
-			 			<a href="/safari/auction/List" style="color: #ff6f0f">더보기</a>
+			 			<a href="/safari/auction/List" class="text-secondary">더보기</a>
 			 		</div>
 			 	</div>
 			 	
 			 	<div class="row mt-3" id="deadlineList">
 					
+				</div>
+				
+				<div class="row mt-3">
+					<div class="col text-end">
+						<a href="/safari/auction/List" class="btn btn-sm  btn-outline-dark">경매 목록 더보기</a>
+					</div>
 				</div>
 			 
 				
@@ -107,8 +119,8 @@
 					</div>
 				</div>
 				
-				<div class="row">
-					<div class="col">
+				<div class="row mt-1">
+					<div class="col" style="font-size: 14px">
 						최근 입찰이 많이 진행된 경매 목록
 					</div>
 				</div>
@@ -135,6 +147,9 @@
 					<div class="col fs-5 fw-bold">
 						482 추천 경매 리스트
 					</div>
+					<div class="col mt-2 text-end fw-semibold" style="font-size: 16px;">
+			 			<a href="/safari/auction/List" class="text-secondary">더보기</a>
+			 		</div>
 				</div>
 				
 				<div class="row mt-3" id="randomAuctionList">
@@ -158,7 +173,7 @@
 //곧 마감되는 경매 출력
 function getDeadlineList() {
 	
-	
+	// 경매 종료 표시
 	const xhr = new XMLHttpRequest();
 	  xhr.onreadystatechange = function() {
 	    if (xhr.readyState === 4 && xhr.status === 200) {
@@ -373,6 +388,17 @@ function updateAuctionCountDown(id) {
 			  const auctionEndDate = new Date(response.auctionItem.auctionDto.end_date); // 경매 종료일
 			  
 			  auctionCountDown = countdownFromEndDate(auctionEndDate);
+			  
+			  if (auctionEndDate <= nowDate || response.auctionItem.auctionDto.auction_status == '종료') {
+				
+					timeSpan.style.backgroundColor = "#6c757d";
+					timeSpan.innerText = "경매 종료";
+					renewAuctionItemStatusEnd(id);
+					
+					return;
+			  }
+		  		
+			  else {
 			  			
 		      if (auctionCountDown.days > 0) {
 		          
@@ -431,6 +457,7 @@ function updateAuctionCountDown(id) {
 			  	   timeSpan4.innerText = auctionCountDown.seconds;
 			     }
 			     timeSpan.appendChild(timeSpan4);
+			  }
 		
 		
 			     setTimeout(function() {
@@ -442,6 +469,30 @@ function updateAuctionCountDown(id) {
      xhr.open("get", "/safari/auction/getAuctionItemInfo/" + id);
      xhr.send();
  }
+ 
+ 
+//경매 정보를 업데이트하고 화면에 출력하는 함수
+function updateAuctionBidList(id) {
+	
+	const xhr = new XMLHttpRequest();
+	
+	 xhr.onreadystatechange = function () {
+       if(xhr.readyState == 4 && xhr.status == 200){
+           const response = JSON.parse(xhr.responseText);
+
+           const nowDate = new Date();
+           const auctionEndDate = new Date(response.auctionItem.auctionDto.end_date); // 경매 종료일
+           
+           if (auctionEndDate <= nowDate || response.auctionItem.auctionDto.auction_status == '종료') {
+				
+				renewAuctionItemStatusEnd(id);
+           }
+
+       }
+	 }  
+	 xhr.open("get", "/safari/auction/getAuctionItemInfo/" + id);
+     xhr.send();
+}
  
  
  // 인기 있는 경매 출력
@@ -461,6 +512,7 @@ function getAuctionOrderByBidCount() {
             for (data of response.maxBidList) {
             	
             	getCurrentPrice(data.id);
+            	updateAuctionBidList(data.id);
             	
             	const row = document.createElement("div");
             	row.classList.add("row", "mb-3");
@@ -563,6 +615,41 @@ function getAuctionOrderByBidCount() {
      xhr.send();
  }
  
+//경매 종료일 지났으면 경매 상태를 종료로 업데이트 (DB에 정보 업데이트)
+function renewAuctionItemStatusEnd(auctionItemId) {
+	
+	 const xhr = new XMLHttpRequest();
+
+	 xhr.onreadystatechange = function() {
+	    if (xhr.readyState === 4 && xhr.status === 200) {
+	      const response = JSON.parse(xhr.responseText);
+		  
+	      
+	      // 경매 상태 조회 시 종료가 아닐 경우에만 db에 상태 업데이트
+	      if (response.auctionItemStatus.auction_status != '종료') {
+	    	  
+	    	  const xhrUpdateStatus = new XMLHttpRequest();
+	    	  xhrUpdateStatus.onreadystatechange = function() {
+	    	  if (xhrUpdateStatus.readyState === 4 && xhrUpdateStatus.status === 200) {
+	    		  
+
+	    	  }
+	        };
+	        xhrUpdateStatus.open("get", "/safari/auction/renewAuctionItemStatusEnd/" + auctionItemId);
+	        xhrUpdateStatus.send();
+	        
+	      }
+	      
+
+		  }
+	 }
+	 
+    xhr.open("get", "/safari/auction/getAuctionStatusByAuctionItemId/" + auctionItemId); // 수정하기
+    xhr.send();  
+}
+
+ 
+ 
 
  // 랜덤 추출 - 현재가 업데이트
 function getAuctionListByRandom() {
@@ -645,7 +732,7 @@ function getAuctionListByRandom() {
              
                 
                 row3.appendChild(col3);
-                row3.appendChild(heartCol);
+                //row3.appendChild(heartCol);
                 
 				col.appendChild(row1);
 				col.appendChild(row2);

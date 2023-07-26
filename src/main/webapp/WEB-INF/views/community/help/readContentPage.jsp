@@ -15,9 +15,9 @@
 	rel="stylesheet"
 	integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM"
 	crossorigin="anonymous">
-<link rel="stylesheet"
-	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
-
+<!-- <link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css"> -->
+<link rel="stylesheet" href="/safari/resources/style/common.css" type="text/css">
 <script>
 
 // 현재 접속한 유저 pk
@@ -219,13 +219,6 @@ function formatDate(date, format) {
 				
 				// js 작업..렌더링...
 			
-				
-				/* <div class="row">
-				<div class="helpCommentBox col-8 bg-primary">내용</div>
-				<div class="col bg-secondary">닉네임</div>
-				<div class="col bg-success">삭제</div>
-				<div class="col bg-warning">수정</div>
-				</div> */
 				
 				
 				const helpCommentListBox = document.getElementById("helpCommentListBox");
@@ -531,11 +524,12 @@ window.addEventListener("DOMContentLoaded", function(){
 						<div class="container">
 							<div class="row mt-2">
 								<div class="col-11 mb-3 d-grid ">
+								<c:if test="${sessionUser.id != map.userDto.id}">
 									<textarea id="helpCommentTextBox"
 										class="form-floating border p-2 mb-2 border-opacity"
 										placeholder="댓글을 입력하세요" id="floatingTextarea2"
 										style="height: 60px; font-size: 13px;" name="content"></textarea>
-
+								
 								</div>
 								<div class="col-1 d-flex justify-content-center ">
 									<button class="btn btn-secondary"
@@ -543,7 +537,9 @@ window.addEventListener("DOMContentLoaded", function(){
 										style="font-size: 22px; height: 60px; width: 68px; background-color: #ff6f0f; border: none;">
 										<i class="bi bi-chat-text"></i>
 									</button>
+									</c:if>
 								</div>
+								
 							</div>
 							
 							<%--ajax 댓글 조회 랜더링(영상) --%>
@@ -666,14 +662,17 @@ window.addEventListener("DOMContentLoaded", function(){
 					<div class="col text-start fw-bold">
 						<span style="font-size: 13px;" class="commentNickname">닉네임 공간</span>             
 						<span class="text-secondary ms-2 commentDate" style="font-size: 13px; font-weight: normal;" > 날짜 공간 </span> 
-						<span class="text-secondary ms-2 commentUpdate"> <input type="button"
-							class="btn btn-sm btn-primary" value="수정"
+						<span class="text-secondary ms-2 commentUpdate"> 					
+						<input type="button" class="btn btn-sm btn-primary" value="수정"
 							style="font-size: 13px; background-color: transparent; border: none; color: inherit;">
 							<input type="button" class="btn btn-sm btn-primary commentDelete" value="삭제"
 							style="font-size: 13px; background-color: transparent; border: none; color: inherit;">
-							🚨
+							<c:if test="${sessionUser.id != map.userDto.id }">
+							<input type="button" class="btn btn-sm btn-primary" value="신고하기"
+							style="font-size: 13px; background-color: transparent; border: none; color: inherit;">
+							</c:if>
 						</span>
-
+						
 					</div>
 					<div class="col text-end">
 						<div class="row">

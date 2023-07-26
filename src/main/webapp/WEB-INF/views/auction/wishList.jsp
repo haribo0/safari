@@ -49,23 +49,17 @@
 			<div class="row me-5" style="position: relative; right: 10px;">
 				<div class="col">
 			
+				
+				
 				<div class="row mt-4">
 					<div class="col">
-						<span>
-							<i class="bi bi-exclamation-circle fs-5 me-1"></i></span>
-								<span class="fw-semibold fs-5">참고사항</span>
-					</div>
-				</div>
-				
-				<div class="row">
-					<div class="col">
-						찜한 경매 중에서 준비중이거나 진행중인 경매만 표시됩니다.
+						• &nbsp; 찜한 경매 중에서 준비중이거나 진행중인 경매만 표시됩니다.
 					</div>
 				</div>			
 		
 			    <div class="row">
 					<div class="col">
-						진행중인 경매의 <span class="fw-semibold">현재가는 <span class="text-danger">실시간으로</span> 업데이트</span> 되고 있습니다.
+						• &nbsp; 진행중인 경매의 <span class="fw-semibold">현재가는 <span class="text-danger">실시간으로</span> 업데이트</span> 되고 있습니다.
 					</div>
 				</div>		
 				
@@ -77,9 +71,9 @@
 				
 				
 				<c:if test="${empty auctionWishList}">
-					<div class="row mt-3">
-						<div class="col text-center fs-5">
-							관심 있는 경매가 없습니다.
+					<div class="row mt-5">
+						<div class="col text-center" style="font-size: 18px">
+							관심 등록한 경매가 없습니다.
 						</div>
 					</div>	
 				</c:if>

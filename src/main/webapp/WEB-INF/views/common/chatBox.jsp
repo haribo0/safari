@@ -162,9 +162,9 @@ body1 {
 }
 </style>
 
-<!-- font awesome / 별점 -->
+<!-- font awesome /  -->
 <script src="https://kit.fontawesome.com/a83ecfd9ee.js" crossorigin="anonymous"></script>
-<!-- font awesome / 별점 -->
+<!-- font awesome /  -->
 
 
 

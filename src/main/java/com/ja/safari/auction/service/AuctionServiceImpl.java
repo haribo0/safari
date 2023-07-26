@@ -1,6 +1,7 @@
 package com.ja.safari.auction.service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -54,6 +55,18 @@ public class AuctionServiceImpl {
 		int auctionItemPk = auctionSqlMapper.createPk();
 		
 		auctionItemDto.setId(auctionItemPk);
+		
+	 	Date currentDateTime = new Date();
+	    Date startDateTime = auctionItemDto.getStart_date();
+	    Date endDateTime = auctionItemDto.getEnd_date();
+
+	    if (currentDateTime.before(startDateTime)) {
+	        auctionItemDto.setAuction_status("준비중");
+	    } else if (currentDateTime.before(endDateTime)) {
+	        auctionItemDto.setAuction_status("진행중");
+	    } else {
+	        auctionItemDto.setAuction_status("종료");
+	    }
 		
 		auctionSqlMapper.registerAuctionProduct(auctionItemDto);
 		
