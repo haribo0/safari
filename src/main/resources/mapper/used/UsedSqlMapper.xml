@@ -514,4 +514,9 @@ WHERE ROWNUM <= 4
 	SELECT * FROM PRODUCT_REQUEST WHERE status = '거래완료' AND user_id=#{userId}
 </select>
 
+<!-- 거래요청 productId, userId 로 get-->
+<select id="selectProductRequestByProductIdAndUserId" resultType="com.ja.safari.dto.ProductRequestDto">
+	SELECT * FROM PRODUCT_REQUEST WHERE product_id=#{productId} AND user_id=#{userId}
+</select>
+
 </mapper>

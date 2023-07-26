@@ -1764,7 +1764,13 @@ function getProductInformation(requestId) {
 
             row1col2row2 = document.createElement('div');
             row1col2row2.classList.add('row', 'ms-1', 'fw-bolder');
-            row1col2row2.innerText = response.map.productDto.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',') + '원';
+            
+            if(response.map.productDto.price == 0){
+            	row1col2row2.innerHTML = '<div class="col-3 text-start ps-0 fw-semibold" style="font-size: 10px;"><button type="button" class="btn btn-warning px-2 py-0" disabled="">나눔</button></div>';
+            }else{
+            	row1col2row2.innerText = response.map.productDto.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',') + '원';
+            }
+            
 
             /* button */
             /*예약버튼 */
@@ -1812,11 +1818,10 @@ function getProductInformation(requestId) {
     	            
 
     	            const row2col4 = document.createElement('div');
-    	            row2col4.classList.add('col', 'text-end', 'fw-bold', 'my-auto');
+    	            row2col4.classList.add('col', 'text-end', 'my-auto');
     	            
-    	            row2col4.innerHTML = '<span class="ms-1" style=color: #919191cc;"><i class="bi bi-coin"></i> 1,200C</span>';
+    	            row2col4.innerHTML = '<img src="/safari/resources/img/used/coin2.png" width="26" height="28"><span style="color:" #919191cc;font-size:="" 16px;"="" class="fw-semibold"> 1,200</span><span style="color:gray;font-size:14px;"> 코인</span>';
     	            	
-
     	            row2.appendChild(row2col1);
     	            row2.appendChild(row2col2);
     	            row2.appendChild(row2col3);
@@ -1860,9 +1865,9 @@ function getProductInformation(requestId) {
     				row2col3Span.setAttribute("onclick", "productRequestStatusComplete("+requestId+")");
 
     				const row2col4 = document.createElement('div');
-    	            row2col4.classList.add('col', 'text-end', 'fw-bold', 'my-auto');
+    	            row2col4.classList.add('col', 'text-end', 'my-auto');
     	            
-    	            row2col4.innerHTML = '<span class="ms-1" style=color: #919191cc;"><i class="bi bi-coin"></i> 1,200C</span>';
+    	            rrow2col4.innerHTML = '<img src="/safari/resources/img/used/coin2.png" width="26" height="28"><span style="color:" #919191cc;font-size:="" 16px;"="" class="fw-semibold"> 1,200</span><span style="color:gray;font-size:14px;"> 코인</span>';
     	         
     	            row2.appendChild(row2col1);
     	            row2.appendChild(row2col2);
@@ -1888,9 +1893,9 @@ function getProductInformation(requestId) {
     				row2col1Span.setAttribute("onclick", "writeReview("+response.sessionId+","+response.productRequestDto.user_id+","+response.productRequestDto.id+")");
 
     				const row2col4 = document.createElement('div');
-    	            row2col4.classList.add('col', 'text-end', 'fw-bold', 'my-auto');
+    	            row2col4.classList.add('col', 'text-end', 'my-auto');
     	            
-    	            row2col4.innerHTML = '<span class="ms-1" style=color: #919191cc;"><i class="bi bi-coin"></i> 1,200C</span>';
+    	            row2col4.innerHTML = '<img src="/safari/resources/img/used/coin2.png" width="26" height="28"><span style="color:" #919191cc;font-size:="" 16px;"="" class="fw-semibold"> 1,200</span><span style="color:gray;font-size:14px;"> 코인</span>';
 
     	            row2.appendChild(row2col1);
     	            row2.appendChild(row2col4);
@@ -1910,9 +1915,9 @@ function getProductInformation(requestId) {
     				row2col1Span.setAttribute("onclick", "getMyWroteReview("+response.sessionId+","+response.productRequestDto.user_id+","+response.productRequestDto.id+")");
 
     				const row2col4 = document.createElement('div');
-    	            row2col4.classList.add('col', 'text-end', 'fw-bold', 'my-auto');
+    	            row2col4.classList.add('col', 'text-end', 'my-auto');
     	            
-    	            row2col4.innerHTML = '<span class="ms-1" style=color: #919191cc;"><i class="bi bi-coin"></i> 1,200C</span>';
+    	            row2col4.innerHTML = '<img src="/safari/resources/img/used/coin2.png" width="26" height="28"><span style="color:" #919191cc;font-size:="" 16px;"="" class="fw-semibold"> 1,200</span><span style="color:gray;font-size:14px;"> 코인</span>';
 
     	            row2.appendChild(row2col1);
     	            row2.appendChild(row2col4);
@@ -1941,9 +1946,9 @@ function getProductInformation(requestId) {
     				row2col1Span.setAttribute("onclick", "processPayment("+partner_order_id+","+partner_user_id+",'"+item_name+"',"+item_code+","+total_amount+")");
 
     				const row2col4 = document.createElement('div');
-    	            row2col4.classList.add('col', 'text-end', 'fw-bold', 'my-auto');
+    	            row2col4.classList.add('col', 'text-end', 'my-auto');
     	            
-    	            row2col4.innerHTML = '<span class="ms-1" style=color: #919191cc;"><i class="bi bi-coin"></i> 1,200C</span>';
+    	            row2col4.innerHTML = '<img src="/safari/resources/img/used/coin2.png" width="26" height="28"><span style="color:" #919191cc;font-size:="" 16px;"="" class="fw-semibold"> 1,200</span><span style="color:gray;font-size:14px;"> 코인</span>';
 
     	            row2.appendChild(row2col1);
     	            row2.appendChild(row2col4);
@@ -1967,9 +1972,9 @@ function getProductInformation(requestId) {
     				row2col1Span.setAttribute("onclick", "processPayment("+partner_order_id+","+partner_user_id+",'"+item_name+"',"+item_code+","+total_amount+")");
 
     				const row2col4 = document.createElement('div');
-    	            row2col4.classList.add('col', 'text-end', 'fw-bold', 'my-auto');
+    	            row2col4.classList.add('col', 'text-end', 'my-auto');
     	            
-    	            row2col4.innerHTML = '<span class="ms-1" style=color: #919191cc;"><i class="bi bi-coin"></i> 1,200C</span>';
+    	            row2col4.innerHTML = '<img src="/safari/resources/img/used/coin2.png" width="26" height="28"><span style="color:" #919191cc;font-size:="" 16px;"="" class="fw-semibold"> 1,200</span><span style="color:gray;font-size:14px;"> 코인</span>';
 
     	            row2.appendChild(row2col1);
     	            row2.appendChild(row2col4);
@@ -1987,9 +1992,9 @@ function getProductInformation(requestId) {
     				row2col1Span.setAttribute("onclick", "writeReview("+response.sessionId+","+ response.map.productDto.user_id+","+response.productRequestDto.id+")");
 
     				const row2col4 = document.createElement('div');
-    	            row2col4.classList.add('col', 'text-end', 'fw-bold', 'my-auto');
+    	            row2col4.classList.add('col', 'text-end', 'my-auto');
     	            
-    	            row2col4.innerHTML = '<span class="ms-1" style=color: #919191cc;"><i class="bi bi-coin"></i> 1,200C</span>';
+    	            row2col4.innerHTML = '<img src="/safari/resources/img/used/coin2.png" width="26" height="28"><span style="color:" #919191cc;font-size:="" 16px;"="" class="fw-semibold"> 1,200</span><span style="color:gray;font-size:14px;"> 코인</span>';
 
     	            row2.appendChild(row2col1);
     	            row2.appendChild(row2col4);
@@ -2009,9 +2014,9 @@ function getProductInformation(requestId) {
     				row2col1Span.setAttribute("onclick", "getMyWroteReview("+response.sessionId+","+response.map.productDto.user_id+","+response.productRequestDto.id+")");
 
     				const row2col4 = document.createElement('div');
-    	            row2col4.classList.add('col', 'text-end', 'fw-bold', 'my-auto');
+    	            row2col4.classList.add('col', 'text-end', 'my-auto');
     	            
-    	            row2col4.innerHTML = '<span class="ms-1" style=color: #919191cc;"><i class="bi bi-coin"></i> 1,200C</span>';
+    	            row2col4.innerHTML = '<img src="/safari/resources/img/used/coin2.png" width="26" height="28"><span style="color:" #919191cc;font-size:="" 16px;"="" class="fw-semibold"> 1,200</span><span style="color:gray;font-size:14px;"> 코인</span>';
 
     	            row2.appendChild(row2col1);
     	            row2.appendChild(row2col4);

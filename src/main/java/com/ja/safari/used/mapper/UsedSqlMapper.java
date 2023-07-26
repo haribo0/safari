@@ -163,7 +163,8 @@ public interface UsedSqlMapper {
 	public ProductRequestDto selectProductRequestByProductIdAndStatus(Integer productId);
 	// 나의 구매리스트 
 	public List<ProductRequestDto> selectMyBuyListByUserId(Integer uesrId);
-	
+	// 거래요청 - 상품id, 유저id 
+	public ProductRequestDto selectProductRequestByProductIdAndUserId(@Param("userId")Integer userId, @Param("productId")Integer productId);
 	
 	
 	

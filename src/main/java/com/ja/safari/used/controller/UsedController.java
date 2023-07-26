@@ -267,32 +267,6 @@ public class UsedController {
 		return "redirect:./productList";
 	}
 	
-	// 거래 요청 
-	@RequestMapping("productRequest")
-	public String productRequest(HttpSession session, int productId) {
-		UserDto sessionUser = (UserDto)session.getAttribute("sessionUser");
-		if(sessionUser==null) {
-			return "redirect:../user/loginPage";
-		}else {
-			ProductRequestDto productRequestDto = new ProductRequestDto();
-			productRequestDto.setProduct_id(productId);
-			productRequestDto.setUser_id(sessionUser.getId());
-			usedService.insertProductRequest(productRequestDto);
-			return "redirect:../user/myPage";
-		}
-	}
-	
-	// 채팅방 이미 있는 사람 
-	@RequestMapping("productRequestAlready")
-	public String productRequestAlready(HttpSession session, int productId) {
-		UserDto sessionUser = (UserDto)session.getAttribute("sessionUser");
-		if(sessionUser==null) {
-			return "redirect:../user/loginPage";
-		}else {
-//			usedService.deleteProductRequestByUser(productId, sessionUser.getId());
-			return "redirect:../user/myPage";
-		}
-	}
 	
 	
 	
