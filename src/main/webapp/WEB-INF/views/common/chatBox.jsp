@@ -1477,6 +1477,7 @@ function getReceiverWroteReviewHideAndShow(senderId, receiverId, requestId) {
 
 //채팅방 룸 목록 열기
 function reloadChatRoomList() {
+	
 	const chatRoomListStartBox = document.getElementById("usedChatListBox");
 
 	const xhr = new XMLHttpRequest();
@@ -1484,7 +1485,9 @@ function reloadChatRoomList() {
     xhr.onreadystatechange = function(){
         if(xhr.readyState == 4 && xhr.status == 200){
             const response = JSON.parse(xhr.responseText);
-            
+            if(!response.sessionUser){
+        		window.location.href = '/safari/user/loginPage';
+        	}
             // 회원 코인 잔액 확인하기 
             coinBalance = response.coinBalance;
             console.log(coinBalance);
@@ -2680,33 +2683,51 @@ function displayCurrentTime() {
 
 
 function openLiveChat() {
+	
+	
+	const xhr = new XMLHttpRequest();
 
-	// 모달 열기
-	const modal = bootstrap.Modal.getOrCreateInstance("#liveChatModal");
-	/* const liveChatStart = document.getElementById('liveChatStart');
-	liveChatStart.innerText= "실시간 문의가 시작되었습니다. "+displayCurrentTime(); */
+	xhr.onreadystatechange = function() {
+		if(xhr.readyState == 4 && xhr.status == 200){
+			const response = JSON.parse(xhr.responseText);
+			
+			
+			if(response.result === "fail"){
+				window.location.href = '/safari/user/loginPage';
+				return;
+			}
 
-	// 이벤트 리스너 추가
-	const textareaBox = document.getElementById("chatText");
-	textareaBox.addEventListener("keyup", keyUpEvent);
+			// 모달 열기
+			const modal = bootstrap.Modal.getOrCreateInstance("#liveChatModal");
+			/* const liveChatStart = document.getElementById('liveChatStart');
+			liveChatStart.innerText= "실시간 문의가 시작되었습니다. "+displayCurrentTime(); */
+
+			// 이벤트 리스너 추가
+			const textareaBox = document.getElementById("chatText");
+			textareaBox.addEventListener("keyup", keyUpEvent);
 
 
-	// TODO : 이미 열린 채팅 중 종료되지 않은 채팅 있는지 확인
+			// TODO : 이미 열린 채팅 중 종료되지 않은 채팅 있는지 확인
 
-	// 3초마다 채팅 업로드
-	if(intervalHandler1 != null){
-		clearInterval(intervalHandler1);
-		intervalHandler1 = null;
+			// 3초마다 채팅 업로드
+			if(intervalHandler1 != null){
+				clearInterval(intervalHandler1);
+				intervalHandler1 = null;
+			}
+
+			intervalHandler1 = setInterval(() => {
+				getMsg();
+			}, 3000);
+
+			modal.show();
+			
+			
+		}
 	}
 
-	intervalHandler1 = setInterval(() => {
-		getMsg();
-	}, 3000);
-
-	modal.show();
-
-
-
+	// get 방식 
+	xhr.open("get", "../user/getMyId");
+	xhr.send();
 
 }
 
@@ -2739,7 +2760,7 @@ function startLiveChat(categoryId) {
 
 
 	// post 방식
-	xhr.open("post", "./startLiveChat");
+	xhr.open("post", "../cs/startLiveChat");
 	xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 	xhr.send("categoryId="+categoryId);
 }
@@ -2787,7 +2808,7 @@ function sendMsg() {
     }
 
     //post
-	xhr.open("post", "./sendLiveChatMsg");
+	xhr.open("post", "../cs/sendLiveChatMsg");
 	xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
 	xhr.send("sendLiveChatMsg="+inputValue+"&chatId="+liveChatId);
 
@@ -3013,7 +3034,7 @@ function getMsg() {
 	}
 
 	// get 방식
-	xhr.open("get", "./getLiveChatMsgList?chatId="+liveChatId);
+	xhr.open("get", "../cs/getLiveChatMsgList?chatId="+liveChatId);
 	xhr.send();
 
 }
@@ -3069,7 +3090,7 @@ function saveFeedback() {
 	}
 
 	// post 방식
-	xhr.open("post", "./saveLiveChatRating");
+	xhr.open("post", "../cs/saveLiveChatRating");
 	xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 	xhr.send("chat_id="+liveChatId+"&rating="+ratingValue+"&text_review="+textReview);
 

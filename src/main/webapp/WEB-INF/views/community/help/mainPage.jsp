@@ -13,8 +13,8 @@
 	
 <style>
  .cropped-image {
-   width: 126.08px;
-   height: 126.08px;
+   width: 124px;
+   height: 124px;
    object-fit: cover;
  }
  
@@ -90,7 +90,7 @@ color: white;
 				    	<div class="row">
 				    		<div class="col-3">
 				    		<%-- img --%>
-									<div class="row mt-2">
+									<div class="row mt-1">
 										<div class="col">
 										<c:if test="${map.helpImgCount>=1}">
 											<img src="/uploadFiles/${map.helpImgDtoList[0].help_img_link}"
@@ -107,19 +107,19 @@ color: white;
 				    	<div class="col-7">
 				    		
 				    		<a class="text-black text-decoration-none" href="/safari/community/help/readContentPage/${map.helpDto.id}">
-				    		<span class = "fw-semibold" style="font-size: 16px;">
+				    		<span class = "fw-semibold" style="font-size: 16px; position: relative; top: 1px;">
 				    		${map.helpDto.title}
 				    		<c:if test="${map.helpDto.points>=1}">
 						  	<span class="badge rounded-pill text-bg-warning opacity-75" style="font-size: 61%; position: relative; top: -3px;">${map.helpDto.points}p</span>
 						  	</c:if></span></a>
 						  	<span class="badge rounded-pill text-bg-danger opacity-75" style="font-size: 61%; position: relative; top: -3px;">Best</span>
 						  	<div class="row">
-			  				<div class="col">
+			  				<div class="col" style="font-size: 14px; position: relative; top: 2px;">
 			  				${map.helpDto.location}
 			  				</div>
 				  			</div>
 				  			 <div class="row">
-				  				<div class="col" style="font-size: 15px;">
+				  				<div class="col" style="font-size: 14px; color: gray; position: relative; top: 1px;">
 				  				조회수 ${map.helpDto.views}
 				  				</div>
 				  			</div> 
@@ -171,18 +171,18 @@ color: white;
 		    	
 		    	<div class="col-7">
 		    		<a class="text-black text-decoration-none" href="/safari/community/help/readContentPage/${map.helpDto.id}">
-		    		<span style="font-size: 16px;">
-		    		<b>${map.helpDto.title}</b>
+		    		<span class = "fw-semibold" style="font-size: 16px; position: relative; top: 1px;">
+		    		${map.helpDto.title}
 		    		<c:if test="${map.helpDto.points>=1}">
 				  	<span class="badge rounded-pill text-bg-warning opacity-75" style="font-size: 61%; position: relative; top: -3px;">${map.helpDto.points}p</span>
 				  	</c:if></span></a>
 				  	<div class="row">
-	  				<div class="col">
+	  				<div class="col" style="font-size: 14px; position: relative; top: 2px;">
 	  				${map.helpDto.location}
 	  				</div>
 		  			</div>
 		  			 <div class="row">
-		  				<div class="col" style="font-size: 15px;">
+		  				<div class="col" style="font-size: 14px; color: gray; position: relative; top: 1px;">
 		  				조회수 ${map.helpDto.views}
 		  				</div>
 		  			</div> 

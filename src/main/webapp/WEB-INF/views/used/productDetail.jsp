@@ -62,11 +62,17 @@
 .relatedTitleImg{
 	border-radius: 10px;
 }
-
+.btn-qna{position: fixed; bottom: 80px; right: 190px; border-radius: 60px; padding: 0 0;}
+	.btn-circle{width: 50px; height: 52px; border-radius: 50%; display: flex; flex-direction:column; justify-content: center; align-items: center; font-size: 2rem; cursor: pointer;}
+	.btn-circle i{color: #5e5e5e; font-size: 24px;}
+	.btn-tit{font-size:13px;}
 </style>	
 
 </head>
 <body>
+	<!-- Chat Box -->
+	<jsp:include page="../common/chatBox.jsp"></jsp:include>
+	<!-- Chat Box -->
 	<!-- 헤더 섹션 -->
 	<jsp:include page="../common/header.jsp"></jsp:include>
 	<!-- 헤더 섹션 -->
@@ -227,10 +233,10 @@
 	    	<a href="./deleteProduct?productId=${map.productDto.id }" type="button" class="btn btn-outline-secondary btn-sm">삭제</a>
 	    	</div>
 	    		<c:if test="${completeCount > 0}">
-	    			<div class="col text-end my-auto pe-0"><button class="btn btn-sm fw-medium btn-secondary" style="padding: 6px 27px;font-size: 16px;">대화 중인 채팅방 1</button></div>
+	    			<div class="col text-end my-auto pe-0"><button class="btn btn-sm fw-medium btn-secondary" style="padding: 6px 27px;font-size: 16px;" onclick="reloadChatRoomList()">대화 중인 채팅방 1</button></div>
 	    		</c:if>
 	    		<c:if test="${completeCount == 0}">
-	    			<div class="col text-end my-auto pe-0"><button class="btn btn-sm fw-medium" style="background: #ff6f0f; color: white; padding: 6px 27px;font-size: 16px;">대화 중인 채팅방 1</button></div>
+	    			<div class="col text-end my-auto pe-0"><button class="btn btn-sm fw-medium" style="background: #ff6f0f; color: white; padding: 6px 27px;font-size: 16px;" onclick="reloadChatRoomList()">대화 중인 채팅방 1</button></div>
 	    		</c:if>
 	    	</c:if>
     	</div>
