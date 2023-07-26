@@ -442,6 +442,7 @@ window.addEventListener("DOMContentLoaded", function(){
 						<span style="font-size: 13px; color: gray;">
 							${map.userDto.nickname} &nbsp; <i class="bi bi-eye"></i>
 							${map.helpDto.views} &nbsp; 
+							<i class="bi bi-geo-alt"></i> ${map.helpDto.location} &nbsp;
 							<span class="fw-semibold">${map.helpDto.status}</span>
 						</span>
 					</div>
