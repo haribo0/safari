@@ -320,9 +320,7 @@
 
 				<div class="row flex-wrap pt-2">
 	 				<c:forEach items="${rentalItemList}" var="map" varStatus="status">
-		 				<c:if test="${status.index % 6 == 5}">
-		 					<div class="col-2 mb-5 item-box" style="cursor: pointer;">
-		 				</c:if>
+		 				
 						<div class="col mb-5 item-box" style="cursor: pointer;">
 							<div class="row imgBox">
 								<div class="col">
@@ -344,6 +342,15 @@
 						</div>
 					      <c:if test="${status.index % 5 == 4}">
 					        </div><div class="row flex-wrap pt-2">
+					      </c:if>
+					      <c:if test="${status.last}">
+					          <!-- 현재 순서가 마지막인 경우에만 실행될 내용 -->
+					          <!-- 만약 나머지가 4일 경우를 제외하고는 col을 더 만들어줘야함 (5-(status%5)) -->
+					          <c:forEach begin="0" end="${3-(status.index % 5)}" varStatus="status">
+							      <!-- 빈 칼럼 추가  -->
+						  	      <div class="col"></div>
+							  </c:forEach>
+
 					      </c:if>
 					</c:forEach>
 					</div>
