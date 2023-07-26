@@ -66,7 +66,7 @@
 							<div class="col-3 mb-5">
 								<div class="row">
 									<div class="col">
-										<a href="/safari/used/productDetail/${map.productDto.id }" class="text-decoration-none d-inline-block">
+										<a href="/safari/used/productDetail?productId=${map.productDto.id }" class="text-decoration-none d-inline-block">
 											<img src="/safarifile/${map.productImgDto.product_img_link}" width="245px" alt="..."  style="height: 245px;">
 										</a>
 									</div>
@@ -74,7 +74,7 @@
 								
 								<div class="row mt-2">
 									<div class="col fw-bold overflow" style="width: 200px; font-size:17px;">
-										<a href="/safari/used/productDetail/${map.productDto.id }">
+										<a href="/safari/used/productDetail?productId=${map.productDto.id }">
 										   ${map.productDto.title}</a>
 									</div>
 									<div class="col-2 text-danger fs-5 text-left px-0" style="height: 10px;"><i class="bi bi-heart-fill"></i></div>

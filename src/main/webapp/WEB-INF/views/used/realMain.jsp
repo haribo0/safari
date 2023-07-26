@@ -58,7 +58,7 @@
 			</div>
 		</div>
 	</div>
-	<div class="row">
+	<div class="row mb-4">
 		<div class="col">
 			<img alt="banner1" src= "/safari/resources/img/used/listBanner.jpeg" width="100%">
 		</div>
@@ -264,7 +264,7 @@ function getViewAll(mainId2,subId2,cityId2,townId2,statusId2,orderId2){
                   
                   
                     const divRow5 = document.createElement("div");
-                    divRow5.classList.add("row", "mb-3");
+                    divRow5.classList.add("row", "mb-3", "fw-medium");
                     
                     const divCol4 = document.createElement("div");
                     divCol4.classList.add("col", "ms-1", "text-secondary");

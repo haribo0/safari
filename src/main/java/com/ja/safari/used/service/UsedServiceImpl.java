@@ -740,11 +740,31 @@ public class UsedServiceImpl {
 		usedSqlMapper.updateProductRequestStatusByproductId(productId);
 	}
 	 
-	 
-	 
-	 
-	 
-	 
+	// 마이페이지 내 구매리스트 
+	public List<Map<String, Object>> selectMyBuyListByUserId(Integer userId){
+		List<Map<String, Object>> list = new ArrayList<Map<String,Object>>();
+		List<ProductRequestDto> productRequestDtoList = usedSqlMapper.selectMyBuyListByUserId(userId);
+		for(ProductRequestDto productRequestDto:productRequestDtoList) {
+			Map<String, Object> map = new HashMap<>();
+			Integer productId = productRequestDto.getProduct_id();
+			ProductDto productDto = usedSqlMapper.selectProductById(productId);
+			Integer townId = productDto.getProduct_town_id();
+			
+			ProductSubCategoryDto subCategoryDto = usedSqlMapper.selectProductSubCategoryById(productDto.getProduct_sub_category());
+			map.put("productDto", productDto);
+			map.put("usedPurchaseReviewDto", usedSqlMapper.selectProductReviewByproductIdAndSenderId(productId, userId));
+			map.put("productImgDto", usedSqlMapper.selectProductImg(productId));
+			map.put("productTownDto", usedSqlMapper.selectProductTownById(townId));
+			map.put("productCityDto", usedSqlMapper.selectProductCityByTownId(townId));
+			map.put("productSubCategoryDto", subCategoryDto);
+			map.put("productMainCategoryDto", usedSqlMapper.selectProductMainbCategoryById(subCategoryDto.getProduct_main_category_id()));
+			map.put("productRequestDto", productRequestDto);
+			list.add(map);
+		}
+		
+		
+		return list;
+	}
 	
 	
 	

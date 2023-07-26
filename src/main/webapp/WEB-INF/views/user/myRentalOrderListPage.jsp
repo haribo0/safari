@@ -9,6 +9,7 @@
 <title>사파리 | 메인</title>
 <!-- 메타 섹션 -->
 <jsp:include page="../common/meta.jsp"></jsp:include>
+<script src="https://kit.fontawesome.com/a83ecfd9ee.js" crossorigin="anonymous"></script>
 <!-- 메타 섹션 -->
 <style>
 .btn-ordered{padding: 2px 8px; background:#dff5ea; color:#6db590; border-radius: 8px; font-size:12px; font-weight: bold; width: 64px; }
@@ -26,6 +27,52 @@
   border-radius: 10px;
   position: relative;
 }
+
+/*  */ /* 별점 */ /*  */
+#full-stars-example-two {
+  /* use display:inline-flex to prevent whitespace issues. alternatively, you can put all the children of .rating-group on a single line */
+  .rating-group {
+    display: inline-flex;
+  }
+  /* make hover effect work properly in IE */
+  .rating__icon {
+    pointer-events: none;
+  }
+  /* hide radio inputs */
+  .rating__input {
+   position: absolute !important;
+   left: -9999px !important;
+  }
+  /* hide 'none' input from screenreaders */
+  .rating__input--none {
+    display: none
+  }
+  /* set icon padding and size */
+  .rating__label {
+    cursor: pointer;
+    padding: 0 0.1em;
+    font-size: 2rem;
+  }
+  /* set default star color */
+  .rating__icon--star {
+    color: orange;
+  }
+  /* if any input is checked, make its following siblings grey */
+  .rating__input:checked ~ .rating__label .rating__icon--star {
+    color: #ddd;
+  }
+  /* make all stars orange on rating group hover */
+  .rating-group:hover .rating__label .rating__icon--star {
+    color: orange;
+  }
+  /* make hovered input's following siblings grey on hover */
+  .rating__input:hover ~ .rating__label .rating__icon--star {
+    color: #ddd;
+  }
+}
+/*  */ /* 별점 */ /*  */
+
+
 </style>
 </head>
 <body>
@@ -78,7 +125,7 @@
 						</div>
 						<div class="row">
 							<div class="col pt-2 pb-0 d-flex justify-content-between">
-								<small class="text-secondary">&#x2514; 사용 개월수 </small>
+								<small class="text-secondary">&#x2514; 할인 적용 개월수 </small>
 								<p class="mb-0">( * ) <span class="usedMonthP"></span>개월</p>
 							</div>
 						</div>
@@ -129,10 +176,36 @@
 	        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 	      </div>
 	      <div class="modal-body">
-			제목: <input type="text" name="rental_review_title" class="form-control"><br />
-			별점: <input type="number" min="1" max="5" class="form-control" name="rental_review_rating"><br />
-			내용: <textarea rows="" cols="" class="form-control" name="rental_review_content"></textarea>
-			이미지첨부: <input name="rental_review_img" type="file" multiple accept="image/*" class="form-control">
+	      	<div class="row">
+	      		<div class="col">
+					제목: <input type="text" name="rental_review_title" class="form-control"><br />
+					내용: <textarea rows="" cols="" class="form-control" name="rental_review_content"></textarea><br>
+					이미지첨부: <input name="rental_review_img" type="file" multiple accept="image/*" class="form-control">
+	      		</div>
+	      	</div>
+	      	
+			<div class="row mt-3">
+				<div class="col ">
+					<p class="mb-0">별점</p>
+	      			<div id="full-stars-example-two">
+	      			<input type="hidden" value="" name="rental_review_rating" class="ratingVal">
+					    <div class="rating-group">
+					        <input disabled="" checked="" class="rating__input rating__input--none" name="rating3" id="rating3-none" value="0" type="radio">
+					        <label aria-label="1 star" class="rating__label" for="rating3-1"><i class="rating__icon rating__icon--star fa fa-sm fa-star" aria-hidden="true"></i></label>
+					        <input class="rating__input" name="rating3" id="rating3-1" value="1" type="radio">
+					        <label aria-label="2 stars" class="rating__label" for="rating3-2"><i class="rating__icon rating__icon--star fa fa-sm fa-star" aria-hidden="true"></i></label>
+					        <input class="rating__input" name="rating3" id="rating3-2" value="2" type="radio">
+					        <label aria-label="3 stars" class="rating__label" for="rating3-3"><i class="rating__icon rating__icon--star fa fa-sm fa-star" aria-hidden="true"></i></label>
+					        <input class="rating__input" name="rating3" id="rating3-3" value="3" type="radio">
+					        <label aria-label="4 stars" class="rating__label" for="rating3-4"><i class="rating__icon rating__icon--star fa fa-sm fa-star" aria-hidden="true"></i></label>
+					        <input class="rating__input" name="rating3" id="rating3-4" value="4" type="radio">
+					        <label aria-label="5 stars" class="rating__label" for="rating3-5"><i class="rating__icon rating__icon--star fa fa-sm fa-star" aria-hidden="true"></i></label>
+					        <input class="rating__input" name="rating3" id="rating3-5" value="5" type="radio">
+					    </div>
+					</div>
+		      	</div>
+			</div>
+			
 	      </div>
 	      <div class="modal-footer">
 	        <span class="btn btn-secondary" data-bs-dismiss="modal">취소</span>
@@ -173,7 +246,7 @@
 				</div>
 			</div>
 			
-			<div class="row mt-3" style="border-top: 2px solid #919191; border-bottom: 1px solid #919191; background: #f7f7f7;">
+			<div class="row mt-3" style="border-top: 1px solid #919191; border-bottom: 1px solid #919191; background: #f7f7f7;">
 				<div class="col-1 text-center">
 					<p class="mb-0 py-3 fw-bold">주문번호</p>
 				</div>
@@ -214,7 +287,7 @@
 												<img alt="" src="/safariImg/${data.product.main_img_link}" class="rounded-1 img-fluid my-auto" >
 											</a>
 										</div>
-										<div class="col">
+										<div class="col my-auto">
 										<a href="${pageContext.request.contextPath}/rental/productDescPage?id=${data.product.id}">
 											<p class="mb-0 text-secondary"><small>${data.rentalBusinessDto.business_name}</small></p>
 											<p class="mb-2 fs-5" >${data.product.title }</p>
@@ -236,18 +309,18 @@
 									    </c:when>
 									    
 										<c:when test="${data.rentalItemReturnDto.is_item_returned == 'N'}">
-											<span class="mb-0">회수중</span>				
+											<span class="mb-0 fw-bold" style="color: #f68a42">회수중</span>				
 									    </c:when>
 									    
 									    <c:when test="${data.rentalItemReturnDto.is_item_returned == 'Y'}">
-											<span class="mb-0">정산중</span>				
+											<span class="mb-0 fw-bold" style="color: #f68a42">정산중</span>				
 									    </c:when>
 									    
 									    
 										<c:otherwise>
 											<c:choose>
 												<c:when test="${data.orderedItem.is_shipped == 'N' }">
-													<span class="mb-0">주문완료</span>										
+													<span class="mb-0 fw-bold" style="color: #f68a42">주문완료</span>										
 												</c:when>
 												<c:when test="${data.orderedItem.is_shipped == 'Y'}">
 													<span class="mb-0 fw-bold" style="color: #f68a42">대여중</span>
@@ -338,42 +411,11 @@
       <div class="modal-body">
       	      
 	      <div id="testBox">
-	      
-	      </div>   
-<!--       		<div class="row px-2">
-      			<div class="col-2 bg-body-secondary d-flex justify-content-center align-items-center py-2 border-bottom">
-      				<p class="mb-0">제목</p>
-      			</div>
-      			<div class="col d-flex">
-      				<p class="reviewTitle"></p>
-      			</div>
-      		</div>
-      		
-      		<div class="row px-2">
-      			<div class="col-2 bg-body-secondary d-flex justify-content-center align-items-center py-2">
-      				<p class="mb-0">내용</p>
-      			</div>
-      			<div class="col d-flex">
-      				<p class="reviewDesc"></p>
-      			</div>
-      		</div>
-      		
-      		  <div class="row px-2">
-      			<div class="col-2 bg-body-secondary d-flex justify-content-center align-items-center py-2">
-      				<p class="mb-0">별점</p>
-      			</div>
-      			<div class="col">
-      				<div class="row" id="ratingBox">
-      			</div>
-      			</div>
-      		</div> -->
+	      </div>
       		
 	      <div class="modal-footer">
 	        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">창닫기</button>
 	      </div> 
-	      
-	      
- 
 	  </div>
   </div>
 </div>
@@ -574,7 +616,23 @@ if (modalReview) {
     const button = event.relatedTarget
     const orderId = button.getAttribute('data-order-id')
     const form = modalReview.querySelector('form')
+    const ratingGroup = document.querySelector('.rating-group')
     
+    ratingGroup.addEventListener('click', function() {
+        let rentalReviewRating = document.querySelector('.ratingVal')
+        // Get the star rating group element
+    	let ratingGroup = document.querySelector('#full-stars-example-two .rating-group');
+    	// Get the checked input element within the rating group
+    	let checkedInput = ratingGroup.querySelector('input:checked');
+    	// Get the value of the checked input element
+    	let ratingValue = checkedInput ? checkedInput.value : null;
+    	
+    	rentalReviewRating.setAttribute('value',ratingValue)
+    	
+    })
+	
+	
+	
     form.setAttribute('action', `../rental/writeRentalReviewProcess?rental_id=\${orderId}`)
     
     setRegDate()
@@ -785,8 +843,6 @@ function placeReviewDate(id) {
 					card.appendChild(cardBody);
 					testBox.appendChild(card);
 				
-				
-				
 			}
 		}
 	}
@@ -794,6 +850,7 @@ function placeReviewDate(id) {
 	xhr.open("get", "/safari/rental/getMyItemReview?id="+id, false);
 	xhr.send();
 }
+
 
 window.addEventListener("DOMContentLoaded", function(){
 	getSessionId()

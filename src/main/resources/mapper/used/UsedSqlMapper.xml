@@ -509,7 +509,9 @@ WHERE ROWNUM <= 4
 	SELECT * FROM PRODUCT_REQUEST WHERE product_id=#{productId} AND status = '거래완료'
 </select>	
 
-
-
+<!-- 마이페이지 - 구매내역 -->
+<select id="selectMyBuyListByUserId" resultType="com.ja.safari.dto.ProductRequestDto">
+	SELECT * FROM PRODUCT_REQUEST WHERE status = '거래완료' AND user_id=#{userId}
+</select>
 
 </mapper>

@@ -200,7 +200,7 @@ public class RentalController {
 	
 	// 대여 리뷰 프로세스
 	@RequestMapping("writeRentalReviewProcess")
-	public String writeRentalReviewProcess(HttpSession session, RentalReviewDto params, MultipartFile[] rental_review_img) {
+	public String writeRentalReviewProcess(HttpSession session, int rental_review_rating, RentalReviewDto params, MultipartFile[] rental_review_img) {
 		
 		List<RentalReviewImgDto> rentalReviewImgDtoList= new ArrayList<>();
 		
@@ -208,6 +208,7 @@ public class RentalController {
 		int userId = sessionUser.getId();
 		
 		params.setUser_id(userId);
+		params.setRental_review_rating(rental_review_rating);
 		
 		// 파일 저장 로직 
 		if(rental_review_img != null) {

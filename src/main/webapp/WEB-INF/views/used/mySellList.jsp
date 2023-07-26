@@ -34,7 +34,9 @@
 	.btn-circle i{color: #5e5e5e; font-size: 24px;}
 	.btn-tit{font-size:13px;}
       
-
+.gray-line{
+	border: 1px solid rgba(128, 128, 128, 0.3);
+}
 </style>
 </head>
 <body>
@@ -83,6 +85,12 @@
 				</div>
 				<div class="col-auto px-1">
 					<button class="btn btn-sm px-3" onclick="getMySellListByStatus(3)" id="sold">판매완료</button>						
+				</div>
+				<!-- <div class="col-auto px-1 ms-4 my-auto">
+					<input class="text-start form-control rounded-pill search_box" style="font-size: 15px; height:30px; border-radius: 2px;" placeholder=" 상품명으로 검색">					
+				</div> -->
+				<div class="col-auto px-1 ms-4 my-auto">
+					<input type="search" class="text-start form-control search_box" style="font-size: 15px; height:30px; border-radius: 2px;" placeholder=" 상품명으로 검색">					
 				</div>
 				<div class="col"></div>
 				<div class="col-auto text-end"><a href="../used/productRegister"><button class="btn btn-sm px-3 btn-dark">상품 등록</button></a></div>
@@ -425,6 +433,138 @@
 </div>
 <!-- 상대방 리뷰 모달 -->
 
+<!-- 끌올 모달(시간 충족) -->
+<div class="modal" id="updateRegDate3" tabindex="-1" >
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header position-relative px-3" style="padding: 10px 0px; height: 55px;">
+       	<h5 class="modal-title ms-1 position-absolute top-50 start-50 translate-middle" style="font-weight: 600 ;">끌어올리기</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+     <div class="modal-body ms-2" style="height: 240px">
+	  <div class="chat-container overflow-y-scroll overflow-x-hidden" style="height:220px;">
+	  		<div class="row mt-2">
+	  			<div class="col fw-bold fs-5" style="color: #ff6f0f;">1일 23시간 59분 뒤에</div>
+	  		</div>
+	  		<div class="row">
+	  			<div class="col fw-bold fs-5">끌어올릴 수 있어요</div>
+	  		</div>
+	  		<div class="row mt-3">
+	     		<div class="col-auto">
+	     			<img alt="mod" src="/safari/resources/img/used/mod.png" width="50px" height="50px" style="border-radius: 6px;">
+	     		</div>
+	     		<div class="col my-auto">
+	     			<div class="row">
+	     				<div class="col">렉슨 버섯등 새상품</div>
+	     			</div>
+	     			<div class="row">
+	     				<div class="col fw-bold">20,000원</div>
+	     			</div>
+	     		</div>
+	     	</div>
+	  		<div class="row mt-4">
+	  			<div class="col text-center fw-medium btn mx-2 py-2 btn btn-secondary disabled">끌어올리기</div>
+	  		</div>
+      </div>
+     </div>
+  </div>
+</div>
+</div>
+<!-- 끌올 모달 -->
+
+<!-- 끌올 모달(시간 충족 안됨) -->
+<div class="modal" id="updateRegDate2" tabindex="-1" >
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header position-relative px-3" style="padding: 10px 0px; height: 55px;">
+       	<h5 class="modal-title ms-1 position-absolute top-50 start-50 translate-middle" style="font-weight: 600 ;">끌어올리기</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-header" style="background: #d3d3d336;">
+	     <div class="my-custom-header-wrapper">
+	     	<div class="row">
+	     		<div class="col-auto">
+	     			<img alt="mod" src="/safari/resources/img/used/mod.png" width="75px" height="75px" style="border-radius: 6px;">
+	     		</div>
+	     		<div class="col my-auto">
+	     			<div class="row">
+	     				<div class="col fs-6">렉슨 버섯등 새상품</div>
+	     			</div>
+	     			<div class="row">
+	     				<div class="col fw-semibold fs-6">20,000원</div>
+	     			</div>
+	     		</div>
+	     	</div>
+       </div>
+      </div>
+     <div class="modal-body ms-2" style="height: 500px">
+	  <div class="chat-container overflow-y-scroll overflow-x-hidden" style="height:480px;">
+	  		<div class="row mt-3">
+	  			<div class="col fw-semibold fs-5">사파리주인님, 끌어올리기 전에</div>
+	  		</div>
+	  		<div class="row">
+	  			<div class="col fw-semibold fs-5">가격을 낮춰보세요.</div>
+	  		</div>
+	  		<div class="row mt-3">
+	  			<div class="col">판매 확률이 올라간답니다.</div>
+	  		</div>
+	  		<div class="row mt-3">
+	  			<div class="col ms-1" style="font-size: 24px; font-weight: 500;">₩ 20,000</div>
+	  		</div>
+	  		<div class="row mt-2 mb-2">
+	  			<div class="col gray-line"></div>
+	  		</div>
+	  		<div class="row ms-1 my-auto">
+	  			<div class="col-2 text-center" style="background: #e4e0e094; border-radius: 15px; padding: 2px 4px;">5%</div>
+	  			<div class="col-2 text-center ms-1" style="background: #e4e0e094; border-radius: 15px; padding: 2px 4px;">10%</div>
+	  			<div class="col-2 text-center ms-1" style="background: #e4e0e094; border-radius: 15px; padding: 2px 4px;">15%</div>
+	  			<div class="col-2 text-start">할인</div>
+	  		</div>
+	  		<div class="row mt-5">
+	  			<div class="col fw-semibold fs-5">가격을 변경하지 않고</div>
+	  			<!-- <div class="col fw-bold fs-5">가격을 ₩ 32,000원으로 변경하고</div> -->
+	  		</div>
+	  		<div class="row">
+	  			<div class="col fw-semibold fs-5">지금 끌어올리시겠어요?</div>
+	  		</div>
+	  		<div class="row mt-3">
+	  			<div class="col">다음 끌어올리기는<span style="font-weight: 600; color: #ff6f0f;"> 2일 12시간 </span>뒤에 할 수 있어요.</div>
+	  		</div>
+	  		<div class="row mt-5">
+	  			<div class="col text-center fw-medium btn mx-2 py-2" style="background: #ff6f0f;color: white;border-radius: 10px;">끌어올리기</div>
+	  		</div>
+      </div>
+     </div>
+  </div>
+</div>
+</div>
+
+
+
+<!-- <div class="modal" id="updateRegDate2" tabindex="-1">
+	  <div class="modal-dialog">
+	    <div class="modal-content">
+	      <div class="modal-header position-relative">
+ 	        <div class="modal-title">
+	        	<h5 class="modal-title ms-1">
+					끌어올리기
+	        	</h5>
+ 	        </div>
+	        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+	      </div>
+	      <div class="modal-body px-0 pb-0 pt-0" style="height: 490px; width: 460px;">
+			<div class="chat-container overflow-y-scroll overflow-x-hidden" style="height:480px; width:480px" id="updateRegDate2">
+				지
+			</div>
+	      </div>
+	      <div class="modal-footer p-0">
+	      	<img class="img-fluid m-0" alt="chatAds" src="/safari/resources/img/used/updaateDateBanner5.png">
+	      </div>
+	    </div>
+	  </div>
+</div> -->
+<!-- 끌올 모달 -->
+
 <script>
 const listContainerBox = document.getElementById('listContainer');
 const allBox = document.getElementById('all');
@@ -688,7 +828,16 @@ function selling(map) {
 	  buttonBoost.classList.add('btn', 'btn-sm', 'orangeButton1');
 	  buttonBoost.style.width = '120px';
 	  buttonBoost.textContent = '끌어올리기';
-
+	  
+	  console.log(map.productDto.reg_date);
+	  // 끌올 가능 
+	  if(getTimeDifference(map.productDto.reg_date)=='끌올'){
+		  buttonBoost.setAttribute("onclick", "showUpdateTimeModal("+map.productDto.id+")");
+	  }else{
+		  buttonBoost.setAttribute("onclick", "showNoUpdateTimeModal("+map.productDto.id+")");
+	  }
+	  
+	  
 	  buttonsCol.appendChild(buttonBoost);
 	  buttonsRow.appendChild(buttonsCol);
 
@@ -1750,7 +1899,6 @@ function getMyWroteReviewHideAndShowMy(senderId, receiverId, requestId){
 }
 
 
-
 //날짜 변환 함수	
 function formatTime(timestamp) {
 	  const date = new Date(timestamp);
@@ -1778,6 +1926,57 @@ function productRequestStatusCancelByProduct(productId, statusId) {
 	xhr.open("get", "./productRequestStatusCancelByProduct?productId="+productId);
 	xhr.send();
 } 
+
+// 2일 12시간 - (reg_date - today)
+function getTimeDifference(reg_date) {
+	  // 현재 시간 구하기
+	  console.log(reg_date);
+	  const now = new Date();
+
+	  // 2일 12시간 후의 시간 구하기 (단위: 밀리초)
+	  const targetTime = new Date(now);
+	  targetTime.setDate(targetTime.getDate() + 2);
+	  targetTime.setHours(targetTime.getHours() + 12);
+
+	  // 시간 차이 계산 (단위: 밀리초)
+	  const timeDiffInMilliseconds = targetTime - reg_date;
+
+	  // 일, 시간, 분 계산
+	  const days = Math.floor(timeDiffInMilliseconds / (1000 * 60 * 60 * 24));
+	  const hours = Math.floor((timeDiffInMilliseconds % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+	  const minutes = Math.floor((timeDiffInMilliseconds % (1000 * 60 * 60)) / (1000 * 60));
+
+	  // 결과 문자열 생성
+	  let result = '';
+	  if (days > 0) {
+	    result += `${days}일 `;
+	  }
+	  if (hours > 0) {
+	    result += `${hours}시간 `;
+	  }
+	  if (minutes > 0) {
+	    result += `${minutes}분`;
+	  }
+	  console.log();
+	// 음수일 경우
+	  if (timeDiffInMilliseconds < 0) {
+	    return '끌올';
+	  }else{
+	  	return result; // 결과 문자열의 앞뒤 공백 제거
+	  }
+	}
+
+// 끌올 가능 모달 열기
+function showUpdateTimeModal(productId) {
+	const updateRegDate1Modal = bootstrap.Modal.getOrCreateInstance('#updateRegDate1');
+	updateRegDate1Modal.show();
+}
+
+// 끌올 못하는 모달 열기
+function showNoUpdateTimeModal(productId) {
+	const updateRegDate2Modal = bootstrap.Modal.getOrCreateInstance('#updateRegDate2');
+	updateRegDate2Modal.show();
+}
 
 
 window.addEventListener("DOMContentLoaded", function(){

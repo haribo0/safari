@@ -165,6 +165,18 @@
 			)
 		</insert>
 		
+		<!-- 코인 마이너스  -->
+		<insert id="reduceUserCoin">
+		   INSERT INTO coin_table VALUES(
+		      coin_table_seq.nextval,
+		      #{user_id},
+		      #{coin_transaction},
+		      'M',
+		      #{transaction_detail},
+		      SYSDATE
+		      )
+		</insert>
+		
 		<!-- 코인 방금 충전한 내역 조회 -->
 		<select id="getChargeCoinSuccessHistory" resultType="com.ja.safari.dto.UserCoinDto">
 			SELECT * FROM coin_table WHERE id = #{id}

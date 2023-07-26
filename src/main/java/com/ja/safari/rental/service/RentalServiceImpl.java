@@ -42,6 +42,7 @@ import com.ja.safari.dto.RentalReviewCountDto;
 import com.ja.safari.dto.RentalReviewDto;
 import com.ja.safari.dto.RentalReviewImgDto;
 import com.ja.safari.dto.RentalSubCategoryDto;
+import com.ja.safari.dto.UserCoinDto;
 import com.ja.safari.dto.UserDto;
 import com.ja.safari.rental.mapper.RentalSqlMapper;
 import com.ja.safari.user.mapper.UserSqlMapper;
@@ -53,6 +54,10 @@ public class RentalServiceImpl {
 	
 	@Autowired
 	RentalSqlMapper rentalSqlMapper;
+	
+	@Autowired
+	UserSqlMapper userSqlMapper;
+	
 	
 	// 중복 확인 
 	public boolean isUserIdTaken(String userId) { 
@@ -319,8 +324,7 @@ public class RentalServiceImpl {
 		if(rentalSqlMapper.selectRatingAvg(id)!=null) return rentalSqlMapper.selectRatingAvg(id);
 		else return 0.0;
 
-		   
-		}
+	}
 
 	// 아이템 하나 title 가져오기
 	public String getItemTitle(int itemId) {
@@ -389,7 +393,14 @@ public class RentalServiceImpl {
 		return rentalReviewDto;
 	}
 
-	
+	public RentalOrderDto getRentalOrderDtoById(int id) {
+		
+		return rentalSqlMapper.getRentalOrderDtoById(id);
+	}
+
+	public void reduceCoin(UserCoinDto userCoinDto) {
+		userSqlMapper.reduceUserCoin(userCoinDto);
+	}
 
 
 

@@ -19,6 +19,7 @@ import com.ja.safari.dto.RentalReviewCountDto;
 import com.ja.safari.dto.RentalReviewDto;
 import com.ja.safari.dto.RentalReviewImgDto;
 import com.ja.safari.dto.RentalSubCategoryDto;
+import com.ja.safari.dto.UserCoinDto;
 import com.ja.safari.dto.UserDto;
 import com.ja.safari.dto.RentalItemDto;
 import com.ja.safari.dto.RentalItemImgDto;
@@ -159,8 +160,8 @@ public interface RentalSqlMapper {
 	// 대여 아이템 리뷰 하나 가져오기
 	public RentalReviewDto selectMyReview(@Param("id") int id, @Param("myId") int myId);
 
-
-
+	// 주문번호로 주문 dto 가져오기 
+	public RentalOrderDto getRentalOrderDtoById(int id);
 
 
 	

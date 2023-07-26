@@ -72,6 +72,9 @@ public interface UserSqlMapper {
 	
 	// user coin insert
 	public void insertUserCoin(UserCoinDto userCoinDto);
+
+	// 코인 마이너스
+	public void reduceUserCoin(UserCoinDto userCoinDto);
 	
 	// 코인 방금 충전한 내역 조회
 	public UserCoinDto getChargeCoinSuccessHistory(Integer id);
