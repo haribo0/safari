@@ -53,7 +53,7 @@
 		<div class="col ms-4">
 			<div class="row" style="border-bottom: 2px solid #222; height: 48px;">
 				<div class="col p-0">
-					<h5>낙찰 목록</h5>						
+					<h5>낙찰 내역</h5>						
 				</div>
 			</div>
 			
@@ -335,7 +335,7 @@
 		      						</div>
 		      						<div class="col text-end mt-1">
 		      							<a href="/safari/user/myInquiryPostPage">
-		      							배송 관련 문의하기 <span style="font-size: 11px;"> ></span></a>
+		      							<span style="font-size: 14px">배송 관련 문의하기</span> <span style="font-size: 11px;"> ></span></a>
 		      						</div>
 		      					</div>
 		      					
@@ -813,10 +813,12 @@ function getMySuccessfulBidPayAndDeliveryStatusList() {
 	    	  
 	    	  let myStatus = document.getElementById("myStatus_" + data.id);
 	    	  myStatus.innerHTML = "";
+	    	  console.log(data.payment_exists);
 	    	  
 	    	  // 결제를 하지 않았을 경우
 	    	  if (data.payment_exists == 'No') {
 	    		  
+	    		  console.log(data.payment_exists);
 	    		  
 	    		  const row  = document.createElement("div");
 	    		  row.classList.add("row");

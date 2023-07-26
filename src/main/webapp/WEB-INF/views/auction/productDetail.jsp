@@ -26,7 +26,6 @@
 	color:#ff6f0f;
 }
 
-
 .text-like {
 	color: #FF7777;
 }
@@ -143,9 +142,7 @@ input[id="tab03"]:checked ~ .con3 {
   display: inline-block;
   width: auto;
 }
-body {
-    font-family: 'SUIT Variable';
-}
+
 .orangeButton{
 	background: #ff6f0f;
 	font-weight: bold;
@@ -206,8 +203,8 @@ body {
 	 					<div class="row">
 							<div class="col-11 px-0 ms-4">
 								
-								<div class="row mb-1">
-									<div class="col-11" id="countDownTable">
+								<div class="row mb-1" >
+									<div class="col-11" id="countDownTable" >
 									
 									</div>
 									<div class="col"></div>
@@ -593,7 +590,7 @@ body {
  									<div class="row mt-3">
  										<div class="col">
  											<div class="row">
-	 											<div class="col ms-2 border border-1" id="chatMessageBox" style="height: 500px; overflow: auto">
+	 											<div class="col ms-2 shadow-sm" id="chatMessageBox" style="height: 500px; overflow: auto">
 	 											
 	 											</div>
  											</div>
@@ -726,11 +723,11 @@ style="position: absolute; transform: translateX(70%);right: 50%;">
 								data-bs-target="#auctioninfo" type="button" role="tab" aria-controls="auctioninfo"
 								aria-selected="true">상품정보</button>
 						</li>	
-					   <li class="nav-item" role="presentation">
+					   <!-- <li class="nav-item" role="presentation">
 		                <button class="nav-link text-dark fw-bold" id="review-tab" data-bs-toggle="tab"
 		                    data-bs-target="#review" type="button" role="tab"
 		                    aria-controls="review" aria-selected="false">입금/배송정보</button>
-	            		</li>
+	            		</li> -->
 			            <li class="nav-item" role="presentation">
 			                <button class="nav-link text-dark fw-bold" id="question-tab" data-bs-toggle="tab"
 			                    data-bs-target="#question" type="button" role="tab"
@@ -798,11 +795,11 @@ style="position: absolute; transform: translateX(70%);right: 50%;">
 							
 							<div class="col-11 ms-4">
 								<div class="row">
-									<div class="col-auto text-start mt-2 ms-1" style="font-size: 17px;">
+									<div class="col-auto text-start mt-2 ms-1" style="font-size: 15px;">
 										<a href="/safari/user/myInquiryPostPage">※ 상품 문의사항이 아닌 반품관련 문의는 고객센터 1:1 문의를 이용해주시기 바랍니다.</a>
 									</div>
 									<div class="col text-end">
-										<button class="btn orangeButton" onclick="toggleInquiryInputBox()">
+										<button class="btn btn-sm orangeButton" onclick="toggleInquiryInputBox()">
 											  상품문의
 											  <i class="bi bi-pencil-square"></i>
 											</button>

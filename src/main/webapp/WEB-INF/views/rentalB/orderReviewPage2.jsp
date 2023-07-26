@@ -368,9 +368,13 @@ function getReviewsByProductAndStatus(productId, status) {
 				ratingRow.classList.add("row");
 				const ratingCol = document.createElement("div");
 				ratingCol.classList.add("col");
-				for (let i = 0; i < data.review.rental_review_rating; i++) {
+				for (let i = 0; i < 5; i++) {
 				  const starIcon = document.createElement("i");
-				  starIcon.classList.add("bi", "bi-star-fill", "small-icon");
+				  if(i < data.review.rental_review_rating) {
+					  starIcon.classList.add("bi", "bi-star-fill", "small-icon");
+				  } else {
+					  starIcon.classList.add("bi", "bi-star", "small-icon");
+				  }
 				  ratingCol.appendChild(starIcon);
 				}
 				ratingRow.appendChild(ratingCol);

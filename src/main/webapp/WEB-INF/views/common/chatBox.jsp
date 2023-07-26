@@ -1477,6 +1477,7 @@ function getReceiverWroteReviewHideAndShow(senderId, receiverId, requestId) {
 
 //채팅방 룸 목록 열기
 function reloadChatRoomList() {
+	
 	const chatRoomListStartBox = document.getElementById("usedChatListBox");
 
 	const xhr = new XMLHttpRequest();
@@ -1484,7 +1485,9 @@ function reloadChatRoomList() {
     xhr.onreadystatechange = function(){
         if(xhr.readyState == 4 && xhr.status == 200){
             const response = JSON.parse(xhr.responseText);
-            
+            if(!response.sessionUser){
+        		window.location.href = '/safari/user/loginPage';
+        	}
             // 회원 코인 잔액 확인하기 
             coinBalance = response.coinBalance;
             console.log(coinBalance);
@@ -1603,6 +1606,7 @@ function reloadChatRoomList() {
   			  col3Img.src = '/safarifile/' + data.productImgDto.product_img_link;
   			  col3Img.width = '60';
   			  col3Img.height = '60';
+  			  col3Img.style = 'border-radius: 2px;';
   			  col3.appendChild(col3Img);
 
 
@@ -1805,9 +1809,13 @@ function getProductInformation(requestId) {
     	            row2col3Span.innerText = ' 거래완료';
     	            // 거래완료 버튼 누르면 해당 메소드 불러오기
     				row2col3Span.setAttribute("onclick", "productRequestStatusComplete("+requestId+")");
+    	            
 
     	            const row2col4 = document.createElement('div');
-    	            row2col4.classList.add('col');
+    	            row2col4.classList.add('col', 'text-end', 'fw-bold', 'my-auto');
+    	            
+    	            row2col4.innerHTML = '<span class="ms-1" style=color: #919191cc;"><i class="bi bi-coin"></i> 1,200C</span>';
+    	            	
 
     	            row2.appendChild(row2col1);
     	            row2.appendChild(row2col2);
@@ -1847,12 +1855,15 @@ function getProductInformation(requestId) {
     	            row2col3Icon.classList.add('bi', 'bi-check-circle-fill');
     	            const row2col3Span = document.createElement('span');
     	            row2col3Span.innerText = ' 거래완료';
+    	            
     	         // 거래완료 버튼 누르면 해당 메소드 불러오기
     				row2col3Span.setAttribute("onclick", "productRequestStatusComplete("+requestId+")");
 
-    	            const row2col4 = document.createElement('div');
-    	            row2col4.classList.add('col');
-
+    				const row2col4 = document.createElement('div');
+    	            row2col4.classList.add('col', 'text-end', 'fw-bold', 'my-auto');
+    	            
+    	            row2col4.innerHTML = '<span class="ms-1" style=color: #919191cc;"><i class="bi bi-coin"></i> 1,200C</span>';
+    	         
     	            row2.appendChild(row2col1);
     	            row2.appendChild(row2col2);
     	            row2.appendChild(row2col3);
@@ -1876,8 +1887,10 @@ function getProductInformation(requestId) {
     				row2col1Span.innerText = ' 리뷰쓰기';
     				row2col1Span.setAttribute("onclick", "writeReview("+response.sessionId+","+response.productRequestDto.user_id+","+response.productRequestDto.id+")");
 
-    	            const row2col4 = document.createElement('div');
-    	            row2col4.classList.add('col');
+    				const row2col4 = document.createElement('div');
+    	            row2col4.classList.add('col', 'text-end', 'fw-bold', 'my-auto');
+    	            
+    	            row2col4.innerHTML = '<span class="ms-1" style=color: #919191cc;"><i class="bi bi-coin"></i> 1,200C</span>';
 
     	            row2.appendChild(row2col1);
     	            row2.appendChild(row2col4);
@@ -1896,8 +1909,10 @@ function getProductInformation(requestId) {
     				row2col1Span.innerText = ' 보낸 후기 보기';
     				row2col1Span.setAttribute("onclick", "getMyWroteReview("+response.sessionId+","+response.productRequestDto.user_id+","+response.productRequestDto.id+")");
 
-    	            const row2col4 = document.createElement('div');
-    	            row2col4.classList.add('col');
+    				const row2col4 = document.createElement('div');
+    	            row2col4.classList.add('col', 'text-end', 'fw-bold', 'my-auto');
+    	            
+    	            row2col4.innerHTML = '<span class="ms-1" style=color: #919191cc;"><i class="bi bi-coin"></i> 1,200C</span>';
 
     	            row2.appendChild(row2col1);
     	            row2.appendChild(row2col4);
@@ -1925,8 +1940,10 @@ function getProductInformation(requestId) {
     				row2col1Span.innerText = ' 송금하기';
     				row2col1Span.setAttribute("onclick", "processPayment("+partner_order_id+","+partner_user_id+",'"+item_name+"',"+item_code+","+total_amount+")");
 
-    	            const row2col4 = document.createElement('div');
-    	            row2col4.classList.add('col');
+    				const row2col4 = document.createElement('div');
+    	            row2col4.classList.add('col', 'text-end', 'fw-bold', 'my-auto');
+    	            
+    	            row2col4.innerHTML = '<span class="ms-1" style=color: #919191cc;"><i class="bi bi-coin"></i> 1,200C</span>';
 
     	            row2.appendChild(row2col1);
     	            row2.appendChild(row2col4);
@@ -1949,8 +1966,10 @@ function getProductInformation(requestId) {
     				row2col1Span.innerText = ' 송금하기';
     				row2col1Span.setAttribute("onclick", "processPayment("+partner_order_id+","+partner_user_id+",'"+item_name+"',"+item_code+","+total_amount+")");
 
-    	            const row2col4 = document.createElement('div');
-    	            row2col4.classList.add('col');
+    				const row2col4 = document.createElement('div');
+    	            row2col4.classList.add('col', 'text-end', 'fw-bold', 'my-auto');
+    	            
+    	            row2col4.innerHTML = '<span class="ms-1" style=color: #919191cc;"><i class="bi bi-coin"></i> 1,200C</span>';
 
     	            row2.appendChild(row2col1);
     	            row2.appendChild(row2col4);
@@ -1967,8 +1986,10 @@ function getProductInformation(requestId) {
     				row2col1Span.innerText = ' 리뷰쓰기';
     				row2col1Span.setAttribute("onclick", "writeReview("+response.sessionId+","+ response.map.productDto.user_id+","+response.productRequestDto.id+")");
 
-    	            const row2col4 = document.createElement('div');
-    	            row2col4.classList.add('col');
+    				const row2col4 = document.createElement('div');
+    	            row2col4.classList.add('col', 'text-end', 'fw-bold', 'my-auto');
+    	            
+    	            row2col4.innerHTML = '<span class="ms-1" style=color: #919191cc;"><i class="bi bi-coin"></i> 1,200C</span>';
 
     	            row2.appendChild(row2col1);
     	            row2.appendChild(row2col4);
@@ -1987,8 +2008,10 @@ function getProductInformation(requestId) {
     				row2col1Span.innerText = ' 보낸 후기 보기';
     				row2col1Span.setAttribute("onclick", "getMyWroteReview("+response.sessionId+","+response.map.productDto.user_id+","+response.productRequestDto.id+")");
 
-    	            const row2col4 = document.createElement('div');
-    	            row2col4.classList.add('col');
+    				const row2col4 = document.createElement('div');
+    	            row2col4.classList.add('col', 'text-end', 'fw-bold', 'my-auto');
+    	            
+    	            row2col4.innerHTML = '<span class="ms-1" style=color: #919191cc;"><i class="bi bi-coin"></i> 1,200C</span>';
 
     	            row2.appendChild(row2col1);
     	            row2.appendChild(row2col4);
@@ -2660,33 +2683,51 @@ function displayCurrentTime() {
 
 
 function openLiveChat() {
+	
+	
+	const xhr = new XMLHttpRequest();
 
-	// 모달 열기
-	const modal = bootstrap.Modal.getOrCreateInstance("#liveChatModal");
-	/* const liveChatStart = document.getElementById('liveChatStart');
-	liveChatStart.innerText= "실시간 문의가 시작되었습니다. "+displayCurrentTime(); */
+	xhr.onreadystatechange = function() {
+		if(xhr.readyState == 4 && xhr.status == 200){
+			const response = JSON.parse(xhr.responseText);
+			
+			
+			if(response.result === "fail"){
+				window.location.href = '/safari/user/loginPage';
+				return;
+			}
 
-	// 이벤트 리스너 추가
-	const textareaBox = document.getElementById("chatText");
-	textareaBox.addEventListener("keyup", keyUpEvent);
+			// 모달 열기
+			const modal = bootstrap.Modal.getOrCreateInstance("#liveChatModal");
+			/* const liveChatStart = document.getElementById('liveChatStart');
+			liveChatStart.innerText= "실시간 문의가 시작되었습니다. "+displayCurrentTime(); */
+
+			// 이벤트 리스너 추가
+			const textareaBox = document.getElementById("chatText");
+			textareaBox.addEventListener("keyup", keyUpEvent);
 
 
-	// TODO : 이미 열린 채팅 중 종료되지 않은 채팅 있는지 확인
+			// TODO : 이미 열린 채팅 중 종료되지 않은 채팅 있는지 확인
 
-	// 3초마다 채팅 업로드
-	if(intervalHandler1 != null){
-		clearInterval(intervalHandler1);
-		intervalHandler1 = null;
+			// 3초마다 채팅 업로드
+			if(intervalHandler1 != null){
+				clearInterval(intervalHandler1);
+				intervalHandler1 = null;
+			}
+
+			intervalHandler1 = setInterval(() => {
+				getMsg();
+			}, 3000);
+
+			modal.show();
+			
+			
+		}
 	}
 
-	intervalHandler1 = setInterval(() => {
-		getMsg();
-	}, 3000);
-
-	modal.show();
-
-
-
+	// get 방식 
+	xhr.open("get", "../user/getMyId");
+	xhr.send();
 
 }
 
@@ -2719,7 +2760,7 @@ function startLiveChat(categoryId) {
 
 
 	// post 방식
-	xhr.open("post", "./startLiveChat");
+	xhr.open("post", "../cs/startLiveChat");
 	xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 	xhr.send("categoryId="+categoryId);
 }
@@ -2767,7 +2808,7 @@ function sendMsg() {
     }
 
     //post
-	xhr.open("post", "./sendLiveChatMsg");
+	xhr.open("post", "../cs/sendLiveChatMsg");
 	xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
 	xhr.send("sendLiveChatMsg="+inputValue+"&chatId="+liveChatId);
 
@@ -2993,7 +3034,7 @@ function getMsg() {
 	}
 
 	// get 방식
-	xhr.open("get", "./getLiveChatMsgList?chatId="+liveChatId);
+	xhr.open("get", "../cs/getLiveChatMsgList?chatId="+liveChatId);
 	xhr.send();
 
 }
@@ -3049,7 +3090,7 @@ function saveFeedback() {
 	}
 
 	// post 방식
-	xhr.open("post", "./saveLiveChatRating");
+	xhr.open("post", "../cs/saveLiveChatRating");
 	xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 	xhr.send("chat_id="+liveChatId+"&rating="+ratingValue+"&text_review="+textReview);
 

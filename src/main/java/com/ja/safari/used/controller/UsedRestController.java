@@ -193,6 +193,7 @@ public class UsedRestController {
 		}else {
 			map.put("chatRoomList", usedService.selectProductRequestAllByUserId(sessionUser.getId()));
 			map.put("coinBalance", usedService.getUserCoinBalance(sessionUser.getId()));
+			map.put("sessionUser", sessionUser);
 			map.put("result", "success");
 			return map;
 		}

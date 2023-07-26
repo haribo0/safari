@@ -722,4 +722,42 @@ public class AuctionServiceImpl {
 	}
 
 	
+	// 메인 페이지
+	
+	
+	// 곧 마감 되는 경매 내림차순 정렬 6개
+	public List<Map<String, Object>> deadlineApproachingAuctonList() {
+		
+		List<Map<String, Object>> deadlineList = new ArrayList<>();
+		
+		List<AuctionItemDto> auctionDtoList = auctionSqlMapper.deadlineApproachingAuctonList();
+		
+		for (AuctionItemDto auctionDto : auctionDtoList) {
+			
+			// 출력 정보 : 메인 이미지, 제목, 현재가
+			
+			Map<String, Object> map = new HashMap<>();
+			
+			AuctionItemImgDto auctionItemImgDto = auctionSqlMapper.getAuctionImg(auctionDto.getId());
+
+			map.put("auctionDto", auctionDto);	
+			map.put("auctionMainImgDto", auctionItemImgDto);
+			
+			deadlineList.add(map);
+		}
+		
+		return deadlineList;
+
+	}
+	
+	// 입찰 수 많은 경매 정렬 5개
+	public List<AuctionItemDto> getAuctionOrderByBidCount() {
+		return auctionSqlMapper.getAuctionOrderByBidCount();
+	}
+	
+	// 랜덤 출력
+	public List<AuctionItemDto> getAuctionListByRandom() {
+		return auctionSqlMapper.getAuctionListByRandom();
+	}
+	
 }

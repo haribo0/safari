@@ -44,23 +44,30 @@
 	  overflow: hidden; /* 넘친 텍스트를 숨김 */
 	  text-overflow: ellipsis; /* 넘친 텍스트를 "..."으로 표시 */
 	}
+	.btn-qna{position: fixed; bottom: 80px; right: 190px; border-radius: 60px; padding: 0 0;}
+	.btn-circle{width: 50px; height: 52px; border-radius: 50%; display: flex; flex-direction:column; justify-content: center; align-items: center; font-size: 2rem; cursor: pointer;}
+	.btn-circle i{color: #5e5e5e; font-size: 24px;}
+	.btn-tit{font-size:13px;}
 </style>
 
 </head>
 <body>
+	<!-- Chat Box -->
+	<jsp:include page="../common/chatBox.jsp"></jsp:include>
+	<!-- Chat Box -->
 	<!-- 헤더 섹션 -->
 	<jsp:include page="../common/header.jsp"></jsp:include>
 	<!-- 헤더 섹션 -->
-	<div class="container-fluid d-flex align-items-center justify-content-between p-3 px-5 bg-light">
-		<div class="container">
-			<div class="row px-4">
-				<p class="mb-0 text-body-secondary"><span class="mx-2" style="font-size: 15px;">중고</span> &gt; <span class="mx-2" style="font-size: 15px;">패션의류</span> &gt;<span class="mx-2" style="font-size: 15px;">상의</span> </p>
-			</div>
-		</div>
-	</div>
 	<div class="row">
 		<div class="col">
 			<img alt="banner1" src= "/safari/resources/img/used/listBanner.jpeg" width="100%">
+		</div>
+	</div>
+	<div class="container-fluid d-flex align-items-center justify-content-between p-3 px-5 bg-light mb-2">
+		<div class="container">
+			<div class="row px-4">
+				<p class="mb-0 text-body-secondary"><span class="mx-2" style="font-size: 15px;">홈</span> &gt; <span class="mx-2" style="font-size: 15px;">중고</span></p>
+			</div>
 		</div>
 	</div>
 	<div class="container">
@@ -264,7 +271,7 @@ function getViewAll(mainId2,subId2,cityId2,townId2,statusId2,orderId2){
                   
                   
                     const divRow5 = document.createElement("div");
-                    divRow5.classList.add("row", "mb-3");
+                    divRow5.classList.add("row", "mb-3", "fw-medium");
                     
                     const divCol4 = document.createElement("div");
                     divCol4.classList.add("col", "ms-1", "text-secondary");

@@ -2,10 +2,14 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<link rel="stylesheet" href="/safari/resources/style/auction.css" type="text/css">
 <style>
 .orangeButton{
 	background: #ff6f0f;
+	font-weight: bold;
+	color: white;
+}
+.orangeButton:hover{
+	background: #FF812C;
 	font-weight: bold;
 	color: white;
 }

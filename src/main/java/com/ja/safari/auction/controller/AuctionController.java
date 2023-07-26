@@ -27,6 +27,7 @@ public class AuctionController {
 	// 메인 페이지
 	@RequestMapping("mainPage")
 	public String mainpage(Model model) {
+		
 		return "auction/mainPage";
 	}
 	

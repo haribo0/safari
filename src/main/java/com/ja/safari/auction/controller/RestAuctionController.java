@@ -1067,6 +1067,41 @@ public class RestAuctionController {
 		return map;
 	}
 
+	// 메인 페이지
 	
+	
+	// 곧 마감 되는 경매 내림차순 정렬 6개
+	@RequestMapping("getdeadlineApproachingAuctonList")
+	public Map<String, Object> deadlineApproachingAuctonList()  {
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		map.put("deadlineList", auctionService.deadlineApproachingAuctonList());
+		
+		return map;
+
+	}
+	
+	// 입찰 수 많은 경매 정렬 5개
+	@RequestMapping("getAuctionOrderByBidCount")
+	public Map<String, Object> getAuctionOrderByBidCount() {
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		map.put("maxBidList", auctionService.getAuctionOrderByBidCount());
+		
+		return map;
+	}
+	
+	// 랜덤 추출
+	@RequestMapping("getAuctionListByRandom")
+	public Map<String, Object> getAuctionListByRandom() {
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		map.put("ranAuctionList", auctionService.getAuctionListByRandom());
+		
+		return map;
+	}
 	
 }

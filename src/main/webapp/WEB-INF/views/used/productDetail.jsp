@@ -62,15 +62,17 @@
 .relatedTitleImg{
 	border-radius: 10px;
 }
-.relatedTitle{
-	font-weight: 500;
-	color: black;
-}
-
+.btn-qna{position: fixed; bottom: 80px; right: 190px; border-radius: 60px; padding: 0 0;}
+	.btn-circle{width: 50px; height: 52px; border-radius: 50%; display: flex; flex-direction:column; justify-content: center; align-items: center; font-size: 2rem; cursor: pointer;}
+	.btn-circle i{color: #5e5e5e; font-size: 24px;}
+	.btn-tit{font-size:13px;}
 </style>	
 
 </head>
 <body>
+	<!-- Chat Box -->
+	<jsp:include page="../common/chatBox.jsp"></jsp:include>
+	<!-- Chat Box -->
 	<!-- 헤더 섹션 -->
 	<jsp:include page="../common/header.jsp"></jsp:include>
 	<!-- 헤더 섹션 -->
@@ -153,7 +155,7 @@
 		    	</c:if>
 		   	</div>
 		   	<div class="col-2 text-end my-auto">
-				<i id="heartBox" onclick="toggleLike()" class="fs-3 bi bi-heart"></i>
+				<i id="heartBox" onclick="toggleLike()" class="fs-3 bi bi-heart text-danger"></i>
 			</div>
     	</div>
     	<div class="row mt-2">
@@ -176,20 +178,28 @@
 			<div class="col-auto my-auto mb-2 contentTitle text-start my-auto">
 				<c:choose>
 					<c:when test="${productUser.profile_img_link == null }"> 
-						 <img style="filter:grayscale(1)" class="rounded-circle" alt="img" src="/safari/resources/img/user.jpg" width="40" height="40">
+						 <img style="filter:grayscale(1)" class="rounded-circle" alt="img" src="/safari/resources/img/user.jpg" width="50" height="50">
 					</c:when>	
 					<c:otherwise>
-						<img class="rounded-circle" alt="img" src="/safari/resources/img/used/user2.png" width="40" height="40">
+						<img class="rounded-circle" alt="img" src="/safari/resources/img/used/user2.png" width="50" height="50">
 						<%-- <img style="filter:grayscale(1)" class="img-fluid rounded-circle" alt="img" src="/safarifile/${productUser.profile_img_link}" width="35" height="35"> --%>
 					</c:otherwise> 
 				</c:choose>
 			</div>
-			<div class="col mt-1 text-start ps-0 nickname">${productUser.nickname}</div>
+			<div class="col text-start ps-0 nickname">
+    			<div class="row">
+       				<div class="col fw-medium">${productUser.nickname} 🦁</div>
+    			</div>
+    			<div class="row">
+       				<div class="col text-secondary" style="font-size: 14px;">${map.productCityDto.product_city_name } ${map.productTownDto.product_town_name}</div>
+    			</div>
+			</div>
 			<div class="mt-1 col-6 category text-secondary text-end">관심 <span id="totalLikeCount"></span> ∙ 채팅 ${requestCount} ∙ 조회 ${map.productDto.views }</div>
-		<div class="row mt-3">
-			<div class="col mt-2 content" style="height: 120px">${map.productDto.content }</div>
 		</div>
-		<div class="row mt-4 mb-2">
+		<div class="row mt-3">
+			<div class="col mt-2 content" style="height: 110px">${map.productDto.content }</div>
+		</div>
+		<div class="row mt-3 mb-2">
 			<div class="col location"><i class="bi bi-geo-alt"></i> ${map.productDto.location }</div>
 		</div>
 		
@@ -200,7 +210,7 @@
     	<div class="row mt-4 mb-1">
 			<div class="col gray-line"></div>
 		</div>
-		<div class="row mt-4 align-bottom px-0">
+		<div class="row mt-4 align-bottom px-0 mb-4">
     		<c:if test="${sessionUser.getId() != map.productDto.user_id }">
     		<div class="col mt-1"></div>
     		<div class="col-4 d-grid align-items-end">
@@ -211,34 +221,37 @@
     				<a href="./productRequestAlready?productId=${map.productDto.id }" type="button" class="btn orangeButton">채팅하기</a>
     			</c:if>
     			 <c:if test="${completeCount > 0}">
-    			 	<button type="button" class="btn btn-outline-secondary btn-sm" disabled>채팅하기</button>
+    			 	<button type="button" class="btn btn-secondary btn-sm" disabled>채팅하기</button>
     			 </c:if>
     		</div>
     		</c:if>
 	    	<c:if test="${sessionUser != null && sessionUser.id == map.productDto.user_id}">
-	    		<div class="col"></div>
-	    	<div class="col-3 d-grid align-items-end">
-	    	<a href="./updateProductRegister?productId=${map.productDto.id }" type="button" class="btn btn-dark btn-sm">수정</a>
+	    	<div class="col-2 d-grid align-items-start my-auto">
+	    	<a href="./updateProductRegister?productId=${map.productDto.id }" type="button" class="btn btn-outline-secondary btn-sm">수정</a>
 	    	</div>
-	    	<div class="col-3 d-grid align-items-end text-end">
-	    	<a href="./deleteProduct?productId=${map.productDto.id }" type="button" class="btn btn-dark btn-sm">삭제</a>
+	    	<div class="col-2 d-grid align-items-start my-auto">
+	    	<a href="./deleteProduct?productId=${map.productDto.id }" type="button" class="btn btn-outline-secondary btn-sm">삭제</a>
 	    	</div>
+	    		<c:if test="${completeCount > 0}">
+	    			<div class="col text-end my-auto pe-0"><button class="btn btn-sm fw-medium btn-secondary" style="padding: 6px 27px;font-size: 16px;" onclick="reloadChatRoomList()">대화 중인 채팅방 1</button></div>
+	    		</c:if>
+	    		<c:if test="${completeCount == 0}">
+	    			<div class="col text-end my-auto pe-0"><button class="btn btn-sm fw-medium" style="background: #ff6f0f; color: white; padding: 6px 27px;font-size: 16px;" onclick="reloadChatRoomList()">대화 중인 채팅방 1</button></div>
+	    		</c:if>
 	    	</c:if>
     	</div>
  	 	</div>
 	</div>
-	</div>
-	
 	<div class="row mt-5">
-		<div class="col fs-5 fw-semibold">연관상품</div>
+		<div class="col fs-5 fw-semibold">이런 상품은 어때요?</div>
 	</div>
-	<div class="row mt-4">
+	<div class="row mt-4 mb-2">
 		<c:forEach items="${relatedProductList}" var="map">
-				<div class="col-auto">
+				<div class="col-auto mb-4">
 				<a href="./productDetail?productId=${map.productDto.id }" class="text-decoration-none">
 					<div class="row">
 						<div class="col">
-							<img class="relatedTitleImg" src="/safarifile/${map.productImgDto.product_img_link}" width="238px" height="238px">
+							<img class="relatedTitleImg" src="/safarifile/${map.productImgDto.product_img_link}" width="240px" height="240px">
 						</div>
 					</div>
 					<div class="row mt-1">
@@ -246,9 +259,25 @@
 							${map.productDto.title }
 						</div>
 					</div>
+					<div class="row">
+						<c:choose>
+							<c:when test="${map.productDto.price == 0}">
+							    <div class="col-5">
+								<button type="button" class="btn btn-warning mb-1 custom-btn py-1 mt-1" disabled>나눔</button>
+								</div>
+							</c:when>
+							<c:otherwise>
+								        <div class="fw-bold mb-1 fs-5 col"><fmt:formatNumber value="${map.productDto.price}" pattern="#,##0원" /></div>
+							</c:otherwise>
+						</c:choose>
+					</div>
 				</a>
 				</div>
 		</c:forEach>
+	</div>
+	<div class="row mt-5">
+		<div class="col-6"><img class="img-fluid m-0" alt="chatAds" src="/safari/resources/img/used/detailAds2.png"></div>
+		<div class="col-6 p-0"><img class="img-fluid m-0" alt="chatAds" src="/safari/resources/img/used/detailAds1.png" style="border: 1px solid gray; height: 136px;"></div>
 	</div>
 	
 </div>

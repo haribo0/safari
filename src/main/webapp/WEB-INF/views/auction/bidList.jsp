@@ -55,7 +55,7 @@
 		<div class="col ms-4">
 			<div class="row" style="border-bottom: 2px solid #222; height: 48px;">
 				<div class="col p-0">
-					<h5>입찰 목록</h5>						
+					<h5>입찰 내역</h5>						
 				</div>
 			</div>
 			
@@ -119,7 +119,7 @@
 						<table class="table">
 							<thead>
 								<tr class="text-center">
-									<td class="custom-table-secondary">입찰상품정보</td>
+									<td class="custom-table-secondary" style="width: 540px">상품정보</td>
 									<td class="custom-table-secondary">내 입찰가</td>
 									<td class="custom-table-secondary">최고입찰가</td>
 									<td class="custom-table-secondary">입찰수</td>
@@ -167,7 +167,7 @@
 									<td class="align-middle text-center">
 										<span id="bidCount_${bidDto.id}"></span>
 									</td>
-									<td class="align-middle text-center" style="width: 160px">
+									<td class="align-middle text-center">
 										<span id="remainTime_${bidDto.id}"></span>
 									</td>
 									</tr>

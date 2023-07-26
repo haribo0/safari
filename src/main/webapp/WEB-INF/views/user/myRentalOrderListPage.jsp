@@ -9,6 +9,7 @@
 <title>사파리 | 메인</title>
 <!-- 메타 섹션 -->
 <jsp:include page="../common/meta.jsp"></jsp:include>
+<script src="https://kit.fontawesome.com/a83ecfd9ee.js" crossorigin="anonymous"></script>
 <!-- 메타 섹션 -->
 <style>
 .btn-ordered{padding: 2px 8px; background:#dff5ea; color:#6db590; border-radius: 8px; font-size:12px; font-weight: bold; width: 64px; }
@@ -26,6 +27,52 @@
   border-radius: 10px;
   position: relative;
 }
+
+/*  */ /* 별점 */ /*  */
+#full-stars-example-two {
+  /* use display:inline-flex to prevent whitespace issues. alternatively, you can put all the children of .rating-group on a single line */
+  .rating-group {
+    display: inline-flex;
+  }
+  /* make hover effect work properly in IE */
+  .rating__icon {
+    pointer-events: none;
+  }
+  /* hide radio inputs */
+  .rating__input {
+   position: absolute !important;
+   left: -9999px !important;
+  }
+  /* hide 'none' input from screenreaders */
+  .rating__input--none {
+    display: none
+  }
+  /* set icon padding and size */
+  .rating__label {
+    cursor: pointer;
+    padding: 0 0.1em;
+    font-size: 2rem;
+  }
+  /* set default star color */
+  .rating__icon--star {
+    color: orange;
+  }
+  /* if any input is checked, make its following siblings grey */
+  .rating__input:checked ~ .rating__label .rating__icon--star {
+    color: #ddd;
+  }
+  /* make all stars orange on rating group hover */
+  .rating-group:hover .rating__label .rating__icon--star {
+    color: orange;
+  }
+  /* make hovered input's following siblings grey on hover */
+  .rating__input:hover ~ .rating__label .rating__icon--star {
+    color: #ddd;
+  }
+}
+/*  */ /* 별점 */ /*  */
+
+
 </style>
 </head>
 <body>
@@ -43,20 +90,20 @@
 	      		<div class="row flex-column mt-2 p-1">
 	      			<div class="col py-2 px-3 border rounded-1">
 	      				<div class="row">
-	      					<div class="col">
+	      					<div class="col ">
 			      				<p class="fs-6 fw-bold mb-2"><span class="regiMonthP"></span>개월 정기대여</p>	      					
 	      					</div>
 	      				</div>
 	      				<div class="row">
-			      			<div class="col">
-			      				<div class="row justify-content-between">
-			      					<div class="col align-items-center">
-					      				<p class="text-secondary pt-2 border-top mb-0" style="font-size: 14px;"><span class="startDateP"></span> ~ <span class="endDateP"></span></p>
-					      				<p class="modal-tit fw-bold fs-4 mb-0"></p>
-					      				<p><span class="usedPriceP"></span><small>/월</small></p>
+			      			<div class="col border-top">
+			      				<div class="row justify-content-between ">
+			      					<div class="col-4 my-auto">
+					      				<img class="modalTopImage img-fluid" alt="" src="">
 			      					</div>
-			      					<div class="col-1 d-flex justify-content-end">
-					      				<img class="modalTopImage" alt="" src="" style="width: 100px;">
+			      					<div class="col align-items-center my-auto">
+					      				<div class="text-secondary  mb-0" style="font-size: 14px;">대여 기간 <span class="startDateP"></span> - <span class="endDateP"></span></div>
+					      				<div class="modal-tit fw-bold fs-6 mt-1"></div>
+					      				<div><span class="usedPriceP mt-2"></span><small> 원 / 월</small></div>
 			      					</div>
 			      				</div>
 			      			</div>
@@ -67,7 +114,7 @@
 
 						<div class="row">
 							<div class="col py-2 d-flex justify-content-between">
-								<p class="mb-0">해지금액</p>
+								<p class="mb-0">약정 할인 해지금액</p>
 							</div>
 						</div>
 						<div class="row">
@@ -78,7 +125,7 @@
 						</div>
 						<div class="row">
 							<div class="col pt-2 pb-0 d-flex justify-content-between">
-								<small class="text-secondary">&#x2514; 사용 개월수 </small>
+								<small class="text-secondary">&#x2514; 할인 적용 개월수 </small>
 								<p class="mb-0">( * ) <span class="usedMonthP"></span>개월</p>
 							</div>
 						</div>
@@ -110,8 +157,8 @@
 	      </div>
 	      
 	      <div class="modal-footer">
-	        <span class="btn btn-secondary" data-bs-dismiss="modal">취소</span>
-	        <span class="btn btn-primary" id="submitReturn">반납신청</span>
+	        <span class="btn btn-outline-dark" data-bs-dismiss="modal">취소</span>
+	        <span class="btn btn-dark" id="submitReturn">반납신청</span>
 	      </div>
 	    </div>
     </form>
@@ -129,10 +176,36 @@
 	        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 	      </div>
 	      <div class="modal-body">
-			제목: <input type="text" name="rental_review_title" class="form-control"><br />
-			별점: <input type="number" min="1" max="5" class="form-control" name="rental_review_rating"><br />
-			내용: <textarea rows="" cols="" class="form-control" name="rental_review_content"></textarea>
-			이미지첨부: <input name="rental_review_img" type="file" multiple accept="image/*" class="form-control">
+	      	<div class="row">
+	      		<div class="col">
+					제목: <input type="text" name="rental_review_title" class="form-control"><br />
+					내용: <textarea rows="" cols="" class="form-control" name="rental_review_content"></textarea><br>
+					이미지첨부: <input name="rental_review_img" type="file" multiple accept="image/*" class="form-control">
+	      		</div>
+	      	</div>
+	      	
+			<div class="row mt-3">
+				<div class="col ">
+					<p class="mb-0">별점</p>
+	      			<div id="full-stars-example-two">
+	      			<input type="hidden" value="" name="rental_review_rating" class="ratingVal">
+					    <div class="rating-group">
+					        <input disabled="" checked="" class="rating__input rating__input--none" name="rating3" id="rating3-none" value="0" type="radio">
+					        <label aria-label="1 star" class="rating__label" for="rating3-1"><i class="rating__icon rating__icon--star fa fa-sm fa-star" aria-hidden="true"></i></label>
+					        <input class="rating__input" name="rating3" id="rating3-1" value="1" type="radio">
+					        <label aria-label="2 stars" class="rating__label" for="rating3-2"><i class="rating__icon rating__icon--star fa fa-sm fa-star" aria-hidden="true"></i></label>
+					        <input class="rating__input" name="rating3" id="rating3-2" value="2" type="radio">
+					        <label aria-label="3 stars" class="rating__label" for="rating3-3"><i class="rating__icon rating__icon--star fa fa-sm fa-star" aria-hidden="true"></i></label>
+					        <input class="rating__input" name="rating3" id="rating3-3" value="3" type="radio">
+					        <label aria-label="4 stars" class="rating__label" for="rating3-4"><i class="rating__icon rating__icon--star fa fa-sm fa-star" aria-hidden="true"></i></label>
+					        <input class="rating__input" name="rating3" id="rating3-4" value="4" type="radio">
+					        <label aria-label="5 stars" class="rating__label" for="rating3-5"><i class="rating__icon rating__icon--star fa fa-sm fa-star" aria-hidden="true"></i></label>
+					        <input class="rating__input" name="rating3" id="rating3-5" value="5" type="radio">
+					    </div>
+					</div>
+		      	</div>
+			</div>
+			
 	      </div>
 	      <div class="modal-footer">
 	        <span class="btn btn-secondary" data-bs-dismiss="modal">취소</span>
@@ -166,14 +239,14 @@
 			</div>
 			
 			<div class="row mt-3">
-				<div class="col">
-					<p class="mb-1 text-secondary">· 아래는 대여한 목록 리스트 입니다.</p>
-					<p class="mb-1 text-secondary">· 렌탈 기간동안 고객의 책임 없는 사유로 상품의 고장·훼손 시 무상으로 수리 및 부품 교환을 해 드립니다.</p>
-					<p class="mb-1 text-secondary">· 단, 소비자의 귀책으로 인한 경우는 수리비 및 부품 교환 비용을 소비자가 보증금에서 부담해야 합니다.</p>
+				<div class="col" style="font-size: 14px;">
+					<p class=" text-secondary">· 아래는 대여한 목록 리스트 입니다.</p>
+					<p class=" text-secondary">· 렌탈 기간동안 고객의 책임 없는 사유로 상품의 고장·훼손 시 무상으로 수리 및 부품 교환을 해 드립니다.</p>
+					<p class=" text-secondary">· 단, 소비자의 귀책으로 인한 경우는 수리비 및 부품 교환 비용을 소비자가 보증금에서 부담해야 합니다.</p>
 				</div>
 			</div>
 			
-			<div class="row mt-3" style="border-top: 2px solid #919191; border-bottom: 1px solid #919191; background: #f7f7f7;">
+			<div class="row mt-3" style="border-top: 1px solid #919191; border-bottom: 1px solid #919191; background: #f7f7f7;">
 				<div class="col-1 text-center">
 					<p class="mb-0 py-3 fw-bold">주문번호</p>
 				</div>
@@ -214,11 +287,11 @@
 												<img alt="" src="/safariImg/${data.product.main_img_link}" class="rounded-1 img-fluid my-auto" >
 											</a>
 										</div>
-										<div class="col">
+										<div class="col my-auto pe-5">
 										<a href="${pageContext.request.contextPath}/rental/productDescPage?id=${data.product.id}">
-											<p class="mb-0 text-secondary"><small>${data.rentalBusinessDto.business_name}</small></p>
-											<p class="mb-2 fs-5" >${data.product.title }</p>
-											<p class="mb-0" style="font-size: 15px;">대여기간 <fmt:formatDate pattern="yyyy-MM-dd" value="${data.orderedItem.start_date }" /> - <fmt:formatDate pattern="yyyy-MM-dd" value="${data.orderedItem.end_date }" /></p>	
+											<p class="mb-0 "><small>${data.rentalBusinessDto.business_name}</small></p>
+											<p class="mb-2 fs-5 fw-medium" >${data.product.title }</p>
+											<p class="mb-0 " style="font-size: 15px;">대여기간 <fmt:formatDate pattern="yyyy-MM-dd" value="${data.orderedItem.start_date }" /> - <fmt:formatDate pattern="yyyy-MM-dd" value="${data.orderedItem.end_date }" /></p>	
 										</a>
 										</div>
 									</div>
@@ -232,22 +305,22 @@
 								<div class="col d-flex justify-content-center align-items-center">
 								<c:choose>
 										<c:when test="${data.isCompleted == 'Y'}">
-											<span class="mb-0">대여종료</span>				
+											<span class="mb-0 fw-bold text-secondary">대여종료</span>				
 									    </c:when>
 									    
 										<c:when test="${data.rentalItemReturnDto.is_item_returned == 'N'}">
-											<span class="mb-0">회수중</span>				
+											<span class="mb-0 fw-bold" style="color: #f68a42">회수중</span>				
 									    </c:when>
 									    
 									    <c:when test="${data.rentalItemReturnDto.is_item_returned == 'Y'}">
-											<span class="mb-0">정산중</span>				
+											<span class="mb-0 fw-bold" style="color: #f68a42">정산중</span>				
 									    </c:when>
 									    
 									    
 										<c:otherwise>
 											<c:choose>
 												<c:when test="${data.orderedItem.is_shipped == 'N' }">
-													<span class="mb-0">주문완료</span>										
+													<span class="mb-0 fw-bold" style="color: #f68a42">주문완료</span>										
 												</c:when>
 												<c:when test="${data.orderedItem.is_shipped == 'Y'}">
 													<span class="mb-0 fw-bold" style="color: #f68a42">대여중</span>
@@ -263,28 +336,28 @@
 										<div class="col">
 											<c:choose>
 											    <c:when test="${data.isCompleted == 'Y' && data.myReviewCount == 0}">
-											        <button type="button" class="btn btn-outline-dark my-2 p-1" style="font-size:13px;" data-order-id="${data.orderedItem.id}" data-bs-toggle="modal" data-bs-target="#modalReview">대여리뷰작성</button>																				
+											        <button type="button" class="btn btn-outline-dark my-2 px-2 py-1" style="font-size:13px;" data-order-id="${data.orderedItem.id}" data-bs-toggle="modal" data-bs-target="#modalReview">대여리뷰작성</button>																				
 											    </c:when>
 											    <c:when test="${data.isCompleted == 'Y' && data.myReviewCount >= 1}">
-											        <button class="btn btn-outline-dark my-2 p-1" onclick="placeReviewDate(${data.orderedItem.id})" style="font-size:13px;">내가 쓴 리뷰</button>																				
+											        <button class="btn btn-outline-dark my-2 px-2 py-1" onclick="placeReviewDate(${data.orderedItem.id})" style="font-size:13px;">내가 쓴 리뷰</button>																				
 											    </c:when>
 											    
 											    
 											    
 											    <c:when test="${data.isCompleted != 'Y'}">
 											        <c:choose>
-											            <c:when test="${data.orderedItem.is_shipped != 'Y'}">
-											                <button type="button" class="btn btn-outline-secondary p-1" style="font-size:13px;" disabled>배송중</button>
+											            <c:when test="${data.orderedItem.is_shipped == 'N'}">
+											                <div class="p-1" style="font-size:14px;">배송중</div>
 											            </c:when>
 											            
 									            		<c:when test="${data.rentalItemReturnDto.is_item_returned == 'N' && data.isCompleted == 'N' }">
-									            			<button type="button" class="btn btn-outline-secondary p-1" style="font-size:13px;" disabled>회수중</button>
+									            			<div class=" p-1" style="font-size:14px;">회수중</div>
 									            		</c:when>
 											            		
 											            <c:otherwise>
 											            	<c:choose>
 											            		<c:when test="${data.rentalItemReturnDto.is_item_returned != 'Y'}">
-													                <button type="button" class="btn btn-outline-dark p-1" style="font-size:13px;"
+													                <button type="button" class="btn btn-outline-dark px-2 py-1" style="font-size:13px;" onclick="returnCheck(this)"
 													                	data-image-link="${data.product.main_img_link}" 
 													                	data-product-title="${data.product.title}" 
 													                	data-order-id="${data.orderedItem.id}" 
@@ -293,17 +366,18 @@
 													                	data-startdate="${data.orderedItem.start_date }" 
 													                	data-enddate="${data.orderedItem.end_date}" 
 													                	data-deposit="${data.orderedItem.deposit}" 
-													                	data-bs-toggle="modal" 
-													                	data-bs-target="#modalReturn">
+													                	
+													                	>
 													               		 대여반납신청
 													                </button>
 											            		</c:when>
 											            		
 											            		<c:when test="${data.rentalItemReturnDto.is_item_returned == 'Y' && data.isCompleted != 'Y' }">
-											            			<button type="button" class="btn btn-outline-secondary p-1" style="font-size:13px;" disabled>최종 정산중</button>
+											            			<button type="button" class="btn btn-outline-secondary px-2 py-1" style="font-size:13px;" disabled>최종 정산중</button>
 											            		</c:when>
 											            		
 											            		<c:otherwise>
+											            			<div class=" p-1" style="font-size:13px;">배송전</div>
 											            		</c:otherwise>
 											            	</c:choose>
 											            </c:otherwise>
@@ -338,42 +412,11 @@
       <div class="modal-body">
       	      
 	      <div id="testBox">
-	      
-	      </div>   
-<!--       		<div class="row px-2">
-      			<div class="col-2 bg-body-secondary d-flex justify-content-center align-items-center py-2 border-bottom">
-      				<p class="mb-0">제목</p>
-      			</div>
-      			<div class="col d-flex">
-      				<p class="reviewTitle"></p>
-      			</div>
-      		</div>
-      		
-      		<div class="row px-2">
-      			<div class="col-2 bg-body-secondary d-flex justify-content-center align-items-center py-2">
-      				<p class="mb-0">내용</p>
-      			</div>
-      			<div class="col d-flex">
-      				<p class="reviewDesc"></p>
-      			</div>
-      		</div>
-      		
-      		  <div class="row px-2">
-      			<div class="col-2 bg-body-secondary d-flex justify-content-center align-items-center py-2">
-      				<p class="mb-0">별점</p>
-      			</div>
-      			<div class="col">
-      				<div class="row" id="ratingBox">
-      			</div>
-      			</div>
-      		</div> -->
+	      </div>
       		
 	      <div class="modal-footer">
 	        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">창닫기</button>
 	      </div> 
-	      
-	      
- 
 	  </div>
   </div>
 </div>
@@ -467,7 +510,22 @@
 		  return percentageValue
 		  
 		}
-		
+	
+// 반납시 사용기간 계산 퍼센트 처리
+function calcPeriodPercentage(startDate, endDate) {
+	  
+
+    // 90퍼 계산 방법 
+    // (오늘 - 시작일) / (종료일 - 시작일) * 100 
+    // 사용기간 / 약정기간 * 100
+	
+	const currentDate = new Date();
+	const percentage = (currentDate - startDate) / (endDate - startDate) * 100;
+
+	return percentage;
+	  
+}
+	
 	
 // 반납하게되는 날(오늘)
 const setRegDate = () => {
@@ -485,11 +543,12 @@ const modalReturn = document.getElementById('modalReturn')
 const modalReview = document.getElementById('modalReview')
 
 // 반납 안내 모달
-if (modalReturn) {modalReturn.addEventListener('show.bs.modal', event => {
+
+function returnCheck(e) {
 	
 	let returnPercentage
 
-    const button = event.relatedTarget
+    const button = e;
     const startDate = button.getAttribute('data-startdate')
     const endDate = button.getAttribute('data-enddate')
     const orderId = button.getAttribute('data-order-id')
@@ -506,15 +565,14 @@ if (modalReturn) {modalReturn.addEventListener('show.bs.modal', event => {
     const mm = String(endDateObj.getMonth() + 1).padStart(2, '0');
     const dd = String(endDateObj.getDate()).padStart(2, '0');
     formattedEndDate = `\${yyyy}-\${mm}-\${dd}`;
-	
-    returnPercentage = calcEarlyReturn(new Date(formattedStartedDate), new Date(formattedEndDate), new Date(formattedDate))
     
-    console.log({returnPercentage})
-/*     if(returnPercentage < 90) {
-    	alert('반납 진행됩니다!!')
-    	window.location.href = "../rental/rentalReturnZeroProcess?rental_order_id="+orderId
-    }
-	 */
+    const currentDate = new Date();
+    
+    
+    
+    // returnPercentage = calcEarlyReturn(new Date(formattedStartedDate), new Date(formattedEndDate), new Date(formattedDate))		
+    
+	 
 	const returnDesc = document.querySelector(".return_desc")
 	returnDesc.innerHTML = ''
     const endRego = new Date();
@@ -564,8 +622,37 @@ if (modalReturn) {modalReturn.addEventListener('show.bs.modal', event => {
 
     modalTopImage.setAttribute('src', '/safariImg/'+dataImageLink)
     submitReturn.setAttribute('onclick', 'returnProcess(' + orderId + ',' + refundMoney + ', "'+ productTitle + '")')
+    let days = (endDateObj - startDateObj)
+
     
-  })
+   /*  console.log(returnPercentage);
+    console.log(startDateObj);
+    console.log(endDateObj);
+    console.log(regiMonth);
+    console.log(calcMonth);
+    console.log(startDateObj > currentDate); */
+    
+    returnPercentage =  calcPeriodPercentage(startDateObj,endDateObj);
+    
+    // console.log(returnPercentage);
+    // console.log(startDateObj > currentDate);
+    
+    
+    
+    // 오늘 날짜가 대여 시작일 보다 이전이거나 계약 기간의 90퍼센트 이상인 경우 - 추가 정산 XXX
+    if(returnPercentage > 90  || startDateObj > currentDate ) {
+    	const returnModal1 = bootstrap.Modal.getOrCreateInstance("#");
+    	returnModal1.show();
+    	return;
+    	
+    } else { // 그 외에는 할인 기간 계산 
+    	const returnModal2 = bootstrap.Modal.getOrCreateInstance("#modalReturn");
+    	returnModal2.show();
+    }
+    
+    
+    
+
 }
 
 // 리뷰 작성 모달
@@ -574,7 +661,23 @@ if (modalReview) {
     const button = event.relatedTarget
     const orderId = button.getAttribute('data-order-id')
     const form = modalReview.querySelector('form')
+    const ratingGroup = document.querySelector('.rating-group')
     
+    ratingGroup.addEventListener('click', function() {
+        let rentalReviewRating = document.querySelector('.ratingVal')
+        // Get the star rating group element
+    	let ratingGroup = document.querySelector('#full-stars-example-two .rating-group');
+    	// Get the checked input element within the rating group
+    	let checkedInput = ratingGroup.querySelector('input:checked');
+    	// Get the value of the checked input element
+    	let ratingValue = checkedInput ? checkedInput.value : null;
+    	
+    	rentalReviewRating.setAttribute('value',ratingValue)
+    	
+    })
+	
+	
+	
     form.setAttribute('action', `../rental/writeRentalReviewProcess?rental_id=\${orderId}`)
     
     setRegDate()
@@ -785,8 +888,6 @@ function placeReviewDate(id) {
 					card.appendChild(cardBody);
 					testBox.appendChild(card);
 				
-				
-				
 			}
 		}
 	}
@@ -794,6 +895,7 @@ function placeReviewDate(id) {
 	xhr.open("get", "/safari/rental/getMyItemReview?id="+id, false);
 	xhr.send();
 }
+
 
 window.addEventListener("DOMContentLoaded", function(){
 	getSessionId()

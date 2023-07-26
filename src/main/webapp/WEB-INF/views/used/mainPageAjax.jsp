@@ -47,18 +47,51 @@
 	  overflow: hidden; /* 넘친 텍스트를 숨김 */
 	  text-overflow: ellipsis; /* 넘친 텍스트를 "..."으로 표시 */
 	}
+	.btn-qna{position: fixed; bottom: 80px; right: 70px; border-radius: 60px; padding: 0 0;}
+	.btn-circle{width: 50px; height: 52px; border-radius: 50%; display: flex; flex-direction:column; justify-content: center; align-items: center; font-size: 2rem; cursor: pointer;}
+	.btn-circle i{color: #5e5e5e; font-size: 24px;}
+	.btn-tit{font-size:13px;}
 </style>
 
 </head>
 <body>
+	<!-- Chat Box -->
+	<jsp:include page="../common/chatBox.jsp"></jsp:include>
+	<!-- Chat Box -->
 	<!-- 헤더 섹션 -->
 	<jsp:include page="../common/header.jsp"></jsp:include>
 	<!-- 헤더 섹션 -->
-	<div class="row">
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col">
+				<div id="carouselExample" class="carousel slide">
+				  <div class="carousel-inner">
+				    <div class="carousel-item active">
+				      <img src="/safari/resources/img/used/bannerTop.jpeg" class="d-block" height="466px" width="100%" alt="...">
+				    </div>
+				    <div class="carousel-item">
+				      <img src="/safari/resources/img/used/listBanner.jpeg" class="d-block" height="466px" width="100%" alt="...">
+				    </div>
+				  </div>
+				  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+				    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+				    <span class="visually-hidden">Previous</span>
+				  </button>
+				  <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+				    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+				    <span class="visually-hidden">Next</span>
+				  </button>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	
+	<!-- <div class="row">
 		<div class="col">
 			<img class="img-fluid" alt="banner1" src="/safari/resources/img/used/bannerTop.jpeg" height="370px">
 		</div>
-	</div>
+	</div> -->
 	<div class="row mt-5 mb-2">
 		<div class="col text-center">
 			<img alt="bannerMiddle" src="/safari/resources/img/used/middleBanner.png" height="420px" width="1630px">
@@ -107,11 +140,11 @@
 					</div>
 					<div class="row ms-1">
 						<div class="col ms-0 p-0 w-0 smaller-text text-secondary mb-1">
-						${map.productCityDto.product_city_name } ${map.productTownDto.product_town_name } | <span class="ms-0 p-0 w-0 smaller-text text-secondary">${map.uploadTime }
+						${map.productCityDto.product_city_name } ${map.productTownDto.product_town_name } ∙ <span class="ms-0 p-0 w-0 smaller-text text-secondary">${map.uploadTime }
 						</span>
 						</div>
 					</div>
-					<div class="row mb-3">
+					<div class="row mb-3 fw-medium">
 						<div class="col ms-1 text-secondary">
 						<i class="bi bi-heart"></i> ${map.likeCount } &nbsp;&nbsp;<i class="bi bi-chat-dots"></i> ${map.requestCount }
 						</div>
@@ -121,7 +154,7 @@
 		</div>	
 		<div class="row mb-3">
 			<div class="col-auto fw-bold fs-3">전체 상품</div>
-			<div class="col fw-bold fs-5 text-end my-auto"><a class="text-decoration-none text-black" href="./productList">더보기 ></a></div>
+			<div class="col fw-bold fs-5 text-end my-auto"><a class="text-decoration-none text-black" href="./productList">더보기</a></div>
 		</div>
 		<div class="row mb-5">
 			<c:forEach items="${eightList}" var="map">
@@ -154,7 +187,7 @@
 							<div class="row ms-1 fw-semibold price"><button type="button" class="btn btn-warning btn-sm col-auto" disabled>나눔</button></div>
 						</c:otherwise>
 					</c:choose>
-					<div class="row mb-3">
+					<div class="row mb-3 fw-medium">
 				      <div class="col ms-1 text-secondary">
 				        <i class="bi bi-heart"></i> ${map.likeCount} &nbsp;&nbsp;<i class="bi bi-chat-dots"></i> ${map.requestCount}
 				      </div>

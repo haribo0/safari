@@ -223,7 +223,9 @@
 } */
 
  
-.height100{height: 552px !important;}
+.height100{height: 576px !important;}
+
+
  a{text-decoration: none; color: #555;}
 </style>
 
@@ -249,7 +251,7 @@
 		<div class="col-1" ></div>
 		<div class="col-4" >
 			
-			<div class="card ">
+			<div class="card shadow-sm">
 			<div class="card-body ">
 				<div class="row border-bottom fs-5 fw-medium ps-1 pb-3">
 					<div class="col ">
@@ -278,7 +280,7 @@
 		
 			<div class="row mb-4">
 				<div class="col">
-					<div class="card ">
+					<div class="card shadow-sm">
 						<div class="card-body ">
 							<div class="row border-bottom fs-5 fw-medium ps-2 pb-3">
 								<div class="col ">
@@ -377,7 +379,7 @@
 		
 			<div class="row mb-4">
 			    <div class="col">
-		    		<div class="card ">
+		    		<div class="card shadow-sm">
 			    		<div class="card-body ">
 			    			<div class="row mb-3">
 				    			<div class="col fs-5 ms-2 fw-medium ">
@@ -484,15 +486,15 @@
 	<div class="row mt-4 mb-5">
 		<div class="col-1"></div>
 		<div class="col">
-			  	<div class="row border-bottom">
-				  	<div class="col-8 fs-5 ms-2 fw-medium pb-3 ">
-						<div class="card shadow-sm" >
+			  	<div class="row ">
+				  	<div class="col-8 fs-5 ms-2 fw-medium pb-3">
+						<div class="card shadow-sm" style="height: 600px;" >
 							<div class="card-body">
 							
 								<!-- BAR CHART -->
 								<div class="row border-bottom fs-5 fw-medium ps-2 pb-3">
 									<div class="col ">
-					  					지난 주간 문의 처리수
+					  					Last Week's &nbsp; 문의 처리수
 									
 									</div>
 								</div>
@@ -510,13 +512,13 @@
 					  	</div>
 					</div>
 				  	<div class="col fs-5 ms-2 fw-medium pb-3 ">
-						<div class="card shadow-sm" >
+						<div class="card shadow-sm" style="height: 600px;" >
 							<div class="card-body">
 								
 								<!-- DONUT CHART -->
 								<div class="row border-bottom fs-5 fw-medium ps-2 pb-3">
 									<div class="col ">
-					  			    	지난 주간 문의 배정 비율
+					  			    	Last Week's &nbsp; 문의 배정 비율
 									</div>
 								</div>
 								
@@ -552,7 +554,7 @@
 	
 		<div class="row">
 			    <div class="col">
-		    		<div class="card ">
+		    		<div class="card shadow-sm">
 			    		<div class="card-body ">
 			    			<div class="row mb-3 border-bottom">
 				    			<div class="col fs-5 ms-2 fw-medium pb-3 ">
@@ -936,7 +938,7 @@ function makeDonutChart(d,l) {
 	       backgroundColor: [
 			  /* '#FF6384', */
 			  
-			  '#36A2EB', '#969AB1',  '#4BC0C0', '#9966FF', '#F9A25A','#FFCE56','#73D873',
+			  '#36A2EB', '#FFA25C', '#FFCE56',  '#4BC0C0', '#9966FF','#969AB1','#73D873',
 			  '#FF7D99',  '#F8C947', '#70C05A', '#3E66A8', '#8174B6',
 			  '#E44F51', '#2D3C4D', '#FFAA2B', '#55CC55', '#5477A8', '#AE81FF',
 			  '#ED5565', '#3BAFDA', '#FFCE55', '#4A89DC', '#967ADC', '#EC87C0',

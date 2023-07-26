@@ -161,7 +161,8 @@ public interface UsedSqlMapper {
 	public void updateProductRequestStatusByproductId(Integer productId);
 	// productRequestDto 가져오기 - productId 
 	public ProductRequestDto selectProductRequestByProductIdAndStatus(Integer productId);
-	
+	// 나의 구매리스트 
+	public List<ProductRequestDto> selectMyBuyListByUserId(Integer uesrId);
 	
 	
 	

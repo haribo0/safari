@@ -31,14 +31,6 @@
 	<jsp:include page="../common/header.jsp"></jsp:include>
 	<!-- 헤더 섹션 -->
 
-	<div class="container-fluid d-flex align-items-center justify-content-between p-3 px-5 mb-3 bg-light">
-		<div class="container">
-			<div class="row">
-				<p class="mb-0 px-0 text-body-secondary"><a href="${pageContext.request.contextPath}/rental/mainPage" class="btn" style="font-size: 15px;">대여</a> &gt; <span class="mx-2" style="font-size: 15px;">전체보기</span></p>
-			</div>
-		</div>
-	</div>
-
 	<div class="container">
 		<div class="row">
  			<div class="col-2 mt-4">
@@ -216,7 +208,7 @@
 						<a href="${pageContext.request.contextPath}/rental/mainPage/?sub_category_id=12" class="btn">
 						<div class="row">
 							<div>
-								<img class="img-fluid" alt="" src="${pageContext.request.contextPath}/resources/img/rental/category/airCleaner.png">
+								<img class="img-fluid" alt="" src="${pageContext.request.contextPath}/resources/img/rental/category/a1.png">
 							</div>
 						</div>
 						<div class="row mt-2">
@@ -244,7 +236,7 @@
 						<a href="${pageContext.request.contextPath}/rental/mainPage/?sub_category_id=14" class="btn">
 						<div class="row">
 							<div>
-								<img class="img-fluid" alt="" src="${pageContext.request.contextPath}/resources/img/rental/category/tv.png">
+								<img class="img-fluid" alt="" src="${pageContext.request.contextPath}/resources/img/rental/category/tv1.png">
 							</div>
 						</div>
 						<div class="row mt-2">
@@ -258,7 +250,7 @@
 						<a href="${pageContext.request.contextPath}/rental/mainPage/?main_category_id=3" class="btn">
 						<div class="row">
 							<div>
-								<img class="img-fluid" alt="" src="${pageContext.request.contextPath}/resources/img/rental/category/kitchenIt.png">
+								<img class="img-fluid" alt="" src="${pageContext.request.contextPath}/resources/img/rental/category/k1.png">
 							</div>
 						</div>
 						<div class="row mt-2">
@@ -286,7 +278,7 @@
 						<a href="${pageContext.request.contextPath}/rental/mainPage/?sub_category_id=6" class="btn">
 						<div class="row">
 							<div>
-								<img class="img-fluid" alt="" src="${pageContext.request.contextPath}/resources/img/rental/category/refrigerator.png">
+								<img class="img-fluid" alt="" src="${pageContext.request.contextPath}/resources/img/rental/category/r.png">
 							</div>
 						</div>
 						<div class="row mt-2">
