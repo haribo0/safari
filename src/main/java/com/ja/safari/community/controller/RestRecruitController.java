@@ -58,6 +58,7 @@ public class RestRecruitController {
 		return map;
 	}
 	
+	
 	@RequestMapping("recruit/isLiked")
 	public Map<String, Object> isLiked(HttpSession session, RecruitLikeDto params){
 		Map<String , Object> map = new HashMap<>();
