@@ -247,6 +247,55 @@
 		</div>
 	</div>
 	
+		
+	<div class="container mt-5 pb-4">
+		<div class="row">
+			<p class="fw-bold fs-4 mb-0">금주의 스페셜딜</p>
+		</div>
+		<div class="row mt-4 px-2">
+				<div class="col" style="cursor: pointer;">
+				<img class="img-fluid rounded-2" alt="" src="${pageContext.request.contextPath}/resources/img/rental/b4.png">
+			</div>
+				<div class="col" style="cursor: pointer;">
+				<img class="img-fluid rounded-2" alt="" src="${pageContext.request.contextPath}/resources/img/rental/b2.png">
+			</div>
+		</div>
+	</div>
+	
+	<div class="container mt-5 pb-4">
+		<div class="row">
+			<p class="fw-bold fs-4 mb-0">파워광고상품</p>
+		</div>
+		<!-- 광고 대여 물품 row 작업중 -->
+		<div class="row flex justify-content-between px-2 pt-1 pb-3 my-2 mt-3">
+				<c:forEach items="${rentalItemList}" var="map" begin="0" end="5" step="1">
+				<div class="col-2 position-relative">
+					<div class="position-absolute px-2" style="top: 8px; right: 18px; background:#B0DDFF; color: #fff; border-radius: 24px; z-index: 50; font-size: 12px;">
+						AD
+					</div>
+					<div class="card border border-0">
+						<a href="${pageContext.request.contextPath}/rental/productDescPage?id=${map.rentalItemDto.id}" class="text-decoration-none d-inline-block">
+						  <img src="/safariImg/${map.rentalItemDto.main_img_link}" class="card-img-top rounded-0 img-fluid item-box-img-ad" alt="..." style="min-height: 150px;">
+						</a>
+					  <div class="card-body p-0 mt-2">
+						  <div class="row mt-1 descBox">
+							<div class="col">
+								<p class="text-secondary mb-0" style="font-size: 13px;">${map.rentalBusinessDto.business_name }</p>
+						    	<p class="text-dark mb-2"><a href="${pageContext.request.contextPath}/rental/productDescPage?id=${map.rentalItemDto.id}" class="text-decoration-none d-inline-block text-dark" style="font-size: 16px;">${map.rentalItemDto.title}</a></p>
+							    <p class="mb-0"><a href="${pageContext.request.contextPath}/rental/productDescPage?id=${map.rentalItemDto.id}" class="text-decoration-none d-inline-block text-dark" style="font-weight: 900; font-size: 18px;"><fmt:formatNumber value="${map.rentalItemDto.price}" pattern="#,##0" /> 원 </a><span style="font-size: 13px;">/ 월</span></p>
+								<p class="mb-0"><span style="font-size: 13px; color: #5a5a5a;"><i class="bi bi-heart"></i> </span><span class="fw-bold" style="font-size: 13px; color: #7e7e7e;">${map.itemLikeCount}</span> <span class="ms-1" style="font-size: 13px; color: #5a5a5a;"><i class="bi bi-chat"></i></span> <span class="fw-bold" style="font-size: 13px; color: #7e7e7e;">${map.itemReviewCount}</span></p>
+								<p class="mt-1"><span style="background: #e5e5e5; border-radius: 6px; font-size: 12px; padding: 3px 6px;">무료배송</span></p>								
+							</div>
+						</div>
+					  </div>
+					 </div>
+				</div>
+			</c:forEach>
+		</div>
+		<!-- 광고 대여 물품 row 작업중 -->
+	</div>
+	
+	
 	<div class="container mt-5 pb-4">
 		<div class="row">
 			<p class="fw-bold fs-4 mb-0">이벤트</p>
@@ -276,57 +325,8 @@
 			</div>
 		</div>
 	</div>
-		
-	<div class="container mt-5 pb-4">
-		<div class="row">
-			<p class="fw-bold fs-4 mb-0">금주의 스페셜딜</p>
-		</div>
-		<div class="row mt-4 px-2">
-				<div class="col" style="cursor: pointer;">
-					<a href="${pageContext.request.contextPath}/rental/mainPage">
-						<img class="img-fluid rounded-2" alt="" src="${pageContext.request.contextPath}/resources/img/rental/b1.png">
-					</a>
-				</div>
-				<div class="col" style="cursor: pointer;">
-					<a href="${pageContext.request.contextPath}/rental/mainPage">
-						<img class="img-fluid rounded-2" alt="" src="${pageContext.request.contextPath}/resources/img/rental/b2.png">
-					</a>
-				</div>
-		</div>
-	</div>
 	
-	<div class="container mt-5 pb-4">
-		<div class="row">
-			<p class="fw-bold fs-4 mb-0">파워광고상품</p>
-		</div>
-		<!-- 광고 대여 물품 row 작업중 -->
-		<div class="row flex justify-content-between px-2 pt-1 pb-3 my-2 mt-3">
-				<c:forEach items="${rentalItemList}" var="map" begin="0" end="5" step="1">
-				<div class="col-2 position-relative">
-					<div class="position-absolute px-2" style="top: 8px; right: 20px; background:#f68a42; color: #fff; border-radius: 24px; z-index: 50; font-size: 12px;">
-						AD
-					</div>
-					<div class="card border border-0">
-						<a href="${pageContext.request.contextPath}/rental/productDescPage?id=${map.rentalItemDto.id}" class="text-decoration-none d-inline-block">
-						  <img src="/safariImg/${map.rentalItemDto.main_img_link}" class="card-img-top rounded-0 img-fluid item-box-img-ad" alt="..." style="min-height: 150px;">
-						</a>
-					  <div class="card-body p-0 mt-2">
-						  <div class="row mt-1 descBox">
-							<div class="col">
-								<p class="text-secondary mb-0" style="font-size: 13px;">${map.rentalBusinessDto.business_name }</p>
-						    	<p class="text-dark mb-2"><a href="${pageContext.request.contextPath}/rental/productDescPage?id=${map.rentalItemDto.id}" class="text-decoration-none d-inline-block text-dark" style="font-size: 16px;">${map.rentalItemDto.title}</a></p>
-							    <p class="mb-0"><a href="${pageContext.request.contextPath}/rental/productDescPage?id=${map.rentalItemDto.id}" class="text-decoration-none d-inline-block text-dark" style="font-weight: 900; font-size: 18px;"><fmt:formatNumber value="${map.rentalItemDto.price}" pattern="#,##0" /> 원 </a><span style="font-size: 13px;">/ 월</span></p>
-								<p class="mb-0"><span style="font-size: 13px; color: #5a5a5a;"><i class="bi bi-heart"></i> </span><span class="fw-bold" style="font-size: 13px; color: #7e7e7e;">${map.itemLikeCount}</span> <span class="ms-1" style="font-size: 13px; color: #5a5a5a;"><i class="bi bi-chat"></i></span> <span class="fw-bold" style="font-size: 13px; color: #7e7e7e;">${map.itemReviewCount}</span></p>
-								<p class="mt-1"><span style="background: #e5e5e5; border-radius: 6px; font-size: 12px; padding: 3px 6px;">무료배송</span></p>								
-							</div>
-						</div>
-					  </div>
-					 </div>
-				</div>
-			</c:forEach>
-		</div>
-		<!-- 광고 대여 물품 row 작업중 -->
-	</div>
+	
 	
 
 
