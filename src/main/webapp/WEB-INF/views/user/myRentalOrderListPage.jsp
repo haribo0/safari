@@ -292,11 +292,60 @@
 	        <span class="btn btn-outline-dark" data-bs-dismiss="modal">취소</span>
 	        <button type="submit" class="btn btn-dark">작성</button>
 	      </div>
+	      
 	    </div>
     </form>
   </div>
 </div>
 <!-- 대여 리뷰 모달  -->			
+
+<!-- 조건 반납 모달 -->
+	<div class="modal" tabindex="-1" id="modalConfirm">
+	  <div class="modal-dialog">
+	  <form action="">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <h5 class="modal-title">대여 반납 확인서</h5>
+		        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+		      </div>
+		      <div class="modal-body">
+		      	<div class="row border rounded-2 mx-auto" style="width: 99%;">
+		      		<div class="col-3">
+		      			<img class="confirmModalImg img-fluid" alt="" src="">
+		      		</div>
+		      		<div class="col d-flex flex-column justify-content-center">
+		      			<p class="mb-0 confirmModalItemTitle fs-5 fw-medium"></p>
+		      			<p class="mb-0 confirmModalItemDesc"></p>
+		      		</div>
+		      	</div>
+		      	
+		      	<div class="row my-3">
+		      		<div class="col mt-3 text-center">
+		      			<p class="mb-0 userDesc"></p>
+		      		</div>
+		      	</div>
+		      	
+		      </div>
+		      
+		      <div class="modal-footer flex-column justify-content-start">
+		      	<div class="row">
+		      		<div class="col px-0">
+		        		<small class="text-secondary">일주일 내 대여 제품을 택배로 보내주시면 감사하겠습니다.</small>
+		      		</div>
+		      	</div>
+		      
+		      	<div class="row">
+		      		<div class="col px-0">
+				        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">취소</button>
+				        <button type="button" class="btn btn-dark"  id="confirmSubmitReturn">반납</button>
+		      		</div>
+		      	</div>
+		      </div>
+		    </div>
+	    </form>
+	  </div>
+	</div>
+<!-- 조건충족 반납 모달 -->
 
 	<!-- 헤더 섹션 -->
 	<jsp:include page="../common/header.jsp"></jsp:include>
@@ -458,6 +507,7 @@
 													                <button type="button" class="btn btn-outline-dark px-2 py-1" style="font-size:13px;" onclick="returnCheck(this)"
 													                	data-image-link="${data.product.main_img_link}" 
 													                	data-product-title="${data.product.title}" 
+													                	data-product-desc="${data.product.item_description}"
 													                	data-order-id="${data.orderedItem.id}" 
 													                	data-original-price="${data.orderedItem.original_price}" 
 													                	data-rego-price="${data.orderedItem.price}" 
@@ -638,9 +688,12 @@ const setRegDate = () => {
 
 const modalReturn = document.getElementById('modalReturn')
 const modalReview = document.getElementById('modalReview')
+const modalConfirm = document.getElementById('modalConfirm') 
+// 조건 반납 모달
+
+
 
 // 반납 안내 모달
-
 function returnCheck(e) {
 	
 	let returnPercentage
@@ -664,22 +717,19 @@ function returnCheck(e) {
     formattedEndDate = `\${yyyy}-\${mm}-\${dd}`;
     
     const currentDate = new Date();
-    
-    
-    
-    // returnPercentage = calcEarlyReturn(new Date(formattedStartedDate), new Date(formattedEndDate), new Date(formattedDate))		
-    
+	// returnPercentage = calcEarlyReturn(new Date(formattedStartedDate), new Date(formattedEndDate), new Date(formattedDate))		
 	 
 	const returnDesc = document.querySelector(".return_desc")
 	returnDesc.innerHTML = ''
     const endRego = new Date();
     const originalPrice= button.getAttribute('data-original-price')
     const price = button.getAttribute('data-rego-price')
-    console.log("regi price", price)
+    // console.log("regi price", price)
     const deposit = button.getAttribute('data-deposit')
     const productTitle = button.getAttribute('data-product-title')
     const submitReturn = document.getElementById("submitReturn")
     const dataImageLink = button.getAttribute('data-image-link')
+    const productDesc = button.getAttribute('data-product-desc')
     const form = modalReturn.querySelector('form')
 
     setRegDate()
@@ -709,7 +759,6 @@ function returnCheck(e) {
     usedPriceP.innerText = parseInt(price).toLocaleString()
     regiMonthP.innerText = regiMonth
     usedMonthP.innerText = calcMonth
-    //regiMonthP[1].innerText = regiMonth
     startDateP.innerText = formattedStartedDate
     endDateP.innerText = formattedEndDate
     minusPriceP.innerText = calcedPrice.toLocaleString()
@@ -718,7 +767,6 @@ function returnCheck(e) {
     modalTopImage.setAttribute('src', '/safariImg/'+dataImageLink)
     submitReturn.setAttribute('onclick', 'returnProcess(' + orderId + ',' + refundMoney + ', "'+ productTitle + '")')
     let days = (endDateObj - startDateObj)
-
     
    /*  console.log(returnPercentage);
     console.log(startDateObj);
@@ -733,20 +781,31 @@ function returnCheck(e) {
     // console.log(startDateObj > currentDate);
     
     
+    /* 조건모달생성 */
+    const confirmModalImg = document.querySelector('.confirmModalImg')
+    const confirmModalItemTitle = document.querySelector('.confirmModalItemTitle')
+    const confirmModalItemDesc = document.querySelector('.confirmModalItemDesc')
+    const userDesc = document.querySelector('.userDesc')
+    const confirmSubmitReturn = document.querySelector('#confirmSubmitReturn')
+    
+    confirmModalImg.setAttribute('src', '/safariImg/'+dataImageLink)
+    confirmModalItemTitle.innerText = productTitle
+    confirmModalItemDesc.innerText = productDesc
+    confirmModalOrderId.setAttribute('value',orderId)
+    
+    userDesc.innerHTML = `기존 반납일은 <span class="fw-medium">\${formattedEndDate}</span> 입니다.`
+    confirmSubmitReturn.setAttribute('onclick', 'returnProcessSingle(' + orderId + ')')
     
     // 오늘 날짜가 대여 시작일 보다 이전이거나 계약 기간의 90퍼센트 이상인 경우 - 추가 정산 XXX
     if(returnPercentage > 90  || startDateObj > currentDate ) {
-    	const returnModal1 = bootstrap.Modal.getOrCreateInstance("#");
+    	const returnModal1 = bootstrap.Modal.getOrCreateInstance("#modalConfirm");
     	returnModal1.show();
-    	return;
+    	return; 
     	
     } else { // 그 외에는 할인 기간 계산 
     	const returnModal2 = bootstrap.Modal.getOrCreateInstance("#modalReturn");
     	returnModal2.show();
     }
-    
-    
-    
 
 }
 
@@ -770,7 +829,7 @@ if (modalReview) {
     
     reviewModalTopImage.setAttribute('src', '/safariImg/'+dataImageLink)
    	itemTitle.innerText = dataItemTitle
-    itemDesc.innerText = dataProduceDesc
+    itemDesc.innerText = productDesc
     
     ratingGroup.addEventListener('click', function() {
         let rentalReviewRating = document.querySelector('.ratingVal')
@@ -932,7 +991,6 @@ function placeReviewDate(id) {
 					replyCol.classList.add("col", "fw-medium");
 					replyCol.textContent = "답글";
 					replyRow.appendChild(replyCol);
-					
 
 					// 답글 있을 경우 
 					// Create the row for review content
@@ -943,7 +1001,6 @@ function placeReviewDate(id) {
 					replyBodyCol.classList.add("col", "review-reply", "p-3", "mx-3");
 					replyBodyCol.textContent =rentalReviewDto.rental_reply_review;
 					replyBodyRow.appendChild(replyBodyCol);
-					
 
 					// Append all elements to the productBox
 					cardBody.appendChild(titleRow);
