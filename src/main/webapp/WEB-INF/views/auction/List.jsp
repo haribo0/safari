@@ -382,7 +382,7 @@ function updateAuctionCountDown(id) {
 		  		clockSpan.classList.add("text-white", "fw-bold", "fs-2")
 		  		clockSpan.style.position = "absolute";
 		  		clockSpan.style.top = "65px";
-		  		clockSpan.style.left = "63px";
+		  		clockSpan.style.left = "55px";
 		  		clockSpan.style.fontSize = "15px";
 		  		clockSpan.innerText = formatDateTimeAuctionBefore(response.auctionItem.auctionDto.start_date);
 		  		clockSpan.id = "clockSpan_" + id;

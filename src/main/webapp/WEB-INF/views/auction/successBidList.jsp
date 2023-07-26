@@ -813,10 +813,12 @@ function getMySuccessfulBidPayAndDeliveryStatusList() {
 	    	  
 	    	  let myStatus = document.getElementById("myStatus_" + data.id);
 	    	  myStatus.innerHTML = "";
+	    	  console.log(data.payment_exists);
 	    	  
 	    	  // 결제를 하지 않았을 경우
 	    	  if (data.payment_exists == 'No') {
 	    		  
+	    		  console.log(data.payment_exists);
 	    		  
 	    		  const row  = document.createElement("div");
 	    		  row.classList.add("row");

@@ -635,35 +635,7 @@
 	
 	<!-- 경매 마이페이지 - 낙찰된 건 (배송 조회) -->
 	<select id="getMySuccessfulBidPayAndDeliveryStatusList" resultType="com.ja.safari.dto.AuctionBidDto">
-		 SELECT t1.id, t1.auction_item_id, t1.user_seller_id, t1.payment_exists,
-		       CASE WHEN dt.partner_order_id IS NOT NULL THEN 'Yes' ELSE 'No' END AS delivery_exists,
-		       akp.reg_date AS payment_reg_date,
-		       dt.reg_date AS delivery_reg_date,
-		       CASE WHEN pc.partner_order_id IS NOT NULL THEN 'Yes' ELSE 'No' END AS purchase_confirmed
-			FROM (
-			    SELECT bt.id, bt.auction_item_id, at.user_seller_id,
-			        CASE WHEN akp.partner_order_id IS NOT NULL THEN 'Yes' ELSE 'No' END AS payment_exists
-			    FROM auction_item_bid_request bt
-			    LEFT JOIN auction_kakao_payment akp ON bt.id = akp.partner_order_id
-			    JOIN auction_item at ON at.id = bt.auction_item_id
-			    WHERE bt.user_buyer_id = #{userBuyerId}
-			        AND at.auction_status = '종료'
-			        AND bt.bid_price IN (
-			            SELECT MAX(bid_price)
-			            FROM auction_item_bid_request
-			            GROUP BY auction_item_id
-			        )
-			) t1
-			LEFT JOIN auction_delivery_after_payment dt ON t1.id = dt.partner_order_id
-			LEFT JOIN auction_kakao_payment akp ON t1.id = akp.partner_order_id
-			LEFT JOIN auction_purchase_confirmed pc ON pc.partner_order_id = t1.id
-			
-	</select>
-	
-	
-	<!--  낙찰목록 당 배송 조회 (배송 조회 모달 출력 형태 ) -->
-	<select id="getDeliveryStatusInSuccessfulBid" resultType="com.ja.safari.dto.AuctionDeliveryTrackingDto">
-		 SELECT
+	 		SELECT
 			    t1.id, t1.auction_item_id, t1.title, t1.user_buyer_id,
 			    t1.user_seller_id, t1.nickname, t1.payment_exists, t1.amount,
 			    CASE WHEN dt.partner_order_id IS NOT NULL THEN 'Yes' ELSE 'No' END AS delivery_exists,
@@ -675,39 +647,88 @@
 			FROM (
 			    SELECT
 			        bt.id, bt.auction_item_id, at.user_seller_id, at.title, ut.nickname, bt.user_buyer_id,
-              akp.amount,
+             		               akp.amount,
 			        CASE WHEN akp.partner_order_id IS NOT NULL THEN 'Yes' ELSE 'No' END AS payment_exists
 			    FROM
 			        auction_item_bid_request bt
 			        LEFT JOIN auction_kakao_payment akp ON bt.id = akp.partner_order_id
 			        JOIN auction_item at ON at.id = bt.auction_item_id
 			        JOIN user_table ut ON ut.id = at.user_seller_id
+              JOIN (
+			    SELECT auction_item_id, MAX(bid_price) AS max_bid_price  
+			    FROM auction_item_bid_request
+			    GROUP BY auction_item_id
+			) max_bt ON bt.auction_item_id = max_bt.auction_item_id AND bt.bid_price = max_bt.max_bid_price 
 			    WHERE
 			        bt.user_buyer_id = #{user_buyer_id}
 			        AND at.auction_status = '종료'
-			        AND bt.bid_price IN (
-			            SELECT
-			                MAX(bid_price)
-			            FROM
-			                auction_item_bid_request
-			            GROUP BY
-			                auction_item_id
-			        )
+			        
 			) t1
 			LEFT JOIN auction_delivery_after_payment dt ON t1.id = dt.partner_order_id
 			LEFT JOIN auction_purchase_confirmed pc ON pc.partner_order_id = t1.id
 			LEFT JOIN auction_kakao_payment akp ON t1.id = akp.partner_order_id
 			JOIN (
-			        SELECT ai.*
-			    FROM auction_item_img ai
-			    JOIN (
-			        SELECT auction_item_id, MIN(id) AS min_id
-			        FROM auction_item_img
-			        GROUP BY auction_item_id
-			    ) min_img ON ai.auction_item_id = min_img.auction_item_id AND ai.id = min_img.min_id
+			    SELECT
+			        auction_item_id,
+			        MIN(auction_item_img_link) AS auction_item_img_link
+			    FROM
+			        auction_item_img
+			    GROUP BY
+			        auction_item_id
 			) ati ON t1.auction_item_id = ati.auction_item_id
-			WHERE t1.id = #{id}    
+<!--      		WHERE t1.id = #{id} -->    
+	
 	</select>
+	
+	
+	<!--  낙찰목록 당 배송 조회 (배송 조회 모달 출력 형태 ) -->
+	<select id="getDeliveryStatusInSuccessfulBid" resultType="com.ja.safari.dto.AuctionDeliveryTrackingDto">
+			SELECT
+			    t1.id, t1.auction_item_id, t1.title, t1.user_buyer_id,
+			    t1.user_seller_id, t1.nickname, t1.payment_exists, t1.amount,
+			    CASE WHEN dt.partner_order_id IS NOT NULL THEN 'Yes' ELSE 'No' END AS delivery_exists,
+			    akp.reg_date AS payment_reg_date,
+			    dt.reg_date AS delivery_reg_date,
+			    CASE WHEN pc.partner_order_id IS NOT NULL THEN 'Yes' ELSE 'No' END AS purchase_confirmed,
+			    dt.delivery_status AS delivery_status, 
+			    ati.auction_item_img_link AS auction_item_img_link
+			FROM (
+			    SELECT
+			        bt.id, bt.auction_item_id, at.user_seller_id, at.title, ut.nickname, bt.user_buyer_id,
+             		               akp.amount,
+			        CASE WHEN akp.partner_order_id IS NOT NULL THEN 'Yes' ELSE 'No' END AS payment_exists
+			    FROM
+			        auction_item_bid_request bt
+			        LEFT JOIN auction_kakao_payment akp ON bt.id = akp.partner_order_id
+			        JOIN auction_item at ON at.id = bt.auction_item_id
+			        JOIN user_table ut ON ut.id = at.user_seller_id
+              JOIN (
+			    SELECT auction_item_id, MAX(bid_price) AS max_bid_price  
+			    FROM auction_item_bid_request
+			    GROUP BY auction_item_id
+			) max_bt ON bt.auction_item_id = max_bt.auction_item_id AND bt.bid_price = max_bt.max_bid_price 
+			    WHERE
+			        bt.user_buyer_id = #{user_buyer_id}
+			        AND at.auction_status = '종료'
+			        
+			) t1
+			LEFT JOIN auction_delivery_after_payment dt ON t1.id = dt.partner_order_id
+			LEFT JOIN auction_purchase_confirmed pc ON pc.partner_order_id = t1.id
+			LEFT JOIN auction_kakao_payment akp ON t1.id = akp.partner_order_id
+			JOIN (
+			    SELECT
+			        auction_item_id,
+			        MIN(auction_item_img_link) AS auction_item_img_link
+			    FROM
+			        auction_item_img
+			    GROUP BY
+			        auction_item_id
+			) ati ON t1.auction_item_id = ati.auction_item_id
+      	WHERE t1.id = #{id} 
+      </select>
+	
+	
+	
 	
 	<!-- 경매 마이페이지 - 찜 목록 (시간 업데이트용) -->
 	<select id="getMyWishListForRealTime" resultType="com.ja.safari.dto.AuctionItemLikeDto">
@@ -1196,7 +1217,8 @@
 				        FROM auction_item_img
 				        GROUP BY auction_item_id
 				    ) min_img ON ai.auction_item_id = min_img.auction_item_id AND ai.id = min_img.min_id
-				) ati ON at.id = ati.auction_item_id       
+				) ati ON at.id = ati.auction_item_id   
+				  WHERE at.auction_status = '진행중'    
 			      GROUP BY at.id, at.title, main_category_name, sub_category_name, auction_item_img_link
 			      ORDER BY bidCount DESC) ot
 			       <![CDATA[	

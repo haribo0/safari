@@ -75,10 +75,10 @@
     							<div class="col">
     							
     								<div class="row">
-    									<div class="col fw-bold fs-5">
+    									<div class="col fw-semibold fs-5">
 		      								구매자 정보
 		      							</div>
-		      							<div class="col fw-bold fs-5">
+		      							<div class="col fw-semibold fs-5">
 		      								판매자 정보
 		      							</div>
     								</div> 
@@ -87,7 +87,7 @@
     									<div class="col">
     										<table class="table">
     											<tr>
-    												<td class="custom-table-secondary text-center border-top" style="width: 150px;"> 이름</td>
+    												<td class="table-light text-center border-top" style="width: 150px;"> 이름</td>
     												<td class="border-top">
 	    												<div class="row">
 		    												<div class="col ms-2">
@@ -97,7 +97,7 @@
     												</td>
     											</tr>
     											<tr>
-    												<td class="custom-table-secondary text-center" style="width: 150px;"> 이메일 </td>
+    												<td class="table-light text-center" style="width: 150px;"> 이메일 </td>
     												<td>
     													<div class="row">
 		    												<div class="col ms-2">
@@ -107,7 +107,7 @@
     												</td>
     											</tr>
     											<tr>
-    												<td class="custom-table-secondary text-center" style="width: 150px;"> 휴대폰 번호</td>
+    												<td class="table-light text-center" style="width: 150px;"> 휴대폰 번호</td>
     												<td>
     													<div class="row">
 		    												<div class="col ms-2">
@@ -124,7 +124,7 @@
 										<div class="col">
     										<table class="table">
     											<tr>
-    												<td class="custom-table-secondary text-center border-top" style="width: 150px;"> 이름</td>
+    												<td class="table-light text-center border-top" style="width: 150px;"> 이름</td>
     												<td class="border-top">
 	    												<div class="row">
 		    												<div class="col ms-2">
@@ -134,7 +134,7 @@
     												</td>
     											</tr>
     											<tr>
-    												<td class="custom-table-secondary text-center" style="width: 150px;"> 이메일 </td>
+    												<td class="table-light text-center" style="width: 150px;"> 이메일 </td>
     												<td>
     													<div class="row">
 		    												<div class="col ms-2">
@@ -144,7 +144,7 @@
     												</td>
     											</tr>
     											<tr>
-    												<td class="custom-table-secondary text-center" style="width: 150px;"> 휴대폰 번호</td>
+    												<td class="table-light text-center" style="width: 150px;"> 휴대폰 번호</td>
     												<td>
     													<div class="row">
 		    												<div class="col ms-2">
@@ -165,7 +165,7 @@
     								</div>
     								
     								<div class="row mt-3">
-    									<div class="col fw-bold fs-5">
+    									<div class="col fw-semibold fs-5">
     										낙찰 정보
     									</div>
     								</div>
@@ -174,9 +174,9 @@
     									<div class="col">
     										<table class="table">
     											<tr class="text-center">
-    												<td class="custom-table-secondary">입찰시간</td>
-    												<td class="custom-table-secondary">경매종료일</td>
-    												<td class="custom-table-secondary">참고사항</td>
+    												<td class="table-light">입찰시간</td>
+    												<td class="table-light">경매종료일</td>
+    												<td class="table-light">참고사항</td>
     											</tr>
     											<tr class="text-center">
     											
@@ -191,7 +191,7 @@
     							
     							
 		      						<div class="row mt-3">
-		      							<div class="col fw-bold fs-5">
+		      							<div class="col fw-semibold fs-5">
 		      								주문 상품 정보
 		      							</div>
 		      						</div>
@@ -206,12 +206,12 @@
 		      								
 		      								
 		      								<table class="table">
-		      									<thead>
+		      									<thead class="table-light">
 		      										<tr class="text-center">
-		      											<td class="custom-table-secondary">상품정보</td>
-		      											<td class="custom-table-secondary">낙찰가</td>
-		      											<td class="custom-table-secondary">수량</td>
-		      											<td class="custom-table-secondary">구매가</td>
+		      											<td>상품정보</td>
+		      											<td>낙찰가</td>
+		      											<td>수량</td>
+		      											<td>구매가</td>
 		      										</tr>
 		      									</thead>
 		      									<tbody>
@@ -278,7 +278,7 @@
    						<div class="row mt-3">
 	   						<div class="col-8">
 	   							<div class="row">
-		     						<div class="col-auto fw-bold fs-5">
+		     						<div class="col-auto fw-semibold fs-5">
 		     							배송지 정보
 		     						</div>
 		     						<div class="col">
@@ -291,7 +291,7 @@
 	    							<div class="col">
 	    								<table class="table">
 	    									<tr>
-	    										<td class="custom-table-secondary align-middle text-center border-top" style="width: 150px;"> 배송지명 </td>
+	    										<td class="table-light align-middle text-center border-top" style="width: 150px;"> 배송지명 </td>
 	    										<td class="border-top">
 	    											
 	    											<span class="ms-2" id="addressName"></span>
@@ -299,21 +299,21 @@
 	    									</tr>
 	    									
 	    									<tr>
-	    										<td class="custom-table-secondary align-middle text-center" style="width: 150px;"> 배송주소 </td>
+	    										<td class="table-light align-middle text-center" style="width: 150px;"> 배송주소 </td>
 	    										<td>
 	    											<span class="ms-2" id="deliveryAddress"></span>
 	    										</td>
 	    									</tr>
 	    									
 	    									<tr>
-	    										<td class="custom-table-secondary align-middle text-center" style="width: 150px;"> 연락처 </td>
+	    										<td class="table-light align-middle text-center" style="width: 150px;"> 연락처 </td>
 	    										<td>
 	    											<span class="ms-2" id="addressPhone"></span>
 	    										</td>	
 	    									</tr>
 	    									
 	    									<tr>
-	    										<td class="custom-table-secondary align-middle text-center" style="width: 150px;"> 배송 요청사항 </td>
+	    										<td class="table-light align-middle text-center" style="width: 150px;"> 배송 요청사항 </td>
 	    										<td >
 	    											<input type="text" class="form-control" id="addressMessage">
 	    										</td>	
@@ -358,7 +358,7 @@
 	    									
 			    										<div class="row">
 	    													<div class="col ms-1">
-	    														결제 금액
+	    														결제 코인
 	    													</div>
 	    												</div>
 	    												
