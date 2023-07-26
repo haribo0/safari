@@ -750,4 +750,14 @@ public class AuctionServiceImpl {
 
 	}
 	
+	// 입찰 수 많은 경매 정렬 5개
+	public List<AuctionItemDto> getAuctionOrderByBidCount() {
+		return auctionSqlMapper.getAuctionOrderByBidCount();
+	}
+	
+	// 랜덤 출력
+	public List<AuctionItemDto> getAuctionListByRandom() {
+		return auctionSqlMapper.getAuctionListByRandom();
+	}
+	
 }

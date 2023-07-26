@@ -1082,6 +1082,26 @@ public class RestAuctionController {
 
 	}
 	
+	// 입찰 수 많은 경매 정렬 5개
+	@RequestMapping("getAuctionOrderByBidCount")
+	public Map<String, Object> getAuctionOrderByBidCount() {
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		map.put("maxBidList", auctionService.getAuctionOrderByBidCount());
+		
+		return map;
+	}
 	
+	// 랜덤 추출
+	@RequestMapping("getAuctionListByRandom")
+	public Map<String, Object> getAuctionListByRandom() {
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		map.put("ranAuctionList", auctionService.getAuctionListByRandom());
+		
+		return map;
+	}
 	
 }

@@ -313,6 +313,10 @@ public interface AuctionSqlMapper {
 	// 곧 마감 되는 경매 내림차순 정렬 6개
 	public List<AuctionItemDto> deadlineApproachingAuctonList();
 	
+	// 입찰 수 많은 경매 정렬 5개
+	public List<AuctionItemDto> getAuctionOrderByBidCount();
 	
+	// 랜덤 출력
+	public List<AuctionItemDto> getAuctionListByRandom();
 	
 }

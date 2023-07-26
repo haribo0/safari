@@ -53,7 +53,7 @@
 		<div class="col ms-4">
 			<div class="row" style="border-bottom: 2px solid #222; height: 48px;">
 				<div class="col p-0">
-					<h5>낙찰 목록</h5>						
+					<h5>낙찰 내역</h5>						
 				</div>
 			</div>
 			

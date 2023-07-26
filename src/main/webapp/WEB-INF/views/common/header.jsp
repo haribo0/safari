@@ -41,7 +41,7 @@
 		        >중고</a></li>
 		          <li class="me-4"><a href="${pageContext.request.contextPath}/rental/introMainPage" class="px-2 link-body-emphasis"
 		          >대여</a></li>
-		          <li class="me-4"><a href="${pageContext.request.contextPath}/auction/List" class="px-2 link-body-emphasis"
+		          <li class="me-4"><a href="${pageContext.request.contextPath}/auction/mainPage" class="px-2 link-body-emphasis"
 		           >경매</a></li>
 		          <li class="me-3"><a href="${pageContext.request.contextPath}/community/mainPage" class="px-2 link-body-emphasis"
 		          >커뮤니티</a></li>
