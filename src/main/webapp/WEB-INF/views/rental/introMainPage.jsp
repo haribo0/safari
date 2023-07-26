@@ -318,12 +318,12 @@
 				  <div class="carousel-inner">
 				    <div class="carousel-item carousel-md carousel-item-md-1 active carousel-item carousel-item-1">
 					    <a href="${pageContext.request.contextPath}/rental/mainPage">
-					      <img src="${ pageContext.request.contextPath}/resources/img/rental/rental-banner-1.jpg" class="d-block w-100" alt="...">
+					      <img src="${ pageContext.request.contextPath}/resources/img/rental/event3.avif" class="d-block w-100" alt="...">
 					    </a>
 				    </div>
 				    <div class="carousel-item carousel-md carousel-item-md-2 carousel-item carousel-item-2">
 				    	<a href="${pageContext.request.contextPath}/rental/mainPage">
-				      		<img src="${ pageContext.request.contextPath}/resources/img/rental/rental-banner-2.jpg" class="d-block w-100" alt="...">
+				      		<img src="${ pageContext.request.contextPath}/resources/img/rental/event4.avif" class="d-block w-100" alt="...">
 				      	</a>
 				    </div>
 				  </div>

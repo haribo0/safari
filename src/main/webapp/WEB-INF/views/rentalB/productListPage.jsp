@@ -787,6 +787,7 @@ function registerProduct() {
       // 리스트 새로고침 
       getListUpdated();
       
+      
       // 응답 처리
       modal.hide();
       
