@@ -90,20 +90,20 @@
 	      		<div class="row flex-column mt-2 p-1">
 	      			<div class="col py-2 px-3 border rounded-1">
 	      				<div class="row">
-	      					<div class="col">
+	      					<div class="col ">
 			      				<p class="fs-6 fw-bold mb-2"><span class="regiMonthP"></span>개월 정기대여</p>	      					
 	      					</div>
 	      				</div>
 	      				<div class="row">
-			      			<div class="col">
-			      				<div class="row justify-content-between">
-			      					<div class="col-4 d-flex">
+			      			<div class="col border-top">
+			      				<div class="row justify-content-between ">
+			      					<div class="col-4 my-auto">
 					      				<img class="modalTopImage img-fluid" alt="" src="">
 			      					</div>
-			      					<div class="col align-items-center">
-					      				<p class="text-secondary pt-2 border-top mb-0" style="font-size: 14px;"><span class="startDateP"></span> ~ <span class="endDateP"></span></p>
-					      				<p class="modal-tit fw-bold fs-4 mb-0"></p>
-					      				<p><span class="usedPriceP"></span><small>/월</small></p>
+			      					<div class="col align-items-center my-auto">
+					      				<div class="text-secondary  mb-0" style="font-size: 14px;">대여 기간 <span class="startDateP"></span> - <span class="endDateP"></span></div>
+					      				<div class="modal-tit fw-bold fs-6 mt-1"></div>
+					      				<div><span class="usedPriceP mt-2"></span><small> 원 / 월</small></div>
 			      					</div>
 			      				</div>
 			      			</div>
@@ -114,7 +114,7 @@
 
 						<div class="row">
 							<div class="col py-2 d-flex justify-content-between">
-								<p class="mb-0">해지금액</p>
+								<p class="mb-0">약정 할인 해지금액</p>
 							</div>
 						</div>
 						<div class="row">
@@ -157,8 +157,8 @@
 	      </div>
 	      
 	      <div class="modal-footer">
-	        <span class="btn btn-secondary" data-bs-dismiss="modal">취소</span>
-	        <span class="btn btn-primary" id="submitReturn">반납신청</span>
+	        <span class="btn btn-outline-dark" data-bs-dismiss="modal">취소</span>
+	        <span class="btn btn-dark" id="submitReturn">반납신청</span>
 	      </div>
 	    </div>
     </form>
@@ -239,10 +239,10 @@
 			</div>
 			
 			<div class="row mt-3">
-				<div class="col">
-					<p class="mb-1 text-secondary">· 아래는 대여한 목록 리스트 입니다.</p>
-					<p class="mb-1 text-secondary">· 렌탈 기간동안 고객의 책임 없는 사유로 상품의 고장·훼손 시 무상으로 수리 및 부품 교환을 해 드립니다.</p>
-					<p class="mb-1 text-secondary">· 단, 소비자의 귀책으로 인한 경우는 수리비 및 부품 교환 비용을 소비자가 보증금에서 부담해야 합니다.</p>
+				<div class="col" style="font-size: 14px;">
+					<p class=" text-secondary">· 아래는 대여한 목록 리스트 입니다.</p>
+					<p class=" text-secondary">· 렌탈 기간동안 고객의 책임 없는 사유로 상품의 고장·훼손 시 무상으로 수리 및 부품 교환을 해 드립니다.</p>
+					<p class=" text-secondary">· 단, 소비자의 귀책으로 인한 경우는 수리비 및 부품 교환 비용을 소비자가 보증금에서 부담해야 합니다.</p>
 				</div>
 			</div>
 			
@@ -287,11 +287,11 @@
 												<img alt="" src="/safariImg/${data.product.main_img_link}" class="rounded-1 img-fluid my-auto" >
 											</a>
 										</div>
-										<div class="col my-auto">
+										<div class="col my-auto pe-5">
 										<a href="${pageContext.request.contextPath}/rental/productDescPage?id=${data.product.id}">
-											<p class="mb-0 text-secondary"><small>${data.rentalBusinessDto.business_name}</small></p>
-											<p class="mb-2 fs-5" >${data.product.title }</p>
-											<p class="mb-0" style="font-size: 15px;">대여기간 <fmt:formatDate pattern="yyyy-MM-dd" value="${data.orderedItem.start_date }" /> - <fmt:formatDate pattern="yyyy-MM-dd" value="${data.orderedItem.end_date }" /></p>	
+											<p class="mb-0 "><small>${data.rentalBusinessDto.business_name}</small></p>
+											<p class="mb-2 fs-5 fw-medium" >${data.product.title }</p>
+											<p class="mb-0 " style="font-size: 15px;">대여기간 <fmt:formatDate pattern="yyyy-MM-dd" value="${data.orderedItem.start_date }" /> - <fmt:formatDate pattern="yyyy-MM-dd" value="${data.orderedItem.end_date }" /></p>	
 										</a>
 										</div>
 									</div>
@@ -357,7 +357,7 @@
 											            <c:otherwise>
 											            	<c:choose>
 											            		<c:when test="${data.rentalItemReturnDto.is_item_returned != 'Y'}">
-													                <button type="button" class="btn btn-outline-dark px-2 py-1" style="font-size:13px;"
+													                <button type="button" class="btn btn-outline-dark px-2 py-1" style="font-size:13px;" onclick="returnCheck(this)"
 													                	data-image-link="${data.product.main_img_link}" 
 													                	data-product-title="${data.product.title}" 
 													                	data-order-id="${data.orderedItem.id}" 
@@ -529,16 +529,11 @@ const modalReview = document.getElementById('modalReview')
 
 // 반납 안내 모달
 
-if (modalReturn) {
-	
-	
-	
-modalReturn.addEventListener('show.bs.modal', event => {
-	console.log('반납 모달 진행')
+function returnCheck(e) {
 	
 	let returnPercentage
 
-    const button = event.relatedTarget
+    const button = e;
     const startDate = button.getAttribute('data-startdate')
     const endDate = button.getAttribute('data-enddate')
     const orderId = button.getAttribute('data-order-id')
@@ -556,14 +551,12 @@ modalReturn.addEventListener('show.bs.modal', event => {
     const dd = String(endDateObj.getDate()).padStart(2, '0');
     formattedEndDate = `\${yyyy}-\${mm}-\${dd}`;
     
-    setTimeout(() => {
-	    returnPercentage = calcEarlyReturn(new Date(formattedStartedDate), new Date(formattedEndDate), new Date(formattedDate))		
-	    console.log("리턴 퍼센테이지", returnPercentage)
-	    if(returnPercentage > 90) {
-	    	alert('약정기간 90프로 이상 사용 및 약정금액 없어 반납 진행됩니다.')
-	    	//window.location.href = "../rental/rentalReturnZeroProcess?rental_order_id="+orderId
-	    }
-	}, 300);
+    const currentDate = new Date();
+    
+    
+    
+    returnPercentage = calcEarlyReturn(new Date(formattedStartedDate), new Date(formattedEndDate), new Date(formattedDate))		
+    
 	 
 	const returnDesc = document.querySelector(".return_desc")
 	returnDesc.innerHTML = ''
@@ -615,7 +608,28 @@ modalReturn.addEventListener('show.bs.modal', event => {
     modalTopImage.setAttribute('src', '/safariImg/'+dataImageLink)
     submitReturn.setAttribute('onclick', 'returnProcess(' + orderId + ',' + refundMoney + ', "'+ productTitle + '")')
     
-  })
+    
+    console.log(returnPercentage);
+    console.log(startDateObj);
+    console.log(endDateObj);
+    console.log(regiMonth);
+    console.log(calcMonth);
+    
+    
+    
+    // 오늘 날짜가 대여 시작일 보다 이전이거나 계약 기간의 90퍼센트 이상인 경우 
+    if(returnPercentage > 90 || startDateObj > currentDate ) {
+    	const returnModal1 = bootstrap.Modal.getOrCreateInstance("#");
+    	returnModal1.show();
+    	
+    } else { // 그 외에는 할인 기간 계산 
+    	const returnModal2 = bootstrap.Modal.getOrCreateInstance("#modalReturn");
+    	returnModal2.show();
+    }
+    
+    
+    
+
 }
 
 // 리뷰 작성 모달
