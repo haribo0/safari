@@ -82,12 +82,12 @@
 						<div class="card pt-4">
 							
 							<div class="row fw-medium my-3 pt-3  mx-5"> 
-								<div class="col fw-medium "> 
+								<div class="col fw-medium fs-5 ms-1"> 
 									계정
 								</div>
 							</div>
 							
-							<div class="row fw-medium my-3 ">
+							<div class="row fw-medium my-2 mb-4">
 								
 								<div class="col-1"></div>
 								<div class="col">
@@ -137,14 +137,14 @@
 							
 							
 							<div class="row fw-medium my-3 pt-5 border-top mx-5"> 
-								<div class="col fw-medium "> 
+								<div class="col fw-medium fs-5 ms-1"> 
 									상점
 								</div>
 							</div>
 							
 							
 							
-							<div class="row fw-medium my-3 " >
+							<div class="row fw-medium my-2 " >
 								<div class="col-1"></div>
 								<div class="col">
 									<div class="row fw-light text-secondary">
@@ -195,7 +195,7 @@
 							</div> -->
 							
 							
-							<div class="row my-3 mb-5">
+							<div class="row my-3 mb-5 ">
 								<div class="col-1"></div>
 								<div class="col">
 									<div class="row fw-light text-secondary">
