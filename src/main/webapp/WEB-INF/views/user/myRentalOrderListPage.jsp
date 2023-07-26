@@ -240,9 +240,9 @@
 			
 			<div class="row mt-3">
 				<div class="col" style="font-size: 14px;">
-					<p class=" text-secondary">· 아래는 대여한 목록 리스트 입니다.</p>
-					<p class=" text-secondary">· 렌탈 기간동안 고객의 책임 없는 사유로 상품의 고장·훼손 시 무상으로 수리 및 부품 교환을 해 드립니다.</p>
-					<p class=" text-secondary">· 단, 소비자의 귀책으로 인한 경우는 수리비 및 부품 교환 비용을 소비자가 보증금에서 부담해야 합니다.</p>
+					<div class="my-0 text-secondary">· 아래는 대여한 목록 리스트 입니다.</div>
+					<div class="my-0 text-secondary">· 렌탈 기간동안 고객의 책임 없는 사유로 상품의 고장·훼손 시 무상으로 수리 및 부품 교환을 해 드립니다.</div>
+					<div class="my-0 text-secondary">· 단, 소비자의 귀책으로 인한 경우는 수리비 및 부품 교환 비용을 소비자가 보증금에서 부담해야 합니다.</div>
 				</div>
 			</div>
 			
