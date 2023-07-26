@@ -58,7 +58,7 @@
 		<div class="col ms-4">
 			<div class="row" style="border-bottom: 2px solid #222; height: 48px;">
 				<div class="col p-0">
-					<h5>내가 올린 경매 목록</h5>						
+					<h5>내가 올린 경매 내역</h5>						
 				</div>
 			</div>
 			
@@ -290,7 +290,7 @@
       				<div class="col">
       					
       					<div class="row">
-      						<div class="col fw-semibold fs-5">
+      						<div class="col fw-semibold" style="font-size:18px;">
       							상품 정보
       						</div>
       					</div>
@@ -340,7 +340,7 @@
 						<div class="row mt-4">
 							<div class="col">
 								<div class="row">
-									<div class="col fw-semibold fs-5">
+									<div class="col fw-semibold" style="font-size:18px;">
 										구매자 정보
 									</div>
 								</div>
@@ -368,7 +368,7 @@
 							</div>
 							<div class="col">
 								<div class="row">
-									<div class="col fw-semibold fs-5">
+									<div class="col fw-semibold" style="font-size:18px;">
 										결제 정보
 									</div>
 								</div>
@@ -434,7 +434,7 @@
 						
 						
 						<div class="row mt-3">
-							<div class="col fw-semibold fs-5">
+							<div class="col fw-semibold" style="font-size:18px;">
 								배송 정보
 							</div>
 							<div class="col text-end" style="position: relative; top: 5px;">
@@ -488,7 +488,7 @@
 						
 						
 						<div class="row mt-2">
-	      					<div class="col fw-semibold fs-5">
+	      					<div class="col fw-semibold" style="font-size:18px;">
 	      						배송 상세 정보
 	      					</div>
 	      				</div>
@@ -553,7 +553,7 @@
       				<div class="col">
       					
       					<div class="row">
-      						<div class="col fw-semibold fs-5">
+      						<div class="col fw-semibold" style="font-size:18px;"> 
       							상품 정보
       						</div>
       					</div>
@@ -603,7 +603,7 @@
 						<div class="row mt-4">
 							<div class="col">
 								<div class="row">
-									<div class="col fw-semibold fs-5">
+									<div class="col fw-semibold" style="font-size:18px;">
 										구매자 정보
 									</div>
 								</div>
@@ -631,7 +631,7 @@
 							</div>
 							<div class="col">
 								<div class="row">
-									<div class="col fw-semibold fs-5">
+									<div class="col fw-semibold" style="font-size:18px;">
 										결제 정보
 									</div>
 								</div>
@@ -698,7 +698,7 @@
 						
 						
 						<div class="row mt-2">
-	      					<div class="col fw-semibold fs-5">
+	      					<div class="col fw-semibold" style="font-size:18px;">
 	      						배송 상세 정보
 	      					</div>
 	      				</div>

@@ -26,6 +26,9 @@ public class AuctionItemDto {
 	private String sub_category_name;
 	private String partner_order_id;
 	
+	private int bidCount;
+	private int likeCount;
+	
 	
 	public AuctionItemDto() {
 	}
@@ -175,6 +178,22 @@ public class AuctionItemDto {
 
 	public void setPartner_order_id(String partner_order_id) {
 		this.partner_order_id = partner_order_id;
+	}
+
+	public int getBidCount() {
+		return bidCount;
+	}
+
+	public void setBidCount(int bidCount) {
+		this.bidCount = bidCount;
+	}
+
+	public int getLikeCount() {
+		return likeCount;
+	}
+
+	public void setLikeCount(int likeCount) {
+		this.likeCount = likeCount;
 	}
 	
 	

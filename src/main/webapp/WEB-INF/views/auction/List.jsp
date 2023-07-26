@@ -964,6 +964,10 @@ window.addEventListener("DOMContentLoaded", function(){
 		</div> -->
 		
 		<div class="row mt-4 mb-3" style="position: relative; bottom: 10px;">
+			<div class="col">
+			  	<a href="/safari/auction/mainPage">메인 페이지로 이동 ></a>
+			</div>
+			
 			<div class="col d-flex justify-content-end" style="position: relative; right: 50px;">
 
 				<input type="button" onclick= "registerProductPage()"

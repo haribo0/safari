@@ -21,11 +21,25 @@
 <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/moonspam/NanumSquare@1.0/nanumsquare.css">
 <link rel="stylesheet" href="/safari/resources/style/auction.css" type="text/css">
 <style>
+.overflow1 {
+  display: -webkit-box; /* Set the display type as a flexible box (WebKit) */
+  -webkit-box-orient: vertical; /* Set the flex container to stack the elements vertically (WebKit) */
+  -webkit-line-clamp: 2; /* Limit the number of lines to 2 (WebKit) */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 300px;
+}    
+
 .overflow {
   white-space: nowrap; /* 텍스트를 한 줄로 표시 */
   overflow: hidden; /* 넘친 텍스트를 숨김 */
   text-overflow: ellipsis; /* 넘친 텍스트를 "..."으로 표시 */
-}    
+}
+.orangeButton{
+	background: #ff6f0f;
+	font-weight: bold;
+	color: white;
+}
 </style>
 <body>
 
@@ -65,15 +79,16 @@
 
 
 	<div class="container main_box mt-5">
+	
 		<div class="row">
-			<div class="col">
+			<div class="col-6">
 			 
 			 	<div class="row">
-			 		<div class="col fs-5 fw-bold">
+			 		<div class="col-9 fs-5 fw-bold">
 			 			곧 마감 ! 놓치지 마세요
 			 		</div>
 			 		<div class="col mt-2 text-end" style="font-size: 14px">
-			 			현재가는 실시간으로 업데이트됩니다
+			 			<a href="/safari/auction/List">경매 목록 더보기 > </a>
 			 		</div>
 			 	</div>
 			 	
@@ -83,6 +98,7 @@
 			 
 				
 			</div>
+			<div class="col-1"></div>
 			<div class="col ms-5">
 			
 				<div class="row">
@@ -91,14 +107,27 @@
 					</div>
 				</div>
 				
-			
-			
-			
+				<div class="row">
+					<div class="col">
+						최근 입찰이 많이 진행된 경매 목록
+					</div>
+				</div>
+				
+				<div class="row mt-3">
+					<div class="col" id="bidRankList">
+					
+		
+					
+					
+					</div>
+				</div>
+				
+
 			</div>
 		</div>
 		
 		
-		<div class="row mt-5">
+		<div class="row mt-5 mb-4">
 			<div class="col">
 			
 			
@@ -106,6 +135,13 @@
 					<div class="col fs-5 fw-bold">
 						482 추천 경매 리스트
 					</div>
+				</div>
+				
+				<div class="row mt-3" id="randomAuctionList">
+			
+			
+			
+			
 				</div>
 				
 			</div>
@@ -134,7 +170,7 @@ function getDeadlineList() {
 	      for (data of response.deadlineList) {
 	    	  
 	    	const col = document.createElement("div");
-          	col.classList.add("col-4", "mb-5", "position-relative");
+          	col.classList.add("col-4", "mb-3", "position-relative");
           	col.id = "col_" + data.auctionDto.id;
           	
           	const timeSpan = document.createElement("span");
@@ -154,7 +190,7 @@ function getDeadlineList() {
 	      	const endDate = countdownFromEndDate(data.auctionDto.end_date);
         	
         	// !!!!!!!!!!!!!  여기 너무 중요 함수 호출
-        	updateAuctionCountDown(data.auctionDto.id, endDate);
+        	updateAuctionCountDown(data.auctionDto.id);
         	getCurrentPrice(data.auctionDto.id);
         	// 여기 너무 중요 함수 호출
         	
@@ -208,16 +244,16 @@ function getDeadlineList() {
         	
         	
             const priceRow = document.createElement("div");
-            priceRow.classList.add("row", "mt-1");
+            priceRow.classList.add("row");
             
             const priceCol = document.createElement("div");
-            priceCol.classList.add("col-auto");
+            priceCol.classList.add("col");
             
             
             const nowSpan = document.createElement("span");
-            nowSpan.classList.add(/*"text-danger",*/ "opacity-90", "fw-bold", "fs-5", "ms-1");
+            nowSpan.classList.add("opacity-90", "fw-bold", "fs-5");
             nowSpan.id = "currentPrice_" + data.auctionDto.id;
-            //nowSpan.style.color = "#ff6f0f";
+            nowSpan.style.color = "#ff6f0f";
             
             const wonSpan = document.createElement("span");
             wonSpan.classList.add("ms-1");
@@ -302,94 +338,334 @@ function getCurrentPrice(auctionItemId) {
 //현재가를 업데이트하여 jsp화면에 출력
 function updateCurrentPrice(auctionItemId, currentPrice) {
   const currentPriceElement = document.getElementById("currentPrice_" + auctionItemId);
+  const bidCurrentPriceElement = document.getElementById("bidCurrentPrice_" + auctionItemId);
+  const randomCurrentPriceElement = document.getElementById("randomCurrentPrice_" + auctionItemId);
   	if (currentPriceElement) {
   		 currentPriceElement.textContent =  new Intl.NumberFormat('ko-KR').format(currentPrice);
-  }
+  	}
+   if (bidCurrentPriceElement) {
+	   bidCurrentPriceElement.textContent = new Intl.NumberFormat('ko-KR').format(currentPrice);
+   }
+   if (randomCurrentPriceElement) {
+	   randomCurrentPriceElement.textContent = new Intl.NumberFormat('ko-KR').format(currentPrice);
+   }
 }
 
 
 //경매 정보를 업데이트하고 화면에 출력하는 함수
-function updateAuctionCountDown(id, endDate) {
+function updateAuctionCountDown(id) {
 
-
-      const nowDate = new Date();
-
- 	  const timeSpan = document.getElementById("timeSpan_" + id);
-  		
-	  let auctionCountDown;
-	  
-	  auctionCountDown = countdownFromEndDate(endDate);
-	  			
-      if (auctionCountDown.days > 0) {
-          
-          const timeSpan1 = document.createElement("span");
-          timeSpan1.innerText = auctionCountDown.days + "일 ";
-          timeSpan1.classList.add("fw-bold");
-          timeSpan.appendChild(timeSpan1);
-       
-      	}
-     
-      if (auctionCountDown.hours > 0) {
-           
-           const timeSpan2 = document.createElement("span");
-           timeSpan2.classList.add("fw-bold");
-           if (auctionCountDown.hours < 10)  {
-         	  timeSpan2.innerText = "0" + auctionCountDown.hours + ":";
-           } 
-           else {
-        	timeSpan2.innerText = auctionCountDown.hours + ":";
-           }
-         
-           timeSpan.appendChild(timeSpan2);
-       
-         } else {
-         	const timeSpan2 = document.createElement("span");
-	        timeSpan2.classList.add("fw-bold");
-	        timeSpan2.innerText = "00"+":";
-	        //timeSpan.appendChild(timeSpan2);
-         }
-      
-      if (auctionCountDown.minutes > 0) {
-          
-           const timeSpan3 = document.createElement("span");
-           timeSpan3.classList.add("fw-bold");
-           if (auctionCountDown.minutes < 10)  {
-        	timeSpan3.innerText = "0" + auctionCountDown.minutes + ":";
-           } else {
-             timeSpan3.innerText = auctionCountDown.minutes + ":";
-           }
-           timeSpan.appendChild(timeSpan3);
-           
-         }  else {
-         	
-          const timeSpan3 = document.createElement("span");
-          timeSpan3.classList.add("fw-bold");
-          timeSpan3.innerText = "00"+":";
-          //timeSpan.appendChild(timeSpan3);
-         	
-         }		         
-
-	     const timeSpan4 = document.createElement("span");
-	     timeSpan4.classList.add("fw-bold");
-	     if (auctionCountDown.seconds < 10) {
-	     		timeSpan4.innerText = "0" + auctionCountDown.seconds;
-	     } else {
-	  	   timeSpan4.innerText = auctionCountDown.seconds;
-	     }
-	     //timeSpan.appendChild(timeSpan4);
-
-
-	     setTimeout(function() {
-	         updateAuctionCountDown(id);
-	       }, 1000);  
+	const xhr = new XMLHttpRequest();
 	
+	 xhr.onreadystatechange = function () {
+        if(xhr.readyState == 4 && xhr.status == 200){
+            const response = JSON.parse(xhr.responseText);
 
+		      const nowDate = new Date();
+		
+		 	  const timeSpan = document.getElementById("timeSpan_" + id);
+		 	  timeSpan.innerHTML = "";
+		  		
+			  let auctionCountDown;
+			  
+			  //auctionCountDown = countdownFromEndDate(data.auctionDto.id);
+			  
+			  const auctionEndDate = new Date(response.auctionItem.auctionDto.end_date); // 경매 종료일
+			  
+			  auctionCountDown = countdownFromEndDate(auctionEndDate);
+			  			
+		      if (auctionCountDown.days > 0) {
+		          
+		          const timeSpan1 = document.createElement("span");
+		          timeSpan1.innerText = auctionCountDown.days + "일 ";
+		          timeSpan1.classList.add("fw-bold");
+		          timeSpan.appendChild(timeSpan1);
+		       
+		      	}
+		     
+		      if (auctionCountDown.hours > 0) {
+		           
+		           const timeSpan2 = document.createElement("span");
+		           timeSpan2.classList.add("fw-bold");
+		           if (auctionCountDown.hours < 10)  {
+		         	  timeSpan2.innerText = "0" + auctionCountDown.hours + ":";
+		           } 
+		           else {
+		        	timeSpan2.innerText = auctionCountDown.hours + ":";
+		           }
+		         
+		           timeSpan.appendChild(timeSpan2);
+		       
+		         } else {
+		         	const timeSpan2 = document.createElement("span");
+			        timeSpan2.classList.add("fw-bold");
+			        timeSpan2.innerText = "00"+":";
+			        timeSpan.appendChild(timeSpan2);
+		         }
+		      
+		      if (auctionCountDown.minutes > 0) {
+		          
+		           const timeSpan3 = document.createElement("span");
+		           timeSpan3.classList.add("fw-bold");
+		           if (auctionCountDown.minutes < 10)  {
+		        	timeSpan3.innerText = "0" + auctionCountDown.minutes + ":";
+		           } else {
+		             timeSpan3.innerText = auctionCountDown.minutes + ":";
+		           }
+		           timeSpan.appendChild(timeSpan3);
+		           
+		         }  else {
+		         	
+		          const timeSpan3 = document.createElement("span");
+		          timeSpan3.classList.add("fw-bold");
+		          timeSpan3.innerText = "00"+":";
+		          timeSpan.appendChild(timeSpan3);
+		         	
+		         }		         
+		
+			     const timeSpan4 = document.createElement("span");
+			     timeSpan4.classList.add("fw-bold");
+			     if (auctionCountDown.seconds < 10) {
+			     		timeSpan4.innerText = "0" + auctionCountDown.seconds;
+			     } else {
+			  	   timeSpan4.innerText = auctionCountDown.seconds;
+			     }
+			     timeSpan.appendChild(timeSpan4);
+		
+		
+			     setTimeout(function() {
+			         updateAuctionCountDown(id);
+			       }, 1000);  
+	        }
+	 }
+	 
+     xhr.open("get", "/safari/auction/getAuctionItemInfo/" + id);
+     xhr.send();
  }
+ 
+ 
+ // 인기 있는 경매 출력
+function getAuctionOrderByBidCount() {
+	 
+	const xhr = new XMLHttpRequest();
+	
+	const bidRankBox = document.querySelector("#bidRankList");
+	bidRankBox.innerHTML = "";
+	
+	 xhr.onreadystatechange = function () {
+        if(xhr.readyState == 4 && xhr.status == 200){
+            const response = JSON.parse(xhr.responseText);
+	        
+            let num = 1;
+            
+            for (data of response.maxBidList) {
+            	
+            	getCurrentPrice(data.id);
+            	
+            	const row = document.createElement("div");
+            	row.classList.add("row", "mb-3");
+            	
+            	const col1 = document.createElement("div");
+            	col1.classList.add("col-auto", "fw-bold", "fs-4", "py-0");
+            	col1.style.position = "relative";
+            	col1.style.bottom = "4px";
+            	col1.innerText = num;
+            	num++;
+            	
+            	const col2 = document.createElement("div");
+            	col2.classList.add("col-8");
+            	
+            	const titleRow = document.createElement("div");
+            	titleRow.classList.add("row");
+            	
+            	const titleLink = document.createElement("a");
+            	titleLink.href = "/safari/auction/productDetail/" + data.id;
+            	
+            	const titleCol = document.createElement("div");
+            	titleCol.classList.add("fw-medium");
+            	titleCol.innerText = data.title;
+            	
+            	titleLink.appendChild(titleCol);
+            	
+            	titleRow.appendChild(titleLink);
+            	
+            	const priceCategoryRow = document.createElement("div");
+            	priceCategoryRow.classList.add("row");
+            	
+            	const priceCol = document.createElement("div");
+            	priceCol.classList.add("col-auto");
+            
+            	
+            	const nowSpan = document.createElement("span");
+                nowSpan.classList.add("opacity-90", "fw-bold", "fs-5");
+                nowSpan.id = "bidCurrentPrice_" + data.id;
+                nowSpan.style.color = "#ff6f0f";
+                
+                const wonSpan = document.createElement("span");
+                wonSpan.classList.add("ms-1");
+                wonSpan.innerText = "원";
+                
+                priceCol.appendChild(nowSpan);
+                priceCol.appendChild(wonSpan);
+            	
+            	const categoryCol = document.createElement("div");
+            	categoryCol.classList.add("col", "text-secondary", "mt-2", "px-0");
+            	categoryCol.style.fontSize = "13px";
+            	
+            	const bigSpan = document.createElement("span");
+            	bigSpan.innerText = data.main_category_name;
+            	
+            	const arrowSpan = document.createElement("span");
+            	arrowSpan.classList.add("ms-2");
+            	arrowSpan.style.fontSize = "12px";
+            	arrowSpan.innerText = ">";
+            	arrowSpan.classList.add("mt-2");
+            	
+            	const smallSpan = document.createElement("span");
+            	smallSpan.classList.add("ms-2");
+            	smallSpan.innerText = data.sub_category_name;
+            	
+            	categoryCol.appendChild(bigSpan);
+            	categoryCol.appendChild(arrowSpan);
+            	categoryCol.appendChild(smallSpan);
+            	
+            	priceCategoryRow.appendChild(priceCol);
+            	//priceCategoryRow.appendChild(categoryCol);
+            	
+            	col2.appendChild(titleRow);
+            	col2.appendChild(priceCategoryRow);
+            	
+            	const col3 = document.createElement("div");
+            	col3.classList.add("col");
+            	
+            	const imgLink = document.createElement("a");
+            	imgLink.href = "/safari/auction/productDetail/" + data.id;
+            	
+            	const img = document.createElement("img");
+            	img.classList.add("img-fluid");
+            	img.src = "/auctionFiles/" + data.auction_item_img_link;
+            	
+            	imgLink.appendChild(img);
+            	col3.appendChild(imgLink);
+            	
+            	row.appendChild(col1);
+            	row.appendChild(col2);
+            	row.appendChild(col3);
+            	
+            	
+            	bidRankBox.appendChild(row);
+     
+            }
+
+	    }
+	 }    
+     xhr.open("get", "/safari/auction/getAuctionOrderByBidCount");
+     xhr.send();
+ }
+ 
+
+ // 랜덤 추출 - 현재가 업데이트
+function getAuctionListByRandom() {
+	
+	 const xhr = new XMLHttpRequest();
+	
+	 const randomListBox = document.querySelector("#randomAuctionList");
+	
+	 xhr.onreadystatechange = function () {
+        if(xhr.readyState == 4 && xhr.status == 200){
+            const response = JSON.parse(xhr.responseText);
+	 
+            for (data of response.ranAuctionList) {
+            	
+            	const col = document.createElement("div");
+            	col.classList.add("col-2");
+            	
+            	const row1 = document.createElement("div");
+            	row1.classList.add("row");
+            	
+            	const col1 = document.createElement("div");
+            	col1.classList.add("col");
+            	
+            	const imgLink = document.createElement("a");
+            	imgLink.href = "/safari/auction/productDetail/" + data.id;
+            	
+            	const img = document.createElement("img");
+            	img.classList.add("img-fluid");
+            	img.style.height = "200px";
+            	img.src = "/auctionFiles/" + data.auction_item_img_link;
+            	
+            	imgLink.appendChild(img);
+            	
+            	col1.appendChild(imgLink);
+            	row1.appendChild(col1);
+            	
+            	const row2 = document.createElement("div");
+            	row2.classList.add("row", "mt-1");
+            	
+            	const col2 = document.createElement("div");
+            	col2.classList.add("col", "overflow1", "fw-medium");
+            	
+            	const titleLink = document.createElement("a");
+            	titleLink.href = "/safari/auction/productDetail/" + data.id;
+            	titleLink.innerText = data.title;
+            	
+            	col2.appendChild(titleLink);
+            	row2.appendChild(col2);
+            	
+            	const row3 = document.createElement("div");
+            	row3.classList.add("row", "mt-1");
+            	
+            	const col3 = document.createElement("div");
+            	col3.classList.add("col");
+            	
+            	const price = document.createElement("span");
+            	price.classList.add("fw-semibold");
+            	price.id = "randomCurrentPrice_" + data.id;
+                price.style.color = "#ff6f0f";
+                price.style.fontSize = "18px";
+    
+                getCurrentPrice(data.id); 
+                
+                const won = document.createElement("span");
+                won.classList.add("ms-1");
+                won.innerText = "원";
+                
+                const heartCol = document.createElement("div");
+                heartCol.classList.add("col-2", "text-end", "me-3");
+                
+                const heartSpan = document.createElement("i");
+                heartSpan.classList.add("bi", "bi-heart", "text-danger");
+                
+                heartCol.appendChild(heartSpan);
+                
+                <!-- i id="heartBox" class="bi bi-heart text-danger fs-5"></i> -->
+                
+                col3.appendChild(price);
+                col3.appendChild(won);
+             
+                
+                row3.appendChild(col3);
+                row3.appendChild(heartCol);
+                
+				col.appendChild(row1);
+				col.appendChild(row2);
+				col.appendChild(row3);
+            	
+				randomListBox.appendChild(col);
+            	
+           }
+      	}
+	 }
+	 xhr.open("get", "/safari/auction/getAuctionListByRandom");
+     xhr.send();
+ }
+ 
 
 window.addEventListener("DOMContentLoaded", function(){
 
 	getDeadlineList();
-   
+	getAuctionOrderByBidCount();
+	getAuctionListByRandom();
  
 });
 

@@ -1811,7 +1811,7 @@ function getProductInformation(requestId) {
     	            const row2col4 = document.createElement('div');
     	            row2col4.classList.add('col', 'text-end', 'fw-bold', 'my-auto');
     	            
-    	            row2col4.innerHTML = '<span class="ms-1" style="font-weight: 600;font-size: 15px;background: #EAEAEA;border-radius: 14px;padding: 4px 16px;">Coin 10,200 </span>';
+    	            row2col4.innerHTML = '<span class="ms-1" style=color: #919191cc;"><i class="bi bi-coin"></i> 1,200C</span>';
     	            	
 
     	            row2.appendChild(row2col1);
@@ -1859,7 +1859,7 @@ function getProductInformation(requestId) {
     				const row2col4 = document.createElement('div');
     	            row2col4.classList.add('col', 'text-end', 'fw-bold', 'my-auto');
     	            
-    	            row2col4.innerHTML = '<span class="ms-1" style="font-weight: 600;font-size: 15px;background: #EAEAEA;border-radius: 14px;padding: 4px 16px;">Coin 10,200 </span>';
+    	            row2col4.innerHTML = '<span class="ms-1" style=color: #919191cc;"><i class="bi bi-coin"></i> 1,200C</span>';
     	         
     	            row2.appendChild(row2col1);
     	            row2.appendChild(row2col2);
@@ -1887,7 +1887,7 @@ function getProductInformation(requestId) {
     				const row2col4 = document.createElement('div');
     	            row2col4.classList.add('col', 'text-end', 'fw-bold', 'my-auto');
     	            
-    	            row2col4.innerHTML = '<span class="ms-1" style="font-weight: 600;font-size: 15px;background: #EAEAEA;border-radius: 14px;padding: 4px 16px;">Coin 10,200 </span>';
+    	            row2col4.innerHTML = '<span class="ms-1" style=color: #919191cc;"><i class="bi bi-coin"></i> 1,200C</span>';
 
     	            row2.appendChild(row2col1);
     	            row2.appendChild(row2col4);
@@ -1909,7 +1909,7 @@ function getProductInformation(requestId) {
     				const row2col4 = document.createElement('div');
     	            row2col4.classList.add('col', 'text-end', 'fw-bold', 'my-auto');
     	            
-    	            row2col4.innerHTML = '<span class="ms-1" style="font-weight: 600;font-size: 15px;background: #EAEAEA;border-radius: 14px;padding: 4px 16px;">Coin 10,200 </span>';
+    	            row2col4.innerHTML = '<span class="ms-1" style=color: #919191cc;"><i class="bi bi-coin"></i> 1,200C</span>';
 
     	            row2.appendChild(row2col1);
     	            row2.appendChild(row2col4);
@@ -1940,7 +1940,7 @@ function getProductInformation(requestId) {
     				const row2col4 = document.createElement('div');
     	            row2col4.classList.add('col', 'text-end', 'fw-bold', 'my-auto');
     	            
-    	            row2col4.innerHTML = '<span class="ms-1" style="font-weight: 600;font-size: 15px;background: #EAEAEA;border-radius: 14px;padding: 4px 16px;">Coin 10,200 </span>';
+    	            row2col4.innerHTML = '<span class="ms-1" style=color: #919191cc;"><i class="bi bi-coin"></i> 1,200C</span>';
 
     	            row2.appendChild(row2col1);
     	            row2.appendChild(row2col4);
@@ -1966,7 +1966,7 @@ function getProductInformation(requestId) {
     				const row2col4 = document.createElement('div');
     	            row2col4.classList.add('col', 'text-end', 'fw-bold', 'my-auto');
     	            
-    	            row2col4.innerHTML = '<span class="ms-1" style="font-weight: 600;font-size: 15px;background: #EAEAEA;border-radius: 14px;padding: 4px 16px;">Coin 10,200 </span>';
+    	            row2col4.innerHTML = '<span class="ms-1" style=color: #919191cc;"><i class="bi bi-coin"></i> 1,200C</span>';
 
     	            row2.appendChild(row2col1);
     	            row2.appendChild(row2col4);
@@ -1986,7 +1986,7 @@ function getProductInformation(requestId) {
     				const row2col4 = document.createElement('div');
     	            row2col4.classList.add('col', 'text-end', 'fw-bold', 'my-auto');
     	            
-    	            row2col4.innerHTML = '<span class="ms-1" style="font-weight: 600;font-size: 15px;background: #EAEAEA;border-radius: 14px;padding: 4px 16px;">Coin 10,200 </span>';
+    	            row2col4.innerHTML = '<span class="ms-1" style=color: #919191cc;"><i class="bi bi-coin"></i> 1,200C</span>';
 
     	            row2.appendChild(row2col1);
     	            row2.appendChild(row2col4);
@@ -2008,7 +2008,7 @@ function getProductInformation(requestId) {
     				const row2col4 = document.createElement('div');
     	            row2col4.classList.add('col', 'text-end', 'fw-bold', 'my-auto');
     	            
-    	            row2col4.innerHTML = '<span class="ms-1" style="font-weight: 600;font-size: 15px;background: #EAEAEA;border-radius: 14px;padding: 4px 16px;">Coin 10,200 </span>';
+    	            row2col4.innerHTML = '<span class="ms-1" style=color: #919191cc;"><i class="bi bi-coin"></i> 1,200C</span>';
 
     	            row2.appendChild(row2col1);
     	            row2.appendChild(row2col4);

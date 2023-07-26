@@ -488,7 +488,7 @@
 	     		</div>
 	     		<div class="col my-auto">
 	     			<div class="row">
-	     				<div class="col fw-semibold fs-6">렉슨 버섯등 새상품</div>
+	     				<div class="col fs-6">렉슨 버섯등 새상품</div>
 	     			</div>
 	     			<div class="row">
 	     				<div class="col fw-semibold fs-6">20,000원</div>
@@ -500,10 +500,10 @@
      <div class="modal-body ms-2" style="height: 500px">
 	  <div class="chat-container overflow-y-scroll overflow-x-hidden" style="height:480px;">
 	  		<div class="row mt-3">
-	  			<div class="col fw-bold fs-5">사파리주인님, 끌어올리기 전에</div>
+	  			<div class="col fw-semibold fs-5">사파리주인님, 끌어올리기 전에</div>
 	  		</div>
 	  		<div class="row">
-	  			<div class="col fw-bold fs-5">가격을 낮춰보세요.</div>
+	  			<div class="col fw-semibold fs-5">가격을 낮춰보세요.</div>
 	  		</div>
 	  		<div class="row mt-3">
 	  			<div class="col">판매 확률이 올라간답니다.</div>
@@ -521,11 +521,11 @@
 	  			<div class="col-2 text-start">할인</div>
 	  		</div>
 	  		<div class="row mt-5">
-	  			<div class="col fw-bold fs-5">가격을 변경하지 않고</div>
+	  			<div class="col fw-semibold fs-5">가격을 변경하지 않고</div>
 	  			<!-- <div class="col fw-bold fs-5">가격을 ₩ 32,000원으로 변경하고</div> -->
 	  		</div>
 	  		<div class="row">
-	  			<div class="col fw-bold fs-5">지금 끌어올리시겠어요?</div>
+	  			<div class="col fw-semibold fs-5">지금 끌어올리시겠어요?</div>
 	  		</div>
 	  		<div class="row mt-3">
 	  			<div class="col">다음 끌어올리기는<span style="font-weight: 600; color: #ff6f0f;"> 2일 12시간 </span>뒤에 할 수 있어요.</div>

@@ -82,7 +82,7 @@
 						      <div class="col-1">#</div>
 						      <div class="col">광고</div>
 						      <div class="col">광고종료</div>
-						      <div class="col-1">이미지</div>
+						      <div class="col-1"></div>
 						      <div class="col-3">제품</div>
 						      <div class="col-1">수량</div>
 						      <div class="col-2">가격</div>
@@ -568,6 +568,11 @@ function openNewWindow(url) {
 	  // Add an event listener to the child window's unload event
 	  childWindow.addEventListener("unload", getListUpdated);
 		  
+	  window.addEventListener("message", function(event) {
+	    if (event.data === "childWindowClosed") {
+	      getListUpdated();
+	    }
+	  });
 	  
 	  // Return the child window object
 	  return childWindow;
@@ -778,6 +783,10 @@ function registerProduct() {
   xhr.onreadystatechange = function() {
     if (xhr.readyState == 4 && xhr.status == 200) {
       const response = JSON.parse(xhr.responseText);
+      
+      // 리스트 새로고침 
+      getListUpdated();
+      
       // 응답 처리
       modal.hide();
       

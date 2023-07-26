@@ -12,6 +12,31 @@
 <jsp:include page="../../common/meta.jsp"></jsp:include>
 <!-- 메타 섹션 -->
 
+<style>
+
+	.working_condition {
+	    display: ;
+	    flex-direction: row;
+	    align-items: ;
+	    padding: 16px 36px;
+	    height: 150px;
+	    background: #f8f8f8;
+	    border-radius: 8px;
+	}
+	
+	.working_condition_item {
+  		color: #6a6a6a;
+  		width: 61px;
+    	position: ;
+	}	
+	.working_condition_line {
+		margin: 0 16px;
+	    width: 0.5px;
+	    height: 12px;
+	    background: #d2d2d2;
+	}
+</style>
+
 </head>
 <body>
 		<!-- 헤더 섹션 -->
@@ -35,8 +60,7 @@
 			<div class="row">
 			
 			<!-- 왼쪽 -->
-			<div class="col" style="background-color:lightgrey;" >
-				왼쪽
+			<div class="col">
 			</div>
 			<!-- 왼쪽 -->
 			
@@ -78,40 +102,172 @@
   									</div>
   									</div>
   									
+  									<%-- 조건 카드 --%>
   									<div class="row">
-										<%-- 직업 select option--%> 
-										<div class="col">
-										  <div class="form-group">
-										    <div class="d-flex align-items-center">
-										      <label for="position_category_id" class="col-form-label fw-bold">직무</label>
-										      <div class="form-control mt-1" style="font-size: ; font-family: 'Noto Sans', sans-serif; box-shadow: none;">
-										        <strong>
-										          <select id="position_category_id" name="position_category_id" style="width: 100%; border: none; outline: none;">
-										            <option value="1" selected="selected">경영</option>
-										            <option value="2">회계</option>
-										            <option value="3">서비스</option>
-										          </select>
-										        </strong>
-										      </div>
-										    </div>
-										  </div>
+										<div class="col" style="width: 950px;">
+											<div class="working_condition">
+												
+												<%-- 첫째줄--%>
+												<div class="row mt-2">
+												<%-- 직업 select option--%>
+												<div class="col-3">
+													<span class="working_condition_item" style=""></span> 
+													  <div class="input-group">
+													    <div class="d-flex align-items-center">
+													      <label for="position_category_id" class="input-group-text fw-bold" style="border: none; outline: none; background-color: white;">직무</label>
+													          <select class="form-select" id="position_category_id" name="position_category_id" style="font-size: ; font-family: 'Noto Sans', sans-serif; box-shadow: none;">
+													            <option value="11" selected="selected">사무</option>
+													            <option value="12">연구</option>
+													            <option value="13">기술</option>
+													            <option value="14">영업</option>
+													            
+													            <option value="21">서비스</option>
+													            <option value="22">예술</option>
+													            <option value="23">스포츠</option>
+													            
+													            <option value="31">보건</option>
+													            <option value="32">교육</option>
+													            <option value="33">금융</option>
+													            
+													            <option value="41">물류</option>
+													            <option value="42">생산</option>
+													          </select>
+													  </div>
+													</div>
+												</div>
+												<%-- 직업 select option--%>
+												
+												<%-- 급여--%>
+												<div class="col-5">
+												<span class="working_condition_item" style=""></span>
+													<div class="input-group">
+													<div class="d-flex align-items-center">
+													   <label for="numberInput" class="input-group-text fw-bold" style="border: none; outline: none; background-color: white;">급여</label>
+													    <input type="number" class="input-group-text me-2"  name="salary"  id="numberInput" oninput="updateRange()" style="width: 100px; font-size: ; font-family: 'Noto Sans', sans-serif; box-shadow: none;">
+													   <!--  <label for="rangeInput">Range:</label> -->
+													    <input type="range" id="rangeInput" min="0" max="1000" value="0" oninput="updateNumber()">
+													
+													    <script>
+													        function updateRange() {
+													            var numberInput = document.getElementById("numberInput");
+													            var rangeInput = document.getElementById("rangeInput");
+													            rangeInput.value = numberInput.value;
+													        }
+													
+													        function updateNumber() {
+													            var numberInput = document.getElementById("numberInput");
+													            var rangeInput = document.getElementById("rangeInput");
+													            numberInput.value = rangeInput.value;
+													        }
+													    </script>
+													  </div>
+													  </div>
+												</div>
+												<%-- 급여--%>
+												
+												<%-- 경력--%><%-- 나이제한을 바꾸기--%>
+												<div class="col-4">
+													<div class="input-group">
+													<div class="d-flex align-items-center">
+													   <label for="numberInput2" class="input-group-text fw-bold" style="border: none; outline: none; background-color: white;">경력</label>
+													    <input type="number" class="input-group-text me-2"  name="age_limit"  id="numberInput2" oninput="updateRange2()" style="width: 70px; font-size: ; font-family: 'Noto Sans', sans-serif; box-shadow: none;">
+													   <!--  <label for="rangeInput">Range:</label> -->
+													    <input type="range" id="rangeInput2" min="0" max="30" value="0" oninput="updateNumber2()">
+													
+													    <script>
+													        function updateRange2() {
+													            var numberInput2 = document.getElementById("numberInput2");
+													            var rangeInput2 = document.getElementById("rangeInput2");
+													            rangeInput2.value = numberInput2.value;
+													        }
+													
+													        function updateNumber2() {
+													            var numberInput2 = document.getElementById("numberInput2");
+													            var rangeInput2 = document.getElementById("rangeInput2");
+													            numberInput2.value = rangeInput2.value;
+													        }
+													    </script>
+													  </div>
+												</div>
+												</div>
+												<%-- 경력--%>
+												<%-- 첫째줄--%>
+												
+												<%-- 둘째줄--%>
+												<div class="row mt-4">
+												
+												<%-- 인원--%>
+												<div class="col-3">
+													<span class="working_condition_item" style=""></span>
+													<div class="input-group">
+													<div class="d-flex align-items-center">
+													   <label for="opening" class="input-group-text fw-bold" style="border: none; outline: none; background-color: white;">인원</label>
+													   <input type="number" class="input-group-text me-2"  name="opening"  id="opening" style="width: 70px; font-size: ; font-family: 'Noto Sans', sans-serif; box-shadow: none;">
+													</div>
+													</div>
+												</div>
+												<%-- 인원--%>
+												
+												<%-- 지역--%>
+												<div class="col-5">
+													<span class="working_condition_item" style=""></span>
+													<div class="input-group">
+												    <div class="d-flex align-items-center">
+												      <label for="location" class="input-group-text fw-bold" style="border: none; outline: none; background-color: white;">위치</label>
+												          <select class="form-select" id="location" name="location" style="font-size: ; font-family: 'Noto Sans', sans-serif; box-shadow: none;">
+												            <option value="1" selected="selected">서울특별시</option>
+												            <option value="2">경기도</option>
+												            <option value="3">인천광역시</option>
+												            <option value="4">강원특별자치도</option>
+												            <option value="5">대전광역시</option>
+												            <option value="6">세종특별자치시</option>
+												            <option value="7">충청남도</option>
+												            <option value="8">충청북도</option>
+												            <option value="9">부산광역시</option>
+												            <option value="10">울산광역시</option>
+												            <option value="11">경상남도</option>
+												            <option value="12">경상북도</option>
+												            <option value="13">대구광역시</option>
+												            <option value="14">광주광역시</option>
+												            <option value="15">전라남도</option>
+												            <option value="16">전라북도</option>
+												            <option value="17">제주특별자치도</option>
+												          </select>
+												    </div>
+												  	</div>
+												</div>
+												<%-- 지역--%>
+												
+												<%--성별 select option--%> 
+												<div class="col-4">
+													<span class="working_condition_item" style=""></span>
+													  <div class="input-group ms-3">
+													    <div class="d-flex align-items-center">
+													      <label class="input-group-text fw-bold" style="border: none; outline: none; background-color: white;">성별</label>
+													      <div class="form-control" style="font-size: ; font-family: 'Noto Sans', sans-serif; box-shadow: none;">
+													        <label><input type="radio" name="gender" value="3" checked> 무관</label>
+													        <label><input type="radio" name="gender" value="1"> 남</label>
+													        <label><input type="radio" name="gender" value="2"> 여</label>
+													      </div>
+													    </div>
+													  </div>
+												</div>
+												<%--성별 select option--%> 
+												
+												</div>
+												<%-- 둘째줄--%>
+												
+												</div>
+											</div>
 										</div>
-										<%--직업 select option--%> 
+									</div>
+	  								<%-- 조건 카드 --%>	
+  									
+  									<div class="row">
+					
+									
 										
-										<%--성별 select option--%> 
-										<div class="col">
-										  <div class="form-group">
-										    <div class="d-flex align-items-center">
-										      <label class="col-form-label fw-bold">성별</label>
-										      <div class="form-control mt-1" style="font-size: ; font-family: 'Noto Sans', sans-serif; box-shadow: none;">
-										        <label><input type="radio" name="gender" value="1" checked> 무관</label>
-										        <label><input type="radio" name="gender" value="2"> 남</label>
-										        <label><input type="radio" name="gender" value="3"> 여</label>
-										      </div>
-										    </div>
-										  </div>
-										</div>
-										<%--성별 select option--%> 
+										
 										</div>
 								
 								<%--입력 박스--%> 
@@ -127,7 +283,7 @@
 									</div>
 								</div>
 								
-								<div class="form-group mt-1 mb-1">
+								<!-- <div class="form-group mt-1 mb-1">
 								    <div class="form-control" style="font-size: ; font-family: 'Noto Sans', sans-serif; box-shadow: none;">
 										<input type="text" name="salary" placeholder="급여" style="width: 100%; border: none; outline: none; padding: 0;">
 									</div>
@@ -145,22 +301,24 @@
 									</div>
 								</div>
 								
-								<div class="form-group mt-1 mb-1">
+								<div class="form-group mb-2">
 								    <div class="form-control" style="font-size: ; font-family: 'Noto Sans', sans-serif; box-shadow: none;">
 										<input type="text" name="age_limit" placeholder="나이제한" style="width: 100%; border: none; outline: none; padding: 0;">
 									</div>
-								</div>
+								</div> -->
 								<%--입력 박스--%> 
 								
 								
-								<div class="form-group mt-1">
+								<div class="form-group mb-3">
 							      <div class="form-control" style="font-size: ; font-family: 'Noto Sans', sans-serif; box-shadow: none;">
 							        <textarea rows="10" name="content" placeholder="내용을 입력해주세요." style="width: 100%; border: none; outline: none; padding: 0;"></textarea>
 							      </div>
 							      <span class="d-flex justify-content-end align-items-center mt-1 me-1" style="font-size: 14px; color: gray;"><i class="bi bi-info-circle-fill me-1" ></i>욕설, 비방, 광고 등 관련 없는 내용 작성 시 삭제될 수 있습니다.</span>
 							    </div>
 							    
-							    <i class="bi bi-paperclip"></i> <input name="recruitFiles" type="file" multiple accept="image/*">
+							    <!-- <i class="bi bi-paperclip"></i>  -->
+							    <input name="recruitFiles" class="form-control" type="file" id="formFileMultiple"  multiple accept="image/*">
+							 
 								<%-- write content --%>
 								
 								
@@ -175,8 +333,8 @@
 			<!-- 가운데 -->
 			
 			<!-- 오른쪽 -->
-			<div class="col" style="background-color:lightgrey;">
-				오른쪽
+			<div class="col">
+				<img class="img-fluid mt-4 ms-3" src="https://apple.contentsfeed.com/RealMedia/ads/Creatives/jobkorea/230709_daekyo_al_ssky/230725_daekyo_120600.jpg" alt="...">
 			</div>
 			<!-- 오른쪽 -->
 			

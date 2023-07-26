@@ -286,16 +286,21 @@ function savePaymentData(cid,tid,partner_order_id,partner_user_id,pg_token,item_
 
 }
 
-
+function closeChildWindow() {
+	// 창을 닫을 때 메시지 보내기
+	window.opener.postMessage("childWindowClosed", "*");
+	window.close();
+}
 
 
 function closeAndRedirect(partner_order_id) {
 	
 	// 새로 열린 창 닫기
-	window.close();
-	
+	closeChildWindow();
+
 	// 기존 창으로 리디렉션
 	window.location.href = "http://localhost:8181/safari/rental/paymentSucceeded?orderId="+partner_order_id;
+	
 	
 }
 

@@ -154,6 +154,9 @@
 		//setInterval(reloadCommentList, 5000);
 		
 	});
+	
+
+
 </script>
 
 <style>
@@ -281,6 +284,8 @@
 								<div class="col" style="width: 950px;">
 									<div class="working_condition">
 										<div class="row">
+										
+										<%-- 직무 --%>
 										<div class="col" style="width: 310px;">
 											<span class="working_condition_item" style="">직무</span> 
 											<span class="text-secondary ms-3"> ${map.recruitDto.position_category_id }</span>
@@ -290,24 +295,119 @@
 											<span class="working_condition_item" style="">급여</span>
 											<span class="text-secondary ms-3"> ${map.recruitDto.salary } 만원</span>
 										</div>
+										<%-- 직무 --%>
+										
+										<%-- 경력 --%>
 										<div class="col" style="width: 310px;">
-											<span class="working_condition_item" style="">나이</span>
-											<span class="text-secondary ms-3"> 만 ${map.recruitDto.age_limit }세</span>
+											<span class="working_condition_item" style="">경력</span>
+											<c:choose>
+												<c:when test="${map.recruitDto.age_limit < 1}">
+												<span class="text-secondary ms-3">신입</span>
+												</c:when>
+												<c:when test="${map.recruitDto.age_limit >= 1}">
+												<span class="text-secondary ms-3"> ${map.recruitDto.age_limit }년 이상</span>
+												</c:when>
+												<c:otherwise>
+												<span class="text-secondary ms-3">무관</span>
+												</c:otherwise>
+											</c:choose>
 										</div>
+										<%-- 경력 --%>
 										</div>
 										
 										<div class="row mt-2">
 										<div class="col" style="width: 310px;">
 											<span class="working_condition_item" style="">인원</span>
-											<span class="text-secondary ms-3"> ${map.recruitDto.opening }명</span>
+											<span class="text-secondary ms-3"> ${map.recruitDto.opening } 명</span>
 										</div>
+										
+										<%-- 지역 --%>
 										<div class="col" style="width: 310px;">
 											<span class="working_condition_item" style="">지역</span>
-											<span class="text-secondary ms-3"> ${map.recruitDto.location }</span>
+											<span class="text-secondary ms-3" id="locationName"></span>
+											<script>
+											// 서버로부터 받은 지역 코드
+										    var locationCode = ${map.recruitDto.location};
+
+										    // 지역 코드에 따라 지역명 설정
+										    var locationName;
+										    switch (locationCode) {
+										        case 1:
+										            locationName = "서울";
+										            break;
+										        case 2:
+										            locationName = "경기";
+										            break;
+										        case 3:
+										            locationName = "인천";
+										            break;
+										        case 4:
+										            locationName = "강원";
+										            break;
+										        case 5:
+										            locationName = "대전";
+										            break;
+										        case 6:
+										            locationName = "세종";
+										            break;
+										        case 7:
+										            locationName = "충남";
+										            break;
+										        case 8:
+										            locationName = "충북";
+										            break;
+										        case 9:
+										            locationName = "부산";
+										            break;
+										        case 10:
+										            locationName = "울산";
+										            break;
+										        case 11:
+										            locationName = "경남";
+										            break;
+										        case 12:
+										            locationName = "경북";
+										            break;
+										        case 13:
+										            locationName = "대구";
+										            break;
+										        case 14:
+										            locationName = "광주";
+										            break;
+										        case 15:
+										            locationName = "전남";
+										            break;
+										        case 16:
+										            locationName = "전북";
+										            break;
+										        case 17:
+										            locationName = "제주";
+										            break;
+										        default:
+										            locationName = "전국";
+										            break;
+										    }
+
+										    // 결과를 화면에 출력
+										    document.getElementById("locationName").textContent = locationName;
+											</script>
+											<%-- 지역 --%>
 										</div>
 										<div class="col" style="width: 310px;">
 											<span class="working_condition_item" style="">성별</span>
-											<span class="text-secondary ms-3"> ${map.recruitDto.gender }</span>
+											<%-- 성별 --%>
+											<c:choose>
+												<c:when test="${map.recruitDto.gender == 1}">
+												<span class="text-secondary ms-3">남자</span>
+												</c:when>
+												<c:when test="${map.recruitDto.gender == 2}">
+												<span class="text-secondary ms-3">여자</span>
+												</c:when>
+												<c:otherwise>
+												<span class="text-secondary ms-3">무관</span>
+												</c:otherwise>
+											</c:choose>
+											<%-- 성별 --%>
 										</div>
 										</div>
 									</div>
@@ -383,7 +483,6 @@
 			<!-- 오른쪽 -->
 			<div class="col">
 				<img class="img-fluid mt-4 ms-3" src="https://tpc.googlesyndication.com/simgad/3289037124705836352" alt="...">
-		
 			</div>
 			<!-- 오른쪽 -->
 			

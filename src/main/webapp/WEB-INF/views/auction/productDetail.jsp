@@ -203,8 +203,8 @@ input[id="tab03"]:checked ~ .con3 {
 	 					<div class="row">
 							<div class="col-11 px-0 ms-4">
 								
-								<div class="row mb-1">
-									<div class="col-11" id="countDownTable">
+								<div class="row mb-1" >
+									<div class="col-11" id="countDownTable" >
 									
 									</div>
 									<div class="col"></div>
