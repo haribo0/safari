@@ -544,14 +544,13 @@
 		</div>
 	</div>
 	
-	<div class="modal" id="showMyReviewModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal modal-lg" id="showMyReviewModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-md modal-dialog-centered"> 
     <div class="modal-content">
-      <div class="modal-header">
+      <div class="modal-header bg-light">
      	 <div class="row mb-0">
-      			<div class="col fs-5 fw-bold">
-      				<p class="mb-0"><small class="text-secondary bussinessName"></small></p>
-      				<p class="mb-0 itemTitle"></p>
+      			<div class="col fs-5 fw-medium">
+      				마이 리뷰
       			</div>
       	 </div>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -560,11 +559,11 @@
       	      
 	      <div id="testBox">
 	      </div>
-      		
-	      <div class="modal-footer">
-	        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">창닫기</button>
-	      </div> 
+	     
 	  </div>
+	   <div class="modal-footer bg-light">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">창닫기</button>
+      </div> 
   </div>
 </div>
 </div>
@@ -806,6 +805,7 @@ function returnCheck(e) {
     	const returnModal2 = bootstrap.Modal.getOrCreateInstance("#modalReturn");
     	returnModal2.show();
     }
+    
 
 }
 
@@ -900,8 +900,8 @@ function placeReviewDate(id) {
 		if(xhr.readyState == 4 && xhr.status == 200){
 			const response = JSON.parse(xhr.responseText);
 			if(response.result == "success"){
-				let rentalReviewDto = response.rentalReviewDto
-				let rentalItemDto = response.rentalItemDto
+				let rentalReviewDto = response.rentalReviewDto;
+				let rentalItemDto = response.rentalItemDto.rentalItemDto;
 				console.log(rentalItemDto)
 				
 				showMyReview()
@@ -920,18 +920,18 @@ function placeReviewDate(id) {
 					const titleRow = document.createElement("div");
 					titleRow.classList.add("row");
 					const titleCol = document.createElement("div");
-					titleCol.classList.add("col", "fs-5", "fw-normal");
+					titleCol.classList.add("col", "fs-5", "fw-medium");
 					titleCol.textContent = rentalReviewDto.rental_review_title;
 					titleRow.appendChild(titleCol);
 
 					// Create the row for user info
 					const userInfoRow = document.createElement("div");
-					userInfoRow.classList.add("row");
+					userInfoRow.classList.add("row", "mt-1");
 					const userIdCol = document.createElement("div");
-					userIdCol.classList.add("col", "fs-6", "fw-light", "text-secondary");
+					userIdCol.classList.add("col", "fs-6", "text-secondary");
 					userIdCol.textContent = userNickname; 
 					const dateCol = document.createElement("div");
-					dateCol.classList.add("col", "fs-6", "fw-light", "text-secondary", "text-end");
+					dateCol.classList.add("col", "fs-6", "text-secondary", "text-end");
 					const reviewDate = new Date(rentalReviewDto.reg_date);
 					const formattedDate = reviewDate.toLocaleDateString('en-US', {
 					  year: 'numeric',
@@ -947,10 +947,23 @@ function placeReviewDate(id) {
 					const hr = document.createElement("hr");
 					hr.classList.add("border");
 					
+					const prdRateRow = document.createElement("div");
+					prdRateRow.classList.add("row");
+					const prdRateCol1 = document.createElement("div");
+					prdRateCol1.classList.add("col-2");
+					const imgElement = document.createElement("img");
+					imgElement.setAttribute("src", `/safariImg/\${rentalItemDto.main_img_link}`); 
+					imgElement.classList.add("img-fluid");
+					prdRateCol1.appendChild(imgElement);
+					prdRateRow.appendChild(prdRateCol1);
+					
+					const prdRateCol2 = document.createElement("div");
+					prdRateCol2.classList.add("col");
+					
 					const productInfoRow = document.createElement("div");
 					productInfoRow.classList.add("row");
 					const productNameCol = document.createElement("div");
-					productNameCol.classList.add("col", "text-secondary", "fw-light");
+					productNameCol.classList.add("col");
 					productNameCol.textContent = rentalItemDto.title;
 					productInfoRow.appendChild(productNameCol);
 
@@ -970,12 +983,16 @@ function placeReviewDate(id) {
 					  ratingCol.appendChild(starIcon);
 					}
 					ratingRow.appendChild(ratingCol);
+					
+					prdRateCol2.appendChild(productInfoRow)
+					prdRateCol2.appendChild(ratingRow)
+					prdRateRow.appendChild(prdRateCol2);
 
 					// Create the row for review content
 					const contentRow = document.createElement("div");
-					contentRow.classList.add("row", "mt-3", "mb-5", "fw-light");
+					contentRow.classList.add("row", "my-4");
 					const contentCol = document.createElement("div");
-					contentCol.classList.add("col");
+					contentCol.classList.add("col", "fw-light");
 					contentCol.textContent =
 						rentalReviewDto.rental_review_content;
 					contentRow.appendChild(contentCol);
@@ -995,7 +1012,7 @@ function placeReviewDate(id) {
 					// 답글 있을 경우 
 					// Create the row for review content
 					const replyBodyRow = document.createElement("div");
-					replyBodyRow.classList.add("row", "mt-3", "mb-5", "fw-light");
+					replyBodyRow.classList.add("row", "mt-3", "mb-2", "fw-light");
 
 					const replyBodyCol = document.createElement("div");
 					replyBodyCol.classList.add("col", "review-reply", "p-3", "mx-3");
@@ -1006,8 +1023,9 @@ function placeReviewDate(id) {
 					cardBody.appendChild(titleRow);
 					cardBody.appendChild(userInfoRow);
 					cardBody.appendChild(hr);
-					cardBody.appendChild(productInfoRow);
-					cardBody.appendChild(ratingRow);
+					cardBody.appendChild(prdRateRow);
+					/* cardBody.appendChild(productInfoRow);
+					cardBody.appendChild(ratingRow); */
 					cardBody.appendChild(contentRow);
 					cardBody.appendChild(hr2);
 					cardBody.appendChild(replyRow);

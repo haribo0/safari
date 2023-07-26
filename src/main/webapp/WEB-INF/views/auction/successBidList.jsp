@@ -64,16 +64,7 @@
 				
 					<div class="row">
 						<div class="col">
-							<span>
-								<i class="bi bi-exclamation-circle fs-5 me-1"></i></span>
-									<span class="fw-semibold fs-5">참고사항</span>
-						
-						</div>
-					</div>	
-					
-					<div class="row">
-						<div class="col">
-							경매종료일로부터 <span class="fw-bold text-danger">7일 이내</span>에 결제하셔야 판매자로부터 제품을 수령받으실 수 있습니다.
+							• &nbsp; 경매종료일로부터 <span class="fw-bold text-danger">7일 이내</span>에 결제하셔야 판매자로부터 제품을 수령받으실 수 있습니다.
 						</div>
 					</div>		
 					

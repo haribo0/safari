@@ -66,24 +66,10 @@
 			<div class="row mt-4">
 				<div class="col">
 				
-					<div class="row">
-						<div class="col">
-							<span>
-								<i class="bi bi-exclamation-circle fs-5 me-1"></i></span>
-									<span class="fw-semibold fs-5">참고사항</span>
-						
-						</div>
-					</div>	
 					
 					<div class="row">
 						<div class="col">
-							업로드하신 경매 물품의 <span class="fw-semibold">현재가는 <span class="text-danger">실시간으로</span> 업데이트</span>되고 있습니다.
-						</div>
-					</div>	
-					
-					<div class="row">
-						<div class="col">
-							경매가 종료된 후, 낙찰자가 <span class="fw-semibold">7일 이내</span>에 결제하지 않으면 경매를 재시작하실 수 있습니다.
+							• &nbsp; 경매가 종료된 후, 낙찰자가 <span class="fw-semibold">7일 이내</span>에 결제하지 않으면 경매를 재시작하실 수 있습니다.
 						</div>
 					</div>		
 					
@@ -193,8 +179,13 @@
 				
 				<c:if test="${empty noBidAuctionList}">
 					<div class="row mt-4">
-						<div class="col text-center fs-5">
-							정보가 없습니다.
+						<div class="col text-center" style="font-size: 18px">
+						
+							<div class="row mt-4">
+								<div class="col">
+									정보가 없습니다.
+								</div>
+							</div>
 						</div>
 					</div>	
 				</c:if>					

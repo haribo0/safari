@@ -40,6 +40,12 @@
 	font-weight: bold;
 	color: white;
 }
+
+.btn-outline-dark:hover {
+	background: white;
+	color: black;
+
+}
 </style>
 <body>
 
@@ -95,6 +101,12 @@
 			 	<div class="row mt-3" id="deadlineList">
 					
 				</div>
+				
+				<div class="row mt-3">
+					<div class="col text-end">
+						<a href="/safari/auction/List" class="btn btn-sm  btn-outline-dark">경매 목록 더보기</a>
+					</div>
+				</div>
 			 
 				
 			</div>
@@ -135,6 +147,9 @@
 					<div class="col fs-5 fw-bold">
 						482 추천 경매 리스트
 					</div>
+					<div class="col mt-2 text-end fw-semibold" style="font-size: 16px;">
+			 			<a href="/safari/auction/List" class="text-secondary">더보기</a>
+			 		</div>
 				</div>
 				
 				<div class="row mt-3" id="randomAuctionList">

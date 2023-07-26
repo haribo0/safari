@@ -17,7 +17,6 @@ import com.ja.safari.dto.CsLiveChatMsgDto;
 import com.ja.safari.dto.CsLiveChatRating;
 import com.ja.safari.dto.CsQnaDto;
 import com.ja.safari.dto.CsQnaRating;
-import com.ja.safari.dto.KakaoLoginDto;
 import com.ja.safari.dto.KakaoUserInfo;
 import com.ja.safari.dto.UserAddressDto;
 import com.ja.safari.dto.UserChargeCoinKakaoPayApproveDto;

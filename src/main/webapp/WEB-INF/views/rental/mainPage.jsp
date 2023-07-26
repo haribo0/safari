@@ -149,7 +149,7 @@
 				<%-- <a href="${pageContext.request.contextPath}/rental/mainPage/?main_category_id=${map.categoryItem.id}" --%>
 				<%-- <a href="${pageContext.request.contextPath}/rental/mainPage/?sub_category_id=${subTitle.id}" --%>
 				
-				<div class="row mt-1 pb-2">
+				<div class="row mt-2 pb-2">
 					<p class="mb-0 mt-3 ps-0 fs-5 fw-bold">금주의 스페셜딜</p>
 				</div>
 				<div class="row mt-2">
@@ -203,7 +203,7 @@
 									<a href="${pageContext.request.contextPath}/rental/mainPage/?sub_category_id=4" class="btn">
 									<div class="row">
 										<div class="col">
-											<img class="img-fluid" alt="" src="${pageContext.request.contextPath}/resources/img/rental/category/closet.png">
+											<img class="img-fluid" alt="" src="${pageContext.request.contextPath}/resources/img/rental/category/d3.png">
 										</div>
 									</div>
 									<div class="row mt-2">
@@ -215,7 +215,7 @@
 									<a href="${pageContext.request.contextPath}/rental/mainPage/?main_category_id=2" class="btn">
 									<div class="row">
 										<div class="col">
-											<img class="img-fluid" alt="" src="${pageContext.request.contextPath}/resources/img/rental/category/lifeIt.png">
+											<img class="img-fluid" alt="" src="${pageContext.request.contextPath}/resources/img/rental/category/fan2.png">
 										</div>
 									</div>
 									<div class="row mt-2 boxCategory">
