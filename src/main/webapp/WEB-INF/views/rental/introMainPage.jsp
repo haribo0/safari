@@ -295,6 +295,20 @@
 		<!-- 광고 대여 물품 row 작업중 -->
 	</div>
 	
+			
+	<%-- <div class="container mt-5 pb-4">
+		<div class="row">
+			<p class="fw-bold fs-4 mb-0">금주의 스페셜딜</p>
+		</div>
+		<div class="row mt-4 px-2">
+				<div class="col" style="cursor: pointer;">
+				<img class="img-fluid rounded-2" alt="" src="${pageContext.request.contextPath}/resources/img/rental/b4.png">
+			</div>
+				<div class="col" style="cursor: pointer;">
+				<img class="img-fluid rounded-2" alt="" src="${pageContext.request.contextPath}/resources/img/rental/b2.png">
+			</div>
+		</div>
+	</div> --%>
 	
 	<div class="container mt-5 pb-4">
 		<div class="row">

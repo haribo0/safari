@@ -95,11 +95,26 @@
 							  <div class="card-body p-0 mt-2">
 								  <div class="row mt-1 descBox">
 									<div class="col">
-										<p class="text-secondary mb-0" style="font-size: 13px;">${map.rentalBusinessDto.business_name }</p>
-								    	<p class="text-dark mb-2"><a href="${pageContext.request.contextPath}/rental/productDescPage?id=${map.rentalItemDto.id}" class="text-decoration-none d-inline-block text-dark" style="font-size: 16px;">${map.rentalItemDto.title}</a></p>
-									    <p class="mb-0"><a href="${pageContext.request.contextPath}/rental/productDescPage?id=${map.rentalItemDto.id}" class="text-decoration-none d-inline-block text-dark" style="font-weight: 900; font-size: 18px;"><fmt:formatNumber value="${map.rentalItemDto.price}" pattern="#,##0" /> 원 </a><span style="font-size: 13px;">/ 월</span></p>
-										<p class="mb-0"><span style="font-size: 13px; color: #5a5a5a;"><i class="bi bi-heart"></i> </span><span class="fw-bold" style="font-size: 13px; color: #7e7e7e;">${map.itemLikeCount}</span> <span class="ms-1" style="font-size: 13px; color: #5a5a5a;"><i class="bi bi-chat"></i></span> <span class="fw-bold" style="font-size: 13px; color: #7e7e7e;">${map.itemReviewCount}</span></p>
-										<p class="mt-1"><span style="background: #e5e5e5; border-radius: 6px; font-size: 12px; padding: 3px 6px;">무료배송</span></p>								
+										<div class="text-secondary mb-0 row" style="font-size: 13px;">
+											<div class="col">${map.rentalBusinessDto.business_name }</div>
+										</div>
+								    	<div class="text-dark mb-2 row">
+								    		<a href="${pageContext.request.contextPath}/rental/productDescPage?id=${map.rentalItemDto.id}" class="text-decoration-none d-inline-block text-dark text-truncate" style="font-size: 16px;"><div class="col text-truncate">${map.rentalItemDto.title}</div></a>
+								    	</div>
+								    	
+									    <div class=" row mb-0">
+									    	<div class="col"><a href="${pageContext.request.contextPath}/rental/productDescPage?id=${map.rentalItemDto.id}" class="text-decoration-none d-inline-block text-dark" style="font-weight: 900; font-size: 18px;"><fmt:formatNumber value="${map.rentalItemDto.price}" pattern="#,##0" /> 원 </a><span style="font-size: 13px;">/ 월</span></div>
+									    </div>
+										<div class=" row mb-0">
+											<div class="col">
+												<span style="font-size: 13px; color: #5a5a5a;"><i class="bi bi-heart"></i> </span><span class="fw-bold" style="font-size: 13px; color: #7e7e7e;">${map.itemLikeCount}</span> <span class="ms-1" style="font-size: 13px; color: #5a5a5a;"><i class="bi bi-chat"></i></span> <span class="fw-bold" style="font-size: 13px; color: #7e7e7e;">${map.itemReviewCount}</span>
+											</div>
+										</div>
+										<div class="row mt-1">
+											<div class="col">
+												<span style="background: #e5e5e5; border-radius: 6px; font-size: 12px; padding: 3px 6px;">무료배송</span>
+											</div>
+										</div>								
 									</div>
 								</div>
 							
@@ -335,13 +350,13 @@
 								</div>
 							</div>
 						</div>
-					      <c:if test="${status.index % 5 == 4}">
+					      <c:if test="${status.index % 4 == 3}">
 					        </div><div class="row flex-wrap pt-2">
 					      </c:if>
 					      <c:if test="${status.last}">
 					          <!-- 현재 순서가 마지막인 경우에만 실행될 내용 -->
 					          <!-- 만약 나머지가 4일 경우를 제외하고는 col을 더 만들어줘야함 (5-(status%5)) -->
-					          <c:forEach begin="0" end="${3-(status.index % 5)}" varStatus="status">
+					          <c:forEach begin="0" end="${2-(status.index % 4)}" varStatus="status">
 							      <!-- 빈 칼럼 추가  -->
 						  	      <div class="col"></div>
 							  </c:forEach>
