@@ -64,7 +64,7 @@
 		<div class="row">
  			<div class="col-2 mt-4">
 				<ul class="list-group" style="top: 115.23px; z-index: 50;">
-				  <li class="list-group-item border border-0 ps-0 pt-2 pb-0"><a href="${pageContext.request.contextPath}/rental/mainPage" class="btn ps-0 text fw-bold py-1" href="#" style="font-size: 17px;">전체보기</a></li>
+				  <li class="list-group-item border border-0 ps-0 pt-2 pb-0"><a href="${pageContext.request.contextPath}/rental/mainPage" class="btn ps-0 text fw-bold py-1" href="#" style="font-size: 18px;">전체보기</a></li>
 				  <c:forEach items="${categoryList}" var="map" varStatus="status">
 					  <li class="list-group-item border border-0 ps-0 pb-0 pt-3"><a href="${pageContext.request.contextPath}/rental/mainPage/?main_category_id=${map.categoryItem.id}" class="btn text fw-bold ps-0 py-1" style="font-size: 17px;">${map.categoryItem.main_category_name}</a></li>
 	  				  	<div class="" id="">
@@ -335,7 +335,7 @@
 				<div class="row flex-wrap pt-2">
 	 				<c:forEach items="${rentalItemList}" var="map" varStatus="status">
 		 				
-						<div class="col mb-5 item-box" style="cursor: pointer;">
+						<div class="col-3 mb-5 item-box" style="cursor: pointer;">
 							<div class="row imgBox">
 								<div class="col">
 									<a href="${pageContext.request.contextPath}/rental/productDescPage?id=${map.rentalItemDto.id}" class="text-decoration-none d-inline-block">
@@ -356,15 +356,6 @@
 						</div>
 					      <c:if test="${status.index % 4 == 3}">
 					        </div><div class="row flex-wrap pt-2">
-					      </c:if>
-					      <c:if test="${status.last}">
-					          <!-- 현재 순서가 마지막인 경우에만 실행될 내용 -->
-					          <!-- 만약 나머지가 4일 경우를 제외하고는 col을 더 만들어줘야함 (5-(status%5)) -->
-					          <c:forEach begin="0" end="${2-(status.index % 4)}" varStatus="status">
-							      <!-- 빈 칼럼 추가  -->
-						  	      <div class="col"></div>
-							  </c:forEach>
-
 					      </c:if>
 					</c:forEach>
 					</div>

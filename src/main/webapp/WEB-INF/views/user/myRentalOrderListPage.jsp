@@ -171,68 +171,116 @@
   <div class="modal-dialog">
   	<form method="post" enctype="multipart/form-data">
 	    <div class="modal-content">
-	      <div class="modal-header">
-	        <h1 class="modal-title fs-5" id="exampleModalLabel">리뷰등록</h1>
+	      <div class="modal-header  bg-light">
+	        <h1 class="modal-title fs-5 bg-light" id="exampleModalLabel">리뷰등록</h1>
 	        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 	      </div>
 	      <div class="modal-body">
 
-	      	<div class="row">
-	      		<div class="col">
-	      			<div class="row border py-2 mx-auto rounded-2" style="width: 99%;">
-						<div class="col-4 my-auto">
+	      	<div class="row mx-3 mt-2 card ">
+	      		<div class="col ">
+	      			<div class="row border-bottom py-2 fw-medium ">
+						<div class="col my-auto">
+							상품 정보
+						</div>
+	      			</div>
+	      			<div class="row  py-4   rounded-2" >
+						<div class="col-3 my-auto">
 		 					<img class="reviewModalTopImage img-fluid" alt="" src="">
 						</div>
-			      		<div class="col d-flex flex-column justify-content-center">
-			      			<p class="reviewItemTitle mb-1 fs-5 fw-medium"></p>
-							<p class="reviewItemDesc mb-0"></p>
-							<p class="reviewPeriod"></p>
+			      		<div class="col ">
+			      			<div class="row">
+				      			<div class="col">
+				      				<div class="reviewItemTitle mb-1 fw-medium" style="font-size: 20px;"></div>
+				      			</div>
+			      			</div>
+			      			<div class="row">
+				      			<div class="col text-truncate">
+				      				<div class="reviewItemDesc mb-0 text-secondary text-truncate" style="font-size: 14px;"></div>
+				      			</div>
+			      			</div>
+			      			<div class="row">
+				      			<div class="col">
+				      				<div class="reviewPeriod"></div>
+				      			</div>
+			      			</div>
+			      			
 			      		</div>
 	      			</div>
 	      		</div>
 	      	</div>
 	      
-	      	<div class="row mt-3">
+	      	<div class="row mt-4 mx-3">
 	      		<div class="col">
-	      			<div class="row">
-	      				<div class="col">
-							<span class="fw-bold">제목</span> 
-							<input type="text" name="rental_review_title" class="form-control mt-1"><br />	      				
-	      				</div>
-	      			</div>
-	      			
-	      			<div class="row">
-	      				<div class="col">
-							<span class="fw-bold">내용</span>  
-							<textarea rows="" cols="" class="form-control" name="rental_review_content mt-1"></textarea><br>
-	      				</div>
-	      			</div>
-	      			
-					<div class="row">
+	      			<div class="row pt-0">
 						<div class="col ">
 							<p class="mb-0 fw-bold">별점</p>
 			      			<div id="full-stars-example-two">
 			      			<input type="hidden" value="" name="rental_review_rating" class="ratingVal">
 							    <div class="rating-group">
 							        <input disabled="" checked="" class="rating__input rating__input--none" name="rating3" id="rating3-none" value="0" type="radio">
-							        <label aria-label="1 star" class="rating__label" for="rating3-1"><i class="rating__icon rating__icon--star fa fa-sm fa-star" aria-hidden="true"></i></label>
+							        <label aria-label="1 star" class="rating__label" for="rating3-1"><i class="rating__icon rating__icon--star fa fa-xs fa-star" aria-hidden="true"></i></label>
 							        <input class="rating__input" name="rating3" id="rating3-1" value="1" type="radio">
-							        <label aria-label="2 stars" class="rating__label" for="rating3-2"><i class="rating__icon rating__icon--star fa fa-sm fa-star" aria-hidden="true"></i></label>
+							        <label aria-label="2 stars" class="rating__label" for="rating3-2"><i class="rating__icon rating__icon--star fa fa-xs fa-star" aria-hidden="true"></i></label>
 							        <input class="rating__input" name="rating3" id="rating3-2" value="2" type="radio">
-							        <label aria-label="3 stars" class="rating__label" for="rating3-3"><i class="rating__icon rating__icon--star fa fa-sm fa-star" aria-hidden="true"></i></label>
+							        <label aria-label="3 stars" class="rating__label" for="rating3-3"><i class="rating__icon rating__icon--star fa fa-xs fa-star" aria-hidden="true"></i></label>
 							        <input class="rating__input" name="rating3" id="rating3-3" value="3" type="radio">
-							        <label aria-label="4 stars" class="rating__label" for="rating3-4"><i class="rating__icon rating__icon--star fa fa-sm fa-star" aria-hidden="true"></i></label>
+							        <label aria-label="4 stars" class="rating__label" for="rating3-4"><i class="rating__icon rating__icon--star fa fa-xs fa-star" aria-hidden="true"></i></label>
 							        <input class="rating__input" name="rating3" id="rating3-4" value="4" type="radio">
-							        <label aria-label="5 stars" class="rating__label" for="rating3-5"><i class="rating__icon rating__icon--star fa fa-sm fa-star" aria-hidden="true"></i></label>
+							        <label aria-label="5 stars" class="rating__label" for="rating3-5"><i class="rating__icon rating__icon--star fa fa-xs fa-star" aria-hidden="true"></i></label>
 							        <input class="rating__input" name="rating3" id="rating3-5" value="5" type="radio">
 							    </div>
 							</div>
 				      	</div>
 					</div>
-					
-	      			<div class="row mt-3">
+	      			<div class="row my-3">
 	      				<div class="col">
-							이미지첨부 <input name="rental_review_img" type="file" multiple accept="image/*" class="form-control">
+	      				 	<div class="row pb-1"> 
+		      				 	<div class="col"> 
+	      				 			<span class="fw-bold">제목</span> 
+		      				 	</div>
+	      				 	</div>
+	      				 	<div class="row "> 
+		      				 	<div class="col"> 
+	      				 			<input type="text" name="rental_review_title" class="form-control mt-1"> 
+		      				 	</div>
+	      				 	</div>
+							      				
+	      				</div>
+	      			</div>
+	      			
+	      			<div class="row my-3">
+	      				<div class="col">
+	      					<div class="row pb-1"> 
+		      				 	<div class="col "> 
+	      				 			<span class="fw-bold">내용</span>  
+		      				 	</div>
+	      				 	</div>
+	      				 	<div class="row"> 
+		      				 	<div class="col"> 
+	      				 			<textarea rows="4" cols="" class="form-control" name="rental_review_content mt-1"></textarea>
+		      				 	</div>
+	      				 	</div>
+							
+							
+	      				</div>
+	      			</div>
+	      			
+					
+					
+	      			<div class="row my-3 mb-4">
+	      				<div class="col fw-bold">
+	      					<div class="row mb-1"> 
+		      				 	<div class="col"> 
+	      				 			<span class="fw-bold">이미지첨부</span>  
+		      				 	</div>
+	      				 	</div>
+	      					<div class="row"> 
+		      				 	<div class="col"> 
+	      				 			<input name="rental_review_img" type="file" multiple accept="image/*" class="form-control">
+		      				 	</div>
+	      				 	</div>
+							
 	      				</div>
 	      			</div>
 	      			
@@ -240,9 +288,9 @@
 	      	</div>
 	      </div>
 	      
-	      <div class="modal-footer">
-	        <span class="btn btn-secondary" data-bs-dismiss="modal">취소</span>
-	        <button type="submit" class="btn btn-primary">작성</button>
+	      <div class="modal-footer  bg-light">
+	        <span class="btn btn-outline-dark" data-bs-dismiss="modal">취소</span>
+	        <button type="submit" class="btn btn-dark">작성</button>
 	      </div>
 	    </div>
     </form>

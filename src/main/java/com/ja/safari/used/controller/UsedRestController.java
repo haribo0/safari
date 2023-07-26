@@ -18,6 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.ja.safari.dto.ProductChatDto;
 import com.ja.safari.dto.ProductDto;
 import com.ja.safari.dto.ProductLikeDto;
+import com.ja.safari.dto.ProductRequestDto;
 import com.ja.safari.dto.UsedPurchaseReviewDto;
 import com.ja.safari.dto.UserCoinDto;
 import com.ja.safari.dto.UserDto;
@@ -511,6 +512,46 @@ public class UsedRestController {
 		}
 	}
 	
+	// 거래 요청 
+	@RequestMapping("productRequest")
+	public Map<String, Object> productRequest(HttpSession session, Integer productId) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		UserDto sessionUser = (UserDto)session.getAttribute("sessionUser");
+		if(sessionUser==null) {
+			map.put("result", "fail");
+			map.put("reason", "login required");
+			return map;
+		}else {
+			ProductRequestDto productRequestDto = new ProductRequestDto();
+			productRequestDto.setProduct_id(productId);
+			productRequestDto.setUser_id(sessionUser.getId());
+			ProductRequestDto productRequestDto2 = usedService.insertAndgetProductRequest(productRequestDto, sessionUser.getId());
+			map.put("productRequestDto", productRequestDto2);
+			map.put("receiverDto", usedService.selectUserDtoById(usedService.selectProductDtoById(productId).getUser_id()));
+			map.put("sessionUser", sessionUser);
+			return map;
+		}
+	}
+		
+	// 채팅방 이미 있는 사람 
+	@RequestMapping("productRequestAlready")
+	public Map<String, Object> productRequestAlready(HttpSession session, Integer productId) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		UserDto sessionUser = (UserDto)session.getAttribute("sessionUser");
+		if(sessionUser==null) {
+			map.put("result", "fail");
+			map.put("reason", "login required");
+			return map;
+		}else {
+			ProductRequestDto productRequestDto = usedService.selectProductRequestByProductIdAndUserId(sessionUser.getId(), productId);
+			map.put("productRequestDto", productRequestDto);
+			map.put("receiverDto", usedService.selectUserDtoById(usedService.selectProductDtoById(productId).getUser_id()));
+			map.put("sessionUser", sessionUser);
+			return map;
+		}
+	}
 	
 	
 	

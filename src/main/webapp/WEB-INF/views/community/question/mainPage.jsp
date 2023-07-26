@@ -8,6 +8,7 @@
 <meta charset="UTF-8">
 <title>사파리 | 로그인</title>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+<link rel="stylesheet" href="/safari/resources/style/common.css" type="text/css">
 </head>
 <body>
 	<!-- 헤더 섹션 -->
@@ -142,25 +143,12 @@
 	  }
 	  	
 		</style>
-	<%-- 글쓰기 버튼 --%>
-	<!-- <div class="row">
-	<div class="col text-end" >
-	<div class="d-flex justify-content-end">
-	<a href="./questionWriteContentPage" style="text-decoration: none; display: flex; align-items: center; justify-content: center;">
-		<button type="button" class="btn mt-4 btn-link orangeButton d-flex align-items-center justify-content-center" style="text-decoration: none;">
-			<i class="bi bi-pencil-square fa-icon text-white" style="font-size: 16px; margin-right: 0.7rem; margin-left: 0.3rem;"></i>
-			<span class="ms-1 me-2" style="font-size: 15px; line-height: 1; margin-left: 0.3rem;">글쓰기</span>
-		</button>
-	</a>
-	</div>
-	</div>
-	</div> -->
-	<%-- 글쓰기 버튼 --%>	
+	
 	
 	<%-- 검색--%>	
 	<form action="./mainPage" method="get">
 				<div class="row mt-3"> 
-					<div class="col-2">
+					<div class="col-1">
 						<select name="question_searchType" class="form-select">
 							<option value="title" selected>제목</option>
 							<option value="content">내용</option>
@@ -175,11 +163,13 @@
 						  	<span class="bi bi-search"></span>
 						</button>
 					</div>
+				
+				
 					
 	<div class="col text-end" >
 	<div class="d-flex justify-content-end">
 	<a href="./questionWriteContentPage" style="text-decoration: none; display: flex; align-items: center; justify-content: center;">
-		<button type="button" class="btn btn-link orangeButton d-flex align-items-center justify-content-center" style="text-decoration: none;">
+		<button type="button" class="btn btn-link orangeButton d-flex align-items-center justify-content-center" style="text-decoration: none; padding: 0.25rem 0.5rem;">
 			<i class="bi bi-pencil-square fa-icon text-white" style="font-size: 16px; margin-right: 0.7rem; margin-left: 0.3rem;"></i>
 			<span class="ms-1 me-2" style="font-size: 15px; line-height: 1; margin-left: 0.3rem;">글쓰기</span>
 		</button>
@@ -189,7 +179,7 @@
 	
 				</div>
 	</form>
-		<%-- 검색--%>	
+	<%-- 검색--%>	
 	
 	<%-- 페이지 버튼 --%>
 	<style>

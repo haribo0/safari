@@ -829,7 +829,6 @@ function selling(map) {
 	  buttonBoost.style.width = '120px';
 	  buttonBoost.textContent = '끌어올리기';
 	  
-	  console.log(map.productDto.reg_date);
 	  // 끌올 가능 
 	  if(getTimeDifference(map.productDto.reg_date)=='끌올'){
 		  buttonBoost.setAttribute("onclick", "showUpdateTimeModal("+map.productDto.id+")");
@@ -1930,7 +1929,6 @@ function productRequestStatusCancelByProduct(productId, statusId) {
 // 2일 12시간 - (reg_date - today)
 function getTimeDifference(reg_date) {
 	  // 현재 시간 구하기
-	  console.log(reg_date);
 	  const now = new Date();
 
 	  // 2일 12시간 후의 시간 구하기 (단위: 밀리초)

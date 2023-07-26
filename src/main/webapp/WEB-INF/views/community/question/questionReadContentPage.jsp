@@ -11,6 +11,7 @@
 	<jsp:include page="../../common/meta.jsp"></jsp:include>
 	<!-- 메타 섹션 -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+<link rel="stylesheet" href="/safari/resources/style/common.css" type="text/css">
 <style>
 .custom-table-secondary {
   background-color: #f4f4f4!important; /* 원하는 연한 색상으로 변경 */
@@ -280,14 +281,20 @@ window.addEventListener("DOMContentLoaded", function(){
 							<span class="text-secondary ms-2" style="font-size: 13px; font-weight: normal;">
 							 <fmt:formatDate value="${questionReply.questionReplyDto.reg_date}" pattern="yyyy.MM.dd a hh:mm"/> 
 					 		 </span>
+					 		 
+					 		 <c:if test="${sessionUser.id != questionReply.userDto.id }">
+							<span class="text-secondary ms-2" style="font-size: 13px; font-weight: normal;">신고하기</span>
+							</c:if>
 					 
 						 <c:if test="${sessionUser.id == questionReply.userDto.id }">
 						  <span class="text-secondary ms-2" style="font-size: 13px;">
 						  	<input type="button" class="btn btn-sm btn-primary" value="수정"  style="background-color: transparent; border: none; color: inherit;">
 	                        <input type="button" class="btn btn-sm btn-primary" value="삭제" onclick='location.href="/safari/community/question/deleteQuestionReplyProcess/${questionReply.questionReplyDto.id}?questionboardId=${map.questionDto.id}"' style="background-color: transparent; border: none; color: inherit;">
-	                        🚨
+	                        
 						  </span>
 						</c:if>
+						
+						
 				   	   </div>
 				   	   
 				   
