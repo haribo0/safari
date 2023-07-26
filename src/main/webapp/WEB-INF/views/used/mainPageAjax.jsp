@@ -47,10 +47,17 @@
 	  overflow: hidden; /* 넘친 텍스트를 숨김 */
 	  text-overflow: ellipsis; /* 넘친 텍스트를 "..."으로 표시 */
 	}
+	.btn-qna{position: fixed; bottom: 80px; right: 70px; border-radius: 60px; padding: 0 0;}
+	.btn-circle{width: 50px; height: 52px; border-radius: 50%; display: flex; flex-direction:column; justify-content: center; align-items: center; font-size: 2rem; cursor: pointer;}
+	.btn-circle i{color: #5e5e5e; font-size: 24px;}
+	.btn-tit{font-size:13px;}
 </style>
 
 </head>
 <body>
+	<!-- Chat Box -->
+	<jsp:include page="../common/chatBox.jsp"></jsp:include>
+	<!-- Chat Box -->
 	<!-- 헤더 섹션 -->
 	<jsp:include page="../common/header.jsp"></jsp:include>
 	<!-- 헤더 섹션 -->

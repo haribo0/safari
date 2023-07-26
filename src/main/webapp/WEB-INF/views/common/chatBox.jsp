@@ -1477,6 +1477,7 @@ function getReceiverWroteReviewHideAndShow(senderId, receiverId, requestId) {
 
 //채팅방 룸 목록 열기
 function reloadChatRoomList() {
+	
 	const chatRoomListStartBox = document.getElementById("usedChatListBox");
 
 	const xhr = new XMLHttpRequest();
@@ -1484,7 +1485,9 @@ function reloadChatRoomList() {
     xhr.onreadystatechange = function(){
         if(xhr.readyState == 4 && xhr.status == 200){
             const response = JSON.parse(xhr.responseText);
-            
+            if(!response.sessionUser){
+        		window.location.href = '/safari/user/loginPage';
+        	}
             // 회원 코인 잔액 확인하기 
             coinBalance = response.coinBalance;
             console.log(coinBalance);
