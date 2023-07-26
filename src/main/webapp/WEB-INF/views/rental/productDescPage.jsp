@@ -429,23 +429,34 @@ progress::-webkit-progress-value {
 
 				    	</div>
 				    	
-				    	<div class="row">
+				    	<div class="row mt-2">
 				    		<div class="col">
 				    			<ul class="list-group list-group-flush px-5" id="review_list">
 				 		    		<c:forEach items="${reviewData}" var="review">
-						    			<li class="list-group-item py-3 mt-4 border border-0">
-						    				<div class="row w-100">
+						    			<li class="list-group-item py-4 my-2 border-bottom">
+						    				<div class="row w-100 mb-3 ">
 							    				<div class="col">
 							    					<div class="row">
 							    						<div class="col">
-							    							<div class="row">
-							    								<div class="col-1 d-flex justify-content-center align-items-center" style="max-width: 68px;">
-											    					<div class="rounded-circle bg-secondary-subtle me-0" style="width: 40px; height: 40px;"></div>				    								
+							    							<div class="row ">
+							    								<div class="col-1 my-auto" style="max-width: 68px; border-radius: 50%" >
+											    					<!-- <div class="rounded-circle bg-secondary-subtle me-0" style="width: 40px; height: 40px;"> -->
+											    						<c:choose>
+											    							<c:when test="${review.reviewer.profile_img_link != null}">
+											    								<img class="img-fluid" alt="" src="/safariImg/${review.reviewer.profile_img_link}">		
+											    							</c:when>
+											    							<c:otherwise>
+											    								<img class="img-fluid" alt="" src="${pageContext.request.contextPath}/resources/img/user.jpg" style="filter:grayscale(1); border-radius: 50%" >		
+											    							</c:otherwise>
+											    						</c:choose>
+											    						
+											    					<!-- </div>	 -->			    								
 							    								</div>
-							    								<div class="col px-0">
+							    								<div class="col px-0 my-auto">
 							    									<div class="row">
 							    										<div class="col">
-																    		<p class="mb-0 mt-1"><small>${review.reviewer.nickname}</small> <small class="text-black-50">| <fmt:formatDate value="${review.reviewList.reg_date }" pattern="yyyy.MM.dd"/></small></p>		    											    										
+																    		<div class="mb-0 mt-1" style="font-size: 16px;">${review.reviewer.nickname} 
+																    		<span class="text-black-50" style="font-size: 14px">| <fmt:formatDate value="${review.reviewList.reg_date }" pattern="yyyy.MM.dd"/></span></div>										    										
 							    										</div>
 							    									</div>
 							    									<div class="row">
@@ -480,22 +491,24 @@ progress::-webkit-progress-value {
 							    						</div>
 							    					</div>
 							    					
-							    					<div class="row mt-3">
-							    						<div class="row">
-							    							<div class="col">
-							    								<p class="text-body-secondary"><span>&#124; </span>${review.rentalItemDto.title }</p>
-							    							</div>
-							    						</div>
-							    						<div class="row">
-							    							<div class="col px-1">
-									    					<c:forEach items="${review.reviewImgList}" var="imgList">
-									    					 	<img alt="" src="/safariImg/${imgList.rental_review_img}" class="ms-2" style="width: 100px;">			    					
-									    					</c:forEach>
-							    							</div>
+							    					<div class="row mt-2">
+							    						<div class="col ">
+								    						<div class="row">
+								    							<div class="col">
+								    								<p class="text-body-secondary"><span>&#124; </span>${review.rentalItemDto.title }</p>
+								    							</div>
+								    						</div>
+								    						<div class="row">
+								    							<div class="col px-1">
+										    					<c:forEach items="${review.reviewImgList}" var="imgList">
+										    					 	<img alt="" src="/safariImg/${imgList.rental_review_img}" class="ms-2" style="width: 100px;">			    					
+										    					</c:forEach>
+								    							</div>
+								    						</div>
 							    						</div>
 							    					</div>
 							    					
-							    					<div class="row mt-3">
+							    					<div class="row mt-2">
 							    						<div class="col">
 										    				<p class="fw-bold mb-0 text-dark-emphasis">${review.reviewList.rental_review_title}</p>
 										    				<p class="mb-1 text-body-secondary">${review.reviewList.rental_review_content}</p>
