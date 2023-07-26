@@ -29,17 +29,6 @@
 .text-like {
 	color: #FF7777;
 }
-@keyframes pulse {
-  0% {
-    color: #FF0000; /* 시작 색상 (예: 빨간색) */
-  }
-  50% {
-    color: #800000; /* 중간 색상 (예: 더 진한 빨간색) */
-  }
-  100% {
-    color: #FF0000; /* 끝 색상 (예: 다시 빨간색으로) */
-  }
-}
 
 .modal-dialog .modal-lg  {
 	height: 700px;
@@ -486,7 +475,7 @@ input[id="tab03"]:checked ~ .con3 {
 					 									 
 					 									 <div class="row mb-3">
 					 									 	<div class="col text-danger"> <!-- style="color: #ff6f0f;" --> 
-					 									 		• 경매 종료 시간 30초 이전 입찰 시, 경매 종료시간이 30초씩 자동연장됩니다.
+					 									 		• 경매 종료 시간 1분 이전 입찰 시, 종료 시간이 현재 시간으로부터 1분 자동연장됩니다.
 					 									 	</div>
 					 									 </div>	 									 
 					 									
@@ -606,7 +595,7 @@ input[id="tab03"]:checked ~ .con3 {
 													onkeydown="checkSendMessage(event)">
  												</div>
  												<div class="col px-0 d-grid">
- 													<input type="button" class="btn orangeButton" value="입력"  onclick="sendMessage()">
+ 													<input type="button" class="btn btn-dark" value="입력"  onclick="sendMessage()">
  												</div>
  											</div>
  										</div>
@@ -642,6 +631,10 @@ input[id="tab03"]:checked ~ .con3 {
 	 
 	 </div>
 	
+	
+	<div class="row mt-5">
+		<div class="col"></div>
+	</div>
 	
 	
 	
@@ -1449,15 +1442,15 @@ style="position: absolute; transform: translateX(70%);right: 50%;">
     <div class="modal-content">
       <div class="modal-header bg-light">
       	
-      		<h5 class="fw-bold ms-1">내 입찰목록</h5>
+      		<!-- <h5 class="fw-bold ms-1">내 입찰목록</h5> -->
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div> 
-      <div class="modal-body">
+      <div class="modal-body mb-3">
       
       	<div class="row mt-2 mb-3 ms-1">
       		<div class="col">
       		
-      			<div class="row mt-1">
+      			<div class="row">
       				<div class="col">
       					• &nbsp; 입찰하신 경매 목록 중에서 현재 진행중인 경매만 표시됩니다.
       				</div>
@@ -1484,7 +1477,7 @@ style="position: absolute; transform: translateX(70%);right: 50%;">
       		</div>
       	</div>
       	
-      	<div class="row mb-2">
+      	<div class="row mt-2 mb-2">
     		<div class="col justify-content-center">
     		
     			
@@ -1526,9 +1519,9 @@ style="position: absolute; transform: translateX(70%);right: 50%;">
   
       </div>
       
-      <div class="modal-footer">
+      <!-- <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">창닫기</button>
-      </div>      
+      </div>   -->    
    
     </div>
   </div>
@@ -1538,11 +1531,6 @@ style="position: absolute; transform: translateX(70%);right: 50%;">
 	
 <script>
 
-/* function myBidListModal(){
-	const myBidListModal = bootstrap.Modal.getOrCreateInstance("#myBidListModal");
-	myBidListModal.show();
-}
- */
 
 // 내 입찰정보 모달
 function myBidListModal() {
@@ -1796,21 +1784,21 @@ let inquiryPk = null;
 
 // 채팅 전송 시 enter 키 이벤트 처리
 function checkSendMessage(event) {
-  if (event.key === "Enter") {
+  if (event.key == "Enter") {
     sendMessage();
   }
 }
 
 //문의 입력 시 enter 키 이벤트 처리
 function checkSendInquiry(event) {
-  if (event.key === "Enter") {
+  if (event.key == "Enter") {
 	  registerAuctionInquiry();
   }
 }  
 
 //답변 입력 시 Enter 키 이벤트 처리
 function checkSendReply(event, inquiryId) {
-    if (event.key === "Enter") {
+    if (event.key == "Enter") {
         registerAuctionReply(inquiryId);
     }
 }
@@ -2133,7 +2121,7 @@ function showInputBidBox() {
 	// 입찰하기 입력 폼에 id 부여
 	inputBidBox.id = "bidPrice";
     inputBidBox.addEventListener("keydown", function(event) {
-        if (event.key && event.key === "Enter") {
+        if (event.key && event.key == "Enter") {
             event.preventDefault(); // 엔터 키의 기본 동작 방지
             bidRequest();
         }
@@ -2234,8 +2222,14 @@ function forbidInputBidBoxByMaxBider() {
    		 // currentStatusBox.appendChild(trophyIcon2);
    		 
    		 button.classList.add("opacity-50");
+   		 
+   		 // 마우스 클릭 방지
+   		 button.style.pointerEvents = "none";
+   		 
+   		 
    		 inputBidBox.placeholder = "회원님은 현재 최고입찰자입니다.";
    		 inputBidBox.setAttribute("readonly", "readonly");
+   		 inputBidBox.style.pointerEvents = "none";
 
     	 }
 
@@ -2259,8 +2253,11 @@ function renewInputBidBoxEnd() {
        
 	       inputBidBox.placeholder = "경매가 종료되었습니다."
 	       inputBidBox.setAttribute("readonly", "readonly");
+	       inputBidBox.style.pointerEvents = "none";
+	       
 	       button.classList.remove("opacity-100");
 	       button.classList.add("opacity-50");
+	       button.style.pointerEvents = "none";
 	       button.value = "경매마감";
 	       
 	       const trophyIcon1 = document.createElement("i");
@@ -2336,15 +2333,16 @@ function renewInputBidBoxBefore() {
 
       	inputBidBox.placeholder = "경매 준비중입니다.";
    	    inputBidBox.setAttribute("readonly", "readonly");
+   	    inputBidBox.style.pointerEvents = "none";
    	    
    	    
    	   const statusText = document.createElement("span");
        statusText.innerText = "경매 준비중입니다";
 
        button.classList.add("opacity-50");
+       button.style.pointerEvents = "none";
  
 
- 		 
  	   currentStatusBox.appendChild(statusText);	      	    
    	    
    	    
@@ -3450,8 +3448,8 @@ function bidRequest() {
 				// 즉시 낙찰자는 아니지만 현 시간 최고 입찰자일 경우
 				else if (bidPriceBox.value > maxBidPrice) {
 					
-						// 총 남은 시간이 30초 미만일 때 입찰하였을 경우 종료 시간을 30초 늘리기	
-						if (endDate - currentTime < 30000) {
+						// 총 남은 시간이 60초 미만일 때 입찰하였을 경우 종료 시간을 60초 늘리기	
+						if (endDate - currentTime < 60000) {
 							const xhrUpdateEndTime = new XMLHttpRequest();
 							xhrUpdateEndTime.onreadystatechange = function() {
 								if (xhrUpdateEndTime.readyState === 4 && xhrUpdateEndTime.status === 200) {
@@ -3467,7 +3465,7 @@ function bidRequest() {
 							xhrUpdateEndTime.open("get", "/safari/auction/renewEndTimeAuctionItem/" + auctionItemId);
 							xhrUpdateEndTime.send();
 						}
-						// 총 남은 시간이 30초 미만일 때 입찰하였을 경우 종료 시간을 30초 늘리기 끝
+						// 총 남은 시간이 60초 미만일 때 입찰하였을 경우 종료 시간을 60초 늘리기 끝
 						
 						const bidModal = bootstrap.Modal.getOrCreateInstance("#bidModal"); // 입찰 완료 모달 창 띄우기
 						bidModal.show();
@@ -3765,7 +3763,7 @@ function reloadBidList() {
            	if (response.bidCount == 0) {
      
             	const bidRow = document.createElement("div");
-            	bidRow.classList.add("row", "border-bottom",  'py-2');
+            	bidRow.classList.add("row", "border-bottom", 'py-2');
             	
             	
             	const bidCol = document.createElement("div");
