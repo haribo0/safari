@@ -87,8 +87,8 @@
 			 		<div class="col-9 fs-5 fw-bold">
 			 			곧 마감 ! 놓치지 마세요
 			 		</div>
-			 		<div class="col mt-2 text-end" style="font-size: 14px">
-			 			<a href="/safari/auction/List">경매 목록 더보기 > </a>
+			 		<div class="col mt-2 text-end fw-semibold" style="font-size: 16px;">
+			 			<a href="/safari/auction/List" style="color: #ff6f0f">더보기</a>
 			 		</div>
 			 	</div>
 			 	
