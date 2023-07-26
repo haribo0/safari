@@ -31,13 +31,19 @@
 				<div id="carouselExample" class="carousel slide">
 				  <div class="carousel-inner">
 				    <div class="carousel-item active">
-				      <img src="${pageContext.request.contextPath}/resources/img/rental/rental_banner_1.jpg" class="d-block w-100" alt="...">
+				      <a href="${pageContext.request.contextPath}/rental/mainPage">
+				      	<img src="${pageContext.request.contextPath}/resources/img/rental/rental_banner_1.jpg" class="d-block w-100" alt="...">
+				      </a>
 				    </div>
 				    <div class="carousel-item">
-				      <img src="${pageContext.request.contextPath}/resources/img/rental/rental_banner_2.jpg" class="d-block w-100" alt="...">
+				      <a href="${pageContext.request.contextPath}/rental/mainPage">
+				      	<img src="${pageContext.request.contextPath}/resources/img/rental/rental_banner_2.jpg" class="d-block w-100" alt="...">
+				      </a>
 				    </div>
 				    <div class="carousel-item">
-				      <img src="${pageContext.request.contextPath}/resources/img/rental/rental_banner_3.jpg" class="d-block w-100" alt="...">
+				      <a href="${pageContext.request.contextPath}/rental/mainPage">
+				      	<img src="${pageContext.request.contextPath}/resources/img/rental/rental_banner_3.jpg" class="d-block w-100" alt="...">
+				      </a>
 				    </div>
 				  </div>
 				  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
@@ -248,10 +254,14 @@
 				<div id="carouselExample2" class="carousel slide">
 				  <div class="carousel-inner">
 				    <div class="carousel-item carousel-md carousel-item-md-1 active carousel-item carousel-item-1">
-				      <img src="${ pageContext.request.contextPath}/resources/img/rental/rental-banner-1.jpg" class="d-block w-100" alt="...">
+					    <a href="${pageContext.request.contextPath}/rental/mainPage">
+					      <img src="${ pageContext.request.contextPath}/resources/img/rental/rental-banner-1.jpg" class="d-block w-100" alt="...">
+					    </a>
 				    </div>
 				    <div class="carousel-item carousel-md carousel-item-md-2 carousel-item carousel-item-2">
-				      <img src="${ pageContext.request.contextPath}/resources/img/rental/rental-banner-2.jpg" class="d-block w-100" alt="...">
+				    	<a href="${pageContext.request.contextPath}/rental/mainPage">
+				      		<img src="${ pageContext.request.contextPath}/resources/img/rental/rental-banner-2.jpg" class="d-block w-100" alt="...">
+				      	</a>
 				    </div>
 				  </div>
 				  <button class="carousel-control-prev shadow-sm " type="button" data-bs-target="#carouselExample2" data-bs-slide="prev">
@@ -273,11 +283,15 @@
 		</div>
 		<div class="row mt-4 px-2">
 				<div class="col" style="cursor: pointer;">
-				<img class="img-fluid rounded-2" alt="" src="${pageContext.request.contextPath}/resources/img/rental/b1.png">
-			</div>
+					<a href="${pageContext.request.contextPath}/rental/mainPage">
+						<img class="img-fluid rounded-2" alt="" src="${pageContext.request.contextPath}/resources/img/rental/b1.png">
+					</a>
+				</div>
 				<div class="col" style="cursor: pointer;">
-				<img class="img-fluid rounded-2" alt="" src="${pageContext.request.contextPath}/resources/img/rental/b2.png">
-			</div>
+					<a href="${pageContext.request.contextPath}/rental/mainPage">
+						<img class="img-fluid rounded-2" alt="" src="${pageContext.request.contextPath}/resources/img/rental/b2.png">
+					</a>
+				</div>
 		</div>
 	</div>
 	

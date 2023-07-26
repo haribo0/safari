@@ -179,29 +179,32 @@
 
 	      	<div class="row">
 	      		<div class="col">
-	      			<p class="revieItemTitle"></p>
+	      			<div class="row border py-2 mx-auto rounded-2" style="width: 99%;">
+						<div class="col-4 my-auto">
+		 					<img class="reviewModalTopImage img-fluid" alt="" src="">
+						</div>
+			      		<div class="col d-flex flex-column justify-content-center">
+			      			<p class="reviewItemTitle mb-1 fs-5 fw-medium"></p>
+							<p class="reviewItemDesc mb-0"></p>
+							<p class="reviewPeriod"></p>
+			      		</div>
+	      			</div>
 	      		</div>
-				<div class="col my-auto">
- 					<img class="reviewModalTopImage img-fluid" alt="" src="">
-				</div>
-				<div class="col">
-					<p class="revieItemDesc"></p>
-				</div>
 	      	</div>
 	      
-	      	<div class="row">
+	      	<div class="row mt-3">
 	      		<div class="col">
 	      			<div class="row">
 	      				<div class="col">
 							<span class="fw-bold">제목</span> 
-							<input type="text" name="rental_review_title" class="form-control"><br />	      				
+							<input type="text" name="rental_review_title" class="form-control mt-1"><br />	      				
 	      				</div>
 	      			</div>
 	      			
 	      			<div class="row">
 	      				<div class="col">
 							<span class="fw-bold">내용</span>  
-							<textarea rows="" cols="" class="form-control" name="rental_review_content"></textarea><br>
+							<textarea rows="" cols="" class="form-control" name="rental_review_content mt-1"></textarea><br>
 	      				</div>
 	      			</div>
 	      			
@@ -371,6 +374,7 @@
 											        data-image-link="${data.product.main_img_link}"
 											        data-product-title="${data.product.title }"
 											        data-produce-desc="${data.product.item_description}"
+											        data-startdate="${data.orderedItem.start_date }" 
 											        data-bs-toggle="modal" 
 											        data-bs-target="#modalReview">
 											        	대여리뷰작성
@@ -404,7 +408,6 @@
 													                	data-startdate="${data.orderedItem.start_date }" 
 													                	data-enddate="${data.orderedItem.end_date}" 
 													                	data-deposit="${data.orderedItem.deposit}" 
-													                	
 													                	>
 													               		 대여반납신청
 													                </button>
@@ -691,6 +694,7 @@ function returnCheck(e) {
 
 }
 
+
 // 리뷰 작성 모달
 if (modalReview) {
 	modalReview.addEventListener('show.bs.modal', event => {
@@ -699,18 +703,19 @@ if (modalReview) {
     const form = modalReview.querySelector('form')
     const ratingGroup = document.querySelector('.rating-group')
     let itemTitle = document.querySelector('.reviewItemTitle')
-    let itemDesc = document.querySelector('.reviewIitemDesc')
-    console.log('타이틀:: ',itemTitle )
-    console.log('설명:: ',itemDesc )
+    let itemDesc = document.querySelector('.reviewItemDesc')
+    let reviewPeriod = document.querySelector('.reviewPeriod')
     let reviewModalTopImage = document.querySelector('.reviewModalTopImage')
+    
     const dataImageLink = button.getAttribute('data-image-link')
     const dataItemTitle = button.getAttribute('data-product-title')
     const dataProduceDesc = button.getAttribute('data-produce-desc')
+    const dataStartdate = button.getAttribute('data-startdate')
     
     reviewModalTopImage.setAttribute('src', '/safariImg/'+dataImageLink)
-/*    	itemTitle.innerText = dataItemTitle
-    itemDesc.innerText = dataProduceDesc */
-    	
+   	itemTitle.innerText = dataItemTitle
+    itemDesc.innerText = dataProduceDesc
+    
     ratingGroup.addEventListener('click', function() {
         let rentalReviewRating = document.querySelector('.ratingVal')
         // Get the star rating group element
