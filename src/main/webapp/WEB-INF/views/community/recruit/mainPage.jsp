@@ -435,6 +435,7 @@
 											    switch (positionCode) {
 											        case 11:
 											            positionName= "사무";
+											            //document.getElementById("positionName_${recruitDto.recruitDto.id}").style.color = "red";
 											            break;
 											        case 12:
 											            positionName= "연구";
@@ -472,14 +473,47 @@
 											        case 42:
 											            positionName= "생산";
 											            break;
-											        
+											             
 											        default:
 											            positionName= "기타";
 											            break;
 											    }
+											     
+											 
+											    switch (Math.floor(positionCode/10)) {
+										        case 1:
+										            document.getElementById("positionName_${recruitDto.recruitDto.id}").style.color = "#0095ff";
+										            document.getElementById("positionName_${recruitDto.recruitDto.id}").style.borderColor = "#0095ff";
+										            break;
+										        
+										        case 2:
+										        	document.getElementById("positionName_${recruitDto.recruitDto.id}").style.color = "#ff9200";
+										        	document.getElementById("positionName_${recruitDto.recruitDto.id}").style.borderColor = "#ff9200";
+										            break;
+										       
+										        
+										        case 3:
+										        	document.getElementById("positionName_${recruitDto.recruitDto.id}").style.color = "#93c400";
+										        	document.getElementById("positionName_${recruitDto.recruitDto.id}").style.borderColor = "#93c400";
+										            break;
+										       
+
+										        case 4:
+										        	document.getElementById("positionName_${recruitDto.recruitDto.id}").style.color = "#7a45e6";
+										        	document.getElementById("positionName_${recruitDto.recruitDto.id}").style.borderColor = "#7a45e6";
+										            break;
+										        
+										             
+										        default:
+										        	document.getElementById("positionName_${recruitDto.recruitDto.id}").style.color = "gray";
+										            break;
+										    }
+											    
+											  
 
 											    // 결과를 화면에 출력
 											    document.getElementById("positionName_${recruitDto.recruitDto.id}").textContent = positionName;
+											    //console.log( document.getElementById("positionName_${recruitDto.recruitDto.id}").textContent);
 												// 끝
 											</script>
 									<%-- 직무 --%>
