@@ -26,18 +26,7 @@
   text-overflow: ellipsis; /* 넘친 텍스트를 "..."으로 표시 */
 } 
 
-	
- .orangeButton {
-background: #ff6f0f;
-font-weight: bold;
-color: white;
-}
 
-.orangeButton:hover{
-   background: #FF812C;
-   font-weight: bold;
-   color: white;
-}
 
 .btn-link {
    display: flex;
@@ -76,15 +65,20 @@ color: white;
       <!-- 게시판 제목 글자 -->
       <div class="row">
       <div class="col">
-     <h4 class="text fw-bold ms-4"> 해주세요 </h4>
+     <h4 class="text fw-bold"> 해주세요 </h4>
       </div>
+      </div>
+      <div class="row mt-5">
+	      <div class="col">
+	     	<h5 class="text fw-bold"> BEST </h5>
+	      </div>
       </div>
 	  <!-- 게시판 제목 글자 -->
 		<%--best helpBoardList forEach  --%>
 		<div class="row">
 			<c:forEach items="${helpBestBoardList}" var="map">
-			    <div class="col-6 mb-4 p-3">
-			    	<div class="card" style="border-top: 3px solid #ff6f0f;">
+			    <div class="col-6 mb-0 p-3">
+			    	<div class="card" style="border-top: 4px solid #ff6f0f;">
 			    	${helpImgDto.help_img_link}
 			    	<div class="card-body">
 				    	<div class="row">
@@ -104,7 +98,7 @@ color: white;
 									</div>						
 				    		</div>
 				    	
-				    	<div class="col-7">
+				    	<div class="col-7 mt-1">
 				    		
 				    		<a class="text-black text-decoration-none" href="/safari/community/help/readContentPage/${map.helpDto.id}">
 				    		<span class = "fw-semibold" style="font-size: 16px; position: relative; top: 1px;">
@@ -125,10 +119,13 @@ color: white;
 				  			</div> 
 					    </div>
 				    	
-				    	<div class="col text-end">
-				    	<i class="bi bi-heart text-danger" style="font-size: 21px;"></i>
-				    	<span style="font-size: 12px; position: relative; bottom: 3px; left: 2px;">${map.helpLikeCount}</span>
-				    	
+				    	<div class="col text-end" style="position: relative;">
+				    		<div style="position: absolute; bottom: 0; right: 10px;">
+				    		<i class="bi bi-heart text-danger" style="font-size: 21px;"></i>
+				    		<span style="font-size: 12px; position: relative; bottom: 5px; left: 1px;">${map.helpLikeCount}</span> &nbsp;
+				    		<i class="bi bi-chat-dots" style="font-size: 21px; position: relative; bottom: 2px;"></i>
+				    		<span style="font-size: 12px; position: relative; bottom: 5px; left: 1px;">${map.helpCommentCount}</span>
+				    		</div>
 				    	</div>
 			  			
 			  		</div>
@@ -139,10 +136,16 @@ color: white;
 				<%--best helpBoardList forEach  --%>
 		
 		
+		<div class="row mt-5">
+	      <div class="col">
+	     	<h5 class="text fw-bold"> 전체 글 </h5>
+	      </div>
+      </div>
+		
 		<%-- helpBoardList forEach  --%>
 		<div class="row">
 		<c:forEach items="${helpBoardList}" var="map">
-	    <div class="col-6 mb-4 p-3">
+	    <div class="col-6 mb-0 p-3">
 	    	<div class="card">
 	    	${helpImgDto.help_img_link}
 	    	<div class="card-body">
@@ -169,7 +172,7 @@ color: white;
 		    		<%-- img --%>
 		    		</div>
 		    	
-		    	<div class="col-7">
+		    	<div class="col-7 mt-1">
 		    		<a class="text-black text-decoration-none" href="/safari/community/help/readContentPage/${map.helpDto.id}">
 		    		<span class = "fw-semibold" style="font-size: 16px; position: relative; top: 1px;">
 		    		${map.helpDto.title}
@@ -188,11 +191,14 @@ color: white;
 		  			</div> 
 			    </div>
 		    	
-		    	<div class="col text-end">
-		    	<i class="bi bi-heart text-danger" style="font-size: 21px;"></i>
-		    	<span style="font-size: 12px; position: relative; bottom: 3px; left: 2px;">${map.helpLikeCount}</span>
-		    	
-		    	</div>
+		    	<div class="col text-end" style="position: relative;">
+		    		<div style="position: absolute; bottom: 0; right: 10px;">
+		    		<i class="bi bi-heart text-danger" style="font-size: 21px;"></i>
+		    		<span style="font-size: 12px; position: relative; bottom: 5px; left: 1px;">${map.helpLikeCount}</span> &nbsp;
+		    		<i class="bi bi-chat-dots" style="font-size: 21px; position: relative; bottom: 2px;"></i>
+		    		<span style="font-size: 12px; position: relative; bottom: 5px; left: 1px;">${map.helpCommentCount}</span>
+		    		</div>
+				</div>
 	  			
 	  		</div>
 	  		</div>
@@ -206,7 +212,7 @@ color: white;
 		
 
 	
-	<div class="row">
+	<div class="row mt-3">
 	<div class="col">
 	<%-- 검색--%>	
 	<form action="./mainPage" method="get">
@@ -219,7 +225,7 @@ color: white;
 							<option value="nickname">작성자</option>
 						</select>				
 					</div>
-					<div class="col-3">
+					<div class="col-6">
 						<input name="help_searchWord" type="text" class="form-control">
 					</div>
 					<div class="col-1 ms-3" style="position:relative; right: 30px;">
@@ -233,22 +239,22 @@ color: white;
 	<%-- 검색--%>	
 	</div>
 	
-	</div>
+	
 	
 	<!-- 글쓰기 버튼 -->	
 						<div class="col text-end" >
 						<div class="d-flex justify-content-end">
-						<a href="./writeContentPage" style="text-decoration: none; display: flex; align-items: center; justify-content: center;">
-							<button  class="btn btn-link orangeButton d-flex align-items-center justify-content-center" >
-								<i class="bi bi-pencil-square fa-icon text-white" style="font-size: 16px; margin-right: 0.7rem; margin-left: 0.3rem;"></i>
-								<span class="ms-1 me-2" style="font-size: 15px; line-height: 1; margin-left: 0.3rem;">글쓰기</span>
+							<button class="btn orangeButton d-flex align-items-center justify-content-center" 
+							onclick="location.href='./writeContentPage'" style="background:#FF6F0F; color:white; font-weight:bold;">
+								글쓰기
 							</button>
-						</a>
+						
+						
 						</div>
 						</div>
 						<!-- 글쓰기 버튼 -->	
 		
-		
+		</div>
 	<style>
 	.pagination .page-link {
     color: black !important;
@@ -256,7 +262,7 @@ color: white;
 	</style>
 	
 	<%-- 페이지 버튼 --%>
-	<div class="row">
+	<div class="row mt-5">
 			<div class="col d-flex align-items-center justify-content-center">
 				<nav aria-label="Page navigation example">
 				  <ul class="pagination mb-0">

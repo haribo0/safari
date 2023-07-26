@@ -279,9 +279,20 @@ public class UsedServiceImpl {
 		usedSqlMapper.deleteProductByProductId(id);
 	}
 	
+	// 거래요청 insert 한다음에 select 하기 
+	public ProductRequestDto insertAndgetProductRequest(ProductRequestDto productRequestDto, Integer userId) {
+		insertProductRequest(productRequestDto);
+		return selectProductRequestByProductIdAndUserId(userId, productRequestDto.getProduct_id());
+	}
+	
 	// 거래 요청 insert
 	public void insertProductRequest(ProductRequestDto productRequestDto) {
 		usedSqlMapper.insertProductRequest(productRequestDto);
+	}
+	
+	// 거래 요청 select
+	public ProductRequestDto selectProductRequestByProductIdAndUserId(Integer userId, Integer productId) {
+		return usedSqlMapper.selectProductRequestByProductIdAndUserId(userId, productId);
 	}
 	
 	// 사용자가 해당 상품을 거래요청했는지 확인 

@@ -11,19 +11,14 @@
 	<jsp:include page="../../common/meta.jsp"></jsp:include>
 	<!-- 메타 섹션 -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+<link rel="stylesheet" href="/safari/resources/style/common.css" type="text/css">
 </head>
 <body>
 	<!-- 헤더 섹션 -->
 	<jsp:include page="../../common/header.jsp"></jsp:include>
 	<!-- 헤더 섹션 -->
 	
-<%-- 	<!-- 커뮤니티 메뉴바 -->
-      <div class="row">
-         <div class="col">
-            <jsp:include page="../communityTopNavi.jsp"></jsp:include>
-         </div>
-      </div>
-      <!-- 커뮤니티 메뉴바 --> --%>
+
 	
 	<div class="row mb-3">
 	
@@ -45,7 +40,7 @@
 		<div class="row">
 			<div class="col mt-5">
 			 	
-			 	  <strong style="font-size: 24px;">글쓰기 페이지<br></strong><hr>
+			 	  <strong style="font-size: 24px;">${sessionUser.nickname}님, 어떤 도움이 필요하세요?<br></strong><hr>
 				  <input type="hidden" name="user_id" value="${sessionUser.id}">
 				  <input type="text" class="form-control" placeholder="제목을 입력해주세요" name="title" maxlength="40" style= "margin-top: 10px;">
 				  <textarea type="text" class="form-control" placeholder="내용을 입력해주세요" name="content" maxlength="3000" style="height:400px; margin-top: 10px;"></textarea>
