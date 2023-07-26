@@ -97,6 +97,7 @@
 			INSERT INTO user_address_table VALUES(
 				user_address_table_seq.nextval,
 				#{user_id},
+				#{addressee},
 				#{address},
 				#{address_name},
 				#{phone}
@@ -124,6 +125,7 @@
 			  user_address_table 
 			  SET 
 			    address = #{address},
+			    addressee = #{addressee},
 			    address_name = #{address_name},
 			    phone = #{phone}
 			 WHERE id = #{id}   

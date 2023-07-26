@@ -135,6 +135,9 @@
 					<div class="col fs-5 fw-bold">
 						482 추천 경매 리스트
 					</div>
+					<div class="col mt-2 text-end fw-semibold" style="font-size: 16px;">
+			 			<a href="/safari/auction/List" class="text-secondary">더보기</a>
+			 		</div>
 				</div>
 				
 				<div class="row mt-3" id="randomAuctionList">
