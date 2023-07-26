@@ -81,7 +81,7 @@
 				<div class="row flex justify-content-between pt-1 pb-3 my-2 mt-1">
 	 				<c:forEach items="${rentalItemList}" var="map" begin="0" end="5" step="1">
 						<div class="col-2 position-relative">
-							<div class="position-absolute px-2" style="top: 8px; right: 20px; background:#f68a42; color: #fff; border-radius: 24px; z-index: 50; font-size: 12px;">
+							<div class="position-absolute px-2" style="top: 8px; right: 14px; background:#B0DDFF; color: #fff; border-radius: 24px; z-index: 50; font-size: 12px;">
 								AD
 							</div>
 							<div class="card border border-0">
@@ -129,9 +129,9 @@
 				<div class="row mt-1 pb-2">
 					<p class="mb-0 mt-3 ps-0 fs-5 fw-bold">금주의 스페셜딜</p>
 				</div>
-				<div class="row">
+				<div class="row mt-2">
  					<div class="col ps-0" style="cursor: pointer;">
-						<img class="img-fluid rounded-2" alt="" src="${pageContext.request.contextPath}/resources/img/rental/b1.png">
+						<img class="img-fluid rounded-2" alt="" src="${pageContext.request.contextPath}/resources/img/rental/b4.png">
 					</div>
  					<div class="col pe-0" style="cursor: pointer;">
 						<img class="img-fluid rounded-2" alt="" src="${pageContext.request.contextPath}/resources/img/rental/b2.png">

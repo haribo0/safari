@@ -268,15 +268,15 @@
 				</div>
 			</div>
 			
-			<div class="row mt-3">
-				<div class="col" style="font-size: 14px;">
+			<div class="row mt-4">
+				<div class="col" style="font-size: 15px;">
 					<div class="my-0 text-secondary">· 아래는 대여한 목록 리스트 입니다.</div>
 					<div class="my-0 text-secondary">· 렌탈 기간동안 고객의 책임 없는 사유로 상품의 고장·훼손 시 무상으로 수리 및 부품 교환을 해 드립니다.</div>
 					<div class="my-0 text-secondary">· 단, 소비자의 귀책으로 인한 경우는 수리비 및 부품 교환 비용을 소비자가 보증금에서 부담해야 합니다.</div>
 				</div>
 			</div>
 			
-			<div class="row mt-3" style="border-top: 1px solid #919191; border-bottom: 1px solid #919191; background: #f7f7f7;">
+			<div class="row mt-4" style="border-top: 1px solid #919191; border-bottom: 1px solid #919191; background: #f7f7f7;">
 				<div class="col-1 text-center">
 					<p class="mb-0 py-3 fw-bold">주문번호</p>
 				</div>
@@ -345,6 +345,13 @@
 									    <c:when test="${data.rentalItemReturnDto.is_item_returned == 'Y'}">
 											<span class="mb-0 fw-bold" style="color: #f68a42">정산중</span>				
 									    </c:when>
+									    <c:when test="${data.orderedItem.is_shipped == 'N'}">
+							                <div class="mb-0 fw-bold" style="color: #f68a42">배송중</div>
+							            </c:when>
+							            
+					            		<c:when test="${data.rentalItemReturnDto.is_item_returned == 'N' && data.isCompleted == 'N' }">
+					            			<div class="mb-0 fw-bold" style="color: #f68a42">회수중</div>
+					            		</c:when>
 									    
 									    
 										<c:otherwise>
@@ -385,12 +392,13 @@
 											    <c:when test="${data.isCompleted != 'Y'}">
 											        <c:choose>
 											            <c:when test="${data.orderedItem.is_shipped == 'N'}">
-											                <div class="p-1" style="font-size:14px;">배송중</div>
+<!-- 											                <div class="p-1" style="font-size:14px;">배송중</div> -->
+											                <div class="p-1" style="font-size:14px;"></div>
 											            </c:when>
 											            
-									            		<c:when test="${data.rentalItemReturnDto.is_item_returned == 'N' && data.isCompleted == 'N' }">
+									            		<%-- <c:when test="${data.rentalItemReturnDto.is_item_returned == 'N' && data.isCompleted == 'N' }">
 									            			<div class=" p-1" style="font-size:14px;">회수중</div>
-									            		</c:when>
+									            		</c:when> --%>
 											            		
 											            <c:otherwise>
 											            	<c:choose>
@@ -411,7 +419,7 @@
 											            		</c:when>
 											            		
 											            		<c:when test="${data.rentalItemReturnDto.is_item_returned == 'Y' && data.isCompleted != 'Y' }">
-											            			<button type="button" class="btn btn-outline-secondary px-2 py-1" style="font-size:13px;" disabled>최종 정산중</button>
+											            			<!-- <div class="" style="font-size:14px;" disabled>최종 정산중</div> -->
 											            		</c:when>
 											            		
 											            		<c:otherwise>
