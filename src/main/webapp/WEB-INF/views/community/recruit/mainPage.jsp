@@ -12,6 +12,8 @@
 <jsp:include page="../../common/meta.jsp"></jsp:include>
 <!-- 메타 섹션 -->
 
+
+
 <style>
     .table tr {
         height: 50px; /* Adjust the height as needed */
@@ -509,8 +511,6 @@
 										            break;
 										    }
 											    
-											  
-
 											    // 결과를 화면에 출력
 											    document.getElementById("positionName_${recruitDto.recruitDto.id}").textContent = positionName;
 											    //console.log( document.getElementById("positionName_${recruitDto.recruitDto.id}").textContent);
