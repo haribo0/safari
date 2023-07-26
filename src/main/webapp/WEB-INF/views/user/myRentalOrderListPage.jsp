@@ -347,11 +347,11 @@
 											    <c:when test="${data.isCompleted != 'Y'}">
 											        <c:choose>
 											            <c:when test="${data.orderedItem.is_shipped == 'N'}">
-											                <div class="p-1" style="font-size:13px;">배송중</div>
+											                <div class="p-1" style="font-size:14px;">배송중</div>
 											            </c:when>
 											            
 									            		<c:when test="${data.rentalItemReturnDto.is_item_returned == 'N' && data.isCompleted == 'N' }">
-									            			<div class=" p-1" style="font-size:13px;">회수중</div>
+									            			<div class=" p-1" style="font-size:14px;">회수중</div>
 									            		</c:when>
 											            		
 											            <c:otherwise>
@@ -366,8 +366,8 @@
 													                	data-startdate="${data.orderedItem.start_date }" 
 													                	data-enddate="${data.orderedItem.end_date}" 
 													                	data-deposit="${data.orderedItem.deposit}" 
-													                	data-bs-toggle="modal" 
-													                	data-bs-target="#modalReturn">
+													                	
+													                	>
 													               		 대여반납신청
 													                </button>
 											            		</c:when>
@@ -510,7 +510,22 @@
 		  return percentageValue
 		  
 		}
-		
+	
+// 반납시 사용기간 계산 퍼센트 처리
+function calcPeriodPercentage(startDate, endDate) {
+	  
+
+    // 90퍼 계산 방법 
+    // (오늘 - 시작일) / (종료일 - 시작일) * 100 
+    // 사용기간 / 약정기간 * 100
+	
+	const currentDate = new Date();
+	const percentage = (currentDate - startDate) / (endDate - startDate) * 100;
+
+	return percentage;
+	  
+}
+	
 	
 // 반납하게되는 날(오늘)
 const setRegDate = () => {
@@ -555,7 +570,7 @@ function returnCheck(e) {
     
     
     
-    returnPercentage = calcEarlyReturn(new Date(formattedStartedDate), new Date(formattedEndDate), new Date(formattedDate))		
+    // returnPercentage = calcEarlyReturn(new Date(formattedStartedDate), new Date(formattedEndDate), new Date(formattedDate))		
     
 	 
 	const returnDesc = document.querySelector(".return_desc")
@@ -607,20 +622,28 @@ function returnCheck(e) {
 
     modalTopImage.setAttribute('src', '/safariImg/'+dataImageLink)
     submitReturn.setAttribute('onclick', 'returnProcess(' + orderId + ',' + refundMoney + ', "'+ productTitle + '")')
+    let days = (endDateObj - startDateObj)
+
     
-    
-    console.log(returnPercentage);
+   /*  console.log(returnPercentage);
     console.log(startDateObj);
     console.log(endDateObj);
     console.log(regiMonth);
     console.log(calcMonth);
+    console.log(startDateObj > currentDate); */
+    
+    returnPercentage =  calcPeriodPercentage(startDateObj,endDateObj);
+    
+    // console.log(returnPercentage);
+    // console.log(startDateObj > currentDate);
     
     
     
-    // 오늘 날짜가 대여 시작일 보다 이전이거나 계약 기간의 90퍼센트 이상인 경우 
-    if(returnPercentage > 90 || startDateObj > currentDate ) {
+    // 오늘 날짜가 대여 시작일 보다 이전이거나 계약 기간의 90퍼센트 이상인 경우 - 추가 정산 XXX
+    if(returnPercentage > 90  || startDateObj > currentDate ) {
     	const returnModal1 = bootstrap.Modal.getOrCreateInstance("#");
     	returnModal1.show();
+    	return;
     	
     } else { // 그 외에는 할인 기간 계산 
     	const returnModal2 = bootstrap.Modal.getOrCreateInstance("#modalReturn");
