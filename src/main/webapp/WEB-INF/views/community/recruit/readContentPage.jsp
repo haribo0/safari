@@ -288,8 +288,63 @@
 										<%-- 직무 --%>
 										<div class="col" style="width: 310px;">
 											<span class="working_condition_item" style="">직무</span> 
-											<span class="text-secondary ms-3"> ${map.recruitDto.position_category_id }</span>
-											<%-- <span class="working_condition_line"></span> --%>
+											<span class="text-secondary ms-3" id="positionName"></span>
+											<script>
+											 // 시작
+											    var positionCode = ${map.recruitDto.position_category_id};
+
+											    // 직무 코드에 따라 직무명 설정
+											    var positionName;
+											    switch (positionCode) {
+											        case 11:
+											            positionName= "사무";
+											            break;
+											        case 12:
+											            positionName= "연구";
+											            break;
+											        case 13:
+											            positionName= "기술";
+											            break;
+											        case 14:
+											            positionName= "영업";
+											            break;
+											        
+											        case 21:
+											            positionName= "서비스";
+											            break;
+											        case 22:
+											            positionName= "예술";
+											            break;
+											        case 23:
+											            positionName= "스포츠";
+											            break;
+											        
+											        case 31:
+											            positionName= "보건";
+											            break;
+											        case 32:
+											            positionName= "교육";
+											            break;
+											        case 33:
+											            positionName= "금융";
+											            break;
+
+											        case 41:
+											            positionName= "물류";
+											            break;
+											        case 42:
+											            positionName= "생산";
+											            break;
+											        
+											        default:
+											            positionName= "기타";
+											            break;
+											    }
+
+											    // 결과를 화면에 출력
+											    document.getElementById("positionName").textContent = positionName;
+												// 끝
+											</script>
 										</div>
 										<div class="col" style="width: 310px;">
 											<span class="working_condition_item" style="">급여</span>
@@ -327,69 +382,82 @@
 											<span class="text-secondary ms-3" id="locationName"></span>
 											<script>
 											// 서버로부터 받은 지역 코드
-										    var locationCode = ${map.recruitDto.location};
+											if (typeof ${map.recruitDto.location} === 'number') {
+												console.log("a"); // 결과 출력
+												
+												 // 시작
+											    var locationCode = ${map.recruitDto.location};
 
-										    // 지역 코드에 따라 지역명 설정
-										    var locationName;
-										    switch (locationCode) {
-										        case 1:
-										            locationName = "서울";
-										            break;
-										        case 2:
-										            locationName = "경기";
-										            break;
-										        case 3:
-										            locationName = "인천";
-										            break;
-										        case 4:
-										            locationName = "강원";
-										            break;
-										        case 5:
-										            locationName = "대전";
-										            break;
-										        case 6:
-										            locationName = "세종";
-										            break;
-										        case 7:
-										            locationName = "충남";
-										            break;
-										        case 8:
-										            locationName = "충북";
-										            break;
-										        case 9:
-										            locationName = "부산";
-										            break;
-										        case 10:
-										            locationName = "울산";
-										            break;
-										        case 11:
-										            locationName = "경남";
-										            break;
-										        case 12:
-										            locationName = "경북";
-										            break;
-										        case 13:
-										            locationName = "대구";
-										            break;
-										        case 14:
-										            locationName = "광주";
-										            break;
-										        case 15:
-										            locationName = "전남";
-										            break;
-										        case 16:
-										            locationName = "전북";
-										            break;
-										        case 17:
-										            locationName = "제주";
-										            break;
-										        default:
-										            locationName = "전국";
-										            break;
-										    }
+											    // 지역 코드에 따라 지역명 설정
+											    var locationName;
+											    switch (locationCode) {
+											        case 1:
+											            locationName = "서울";
+											            break;
+											        case 2:
+											            locationName = "경기";
+											            break;
+											        case 3:
+											            locationName = "인천";
+											            break;
+											        case 4:
+											            locationName = "강원";
+											            break;
+											        case 5:
+											            locationName = "대전";
+											            break;
+											        case 6:
+											            locationName = "세종";
+											            break;
+											        case 7:
+											            locationName = "충남";
+											            break;
+											        case 8:
+											            locationName = "충북";
+											            break;
+											        case 9:
+											            locationName = "부산";
+											            break;
+											        case 10:
+											            locationName = "울산";
+											            break;
+											        case 11:
+											            locationName = "경남";
+											            break;
+											        case 12:
+											            locationName = "경북";
+											            break;
+											        case 13:
+											            locationName = "대구";
+											            break;
+											        case 14:
+											            locationName = "광주";
+											            break;
+											        case 15:
+											            locationName = "전남";
+											            break;
+											        case 16:
+											            locationName = "전북";
+											            break;
+											        case 17:
+											            locationName = "제주";
+											            break;
+											        default:
+											            locationName = "전국";
+											            break;
+											    }
 
-										    // 결과를 화면에 출력
-										    document.getElementById("locationName").textContent = locationName;
+											    // 결과를 화면에 출력
+											    document.getElementById("locationName").textContent = locationName;
+												// 끝
+											} else {
+												console.log("b"); // 결과 출력 
+												
+												//시작
+												var locationName = '${map.recruitDto.location}';
+												document.getElementById("locationName").textContent = locationName;
+												//끝
+											}
 											</script>
 											<%-- 지역 --%>
 										</div>
