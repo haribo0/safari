@@ -246,12 +246,14 @@
 							<div class="col py-2 d-flex justify-content-between">
 								<p>총 금액</p>
 								<p class="fw-bold fs-5"><span class="finPriceP"></span>원</p>
-								<p class="fw-bold fs-5">* 위 금액은 보증금 반납시  </p>
+								
 							</div>
 						</div>
+						
 					</div>
 	      		</div>
 	      		
+	      		<div class="text-secondary" style="font-size: 14px;">* 위 금액은 보증금 반납시 </div>
 	      		<div class="row justify-content-between">
 	      			<div class="col">
 	      				<div class="row justify-content-between">
@@ -599,6 +601,9 @@
 								<div class="col d-flex justify-content-center align-items-center">
 									<div class="row">
 										<div class="col">
+										
+											<button class="btn btn-outline-dark my-2 px-2 py-1" onclick="orderDetail()" style="font-size:13px;">주문 상세</button>	
+											
 											<c:if test="${data.orderState == '대여중'}">
 								                <button type="button" class="btn btn-dark px-2 py-1" style="font-size:13px;" onclick="returnCheck(this)"
 								                	data-image-link="${data.product.main_img_link}" 
@@ -918,9 +923,9 @@ function returnCheck(e) {
     
     // 오늘 날짜가 대여 시작일 보다 이전이거나 계약 기간의 90퍼센트 이상인 경우 - 추가 정산 XXX
     if(returnPercentage > 90  || startDateObj > currentDate ) {
-    	//const returnModal1 = bootstrap.Modal.getOrCreateInstance("#modalConfirm");
-    	const returnModal3 = bootstrap.Modal.getOrCreateInstance("#modalFinSettlement");
-    	returnModal3.show();
+    	const returnModal1 = bootstrap.Modal.getOrCreateInstance("#modalConfirm");
+    	/* const returnModal3 = bootstrap.Modal.getOrCreateInstance("#modalFinSettlement");
+    	returnModal3.show(); */
     	return; 
     	
     } else { // 그 외에는 할인 기간 계산 
@@ -929,6 +934,13 @@ function returnCheck(e) {
     }
     
 
+}
+
+function orderDetail() {
+	
+	const returnModal3 = bootstrap.Modal.getOrCreateInstance("#modalFinSettlement");
+	returnModal3.show();
+	
 }
 
 
