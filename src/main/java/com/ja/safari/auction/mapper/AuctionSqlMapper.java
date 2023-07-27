@@ -78,6 +78,9 @@ public interface AuctionSqlMapper {
 	//  경매 메인페이지에서 소규모 카테고리 클릭 시 그에 해당하는 경매 리스트 조회
 	public List<AuctionItemDto> getAuctionListBySubCategory(int id);
 	
+	// 검색
+	public List<AuctionItemDto> searchAuction(@Param("searchWord") String searchWord);
+	
 	// 경매 물품 상세페이지
 	public AuctionItemDto getAuctionProductDetail(int id);
 	

@@ -175,6 +175,22 @@
 			</if>
 			ORDER BY end_date
 	</select>
+	
+	<!-- 검색 -->
+	<select id="searchAuction" resultType="com.ja.safari.dto.AuctionItemDto">
+		SELECT * 
+		  FROM auction_item
+		  <if test="searchWord != null">
+		  		WHERE lower(title) LIKE '%' || lower(#{searchWord}) || '%'
+		  </if>
+		  	ORDER BY 
+				CASE auction_status 
+			        WHEN '진행중' THEN 1 
+			        WHEN '준비중' THEN 2 
+			        WHEN '종료' THEN 3 
+			    END,
+			    end_date
+	</select>
 
 
 	<!--  경매 물품 상세페이지  -->

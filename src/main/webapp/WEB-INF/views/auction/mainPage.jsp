@@ -97,7 +97,7 @@
 			 			<a href="/safari/auction/List" class="text-secondary">더보기</a>
 			 		</div>
 			 	</div>
-			 	
+			 
 			 	<div class="row mt-3" id="deadlineList">
 					
 				</div>
