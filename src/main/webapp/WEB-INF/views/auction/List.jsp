@@ -1067,6 +1067,7 @@ window.addEventListener("DOMContentLoaded", function(){
 					<div class="col d-flex justify-content-end text-end">
 						<ul>
 							<li style="float:left;" class="pe-3 fw-bold">마감임박순</li>
+							<li style="float:left;" class="pe-3">입찰순</li>
 							<li style="float:left;" class="pe-3">추천순</li>
 							<li style="float:left;">최신순</li>
 						</ul>

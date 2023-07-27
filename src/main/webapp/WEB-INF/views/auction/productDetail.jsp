@@ -156,6 +156,9 @@ input[id="tab03"]:checked ~ .con3 {
 .btn_auctionReady{padding:4px 12px; background: #e6edfe; border:none; color: #789efd; border-radius:8px; font-size: 14px; font-weight: bold; pointer-events: none; }
 .btn_auctionIng{padding:4px 12px; background: #dff5ea; border:none; color: #6db590; border-radius:8px; font-size: 14px; font-weight: bold; pointer-events: none; }
 
+.btn_delivered{padding:4px 12px; background: #e9ecef; border:none; color: black; border-radius:8px; font-size: 14px; pointer-events: none;}
+.btn_canceled{padding:4px 12px; background: #e6edfe; border:none; color: #789efd; border-radius:8px; font-size: 14px; pointer-events: none;}
+.btn_ordered{padding:4px 12px; background: #dff5ea; border:none; color: #6db590; border-radius:8px; font-size: 14px; pointer-events: none;}
 </style>
 </head>
 <body>

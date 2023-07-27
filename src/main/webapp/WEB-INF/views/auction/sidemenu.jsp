@@ -40,7 +40,7 @@
     <div class="modal-content">
       <div class="modal-header bg-light">
       		<div class="row">
-      			<div class="col fw-semibold" style="font-size: 18px">
+      			<div class="col ms-2 fw-semibold" style="font-size: 18px">
       				경매 이용안내
       			</div>
       		</div>
