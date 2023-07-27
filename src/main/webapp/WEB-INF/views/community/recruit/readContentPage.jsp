@@ -483,7 +483,7 @@
 								</div>
 								
 								<div class="row">
-								<div class="col ms-2 me-2">
+								<div class="col ms-2 me-2 mt-3">
 								${map.recruitDto.content }<br>
 								</div>
 								</div>
