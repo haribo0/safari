@@ -80,7 +80,7 @@
 						</div>
 					</div>
 					
-					<div class="row mt-2">
+					<div class="row mt-3">
 						<div class="col">
 							<table class="table align-middle">
 								<thead class="table-light">
@@ -729,6 +729,52 @@
 
 
 
+<%-- 낙찰자 정보 Modal --%>
+<div class="modal" id="bidderInfoModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered"> 
+    <div class="modal-content">
+      <div class="modal-header bg-light">
+      	
+      		<h5 class="fw-bold ms-1">낙찰자 정보</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div> 
+      <div class="modal-body">
+      	
+      	<div class="row mb-2">
+    		<div class="col-10 ms-3">
+    		
+    			<div class="row">
+    				<div class="col">닉네임</div>
+    				<div class="col text-end">${binnerInfo.nickname}</div>
+    				
+    			</div>
+ 				<div class="row">
+    				<div class="col">이메일</div>
+    				<div class="col text-end">${bidderInfo.email}</div>
+    			</div>
+ 				<div class="row">
+    				<div class="col">전화번호</div>
+    				<div class="col text-end">${bidderInfo.phone}</div>
+    				
+    			</div>    			    			
+    			
+    		
+    		</div>
+       </div>
+  
+      </div>
+      
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">창닫기</button>
+      </div>      
+   
+    </div>
+  </div>
+</div>
+<%-- 낙찰자 정보 Modal --%>
+
+
+
 <script>
 
 // 배송보낼 pk
@@ -756,6 +802,15 @@ function formatTime(timestamp) {
 	  const formattedDate = year + '-' + month + '-' + day + "\u00a0\u00a0" + period + ' ' + hours + ':' + minutes;
 	  return formattedDate;
 	}
+
+// 낙찰자 정보 모달 (나중에 해야함 @@@@@@@@@@@@@@@@)
+function bidderInfoModal() {
+	
+	const bidderInfoModal = bootstrap.Modal.getOrCreateInstance("#bidderInfoModal");
+	bidderInfoModal.show();
+}
+
+
 
 // 배송 시작 물어보는 모달
 function startDeliveryModal(id) {
