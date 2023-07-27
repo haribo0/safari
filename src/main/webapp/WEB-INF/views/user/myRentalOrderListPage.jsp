@@ -594,7 +594,7 @@
 								</div>
 								
 																						
-								<div class="col d-flex justify-content-center align-items-center">
+								<div class="col d-flex justify-content-center align-items-center" style="font-size: 15px;">
 									${data.orderState}
 								</div>
 								
