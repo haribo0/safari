@@ -484,7 +484,7 @@ window.addEventListener("DOMContentLoaded", function(){
 						<%--ajax 좋아요 연습 --%>
 						<i id="heartHelpBox" onclick="toggleHelpLike()"
 							class="fs-5 text-danger bi bi-heart"></i>&nbsp;<span
-							id="totalHelpLikeCount"></span>
+							id="totalHelpLikeCount" style="font-size: 14px;"></span>
 						<%--ajax 좋아요 연습 --%>
 
 

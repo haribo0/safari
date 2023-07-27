@@ -31,7 +31,10 @@
    justify-content: center;
  }
  
- 
+  .hr-container {
+    text-align: center;
+    margin: 0 45%;
+  }
 
 </style>
 
@@ -58,12 +61,11 @@
       <!-- 커뮤니티 메뉴바 --> 
       
       <!-- 게시판 제목 글자 -->
-      <div class="row">
-      <div class="col">
-     <h4 class="text fw-bold"> 해주세요 </h4>
-      </div>
-      </div>
-      <div class="row mt-5">
+     <div class="hr-container mt-4">
+  		<h4 class="text fw-bold text-center">해주세요</h4>
+  		<hr>
+	</div>
+      <div class="row mt-4">
 	      <div class="col">
 	     	<h5 class="text fw-bold"> BEST </h5>
 	      </div>

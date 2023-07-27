@@ -280,7 +280,7 @@
 										[${map.questionDto.points }p]
 									</div>
 									<div class = "col p-0 mx-1" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
-										<a href="/safari/community/question/readContentPage/${map.recruitDto.id}" style="text-decoration: none; color: inherit;">
+										<a href="/safari/community/question/questionReadContentPage/${map.questionDto.id}" style="text-decoration: none; color: inherit;">
 											${map.questionDto.title }
 										</a>
 									</div>
