@@ -158,22 +158,6 @@
 									</div>
 								</div>
 							
-<%-- 							  	<div class="d-flex justify-content-between">
-							    	<p class="text-dark mb-0"><a href="${pageContext.request.contextPath}/rental/productDescPage?id=${map.rentalItemDto.id}" class="text-decoration-none d-inline-block text-dark fw-bold" style="font-size: 15px;">${map.rentalItemDto.title}</a></p>
-							  	</div>
-							    <p class="mb-0"><a href="${pageContext.request.contextPath}/rental/productDescPage?id=${map.rentalItemDto.id}" class="w-100 text-decoration-none d-inline-block text-body-secondary" style="overflow:hidden; text-overflow:ellipsis; white-space:nowrap; font-size: 14px;">${map.rentalItemDto.item_description}</a></p>
-							    <div class="d-flex justify-content-between">
-								    <p class="mb-0"><b class="text-dark"><a href="${pageContext.request.contextPath}/rental/productDescPage?id=${map.rentalItemDto.id}" class="text-decoration-none d-inline-block text-dark" style="font-size: 15px;"><fmt:formatNumber value="${map.rentalItemDto.price}" pattern="#,##0" /> 원 </a></b><span style="font-size: 13px;">/ 월</span></p>
-							    </div>
-							    <div>
-							  		<p class="mb-0">
-							  			<!-- <span style="font-size: 12px;">좋아요</span> -->
-							  			<i class="bi bi-heart"></i>
-							  			<span  onclick="toggleLike(${map.rentalItemDto.id})" class="fw-bold totalLikeCount" style="font-size: 12px;"></span>
-							  			<i id="heartBox" onclick="toggleLike(${map.rentalItemDto.id})" class="bi bi-heart heart_box text-danger" data-item-id="${map.rentalItemDto.id}" style="font-size: 18px;"></i>
-							  		</p>							    
-							    </div> --%>
-							    
 							  </div>
 							 </div>
 						</div>
@@ -198,7 +182,7 @@
 				</div>
 				
 				
-				<div class="row justify-content-between mt-5 pb-2">
+				<div class="row justify-content-between mt-4 pb-2">
 					<div class="col px-0">
 						<p class="mb-0 mt-3 ps-0 fs-5 fw-bold">카테고리</p>
 					</div>
