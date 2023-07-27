@@ -192,7 +192,10 @@
 							<div class = "col mx-2">
 							<c:forEach items="${newPostByHelpList}" var="map" varStatus="status" begin="0" end="4">  
 								<div class = "row mt-1 py-1">
-									<div class = "col" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+									<div class = "col-auto d-flex align-items-center" style = "font-size:13px; color: #387538; ">
+										[${map.helpDto.points }p]
+									</div>
+									<div class = "col p-0 mx-1" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
 										<a href="/safari/community/help/readContentPage/${map.helpDto.id}" style="text-decoration: none; color: inherit;">
 											${map.helpDto.title }
 										</a>
@@ -273,7 +276,10 @@
 						<div class = "col mx-2">
 							<c:forEach items="${newPostByQuestionList}" var="map" varStatus="status" begin="0" end="4">  
 								<div class = "row mt-1 py-1">
-									<div class = "col" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+									<div class = "col-auto d-flex align-items-center" style = "font-size:13px; color: #387538; ">
+										[${map.questionDto.points }p]
+									</div>
+									<div class = "col p-0 mx-1" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
 										<a href="/safari/community/question/readContentPage/${map.recruitDto.id}" style="text-decoration: none; color: inherit;">
 											${map.questionDto.title }
 										</a>
@@ -305,7 +311,10 @@
 						<div class = "col mx-2">
 							<c:forEach items="${newPostByRecruitList}" var="map" varStatus="status" begin="0" end="4">  
 								<div class = "row mt-1 py-1">
-									<div class = "col" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+									<div class = "col-auto d-flex align-items-center" style = "font-size:13px; color: #387538; ">
+										[${map.recruitDto.location }]
+									</div>
+									<div class = "col p-0 mx-1" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
 										<a href="/safari/community/recruit/readContentPage/${map.recruitDto.id}" style="text-decoration: none; color: inherit;">
 											${map.recruitDto.title }
 										</a>
