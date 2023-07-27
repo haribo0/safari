@@ -438,7 +438,7 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header position-relative px-3" style="padding: 10px 0px; height: 55px;">
-       	<h5 class="modal-title ms-1 position-absolute top-50 start-50 translate-middle" style="font-weight: 600 ;">끌어올리기</h5>
+       	<h5 class="modal-title ms-1 position-absolute top-50 start-50 translate-middle" style="font-weight: 500 ;">끌어올리기</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
      <div class="modal-body ms-2" style="height: 240px">
@@ -477,7 +477,7 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header position-relative px-3" style="padding: 10px 0px; height: 55px;">
-       	<h5 class="modal-title ms-1 position-absolute top-50 start-50 translate-middle" style="font-weight: 600 ;">끌어올리기</h5>
+       	<h5 class="modal-title ms-1 position-absolute top-50 start-50 translate-middle" style="font-weight: 500 ;">끌어올리기</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-header" style="background: #d3d3d336;">
