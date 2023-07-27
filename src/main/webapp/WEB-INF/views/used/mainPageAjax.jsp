@@ -67,10 +67,10 @@
 				<div id="carouselExample" class="carousel slide">
 				  <div class="carousel-inner">
 				    <div class="carousel-item active">
-				      <img src="/safari/resources/img/used/bannerTop.jpeg" class="d-block" height="466px" width="100%" alt="...">
+				      <img src="/safari/resources/img/used/bannerTop.jpeg" class="d-block img-fluid" alt="...">
 				    </div>
 				    <div class="carousel-item">
-				      <img src="/safari/resources/img/used/listBanner.jpeg" class="d-block" height="466px" width="100%" alt="...">
+				      <img src="/safari/resources/img/used/listBanner.jpeg" class="d-block img-fluid" alt="...">
 				    </div>
 				  </div>
 				  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">

@@ -433,7 +433,7 @@
 </div>
 <!-- 상대방 리뷰 모달 -->
 
-<!-- 끌올 모달(시간 충족) -->
+<!-- 끌올 모달(시간 충족X) -->
 <div class="modal" id="updateRegDate3" tabindex="-1" >
   <div class="modal-dialog">
     <div class="modal-content">
@@ -472,7 +472,7 @@
 </div>
 <!-- 끌올 모달 -->
 
-<!-- 끌올 모달(시간 충족 안됨) -->
+<!-- 끌올 모달(시간 충족) -->
 <div class="modal" id="updateRegDate2" tabindex="-1" >
   <div class="modal-dialog">
     <div class="modal-content">

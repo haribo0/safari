@@ -1502,11 +1502,11 @@ function reloadChatRoomList() {
   			  row.setAttribute("onclick", "modalOn("+data.productRequestDto.id + "," + data.userDto.id + "," + "'" + data.userDto.nickname + "'" + ")");
 
   			  const col1 = document.createElement('div');
-  			  col1.className = 'col-auto ms-4 pe-0';
+  			  col1.className = 'col-auto ms-3 pe-1 me-1';
   			  const col1Img = document.createElement('img');
   			  col1Img.className = 'rounded-circle';
-  		      col1Img.width = '35';
-			  col1Img.height = '35';
+  		      col1Img.width = '45';
+			  col1Img.height = '45';
   			  // 프로필 사진 없을 때 
   			  console.log(data.userDto.profile_img_link == null)
   			  if(data.userDto.profile_img_link == null){
@@ -1867,7 +1867,7 @@ function getProductInformation(requestId) {
     				const row2col4 = document.createElement('div');
     	            row2col4.classList.add('col', 'text-end', 'my-auto');
     	            
-    	            rrow2col4.innerHTML = '<img src="/safari/resources/img/used/coin2.png" width="26" height="28"><span style="color:" #919191cc;font-size:="" 16px;"="" class="fw-semibold"> 1,200</span><span style="color:gray;font-size:14px;"> 코인</span>';
+    	            row2col4.innerHTML = '<img src="/safari/resources/img/used/coin2.png" width="26" height="28"><span style="color:" #919191cc;font-size:="" 16px;"="" class="fw-semibold"> 1,200</span><span style="color:gray;font-size:14px;"> 코인</span>';
     	         
     	            row2.appendChild(row2col1);
     	            row2.appendChild(row2col2);
