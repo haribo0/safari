@@ -133,7 +133,7 @@
 						</div>
 						<div class="row mt-3 border-top">
 							<div class="col py-2 d-flex justify-content-between">
-								<p>총계</p>
+								<p>총 금액</p>
 								<p class="fw-bold fs-5"><span class="finPriceP"></span>원</p>
 							</div>
 						</div>
@@ -461,7 +461,13 @@
 										</div>
 										<div class="col my-auto pe-5">
 										<a href="${pageContext.request.contextPath}/rental/productDescPage?id=${data.product.id}">
-											<div class="mb-0 my-auto"><small>${data.rentalBusinessDto.business_name}</small><span class="ms-2 mb-0 fw-bold d-inline-block" style="color: #f68a42; border:1px solid #f68a42; padding:1px 8px; font-size: 11px; border-radius: 12px;">대여중</span></div>
+											<div class="mb-0 my-auto"><small>${data.rentalBusinessDto.business_name}</small>
+											
+											<c:if test="${data.orderState == '대여중'}">
+												<span class="ms-2 mb-0 fw-bold d-inline-block" style="color: #f68a42; border:1px solid #f68a42; padding:1px 8px; font-size: 11px; border-radius: 12px;">대여중</span>
+											</c:if>
+											
+											</div>
 											<div class="mb-2 fs-5 fw-medium" >${data.product.title }</div>
 											<div class="mb-0 " style="font-size: 15px;">대여기간 <fmt:formatDate pattern="yyyy-MM-dd" value="${data.orderedItem.start_date }" /> - <fmt:formatDate pattern="yyyy-MM-dd" value="${data.orderedItem.end_date }" /></div>	
 										</a>
@@ -481,56 +487,28 @@
 								<div class="col d-flex justify-content-center align-items-center">
 									<div class="row">
 										<div class="col">
-											<c:choose>
-											    <c:when test="${data.isCompleted == 'Y' && data.myReviewCount == 0}">
-											        <button type="button" class="btn btn-dark my-2 px-2 py-1" style="font-size:13px;" data-order-id="${data.orderedItem.id}" data-bs-toggle="modal" data-bs-target="#modalReview">리뷰작성</button>																				
-											    </c:when>
-											    <c:when test="${data.isCompleted == 'Y' && data.myReviewCount >= 1}">
-											        <button class="btn btn-outline-dark my-2 px-2 py-1" onclick="placeReviewDate(${data.orderedItem.id})" style="font-size:13px;">내가 쓴 리뷰</button>																				
-											    </c:when>
-											    
-											    
-											    
-											    <c:when test="${data.isCompleted != 'Y'}">
-											        <c:choose>
-											            <c:when test="${data.orderedItem.is_shipped == 'N'}">
-											                <!-- <div class="p-1" style="font-size:14px;">배송중</div> -->
-											            </c:when>
-											            
-									            		<c:when test="${data.rentalItemReturnDto.is_item_returned == 'N' && data.isCompleted == 'N' }">
-									            			<div class=" p-1" style="font-size:14px;">회수중</div>
-									            		</c:when>
-											            		
-											            <c:otherwise>
-											            	<c:choose>
-											            		<c:when test="${data.rentalItemReturnDto.is_item_returned != 'Y'}">
-													                <button type="button" class="btn btn-dark px-2 py-1" style="font-size:13px;" onclick="returnCheck(this)"
-													                	data-image-link="${data.product.main_img_link}" 
-													                	data-product-title="${data.product.title}" 
-													                	data-product-desc="${data.product.item_description}"
-													                	data-order-id="${data.orderedItem.id}" 
-													                	data-original-price="${data.orderedItem.original_price}" 
-													                	data-rego-price="${data.orderedItem.price}" 
-													                	data-startdate="${data.orderedItem.start_date }" 
-													                	data-enddate="${data.orderedItem.end_date}" 
-													                	data-deposit="${data.orderedItem.deposit}" 
-													                	>
-													               		 반납신청
-													                </button>
-											            		</c:when>
-											            		
-											            		<c:when test="${data.rentalItemReturnDto.is_item_returned == 'Y' && data.isCompleted != 'Y' }">
-											            			<button type="button" class="btn btn-outline-secondary px-2 py-1" style="font-size:13px;" disabled>최종 정산중</button>
-											            		</c:when>
-											            		
-											            		<c:otherwise>
-											            			<div class=" p-1" style="font-size:13px;">배송전</div>
-											            		</c:otherwise>
-											            	</c:choose>
-											            </c:otherwise>
-											        </c:choose>
-											    </c:when>
-											</c:choose>
+											<c:if test="${data.orderState == '대여중'}">
+								                <button type="button" class="btn btn-dark px-2 py-1" style="font-size:13px;" onclick="returnCheck(this)"
+								                	data-image-link="${data.product.main_img_link}" 
+								                	data-product-title="${data.product.title}" 
+								                	data-product-desc="${data.product.item_description}"
+								                	data-order-id="${data.orderedItem.id}" 
+								                	data-original-price="${data.orderedItem.original_price}" 
+								                	data-rego-price="${data.orderedItem.price}" 
+								                	data-startdate="${data.orderedItem.start_date }" 
+								                	data-enddate="${data.orderedItem.end_date}" 
+								                	data-deposit="${data.orderedItem.deposit}" 
+								                	>
+								               		 반납신청
+								                </button>
+						            		</c:if>
+											<c:if test="${data.orderState == '반납완료'  && data.myReviewCount == 0}">
+								            	<button type="button" class="btn btn-dark my-2 px-2 py-1" style="font-size:13px;" data-order-id="${data.orderedItem.id}" data-bs-toggle="modal" data-bs-target="#modalReview">리뷰작성</button>																				
+						            		</c:if>
+											<c:if test="${data.isCompleted == 'Y' && data.myReviewCount >= 1}">
+											    <button class="btn btn-outline-dark my-2 px-2 py-1" onclick="placeReviewDate(${data.orderedItem.id})" style="font-size:13px;">내가 쓴 리뷰</button>																				
+						            		</c:if>
+										
 										</div>
 									</div>
 								</div>	
@@ -561,8 +539,9 @@
 	      </div>
 	     
 	  </div>
-	   <div class="modal-footer bg-light">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">창닫기</button>
+	  
+	   <div class="modal-footer bg-light" style="padding: 10px 10px;">
+        <button type="button" class="btn btn-dark" data-bs-dismiss="modal">창닫기</button>
       </div> 
   </div>
 </div>

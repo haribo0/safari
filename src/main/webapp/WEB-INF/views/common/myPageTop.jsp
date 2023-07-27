@@ -22,7 +22,7 @@
 			<div class="col-4 d-flex flex-column justify-content-center align-items-center coin-box">
 				<p class="mb-0"><i class="bi bi-coin"></i></p>
 				<p class="mb-0">보유 코인 </p>
-				<p class="fw-bold mb-0 fs-4" id="userCoinBalance"></p> 
+				<p class="fw-bold mb-0 fs-4" id="userCoinBalance"> </p> 
 			</div>
 		</div>
 	</div>

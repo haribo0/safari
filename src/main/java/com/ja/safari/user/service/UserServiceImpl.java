@@ -163,12 +163,12 @@ public class UserServiceImpl {
 			String orderState = "";
 			
 			if (rentalItemReturnDto!=null) {
-				if(rentalItemReturnDto.getIs_completed()=="Y") {
+				if(rentalItemReturnDto.getIs_completed().equals("Y")) {
 					orderState = "반납완료";
 				} else if (rentalItemReturnDto.getIs_item_returned().equals("Y")) {
 					orderState = "정산중";
 				} else {
-					orderState = "반납신청";
+					orderState = "반납중";
 				}
 			} else {
 				// 시작일 이후면
@@ -177,8 +177,6 @@ public class UserServiceImpl {
 				// 다 아니면 
 				else orderState = "주문완료";
 			}
-			
-			
 			
 			
 			map.put("myReviewCount", myReviewCount);
