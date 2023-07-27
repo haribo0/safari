@@ -327,10 +327,10 @@
 		      	
 		      </div>
 		      
-		      <div class="modal-footer flex-column justify-content-start">
+		      <div class="modal-footer flex-column justify-content-start pb-3">
 		      	<div class="row">
 		      		<div class="col px-0">
-		        		<small class="text-secondary">일주일 내 대여 제품을 택배로 보내주시면 감사하겠습니다.</small>
+		        		<small class="text-secondary">일주일 내 대여제품을 택배로 보내주시면 감사하겠습니다.</small>
 		      		</div>
 		      	</div>
 		      
@@ -846,7 +846,29 @@ function getMonthDiffer(startMonth, endMonth) {
 }
 
 
+/* 조건반납 */
+function returnProcessSingle(orderId) {
+	const xhr = new XMLHttpRequest()
+	xhr.onreadystatechange = function() {
+		if(xhr.readyState == 4 && xhr.status == 200){
+			const response = JSON.parse(xhr.responseText);
+			if(response.result == "success"){
+				mySessionId = response.id; 
+				
+				location.href = '/safari/user/myOrderListPage'
+				 
+			}
+			
+		}
+	}
+	
+	xhr.open("get", "../rental/rentalReturnProcessSingle?rental_order_id="+orderId);
+	xhr.send();	
+}
 
+
+
+/* 일반 반납 */
 function returnProcess(orderId,refundMoney,productTitle) {
 /* 	console.log('리턴프로세스 매개변수 orderId:: ',orderId )
 	console.log('리턴프로세스 매개변수 refundMoney:: ',refundMoney )
