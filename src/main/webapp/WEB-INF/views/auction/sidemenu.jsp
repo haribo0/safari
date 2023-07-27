@@ -11,12 +11,15 @@
 	<%-- 사이드 메뉴바시작 --%>	
 	<div class="col mb-5" >
 		
-		<div class="row mt-4 mb-2">
-			<div class="col"></div>
+		<div class="row mt-2" style="position: relative; top: 5px">
+			<div class="col" onclick="auctionModal()" style="cursor: pointer; font-size: 18px;">
+				<i class="bi bi-exclamation-circle"></i> <span class="ms-1">경매 이용안내</span>
+			</div>
 		</div>
 	
 		<div class="row sticky">
 			<div class="col">
+				
 				<div class="row mt-5 fs-4 fw-bold">
 					<div class="col">
 						<a href="/safari/auction/List">전체보기</a>
@@ -30,7 +33,54 @@
 		</div>
 	</div>
 	<%-- 사이드 메뉴바 끝 --%>
+
+<%-- Modal --%>
+<div class="modal" id="auctionModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-centered"> 
+    <div class="modal-content">
+      <div class="modal-header bg-light">
+      		<div class="row">
+      			<div class="col fw-semibold" style="font-size: 18px">
+      				경매 이용안내
+      			</div>
+      		</div>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div> 
+      <div class="modal-body">
+      	
+      	<div class="row mt-2">
+      		<div class="col">
+      		
+      		
+      		
+      		
+      		</div>
+      	</div>
+      </div>
+      
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">창닫기</button>
+      </div>      
+   
+    </div>
+  </div>
+</div>
+<%-- Modal --%>
+	
+	
+	
+	
 <script>
+
+// 이용안내 모달 화면 열기
+function auctionModal() {
+	
+    const auctionModal = bootstrap.Modal.getOrCreateInstance("#auctionModal");
+    auctionModal.show();
+}
+
+
+
 
 let mainCategoryId = null;
 let subCategoryId = null;

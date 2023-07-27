@@ -958,9 +958,9 @@ window.addEventListener("DOMContentLoaded", function(){
 	<!-- 헤더 섹션 -->
 
 	<div class="container main_box">
-		<h1 class="text-center fs-3">
+		<!-- <h1 class="text-center fs-3">
 			<img class="img-fluid" src="/safari/resources/img/auction/auctionBanner.jpg">
-		</h1>
+		</h1> -->
 		
 	<!-- <div class="row mt-2">
 		<div class="col">
