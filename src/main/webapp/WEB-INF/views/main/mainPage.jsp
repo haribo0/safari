@@ -72,39 +72,186 @@
 	</div>
 
 	<div class="container mt-5 pt-5 pb-3">
-		<div class="row justify-content-between">
-			<div class="col d-flex justify-content-center">
-				<div class="card w-100">
-				  <div class="card-body">
-				    <p class="card-text fw-bold">중고</p>
-				    <p class="card-text">채팅 기반으로 편리한 중고 거래</p>
-				  </div>
+		
+		<div class="row">
+			<%-- 중고 경매 --%>
+			<div class="col">
+			
+				<div class="row"><!-- #fff3d1;  -->
+					<div class="col p-3 rounded-3  bg-light"> <!-- style="background-color:#fff9ea"> -->
+						
+						<div class="row">
+							<div class="col ms-2">
+								<div class="row">
+									<div class="col fw-semibold fs-4">
+										<a href="/safari/used/mainPage">중고</a>
+									</div>
+								</div>
+								
+								<div class="row mt-2">
+									<div class="col">
+									
+										<div class="row">
+											<div class="col">
+												사용자들과 <span style="color: #ff6f0f;">채팅</span> 기반으로 편리한 중고 거래 서비스를
+											</div>
+										</div>
+										<div class="row">
+											<div class="col">
+												이용하세요!
+											</div>
+										</div>
+									</div>
+								</div>
+								
+								<div class="row mt-3">
+									<div class="col-3 ms-2 bg-white rounded-5 p-2 text-center">
+										<a href="/safari/used/mainPage">자세히 보기 <span class="ms-2">→</span></a>
+									</div>
+								</div>
+							
+							</div>
+						</div>
+						
+						
+					</div>
 				</div>
+				
+				<div class="row mt-4"> <!--  -->
+					<div class="col p-3 rounded-3 bg-light"><!--  style="background:#fcf4f4" --> 
+						
+						
+						<div class="row">
+							<div class="col ms-2">
+								<div class="row">
+									<div class="col fw-semibold fs-4">
+										<a href="/safari/auction/mainPage">경매</a>
+									</div>
+								</div>
+								
+								<div class="row mt-2">
+									<div class="col">
+									
+										<div class="row">
+											<div class="col">
+												<span class="text-danger">실시간 경매 시스템</span>을 이용하여 평소에 갖고 싶었던 물건을
+											</div>
+										</div>
+										<div class="row">
+											<div class="col">
+												얻어가세요!
+											</div>
+										</div>
+									</div>
+								</div>
+								
+								<div class="row mt-3">
+									<div class="col-3 ms-2 bg-white rounded-5 p-2 text-center">
+										<a href="/safari/auction/mainPage">자세히 보기 <span class="ms-2">→</span></a>
+									</div>
+								</div>
+							
+							</div>
+						</div>
+						
+						
+					</div>
+				</div>				
+			
+			
+			
+			
 			</div>
-			<div class="col d-flex justify-content-center">
-				<div class="card w-100">
-				  <div class="card-body">
-				    <p class="card-text fw-bold">대여</p>
-				    <p class="card-text">부담스럽지 않은 합리적 가격 대여</p>
-				  </div>
+			<div class="col-1"></div>
+			<%-- 대여 커뮤니티 --%>
+			<div class="col me-2">
+			
+			
+				<div class="row"><!-- #e7f0f9;  -->
+					<div class="col p-3 rounded-3  bg-light">    <!-- style="background-color:#f0f6fb "> -->
+						
+						<div class="row">
+							<div class="col ms-2">
+								<div class="row">
+									<div class="col fw-semibold fs-4">
+										<a href="/safari/rental/mainPage">대여</a>
+									</div>
+								</div>
+								
+								<div class="row mt-2">
+									<div class="col">
+									
+										<div class="row">
+											<div class="col">
+												부담스럽지 않은 <span class="text-primary">합리적 가격 대여 시스템</span>을 이용하여
+											</div>
+										</div>
+										<div class="row">
+											<div class="col">
+												값비싼 물건 손 쉽게 이용하세요!
+											</div>
+										</div>
+									</div>
+								</div>	
+								
+								<div class="row mt-3">
+									<div class="col-3 ms-2 bg-white rounded-5 p-2 text-center">
+										<a href="/safari/rental/mainPage">자세히 보기 <span class="ms-2">→</span></a>
+									</div>
+								</div>							
+							
+							</div>
+						</div>
+						
+						
+					</div>
 				</div>
-			</div>
-			<div class="col d-flex justify-content-center">
-				<div class="card w-100">
-				  <div class="card-body">
-				    <p class="card-text fw-bold">경매</p>
-				    <p class="card-text">실시간 시스템도입의 경매</p>
-				  </div>
+			
+			
+				<div class="row mt-4"> <!--   -->
+					<div class="col p-3 rounded-3  bg-light"> <!-- style="background-color: #e9fae5;"> -->
+						
+						<div class="row">
+							<div class="col ms-2">
+								<div class="row">
+									<div class="col fw-semibold fs-4">
+										<a href="/safari/community/mainPage">커뮤니티</a>
+									</div>
+								</div>
+							
+							</div>
+						</div>
+						
+						
+						<div class="row mt-2">
+							<div class="col ms-2">
+							
+								<div class="row">
+									<div class="col">
+										즐겁게 이야기를 나누고 각종 정보를 공유해보아요!
+									</div>
+								</div>
+								<div class="row">
+									<div class="col">
+										
+									</div>
+								</div>
+							</div>
+						</div>	
+						
+						<div class="row mt-3">
+							<div class="col-3 ms-3 bg-white rounded-5 p-2 text-center">
+								<a href="/safari/community/mainPage">자세히 보기 <span class="ms-2">→</span></a>
+							</div>
+						</div>	
+						
+						
+					</div>
 				</div>
+			
+			
 			</div>
-			<div class="col d-flex justify-content-center">
-				<div class="card w-100">
-				  <div class="card-body">
-				    <p class="card-text fw-bold">커뮤니티</p>
-				    <p class="card-text">다양한 정보 공유의 장</p>
-				  </div>
-				</div>
-			</div>
+		
 		</div>
 	</div>
 	
