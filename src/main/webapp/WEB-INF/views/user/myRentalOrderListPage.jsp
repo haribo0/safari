@@ -599,7 +599,7 @@
 								</div>
 								
 								<div class="col d-flex justify-content-center align-items-center">
-									<div class="row">
+									<div class="row" style="width: 100%;">
 										<div class="col">
 										
 											<button class="btn btn-outline-dark my-2 px-2 py-1" onclick="orderDetail()" style="font-size:13px;">주문 상세</button>	
