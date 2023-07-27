@@ -498,7 +498,7 @@
 											            </c:when>
 											            
 									            		<c:when test="${data.rentalItemReturnDto.is_item_returned == 'N' && data.isCompleted == 'N' }">
-									            			<div class=" p-1" style="font-size:14px;">회수중</div>
+									            			<!-- <div class=" p-1" style="font-size:14px;">회수중</div> -->
 									            		</c:when>
 											            		
 											            <c:otherwise>
@@ -520,11 +520,11 @@
 											            		</c:when>
 											            		
 											            		<c:when test="${data.rentalItemReturnDto.is_item_returned == 'Y' && data.isCompleted != 'Y' }">
-											            			<button type="button" class="btn btn-outline-secondary px-2 py-1" style="font-size:13px;" disabled>최종 정산중</button>
+											            			<!-- <button type="button" class="btn btn-outline-secondary px-2 py-1" style="font-size:13px;" disabled>최종 정산중</button> -->
 											            		</c:when>
 											            		
 											            		<c:otherwise>
-											            			<div class=" p-1" style="font-size:13px;">배송전</div>
+											            			<!-- <div class=" p-1" style="font-size:13px;">배송전</div> -->
 											            		</c:otherwise>
 											            	</c:choose>
 											            </c:otherwise>
