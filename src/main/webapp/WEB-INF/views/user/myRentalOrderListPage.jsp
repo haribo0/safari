@@ -578,7 +578,7 @@
 											<div class="mb-0 my-auto"><small>${data.rentalBusinessDto.business_name}</small>
 											
 											<c:if test="${data.orderState == '대여중'}">
-												<span class="ms-2 mb-0 fw-bold d-inline-block" style="color: #f68a42; border:1px solid #f68a42; padding:1px 8px; font-size: 11px; border-radius: 12px;">대여중</span>
+												<span class="ms-2 mb-0 d-inline-block" style="color: #fff; border:1px solid #f68a42; background:#f68a42; padding:0px 6px; font-size: 10px; border-radius: 12px; position: relative; bottom: 1.2px;">대여중</span>
 											</c:if>
 											
 											</div>
