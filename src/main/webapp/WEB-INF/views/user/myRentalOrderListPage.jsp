@@ -306,7 +306,7 @@
 	  <div class="modal-dialog">
 	  <form action="">
 		    <div class="modal-content">
-		      <div class="modal-header">
+		      <div class="modal-header bg-light">
 		        <h5 class="modal-title">대여 반납 확인서</h5>
 		        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 		      </div>
@@ -375,7 +375,7 @@
 		      	
 		      </div>
 		      
-		      <div class="modal-footer justify-content-end pb-3">
+		      <div class="modal-footer justify-content-end bg-light" style="padding: 8px 14px;">
 		      	<div class="row">
 		      		<div class="col px-0">
 				        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">취소</button>
@@ -461,9 +461,9 @@
 										</div>
 										<div class="col my-auto pe-5">
 										<a href="${pageContext.request.contextPath}/rental/productDescPage?id=${data.product.id}">
-											<p class="mb-0 "><small>${data.rentalBusinessDto.business_name}</small><span class="ms-2 mb-0 fw-bold" style="color: #f68a42; font-size: 11px;">대여중</span></p>
-											<p class="mb-2 fs-5 fw-medium" >${data.product.title }</p>
-											<p class="mb-0 " style="font-size: 15px;">대여기간 <fmt:formatDate pattern="yyyy-MM-dd" value="${data.orderedItem.start_date }" /> - <fmt:formatDate pattern="yyyy-MM-dd" value="${data.orderedItem.end_date }" /></p>	
+											<div class="mb-0 my-auto"><small>${data.rentalBusinessDto.business_name}</small><span class="ms-2 mb-0 fw-bold d-inline-block" style="color: #f68a42; border:1px solid #f68a42; padding:1px 8px; font-size: 11px; border-radius: 12px;">대여중</span></div>
+											<div class="mb-2 fs-5 fw-medium" >${data.product.title }</div>
+											<div class="mb-0 " style="font-size: 15px;">대여기간 <fmt:formatDate pattern="yyyy-MM-dd" value="${data.orderedItem.start_date }" /> - <fmt:formatDate pattern="yyyy-MM-dd" value="${data.orderedItem.end_date }" /></div>	
 										</a>
 										</div>
 									</div>
@@ -475,39 +475,7 @@
 								
 																						
 								<div class="col d-flex justify-content-center align-items-center">
-								<c:choose>
-										<c:when test="${data.isCompleted == 'Y'}">
-											<span class="mb-0 fw-bold text-secondary">대여종료</span>				
-									    </c:when>
-									    
-										<c:when test="${data.rentalItemReturnDto.is_item_returned == 'N'}">
-											<span class="mb-0 fw-bold" style="color: #f68a42">회수중</span>				
-									    </c:when>
-									    
-									    <c:when test="${data.rentalItemReturnDto.is_item_returned == 'Y'}">
-											<span class="mb-0 fw-bold" style="color: #f68a42">정산중</span>				
-									    </c:when>
-									    <c:when test="${data.orderedItem.is_shipped == 'N'}">
-							                <div class="mb-0 fw-bold" style="color: #f68a42">배송중</div>
-							            </c:when>
-							            
-					            		<c:when test="${data.rentalItemReturnDto.is_item_returned == 'N' && data.isCompleted == 'N' }">
-					            			<div class="mb-0 fw-bold" style="color: #f68a42">회수중</div>
-					            		</c:when>
-									    
-									    
-										<c:otherwise>
-											<c:choose>
-												<c:when test="${data.orderedItem.is_shipped == 'N' }">
-													<span class="mb-0 fw-bold" style="color: #f68a42">주문완료</span>										
-												</c:when>
-												<c:when test="${data.orderedItem.is_shipped == 'Y'}">
-													<span class="mb-0 fw-bold" style="color: #f68a42">대여중</span>
-												</c:when>
-											</c:choose>
-										</c:otherwise>
-									    
-									</c:choose>
+									${data.orderState}
 								</div>
 								
 								<div class="col d-flex justify-content-center align-items-center">
@@ -515,7 +483,7 @@
 										<div class="col">
 											<c:choose>
 											    <c:when test="${data.isCompleted == 'Y' && data.myReviewCount == 0}">
-											        <button type="button" class="btn btn-outline-dark my-2 px-2 py-1" style="font-size:13px;" data-order-id="${data.orderedItem.id}" data-bs-toggle="modal" data-bs-target="#modalReview">대여리뷰작성</button>																				
+											        <button type="button" class="btn btn-dark my-2 px-2 py-1" style="font-size:13px;" data-order-id="${data.orderedItem.id}" data-bs-toggle="modal" data-bs-target="#modalReview">리뷰작성</button>																				
 											    </c:when>
 											    <c:when test="${data.isCompleted == 'Y' && data.myReviewCount >= 1}">
 											        <button class="btn btn-outline-dark my-2 px-2 py-1" onclick="placeReviewDate(${data.orderedItem.id})" style="font-size:13px;">내가 쓴 리뷰</button>																				
@@ -536,7 +504,7 @@
 											            <c:otherwise>
 											            	<c:choose>
 											            		<c:when test="${data.rentalItemReturnDto.is_item_returned != 'Y'}">
-													                <button type="button" class="btn btn-outline-dark px-2 py-1" style="font-size:13px;" onclick="returnCheck(this)"
+													                <button type="button" class="btn btn-dark px-2 py-1" style="font-size:13px;" onclick="returnCheck(this)"
 													                	data-image-link="${data.product.main_img_link}" 
 													                	data-product-title="${data.product.title}" 
 													                	data-product-desc="${data.product.item_description}"
@@ -547,7 +515,7 @@
 													                	data-enddate="${data.orderedItem.end_date}" 
 													                	data-deposit="${data.orderedItem.deposit}" 
 													                	>
-													               		 대여반납신청
+													               		 반납신청
 													                </button>
 											            		</c:when>
 											            		
