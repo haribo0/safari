@@ -303,6 +303,24 @@ public class RentalRestController {
 		return null;
 	}
 	
+	// 조건 반납 프로세스
+		@RequestMapping("rentalReturnProcessSingle")
+		public Map<String, Object> rentalReturnProcessSingle(int rental_order_id) {
+			
+			Map<String, Object> map = new HashMap<String, Object>();
+			// 반납 pk 설정
+			int returnPk = rentalService.getRentalOrderReturnPk();
+			RentalItemReturnDto rentalItemReturnDto = new RentalItemReturnDto();
+			rentalItemReturnDto.setId(returnPk);
+			rentalItemReturnDto.setRental_order_id(rental_order_id);
+			
+			rentalService.rentalReturn(rentalItemReturnDto);
+			
+			map.put("result", "success");
+			
+			return map;
+		}
+	
 	// 대여 반납 프로세스
 		@RequestMapping("rentalReturnProcess")
 		public Map<String, Object> rentalReturnProcess(HttpSession session, int rental_order_id, int discount_revocation, String product_title) {

@@ -197,7 +197,7 @@
 		<!-- 커뮤니티 메뉴바 -->
 		<div class="row">
 			<div class="col">
-				<jsp:include page="../../community/communityTopNavi.jsp"></jsp:include>
+				<jsp:include page="../../community/communityTopNavi2.jsp"></jsp:include>
 			</div>
 		</div>
 		<!-- 커뮤니티 메뉴바 -->
@@ -483,7 +483,7 @@
 								</div>
 								
 								<div class="row">
-								<div class="col ms-2 me-2">
+								<div class="col ms-2 me-2 mt-3">
 								${map.recruitDto.content }<br>
 								</div>
 								</div>

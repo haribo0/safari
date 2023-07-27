@@ -2,6 +2,7 @@ package com.ja.safari.community.mapper;
 
 import java.util.List;
 
+import com.ja.safari.dto.CommunityPostDto;
 import com.ja.safari.dto.HelpCommentCompleteDto;
 import com.ja.safari.dto.HelpCommentDto;
 import com.ja.safari.dto.HelpDto;
@@ -16,6 +17,12 @@ import com.ja.safari.dto.RecruitLikeDto;
 import com.ja.safari.dto.UserDto;
 
 public interface CommunitySqlMapper {
+	
+	// 커뮤니티 메인 - 최신 게시글
+	public List<CommunityPostDto> selectNewPostByCommunity();
+	
+	// 커뮤니티 메인 - 인기 게시글
+	public List<CommunityPostDto> selectBestPostByCommunity();
 	
 	/////////////
 	// 해주세요  //

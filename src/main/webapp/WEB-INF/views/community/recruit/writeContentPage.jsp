@@ -145,7 +145,8 @@
 													   <label for="numberInput" class="input-group-text fw-bold" style="border: none; outline: none; background-color: white;">급여</label>
 													    <input type="number" class="input-group-text me-2"  name="salary"  id="numberInput" oninput="updateRange()" style="width: 100px; font-size: ; font-family: 'Noto Sans', sans-serif; box-shadow: none;">
 													   <!--  <label for="rangeInput">Range:</label> -->
-													    <input type="range" id="rangeInput" min="0" max="1000" value="0" oninput="updateNumber()">
+													   만원
+													    <input class="ms-2" type="range" id="rangeInput" min="0" max="1000" value="0" oninput="updateNumber()">
 													
 													    <script>
 													        function updateRange() {
@@ -166,13 +167,13 @@
 												<%-- 급여--%>
 												
 												<%-- 경력--%><%-- 나이제한을 바꾸기--%>
-												<div class="col-4">
-													<div class="input-group">
+												<div class="col-4">													<div class="input-group">
 													<div class="d-flex align-items-center">
 													   <label for="numberInput2" class="input-group-text fw-bold" style="border: none; outline: none; background-color: white;">경력</label>
-													    <input type="number" class="input-group-text me-2"  name="age_limit"  id="numberInput2" oninput="updateRange2()" style="width: 70px; font-size: ; font-family: 'Noto Sans', sans-serif; box-shadow: none;">
+													    <input type="number" class="input-group-text me-2"  name="age_limit" id="numberInput2" oninput="updateRange2()" style="width: 70px; font-size: ; font-family: 'Noto Sans', sans-serif; box-shadow: none;">
+													   년
 													   <!--  <label for="rangeInput">Range:</label> -->
-													    <input type="range" id="rangeInput2" min="0" max="30" value="0" oninput="updateNumber2()">
+													    <input class="ms-2" type="range" id="rangeInput2" min="0" max="30" value="0" oninput="updateNumber2()">
 													
 													    <script>
 													        function updateRange2() {
@@ -196,8 +197,7 @@
 												<%-- 둘째줄--%>
 												<div class="row mt-4">
 												
-												<%-- 인원--%>
-												<div class="col-3">
+												<%-- 인원--%>												<div class="col-3">
 													<span class="working_condition_item" style=""></span>
 													<div class="input-group">
 													<div class="d-flex align-items-center">
@@ -211,7 +211,7 @@
 												<%-- 지역--%>
 												<div class="col-5">
 													<span class="working_condition_item" style=""></span>
-													<div class="input-group">
+													<div class="input-group ms-2">
 												    <div class="d-flex align-items-center">
 												      <label for="location" class="input-group-text fw-bold" style="border: none; outline: none; background-color: white;">위치</label>
 												          <select class="form-select" id="location" name="location" style="font-size: ; font-family: 'Noto Sans', sans-serif; box-shadow: none;">

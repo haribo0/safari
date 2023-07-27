@@ -9,6 +9,7 @@
 <!-- 메타 섹션 -->
 <jsp:include page="../../common/meta.jsp"></jsp:include>
 <!-- 메타 섹션 -->
+<link rel="stylesheet" href="/safari/resources/style/common.css" type="text/css">
 </head>
 <style>
  .truncate {
@@ -130,7 +131,7 @@ window.addEventListener("DOMContentLoaded", function(){
 		<div class = "row mt-5">
 			<div class = "col-auto">
 				<h1 class="text-start fs-3 fw-semibold">
-				<a href="./promotionReviewMainPage" style="text-decoration: none;">
+				<a href="./promotionReviewMainPage" >
 					<b>리워드 리뷰</b>
 				</a>
 				</h1>			
@@ -195,12 +196,12 @@ window.addEventListener("DOMContentLoaded", function(){
 		
 		
 		
-		 <!--  게시물 사진들 나올 곳 -->
+		 <!--  게시물 BEST -->
 		<div class = "row mt-5">
 			<div class = "col">
 				<div class = "row">
 					<div class = "col text-center fw-bold fs-2" style= "color: #387538;">
-						BEST
+						- BEST -
 					</div>
 				</div>
 				<div class = "row mt-1">
@@ -278,7 +279,7 @@ window.addEventListener("DOMContentLoaded", function(){
 									 	<div class = "col">
 									  <div class="card-body px-0 pt-1">
 									  <div class = "row">
-									  	  <div class = "col">
+									  	  <div class = "col" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
 									  	  	<a href="./contentPromotionReviewPage?id=${map.promotionReviewDto.id}" style="text-decoration: none; color: inherit;">
 										  	<h5 class="card-title fw-semibold" style="font-size: 18px;">   
 											    ${map.promotionReviewDto.promotion_review_title }

@@ -62,6 +62,7 @@
 					
 					<div class="row text-center fw-medium border-bottom border-black border-2 py-2">
 						<!-- <div class="col">기본 배송지</div> -->
+						<div class="col">받는사람</div>
 						<div class="col">배송지명</div>
 						<div class="col-5">주소</div>
 						<div class="col">연락처</div>
@@ -131,6 +132,18 @@
        			<div class="col-11">
 		       		
 		       		<table class="table" style="border-top: 1px solid #E2E3E5;">
+						<tr>
+		       				<td class="table table-light align-middle text-center " style="width: 150px;">받는사람</td>
+		       				<td class="align-middle"> 
+		       					<div class="row">
+		       						<div class="col">
+		       							 <input type="text" class="form-control ms-2" style="width: 200px; height: 30px;"
+		       							 id="addressee" > 
+		       							
+		       						</div>
+		       					</div>
+		       				</td>
+		       			</tr>			       		
 		       			<tr>
 		       				<td class="table table-light align-middle text-center " style="width: 150px;">배송지명</td>
 		       				<td class="align-middle"> 
@@ -148,7 +161,7 @@
 		       				<td class="align-middle">
 		       					  <div class="row">
 				                    <div class="col">
-				                       <input type="text" class="form-control ms-2" oninput="oninputPhone(this)" maxlength="14" id="phone"
+				                       <input type="text" class="form-control ms-2" oninput="oninputPhone(this)" maxlength="13" id="phone"
 				                      style="width: 200px; height: 30px;">
 				                    </div>
 				                  </div>
@@ -224,13 +237,26 @@
        			<div class="col-11">
 		       		
 		       		<table class="table" style="border-top: 1px solid #E2E3E5;">
+						<tr>
+		       				<td class="table table-light align-middle text-center " style="width: 150px;">받는사람</td>
+		       				<td class="align-middle"> 
+		       					<div class="row">
+		       						<div class="col">
+		       							 <input type="text" class="form-control ms-2" style="width: 200px; height: 30px;"
+		       							 id="original_addressee"> 
+		       							
+		       						</div>
+		       					</div>
+		       				</td>
+		       			</tr>				       		
+		       		
 		       			<tr>
 		       				<td class="table table-light align-middle text-center " style="width: 150px;">배송지명</td>
 		       				<td class="align-middle"> 
 		       					<div class="row">
 		       						<div class="col">
 		       							 <input type="text" class="form-control ms-2" style="width: 200px; height: 30px;"
-		       							 id="address_name" > 
+		       							 id="original_address_name" > 
 		       							
 		       						</div>
 		       					</div>
@@ -241,7 +267,7 @@
 		       				<td class="align-middle">
 		       					  <div class="row">
 				                    <div class="col">
-				                      <input type="text" class="form-control ms-2" oninput="oninputPhone(this)" maxlength="14" id="original_phone"
+				                      <input type="text" class="form-control ms-2" oninput="oninputPhone(this)" maxlength="13" id="original_phone"
 				                      style="width: 200px; height: 30px;">
 				                    </div>
 				                  </div>
@@ -438,6 +464,7 @@ function oninputPhone(target) {
 // 주소 등록
 function addUserAddress() {
 	
+	const addressee = document.getElementById("addressee");
 	const address_name = document.getElementById("address_name");
 	const phone = document.getElementById("phone");
 	const postcode = document.getElementById("postcode");
@@ -450,7 +477,10 @@ function addUserAddress() {
 		content.innerHTML = "";
 		
 		const validateModal = bootstrap.Modal.getOrCreateInstance("#addrValidateModal");
-		if (address_name.value == "") {
+		if (addressee.value == "") {
+			content.innerText = "받는사람을 입력하세요";
+		}
+		  else if (address_name.value == "") {
 			content.innerText = "배송지명을 입력하세요";
 		} else if (phone.value == "") {
 			content.innerText = "연락처를 입력하세요";
@@ -477,6 +507,7 @@ function addUserAddress() {
 			const registerAddrModal = bootstrap.Modal.getOrCreateInstance("#registerAddrModal");
 			registerAddrModal.hide();
 			
+			addressee.value = "";
 			address_name.value = "";
 			phone.value = "";
 			postcode.value = "";
@@ -489,7 +520,7 @@ function addUserAddress() {
 	}
 	xhr.open("post", "/safari/user/addUserAddress");
 	xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded;charset=utf-8");
-	xhr.send("address_name=" + address_name.value + "&phone=" + phone.value + "&address=" + address.value + "  " + detail_address.value);	
+	xhr.send("addressee=" + addressee.value + "&address_name=" + address_name.value + "&phone=" + phone.value + "&address=" + address.value + "  " + detail_address.value);	
 }
 
 // 주소 수정
@@ -586,7 +617,25 @@ function getMyaddressList() {
 			
 				const row = document.createElement("div");
 				row.classList.add("row", "border-bottom", "py-2");
+				
+				// 받는 사람 
+				const addresseeCol = document.createElement("div");
+				addresseeCol.classList.add("col");
 	
+				const addresseeRow = document.createElement("div");
+				addresseeRow.classList.add("row");
+				
+				const aeCol = document.createElement("div");
+				aeCol.classList.add("col");
+				aeCol.style.fontSize = "18px";
+				aeCol.innerText = data.addressee;
+				
+				addresseeRow.appendChild(aeCol);
+				addresseeCol.appendChild(addresseeRow);
+				
+				row.appendChild(addresseeCol);
+				
+				
 				// 배송지명
 				const adNameCol = document.createElement("div");
 				adNameCol.classList.add("col");

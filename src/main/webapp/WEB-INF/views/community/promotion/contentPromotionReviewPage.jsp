@@ -231,14 +231,14 @@ window.addEventListener("DOMContentLoaded", function(){
 					<!--  대여 상품명 & 상호 -->
 					<div class = "row mt-5">
 						<div class = "col fs-5 fw-semibold">
-							대여 상품명
 							<i class="bi bi-box"></i>
+								상품명 ${data.rentalBusinessDto.business_name }
 						</div>
 					</div>
 					<div class = "reviewlist container border border-1 mt-3" style="border-radius: 10px;">
 						<div class = "row mt-2">
 							<div class = "col">
-								상호명 business_name...
+								상호명 business_name... 
 							</div>
 						</div>
 					</div>	
@@ -289,8 +289,8 @@ window.addEventListener("DOMContentLoaded", function(){
 		<div class = "col-1 mt-5">
 			<div class = "row sticky-top">
 				<div class = "col">
-			<div class="d-flex" style="height: 400px;">
-				  <div class="vr"></div>
+					<div class="d-flex" style="height: 400px;">
+				  	<div class="vr"></div>
 				</div>
 			</div>
 			</div>
@@ -307,12 +307,12 @@ window.addEventListener("DOMContentLoaded", function(){
 							<!--  공감수 + 조회수 top5 -->
 							
 							<c:forEach items="${bestPromotionReviewPostList}" var="map" varStatus="status">
-							<c:if test="${map.promoReviewPostRankDto.promoReview_rank < 6}">
+							<c:if test="${map.promoReviewPostRankDto.promoReview_rank < 5}">
 								<span class="badge text-bg-warning">BEST</span>
 							</c:if>
-							${map.promoReivewPostRank.promoReview_rank }
 							</c:forEach>
 					
+							${map.promoReivewPostRank.promoReview_rank }
 							 
 							
 							 
@@ -358,7 +358,7 @@ window.addEventListener("DOMContentLoaded", function(){
 							</div>
 						</div>
 						<div class = "col"></div>
-						<div class = "col-1 mx-2 d-flex justify-content-center align-items-center">
+						<div class = "col-1 mx-2 d-flex justify-content-center align-items-center" style = "cursor: pointer;">
 						<!--  공감하트버튼 -->
 							<i id = "heartBox" onclick="togglePromotionReviewLike()" class="text-danger bi bi-heart fs-4"></i>
 							&nbsp;

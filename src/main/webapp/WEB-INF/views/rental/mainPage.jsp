@@ -10,6 +10,8 @@
 <!-- 메타 섹션 -->
 <jsp:include page="../common/meta.jsp"></jsp:include>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
 <!-- 메타 섹션 -->
 <style>
@@ -49,6 +51,8 @@
     .swiper-pagination-bullets {
     display: none;
 }
+.btnNavi{transition: 0.2s all ease}
+.btnNavi:hover{background: #7e9eb5 !important;}
 </style>
 </head>
 <body>
@@ -145,7 +149,7 @@
 				<%-- <a href="${pageContext.request.contextPath}/rental/mainPage/?main_category_id=${map.categoryItem.id}" --%>
 				<%-- <a href="${pageContext.request.contextPath}/rental/mainPage/?sub_category_id=${subTitle.id}" --%>
 				
-				<div class="row mt-1 pb-2">
+				<div class="row mt-2 pb-2">
 					<p class="mb-0 mt-3 ps-0 fs-5 fw-bold">금주의 스페셜딜</p>
 				</div>
 				<div class="row mt-2">
@@ -199,7 +203,7 @@
 									<a href="${pageContext.request.contextPath}/rental/mainPage/?sub_category_id=4" class="btn">
 									<div class="row">
 										<div class="col">
-											<img class="img-fluid" alt="" src="${pageContext.request.contextPath}/resources/img/rental/category/closet.png">
+											<img class="img-fluid" alt="" src="${pageContext.request.contextPath}/resources/img/rental/category/d3.png">
 										</div>
 									</div>
 									<div class="row mt-2">
@@ -211,7 +215,7 @@
 									<a href="${pageContext.request.contextPath}/rental/mainPage/?main_category_id=2" class="btn">
 									<div class="row">
 										<div class="col">
-											<img class="img-fluid" alt="" src="${pageContext.request.contextPath}/resources/img/rental/category/lifeIt.png">
+											<img class="img-fluid" alt="" src="${pageContext.request.contextPath}/resources/img/rental/category/fan2.png">
 										</div>
 									</div>
 									<div class="row mt-2 boxCategory">
@@ -331,7 +335,7 @@
 				<div class="row flex-wrap pt-2">
 	 				<c:forEach items="${rentalItemList}" var="map" varStatus="status">
 		 				
-						<div class="col mb-5 item-box" style="cursor: pointer;">
+						<div class="col-3 mb-5 item-box" style="cursor: pointer;">
 							<div class="row imgBox">
 								<div class="col">
 									<a href="${pageContext.request.contextPath}/rental/productDescPage?id=${map.rentalItemDto.id}" class="text-decoration-none d-inline-block">
@@ -353,40 +357,23 @@
 					      <c:if test="${status.index % 4 == 3}">
 					        </div><div class="row flex-wrap pt-2">
 					      </c:if>
-					      <c:if test="${status.last}">
-					          <!-- 현재 순서가 마지막인 경우에만 실행될 내용 -->
-					          <!-- 만약 나머지가 4일 경우를 제외하고는 col을 더 만들어줘야함 (5-(status%5)) -->
-					          <c:forEach begin="0" end="${2-(status.index % 4)}" varStatus="status">
-							      <!-- 빈 칼럼 추가  -->
-						  	      <div class="col"></div>
-							  </c:forEach>
-
-					      </c:if>
 					</c:forEach>
 					</div>
 				</div>
 				
 				<div class="row mt-5 pt-3">
 					<div class="col py-3 d-flex justify-content-center">
-						<nav aria-label="Page navigation example">
-						  <ul class="pagination">
-						    <li class="page-item disabled">
-						      <a class="page-link" href="#" aria-label="Previous">
-						        <span aria-hidden="true">&laquo;</span>
-						      </a>
-						    </li>
-						    <li class="page-item"><a class="page-link active border bg-secondary" href="#">1</a></li>
-						    <li class="page-item"><a class="page-link text-secondary" href="#">2</a></li>
-						    <li class="page-item"><a class="page-link text-secondary" href="#">3</a></li>
-						    <li class="page-item">
-						      <a class="page-link text-secondary" href="#" aria-label="Next">
-						        <span aria-hidden="true">&raquo;</span>
-						      </a>
-						    </li>
-						  </ul>
-						</nav>
+						<ul class="d-flex px-0">
+							<li class="mx-1 " style="list-style: none;"><a class="btn" href="#"><i class="fa-solid fa-angles-left" style="color: #9ba4ab;"></i></a></li>
+							<li class="mx-1 rounded-1 btnNavi" style="background: #8baac1; list-style: none; border: 1px solid #81a3bd;"><a class="btn text-white" href="#">1</a></li>
+							<li class="mx-1 " style="list-style: none;"><a class="btn" href="#">2</a></li>
+							<li class="mx-1 " style="list-style: none;"><a class="btn" href="#">3</a></li>
+							<li class="mx-1 " style="list-style: none;"><a class="btn" href="#">4</a></li>
+							<li class="mx-1 " style="list-style: none;"><a class="btn" href="#"><i class="fa-solid fa-angles-right" style="color: #9ba4ab;"></i></a></li>
+						</ul>
 					</div>
 				</div>
+				
 			</div>
 		</div>
 	</div>

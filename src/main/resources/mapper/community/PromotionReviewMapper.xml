@@ -14,6 +14,7 @@
 			SELECT pro_review.*
 			FROM promotion_review pro_review
 			INNER JOIN user_table ut ON ut.id = pro_review.user_id
+			JOIN rental_item_table it ON it.id = pro_review.rental_item_id
 			WHERE 1=1
 			<if test="promoReview_searchType != null and promoReview_searchWord != null">
 				<choose>
@@ -27,6 +28,9 @@
 						AND ut.nickname LIKE '%' || #{promoReview_searchWord} || '%'
 					</when>
 				</choose>
+			</if>
+			<if test="subCategoryId != null">
+				AND it.sub_category_id = #{subCategoryId}
 			</if>
 			ORDER BY pro_review.id DESC
 			
@@ -171,8 +175,9 @@
 
 
 <select id="getSubCategoryList" resultType="com.ja.safari.dto.RentalSubCategoryDto">
-	SELECT * FROM RENTAL_SUB_CATEGORY_TABLE rsct
-	WHERE rsct.MAIN_CATEGORY_ID = #{mainCategoryId}
+	SELECT *
+	FROM rental_sub_category_table rsct
+	WHERE rsct.main_category_id = #{mainCategoryId}
 </select>
 
 <select id="getRentalItemList" resultType="com.ja.safari.dto.RentalItemDto">
@@ -193,7 +198,8 @@
 </select>
 
 <select id="getRentalItemSubCategoryList" resultType="com.ja.safari.dto.RentalSubCategoryDto">
-	SELECT * FROM rental_sub_category_table
+	SELECT *
+	FROM rental_sub_category_table
 </select>
 
 <select id="getRentalItemCategory" resultType="com.ja.safari.dto.ProreviewRentalCategoryDto">
@@ -234,5 +240,14 @@
 	INNER JOIN promotion_review_like pro_like ON pr.id = pro_like.review_id
 	WHERE pro_like.user_id = #{user_id}
 </select>
+
+<select id="getProReviewRentalItem" resultType="com.ja.safari.dto.PromotionReviewDto">
+	SELECT ri.*, rbt.*, pr.*
+	FROM promotion_review pr
+	INNER JOIN rental_item_table ri ON pr.rental_item_id = ri.id
+	INNER JOIN rental_buisness_table rbt ON ri.business_id = rbt.id
+	WHERE pr.id = #{id}
+</select>
+
 
 </mapper>
