@@ -73,18 +73,21 @@
 						</div>
 						<div class = "row mt-3">
 							<div class = "col mx-2">
-				<%-- 			<c:forEach items="${newCommunityPostList}" var="post" varStatus="status" begin="0" end="5">  
-								<div class = "row mt-1">
-									<div class = "col">
-										<a href="/safari/community/help/readContentPage/${post.id}" style="text-decoration: none; color: inherit;">
-											${post.title }
+				 			<c:forEach items="${newPostByCommunityList}" var="map" varStatus="status">  
+								<div class = "row mt-1 py-1">
+									<div class = "col-auto d-flex align-items-center" style = "font-size:13px; color: #387538; ">
+										[${map.communityNewPostDto.board }]
+									</div>
+									<div class = "col p-0 mx-1" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+										<a href="/safari/community/${map.communityNewPostDto.board }/readContentPage/${map.communityPostDto.id}" style="text-decoration: none; color: inherit;">
+											${map.communityNewPostDto.title }
 										</a>
 									</div>
-									<div class = "col-auto p-0 text-secondary text-end" style = "font-size:13px;">
-										<fmt:formatDate value="${post.reg_date}" pattern="yyyy/MM/dd" />
+									<div class = "col-auto p-0 text-secondary text-end d-flex align-items-center" style = "font-size:13px;">
+										<fmt:formatDate value="${map.communityNewPostDto.reg_date}" pattern="yyyy/MM/dd" />
 									</div>
 								</div>
-							</c:forEach>  --%>
+							</c:forEach>  
 							</div>
 						</div>
 					</div>
@@ -103,18 +106,21 @@
 						</div>
 						<div class = "row mt-3">
 							<div class = "col mx-2">
-		<%--  					<c:forEach items="${bestCommunityPostList.newPostByHelpList}" var="post" varStatus="status" begin="0" end="5">  
-								<div class = "row mt-1">
-									<div class = "col">
-										<a href="/safari/community/help/readContentPage/${post.id}" style="text-decoration: none; color: inherit;">
-											${post.title }
+		  					<c:forEach items="${bestPostByCommunityList}" var="map" varStatus="status">  
+								<div class = "row mt-1 py-1">
+									<div class = "col-auto d-flex align-items-center" style = "font-size:13px; color: #387538; ">
+										[${map.communityBestPostDto.board }]
+									</div>
+									<div class = "col p-0 mx-1" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+										<a href="/safari/community/help/readContentPage/${map.communityBestPostDto.id}" style="text-decoration: none; color: inherit;">
+											${map.communityBestPostDto.title }
 										</a>
 									</div>
-									<div class = "col-auto p-0 text-secondary text-end" style = "font-size:13px;">
-										<fmt:formatDate value="${post.reg_date}" pattern="yyyy/MM/dd" />
+									<div class = "col-auto p-0 text-secondary text-end d-flex align-items-center" style = "font-size:13px;">
+										<fmt:formatDate value="${map.communityBestPostDto.reg_date}" pattern="yyyy/MM/dd" />
 									</div>
 								</div>
-							</c:forEach> --%>
+							</c:forEach> 
 							</div>
 						</div>
 					</div>
@@ -128,20 +134,20 @@
 						</div>
 						<div class = "col-1 p-0 me-3 d-flex align-items-center justify-content-end text-secondary">
 							<!--  공유버튼 -->
-							<a href="" onclick="clip(); return false;" style="text-decoration: none; color: inherit;">
+							<a href="./help/mainPage" onclick="clip(); return false;" style="text-decoration: none; color: inherit;">
 								<span class = "bi bi-three-dots fs-5"></span>
 							</a>
 						</div>
 						<div class = "row mt-3">
 							<div class = "col mx-2">
-							<c:forEach items="${newPostByHelpList}" var="map" varStatus="status" begin="0" end="5">  
-								<div class = "row mt-1">
-									<div class = "col">
+							<c:forEach items="${newPostByHelpList}" var="map" varStatus="status" begin="0" end="4">  
+								<div class = "row mt-1 py-1">
+									<div class = "col" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
 										<a href="/safari/community/help/readContentPage/${map.helpDto.id}" style="text-decoration: none; color: inherit;">
 											${map.helpDto.title }
 										</a>
 									</div>
-									<div class = "col-auto p-0 text-secondary text-end" style = "font-size:13px;">
+									<div class = "col-auto p-0 text-secondary text-end d-flex align-items-center" style = "font-size:13px;">
 										<fmt:formatDate value="${map.helpDto.reg_date}" pattern="yyyy/MM/dd" />
 									</div>
 								</div>
@@ -215,14 +221,14 @@
 					</div>
 					<div class = "row mt-3">
 						<div class = "col mx-2">
-							<c:forEach items="${newPostByQuestionList}" var="map" varStatus="status" begin="0" end="5">  
-								<div class = "row mt-1">
-									<div class = "col">
+							<c:forEach items="${newPostByQuestionList}" var="map" varStatus="status" begin="0" end="4">  
+								<div class = "row mt-1 py-1">
+									<div class = "col" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
 										<a href="/safari/community/question/readContentPage/${map.recruitDto.id}" style="text-decoration: none; color: inherit;">
 											${map.questionDto.title }
 										</a>
 									</div>
-									<div class = "col-auto p-0 text-secondary text-end" style = "font-size:13px;">
+									<div class = "col-auto p-0 text-secondary text-end d-flex align-items-center" style = "font-size:13px;">
 										<fmt:formatDate value="${map.questionDto.reg_date}" pattern="yyyy/MM/dd" />
 									</div>
 								</div>
@@ -247,14 +253,14 @@
 					</div>
 					<div class = "row mt-3">
 						<div class = "col mx-2">
-							<c:forEach items="${newPostByRecruitList}" var="map" varStatus="status" begin="0" end="5">  
-								<div class = "row mt-1">
-									<div class = "col">
+							<c:forEach items="${newPostByRecruitList}" var="map" varStatus="status" begin="0" end="4">  
+								<div class = "row mt-1 py-1">
+									<div class = "col" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
 										<a href="/safari/community/recruit/readContentPage/${map.recruitDto.id}" style="text-decoration: none; color: inherit;">
 											${map.recruitDto.title }
 										</a>
 									</div>
-									<div class = "col-auto p-0 text-secondary text-end" style = "font-size:13px;">
+									<div class = "col-auto p-0 text-secondary text-end d-flex align-items-center" style = "font-size:13px;">
 										<fmt:formatDate value="${map.recruitDto.reg_date}" pattern="yyyy/MM/dd" />
 									</div>
 								</div>
@@ -280,7 +286,7 @@
 				<%-- 골라줘요 게시물 --%>
 				<!--  포이치 -->
 				<div class = "row mt-4">
-					<div class = "col fw-semibold">
+					<div class = "col fw-semibold" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
 						제목
 					</div>
 					<div class = "col-auto p-0 text-secondary text-end" style = "font-size:13px;">
@@ -306,8 +312,6 @@
 		</div>
 
 	</div>
-	
-	<%-- 세번째 줄 --%>
 	
 	
 	</div> <!--  <div class = "container main_box"> 닫힘 -->

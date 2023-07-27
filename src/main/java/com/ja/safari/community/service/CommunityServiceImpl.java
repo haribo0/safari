@@ -9,12 +9,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ja.safari.community.mapper.CommunitySqlMapper;
+import com.ja.safari.dto.CommunityPostDto;
 import com.ja.safari.dto.HelpCommentCompleteDto;
 import com.ja.safari.dto.HelpCommentDto;
 import com.ja.safari.dto.HelpDto;
 import com.ja.safari.dto.HelpImgDto;
 import com.ja.safari.dto.HelpLikeDto;
-import com.ja.safari.dto.PromotionReviewDto;
 import com.ja.safari.dto.QuestionDto;
 import com.ja.safari.dto.QuestionLikeDto;
 import com.ja.safari.dto.QuestionReplyDto;
@@ -32,6 +32,44 @@ public class CommunityServiceImpl {
 	@Autowired
 	private UserSqlMapper userSqlMapper;
 
+	
+	// 커뮤니티 메인 - 게시물 최신순 정렬
+	public List<Map<String, Object>> newPostByCommunity(int sessionId) {
+		
+		List<CommunityPostDto> newPostCommunityList = communitySqlMapper.selectNewPostByCommunity();
+		
+		List<Map<String, Object>> newPostByCommunityList = new ArrayList<>();
+		
+		for(CommunityPostDto communityPostDto : newPostCommunityList) {
+			Map<String, Object> map = new HashMap<>();
+
+			map.put("communityNewPostDto", communityPostDto);
+			
+			newPostByCommunityList.add(map);
+			
+		}		
+		
+		return newPostByCommunityList;
+	}
+	
+	// 커뮤니티 메인 - 게시물 인기순 정렬
+	public List<Map<String, Object>> bestPostByCommunity(int sessionId) {
+		
+		List<CommunityPostDto> bestPostCommunityList = communitySqlMapper.selectBestPostByCommunity();
+		
+		List<Map<String, Object>> bestPostByCommunityList = new ArrayList<>();
+		
+		for(CommunityPostDto communityPostDto : bestPostCommunityList) {
+			Map<String, Object> map = new HashMap<>();
+
+			map.put("communityBestPostDto", communityPostDto);
+			
+			bestPostByCommunityList.add(map);
+			
+		}		
+		
+		return bestPostByCommunityList;
+	}
 	
 	
 	public void registerHelpBoard(HelpDto helpDto, List<HelpImgDto> helpImgDtoList) {

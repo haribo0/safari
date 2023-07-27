@@ -4,6 +4,78 @@
 
 <mapper namespace="com.ja.safari.community.mapper.CommunitySqlMapper">
 
+	<!-- 커뮤니티 최신 게시글 -->
+	<select id="selectNewPostByCommunity" resultType="com.ja.safari.dto.CommunityPostDto">
+	SELECT 
+	   ROWNUM,
+	   board,
+	   id,
+	   title,
+	   reg_date
+	FROM
+	   (SELECT *
+	   FROM (
+	       SELECT '리워드리뷰' AS board, id, promotion_review_title AS title, reg_date
+	       FROM promotion_review
+	       UNION ALL
+	       SELECT '골라줘요' AS board, id, title, reg_date
+	       FROM pick_table  
+	       UNION ALL
+	       SELECT '구인구직' AS board, id, title, reg_date
+	       FROM recruit_table
+	       UNION ALL
+	       SELECT '해주세요' AS board, id, title, reg_date
+	       FROM help_table
+	         UNION ALL
+		    SELECT '궁금해요' AS board, id, title, reg_date
+		    FROM question_table
+	   )
+	   ORDER BY reg_date DESC) ct
+	   <![CDATA[
+		WHERE ROWNUM < 6
+		]]>
+	</select>
+	
+	<!--  커뮤니티 인기 게시글 -->
+	<select id="selectBestPostByCommunity" resultType="com.ja.safari.dto.CommunityPostDto">
+	SELECT
+	ROWNUM,
+	board,
+	title,
+	likeCount,
+	reg_date
+	FROM (
+	    SELECT '리워드' AS board, COUNT(prl.review_id) AS likeCount, pr.promotion_review_title AS title, pr.reg_date
+	    FROM promotion_review pr
+	    JOIN PROMOTION_REVIEW_LIKE prl ON pr.id = prl.review_id
+	    GROUP BY pr.promotion_review_title, pr.reg_date
+	    UNION ALL
+	    SELECT '구인구직' AS board, count(rlt.recruit_id) AS likeCount, rt.title, rt.reg_date
+	    FROM RECRUIT_TABLE rt
+	    JOIN RECRUIT_LIKE_TABLE rlt ON rt.id = rlt.recruit_id
+	    GROUP BY rt.title, rt.reg_date
+	    UNION ALL
+	    SELECT '골라줘요' AS board, count(plt.pick_id) AS likeCount, pt.title, pt.reg_date
+	    FROM PICK_TABLE pt
+	    JOIN PICK_LIKE_TABLE plt ON pt.id = plt.pick_id
+	    GROUP BY pt.title, pt.reg_date
+	    UNION ALL
+	    SELECT '해주세요' AS board, count(hlt.help_id) AS likeCount, ht.title, ht.reg_date
+	    FROM HELP_TABLE ht
+	    JOIN HELP_LIKE_TABLE hlt ON ht.id = hlt.help_id
+	    GROUP BY ht.title, ht.reg_date
+	    UNION ALL
+	    SELECT '궁금해요' AS board, count(qlt.question_id) AS likeCount, qt.title, qt.reg_date
+	    FROM QUESTION_TABLE qt
+	    JOIN QUESTION_LIKE_TABLE qlt ON qt.id = qlt.question_id
+	    GROUP BY qt.title, qt.reg_date
+	) all_likes
+	<![CDATA[
+	WHERE ROWNUM < 6
+	]]>
+	ORDER BY likeCount DESC
+	</select>
+	
 	<select id="createPk" resultType="int">
 		select help_table_seq.nextval from dual
 	</select>
