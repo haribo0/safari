@@ -9,6 +9,8 @@
 <title>사파리 | 렌탈 물품 상세</title>
 <!-- 메타 섹션 -->
 <jsp:include page="../common/meta.jsp"></jsp:include>
+<script src="https://kit.fontawesome.com/a83ecfd9ee.js" crossorigin="anonymous"></script>
+
 <!-- 메타 섹션 -->
 <script>
 	// 현재 페이지의 상품 id 가져오기
@@ -190,7 +192,7 @@ progress::-webkit-progress-value {
 						<div class="row">
 							<div class="col">
 								<div style="height: 26px;">
-									<i id="heartBox" onclick="toggleLike()" class="fs-4 bi bi-heart"></i>
+									<i id="heartBox" onclick="toggleLike()" class="fs-4 bi bi-heart" style=""></i>
 								</div>
 								<div class="text-center">
 									<span id="totalLikeCount" style="font-size: 12px;"></span>
@@ -249,8 +251,15 @@ progress::-webkit-progress-value {
 				
 				<div class="row">
 					<div class="col px-0">
-						<div class="bg-body-tertiary p-3 rounded-1">
-							<p class="mb-0" style="font-size: 14px;"><i class="bi bi-truck"></i> <span class="fw-bold">8/4</span> 이내 도착 예정</p>
+						<div class=" p-3 rounded-1" style="background: #FAFAFA;">
+							<div class="mb-0" style="font-size: 16px; "> 
+							<!-- <span class="">
+							<i class="fa-solid fa-truck"  style="color: #5FBDF7;font-size: ;"></i></span>  -->
+ 							<span class="fw-bolder"><i class="bi bi-truck fw-bolder" style="color: #5FBDF7;font-size: 19px;"></i></span> 
+							<span class="fw-bolder" style="color: #5FBDF7;font-size: 16px;">8/4</span> 
+							<span class="fw-light"> 이내 도착 예정 </span>
+							<span class="text-dark fw-bold"> 86%</span>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -278,10 +287,12 @@ progress::-webkit-progress-value {
 				
 				<div class="row mt-3 pt-3 justify-content-between border-top">
 					<div class="col">
-						<i class="bi bi-house"></i> <span class="mb-0" style="font-weight: 700; color: #585858;"> ${data.rentalBusinessDto.business_name}</span>
+						<i class="bi bi-house fw-bolder" style="color: #585858; font-size: 18px" >
+						</i> <span class="mb-0 " style="font-weight: 700; color: #585858;"> 
+						${data.rentalBusinessDto.business_name}</span>
 					</div>
-					<div class="col text-end">
-						<span style="padding: 4px 6px; border-radius: 8px; background: #e7e7e7; font-size: 13px; color: #8d8d8d; font-weight: bold; cursor: pointer" onclick="alert_warning()">브랜드홈 &gt;</span>
+					<div class="col text-end text-secondary">
+						<span style="padding: 4px 12px; border-radius: 8px; background: #EEEEEE; font-size: 13px; color: ; font-weight: bold; cursor: pointer" onclick="alert_warning()">브랜드홈 &gt;</span>
 					</div>
 				</div>
 				
@@ -304,7 +315,7 @@ progress::-webkit-progress-value {
 					<div class="col">
 						<div class="d-flex justify-content-end mt-5">
 							<%-- <p class="text-body-secondary">남은 수량 ${data.rentalItemDto.quantity}</p> --%>
-							<a href="./orderConfirmPage?id=${data.rentalItemDto.id}" class="btn btn-dark" style="width: 240px;">주문하기</a>	
+							<a href="./orderConfirmPage?id=${data.rentalItemDto.id}" class="btn orangeButton" style="width: 240px;">주문하기</a>	
 						</div>
 					</div>
 				</div>

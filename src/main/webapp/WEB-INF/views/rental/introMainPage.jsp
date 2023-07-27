@@ -223,7 +223,7 @@
 			</div>
 		</div>
 		<div class="row flex-wrap justify-content-between mt-4">
-			<c:forEach items="${rentalItemList}" var="map" begin="0" end="${ rentalItemList.size() - 1 < 9 ? rentalItemList : 9 }" step="1" varStatus="status">
+			<c:forEach items="${rentalItemList}" var="map" begin="0" end="${ rentalItemList.size() - 1 < 9 ? rentalItemList.size() : 9 }" step="1" varStatus="status">
 				<div class="col mb-5 item-box" style="cursor: pointer;">
 					<div class="row imgBox">
 						<div class="col">

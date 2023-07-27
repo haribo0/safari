@@ -11,7 +11,14 @@
 <!-- 메타 섹션 -->
 <jsp:include page="../common/meta.jsp"></jsp:include>
 <!-- 메타 섹션 -->
-
+<style>
+  .custom-badge {
+    font-size: 6px;
+    line-height: 1;
+    height: 16px;
+    padding: 2px 6px;
+  }
+</style>
 </head>
 <body>
 	<!-- 헤더 섹션 -->
@@ -47,7 +54,7 @@
 					</a>
 					 <div class="vr mx-3"></div>
 					<a href="./promotion/promotionReviewMainPage" style="text-decoration: none; color: inherit;">
-						리워드
+						리워드 리뷰
 					</a>
 					</div>
 				</div>
@@ -73,18 +80,46 @@
 						</div>
 						<div class = "row mt-3">
 							<div class = "col mx-2">
-				<%-- 			<c:forEach items="${newCommunityPostList}" var="post" varStatus="status" begin="0" end="5">  
-								<div class = "row mt-1">
-									<div class = "col">
-										<a href="/safari/community/help/readContentPage/${post.id}" style="text-decoration: none; color: inherit;">
-											${post.title }
-										</a>
+				 			<c:forEach items="${newPostByCommunityList}" var="map" varStatus="status">  
+								<div class = "row mt-1 py-1">
+									<div class = "col-auto d-flex align-items-center" style = "font-size:13px; color: #387538; ">
+										[${map.communityNewPostDto.board }]
 									</div>
-									<div class = "col-auto p-0 text-secondary text-end" style = "font-size:13px;">
-										<fmt:formatDate value="${post.reg_date}" pattern="yyyy/MM/dd" />
+									<div class = "col p-0 mx-1" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+										<c:if test="${map.communityNewPostDto.board == '리워드리뷰' }">
+										<a href="/safari/community/promotion/contentPromotionReviewPage?id=${map.communityNewPostDto.id}" style="text-decoration: none; color: inherit;">
+											${map.communityNewPostDto.title }
+										</a>
+										</c:if>
+										<c:if test="${map.communityNewPostDto.board == '구인구직' }">
+										<a href="/safari/community/recruit/readContentPage/${map.communityNewPostDto.id}" style="text-decoration: none; color: inherit;">
+											${map.communityNewPostDto.title }
+										</a>
+										</c:if>
+										<c:if test="${map.communityNewPostDto.board == '골라줘요' }">
+										<a href="/safari/community/pick/readContentPage/${map.communityNewPostDto.id}" style="text-decoration: none; color: inherit;">
+											${map.communityNewPostDto.title }
+										</a>
+										</c:if>
+										<c:if test="${map.communityNewPostDto.board == '해주세요' }">
+										<a href="/safari/community/help/readContentPage/${map.communityNewPostDto.id}" style="text-decoration: none; color: inherit;">
+											${map.communityNewPostDto.title }
+										</a>
+										</c:if>
+										<c:if test="${map.communityNewPostDto.board == '궁금해요' }"> 
+										<a href="/safari/community/question/questionReadContentPage/${map.communityNewPostDto.id}" style="text-decoration: none; color: inherit;">
+											${map.communityNewPostDto.title }
+										</a>
+										</c:if>
+										
+										
+
+									</div>
+									<div class = "col-auto p-0 text-secondary text-end d-flex align-items-center" style = "font-size:13px;">
+										<fmt:formatDate value="${map.communityNewPostDto.reg_date}" pattern="yyyy/MM/dd" />
 									</div>
 								</div>
-							</c:forEach>  --%>
+							</c:forEach>  
 							</div>
 						</div>
 					</div>
@@ -103,18 +138,46 @@
 						</div>
 						<div class = "row mt-3">
 							<div class = "col mx-2">
-		<%--  					<c:forEach items="${bestCommunityPostList.newPostByHelpList}" var="post" varStatus="status" begin="0" end="5">  
-								<div class = "row mt-1">
-									<div class = "col">
-										<a href="/safari/community/help/readContentPage/${post.id}" style="text-decoration: none; color: inherit;">
-											${post.title }
-										</a>
+		  					<c:forEach items="${bestPostByCommunityList}" var="map" varStatus="status">  
+								<div class = "row mt-1 py-1">
+									<div class = "col-auto d-flex align-items-center" style = "font-size:13px; color: #387538; ">
+										[${map.communityBestPostDto.board }]
 									</div>
-									<div class = "col-auto p-0 text-secondary text-end" style = "font-size:13px;">
-										<fmt:formatDate value="${post.reg_date}" pattern="yyyy/MM/dd" />
+									<div class = "col p-0 mx-1" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+										<c:if test="${map.communityBestPostDto.board == '리워드리뷰' }">
+										<a href="/safari/community/promotion/contentPromotionReviewPage?id=${map.communityBestPostDto.id}" style="text-decoration: none; color: inherit;">
+											${map.communityBestPostDto.title }
+										</a>
+										</c:if>
+										<c:if test="${map.communityBestPostDto.board == '구인구직' }">
+										<a href="/safari/community/recruit/readContentPage/${map.communityBestPostDto.id}" style="text-decoration: none; color: inherit;">
+											${map.communityBestPostDto.title }
+										</a>
+										</c:if>
+										<c:if test="${map.communityBestPostDto.board == '골라줘요' }">
+										<a href="/safari/community/pick/readContentPage/${map.communityBestPostDto.id}" style="text-decoration: none; color: inherit;">
+											${map.communityBestPostDto.title }
+										</a>
+										</c:if>
+										<c:if test="${map.communityBestPostDto.board == '해주세요' }">
+										<a href="/safari/community/help/readContentPage/${map.communityBestPostDto.id}" style="text-decoration: none; color: inherit;">
+											${map.communityBestPostDto.title }
+										</a>
+										</c:if>
+										<c:if test="${map.communityBestPostDto.board == '궁금해요' }"> 
+										<a href="/safari/community/question/questionReadContentPage/${map.communityBestPostDto.id}" style="text-decoration: none; color: inherit;">
+											${map.communityBestPostDto.title }
+										</a>
+										</c:if>
+										
+										
+
+									</div>
+									<div class = "col-auto p-0 text-secondary text-end d-flex align-items-center" style = "font-size:13px;">
+										<fmt:formatDate value="${map.communityBestPostDto.reg_date}" pattern="yyyy/MM/dd" />
 									</div>
 								</div>
-							</c:forEach> --%>
+							</c:forEach> 
 							</div>
 						</div>
 					</div>
@@ -128,20 +191,23 @@
 						</div>
 						<div class = "col-1 p-0 me-3 d-flex align-items-center justify-content-end text-secondary">
 							<!--  공유버튼 -->
-							<a href="" onclick="clip(); return false;" style="text-decoration: none; color: inherit;">
+							<a href="./help/mainPage" onclick="clip(); return false;" style="text-decoration: none; color: inherit;">
 								<span class = "bi bi-three-dots fs-5"></span>
 							</a>
 						</div>
 						<div class = "row mt-3">
 							<div class = "col mx-2">
-							<c:forEach items="${newPostByHelpList}" var="map" varStatus="status" begin="0" end="5">  
-								<div class = "row mt-1">
-									<div class = "col">
+							<c:forEach items="${newPostByHelpList}" var="map" varStatus="status" begin="0" end="4">  
+								<div class = "row mt-1 py-1">
+									<div class = "col-auto d-flex align-items-center badge rounded-pill text-bg-warning opacity-75 custom-badge" style="position: relative; top: 6px;">
+										${map.helpDto.points }p
+									</div> 
+									<div class = "col p-0 mx-1" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
 										<a href="/safari/community/help/readContentPage/${map.helpDto.id}" style="text-decoration: none; color: inherit;">
 											${map.helpDto.title }
 										</a>
 									</div>
-									<div class = "col-auto p-0 text-secondary text-end" style = "font-size:13px;">
+									<div class = "col-auto p-0 text-secondary text-end d-flex align-items-center" style = "font-size:13px;">
 										<fmt:formatDate value="${map.helpDto.reg_date}" pattern="yyyy/MM/dd" />
 									</div>
 								</div>
@@ -215,14 +281,19 @@
 					</div>
 					<div class = "row mt-3">
 						<div class = "col mx-2">
-							<c:forEach items="${newPostByQuestionList}" var="map" varStatus="status" begin="0" end="5">  
-								<div class = "row mt-1">
-									<div class = "col">
-										<a href="/safari/community/question/readContentPage/${map.recruitDto.id}" style="text-decoration: none; color: inherit;">
+							<c:forEach items="${newPostByQuestionList}" var="map" varStatus="status" begin="0" end="4">  
+								<div class = "row mt-1 py-1">
+									<c:if test="${map.questionDto.points>=1}">
+									<div class = "col-auto d-flex align-items-center badge rounded-pill text-bg-warning opacity-75 custom-badge" style="position: relative; top: 6px;">
+										${map.questionDto.points }p
+									</div>
+									</c:if>
+									<div class = "col p-0 mx-1" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+										<a href="/safari/community/question/questionReadContentPage/${map.questionDto.id}" style="text-decoration: none; color: inherit;">
 											${map.questionDto.title }
 										</a>
 									</div>
-									<div class = "col-auto p-0 text-secondary text-end" style = "font-size:13px;">
+									<div class = "col-auto p-0 text-secondary text-end d-flex align-items-center" style = "font-size:13px;">
 										<fmt:formatDate value="${map.questionDto.reg_date}" pattern="yyyy/MM/dd" />
 									</div>
 								</div>
@@ -247,14 +318,17 @@
 					</div>
 					<div class = "row mt-3">
 						<div class = "col mx-2">
-							<c:forEach items="${newPostByRecruitList}" var="map" varStatus="status" begin="0" end="5">  
-								<div class = "row mt-1">
-									<div class = "col">
+							<c:forEach items="${newPostByRecruitList}" var="map" varStatus="status" begin="0" end="4">  
+								<div class = "row mt-1 py-1">
+									<div class = "col-auto d-flex align-items-center" style = "font-size:13px; color: #387538; ">
+										[${map.recruitDto.location }]
+									</div>
+									<div class = "col p-0 mx-1" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
 										<a href="/safari/community/recruit/readContentPage/${map.recruitDto.id}" style="text-decoration: none; color: inherit;">
 											${map.recruitDto.title }
 										</a>
 									</div>
-									<div class = "col-auto p-0 text-secondary text-end" style = "font-size:13px;">
+									<div class = "col-auto p-0 text-secondary text-end d-flex align-items-center" style = "font-size:13px;">
 										<fmt:formatDate value="${map.recruitDto.reg_date}" pattern="yyyy/MM/dd" />
 									</div>
 								</div>
@@ -280,7 +354,7 @@
 				<%-- 골라줘요 게시물 --%>
 				<!--  포이치 -->
 				<div class = "row mt-4">
-					<div class = "col fw-semibold">
+					<div class = "col fw-semibold" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
 						제목
 					</div>
 					<div class = "col-auto p-0 text-secondary text-end" style = "font-size:13px;">
@@ -306,8 +380,6 @@
 		</div>
 
 	</div>
-	
-	<%-- 세번째 줄 --%>
 	
 	
 	</div> <!--  <div class = "container main_box"> 닫힘 -->

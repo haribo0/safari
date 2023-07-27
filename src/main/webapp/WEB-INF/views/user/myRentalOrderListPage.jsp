@@ -27,6 +27,8 @@
   border-radius: 10px;
   position: relative;
 }
+.gray-line{border-top:1px solid #e5e5e5;}
+.gray-line-dark{border-top:1.5px solid #838383;}
 
 /*  */ /* 별점 */ /*  */
 #full-stars-example-two {
@@ -292,11 +294,100 @@
 	        <span class="btn btn-outline-dark" data-bs-dismiss="modal">취소</span>
 	        <button type="submit" class="btn btn-dark">작성</button>
 	      </div>
+	      
 	    </div>
     </form>
   </div>
 </div>
 <!-- 대여 리뷰 모달  -->			
+
+<!-- 조건 반납 모달 -->
+	<div class="modal" tabindex="-1" id="modalConfirm">
+	  <div class="modal-dialog">
+	  <form action="">
+		    <div class="modal-content">
+		      <div class="modal-header bg-light">
+		        <h5 class="modal-title">대여 반납 확인서</h5>
+		        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+		      </div>
+		      <div class="modal-body">
+			      <div class="row px-2">
+			      		<div class="col px-4 fw-bold">
+			      			상품정보
+			      		</div>
+			      	</div>
+		      		<div class="row px-4 mt-2">
+			      		<div class="col gray-line-dark">
+			      		</div>
+			      	</div>
+		      	
+		      	<div class="row py-2 mt-1 mx-auto" style="width: 99%;">
+		      		<div class="col-3">
+		      			<img class="confirmModalImg img-fluid" alt="" src="">
+		      		</div>
+		      		<div class="col d-flex flex-column justify-content-center">
+		      			<div class="mb-0 confirmModalItemTitle fw-medium"></div>
+		      			<div class="mb-0 confirmModalItemDesc text-secondary" style="font-size: 14px;"></div>
+		      			<div class="mb-0 confirmPrice mt-2" style="font-size: 14px;"></div>
+		      		</div>
+		      	</div>
+
+		      	
+		      	<div class="row mt-3 mx-auto border rounded-2" style="width: 99%; font-size: 13px;">
+		      		<div class="col pb-2 mb-1">		      	
+				      	<div class="row mt-3">
+				      		<div class="col px-4 fw-bold" style="font-size: 16px;">
+				      			반납내역
+				      		</div>
+				      	</div>
+				      	<div class="row px-2 mt-3">
+				      		<div class="col gray-line">
+				      		</div>
+				      	</div>
+				      	
+		      			<div class="row mt-2 justify-content-between">
+		      				<div class="col px-4 py-2">
+		      					기존반납일
+		      				</div>
+		      				<div class="col px-4 text-end py-2 userDesc">
+		      				</div>
+		      			</div>
+		      			<div class="row justify-content-between">
+		      				<div class="col px-4 py-2">
+		      					반환 보증금
+		      				</div>
+		      				<div class="col px-4 text-end py-2 confirmDeposit fw-medium">
+		      				</div>
+		      			</div>
+		      		</div>
+		      	</div>
+		      	
+		      	<div class="row px-3 mb-2 mt-3" style="margin-top: 6px;">
+	        		<div class="text-secondary" style="font-size: 11px;">* 반납 신청 후 반드시 일주일 내에 택배로 물품을 반납하셔야합니다. 일주일 내로 택배 접수<br>&nbsp; 처리가 되지 않을 경우 정기 결제가 계속 진행 될 수 있습니다. </div>	      			
+	        		<div class="text-secondary mt-1" style="font-size: 11px;">* 일주일 내로 택배 접수 처리가 되지 않을 경우 정기 결제가 계속 진행 될 수 있습니다. </div>	      			
+		      	</div>
+<!-- 		      	
+  		      	<div class="row my-3">
+		      		<div class="col fw-bold text-center">
+		      			반납 신청 하시겠습니까?
+		      		</div>
+		      	</div> -->
+		      	
+		      </div>
+		      
+		      <div class="modal-footer justify-content-end bg-light" style="padding: 8px 14px;">
+		      	<div class="row">
+		      		<div class="col px-0">
+				        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">취소</button>
+				        <button type="button" class="btn btn-dark"  id="confirmSubmitReturn">반납신청</button>
+		      		</div>
+		      	</div>
+		      </div>
+		    </div>
+	    </form>
+	  </div>
+	</div>
+<!-- 조건충족 반납 모달 -->
 
 	<!-- 헤더 섹션 -->
 	<jsp:include page="../common/header.jsp"></jsp:include>
@@ -370,9 +461,9 @@
 										</div>
 										<div class="col my-auto pe-5">
 										<a href="${pageContext.request.contextPath}/rental/productDescPage?id=${data.product.id}">
-											<p class="mb-0 "><small>${data.rentalBusinessDto.business_name}</small></p>
-											<p class="mb-2 fs-5 fw-medium" >${data.product.title }</p>
-											<p class="mb-0 " style="font-size: 15px;">대여기간 <fmt:formatDate pattern="yyyy-MM-dd" value="${data.orderedItem.start_date }" /> - <fmt:formatDate pattern="yyyy-MM-dd" value="${data.orderedItem.end_date }" /></p>	
+											<div class="mb-0 my-auto"><small>${data.rentalBusinessDto.business_name}</small><span class="ms-2 mb-0 fw-bold d-inline-block" style="color: #f68a42; border:1px solid #f68a42; padding:1px 8px; font-size: 11px; border-radius: 12px;">대여중</span></div>
+											<div class="mb-2 fs-5 fw-medium" >${data.product.title }</div>
+											<div class="mb-0 " style="font-size: 15px;">대여기간 <fmt:formatDate pattern="yyyy-MM-dd" value="${data.orderedItem.start_date }" /> - <fmt:formatDate pattern="yyyy-MM-dd" value="${data.orderedItem.end_date }" /></div>	
 										</a>
 										</div>
 									</div>
@@ -384,39 +475,7 @@
 								
 																						
 								<div class="col d-flex justify-content-center align-items-center">
-								<c:choose>
-										<c:when test="${data.isCompleted == 'Y'}">
-											<span class="mb-0 fw-bold text-secondary">대여종료</span>				
-									    </c:when>
-									    
-										<c:when test="${data.rentalItemReturnDto.is_item_returned == 'N'}">
-											<span class="mb-0 fw-bold" style="color: #f68a42">회수중</span>				
-									    </c:when>
-									    
-									    <c:when test="${data.rentalItemReturnDto.is_item_returned == 'Y'}">
-											<span class="mb-0 fw-bold" style="color: #f68a42">정산중</span>				
-									    </c:when>
-									    <c:when test="${data.orderedItem.is_shipped == 'N'}">
-							                <div class="mb-0 fw-bold" style="color: #f68a42">배송중</div>
-							            </c:when>
-							            
-					            		<c:when test="${data.rentalItemReturnDto.is_item_returned == 'N' && data.isCompleted == 'N' }">
-					            			<div class="mb-0 fw-bold" style="color: #f68a42">회수중</div>
-					            		</c:when>
-									    
-									    
-										<c:otherwise>
-											<c:choose>
-												<c:when test="${data.orderedItem.is_shipped == 'N' }">
-													<span class="mb-0 fw-bold" style="color: #f68a42">주문완료</span>										
-												</c:when>
-												<c:when test="${data.orderedItem.is_shipped == 'Y'}">
-													<span class="mb-0 fw-bold" style="color: #f68a42">대여중</span>
-												</c:when>
-											</c:choose>
-										</c:otherwise>
-									    
-									</c:choose>
+									${data.orderState}
 								</div>
 								
 								<div class="col d-flex justify-content-center align-items-center">
@@ -424,16 +483,7 @@
 										<div class="col">
 											<c:choose>
 											    <c:when test="${data.isCompleted == 'Y' && data.myReviewCount == 0}">
-											        <button type="button" class="btn btn-outline-dark my-2 px-2 py-1" style="font-size:13px;" 
-											        data-order-id="${data.orderedItem.id}" 
-											        data-image-link="${data.product.main_img_link}"
-											        data-product-title="${data.product.title }"
-											        data-produce-desc="${data.product.item_description}"
-											        data-startdate="${data.orderedItem.start_date }" 
-											        data-bs-toggle="modal" 
-											        data-bs-target="#modalReview">
-											        	대여리뷰작성
-											        </button>																				
+											        <button type="button" class="btn btn-dark my-2 px-2 py-1" style="font-size:13px;" data-order-id="${data.orderedItem.id}" data-bs-toggle="modal" data-bs-target="#modalReview">리뷰작성</button>																				
 											    </c:when>
 											    <c:when test="${data.isCompleted == 'Y' && data.myReviewCount >= 1}">
 											        <button class="btn btn-outline-dark my-2 px-2 py-1" onclick="placeReviewDate(${data.orderedItem.id})" style="font-size:13px;">내가 쓴 리뷰</button>																				
@@ -444,20 +494,20 @@
 											    <c:when test="${data.isCompleted != 'Y'}">
 											        <c:choose>
 											            <c:when test="${data.orderedItem.is_shipped == 'N'}">
-<!-- 											                <div class="p-1" style="font-size:14px;">배송중</div> -->
-											                <div class="p-1" style="font-size:14px;"></div>
+											                <!-- <div class="p-1" style="font-size:14px;">배송중</div> -->
 											            </c:when>
 											            
-									            		<%-- <c:when test="${data.rentalItemReturnDto.is_item_returned == 'N' && data.isCompleted == 'N' }">
-									            			<div class=" p-1" style="font-size:14px;">회수중</div>
-									            		</c:when> --%>
+									            		<c:when test="${data.rentalItemReturnDto.is_item_returned == 'N' && data.isCompleted == 'N' }">
+									            			<!-- <div class=" p-1" style="font-size:14px;">회수중</div> -->
+									            		</c:when>
 											            		
 											            <c:otherwise>
 											            	<c:choose>
 											            		<c:when test="${data.rentalItemReturnDto.is_item_returned != 'Y'}">
-													                <button type="button" class="btn btn-outline-dark px-2 py-1" style="font-size:13px;" onclick="returnCheck(this)"
+													                <button type="button" class="btn btn-dark px-2 py-1" style="font-size:13px;" onclick="returnCheck(this)"
 													                	data-image-link="${data.product.main_img_link}" 
 													                	data-product-title="${data.product.title}" 
+													                	data-product-desc="${data.product.item_description}"
 													                	data-order-id="${data.orderedItem.id}" 
 													                	data-original-price="${data.orderedItem.original_price}" 
 													                	data-rego-price="${data.orderedItem.price}" 
@@ -465,16 +515,16 @@
 													                	data-enddate="${data.orderedItem.end_date}" 
 													                	data-deposit="${data.orderedItem.deposit}" 
 													                	>
-													               		 대여반납신청
+													               		 반납신청
 													                </button>
 											            		</c:when>
 											            		
 											            		<c:when test="${data.rentalItemReturnDto.is_item_returned == 'Y' && data.isCompleted != 'Y' }">
-											            			<!-- <div class="" style="font-size:14px;" disabled>최종 정산중</div> -->
+											            			<!-- <button type="button" class="btn btn-outline-secondary px-2 py-1" style="font-size:13px;" disabled>최종 정산중</button> -->
 											            		</c:when>
 											            		
 											            		<c:otherwise>
-											            			<div class=" p-1" style="font-size:13px;">배송전</div>
+											            			<!-- <div class=" p-1" style="font-size:13px;">배송전</div> -->
 											            		</c:otherwise>
 											            	</c:choose>
 											            </c:otherwise>
@@ -494,14 +544,13 @@
 		</div>
 	</div>
 	
-	<div class="modal" id="showMyReviewModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal " id="showMyReviewModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-md modal-dialog-centered"> 
     <div class="modal-content">
-      <div class="modal-header">
+      <div class="modal-header bg-light">
      	 <div class="row mb-0">
-      			<div class="col fs-5 fw-bold">
-      				<p class="mb-0"><small class="text-secondary bussinessName"></small></p>
-      				<p class="mb-0 itemTitle"></p>
+      			<div class="col fs-5 fw-medium">
+      				마이 리뷰
       			</div>
       	 </div>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -510,11 +559,11 @@
       	      
 	      <div id="testBox">
 	      </div>
-      		
-	      <div class="modal-footer">
-	        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">창닫기</button>
-	      </div> 
+	     
 	  </div>
+	   <div class="modal-footer bg-light">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">창닫기</button>
+      </div> 
   </div>
 </div>
 </div>
@@ -638,9 +687,12 @@ const setRegDate = () => {
 
 const modalReturn = document.getElementById('modalReturn')
 const modalReview = document.getElementById('modalReview')
+const modalConfirm = document.getElementById('modalConfirm') 
+// 조건 반납 모달
+
+
 
 // 반납 안내 모달
-
 function returnCheck(e) {
 	
 	let returnPercentage
@@ -664,22 +716,19 @@ function returnCheck(e) {
     formattedEndDate = `\${yyyy}-\${mm}-\${dd}`;
     
     const currentDate = new Date();
-    
-    
-    
-    // returnPercentage = calcEarlyReturn(new Date(formattedStartedDate), new Date(formattedEndDate), new Date(formattedDate))		
-    
+	// returnPercentage = calcEarlyReturn(new Date(formattedStartedDate), new Date(formattedEndDate), new Date(formattedDate))		
 	 
 	const returnDesc = document.querySelector(".return_desc")
 	returnDesc.innerHTML = ''
     const endRego = new Date();
     const originalPrice= button.getAttribute('data-original-price')
     const price = button.getAttribute('data-rego-price')
-    console.log("regi price", price)
+    // console.log("regi price", price)
     const deposit = button.getAttribute('data-deposit')
     const productTitle = button.getAttribute('data-product-title')
     const submitReturn = document.getElementById("submitReturn")
     const dataImageLink = button.getAttribute('data-image-link')
+    const productDesc = button.getAttribute('data-product-desc')
     const form = modalReturn.querySelector('form')
 
     setRegDate()
@@ -709,7 +758,6 @@ function returnCheck(e) {
     usedPriceP.innerText = parseInt(price).toLocaleString()
     regiMonthP.innerText = regiMonth
     usedMonthP.innerText = calcMonth
-    //regiMonthP[1].innerText = regiMonth
     startDateP.innerText = formattedStartedDate
     endDateP.innerText = formattedEndDate
     minusPriceP.innerText = calcedPrice.toLocaleString()
@@ -718,7 +766,6 @@ function returnCheck(e) {
     modalTopImage.setAttribute('src', '/safariImg/'+dataImageLink)
     submitReturn.setAttribute('onclick', 'returnProcess(' + orderId + ',' + refundMoney + ', "'+ productTitle + '")')
     let days = (endDateObj - startDateObj)
-
     
    /*  console.log(returnPercentage);
     console.log(startDateObj);
@@ -733,19 +780,35 @@ function returnCheck(e) {
     // console.log(startDateObj > currentDate);
     
     
+    /* 조건모달생성 */
+    const confirmModalImg = document.querySelector('.confirmModalImg')
+    const confirmModalItemTitle = document.querySelector('.confirmModalItemTitle')
+    const confirmModalItemDesc = document.querySelector('.confirmModalItemDesc')
+    const userDesc = document.querySelector('.userDesc')
+    const confirmSubmitReturn = document.querySelector('#confirmSubmitReturn')
+    const confirmDeposit = document.querySelector('.confirmDeposit')
+    const confirmPrice = document.querySelector('.confirmPrice')
+    
+    confirmModalImg.setAttribute('src', '/safariImg/'+dataImageLink)
+    confirmModalItemTitle.innerText = productTitle
+    confirmModalItemDesc.innerText = productDesc
+    confirmDeposit.innerText = parseInt(deposit).toLocaleString('ko-KR') + '원'
+    confirmPrice.innerText = parseInt(price).toLocaleString('ko-KR') + '원/월'
+    
+    
+    userDesc.innerHTML = formattedEndDate
+    confirmSubmitReturn.setAttribute('onclick', 'returnProcessSingle(' + orderId + ')')
     
     // 오늘 날짜가 대여 시작일 보다 이전이거나 계약 기간의 90퍼센트 이상인 경우 - 추가 정산 XXX
     if(returnPercentage > 90  || startDateObj > currentDate ) {
-    	const returnModal1 = bootstrap.Modal.getOrCreateInstance("#");
+    	const returnModal1 = bootstrap.Modal.getOrCreateInstance("#modalConfirm");
     	returnModal1.show();
-    	return;
+    	return; 
     	
     } else { // 그 외에는 할인 기간 계산 
     	const returnModal2 = bootstrap.Modal.getOrCreateInstance("#modalReturn");
     	returnModal2.show();
     }
-    
-    
     
 
 }
@@ -770,7 +833,7 @@ if (modalReview) {
     
     reviewModalTopImage.setAttribute('src', '/safariImg/'+dataImageLink)
    	itemTitle.innerText = dataItemTitle
-    itemDesc.innerText = dataProduceDesc
+    itemDesc.innerText = productDesc
     
     ratingGroup.addEventListener('click', function() {
         let rentalReviewRating = document.querySelector('.ratingVal')
@@ -798,7 +861,29 @@ function getMonthDiffer(startMonth, endMonth) {
 }
 
 
+/* 조건반납 */
+function returnProcessSingle(orderId) {
+	const xhr = new XMLHttpRequest()
+	xhr.onreadystatechange = function() {
+		if(xhr.readyState == 4 && xhr.status == 200){
+			const response = JSON.parse(xhr.responseText);
+			if(response.result == "success"){
+				mySessionId = response.id; 
+				
+				location.href = '/safari/user/myOrderListPage'
+				 
+			}
+			
+		}
+	}
+	
+	xhr.open("get", "../rental/rentalReturnProcessSingle?rental_order_id="+orderId);
+	xhr.send();	
+}
 
+
+
+/* 일반 반납 */
 function returnProcess(orderId,refundMoney,productTitle) {
 /* 	console.log('리턴프로세스 매개변수 orderId:: ',orderId )
 	console.log('리턴프로세스 매개변수 refundMoney:: ',refundMoney )
@@ -841,8 +926,8 @@ function placeReviewDate(id) {
 		if(xhr.readyState == 4 && xhr.status == 200){
 			const response = JSON.parse(xhr.responseText);
 			if(response.result == "success"){
-				let rentalReviewDto = response.rentalReviewDto
-				let rentalItemDto = response.rentalItemDto
+				let rentalReviewDto = response.rentalReviewDto;
+				let rentalItemDto = response.rentalItemDto.rentalItemDto;
 				console.log(rentalItemDto)
 				
 				showMyReview()
@@ -861,18 +946,18 @@ function placeReviewDate(id) {
 					const titleRow = document.createElement("div");
 					titleRow.classList.add("row");
 					const titleCol = document.createElement("div");
-					titleCol.classList.add("col", "fs-5", "fw-normal");
+					titleCol.classList.add("col", "fs-5", "fw-medium");
 					titleCol.textContent = rentalReviewDto.rental_review_title;
 					titleRow.appendChild(titleCol);
 
 					// Create the row for user info
 					const userInfoRow = document.createElement("div");
-					userInfoRow.classList.add("row");
+					userInfoRow.classList.add("row", "mt-1");
 					const userIdCol = document.createElement("div");
-					userIdCol.classList.add("col", "fs-6", "fw-light", "text-secondary");
+					userIdCol.classList.add("col", "fs-6", "text-secondary");
 					userIdCol.textContent = userNickname; 
 					const dateCol = document.createElement("div");
-					dateCol.classList.add("col", "fs-6", "fw-light", "text-secondary", "text-end");
+					dateCol.classList.add("col", "fs-6", "text-secondary", "text-end");
 					const reviewDate = new Date(rentalReviewDto.reg_date);
 					const formattedDate = reviewDate.toLocaleDateString('en-US', {
 					  year: 'numeric',
@@ -888,10 +973,23 @@ function placeReviewDate(id) {
 					const hr = document.createElement("hr");
 					hr.classList.add("border");
 					
+					const prdRateRow = document.createElement("div");
+					prdRateRow.classList.add("row");
+					const prdRateCol1 = document.createElement("div");
+					prdRateCol1.classList.add("col-2");
+					const imgElement = document.createElement("img");
+					imgElement.setAttribute("src", `/safariImg/\${rentalItemDto.main_img_link}`); 
+					imgElement.classList.add("img-fluid");
+					prdRateCol1.appendChild(imgElement);
+					prdRateRow.appendChild(prdRateCol1);
+					
+					const prdRateCol2 = document.createElement("div");
+					prdRateCol2.classList.add("col");
+					
 					const productInfoRow = document.createElement("div");
 					productInfoRow.classList.add("row");
 					const productNameCol = document.createElement("div");
-					productNameCol.classList.add("col", "text-secondary", "fw-light");
+					productNameCol.classList.add("col");
 					productNameCol.textContent = rentalItemDto.title;
 					productInfoRow.appendChild(productNameCol);
 
@@ -911,12 +1009,16 @@ function placeReviewDate(id) {
 					  ratingCol.appendChild(starIcon);
 					}
 					ratingRow.appendChild(ratingCol);
+					
+					prdRateCol2.appendChild(productInfoRow)
+					prdRateCol2.appendChild(ratingRow)
+					prdRateRow.appendChild(prdRateCol2);
 
 					// Create the row for review content
 					const contentRow = document.createElement("div");
-					contentRow.classList.add("row", "mt-3", "mb-5", "fw-light");
+					contentRow.classList.add("row", "my-4");
 					const contentCol = document.createElement("div");
-					contentCol.classList.add("col");
+					contentCol.classList.add("col", "fw-light");
 					contentCol.textContent =
 						rentalReviewDto.rental_review_content;
 					contentRow.appendChild(contentCol);
@@ -932,25 +1034,24 @@ function placeReviewDate(id) {
 					replyCol.classList.add("col", "fw-medium");
 					replyCol.textContent = "답글";
 					replyRow.appendChild(replyCol);
-					
 
 					// 답글 있을 경우 
 					// Create the row for review content
 					const replyBodyRow = document.createElement("div");
-					replyBodyRow.classList.add("row", "mt-3", "mb-5", "fw-light");
+					replyBodyRow.classList.add("row", "mt-3", "mb-2", "fw-light");
 
 					const replyBodyCol = document.createElement("div");
 					replyBodyCol.classList.add("col", "review-reply", "p-3", "mx-3");
 					replyBodyCol.textContent =rentalReviewDto.rental_reply_review;
 					replyBodyRow.appendChild(replyBodyCol);
-					
 
 					// Append all elements to the productBox
 					cardBody.appendChild(titleRow);
 					cardBody.appendChild(userInfoRow);
 					cardBody.appendChild(hr);
-					cardBody.appendChild(productInfoRow);
-					cardBody.appendChild(ratingRow);
+					cardBody.appendChild(prdRateRow);
+					/* cardBody.appendChild(productInfoRow);
+					cardBody.appendChild(ratingRow); */
 					cardBody.appendChild(contentRow);
 					cardBody.appendChild(hr2);
 					cardBody.appendChild(replyRow);

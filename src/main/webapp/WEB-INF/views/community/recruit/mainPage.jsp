@@ -113,7 +113,7 @@
 		<!-- 커뮤니티 메뉴바 -->
 		<div class="row">
 			<div class="col">
-				<jsp:include page="../../community/communityTopNavi.jsp"></jsp:include>
+				<jsp:include page="../../community/communityTopNavi2.jsp"></jsp:include>
 			</div>
 		</div>
 		<!-- 커뮤니티 메뉴바 -->
@@ -290,8 +290,8 @@
 							</div>
 							</div>
 							
-							<div class="row mt-1 ms-3 me-1"> 
-							<div class="col text-center justify-content-center">
+							<div class="row mt-3 ms-3 me-1"> 
+							<div class="col justify-content-center">
 							<div id="carouselExample" class="carousel slide">
 							  <div class="carousel-inner">
 							    <div class="carousel-item active">
@@ -310,8 +310,8 @@
 							      	<button type="button" class="btn btn-outline-secondary rounded-pill btn-md m-1">대구광역시</button>
 									<button type="button" class="btn btn-outline-secondary rounded-pill btn-md m-1">광주광역시</button>
 									<button type="button" class="btn btn-outline-secondary rounded-pill btn-md m-1">전라남도</button>
-									<button type="button" class="btn btn-outline-secondary rounded-pill btn-md m-1">전라북도</button>
 									<button type="button" class="btn btn-outline-secondary rounded-pill btn-md m-1">제주특별자치도</button>
+									<button type="button" class="btn btn-outline-secondary rounded-pill btn-md m-1">전라북도</button>
 							    </div>
 							    <div class="carousel-item">
 							      	<button type="button" class="btn btn-outline-secondary rounded-pill btn-md m-1">사무</button>
@@ -381,21 +381,34 @@
 										주식회사 다온
 									</h4>
 								    <p class="card-text">
+								    	<div class="row">
+						  				<div class="col">
 								    	<div class="d-flex align-items-center">
 											<!-- <span class="badge border border-primary text-primary me-1" style="font-size: 13px;">영업</span> -->
 											<span class="badge rounded-pill mt-1 me-2" style="font-size: 12px; position: relative; top: -3px; color: #0095ff; background-color: transparent; border: 1px solid #0095ff;">영업</span>
 											<span class="text-align-center mb-1">물류팀 직원구인 경력무관</span>
 										</div>
-										<span class="text-secondary mt-2" >인천 서구 · </span>
+										<span class="text-secondary mt-2" >인천 · </span>
 										<strong class="mt-1 " style="color: #ff501b;"> 월 </strong>
 										<strong class=" mt-1" style="color: #ff501b;"> 250만원</strong>
+										</div>
+										</div>
+										
+										<div class="row">
+										<div class="col">
+										
+										<span class="text-secondary mt-2" ></span>
+										</div>
+										</div>
 									</p>
-								</div></div>
+								</div>
+								</div>
 								
 								<div class="row">
 						  		<div class="col d-flex align-items-center justify-content-start">
 								    <a href="#" class="btn btn-primary">공고 지원하기 <i class="bi bi-box-arrow-up-right"></i></a>
-								</div></div>
+								</div>
+								</div>
 								
 						    </div>
 						    

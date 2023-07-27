@@ -33,8 +33,7 @@ public class RestPromotionReviewController {
 	
 	@RequestMapping("promotion/getRentalItemList")
 	public Map<String, Object> getRentalItemList(int mainCategoryId, int subCategoryId){
-		Map<String, Object> map = new HashMap<>();
-		
+		Map<String, Object> map = new HashMap<>();	
 		
 		map.put("result", "success");
 		map.put("rentalItemCategoryList", promoReviewService.getRentalItems(mainCategoryId, subCategoryId));

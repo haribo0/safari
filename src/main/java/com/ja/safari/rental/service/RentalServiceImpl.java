@@ -204,58 +204,58 @@ public class RentalServiceImpl {
 		rentalSqlMapper.insertRentalReturn(rentalItemReturnDto);
 		
 		//카카오 취소 진행
-		String sid = rentalSqlMapper.getSidbyId(rentalItemReturnDto.getRental_order_id());
-		System.out.println(" SID 아이디:: "+sid );
-		
-		try {
-			URL kakaoInactive = new URL("https://kapi.kakao.com/v1/payment/manage/subscription/inactive");
-			try {
-				HttpURLConnection serverConn = (HttpURLConnection) kakaoInactive.openConnection(); // 컨트롤어에서 서버연결
-				serverConn.setRequestMethod("POST");
-				serverConn.setRequestProperty("Authorization", "KakaoAK 3b571b6edfbddf7b9912075b7f7c4172"); // 카카오에서 권장하는 헤더에 담을 어드민 키
-				serverConn.setRequestProperty("Content-type", "application/x-www-form-urlencoded;charset=utf-8"); // utf-8 설정
-				serverConn.setDoOutput(true); // 서버한테 전달 할 값이 있다 라는 true 표시
-				
-				String parameter = "cid=TCSUBSCRIP" + "&sid=" + sid; // 정기결제 코드
-				
-				OutputStream sender = serverConn.getOutputStream(); // 데이터들을 던저줄 객체
-				DataOutputStream giver = new DataOutputStream(sender); // 위 객체에게 데이터를 줄 권한 줌
-				giver.write(parameter.getBytes(StandardCharsets.UTF_8)); // 형변환(바이트로 약속되어있음)
-				giver.close(); // 보내고 비움: 자동으로 flush
-				
-				int resultKakao = serverConn.getResponseCode(); // 전송이 잘 되었는지 안되었는지 번호를 받음
-				InputStream reciver; // 받는객체 생성
-				
-				if(resultKakao == 200) {
-					reciver = serverConn.getInputStream(); // 200 성공일 경우
-				} else {
-					reciver = serverConn.getErrorStream(); // 성공 외 경우
-				}
-				
-				InputStreamReader reader = new InputStreamReader(reciver); // 받은걸 읽음
-				BufferedReader bfrd = new BufferedReader(reader); // 바이트를 읽기 위해 형변환 버퍼리더 생성
-				String input = bfrd.readLine();
-				
-				ObjectMapper objectMapper = new ObjectMapper();
-				RentalOrderKakaopayInactivation rentalOrderKakaopayInactivation = objectMapper.readValue(input, RentalOrderKakaopayInactivation.class);
-				if(rentalOrderKakaopayInactivation.getLast_approved_at() == null) {
-					// 최초 결제만 하고 정기결제 미진행 상태일 경우 approve_at이 null값이기에 최초 결제시 approve 값을 넣음
-					Date lastApproveAt = rentalSqlMapper.getFirstApproveAt(rentalOrderKakaopayInactivation.getSid());
-					System.out.println("최초결제 승인:: " + lastApproveAt);
-					rentalOrderKakaopayInactivation.setLast_approved_at(lastApproveAt);
-				}
-				System.out.println(rentalOrderKakaopayInactivation.toString());
-				
-				rentalSqlMapper.insertRentalOrderKakaoInactivation(rentalOrderKakaopayInactivation);
-				
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		} catch (MalformedURLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+//		String sid = rentalSqlMapper.getSidbyId(rentalItemReturnDto.getRental_order_id());
+//		System.out.println(" SID 아이디:: "+sid );
+//		
+//		try {
+//			URL kakaoInactive = new URL("https://kapi.kakao.com/v1/payment/manage/subscription/inactive");
+//			try {
+//				HttpURLConnection serverConn = (HttpURLConnection) kakaoInactive.openConnection(); // 컨트롤어에서 서버연결
+//				serverConn.setRequestMethod("POST");
+//				serverConn.setRequestProperty("Authorization", "KakaoAK 3b571b6edfbddf7b9912075b7f7c4172"); // 카카오에서 권장하는 헤더에 담을 어드민 키
+//				serverConn.setRequestProperty("Content-type", "application/x-www-form-urlencoded;charset=utf-8"); // utf-8 설정
+//				serverConn.setDoOutput(true); // 서버한테 전달 할 값이 있다 라는 true 표시
+//				
+//				String parameter = "cid=TCSUBSCRIP" + "&sid=" + sid; // 정기결제 코드
+//				
+//				OutputStream sender = serverConn.getOutputStream(); // 데이터들을 던저줄 객체
+//				DataOutputStream giver = new DataOutputStream(sender); // 위 객체에게 데이터를 줄 권한 줌
+//				giver.write(parameter.getBytes(StandardCharsets.UTF_8)); // 형변환(바이트로 약속되어있음)
+//				giver.close(); // 보내고 비움: 자동으로 flush
+//				
+//				int resultKakao = serverConn.getResponseCode(); // 전송이 잘 되었는지 안되었는지 번호를 받음
+//				InputStream reciver; // 받는객체 생성
+//				
+//				if(resultKakao == 200) {
+//					reciver = serverConn.getInputStream(); // 200 성공일 경우
+//				} else {
+//					reciver = serverConn.getErrorStream(); // 성공 외 경우
+//				}
+//				
+//				InputStreamReader reader = new InputStreamReader(reciver); // 받은걸 읽음
+//				BufferedReader bfrd = new BufferedReader(reader); // 바이트를 읽기 위해 형변환 버퍼리더 생성
+//				String input = bfrd.readLine();
+//				
+//				ObjectMapper objectMapper = new ObjectMapper();
+//				RentalOrderKakaopayInactivation rentalOrderKakaopayInactivation = objectMapper.readValue(input, RentalOrderKakaopayInactivation.class);
+//				if(rentalOrderKakaopayInactivation.getLast_approved_at() == null) {
+//					// 최초 결제만 하고 정기결제 미진행 상태일 경우 approve_at이 null값이기에 최초 결제시 approve 값을 넣음
+//					Date lastApproveAt = rentalSqlMapper.getFirstApproveAt(rentalOrderKakaopayInactivation.getSid());
+//					System.out.println("최초결제 승인:: " + lastApproveAt);
+//					rentalOrderKakaopayInactivation.setLast_approved_at(lastApproveAt);
+//				}
+//				System.out.println(rentalOrderKakaopayInactivation.toString());
+//				
+//				rentalSqlMapper.insertRentalOrderKakaoInactivation(rentalOrderKakaopayInactivation);
+//				
+//			} catch (IOException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
+//		} catch (MalformedURLException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
 		
 		
 			
