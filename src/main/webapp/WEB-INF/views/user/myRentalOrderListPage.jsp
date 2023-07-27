@@ -189,8 +189,6 @@
 </div>		
 
 <!--최종 정산 모달 -->
-
-
 <!-- 반납 모달 -->
 <div class="modal fade" id="modalReturn">
   <div class="modal-dialog">
@@ -248,12 +246,27 @@
 							<div class="col py-2 d-flex justify-content-between">
 								<p>총 금액</p>
 								<p class="fw-bold fs-5"><span class="finPriceP"></span>원</p>
+								<p class="fw-bold fs-5">* 위 금액은 보증금 반납시  </p>
 							</div>
 						</div>
 					</div>
 	      		</div>
 	      		
+	      		<div class="row justify-content-between">
+	      			<div class="col">
+	      				<div class="row justify-content-between">
+	      					<div class="col d-flex align-items-center">
+			      				<p class="modal-tit fw-bold fs-4 mb-0"></p>
+	      					</div>
+	      					<div class="col d-flex justify-content-end">
+			      				<img class="modalTopImage" alt="" src="" style="width: 80px;">
+	      					</div>
+	      				</div>
+	      			</div>
+	      		</div>
+	      		
 	      	</div>
+			<!-- <p class="me-5">반납하게 되시는 날은 다음과 같습니다: <span class="date_return"></span></p>  -->
 			<p class="return_desc"></p>
 	      </div>
 	      
@@ -608,56 +621,6 @@
 											    <button class="btn btn-outline-dark my-2 px-2 py-1" onclick="placeReviewDate(${data.orderedItem.id})" style="font-size:13px;">내가 쓴 리뷰</button>																				
 						            		</c:if>
 										
-											<c:choose>
-											    <c:when test="${data.isCompleted == 'Y' && data.myReviewCount == 0}">
-											        <button type="button" class="btn btn-dark my-2 px-2 py-1" style="font-size:13px;" data-order-id="${data.orderedItem.id}" data-bs-toggle="modal" data-bs-target="#modalReview">리뷰작성</button>																				
-											    </c:when>
-											    <c:when test="${data.isCompleted == 'Y' && data.myReviewCount >= 1}">
-											        <button class="btn btn-outline-dark my-2 px-2 py-1" onclick="placeReviewDate(${data.orderedItem.id})" style="font-size:13px;">내가 쓴 리뷰</button>																				
-											    </c:when>
-											    
-											    
-											    
-											    <c:when test="${data.isCompleted != 'Y'}">
-											        <c:choose>
-											            <c:when test="${data.orderedItem.is_shipped == 'N'}">
-											                <!-- <div class="p-1" style="font-size:14px;">배송중</div> -->
-											            </c:when>
-											            
-									            		<c:when test="${data.rentalItemReturnDto.is_item_returned == 'N' && data.isCompleted == 'N' }">
-									            			<!-- <div class=" p-1" style="font-size:14px;">회수중</div> -->
-									            		</c:when>
-											            		
-											            <c:otherwise>
-											            	<c:choose>
-											            		<c:when test="${data.rentalItemReturnDto.is_item_returned != 'Y'}">
-													                <button type="button" class="btn btn-dark px-2 py-1" style="font-size:13px;" onclick="returnCheck(this)"
-													                	data-image-link="${data.product.main_img_link}" 
-													                	data-product-title="${data.product.title}" 
-													                	data-product-desc="${data.product.item_description}"
-													                	data-order-id="${data.orderedItem.id}" 
-													                	data-original-price="${data.orderedItem.original_price}" 
-													                	data-rego-price="${data.orderedItem.price}" 
-													                	data-startdate="${data.orderedItem.start_date }" 
-													                	data-enddate="${data.orderedItem.end_date}" 
-													                	data-deposit="${data.orderedItem.deposit}" 
-													                	>
-													               		 반납신청
-													                </button>
-											            		</c:when>
-											            		
-											            		<c:when test="${data.rentalItemReturnDto.is_item_returned == 'Y' && data.isCompleted != 'Y' }">
-											            			<!-- <button type="button" class="btn btn-outline-secondary px-2 py-1" style="font-size:13px;" disabled>최종 정산중</button> -->
-											            		</c:when>
-											            		
-											            		<c:otherwise>
-											            			<!-- <div class=" p-1" style="font-size:13px;">배송전</div> -->
-											            		</c:otherwise>
-											            	</c:choose>
-											            </c:otherwise>
-											        </c:choose>
-											    </c:when>
-											</c:choose>
 										</div>
 									</div>
 								</div>	
@@ -885,7 +848,7 @@ function returnCheck(e) {
     modalTit.innerText = productTitle
     usedPriceP.innerText = parseInt(price).toLocaleString()
     regiMonthP.innerText = regiMonth
-    usedMonthP.innerText = calcMonth + 1
+    usedMonthP.innerText = calcMonth + 1;
     startDateP.innerText = formattedStartedDate
     endDateP.innerText = formattedEndDate
     minusPriceP.innerText = calcedPrice.toLocaleString()
@@ -916,7 +879,7 @@ function returnCheck(e) {
     const confirmSubmitReturn = document.querySelector('#confirmSubmitReturn')
     const confirmDeposit = document.querySelector('.confirmDeposit')
     const confirmPrice = document.querySelector('.confirmPrice')
-    
+
     confirmModalImg.setAttribute('src', '/safariImg/'+dataImageLink)
     confirmModalItemTitle.innerText = productTitle
     confirmModalItemDesc.innerText = productDesc
@@ -952,7 +915,7 @@ function returnCheck(e) {
 	modalFinCancelFee.innerText =
 	modalFinPartialLoss.innerText =
 	modalFinPartialDamage.innerText = */
-	
+    
     // 오늘 날짜가 대여 시작일 보다 이전이거나 계약 기간의 90퍼센트 이상인 경우 - 추가 정산 XXX
     if(returnPercentage > 90  || startDateObj > currentDate ) {
     	//const returnModal1 = bootstrap.Modal.getOrCreateInstance("#modalConfirm");
