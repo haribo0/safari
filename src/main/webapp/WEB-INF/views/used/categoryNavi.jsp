@@ -19,17 +19,17 @@
 			</div>
 			<div class="col"></div>
 		</div>
-		<div class="row mt-1" style="display: flex; flex-direction: row;">
+		<div class="row" style="display: flex; flex-direction: row;">
 			<div class="col-2"></div>
-			<div class="col-4">
+			<div class="col-4 mt-3">
 			<ul class="order_list" style="display: flex; list-style: none; padding: 0; margin: 0;">
-				<li class="order_item" data-sort-method="BEST">&nbsp;<div class="btn" id="recentOrder" onclick="getViewAll(0,0,0,0,0,-1)">최신순</div>&nbsp;&nbsp;|&nbsp;&nbsp;</li>
-				<li class="order_item" data-sort-method="NEW"><div class="btn" id="bestOrder" onclick="getViewAll(0,0,0,0,0,1)">인기순</div>&nbsp;&nbsp;|&nbsp;&nbsp;</li>
-				<li class="order_item" data-sort-method="MinPrice"><div class="btn" id="lowOrder" onclick="getViewAll(0,0,0,0,0,2)">낮은가격순</div>&nbsp;&nbsp;|&nbsp;&nbsp;</li>
+				<li class="order_item" data-sort-method="BEST">&nbsp;<div class="btn" id="recentOrder" onclick="getViewAll(0,0,0,0,0,-1)">최신순</div><span class="text-secondary ms-1">|</span></li>
+				<li class="order_item" data-sort-method="NEW"><div class="btn" id="bestOrder" onclick="getViewAll(0,0,0,0,0,1)">인기순</div><span class="text-secondary ms-1">|</span></li>
+				<li class="order_item" data-sort-method="MinPrice"><div class="btn" id="lowOrder" onclick="getViewAll(0,0,0,0,0,2)">낮은가격순</div><span class="text-secondary ms-1">|</span></li>
 				<li class="order_item" data-sort-method="MaxPrice"><div class="btn" id="highOrder" onclick="getViewAll(0,0,0,0,0,3)">높은가격순</div></li>
 			</ul>
 			</div>
-			<div class="col mt-2 m-0">
+			<div class="col mt-4 m-0">
 				<div class="form-check form-check-inline">
 				  <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
 				  <label class="form-check-label" for="inlineCheckbox1">거래가능</label>
