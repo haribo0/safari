@@ -576,7 +576,7 @@
 		</div>
 	</div>
 	
-	<div class="modal modal-lg" id="showMyReviewModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal " id="showMyReviewModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-md modal-dialog-centered"> 
     <div class="modal-content">
       <div class="modal-header bg-light">
