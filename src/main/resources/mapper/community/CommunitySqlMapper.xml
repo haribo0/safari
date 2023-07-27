@@ -41,35 +41,36 @@
 	SELECT
 	ROWNUM,
 	board,
+	id,
 	title,
-	likeCount,
+	likecount,
 	reg_date
 	FROM (
-	    SELECT '리워드' AS board, COUNT(prl.review_id) AS likeCount, pr.promotion_review_title AS title, pr.reg_date
+	    SELECT '리워드리뷰' AS board, COUNT(prl.review_id) AS likecount, pr.id, pr.promotion_review_title AS title, pr.reg_date
 	    FROM promotion_review pr
 	    JOIN PROMOTION_REVIEW_LIKE prl ON pr.id = prl.review_id
-	    GROUP BY pr.promotion_review_title, pr.reg_date
+	    GROUP BY pr.id, pr.promotion_review_title, pr.reg_date
 	    UNION ALL
-	    SELECT '구인구직' AS board, count(rlt.recruit_id) AS likeCount, rt.title, rt.reg_date
+	    SELECT '구인구직' AS board, count(rlt.recruit_id) AS likecount, rt.id, rt.title, rt.reg_date
 	    FROM RECRUIT_TABLE rt
 	    JOIN RECRUIT_LIKE_TABLE rlt ON rt.id = rlt.recruit_id
-	    GROUP BY rt.title, rt.reg_date
+	    GROUP BY rt.id, rt.title, rt.reg_date
 	    UNION ALL
-	    SELECT '골라줘요' AS board, count(plt.pick_id) AS likeCount, pt.title, pt.reg_date
+	    SELECT '골라줘요' AS board, count(plt.pick_id) AS likecount, pt.id, pt.title, pt.reg_date
 	    FROM PICK_TABLE pt
 	    JOIN PICK_LIKE_TABLE plt ON pt.id = plt.pick_id
-	    GROUP BY pt.title, pt.reg_date
+	    GROUP BY pt.id, pt.title, pt.reg_date
 	    UNION ALL
-	    SELECT '해주세요' AS board, count(hlt.help_id) AS likeCount, ht.title, ht.reg_date
+	    SELECT '해주세요' AS board, count(hlt.help_id) AS likecount, ht.id, ht.title, ht.reg_date
 	    FROM HELP_TABLE ht
 	    JOIN HELP_LIKE_TABLE hlt ON ht.id = hlt.help_id
-	    GROUP BY ht.title, ht.reg_date
+	    GROUP BY ht.id, ht.title, ht.reg_date
 	    UNION ALL
-	    SELECT '궁금해요' AS board, count(qlt.question_id) AS likeCount, qt.title, qt.reg_date
+	    SELECT '궁금해요' AS board, count(qlt.question_id) AS likecount, qt.id, qt.title, qt.reg_date
 	    FROM QUESTION_TABLE qt
 	    JOIN QUESTION_LIKE_TABLE qlt ON qt.id = qlt.question_id
-	    GROUP BY qt.title, qt.reg_date
-	) all_likes
+	    GROUP BY qt.id, qt.title, qt.reg_date
+		) all_likes
 	<![CDATA[
 	WHERE ROWNUM < 6
 	]]>

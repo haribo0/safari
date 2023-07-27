@@ -15,6 +15,7 @@ import com.ja.safari.dto.HelpCommentDto;
 import com.ja.safari.dto.HelpDto;
 import com.ja.safari.dto.HelpImgDto;
 import com.ja.safari.dto.HelpLikeDto;
+import com.ja.safari.dto.PromotionReviewDto;
 import com.ja.safari.dto.QuestionDto;
 import com.ja.safari.dto.QuestionLikeDto;
 import com.ja.safari.dto.QuestionReplyDto;
@@ -31,6 +32,8 @@ public class CommunityServiceImpl {
 	private CommunitySqlMapper communitySqlMapper;
 	@Autowired
 	private UserSqlMapper userSqlMapper;
+	@Autowired
+	private PromotionReviewServiceImpl promotionReviewService;
 
 	
 	// 커뮤니티 메인 - 게시물 최신순 정렬
@@ -61,7 +64,7 @@ public class CommunityServiceImpl {
 		
 		for(CommunityPostDto communityPostDto : bestPostCommunityList) {
 			Map<String, Object> map = new HashMap<>();
-
+		
 			map.put("communityBestPostDto", communityPostDto);
 			
 			bestPostByCommunityList.add(map);

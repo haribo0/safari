@@ -79,9 +79,34 @@
 										[${map.communityNewPostDto.board }]
 									</div>
 									<div class = "col p-0 mx-1" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
-										<a href="/safari/community/${map.communityNewPostDto.board }/readContentPage/${map.communityPostDto.id}" style="text-decoration: none; color: inherit;">
+										<c:if test="${map.communityNewPostDto.board == '리워드리뷰' }">
+										<a href="/safari/community/promotion/contentPromotionReviewPage?id=${map.communityNewPostDto.id}" style="text-decoration: none; color: inherit;">
 											${map.communityNewPostDto.title }
 										</a>
+										</c:if>
+										<c:if test="${map.communityNewPostDto.board == '구인구직' }">
+										<a href="/safari/community/recruit/readContentPage/${map.communityNewPostDto.id}" style="text-decoration: none; color: inherit;">
+											${map.communityNewPostDto.title }
+										</a>
+										</c:if>
+										<c:if test="${map.communityNewPostDto.board == '골라줘요' }">
+										<a href="/safari/community/pick/readContentPage/${map.communityNewPostDto.id}" style="text-decoration: none; color: inherit;">
+											${map.communityNewPostDto.title }
+										</a>
+										</c:if>
+										<c:if test="${map.communityNewPostDto.board == '해주세요' }">
+										<a href="/safari/community/help/readContentPage/${map.communityNewPostDto.id}" style="text-decoration: none; color: inherit;">
+											${map.communityNewPostDto.title }
+										</a>
+										</c:if>
+										<c:if test="${map.communityNewPostDto.board == '궁금해요' }"> 
+										<a href="/safari/community/question/questionReadContentPage/${map.communityNewPostDto.id}" style="text-decoration: none; color: inherit;">
+											${map.communityNewPostDto.title }
+										</a>
+										</c:if>
+										
+										
+
 									</div>
 									<div class = "col-auto p-0 text-secondary text-end d-flex align-items-center" style = "font-size:13px;">
 										<fmt:formatDate value="${map.communityNewPostDto.reg_date}" pattern="yyyy/MM/dd" />
@@ -112,9 +137,34 @@
 										[${map.communityBestPostDto.board }]
 									</div>
 									<div class = "col p-0 mx-1" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+										<c:if test="${map.communityBestPostDto.board == '리워드리뷰' }">
+										<a href="/safari/community/promotion/contentPromotionReviewPage?id=${map.communityBestPostDto.id}" style="text-decoration: none; color: inherit;">
+											${map.communityBestPostDto.title }
+										</a>
+										</c:if>
+										<c:if test="${map.communityBestPostDto.board == '구인구직' }">
+										<a href="/safari/community/recruit/readContentPage/${map.communityBestPostDto.id}" style="text-decoration: none; color: inherit;">
+											${map.communityBestPostDto.title }
+										</a>
+										</c:if>
+										<c:if test="${map.communityBestPostDto.board == '골라줘요' }">
+										<a href="/safari/community/pick/readContentPage/${map.communityBestPostDto.id}" style="text-decoration: none; color: inherit;">
+											${map.communityBestPostDto.title }
+										</a>
+										</c:if>
+										<c:if test="${map.communityBestPostDto.board == '해주세요' }">
 										<a href="/safari/community/help/readContentPage/${map.communityBestPostDto.id}" style="text-decoration: none; color: inherit;">
 											${map.communityBestPostDto.title }
 										</a>
+										</c:if>
+										<c:if test="${map.communityBestPostDto.board == '궁금해요' }"> 
+										<a href="/safari/community/question/questionReadContentPage/${map.communityBestPostDto.id}" style="text-decoration: none; color: inherit;">
+											${map.communityBestPostDto.title }
+										</a>
+										</c:if>
+										
+										
+
 									</div>
 									<div class = "col-auto p-0 text-secondary text-end d-flex align-items-center" style = "font-size:13px;">
 										<fmt:formatDate value="${map.communityBestPostDto.reg_date}" pattern="yyyy/MM/dd" />
