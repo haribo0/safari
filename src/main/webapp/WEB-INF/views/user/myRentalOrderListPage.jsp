@@ -582,7 +582,7 @@
 											</c:if>
 											
 											</div>
-											<div class="mb-2 fs-5 fw-medium" >${data.product.title }</div>
+											<div class="mb-2 fs-6 fw-medium" >${data.product.title }</div>
 											<div class="mb-0 " style="font-size: 15px;">대여기간 <fmt:formatDate pattern="yyyy-MM-dd" value="${data.orderedItem.start_date }" /> - <fmt:formatDate pattern="yyyy-MM-dd" value="${data.orderedItem.end_date }" /></div>	
 										</a>
 										</div>
@@ -594,13 +594,13 @@
 								</div>
 								
 																						
-								<div class="col d-flex justify-content-center align-items-center">
+								<div class="col d-flex justify-content-center align-items-center" style="font-size: 15px;">
 									${data.orderState}
 								</div>
 								
 								<div class="col d-flex justify-content-center align-items-center">
 									<div class="row" style="width: 100%;">
-										<div class="col">
+										<div class="col d-flex flex-column justify-content-center">
 										
 											<button class="btn btn-outline-dark my-2 px-2 py-1" onclick="orderDetail()" style="font-size:13px;">주문 상세</button>	
 											
@@ -620,10 +620,10 @@
 								                </button>
 						            		</c:if>
 											<c:if test="${data.orderState == '반납완료'  && data.myReviewCount == 0}">
-								            	<button type="button" class="btn btn-dark my-2 px-2 py-1" style="font-size:13px;" data-order-id="${data.orderedItem.id}" data-bs-toggle="modal" data-bs-target="#modalReview">리뷰작성</button>																				
+								            	<button type="button" class="btn btn-dark px-2 py-1" style="font-size:13px;" data-order-id="${data.orderedItem.id}" data-bs-toggle="modal" data-bs-target="#modalReview">리뷰 작성</button>																				
 						            		</c:if>
 											<c:if test="${data.isCompleted == 'Y' && data.myReviewCount >= 1}">
-											    <button class="btn btn-outline-dark my-2 px-2 py-1" onclick="placeReviewDate(${data.orderedItem.id})" style="font-size:13px;">내가 쓴 리뷰</button>																				
+											    <button class="btn btn-dark px-2 py-1" onclick="placeReviewDate(${data.orderedItem.id})" style="font-size:13px;">내가 쓴 리뷰</button>																				
 						            		</c:if>
 										
 										</div>
