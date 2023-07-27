@@ -421,7 +421,7 @@ window.addEventListener("DOMContentLoaded", function(){
 						<c:if test="${map.helpDto.points>=1}">
 							<span class="badge rounded-pill text-bg-warning opacity-75"
 								style="font-size: 80%; position: relative; bottom: 2px;">
-								<span class="text-black">${map.helpDto.points}p</span>
+								<span class="text-black" style="font-size: 12px;">${map.helpDto.points}p</span>
 							</span>
 						</c:if>
 						<c:if test="${map.helpDto.points==0}"></c:if>
