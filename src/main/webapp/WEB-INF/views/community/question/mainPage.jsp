@@ -27,7 +27,7 @@
 		 <!-- 커뮤니티 메뉴바 -->
       <div class="row">
          <div class="col">
-           <jsp:include page="../../community/communityTopNavi.jsp"></jsp:include>
+           <jsp:include page="../../community/communityTopNavi2.jsp"></jsp:include>
          </div>
       </div>
       <!-- 커뮤니티 메뉴바 --> 
@@ -69,7 +69,7 @@
 					<td>${map.userDto.nickname}</td>
 					<td style="text-align: left;">
 					<div style="display: inline-block;">
-				  	<a class="text-black text-decoration-none" href="/safari/community/question/questionReadContentPage/${map.questionDto.id}">
+				  	<a class="text-black fw-medium text-decoration-none" href="/safari/community/question/questionReadContentPage/${map.questionDto.id}">
 				  	<span class="badge rounded-pill text-bg-danger opacity-75" style="font-size: 61%; position: relative; top: -3px;">Best</span>
 				  	${map.questionDto.title}</a>
 				  	<c:if test="${map.questionDto.points>=1}">

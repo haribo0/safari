@@ -9,7 +9,6 @@ import com.ja.safari.dto.PromotionReviewImgDto;
 import com.ja.safari.dto.PromotionReviewLikeDto;
 import com.ja.safari.dto.ProreviewRentalCategoryDto;
 import com.ja.safari.dto.RentalItemDto;
-import com.ja.safari.dto.RentalMainCategoryDto;
 import com.ja.safari.dto.RentalSubCategoryDto;
 import com.ja.safari.dto.UserCoinDto;
 
@@ -21,7 +20,8 @@ public interface PromotionReviewMapper {
 	// 프로모션 전체 
 	public List<PromotionReviewDto> selectPromotionReviewAll(@Param("page") int page,
 				@Param("promoReview_searchType")String promoReview_searchType,
-				@Param("promoReview_searchWord")String promoReview_searchWord);
+				@Param("promoReview_searchWord")String promoReview_searchWord,
+				@Param("subCategoryId") Integer subCategoryId);
 	
 	// 리뷰 글 갯수
 	public int getPromotionReviewCount(
@@ -92,4 +92,8 @@ public interface PromotionReviewMapper {
 	
 	// 리워드 링크 코인 적립
 	public void increaseUserCoinByPromotionReviewReward(UserCoinDto userCoinDto);
+	
+	// 리워드 렌탈 상품, 상호명
+	PromotionReviewDto getProReviewRentalItem(int id); 
+	
 }

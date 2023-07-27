@@ -50,7 +50,8 @@ public class PromotionReviewController {
 			String promoReview_searchType,
 			String promoReview_searchWord,
 			PromotionReviewCommentDto promotionReviewCommentDto,
-			HttpSession session
+			HttpSession session,
+			Integer subCategoryId
 			) {
 
 		UserDto sessionUser = (UserDto)session.getAttribute("sessionUser");
@@ -61,7 +62,7 @@ public class PromotionReviewController {
 			sessionId = sessionUser.getId();
 		}
 		
-		List<Map<String, Object>> promoReviewList = promotionReviewService.getPromotionReviewList(page, promoReview_searchType, promoReview_searchWord, promotionReviewCommentDto, sessionId);		
+		List<Map<String, Object>> promoReviewList = promotionReviewService.getPromotionReviewList(page, promoReview_searchType, promoReview_searchWord, promotionReviewCommentDto, sessionId, subCategoryId);		
 	
 		List<Map<String, Object>> orderByLikePromoReviewList = promotionReviewService.orderByPromotionReviewLikes(sessionId); 
 		
@@ -82,7 +83,7 @@ public class PromotionReviewController {
 		if(userDto == null) return "redirect:/user/loginPage";
 
 		model.addAttribute("mainCategoryList", rentalBusinessService.getRentalMainCategoryList());
-		//model.addAttribute("rentalItemList", promotionReviewService.getRentalItems());
+		// model.addAttribute("rentalItemList", promotionReviewService.getRentalItems());
 
 
 		return "/community/promotion/writePromotionReviewPage";
@@ -289,7 +290,8 @@ public class PromotionReviewController {
 				String promoReview_searchType,
 				String promoReview_searchWord,
 				PromotionReviewCommentDto promotionReviewCommentDto,
-				HttpSession session
+				HttpSession session,
+				Integer subCategoryId
 				) {
 
 
@@ -303,10 +305,14 @@ public class PromotionReviewController {
 
 		List<Map<String, Object>> topViewCount = promotionReviewService.topViewCount(sessionId);
 
-		List<Map<String, Object>> promoReviewList = promotionReviewService.getPromotionReviewList(page, promoReview_searchType, promoReview_searchWord, promotionReviewCommentDto, sessionId);
+		List<Map<String, Object>> promoReviewList = promotionReviewService.getPromotionReviewList(page, promoReview_searchType, promoReview_searchWord, promotionReviewCommentDto, sessionId, subCategoryId);
+		
+		System.out.println("promoReviewList 컨트롤러 : " + promoReviewList);
+		
+		List<Map<String, Object>> promoReviewCategory = promotionReviewService.getPromotionCategoryList();
+		
+		
 		int promotionReviewCount = promotionReviewService.getPromotionReviewCount(promoReview_searchType, promoReview_searchWord);
-
-
 
 		int totalPage = (int)Math.ceil(promotionReviewCount/10.0);
 
@@ -316,7 +322,8 @@ public class PromotionReviewController {
 		if(endPage > totalPage) {
 			endPage = totalPage;
 		}
-
+		
+		
 		model.addAttribute("promoReviewList", promoReviewList);
 		model.addAttribute("topViewCount", topViewCount);
 		model.addAttribute("totalPage", totalPage);
@@ -331,6 +338,8 @@ public class PromotionReviewController {
 		}
 
 		model.addAttribute("promoReview_searchQueryString", promoReview_searchQueryString);
+		
+		model.addAttribute("promoReviewCategory", promoReviewCategory);
 
 		return "/community/promotion/allPromotionReviewPage";
 	}
