@@ -47,7 +47,7 @@
 					</a>
 					 <div class="vr mx-3"></div>
 					<a href="./promotion/promotionReviewMainPage" style="text-decoration: none; color: inherit;">
-						리워드
+						리워드 리뷰
 					</a>
 					</div>
 				</div>

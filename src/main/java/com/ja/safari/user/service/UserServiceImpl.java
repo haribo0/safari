@@ -1,6 +1,7 @@
 package com.ja.safari.user.service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -143,12 +144,12 @@ public class UserServiceImpl {
 		
 		List<RentalOrderDto> RentalOrderDtolist = userSqlMapper.selectRentalOrderedListById(id);
 		
-		for(RentalOrderDto item: RentalOrderDtolist) {
+		for(RentalOrderDto orderDto: RentalOrderDtolist) {
 			Map<String, Object> map = new HashMap<String, Object>();
-			int orderId = item.getId();
+			int orderId = orderDto.getId();
 			String isCompleted = rentalSqlMapper.selectIsCompletedById(orderId);
 			
-			RentalItemDto rentalItem = rentalSqlMapper.selectById(item.getItem_id());
+			RentalItemDto rentalItem = rentalSqlMapper.selectById(orderDto.getItem_id());
 			RentalItemReturnDto rentalItemReturnDto = rentalSqlMapper.selectRentalItemRetrunById(orderId);
 			// 리뷰 숫자 세기 작업중
 			int myReviewCount = rentalSqlMapper.selectMyReviewCount(id, orderId);
@@ -156,18 +157,45 @@ public class UserServiceImpl {
 			int itemId = rentalItem.getId();
 			RentalBusinessDto rentalBusinessDto = rentalSqlMapper.selectRentalBuisnessById(itemId);
 			
+			// 오늘 날짜 
+			Date currentDate = new Date();
+			// 주문 진행 상태 
+			String orderState = "";
+			
+			if (rentalItemReturnDto!=null) {
+				if(rentalItemReturnDto.getIs_completed()=="Y") {
+					orderState = "반납완료";
+				} else if (rentalItemReturnDto.getIs_item_returned().equals("Y")) {
+					orderState = "정산중";
+				} else {
+					orderState = "반납신청";
+				}
+			} else {
+				// 시작일 이후면
+				if(orderDto.getStart_date().compareTo(currentDate) < 0 ) orderState = "대여중";
+				else if(orderDto.getIs_shipped().equals("Y") ) orderState = "배송중";
+				// 다 아니면 
+				else orderState = "주문완료";
+			}
+			
+			
+			
+			
 			map.put("myReviewCount", myReviewCount);
 			map.put("isCompleted", isCompleted);
-			map.put("orderedItem", item);
+			map.put("orderedItem", orderDto);
 			map.put("product", rentalItem);
 			map.put("rentalItemReturnDto",rentalItemReturnDto);
 			map.put("rentalBusinessDto",rentalBusinessDto);
+			map.put("orderState",orderState);
 		
 			list.add(map);
 		}
 		
 		return list;
 	}
+	
+	
 	
 	// 영인 
 	public UserDto selectUserDtoById(int id) {
