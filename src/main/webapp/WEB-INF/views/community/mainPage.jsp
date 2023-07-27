@@ -11,7 +11,14 @@
 <!-- 메타 섹션 -->
 <jsp:include page="../common/meta.jsp"></jsp:include>
 <!-- 메타 섹션 -->
-
+<style>
+  .custom-badge {
+    font-size: 6px;
+    line-height: 1;
+    height: 16px;
+    padding: 2px 6px;
+  }
+</style>
 </head>
 <body>
 	<!-- 헤더 섹션 -->
@@ -192,9 +199,9 @@
 							<div class = "col mx-2">
 							<c:forEach items="${newPostByHelpList}" var="map" varStatus="status" begin="0" end="4">  
 								<div class = "row mt-1 py-1">
-									<div class = "col-auto d-flex align-items-center" style = "font-size:13px; color: #387538; ">
-										[${map.helpDto.points }p]
-									</div>
+									<div class = "col-auto d-flex align-items-center badge rounded-pill text-bg-warning opacity-75 custom-badge" style="position: relative; top: 6px;">
+										${map.helpDto.points }p
+									</div> 
 									<div class = "col p-0 mx-1" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
 										<a href="/safari/community/help/readContentPage/${map.helpDto.id}" style="text-decoration: none; color: inherit;">
 											${map.helpDto.title }
@@ -276,11 +283,13 @@
 						<div class = "col mx-2">
 							<c:forEach items="${newPostByQuestionList}" var="map" varStatus="status" begin="0" end="4">  
 								<div class = "row mt-1 py-1">
-									<div class = "col-auto d-flex align-items-center" style = "font-size:13px; color: #387538; ">
-										[${map.questionDto.points }p]
+									<c:if test="${map.questionDto.points>=1}">
+									<div class = "col-auto d-flex align-items-center badge rounded-pill text-bg-warning opacity-75 custom-badge" style="position: relative; top: 6px;">
+										${map.questionDto.points }p
 									</div>
+									</c:if>
 									<div class = "col p-0 mx-1" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
-										<a href="/safari/community/question/readContentPage/${map.recruitDto.id}" style="text-decoration: none; color: inherit;">
+										<a href="/safari/community/question/questionReadContentPage/${map.questionDto.id}" style="text-decoration: none; color: inherit;">
 											${map.questionDto.title }
 										</a>
 									</div>

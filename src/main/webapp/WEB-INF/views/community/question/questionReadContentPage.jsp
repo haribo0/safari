@@ -182,7 +182,7 @@ window.addEventListener("DOMContentLoaded", function(){
 					<span class="fw-medium fs-5">${map.questionDto.title}</span>
 					<c:if test="${map.questionDto.points>=1}">
 					<span class="badge rounded-pill text-bg-warning opacity-75" style="font-size: 80%; position: relative; left: 2px; bottom: 2px;">
-					<span class="text-black">${map.questionDto.points}p</span></span>
+					<span class="text-black" style="font-size: 12px;">${map.questionDto.points}p</span></span>
 					</c:if>
 					<c:if test="${map.questionDto.points==0}"></c:if>
 				</div>	
