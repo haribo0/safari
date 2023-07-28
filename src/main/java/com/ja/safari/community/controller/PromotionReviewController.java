@@ -164,6 +164,9 @@ public class PromotionReviewController {
 		List<Map<String, Object>> promoCommentDtoList = promotionReviewCommentService.getpromotionReviewCommentDtoList(id);
 
 		List<Map<String, Object>> bestPromotionReviewPostList = promotionReviewService.bestPromoReviewPost(id);
+
+		// 비지니스 정보나오는지 실험
+		List<Map<String, Object>> rentalPromotionReviewInfoList = promotionReviewService.getProReviewRentalItemList(id);
 		
 		// html escape(enter키)
 		PromotionReviewDto promotionReviewDto = (PromotionReviewDto)map.get("promotionReviewDto");
@@ -177,7 +180,8 @@ public class PromotionReviewController {
 		model.addAttribute("data", map);
 		model.addAttribute("promoCommentDtoList", promoCommentDtoList);
 		model.addAttribute("bestPromotionReviewPostList", bestPromotionReviewPostList);
-
+		model.addAttribute("rentalPromotionReviewInfoList", rentalPromotionReviewInfoList);
+		
 		return "/community/promotion/contentPromotionReviewPage";
 	}
 
@@ -307,10 +311,7 @@ public class PromotionReviewController {
 
 		List<Map<String, Object>> promoReviewList = promotionReviewService.getPromotionReviewList(page, promoReview_searchType, promoReview_searchWord, promotionReviewCommentDto, sessionId, subCategoryId);
 		
-		System.out.println("promoReviewList 컨트롤러 : " + promoReviewList);
-		
-		List<Map<String, Object>> promoReviewCategory = promotionReviewService.getPromotionCategoryList();
-		
+		List<Map<String, Object>> promoReviewCategory = promotionReviewService.getPromotionCategoryList();	
 		
 		int promotionReviewCount = promotionReviewService.getPromotionReviewCount(promoReview_searchType, promoReview_searchWord);
 
@@ -336,9 +337,13 @@ public class PromotionReviewController {
 			promoReview_searchQueryString += "&promoReview_searchType=" + promoReview_searchType;
 			promoReview_searchQueryString += "&promoReview_searchWord=" + promoReview_searchWord;
 		}
+		 if (promoReviewList.isEmpty()) {
+		        model.addAttribute("searchMessage", "검색 결과가 존재하지 않습니다.");
+		    }
 
-		model.addAttribute("promoReview_searchQueryString", promoReview_searchQueryString);
 		
+		
+		model.addAttribute("promoReview_searchQueryString", promoReview_searchQueryString);
 		model.addAttribute("promoReviewCategory", promoReviewCategory);
 
 		return "/community/promotion/allPromotionReviewPage";

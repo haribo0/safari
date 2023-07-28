@@ -10,11 +10,14 @@ import org.springframework.stereotype.Service;
 
 import com.ja.safari.community.mapper.PromotionReviewCommentMapper;
 import com.ja.safari.community.mapper.PromotionReviewMapper;
+import com.ja.safari.dto.CommunityPostDto;
+import com.ja.safari.dto.PromoReviewRentalInfoDto;
 import com.ja.safari.dto.PromotionReviewCommentDto;
 import com.ja.safari.dto.PromotionReviewDto;
 import com.ja.safari.dto.PromotionReviewImgDto;
 import com.ja.safari.dto.PromotionReviewLikeDto;
 import com.ja.safari.dto.ProreviewRentalCategoryDto;
+import com.ja.safari.dto.RentalBusinessDto;
 import com.ja.safari.dto.RentalItemDto;
 import com.ja.safari.dto.RentalMainCategoryDto;
 import com.ja.safari.dto.RentalSubCategoryDto;
@@ -137,7 +140,6 @@ public class PromotionReviewServiceImpl {
 //		map.put("proReviewRentalItemList", proReviewRentalItemList);
 
 //		System.out.println("렌탈아이템 서비스 : " + proReviewRentalItemList);
-		System.out.println("흑흑 서비스 맵 : " + map);
 		
 		// map 안에 map 넣기 예시
 		// Map<String, Object> mapRental = new HashMap<>();
@@ -165,12 +167,25 @@ public class PromotionReviewServiceImpl {
 	// 실험 .... 세부 페이지 상품명, 비지니스 네임
 	public List<Map<String, Object>> getProReviewRentalItemList(int id) {
 		
-		List<Map<String, Object>> proReviewRentalItemList = new ArrayList<>();
-		PromotionReviewDto proReviewRentalItem = promotionReviewMapper.getProReviewRentalItem(id);
+		List<Map<String, Object>> promoReviewRentalInfoList = new ArrayList<>();
 		
-        
-		    
-		return proReviewRentalItemList;
+		// 이 id는 pr의 id일 것
+		List<PromoReviewRentalInfoDto> promoRentalInfoList = promotionReviewMapper.getProReviewRentalItemInfo(id);
+		
+		for(PromoReviewRentalInfoDto promoReviewRentalInfoDto : promoRentalInfoList) {
+			Map<String, Object> map = new HashMap<>();
+		
+
+		PromotionReviewDto promotionReviewDto = promotionReviewMapper.selectByPromoReviewId(promoReviewRentalInfoDto.getId());	
+
+		
+			map.put("promoReviewRentalInfoDto", promoReviewRentalInfoDto);
+			map.put("promotionReviewDto", promotionReviewDto);
+			
+			promoReviewRentalInfoList.add(map);
+		}		
+		
+		return promoReviewRentalInfoList;
 	}
 	
 	
@@ -380,7 +395,6 @@ public class PromotionReviewServiceImpl {
 					
 			// 카테고리 가져오기
 			ProreviewRentalCategoryDto rentalItemCategory = promotionReviewMapper.getRentalItemCategory(promotionReviewDto.getId()); 
-	
 			
 			// 댓글 수
 			int countPromotionReviewComment = promotionReviewCommentMapper.countPromotionReviewComment(promotionReviewDto.getId());

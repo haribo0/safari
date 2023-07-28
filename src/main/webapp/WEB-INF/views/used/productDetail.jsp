@@ -178,7 +178,7 @@
 		   	</div>
 		   	<div class="col-2 text-end my-auto">
 				<i id="heartBox" onclick="toggleLike()" class="fs-3 bi bi-heart text-danger"></i>
-				<span class="ms-2"><i class="bi bi-share fs-3 text-dark" style="cursor: pointer" onclick="clipUrl()"></i></span>
+				<span class="ms-3"><i class="bi bi-share fs-3 text-dark" style="cursor: pointer" onclick="clipUrl()"></i></span>
 			</div>
 							
     	</div>
@@ -212,7 +212,9 @@
 			</div>
 			<div class="col text-start ps-0 nickname">
     			<div class="row">
-       				<div class="col fw-medium" onclick="showYourProfileReview()">${productUser.nickname} 🦁</div>
+       				<div class="col fw-medium" onclick="showYourProfileReview()">${productUser.nickname}
+       				<span><img alt="" src="/safari/resources/img/used/flog.png" width="37" height="23"></span>
+       				</div>
     			</div>
     			<div class="row">
        				<div class="col text-secondary" style="font-size: 14px;" onclick="showYourProfileManner()">${map.productCityDto.product_city_name } ${map.productTownDto.product_town_name}</div>
@@ -659,7 +661,7 @@
 	  		</div>
 	  	</div>
 	  	<div class="row">
-	  		<div class="col-10 ms-2">
+	  		<div class="col-10 ms-2" style="font-size: 18px;">
 	  			제가 있는 곳까지 와서 거래했어요.
 	  		</div>
 	  		<div class="col ms-1 fs-6">
@@ -670,7 +672,7 @@
 			<div class="col" style="border: 1px solid #e4e1e1;"></div>
 		</div>
 	  	<div class="row">
-	  		<div class="col-10 ms-2">
+	  		<div class="col-10 ms-2" style="font-size: 18px;">
 	  			응답이 빨라요.
 	  		</div>
 	  		<div class="col ms-1 fs-6">
@@ -681,7 +683,7 @@
 			<div class="col" style="border: 1px solid #e4e1e1;"></div>
 		</div>
 	  	<div class="row">
-	  		<div class="col-10 ms-2">
+	  		<div class="col-10 ms-2" style="font-size: 18px;">
 	  			친절하고 매너가 좋아요.
 	  		</div>
 	  		<div class="col ms-1 fs-6">
@@ -692,7 +694,7 @@
 			<div class="col" style="border: 1px solid #e4e1e1;"></div>
 		</div>
 	  	<div class="row">
-	  		<div class="col-10 ms-2">
+	  		<div class="col-10 ms-2" style="font-size: 18px;">
 	  			시간 약속을 잘 지켜요.
 	  		</div>
 	  		<div class="col ms-1 fs-6">
@@ -709,7 +711,7 @@
 	  		</div>
 	  	</div>
 	  	<div class="row">
-	  		<div class="col-10 ms-2">
+	  		<div class="col-10 ms-2" style="font-size: 18px;">
 	  			불친절해요.
 	  		</div>
 	  		<div class="col ms-1 fs-6">
@@ -720,7 +722,7 @@
 			<div class="col" style="border: 1px solid #e4e1e1;"></div>
 		</div>
 	  	<div class="row">
-	  		<div class="col-10 ms-2">
+	  		<div class="col-10 ms-2" style="font-size: 18px;">
 	  			거래 시간과 장소를 정한 후 연락이 안돼요.
 	  		</div>
 	  		<div class="col ms-1 fs-6">
@@ -731,7 +733,7 @@
 			<div class="col" style="border: 1px solid #e4e1e1;"></div>
 		</div>
 	  	<div class="row">
-	  		<div class="col-10 ms-2">
+	  		<div class="col-10 ms-2" style="font-size: 18px;">
 	  			원하지 않는 가격을 계속 요구해요.
 	  		</div>
 	  		<div class="col ms-1 fs-6">
@@ -742,7 +744,7 @@
 			<div class="col" style="border: 1px solid #e4e1e1;"></div>
 		</div>
 	  	<div class="row">
-	  		<div class="col-10 ms-2">
+	  		<div class="col-10 ms-2" style="font-size: 18px;">
 	  			시간약속을 안지켜요.
 	  		</div>
 	  		<div class="col ms-1 fs-6">

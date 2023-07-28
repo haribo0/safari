@@ -307,6 +307,15 @@ window.addEventListener("DOMContentLoaded", function(){
 					</div> 
 				</div>
 				
+				<!--  검색 결과 x일 때 -->
+				<c:if test="${not empty searchMessage}">
+				    <div class="row mt-3" role="alert">
+				    	<div class = "col">
+				        ${searchMessage}				    	
+				    	</div>
+				    </div>
+				</c:if>
+				
 					
 				<!--  리뷰 게시물 목록 -->
 				<div class = "row mt-3">			
