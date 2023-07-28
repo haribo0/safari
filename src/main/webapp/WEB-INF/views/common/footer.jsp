@@ -3,11 +3,11 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-<div class="container-fluid border-bottom my-5 py-5">
+<div class="container-fluid border-bottom my-3 py-3">
 </div>
 <div class="container footer">  
-	<footer class="py-4 my-5 text-center">
-		<h1><a href="#" class="btn mb-3">LOGO(사파리)</a></h1>
+	<footer class="py-1 my-1 text-center">
+		<h1><a href="#" class="btn mb-3">사파리</a></h1>
 	    <ul class="nav justify-content-center pb-3 mb-3">
 	      <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary me-3">홈</a></li>
 	      <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary me-3">중고</a></li>
