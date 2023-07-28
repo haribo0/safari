@@ -95,16 +95,20 @@
 	
 	<!--  경매 메인페이지에서 경매 리스트 조회 (물품 종류에 관계없이 전체보기) -->
 	<select id="getAuctionList" resultType="com.ja.safari.dto.AuctionItemDto">
-		<!-- SELECT * FROM auction_item ORDER BY id DESC -->
-		SELECT * 
-			FROM auction_item 
+		SELECT *
+			FROM auction_item
 			ORDER BY 
-			    CASE auction_status 
-			        WHEN '진행중' THEN 1 
-			        WHEN '준비중' THEN 2 
-			        WHEN '종료' THEN 3 
+			    CASE 
+			        WHEN auction_status = '진행중' THEN 1
+			        WHEN auction_status = '준비중' THEN 2
+			        WHEN auction_status = '종료' THEN 3
 			    END,
-			    end_date
+			    CASE 
+			        WHEN auction_status IN ('진행중', '준비중') THEN end_date
+			    END,
+			    CASE 
+			        WHEN auction_status = '종료' THEN end_date
+			    END DESC
 	</select>
 	
 	<!--  경매 메인페이지에서 경매 리스트 조회 시 메인 이미지 하나 출력 (물품 종류에 관계없이 전체보기) -->
@@ -137,24 +141,34 @@
 			  JOIN product_main_category pmc ON psc.product_main_category_id = pmc.id
 			  WHERE pmc.id = #{id})
 			  ORDER BY 
-			  	CASE auction_status 
-			        WHEN '진행중' THEN 1 
-			        WHEN '준비중' THEN 2 
-			        WHEN '종료' THEN 3 
+			  	CASE 
+			        WHEN auction_status = '진행중' THEN 1
+			        WHEN auction_status = '준비중' THEN 2
+			        WHEN auction_status = '종료' THEN 3
 			    END,
-			  	end_date
+			    CASE 
+			        WHEN auction_status IN ('진행중', '준비중') THEN end_date
+			    END,
+			    CASE 
+			        WHEN auction_status = '종료' THEN end_date
+			    END DESC
 	</select>
 
 	<!--  경매 메인페이지에서 소규모 카테고리 클릭 시 그에 해당하는 경매 리스트 조회 -->
 	<select id="getAuctionListBySubCategory" resultType="com.ja.safari.dto.AuctionItemDto">
 		SELECT * FROM auction_item WHERE auction_sub_category_id = #{id} 
-		ORDER BY 
-		CASE auction_status 
-		        WHEN '진행중' THEN 1 
-		        WHEN '준비중' THEN 2 
-		        WHEN '종료' THEN 3 
-		    END,
-		    end_date
+			ORDER BY 
+				CASE 
+			        WHEN auction_status = '진행중' THEN 1
+			        WHEN auction_status = '준비중' THEN 2
+			        WHEN auction_status = '종료' THEN 3
+			    END,
+			    CASE 
+			        WHEN auction_status IN ('진행중', '준비중') THEN end_date
+			    END,
+			    CASE 
+			        WHEN auction_status = '종료' THEN end_date
+			    END DESC
 	</select>
 	
 	
@@ -352,7 +366,7 @@
 	
 	<!-- 경매 현재 가격 계속 업데이트 -->
 	<select id="getCurrentBidPriceByAuctionItem" resultType="int">
-		SELECT MAX(bid_price)
+		SELECT MAX(bid_price) bid_price
 		  FROM auction_item_bid_request 
 		  WHERE auction_item_id = #{auctionItemId}
 	</select>

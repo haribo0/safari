@@ -204,7 +204,7 @@
 									<div class = "col-auto d-flex align-items-center badge rounded-pill text-bg-warning opacity-75 custom-badge" style="position: relative; top: 6px;">
 										${map.helpDto.points }p
 									</div> 
-									<div class = "col p-0 mx-1" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+									<div class = "col p-0 mx-2" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
 										<a href="/safari/community/help/readContentPage/${map.helpDto.id}" style="text-decoration: none; color: inherit;">
 											${map.helpDto.title }
 										</a>
@@ -290,7 +290,7 @@
 										${map.questionDto.points }p
 									</div>
 									</c:if>
-									<div class = "col p-0 mx-1" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+									<div class = "col p-0 mx-2" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
 										<a href="/safari/community/question/questionReadContentPage/${map.questionDto.id}" style="text-decoration: none; color: inherit;">
 											${map.questionDto.title }
 										</a>

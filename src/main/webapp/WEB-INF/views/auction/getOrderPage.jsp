@@ -291,6 +291,14 @@
 	    							<div class="col">
 	    								<table class="table">
 	    									<tr>
+	    										<td class="table-light align-middle text-center border-top" style="width: 150px;"> 받는사람 </td>
+	    										<td class="border-top">
+	    											
+	    											<span class="ms-2" id="addressee"></span>
+	    										</td>
+	    									</tr>							
+	    								
+	    									<tr>
 	    										<td class="table-light align-middle text-center border-top" style="width: 150px;"> 배송지명 </td>
 	    										<td class="border-top">
 	    											
@@ -969,6 +977,7 @@ function getMyAddressInfoInOrderPage() {
 	
 	const xhr = new XMLHttpRequest();
 	
+	const addressee = document.querySelector("#addressee");
 	const addressName = document.querySelector("#addressName");
 	const deliveryAddress = document.querySelector("#deliveryAddress");
 	const addressPhone = document.querySelector("#addressPhone");
@@ -983,6 +992,7 @@ function getMyAddressInfoInOrderPage() {
 				// 가장 최근에 등록한 주소 가져오기
 		        const firstAddressDto = response.addressList[0];
 		       
+				addressee.innerText = firstAddressDto.addressee;
 		        addressName.innerText = firstAddressDto.address_name; 
 		        deliveryAddress.innerText = firstAddressDto.address;
 		        addressPhone.innerText = firstAddressDto.phone;
@@ -1149,6 +1159,7 @@ function modifyAddressModal() {
 // 주소 수정
 function modifyAddress(id) {
 
+	const addressee = document.querySelector("#addressee");
 	const addressName = document.querySelector("#addressName");
 	const deliveryAddress = document.querySelector("#deliveryAddress");
 	const addressPhone = document.querySelector("#addressPhone");
@@ -1159,6 +1170,7 @@ function modifyAddress(id) {
 		if(xhr.readyState == 4 && xhr.status == 200){
 			const response = JSON.parse(xhr.responseText);
 			
+			  addressee.innerText = response.selectedAddress.addressee;
 			  addressName.innerText = response.selectedAddress.address_name; 
 		      deliveryAddress.innerText = response.selectedAddress.address;
 		      addressPhone.innerText = response.selectedAddress.phone;

@@ -115,7 +115,7 @@
 <div class="modal" id="registerAddrModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg modal-dialog-centered"> 
     <div class="modal-content">
-      <div class="modal-header">
+      <div class="modal-header bg-light">
      	 <div class="row mb-0">
       			<div class="col ms-4 fs-5 fw-bold">배송지 등록</div>
       		</div>
@@ -220,7 +220,7 @@
 <div class="modal" id="modifyAddrModal"  data-id="" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg modal-dialog-centered"> 
     <div class="modal-content">
-      <div class="modal-header">
+      <div class="modal-header bg-light">
       		<div class="row mb-0">
       			<div class="col ms-4 fs-5 fw-bold">배송지 수정</div>
       		</div>

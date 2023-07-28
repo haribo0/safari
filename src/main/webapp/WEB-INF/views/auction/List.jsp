@@ -958,9 +958,9 @@ window.addEventListener("DOMContentLoaded", function(){
 	<!-- 헤더 섹션 -->
 
 	<div class="container main_box">
-		<h1 class="text-center fs-3">
+		<!-- <h1 class="text-center fs-3">
 			<img class="img-fluid" src="/safari/resources/img/auction/auctionBanner.jpg">
-		</h1>
+		</h1> -->
 		
 	<!-- <div class="row mt-2">
 		<div class="col">
@@ -1029,7 +1029,7 @@ window.addEventListener("DOMContentLoaded", function(){
 				</div>	
  			</div>
 			
-			<div class="col d-flex justify-content-end" style="position: relative; right: 50px;">
+			<div class="col d-flex justify-content-end" style="position: relative; right: 50px; top: 5px">
 
 				<input type="button" onclick= "registerProductPage()"
 			  class="btn orangeButton" value="경매 물품 등록">	
@@ -1067,6 +1067,7 @@ window.addEventListener("DOMContentLoaded", function(){
 					<div class="col d-flex justify-content-end text-end">
 						<ul>
 							<li style="float:left;" class="pe-3 fw-bold">마감임박순</li>
+							<li style="float:left;" class="pe-3">입찰순</li>
 							<li style="float:left;" class="pe-3">추천순</li>
 							<li style="float:left;">최신순</li>
 						</ul>
