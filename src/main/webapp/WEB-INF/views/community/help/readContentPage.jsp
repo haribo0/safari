@@ -512,7 +512,7 @@ window.addEventListener("DOMContentLoaded", function(){
 
 				<%-- 댓글 작성 글자 --%>
 				<div class="row">
-					<div class="col ms-3 fw-bold">
+					<div class="col px-0 ms-3 fw-bold">
 
 						<i class="bi bi-chat-dots"></i>&nbsp;<span
 							style="font-size: 13px;">댓글</span>
@@ -522,9 +522,9 @@ window.addEventListener("DOMContentLoaded", function(){
 				
 					<%--ajax 댓글 랜더링 --%>
 						<div class="container">
-							<div class="row mt-2">
-								<div class="col-11 mb-3 d-grid ">
-								<c:if test="${sessionUser.id != map.userDto.id}">
+							<div class="row mt-1 mb-1">
+								<div class="col-11 px-0 mb-3 d-grid ">
+								
 									<textarea id="helpCommentTextBox"
 										class="form-floating border p-2 mb-2 border-opacity"
 										placeholder="댓글을 입력하세요" id="floatingTextarea2"
@@ -537,14 +537,14 @@ window.addEventListener("DOMContentLoaded", function(){
 										style="font-size: 22px; height: 60px; width: 68px; background-color: #ff6f0f; border: none;">
 										<i class="bi bi-chat-text"></i>
 									</button>
-									</c:if>
+									
 								</div>
 								
 							</div>
 							
 							<%--ajax 댓글 조회 랜더링(영상) --%>
 							<div class="row">
-							<div class="col ms-2 me-3">
+							<div class="col px-0 ms-2 me-3">
 								<div id="helpCommentListBox"
 									class="colborder-none" >
 									<div class="row helpCommentOuter mt-2">
@@ -667,10 +667,10 @@ window.addEventListener("DOMContentLoaded", function(){
 							style="font-size: 13px; background-color: transparent; border: none; color: inherit;">
 							<input type="button" class="btn btn-sm btn-primary commentDelete" value="삭제"
 							style="font-size: 13px; background-color: transparent; border: none; color: inherit;">
-							<c:if test="${sessionUser.id != map.userDto.id }">
-							<input type="button" class="btn btn-sm btn-primary" value="신고하기"
-							style="font-size: 13px; background-color: transparent; border: none; color: inherit;">
-							</c:if>
+							<%-- <c:if test="${sessionUser.id == map.userDto.id }">
+								<input type="button" class="btn btn-sm btn-primary" value="신고하기"
+								style="font-size: 13px; background-color: transparent; border: none; color: inherit;">
+							</c:if> --%>
 						</span>
 						
 					</div>

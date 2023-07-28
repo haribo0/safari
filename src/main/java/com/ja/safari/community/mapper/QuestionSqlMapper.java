@@ -86,6 +86,9 @@ public interface QuestionSqlMapper {
 		//궁금해요 베스트 게시물 출력
 		public List<QuestionDto> selectBestQuestionBoard();
 		
+		//궁금해요 베스트 배너
+		public List<QuestionDto> selectBestBanner();
+		
 		// 글 채택 여부...
 		public int countQuestionReplyComplete(int question_id);
 

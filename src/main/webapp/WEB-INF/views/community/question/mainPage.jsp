@@ -14,6 +14,18 @@
     text-align: center;
     margin: 0 45%;
   }
+  .best-row {
+  background-color: gray;
+  }
+ tr {
+    background-color: #bbdefb;
+  }
+  
+  .cropped-image {
+   width: 100%;
+   height: 110%;
+   object-fit: cover;
+ }
 </style>
 </head>
 <body>
@@ -37,15 +49,44 @@
          </div>
       </div>
       <!-- 커뮤니티 메뉴바 --> 
-		
-		<!-- 게시판 제목 글자 -->
-	   <div class="hr-container mt-4">
-  		 <h4 class="text fw-bold text-center">궁금해요</h4>
-  		 <hr>
-	   </div>
-	  <!-- 게시판 제목 글자 -->
-		
-
+     
+     <!-- 베스트카드 -->
+     <div class="card border-0" style="background-color: #01a0ff;">
+     <c:forEach items="${questionBannerList}" var="map">
+     <a class="text-decoration-none" href="/safari/community/question/questionReadContentPage/${map.questionDto.id}">
+    <div class="row">
+    <div class="col-4 ms-5 d-flex align-items-center justify-content-center">
+	<img src="/safari/resources/img/community/coin1.png" style="height: 250px; width: 270px;">
+	</div>
+	<div class="col d-grid d-flex align-items-center justify-content-start opacity-75" style="height: 270px; width: 1000px; ">
+			<div class="m-4">
+			<div class="fw-bold" style="font-size: 45px;"> 
+			
+				<div class="row">
+					<div class="col text-center d-flex align-items-center justify-content-start">
+					<div class="opacity-100" style="color: white;">
+					
+					'${map.questionDto.title}'
+					<br> 에 대한 답변을 해주세요!</div>
+					</div>
+				</div>
+			</div>
+			</div>
+	</div>	
+	
+	</div>
+	</a>
+	</c:forEach>
+	</div>
+	<!-- 베스트카드 --> 
+     
+     <!-- 배너 --> 
+    <!-- <div class="row mt-3">
+	<div class="col" style="height: 90px; width: 1260.66px;">
+	<img src="/safari/resources/img/community/pointbanner2.jpg" class="cropped-image">	
+	</div>	
+	</div> -->
+	<!-- 배너 --> 
 	
 	 <%--게시판 시작 --%>
 	<!-- <div class = "container"> -->
@@ -54,7 +95,7 @@
 	<div class="row mt-4">
 	
 	<div class="col">
-		<table class="table">
+		<table class="table"  style=" background-color: black;">
 			<thead class="table-secondary">
 			<thead>
 			 <tr>
@@ -66,16 +107,16 @@
 				<th style="text-align: center;">작성일</th>
 			  </tr> 
 			</thead>
-			<tbody>
+			<tbody class="table-group-divider">
 			 <%-- best --%>
 			<c:forEach items="${questionBestBoardList}" var="map">
-				<tr>
+				<tr class="table-secondary">
 				  	<td><a class="text-black text-decoration-none" href="/safari/community/question/questionReadContentPage/${map.questionDto.id}">${map.questionDto.id}</a></td>
 					<td>${map.userDto.nickname}</td>
 					<td style="text-align: left;">
 					<div style="display: inline-block;">
 				  	<a class="text-black fw-medium text-decoration-none" href="/safari/community/question/questionReadContentPage/${map.questionDto.id}">
-				  	<span class="badge rounded-pill text-bg-danger opacity-75" style="font-size: 61%; position: relative; top: -3px;">Best</span>
+				  	<span class="text-danger fw-semibold me-1" style="font-size: 13px; color: #ff6f0f;">BEST</span>
 				  	${map.questionDto.title}</a>
 				  	<c:if test="${map.questionDto.points>=1}">
 				  	<span class="badge rounded-pill text-bg-warning opacity-75" style="font-size: 61%; position:relative; top: -3px;">${map.questionDto.points}p</span>
@@ -174,9 +215,9 @@
 	<div class="col text-end" >
 	<div class="d-flex justify-content-end">
 	<a href="./questionWriteContentPage" style="text-decoration: none; display: flex; align-items: center; justify-content: center;">
-		<button type="button" class="btn btn-link orangeButton d-flex align-items-center justify-content-center" style="text-decoration: none; padding: 0.25rem 0.5rem;">
+		<button type="button" class="btn btn-link orangeButton d-flex align-items-center justify-content-center" style="text-decoration: none; padding: 0.25rem 0.5rem; position: relative; right: 26px;">
 			<i class="bi bi-pencil-square fa-icon text-white" style="font-size: 16px; margin-right: 0.7rem; margin-left: 0.3rem;"></i>
-			<span class="ms-1 me-2" style="font-size: 15px; line-height: 1; margin-left: 0.3rem;">글쓰기</span>
+			<span class="me-2" style="font-size: 15px; line-height: 1; margin-left: -5px;">글쓰기</span>
 		</button>
 	</a>
 	</div>

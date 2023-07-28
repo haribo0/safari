@@ -57,12 +57,14 @@ public class QuestionController {
 			 */
 			
 			List<Map<String, Object>> questionBestBoardList = questionService.selectBestQuestionBoards();
+			List<Map<String, Object>> questionBannerList = questionService.selectBestBanner();
+			
 			
 			model.addAttribute("questionBoardList", questionBoardList);
 			model.addAttribute("totalQuestionPage", totalQuestionPage);
 			model.addAttribute("currentQuestionPage", questionPage);
 			model.addAttribute("questionBestBoardList", questionBestBoardList);
-			
+			model.addAttribute("questionBannerList", questionBannerList);
 			
 			return "/community/question/mainPage";
 		}

@@ -23,17 +23,12 @@
 				  <div class="carousel-inner">
 				    <div class="carousel-item active">
 				      <a href="${pageContext.request.contextPath}/rental/mainPage">
-				      	<img src="${pageContext.request.contextPath}/resources/img/rental/rental_banner_1.jpg" class="d-block w-100" alt="...">
+				      	<img src="${pageContext.request.contextPath}/resources/img/main/mainBanner1.png" class="d-block w-100" alt="...">
 				      </a>
 				    </div>
 				    <div class="carousel-item">
 				      <a href="${pageContext.request.contextPath}/rental/mainPage">
-				      	<img src="${pageContext.request.contextPath}/resources/img/rental/rental_banner_2.jpg" class="d-block w-100" alt="...">
-				      </a>
-				    </div>
-				    <div class="carousel-item">
-				      <a href="${pageContext.request.contextPath}/rental/mainPage">
-				      	<img src="${pageContext.request.contextPath}/resources/img/rental/rental_banner_3.jpg" class="d-block w-100" alt="...">
+				      	<img src="${pageContext.request.contextPath}/resources/img/main/mainBanner2.png" class="d-block w-100" alt="...">
 				      </a>
 				    </div>
 				  </div>

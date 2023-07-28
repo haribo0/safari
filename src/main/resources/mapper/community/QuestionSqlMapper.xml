@@ -14,6 +14,21 @@
 	</select>
 	
 	<!--              궁금해요                   -->
+	<!-- 궁금해요 배너 베스트 -->
+	<select id="selectBestBanner" resultType="com.ja.safari.dto.QuestionDto">
+	SELECT *
+	FROM (
+	    SELECT *
+	    FROM question_table
+	    WHERE status = '진행중'
+	    ORDER BY reg_date DESC
+  	) q 
+  	<![CDATA[ 
+  		where rownum <=1
+	]]>
+	
+	</select>
+	
 	<!-- 궁금해요 게시물 개수 -->
 	<select id="getQuestionBoardCount" resultType="int">
 		select count(*) from question_table

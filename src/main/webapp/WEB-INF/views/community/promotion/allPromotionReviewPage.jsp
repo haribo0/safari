@@ -122,7 +122,7 @@ window.addEventListener("DOMContentLoaded", function(){
 	<div class="container-fluid d-flex align-items-center justify-content-between p-3 px-5 mb-3 bg-light">
 		<div class="container">
 			<div class="row px-4">
-				<p class="mb-0 text-body-secondary"><span class="mx-2" style="font-size: 15px;">커뮤니티</span> &gt; <span class="mx-2" style="font-size: 15px;">써봤어요</span> &gt;<span class="mx-2" style="font-size: 15px;">ALL REVIEW</span> </p>
+				<p class="mb-0 text-body-secondary"><span class="mx-2" style="font-size: 15px;">커뮤니티</span> &gt; <span class="mx-2" style="font-size: 15px;">리워드리뷰</span> &gt;<span class="mx-2" style="font-size: 15px;">ALL REVIEW</span> </p>
 			</div>
 		</div>
 	</div>
@@ -201,7 +201,7 @@ window.addEventListener("DOMContentLoaded", function(){
 			<div class = "col-10">
 			
 				<!--  조회수 타이틀 -->
-				<div class = "row mt-3">
+				<div class = "row mt-2">
 					<div class = "col fs-5 fw-semibold fst-italic text-start">
 						현재 사람들이 많이 보고 있는 게시물이에요
 						<hr class="my-1 mb-2" style="border-color: gray;">
@@ -280,7 +280,7 @@ window.addEventListener("DOMContentLoaded", function(){
 					</div>
 				</div>
 				
-				<div class = "row mt-3"></div>
+				<div class = "row mt-2"></div>
 				
 				<!--  모든 게시물 타이틀 -->
 					<div class = "row mt-5 mb-3">
@@ -405,7 +405,7 @@ window.addEventListener("DOMContentLoaded", function(){
 				    				<li class="page-item active"><a class="page-link bg-secondary" style="border-color:gray;" href="./allPromotionReviewPage?page=${index}${promoReview_searchQueryString}">${index}</a></li>
 				    			</c:when>
 				    			<c:otherwise>
-				    				<li class="page-item"><a class="page-link" style="border-color:gray;" href="./allPromotionReviewPage?page=${index}${promoReview_searchQueryString}">${index}</a></li>
+				    				<li class="page-item"><a class="page-link" href="./allPromotionReviewPage?page=${index}${promoReview_searchQueryString}">${index}</a></li>
 				    			</c:otherwise>
 				    		</c:choose>
 				    	</c:forEach>
