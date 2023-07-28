@@ -338,12 +338,16 @@
 												<div class = "col">
 													<div class = "row">
 														<div class = "col">
-															<div class= "row mt-1">
-																<div class = "col">
-																	카테고리
+															<div class= "row mt-2">
+															<!--  카테고리 -->
+																<div class = "col text-secondary" style = "font-size:13px;">
+																	${map.rentalItemCategory.main_category_name}
+																 	<c:if test="${map.rentalItemCategory.sub_category_name != null}">
+																 	> ${map.rentalItemCategory.sub_category_name}
+																 	</c:if>
 																</div>
 															</div>
-														 	<div class= "row mt-1">
+														 	<div class= "row">
 														 		<div class = "col fw-semibold fs-6" style="display: -webkit-box; -webkit-line-clamp: 1; -webkit-box-orient: vertical; overflow: hidden;">
 															 		<a href="../../safari/community/promotion/contentPromotionReviewPage?id=${map.promotionReviewDto.id }" style="text-decoration: none; color: inherit;">
 															 			${map.promotionReviewDto.promotion_review_title }

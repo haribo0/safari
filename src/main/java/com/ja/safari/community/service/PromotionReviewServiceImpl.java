@@ -124,22 +124,12 @@ public class PromotionReviewServiceImpl {
 			
 		List<PromotionReviewImgDto> promotionReviewImgDtoList = promotionReviewMapper.selectByPromoReviewImgId(id);	
 		
-//		List<PromotionReviewDto> proReviewRentalItemList = promotionReviewMapper.getProReviewRentalItem(promotionReviewDto.getId());
-		
-		
-		
-		// 실험.. 세부 페이지 상품명, 비지니스 네임
-	//	List<Map<String, Object>> proReviewRentalItemList = getProReviewRentalItemList(id);
-//	    map.put("proReviewRentalItemList", proReviewRentalItemList);
-		
 		
 		map.put("userDto", userDto);
 		map.put("promotionReviewDto", promotionReviewDto);
 		map.put("promotionReviewImgDtoList", promotionReviewImgDtoList);
 		map.put("rentalItemCategory", rentalItemCategory);
-//		map.put("proReviewRentalItemList", proReviewRentalItemList);
 
-//		System.out.println("렌탈아이템 서비스 : " + proReviewRentalItemList);
 		
 		// map 안에 map 넣기 예시
 		// Map<String, Object> mapRental = new HashMap<>();
