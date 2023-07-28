@@ -2405,7 +2405,7 @@ function successPayment(partner_order_id, partner_user_id,item_name,item_code,to
 	xhr.onreadystatechange = function(){
 	    if(xhr.readyState == 4 && xhr.status == 200){
 	        const response = JSON.parse(xhr.responseText);
-	        reloadChatList(requestId);
+	        reloadChatList(partner_order_id);
 	    }
 	}
 	//get
