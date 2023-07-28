@@ -589,7 +589,7 @@
 				<div class="col px-0">
 				<ul class="list-group myOrderedList pe-0">
 					<c:if test="${rentalOrderDtoList.size() == 0}">
-						<h3 class="text-center mt-5">주문한 대여 상품이 없습니다!</h3>
+						<h5 class="text-center mt-5">주문한 대여 상품이 없습니다</h5>
 					</c:if>
 					
 					<c:forEach items="${rentalOrderDtoList}" var="data">
