@@ -35,7 +35,7 @@
 				  <label class="form-check-label" for="inlineCheckbox1">거래가능</label>
 				</div>
 			</div>
-			<div class="col-2 text-end align-items-center"><a href="./productRegister" type="button" class="btn orangeButton">상품 등록</a></div>
+			<div class="col-2 text-end align-items-center mt-3"><a href="./productRegister" type="button" class="btn orangeButton">상품 등록</a></div>
 		</div>
 		<div class="row">
 			<div class="col-2">
