@@ -77,7 +77,7 @@
                     	</div>
                     	<div class="row">
 		                   <div class="col text-center">
-		                      <img class="img-fluid" alt="" src="${pageContext.request.contextPath}/resources/img/main/usedBike.jpg" style="max-height: 240px;">
+		                      <img class="img-fluid" alt="" src="${pageContext.request.contextPath}/resources/img/main/img_item1.png" style="max-height: 240px;">
 		                    	<p class="text-secondary">중고 매물 모두 한 곳에서!</p>
 		                   </div>
 		                </div>
@@ -119,7 +119,7 @@
                     	</div>
       	                <div class="row">
 		                   <div class="col text-center">
-		                      <img class="img-fluid" alt="" src="${pageContext.request.contextPath}/resources/img/main/auctionPic.jpg" style="max-height: 240px;">
+		                      <img class="img-fluid" alt="" src="${pageContext.request.contextPath}/resources/img/main/img_item1.png" style="max-height: 240px;">
                     			<p class="text-secondary">나도 입찰자!</p>
 		                   </div>
 		                </div>
