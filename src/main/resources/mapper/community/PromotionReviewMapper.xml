@@ -241,11 +241,11 @@
 	WHERE pro_like.user_id = #{user_id}
 </select>
 
-<select id="getProReviewRentalItem" resultType="com.ja.safari.dto.PromotionReviewDto">
-	SELECT ri.*, rbt.*, pr.*
+<select id="getProReviewRentalItemInfo" resultType="com.ja.safari.dto.PromoReviewRentalInfoDto">
+	SELECT rit.title, rbt.business_name, pr.id, pr.rental_item_id
 	FROM promotion_review pr
-	INNER JOIN rental_item_table ri ON pr.rental_item_id = ri.id
-	INNER JOIN rental_buisness_table rbt ON ri.business_id = rbt.id
+	JOIN rental_item_table rit ON pr.rental_item_id = rit.id
+	JOIN rental_buisness_table rbt ON rit.business_id = rbt.id
 	WHERE pr.id = #{id}
 </select>
 

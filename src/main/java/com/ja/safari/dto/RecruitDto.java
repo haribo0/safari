@@ -17,7 +17,7 @@ public class RecruitDto {
 	private String location;
 	private int opening;
 	private String gender;
-	private int age_limit;
+	private int career;
 	private int views;
 	private String recruit_status;
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
@@ -30,7 +30,7 @@ public class RecruitDto {
 	}
 
 	public RecruitDto(int id, int user_id, int position_category_id, String title, String content, String phone,
-			String email, int salary, String location, int opening, String gender, int age_limit, int views,
+			String email, int salary, String location, int opening, String gender, int career, int views,
 			String recruit_status, Date end_date, Date reg_date) {
 		super();
 		this.id = id;
@@ -44,7 +44,7 @@ public class RecruitDto {
 		this.location = location;
 		this.opening = opening;
 		this.gender = gender;
-		this.age_limit = age_limit;
+		this.career = career;
 		this.views = views;
 		this.recruit_status = recruit_status;
 		this.end_date = end_date;
@@ -139,12 +139,12 @@ public class RecruitDto {
 		this.gender = gender;
 	}
 
-	public int getAge_limit() {
-		return age_limit;
+	public int getCareer() {
+		return career;
 	}
 
-	public void setAge_limit(int age_limit) {
-		this.age_limit = age_limit;
+	public void setCareer(int career) {
+		this.career = career;
 	}
 
 	public int getViews() {

@@ -6,7 +6,6 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<link rel="icon" type="image/png" sizes="96x96"  href="/safari/resources/img/main/logoOrange.png"/>
 <title>482 | 사고 파는 이웃들의 이야기</title>
 
 <!-- 메타 섹션 -->
@@ -18,16 +17,33 @@
         height: 50px; /* Adjust the height as needed */
         
     }
+    
+    /* 이미지 크롭 */
+	 .cropped-image {
+	   width: 124px;
+	   height: 124px;
+	   object-fit: cover;
+	 }
+.orangeButton{
+	background: #ff6f0f;
+	font-weight: bold;
+	color: white;
+}
+.orangeButton:hover{
+	background: #FF812C;
+	font-weight: bold;
+	color: white;
+}
+
+
  </style>
 
 </head>
 <body>
 		<!-- 헤더 섹션 -->
-		<div class="row">
-			<div class="col">
+
 				<jsp:include page="../../common/header.jsp"></jsp:include>
-			</div>
-		</div>
+
 		<!-- 헤더 섹션 -->
 	
 		<!-- 커뮤니티 메뉴바 -->
@@ -65,10 +81,272 @@
 								</div>
 							</div>
 							<%-- 글쓰기버튼 --%>
+							
+								<%-- 골라줘요 게시물  샘플 --%>
+								<div class="card mt-4 mb-3" style="padding: 8px;">
+								<div class="row">
+								
+								<div class="col">
+									<div class="card-title d-flex align-items-center text-align-center text-start ms-3 mt-3">
+										<span class="fw-bold ms-3" style="font-size: 20px;">티셔츠 골라주세요</span>
+										<span class="text-secondary ms-2 " style="font-size: 13px;">마리아</span>
+									</div>
+								</div>
+								
+									<div class="col d-flex align-items-center justify-content-end mt-2 text-secondary me-4" style="font-size: 13px;">
+										<i class="bi bi-eye me-1" style="font-size: 20px;"></i>
+							    		240 
+							    		<i class="bi bi-clock ms-1 me-1" style="font-size: 16px;"></i>
+							    		2023.07.27
+									</div>
+								</div>
+								
+								
+								<div class="card-body">
+									<div class="row">
+									
+												  <%-- 골라줘요 투표 --%>
+												  <div class="col-md-3 mt-2 mb-4">
+													  <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-center" >
+													  
+													  <div class="row">
+													  <div class="col">
+													  <div class="card">
+													    <div class="d-flex justify-content-center" style="height: 170px; width: 170px;">
+													    <img class="img-fluid" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS846XsQCCwKyA_1OgKiAPhT9YvnBxekWgQ52joFgHsnRKSdsiMoiloEcVvyrpGAq5IUwY&usqp=CAU" 
+													    class="rounded mx-auto d-block cropped-image" alt="..." style="height: 100%; width: 100%;">
+														</div>
+													    
+													  </div>
+													  </div>
+													  </div>
+													  
+													  <div class="row">
+													  <div class="col mt-2">
+													  <h6 class=" text-body-secondary">아디다스 티셔츠</h6>
+													  </div>
+													  </div>
+													  
+												  </div>
+												  </div>
+												  <%-- 골라줘요 투표 --%>
+												  
+												  <%-- 골라줘요 투표 --%>
+												  <div class="col-md-3 mt-2 mb-4">
+													  <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-center" >
+													  
+													  <div class="row">
+													  <div class="col">
+													  <div class="card">
+													    <div class="d-flex justify-content-center" style="height: 170px; width: 170px;">
+													    <img class="img-fluid" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS846XsQCCwKyA_1OgKiAPhT9YvnBxekWgQ52joFgHsnRKSdsiMoiloEcVvyrpGAq5IUwY&usqp=CAU" 
+													    class="rounded mx-auto d-block cropped-image" alt="..." style="height: 100%; width: 100%;">
+														</div>
+													    
+													  </div>
+													  </div>
+													  </div>
+													  
+													  <div class="row">
+													  <div class="col mt-2">
+													  <h6 class=" text-body-secondary">아디다스 티셔츠</h6>
+													  </div>
+													  </div>
+													  
+												  </div>
+												  </div>
+												  <%-- 골라줘요 투표 --%>
+												  
+												   <%-- 골라줘요 투표 --%>
+												  <div class="col-md-3 mt-2 mb-4">
+													  <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-center" >
+													  
+													  <div class="row">
+													  <div class="col">
+													  <div class="card">
+													    <div class="d-flex justify-content-center" style="height: 170px; width: 170px;">
+													    <img class="img-fluid" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS846XsQCCwKyA_1OgKiAPhT9YvnBxekWgQ52joFgHsnRKSdsiMoiloEcVvyrpGAq5IUwY&usqp=CAU" 
+													    class="rounded mx-auto d-block cropped-image" alt="..." style="height: 100%; width: 100%;">
+														</div>
+													    
+													  </div>
+													  </div>
+													  </div>
+													  
+													  <div class="row">
+													  <div class="col mt-2">
+													  <h6 class=" text-body-secondary">아디다스 티셔츠</h6>
+													  </div>
+													  </div>
+													  
+												  </div>
+												  </div>
+												  <%-- 골라줘요 투표 --%>
+												  
+												   <%-- 골라줘요 투표 --%>
+												  <div class="col-md-3 mt-2 mb-4">
+													  <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-center" >
+													  
+													  <div class="row">
+													  <div class="col">
+													  <div class="card">
+													    <div class="d-flex justify-content-center" style="height: 170px; width: 170px;">
+													    <img class="img-fluid" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS846XsQCCwKyA_1OgKiAPhT9YvnBxekWgQ52joFgHsnRKSdsiMoiloEcVvyrpGAq5IUwY&usqp=CAU" 
+													    class="rounded mx-auto d-block cropped-image" alt="..." style="height: 100%; width: 100%;">
+														</div>
+													    
+													  </div>
+													  </div>
+													  </div>
+													  
+													  <div class="row">
+													  <div class="col mt-2">
+													  <h6 class=" text-body-secondary">아디다스 티셔츠</h6>
+													  </div>
+													  </div>
+													  
+												  </div>
+												  </div>
+												  <%-- 골라줘요 투표 --%>
+												  
+												
+												  
+									</div>
+									
+									
+									<%-- 해시태그 --%>
+									<div class="row">
+									<div class="col d-flex justify-content-start">
+										<div class="ms-3 mt-3">
+											<button type="button" class="btn btn-outline-secondary rounded-pill btn-sm">#해시태그</button>
+											<button type="button" class="btn btn-outline-secondary rounded-pill btn-sm">#해시태그</button>
+											<button type="button" class="btn btn-outline-secondary rounded-pill btn-sm">#해시태그</button>	
+										</div>
+									</div>
+									</div>
+									<%-- 해시태그 --%>
+									
+									
+									
+								</div>
+								</div>
+								<%-- 골라줘요 게시물  샘플 --%>
+								
+								
+							<%-- 골라줘요 게시물 foreach --%>
+							<c:forEach items="${pickBoardList}" var="pickDto">
+							<a class="text-black text-decoration-none" href="/safari/community/pick/readContentPage/${pickDto.pickDto.id}">	
+								<div class="card mt-4 mb-3" style="padding: 8px;">
+								<div class="row">
+								
+								<div class="col d-grid">
+									<div class="card-title d-flex align-items-center text-align-center text-start ms-3 mt-3">
+									
+										<span class="fw-bold ms-3" style="font-size: 20px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 30ch;">${pickDto.pickDto.title}</span>
+										<span class="text-secondary ms-2 " style="font-size: 13px;">${pickDto.userDto.nickname}</span>
+									</div>
+								</div>
+								
+									<div class="col-4 d-flex align-items-center justify-content-end mt-2 text-secondary me-4" style="font-size: 13px;">
+										<i class="bi bi-eye me-1" style="font-size: 20px;"></i>
+							    		${pickDto.pickDto.views}
+							    		<i class="bi bi-clock ms-1 me-1" style="font-size: 16px;"></i>
+							    		<fmt:formatDate value="${pickDto.pickDto.reg_date}" pattern="yyyy.MM.dd"/>
+									</div>
+								</div>
+								
+								
+								<div class="card-body">
+									<div class="row">
+														<%-- 테스트 --%>
+													   <%-- <c:forEach items="${pickDto.pickOptionValuesForVoteDtoList}" var="pickOptionValuesForVoteDto">
+													      <!-- pickOptionValuesForVoteDto에 해당하는 정보 출력 -->
+													      <p>Option ID: ${pickOptionValuesForVoteDto.option_id}</p>
+													      <p>Vote Count: ${pickOptionValuesForVoteDto.vote_cnt}</p>
+													      <!-- 여기서 이미지 소스를 사용하는 경우에는 이미지 태그를 추가하면 됩니다. -->
+													      <img src="/uploadFiles/${pickOptionValuesForVoteDto.img}" alt="Image">
+													      <img class="img-fluid" src="/uploadFiles/${pickOptionValuesForVoteDto.img }" 
+																							    class="rounded mx-auto d-block" alt="...">
+													      
+													  </c:forEach> --%>
+													  <%-- 테스트 --%>
+												  <%-- 골라줘요 투표 --%>
+												  <c:forEach items="${pickDto.pickOptionValuesForVoteDtoList}" var="pickOptionValuesForVoteDto">
+												  <div class="col-md-3 mt-2 mb-4">
+													  <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-center" >
+													  
+													  <div class="row">
+													  <div class="col">
+													  <div class="card">
+													    <div class="d-flex justify-content-center" style="height: 170px; width: 170px;">
+													    <img class="img-fluid" src="/uploadFiles/${pickOptionValuesForVoteDto.img}" 
+													    class="rounded mx-auto d-block cropped-image" alt="..." style="height: 100%; width: 100%;">
+														</div>
+													    
+													  </div>
+													  </div>
+													  </div>
+													  
+													  <div class="row">
+													  <div class="col mt-2">
+													  <h6 class=" text-body-secondary">${pickOptionValuesForVoteDto.title}</h6>
+													  </div>
+													  </div>
+													  
+												  </div>
+												  </div>
+												  </c:forEach>
+												  <%-- 골라줘요 투표 --%>
+												  
+												
+												  
+												
+												  
+									</div>
+									
+									
+									<%-- 해시태그 --%>
+									<div class="row">
+									<div class="col d-flex justify-content-start">
+										<div class="ms-3 mt-3">
+											<button type="button" class="btn btn-outline-secondary rounded-pill btn-sm">#해시태그</button>
+											<button type="button" class="btn btn-outline-secondary rounded-pill btn-sm">#해시태그</button>
+											<button type="button" class="btn btn-outline-secondary rounded-pill btn-sm">#해시태그</button>	
+										</div>
+									</div>
+									</div>
+									<%-- 해시태그 --%>
+									
+									<%-- 테스트 --%>
+<%-- 									${pickDto.pickOptionDto.pick_id}
+									${pickDto.productDto.title}
+									${pickDto.productImgDto.product_img_link} --%>
+									
+									<%-- <c:forEach items="${pickBoardList}" var="pickDto">
+									pickOptionValuesForVoteDtoList 
+									${pickDto.pickOptionValuesForVoteDtoList.title} ${pickDto.pickOptionValuesForVoteDtoList.product_img_link}
+									</c:forEach> --%>
+									 <!-- pickOptionValuesForVoteDtoList 출력 -->
+ 
+									<%-- 테스트 --%>
+									
+									
+									
+								</div>
+								</div>
+								</a>
+							</c:forEach>
+							<%-- 골라줘요 게시물 foreach --%>
+								
+								
+								
+								
+								
+								
 								
 								
 								<%-- 골라줘요 항목 foreach --%>
-								<c:forEach items="${pickBoardList}" var="pickDto">				
+							<%-- 	<c:forEach items="${pickBoardList}" var="pickDto">				
 								<div class="align-middle ms-4 me-4 mb-4" style="text-align:start">
 								<hr>
 									
@@ -89,7 +367,7 @@
 									<br>
 									
 									<div class="ms-2 me-2 mb-2">
-										<a class="text-black text-decoration-none" href="/safari/community/pick/readContentPage/${pickDto.pickDto.id}" >
+										<a class="text-black text-decoration-none" href="/safari/community/pick/readContentPage/${pickDto.pickDto.id}">
 										${pickDto.pickDto.id}
 										</a>
 										||
@@ -98,7 +376,7 @@
 									<br>
 									</div>
 										
-										<%-- 내용카드 --%>
+										내용카드
 										<div class="row">
 										  <div class="col-md-6 mt-2 mb-5">
 										  <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-center" >
@@ -131,18 +409,18 @@
 										  </div>
 										 </div>
 									
-										<%-- 내용카드 --%>
+										내용카드
 										
-										<%-- 해시태그 --%>
+										해시태그
 										<div class="mt-3">
 											<button type="button" class="btn btn-outline-secondary rounded-pill btn-sm">#해시태그</button>
 											<button type="button" class="btn btn-outline-secondary rounded-pill btn-sm">#해시태그</button>
 											<button type="button" class="btn btn-outline-secondary rounded-pill btn-sm">#해시태그</button>	
 										</div>
-										<%-- 해시태그 --%>
+										해시태그
 									</div>
 								</div>
-								</c:forEach>	
+								</c:forEach>	 --%>
 								<%-- 골라줘요 항목 foreach --%>
 							
 						</div>	
@@ -156,7 +434,7 @@
 			
 			<!-- 오른쪽 -->
 			<div class="col">
-				
+				<img class="img-fluid ms-3 mt-4" src="https://apple.contentsfeed.com/RealMedia/ads/Creatives/jobkorea/230718_seoul_al_ssky/230718_seoul_120600.png" alt="...">
 			</div>
 			<!-- 오른쪽 -->
 			

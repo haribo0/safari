@@ -26,7 +26,7 @@ public class RestPickController {
 	//private UserServiceImpl userService;
 	
 	//골라줘요 ajax getMyId
-	@RequestMapping("pick/getMyId") //이거 망해서 안씀 
+	@RequestMapping("pick/getMyId") 
 	public Map<String, Object> getMyId(HttpSession session) {
 		
 		Map<String,Object> map = new HashMap<>();

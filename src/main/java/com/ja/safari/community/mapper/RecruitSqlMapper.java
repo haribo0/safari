@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 import com.ja.safari.dto.HelpDto;
+import com.ja.safari.dto.HelpImgDto;
 import com.ja.safari.dto.PickCommentDto;
 import com.ja.safari.dto.PickDto;
 import com.ja.safari.dto.PickLikeDto;
@@ -31,6 +32,12 @@ public interface RecruitSqlMapper {
 	
 	//구인구직 게시물 이미지 게시물 아이디로 조회
 	public List<RecruitImgLinkDto> selectRecruitBoardImageByRecruitId(int recruit_id);
+	
+	//구인구직 이미지 리스트 조회
+	public List<RecruitImgLinkDto> selectAllRecruitImg(int id);
+	
+	//구인구직 이미지 수 보드에 출력(이미지 유무)
+	public int selectAllRecruitImgByBoardId(int recruit_id);
 	
 	//구인구직 게시물 개수 count
 	public int getRecruitBoardCount();

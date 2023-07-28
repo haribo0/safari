@@ -168,7 +168,7 @@ public class RecruitController  {
 			return "/community/recruit/readContentPage";
 		}
 		
-		//골라줘요 게시판 수정하기 페이지
+		//구인구직 게시판 수정하기 페이지
 		@RequestMapping("recruit/updateContentPage/{id}")
 		public String recruitUpdateContentPage(@PathVariable int id, Model model) {
 			

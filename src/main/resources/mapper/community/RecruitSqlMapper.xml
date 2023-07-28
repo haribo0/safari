@@ -35,7 +35,7 @@
 			#{location},
 			#{opening},
 			#{gender},
-			#{age_limit},
+			#{career},
 			0,
 			'모집중',
 			sysdate,
@@ -81,6 +81,17 @@
 	<select id="selectRecruitBoardImageByRecruitId" resultType="com.ja.safari.dto.RecruitImgLinkDto">
 		select * from recruit_img_link_table
 		where recruit_id = #{recruit_id}
+	</select>
+	
+	<!-- 구인구직 모든 이미지 리스트 조회-->	
+	<select id="selectAllRecruitImg" resultType="com.ja.safari.dto.RecruitImgLinkDto">
+		select * from recruit_img_link_table 
+		where recruit_id=#{recruit_id} order by id desc
+	</select>
+	
+	<!-- 구인구직 이미지 수 보드에 출력 -->
+	<select id="selectAllRecruitImgByBoardId" resultType="int">
+	select count(*) from recruit_img_link_table where recruit_id=#{recruit_id}
 	</select>
 	
 	<!-- 구인구직 좋아요 insert : like-->

@@ -22,7 +22,7 @@
             linkElement.style.color = "#387538";
             linkElement.classList.add("fw-semibold");
         } else {
-            linkElement.style.color = "inherit";
+            linkElement.style.color = "#A9A9A9";
             linkElement.classList.remove("fw-semibold");
         }
     }
@@ -45,12 +45,14 @@
 <div class = "container main_box">
 	<div class = "row mt-5">
 		<div class = "col-auto">
-			<h1 class="text-start fs-3 fw-semibold ">
-				<b>커뮤니티</b>
-			</h1>			 
+			<h1 class="text-start fs-3 fw-semibold">
+				<a href="/safari/community/mainPage" style="text-decoration: none; color: inherit;">
+					<b>커뮤니티</b>
+				</a>		 
+			</h1>	
 		</div>	
 		<div class="col mx-3 mb-5 d-flex align-items-center">
-		    <div class="row text-start">
+		    <div class="row text-start" style="position: relative; top: 10px">
 		        <div class="col">
 		            <a id="pickLink" href="${pageContext.request.contextPath}/community/pick/mainPage" style="text-decoration: none;">골라줘요</a>
 		            <div class="vr mx-3"></div>
