@@ -199,7 +199,7 @@ window.addEventListener("DOMContentLoaded", function(){
 							 	> ${map.rentalItemCategory.sub_category_name}
 							 	</c:if>
 						  	</p> 
-						    <h5 class="card-title fs-5 mt-1 fw-semibold">${map.promotionReviewDto.promotion_review_title }</h5>
+						    <h5 class="card-title fs-5 mt-1 fw-semibold">${map.rentalItemDto.title }</h5>
 						  </div>
 						</div>
 					</div>
