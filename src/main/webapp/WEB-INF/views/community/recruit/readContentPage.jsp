@@ -356,11 +356,11 @@
 										<div class="col" style="width: 310px;">
 											<span class="working_condition_item" style="">경력</span>
 											<c:choose>
-												<c:when test="${map.recruitDto.age_limit < 1}">
+												<c:when test="${map.recruitDto.career < 1}">
 												<span class="text-secondary ms-3">신입</span>
 												</c:when>
-												<c:when test="${map.recruitDto.age_limit >= 1}">
-												<span class="text-secondary ms-3"> ${map.recruitDto.age_limit }년 이상</span>
+												<c:when test="${map.recruitDto.career >= 1}">
+												<span class="text-secondary ms-3"> ${map.recruitDto.career }년 이상</span>
 												</c:when>
 												<c:otherwise>
 												<span class="text-secondary ms-3">무관</span>
@@ -490,10 +490,10 @@
 								
 
 								<div class="row">
-								<div class="col ms-2 me-2">
-								<c:forEach items="${map.recruitImgLinkDtoList}" var="recruitImgLinkDto">
+								<div class="col ms-2 me-2 mt-3">
+								<%-- <c:forEach items="${map.recruitImgLinkDtoList}" var="recruitImgLinkDto">
 									<img src="/uploadFiles/${recruitImgLinkDto.img_link}"><br>
-								</c:forEach>
+								</c:forEach> --%>
 								</div>
 								</div>
 								
@@ -522,8 +522,31 @@
 															<br><h5>입사지원</h5>
 															<div class="card my-3">
 							  							      <div class="card-body">
-															<i class="bi bi-telephone-fill me-1 mb-3"></i> ${map.recruitDto.phone }<br>
-															<i class="bi bi-envelope-fill me-1" style="font-size: 17px;"></i> ${map.recruitDto.email }<br>
+							  							      <div class="row my-3 mx-2">
+							  							      
+							  							       <div class="col-3 me-2">
+																<c:forEach items="${map.recruitImgLinkDtoList}" var="recruitImgLinkDto">
+																	<img src="/uploadFiles/${recruitImgLinkDto.img_link}"><br>
+																</c:forEach>
+							  							      	</div>
+							  							      
+							  							      <div class="col ms-3 me-2 mt-4">
+							  							      <div class="row">
+							  							       <div class="col mb-3">
+							  							       <strong>${map.userDto.nickname }</strong>에서 여러분을 기다립니다.
+							  							       
+							  							       </div>
+							  							       </div>
+							  							      <div class="row">
+							  							       <div class="col">
+							  							        <i class="bi bi-telephone-fill me-1 mb-3"></i> ${map.recruitDto.phone }<br>
+																<i class="bi bi-envelope-fill me-1" style="font-size: 17px;"></i> ${map.recruitDto.email }<br>
+							  							       </div>
+							  							       </div>
+							  							     
+							  							      </div>
+							  							      </div>
+															
 															</div>
 															</div>
 								
