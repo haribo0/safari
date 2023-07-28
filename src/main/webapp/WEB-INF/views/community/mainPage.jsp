@@ -29,8 +29,10 @@
 	<div class = "container main_box">
 	<div class = "row mt-5">
 		<div class = "col-auto">
-				<h1 class="text-start fs-3 fw-semibold ">
-					<b>커뮤니티</b>
+				<h1 class="text-start fs-3 fw-semibold">
+					<a href="/safari/community/mainPage" style="text-decoration: none; color: inherit;">
+						<b>커뮤니티</b>
+					</a>
 				</h1>			 
 			</div>
 			
