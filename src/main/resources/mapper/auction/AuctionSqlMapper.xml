@@ -1182,7 +1182,7 @@
 	<!--  배송 시작 (낙찰자가 결제하면 배송준비중, 판매자가 배송처리 누르는순간 배송중)-->
 	<insert id="startAuctionDelivery">
 		INSERT INTO auction_delivery_after_payment VALUES(
-    		auction_delivery_after_payment_seq.nextval,
+    	 	delivery_seq.nextval,
     		#{partner_order_id},
     		'배송중',
     		SYSDATE)
