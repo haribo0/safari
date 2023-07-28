@@ -22,6 +22,9 @@
   height: 100%;
   object-fit: cover;
 }
+.nav-link.active{
+background-color: #F3F4F8 !important;
+}
 </style>
 <body>
 	<!-- 헤더 섹션 -->

@@ -22,6 +22,9 @@
   height: 100%;
   object-fit: cover;
 }
+.nav-link.active{
+background-color: #F3F4F8 !important;
+}
 </style>
 <body>
 <!-- 헤더 섹션 -->
@@ -74,7 +77,7 @@
 							    	type="button" role="tab" aria-controls="proreview-tab-pane" aria-selected="false" style="color: black;">리워드</button>
 							  </li>
 							</ul>
-							
+
 							<!--  내가 좋아요한 게시물(내용) -->
 							<div class = "myPostList mt-3">
 							<div class="tab-content" id="myTabContent">

@@ -386,6 +386,8 @@ public class PromotionReviewServiceImpl {
 			// 카테고리 가져오기
 			ProreviewRentalCategoryDto rentalItemCategory = promotionReviewMapper.getRentalItemCategory(promotionReviewDto.getId()); 
 			
+			RentalItemDto rentalItemDto = rentalSqlMapper.selectById(promotionReviewDto.getRental_item_id());
+			
 			// 댓글 수
 			int countPromotionReviewComment = promotionReviewCommentMapper.countPromotionReviewComment(promotionReviewDto.getId());
 		
@@ -404,6 +406,7 @@ public class PromotionReviewServiceImpl {
 			map.put("countLikeByPromotionReview", countLikeByPromotionReview);
 			map.put("realCheck", realCheck);
 			map.put("rentalItemCategory", rentalItemCategory);
+			map.put("rentalItemDto", rentalItemDto);
 
 			
 			bestPromotionReviewPostList.add(map);

@@ -189,7 +189,7 @@ window.addEventListener("DOMContentLoaded", function(){
 					<div class = "col" style="width: 18rem; height: 400px;">
 						<div class="card border border-0" >
 							<a href="./contentPromotionReviewPage?id=${map.promotionReviewDto.id }"> 
-						  <img src="/uploadPromoFiles/${map.promotionReviewImgList[0].rental_review_img }"
+						  <img src="/safariImg/${map.rentalItemDto.main_img_link }"
 						  	   class="card-img-top" alt="리워드게시물사진" height="300">
 						  </a>
 						  <div class="card-body text-center">
@@ -199,7 +199,7 @@ window.addEventListener("DOMContentLoaded", function(){
 							 	> ${map.rentalItemCategory.sub_category_name}
 							 	</c:if>
 						  	</p> 
-						    <h5 class="card-title fs-5 mt-1 fw-semibold">${map.promotionReviewDto.promotion_review_title }</h5>
+						    <h5 class="card-title fs-5 mt-1 fw-semibold">${map.rentalItemDto.title }</h5>
 						  </div>
 						</div>
 					</div>
