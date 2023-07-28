@@ -11,8 +11,8 @@
 <jsp:include page="../common/meta.jsp"></jsp:include>
 <!-- 메타 섹션 -->
 <style>
-.crs-1{height:400px; background: url("${pageContext.request.contextPath}/resources/img/main/banner_hero_1.png"); background-position:center; background-size: auto; background-repeat: no-repeat;}
-.crs-2{height:400px; background: url("${pageContext.request.contextPath}/resources/img/main/banner_hero_2.png"); background-position:center; background-size: contain; background-repeat: no-repeat;}
+.crs-1{height:400px; background: url("${pageContext.request.contextPath}/resources/img/main/ban1.avif"); background-position:center; background-size: auto; background-repeat: no-repeat;}
+.crs-2{background: url("${pageContext.request.contextPath}/resources/img/main/ban1.avif"); background-position:center; background-size: contain; background-repeat: no-repeat;}
 .crs-3{height:400px; background: url("${pageContext.request.contextPath}/resources/img/main/banner_hero_3.png"); background-position:center; background-size: contain; background-size: contain; background-repeat: no-repeat;}
 .crs-4{height:400px; background: url("${pageContext.request.contextPath}/resources/img/main/banner_hero_4.png"); background-position:center; background-size: contain; background-repeat: no-repeat;}
 
@@ -33,19 +33,20 @@
              <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="3" aria-label="Slide 4"></button>
            </div>
            <div class="carousel-inner">
-             <div class="carousel-item crs-2 active">
+             <div class="carousel-item  active">
+               <div class="carousel-caption d-none d-md-block">
+               	<img alt="" src="${pageContext.request.contextPath}/resources/img/main/ban1.avif" class="img-fluid">
+               </div>
+             </div>
+             <div class="carousel-item ">
                <div class="carousel-caption d-none d-md-block">
                </div>
              </div>
-             <div class="carousel-item crs-1">
+             <div class="carousel-item ">
                <div class="carousel-caption d-none d-md-block">
                </div>
              </div>
-             <div class="carousel-item crs-3">
-               <div class="carousel-caption d-none d-md-block">
-               </div>
-             </div>
-               <div class="carousel-item crs-4">
+               <div class="carousel-item ">
                <div class="carousel-caption d-none d-md-block">
                </div>
              </div>
