@@ -366,7 +366,7 @@
 	
 	<!-- 경매 현재 가격 계속 업데이트 -->
 	<select id="getCurrentBidPriceByAuctionItem" resultType="int">
-		SELECT MAX(bid_price)
+		SELECT MAX(bid_price) bid_price
 		  FROM auction_item_bid_request 
 		  WHERE auction_item_id = #{auctionItemId}
 	</select>

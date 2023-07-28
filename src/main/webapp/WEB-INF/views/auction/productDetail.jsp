@@ -175,7 +175,7 @@ input[id="tab03"]:checked ~ .con3 {
 		 	<div class="row">
 		 		<div class="col fw-medium" style="font-size: 18px">
 		 			<c:if test="${!empty sessionUser }">
-		 				<i class="bi bi-list-ul me-2"></i><span onclick="myBidListModal()" style="cursor:pointer;">내 입찰목록 실시간 확인</span>
+		 				<span onclick="myBidListModal()" style="cursor:pointer;"><i class="bi bi-list-ul me-2"></i>내 입찰목록 실시간 확인</span>
 		 			</c:if>
 		 		</div>
 		 		<div class="col text-end" style="font-size: 17px">

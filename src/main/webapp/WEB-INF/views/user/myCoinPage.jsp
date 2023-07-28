@@ -55,7 +55,7 @@
 				<div class="row mt-2">
 					<div class="col fs-5">
 						<div>
-							<span>회원님이 보유하신 코인은 
+							<span>회원님이 현재 보유하신 코인은 
 							<span id="coinBalance" class="fw-bold" style="color:#ff6f0f"> </span>원입니다.</span>
 							<span></span>
 						</div>
@@ -133,8 +133,12 @@
 <div class="modal" id="modalCoin" tabindex="-1">
   <div class="modal-dialog">
     <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">코인 충전하기</h5>
+      <div class="modal-header bg-light text-center">
+       		<div class="row">
+       			<div class="col ms-1 fw-semibold fs-5">
+       				코인 충전하기
+       			</div>
+       		</div>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
@@ -151,7 +155,14 @@
 			</div>
 		</div>
 		
-		<div class="row mt-1 ms-1">
+		<div class="row">
+			<div class="col">
+				
+			
+			</div>
+		</div>
+		
+		<div class="row mt-1 px-1">
 			<div class="col">
 				코인은 한 번에 최대 <span class="fw-bold">100,000원</span>까지 충전하실 수 있습니다.
 			</div>
@@ -251,19 +262,6 @@ function chargeCoinProcess(orderId){
    const cancel_url = "http://localhost:8181/safari/user/myCoinPage";
    const fail_url = "http://localhost:8181/safari/user/myCoinPage";
    
-   // 잘 찍히는지 확인
-   console.log(cid);
-   console.log(partner_order_id);
-   console.log(partner_user_id);
-   console.log(total_amount);
-   console.log(quantity);
-   console.log(tax_free_amount);
-   console.log(approval_url);
-   console.log(cancel_url);
-   console.log(fail_url);
-   
- 
-   
    const xhr = new XMLHttpRequest();
    
    xhr.onreadystatechange = function() {
@@ -288,7 +286,6 @@ function chargeCoinProcess(orderId){
                alert("팝업 차단이 감지되었습니다. 결제를 진행하려면 팝업 차단을 해제해주세요.");
             }
          	
-      
          	
             // tid를 세션에 저장
             saveChargeCoinTidToSession(cid, partner_order_id, partner_user_id, tid, item_name, response.next_redirect_pc_url);
@@ -315,11 +312,9 @@ function saveChargeCoinTidToSession(cid, partner_order_id, partner_user_id, tid,
 	
 	 	const xhr = new XMLHttpRequest();
 
-
 	    xhr.onreadystatechange = function() {
 	        if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
 	            
-	        	
 	        	
 	        }
 	    };

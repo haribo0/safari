@@ -40,7 +40,7 @@
     <div class="modal-content">
       <div class="modal-header bg-light">
       		<div class="row">
-      			<div class="col ms-2 fw-semibold" style="font-size: 18px">
+      			<div class="col ms-2 fw-semibold" style="font-size: 19px">
       				경매 이용안내
       			</div>
       		</div>
@@ -49,8 +49,85 @@
       <div class="modal-body">
       	
       	<div class="row mt-2">
-      		<div class="col">
+      		<div class="col ms-4">
       		
+      			<div class="row">
+      				<div class="col">
+      				
+      					<div class="row">
+      						<div class="col fw-semibold" style="font-size: 18px">
+      							경매 등록 시 유의사항
+      						</div>
+      					</div>
+      					
+      					<div class="row mt-1">
+      						<div class="col">
+      							• &nbsp;시작가는 경매의 첫 최소입찰가격을 의미합니다.
+      						</div>
+      					</div>
+      					
+      					<div class="row">
+      						<div class="col">
+      							• &nbsp;즉시낙찰가는 해당 가격으로 입찰할 시, 입찰자는 바로 낙찰되어 지정하신 종료 시간에 관계없이 
+      						</div>
+      					</div>      	
+      					
+      					<div class="row">
+      						<div class="col">
+      							<span class="ms-3" style="">경매가 종료되는 것을 의미합니다. </span>
+      						</div>
+      					</div>				
+      					
+      					<div class="row">
+      						<div class="col">
+      							• &nbsp;경매가 시작된 후, 입찰이 1회라도 이루어질 경우 경매를 수정하거나 취소하실 수 없습니다.
+      						</div>
+      					</div>
+      					
+      					<div class="row">
+      						<div class="col">
+      							• &nbsp;경매종료일은 <span class="fw-semibold">경매시작일로부터 한 달 이내</span>로 설정하실 수 있습니다.
+      						</div>
+      					</div>
+  	
+      				</div>
+      			</div>
+      			
+      			
+      			<div class="row mt-5">
+      				<div class="col">
+      				
+      					<div class="row">
+      						<div class="col fw-semibold" style="font-size: 18px">
+      							경매 이용안내
+      						</div>
+      					</div>
+      					
+      					<div class="row mt-1">
+      						<div class="col">
+      							• &nbsp;각 경매의 <span class="fw-semibold">현재가는 <span class="text-danger">실시간으로</span> 업데이트</span>되고 있습니다.
+      						</div>
+      					</div>
+      					
+      					<div class="row">
+      						<div class="col">
+      							• &nbsp;입찰과 관련된 내용은 상세페이지의 입찰안내 상세보기 화면을 참고해주세요.
+      						</div>
+      					</div>
+      					
+						<div class="row">
+      						<div class="col">
+      							• &nbsp;경매 낙찰자는 <span class="fw-semibold">경매종료일로부터 <span class="text-danger">7일 이내</span>에 결제</span>하셔야 해당 물품을 수령하실 수 있습니다.
+      						</div>
+      					</div>      					
+  	
+      				</div>
+      			</div>      			
+      			
+      			<div class="row mt-5">
+      				<div class="col"></div>
+      			</div>
+      			
       		
       		
       		
@@ -58,9 +135,7 @@
       	</div>
       </div>
       
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">창닫기</button>
-      </div>      
+      
    
     </div>
   </div>

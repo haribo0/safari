@@ -1029,7 +1029,7 @@ window.addEventListener("DOMContentLoaded", function(){
 				</div>	
  			</div>
 			
-			<div class="col d-flex justify-content-end" style="position: relative; right: 50px;">
+			<div class="col d-flex justify-content-end" style="position: relative; right: 50px; top: 5px">
 
 				<input type="button" onclick= "registerProductPage()"
 			  class="btn orangeButton" value="경매 물품 등록">	
