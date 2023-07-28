@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 
+import com.ja.safari.dto.PromoReviewRentalInfoDto;
 import com.ja.safari.dto.PromotionReviewDto;
 import com.ja.safari.dto.PromotionReviewImgDto;
 import com.ja.safari.dto.PromotionReviewLikeDto;
@@ -94,6 +95,6 @@ public interface PromotionReviewMapper {
 	public void increaseUserCoinByPromotionReviewReward(UserCoinDto userCoinDto);
 	
 	// 리워드 렌탈 상품, 상호명
-	PromotionReviewDto getProReviewRentalItem(int id); 
+	public List<PromoReviewRentalInfoDto> getProReviewRentalItemInfo(int id); 
 	
 }
