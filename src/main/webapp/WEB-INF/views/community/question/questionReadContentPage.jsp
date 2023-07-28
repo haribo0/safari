@@ -328,7 +328,7 @@ window.addEventListener("DOMContentLoaded", function(){
 				 
 				  
 				  <div class="row mt-5 ms-2">
-				   	 <div class="col-11" style="margin-top: -25px; margin-bottom: 15px; font-size: 15px">
+				   	 <div class="col-11" style="margin-top: -43px; margin-bottom: 15px; font-size: 15px">
 				   		${questionReply.questionReplyDto.content}
 				   	 </div>
 				   	 <div class="col text-end">

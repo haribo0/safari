@@ -204,6 +204,7 @@
 	
 	
 	
+	
 	<!-- 해주세요 게시물 미션완료(채택) insert -->
 	<insert id="acceptHelpComment">
 	INSERT INTO help_comment_complete_table VALUES(

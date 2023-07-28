@@ -16,6 +16,12 @@
    object-fit: cover;
  }
  
+ .cropped-image2 {
+   width: 1260.66px;
+   height: 300px;
+   object-fit: cover;
+ }
+ 
 
  
  .overflow {
@@ -61,10 +67,10 @@
       <!-- 커뮤니티 메뉴바 --> 
       
       <!-- 게시판 제목 글자 -->
-     <div class="hr-container mt-4">
+     <!-- <div class="hr-container mt-4">
   		<h4 class="text fw-bold text-center">해주세요</h4>
   		<hr>
-	</div>
+	</div> -->
       <div class="row mt-4">
 	      <div class="col">
 	     	<h5 class="text fw-bold"> BEST </h5>
@@ -72,7 +78,7 @@
       </div>
 	  <!-- 게시판 제목 글자 -->
 		<%--best helpBoardList forEach  --%>
-		<div class="row">
+		<div class="row mb-5">
 			<c:forEach items="${helpBestBoardList}" var="map">
 			    <div class="col-6 mb-0 p-3">
 			    	<div class="card" style="border-top: 4px solid #ff6f0f;">
@@ -132,6 +138,8 @@
 				</div>
 				<%--best helpBoardList forEach  --%>
 		
+		<img src="/safari/resources/img/community/helpbanner4.jpg" class="cropped-image2">
+											
 		
 		<div class="row mt-5">
 	      <div class="col">

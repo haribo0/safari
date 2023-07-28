@@ -168,6 +168,36 @@ public List<Map<String, Object>> selectAllQuestionMainBoards() {
 		return questionBoardList;
 	}
 	
+	//궁금해요 best 배너
+	public List<Map<String, Object>> selectBestBanner(){
+		
+		List<Map<String, Object>> questionBannerList = new ArrayList<>();
+		
+		List<QuestionDto> questionDtoList = questionSqlMapper.selectBestBanner();
+		
+		for(QuestionDto questionDto : questionDtoList) {
+			
+			Map<String, Object> map = new HashMap<>();
+			
+			UserDto userDto = userSqlMapper.selectUserDtoById(questionDto.getUser_id());
+			
+			int questionLikeCount = questionSqlMapper.getQuestionLikeCountByBoardId(questionDto.getId());
+			int questionReplyCount = questionSqlMapper.selectAllQuestionReplyCountByBoardId(questionDto.getId());
+			int questionImgCount = questionSqlMapper.selectAllQuestionImgByBoardId(questionDto.getId());
+			
+			map.put("userDto", userDto);
+			map.put("questionDto", questionDto);
+			map.put("questionLikeCount", questionLikeCount);
+			map.put("questionReplyCount", questionReplyCount);
+			map.put("questionImgCount", questionImgCount);
+			
+			questionBannerList.add(map);
+		}
+		
+		return questionBannerList;
+	}
+	
+	
 	//궁금해요 게시물 수정
 	public void updateQuestionBoard(QuestionDto questionDto) {
 		questionSqlMapper.updateQuestionBoard(questionDto);
