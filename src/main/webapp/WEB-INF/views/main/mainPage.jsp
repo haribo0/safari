@@ -45,74 +45,15 @@
 		</div>
 
    </div>
-
-   <div class="container mt-5 pt-5 pb-3">
-      <div class="row justify-content-between">
-         <div class="col d-flex justify-content-center">
-            <div class="card w-100 shadow ">
-              <div class="card-body">
-                 <div class="row">
-                    <div class="col">
-                    	<div class="row">
-                    		<div class="col py-3 text-center fw-bold ">
-                    			<p class="fs-4">중고</p>
-                    		</div>
-                    	</div>
-                    	<div class="row">
-		                   <div class="col text-center">
-		                      <img class="img-fluid" alt="" src="${pageContext.request.contextPath}/resources/img/main/img_item1.png" style="max-height: 240px;">
-		                    	<p class="text-secondary">중고 매물 모두 한 곳에서!</p>
-		                   </div>
-		                </div>
-                    </div>
-                 </div>
-              </div>
-            </div>
-         </div>
-         <div class="col d-flex justify-content-center">
-            <div class="card w-100 shadow ">
-              <div class="card-body">
-                <div class="row">
-                    <div class="col">
-                    	<div class="row">
-                    		<div class="col py-3 text-center fw-bold">
-                    			<p class="fs-4">대여</p>
-                    		</div>
-                    	</div>
-                    	<div class="row">
-		                   <div class="col text-center">
-		                      <img class="img-fluid" alt="" src="${pageContext.request.contextPath}/resources/img/main/img_item1.png" style="max-height: 240px;">
-		                    	<p class="text-secondary">합리적인 대여비!</p>
-		                   </div>
-		                </div>
-                    </div>
-                 </div>
-              </div>
-            </div>
-         </div>
-         <div class="col d-flex justify-content-center">
-            <div class="card w-100 shadow ">
-              <div class="card-body">
-                <div class="row">
-                    <div class="col">
-                    	<div class="row">
-                    		<div class="col py-3 text-center fw-bold">
-                    			<p class="fs-4">경매</p>
-                    		</div>
-                    	</div>
-      	                <div class="row">
-		                   <div class="col text-center">
-		                      <img class="img-fluid" alt="" src="${pageContext.request.contextPath}/resources/img/main/img_item1.png" style="max-height: 240px;">
-                    			<p class="text-secondary">나도 입찰자!</p>
-		                   </div>
-		                </div>
-                    </div>
-                 </div>
-              </div>
-            </div>
-         </div>
+	
+	<%-- <div class="container mt-1 pt-5 pb-3">
+      <div class="row">
+        <div class="col text-center">
+          <img src="${pageContext.request.contextPath}/resources/img/main/mainMiddleBanner.png" class="d-block w-100" alt="...">
+        </div>
       </div>
-   </div>
+   </div> --%>
+	
    
    <div class="container mt-5 pt-5 pb-3">
       <div class="row shadow p-5">
