@@ -21,6 +21,7 @@
 		insert into pick_table values(
 		    #{id},
 		    #{user_id},
+		    #{title},
 		    #{content},
 		    0,
 		    sysdate
@@ -40,9 +41,78 @@
 		where id=#{id}
 	</select>
 	
+	<!-- 골라줘요 메인페이지 for문-->
+	<!-- 골라줘요 게시물 전체조회 -->
+	<select id="selectAllProductBoards" resultType="com.ja.safari.dto.ProductDto">
+		select * 
+		from product
+		order by id desc
+	</select>
+	
+	<!-- 중고 이미지테이블 전체조회 -->
+	<select id="selectAllProductImages" resultType="com.ja.safari.dto.ProductImgDto">
+		select * 
+		from product_img
+		order by id desc
+	</select>
+	
+	<!-- 중고 게시물 ID로 이미지들 조회 -->	
+	<select id="getProductImageByProductId" resultType="com.ja.safari.dto.ProductImgDto">
+		select * from product_img
+		where product_id = #{product_id}
+		order by id desc
+	</select>
+	
+	
+	<!-- 골라줘요 옵션테이블 전체조회 -->
+	<select id="selectAllPickOptions" resultType="com.ja.safari.dto.PickOptionDto">
+		select * 
+		from pick_option_table
+		order by id desc
+	</select>
+	
+	<!-- 골라줘요 게시물 ID로 옵션들 조회 select -->
+	<select id="getPickOptionByBoardId" resultType="com.ja.safari.dto.PickOptionDto">
+		select * from pick_option_table
+		where pick_id = #{pick_id} 
+		order by id desc
+	</select>
+	
+	
+	<!-- 중고게시물 리스트 옵션ID로 조회  ///아 어렵다 join이나 서브쿼리할듯... -->
+	<select id="getProductBoardByOptionId" resultType="com.ja.safari.dto.ProductDto">
+		select * from product
+		WHERE id IN (
+		    SELECT product_id
+		    FROM pick_option_table
+		)
+		order by id desc
+	</select>
+	
+	
+	<!-- 중고이미지 리스트 중고ID로 조회 -->
+	<select id="getProductImgByProductboardId" resultType="com.ja.safari.dto.ProductImgDto">
+		select * from product_img
+		where product_id = #{product_id}
+		order by id desc
+	</select>
+	
+	<!-- 옵션아이디 조회하기 //자신이 없다... -->
+	<select id="getPickoptionId" resultType="com.ja.safari.dto.PickOptionDto">
+		SELECT * FROM pick_option_table
+		WHERE pick_id IN (
+		    SELECT id
+		    FROM pick_table
+		    )
+				
+	</select>
+	
+	<!-- 골라줘요 메인페이지 for문-->
+	
 	<!-- 골라줘요 게시판 수정하기 -->
 	<update id="updatePickBoard" >
 		update pick_table
+		set title = #{title}
 		set content = #{content}
 		where id = #{id}
 	</update>
@@ -58,6 +128,7 @@
 		set views = views + 1 
 		where id = #{id}
 	</update>
+	
 	
 	<!-- 골라줘요 게시물 댓글 insert -->
 	<insert id="registerPickComment">
@@ -89,6 +160,50 @@
 	set content = #{content}
 	where id = #{id}
 	</update>
+	
+	
+	
+	
+	<!-- 골라줘요 게시물 해시태그-->
+	<!-- 골라줘요 게시물 해시태그 insert -->
+	<insert id="registerPickHashtag">
+		insert into pick_hashtag_table values(
+		    PICK_HASHTAG_TABLE_SEQ.nextval, 
+		    #{user_id}, 
+		    #{pick_id}, 
+		    #{content},
+		    sysdate
+		)
+	</insert>
+	
+	<!-- 골라줘요 게시물 ID로 해시태그 조회 select -->
+	<select id="selectByPickHashtagId" resultType="com.ja.safari.dto.PickHashtagDto">
+		select * from pick_hashtag_table
+		where pick_id = #{pick_id} 
+		order by id desc
+	</select>
+	
+	<!-- 골라줘요 해시태그 삭제 -->
+	<delete id="deleteByPickHashtagId">
+		delete from pick_hashtag_table
+		where id = #{id}
+	</delete>
+	
+	<!-- 골라줘요 해시태그 수정 -->
+	<update id="updatePickHashtag" >
+	update pick_hashtag_table
+	set content = #{content}
+	where id = #{id}
+	</update>
+	
+	<!-- 골라줘요 해시태그 count -->
+	<select id="countPickHashtagByBoardId" resultType="int">
+		select count(*) from pick_hashtag_table 
+		where pick_id = #{pick_id}
+	</select>
+	
+	<!-- 골라줘요 해시태그로 메인페이지에서 검색 -->
+	<!-- 골라줘요 게시물 해시태그-->
 	
 	<!-- 골라줘요 좋아요 insert : like-->
 	<insert id="insertPickLike">

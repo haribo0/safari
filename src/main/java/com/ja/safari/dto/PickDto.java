@@ -8,6 +8,7 @@ public class PickDto {
 	
 	private int id;
 	private int user_id;
+	private String title;
 	private String content;
 	private int views;
 	@DateTimeFormat(pattern="yyyy-MM-dd")
@@ -17,14 +18,18 @@ public class PickDto {
 		super();
 	}
 
-	public PickDto(int id, int user_id, String content, int views, Date reg_date) {
-		super();
+
+
+	public PickDto(int id, int user_id, String title, String content, int views, Date reg_date) {
 		this.id = id;
 		this.user_id = user_id;
+		this.title = title;
 		this.content = content;
 		this.views = views;
 		this.reg_date = reg_date;
 	}
+
+
 
 	public int getId() {
 		return id;
@@ -40,6 +45,14 @@ public class PickDto {
 
 	public void setUser_id(int user_id) {
 		this.user_id = user_id;
+	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
 	}
 
 	public String getContent() {
@@ -65,6 +78,8 @@ public class PickDto {
 	public void setReg_date(Date reg_date) {
 		this.reg_date = reg_date;
 	}
+
+	
 
 
 	

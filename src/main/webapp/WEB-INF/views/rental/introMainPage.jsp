@@ -250,7 +250,7 @@
 					<!-- 현재 순서가 마지막인 경우에만 실행될 내용 -->
 					<!-- 만약 나머지가 4일 경우를 제외하고는 col을 더 만들어줘야함 (5-(status%5)) -->
 					<c:if test="${(status.index%5) < 4 }">
-						<c:forEach begin="0" end="${4-(status.index % 5)}" varStatus="">
+						<c:forEach begin="0" end="${3-(status.index % 5)}" varStatus="">
 							<!-- 빈 칼럼 추가  -->
 							<div class="col"></div>
 					</c:forEach>

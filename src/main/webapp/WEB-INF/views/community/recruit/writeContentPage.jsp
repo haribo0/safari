@@ -98,7 +98,7 @@
 								
 									<div class="row">
   									<div class="col d-flex flex-column justify-content-start align-items-start text-start" style="font-size: 20px;">
-  									<label for="" class="col col-form-label fw-bold">모집조건</label>
+  									<label for="" class="col col-form-label fw-bold mb-2">모집조건</label>
   									</div>
   									</div>
   									
@@ -271,17 +271,7 @@
 										</div>
 								
 								<%--입력 박스--%> 
-								<div class="form-group mt-1 mb-1">
-								    <div class="form-control" style="font-size: ; font-family: 'Noto Sans', sans-serif; box-shadow: none;">
-										<input type="tel" name="phone" placeholder="phone" style="width: 100%; border: none; outline: none; padding: 0;">
-									</div>
-								</div>
 								
-								<div class="form-group mt-1 mb-1">
-								    <div class="form-control" style="font-size: ; font-family: 'Noto Sans', sans-serif; box-shadow: none;">
-										<input type="text" name="email" placeholder="Email" style="width: 100%; border: none; outline: none; padding: 0;">
-									</div>
-								</div>
 								
 								<!-- <div class="form-group mt-1 mb-1">
 								    <div class="form-control" style="font-size: ; font-family: 'Noto Sans', sans-serif; box-shadow: none;">
@@ -309,16 +299,127 @@
 								<%--입력 박스--%> 
 								
 								
-								<div class="form-group mb-3">
+								<div class="form-group mb-3 mt-3">
 							      <div class="form-control" style="font-size: ; font-family: 'Noto Sans', sans-serif; box-shadow: none;">
 							        <textarea rows="10" name="content" placeholder="내용을 입력해주세요." style="width: 100%; border: none; outline: none; padding: 0;"></textarea>
 							      </div>
 							      <span class="d-flex justify-content-end align-items-center mt-1 me-1" style="font-size: 14px; color: gray;"><i class="bi bi-info-circle-fill me-1" ></i>욕설, 비방, 광고 등 관련 없는 내용 작성 시 삭제될 수 있습니다.</span>
 							    </div>
 							    
-							    <!-- <i class="bi bi-paperclip"></i>  -->
-							    <input name="recruitFiles" class="form-control" type="file" id="formFileMultiple"  multiple accept="image/*">
+							    
+							    
+							    
+							    <%--기업정보--%>
+							    <label for="" class="col col-form-label fw-bold mb-2" style="font-size: 20px;">기업정보</label>
+							    
+							    <div class="card">
+  							     <div class="card-body">
+							     
+							    
+							    <div class="row">
+							    <div class="col d-flex align-items-center justify-content-center" style="height: 350px; width: 350px;">
+							     <%-- <input name="recruitFiles" class="form-control" type="file" id="formFileMultiple"  multiple accept="image/*">
+									 image 미리보기
+									 <div id="imageContainer">
+		    								image 이미지 표시될 영역
+									  </div> --%>
+									  <div class="container mt-1 mb-1 " >
+									    <div class="d-flex justify-content-center align-items-center  mb-2" style="height: 320px; width: 320px;">
+									    <div class="mb-2 d-flex justify-content-center align-items-center justify-content-lg-center" id="imageContainer" style="height: 300px; width: 300px;">
+									      
+									       <!--  //<span class="text-white">이미지 미리보기</span> -->
+									       <img src="/safari/resources/img/community/noimage_recruit.png" class="d-flex justify-content-center align-items-center" style="height: 100px; width: 100px;">
+									        
+									      </div>
+									    </div>
+									    
+									    <div class="mt-2 mb-2 d-flex justify-content-center align-items-end">
+									    <input name="recruitFiles" class="form-control" type="file" id="formFileMultiple" multiple accept="image/*">
+									  	</div>
+									  </div>
+									  
+									
+									   <script>
+									    // 파일 선택시 미리보기
+									    document.getElementById('formFileMultiple').addEventListener('change', function() {
+									      var files = this.files;
+									      var imageContainer = document.getElementById('imageContainer');
+									
+									      // 미리보기 영역 초기화
+									      imageContainer.innerHTML = '';
+									
+									      if (files.length > 0) {
+									        var file = files[0];
+									        if (file) {
+									          var reader = new FileReader();
+									          reader.onload = function(event) {
+									            var previewImage = document.createElement('img');
+									            previewImage.src = event.target.result;
+									            previewImage.style.maxHeight = '400px';
+									            previewImage.style.maxWidth = '100%';
+									            imageContainer.appendChild(previewImage);
+									          };
+									          reader.readAsDataURL(file);
+									        }
+									      } else {
+									        // 이미지가 선택되지 않은 경우 기본 검정색 네모를 표시합니다.
+									        var defaultImage = document.createElement('div');
+									        defaultImage.classList.add('d-flex', 'justify-content-center', 'align-items-center', 'bg-dark');
+									        defaultImage.style.height = '400px';
+									        defaultImage.innerHTML = '<span class="text-white">이미지 미리보기</span>';
+									        imageContainer.appendChild(defaultImage);
+									      }
+									    });
+									  </script>
+									 <%-- image 미리보기 --%>
+							    </div>
+							    
+							    
+							    <div class="col">
+							    
+							    	<div class="row py-3" style="margin-top: 50px;">
+								    <div class="col mt-1 mb-1">
+								    	<strong>${sessionUser.nickname}</strong>
+								    </div>
+								    </div>
+								    
+								    <div class="row">
+								    <div class="col">
+								    <div class="form-group mt-1 mb-1">
+									    <div class="form-control" style="font-size: ; font-family: 'Noto Sans', sans-serif; box-shadow: none;">
+											<input type="tel" name="phone" placeholder="phone" style="width: 100%; border: none; outline: none; padding: 0;">
+										</div>
+									</div>
+								    </div>
+								    </div>
+								    
+								    <div class="row">
+								    <div class="col">
+								    <div class="form-group mt-1 mb-1">
+									    <div class="form-control" style="font-size: ; font-family: 'Noto Sans', sans-serif; box-shadow: none;">
+											<input type="text" name="email" placeholder="Email" style="width: 100%; border: none; outline: none; padding: 0;">
+										</div>
+									</div>
+								    </div>
+								    </div>
+								    
+							    </div>
+							    
+							    </div>
+							    </div>
+							    <%--기업정보--%> 
+							    
+								    <div class="col">
+								    
+								    </div>
+							    </div>
+								
+								
+								
+							   
 							 
+							 
+							 <%-- write content --%>
 								<%-- write content --%>
 								
 								

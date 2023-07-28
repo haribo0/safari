@@ -29,8 +29,10 @@
 	<div class = "container main_box">
 	<div class = "row mt-5">
 		<div class = "col-auto">
-				<h1 class="text-start fs-3 fw-semibold ">
-					<b>커뮤니티</b>
+				<h1 class="text-start fs-3 fw-semibold">
+					<a href="/safari/community/mainPage" style="text-decoration: none; color: inherit;">
+						<b>커뮤니티</b>
+					</a>
 				</h1>			 
 			</div>
 			
@@ -196,13 +198,13 @@
 							</a>
 						</div>
 						<div class = "row mt-3">
-							<div class = "col mx-2">
+							<div class = "col ms-3">
 							<c:forEach items="${newPostByHelpList}" var="map" varStatus="status" begin="0" end="4">  
 								<div class = "row mt-1 py-1">
 									<div class = "col-auto d-flex align-items-center badge rounded-pill text-bg-warning opacity-75 custom-badge" style="position: relative; top: 6px;">
 										${map.helpDto.points }p
 									</div> 
-									<div class = "col p-0 mx-1" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+									<div class = "col p-0 mx-2" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
 										<a href="/safari/community/help/readContentPage/${map.helpDto.id}" style="text-decoration: none; color: inherit;">
 											${map.helpDto.title }
 										</a>
@@ -280,7 +282,7 @@
 						</a>
 					</div>
 					<div class = "row mt-3">
-						<div class = "col mx-2">
+						<div class = "col ms-3">
 							<c:forEach items="${newPostByQuestionList}" var="map" varStatus="status" begin="0" end="4">  
 								<div class = "row mt-1 py-1">
 									<c:if test="${map.questionDto.points>=1}">
@@ -288,7 +290,7 @@
 										${map.questionDto.points }p
 									</div>
 									</c:if>
-									<div class = "col p-0 mx-1" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+									<div class = "col p-0 mx-2" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
 										<a href="/safari/community/question/questionReadContentPage/${map.questionDto.id}" style="text-decoration: none; color: inherit;">
 											${map.questionDto.title }
 										</a>

@@ -22,6 +22,9 @@
   height: 100%;
   object-fit: cover;
 }
+.nav-link.active{
+background-color: #F3F4F8 !important;
+}
 </style>
 <body>
 <!-- 헤더 섹션 -->
@@ -74,7 +77,7 @@
 							    	type="button" role="tab" aria-controls="proreview-tab-pane" aria-selected="false" style="color: black;">리워드</button>
 							  </li>
 							</ul>
-							
+
 							<!--  내가 좋아요한 게시물(내용) -->
 							<div class = "myPostList mt-3">
 							<div class="tab-content" id="myTabContent">
@@ -338,12 +341,16 @@
 												<div class = "col">
 													<div class = "row">
 														<div class = "col">
-															<div class= "row mt-1">
-																<div class = "col">
-																	카테고리
+															<div class= "row mt-2">
+															<!--  카테고리 -->
+																<div class = "col text-secondary" style = "font-size:13px;">
+																	${map.rentalItemCategory.main_category_name}
+																 	<c:if test="${map.rentalItemCategory.sub_category_name != null}">
+																 	> ${map.rentalItemCategory.sub_category_name}
+																 	</c:if>
 																</div>
 															</div>
-														 	<div class= "row mt-1">
+														 	<div class= "row">
 														 		<div class = "col fw-semibold fs-6" style="display: -webkit-box; -webkit-line-clamp: 1; -webkit-box-orient: vertical; overflow: hidden;">
 															 		<a href="../../safari/community/promotion/contentPromotionReviewPage?id=${map.promotionReviewDto.id }" style="text-decoration: none; color: inherit;">
 															 			${map.promotionReviewDto.promotion_review_title }

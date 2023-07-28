@@ -452,6 +452,29 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
+let searchWord = null;
+
+
+// 검색 enter 이벤트 키 처리
+function enterSearchAuction(event) {
+  if (event.key == "Enter") {
+	  searchAuction();
+  }
+}
+
+// 검색
+function searchAuction() {
+	
+	 const searchWordBox = document.querySelector("#searchAuctionName");
+	 searchWord = searchWordBox.value;
+	 reloadAuctionList(null, null);
+	
+	
+}
+
+
+
+
 // 메인 페이지에 경매 리스트 출력
 function reloadAuctionList(mainCategoryId, subCategoryId) {
 	
@@ -459,16 +482,13 @@ function reloadAuctionList(mainCategoryId, subCategoryId) {
 
 	   let url; 
 	   
-	   /*if (document.getElementById('radioStatusIng').checked) {
-	      status = document.getElementById('radioStatusIng').value;
-	      console.log(status);
-	   } else if (document.getElementById('radioStatusReady').checked) {
-	      status = document.getElementById('radioStatusReady').value;
-	   }*/
-	   
 	   if (status) {
 		  url = "/safari/auction/getAuctionListByStatus?status=" + status;
 	   } 
+	   
+	   if (searchWord) {
+		   url = "/safari/auction/searchAuction?searchWord=" + searchWord;
+	   }
 	   
 	   else {      
 		   
@@ -938,9 +958,9 @@ window.addEventListener("DOMContentLoaded", function(){
 	<!-- 헤더 섹션 -->
 
 	<div class="container main_box">
-		<h1 class="text-center fs-3">
+		<!-- <h1 class="text-center fs-3">
 			<img class="img-fluid" src="/safari/resources/img/auction/auctionBanner.jpg">
-		</h1>
+		</h1> -->
 		
 	<!-- <div class="row mt-2">
 		<div class="col">
@@ -988,15 +1008,28 @@ window.addEventListener("DOMContentLoaded", function(){
 	
 	<%-- 메인 페이지 시작 --%>
 
-	<div class="col-10 justify-content-end ps-5 px-0 pe-2" >
+	<div class="col-10 justify-content-end ps-5 px-0 pe-2" style="position: relative; left: 42px">
 	
 		
 		<div class="row mt-4 mb-3" style="position: relative; bottom: 10px;">
-			<div class="col">
-			<!--   	<a href="/safari/auction/mainPage">메인 페이지로 이동 ></a>
- -->			</div>
+			<div class="col ms-1">
+				<div class="row">
+					<div class="col-10">
+						<div class="input-group">
+		                    <input name="auction_searchWord" type="text" class="form-control"
+		                           placeholder="상품명을 입력하세요" id="searchAuctionName"
+		                           onkeydown="enterSearchAuction(event)">
+		                    	<span class="input-group-text" ">
+		                        <span class="bi bi-search" onclick="searchAuction()" style="cursor: pointer;"></span>
+		                   		<span class="bi bi-x-circle-fill" onclick="clearSearch()" style="cursor: pointer; display: none;"></span>
+		                    </span>
+               			 </div>
+					</div>
+					
+				</div>	
+ 			</div>
 			
-			<div class="col d-flex justify-content-end" style="position: relative; right: 50px;">
+			<div class="col d-flex justify-content-end" style="position: relative; right: 50px; top: 5px">
 
 				<input type="button" onclick= "registerProductPage()"
 			  class="btn orangeButton" value="경매 물품 등록">	
@@ -1034,6 +1067,7 @@ window.addEventListener("DOMContentLoaded", function(){
 					<div class="col d-flex justify-content-end text-end">
 						<ul>
 							<li style="float:left;" class="pe-3 fw-bold">마감임박순</li>
+							<li style="float:left;" class="pe-3">입찰순</li>
 							<li style="float:left;" class="pe-3">추천순</li>
 							<li style="float:left;">최신순</li>
 						</ul>
@@ -1051,8 +1085,8 @@ window.addEventListener("DOMContentLoaded", function(){
 			
 			</div>
 				
-			</div>
 		</div>
+	</div>
 		
 			
 

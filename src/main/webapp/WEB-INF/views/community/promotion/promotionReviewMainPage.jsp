@@ -155,42 +155,11 @@ window.addEventListener("DOMContentLoaded", function(){
 			</div>
 			<div class = "col"></div>
 			<div class = "col">		
-			<!-- 검색 -->
-			<form action="./allPromotionReviewPage" method="get">
-				<div class="row"> 
-					<div class="col-4 pe-1">
-						<select name="promoReview_searchType" class="form-select">
-							<option value="promotion_review_title" selected>제목</option>
-							<option value="promotion_review_content">내용</option>
-							<option value="nickname">작성자</option>
-						</select>				
-					</div>
-					<div class="col-5 px-0">
-						<input name="promoReview_searchWord" type="text" class="form-control">
-					</div>
-					<div class="col-1 d-grid px-1">
-						 <button type="submit" class="btn btn-outline-dark">
-						  	<span class="bi bi-search"></span>
-						</button>
-					</div>
-				</div>
-			</form>
+			
+			
 			</div>
 
-			<div class = "col-1">
-				<c:choose>
-					<c:when test="${!empty sessionUser }">
-						<form action="writePromotionReviewPage" method = "post">
-							<button class = "form-control btn orangeButton">글쓰기</button>
-						</form>
-					</c:when>
-					<c:otherwise>
-						<form action="../../user/loginPage" method = "post">
-							<button class = "form-control btn orangeButton">글쓰기</button>
-						</form>
-					</c:otherwise>
-				</c:choose>
-			</div>
+			
 		</div>
 
 		
@@ -220,7 +189,7 @@ window.addEventListener("DOMContentLoaded", function(){
 					<div class = "col" style="width: 18rem; height: 400px;">
 						<div class="card border border-0" >
 							<a href="./contentPromotionReviewPage?id=${map.promotionReviewDto.id }"> 
-						  <img src="/uploadPromoFiles/${map.promotionReviewImgList[0].rental_review_img }"
+						  <img src="/safariImg/${map.rentalItemDto.main_img_link }"
 						  	   class="card-img-top" alt="리워드게시물사진" height="300">
 						  </a>
 						  <div class="card-body text-center">
@@ -230,7 +199,7 @@ window.addEventListener("DOMContentLoaded", function(){
 							 	> ${map.rentalItemCategory.sub_category_name}
 							 	</c:if>
 						  	</p> 
-						    <h5 class="card-title fs-5 mt-1 fw-semibold">${map.promotionReviewDto.promotion_review_title }</h5>
+						    <h5 class="card-title fs-5 mt-1 fw-semibold">${map.rentalItemDto.title }</h5>
 						  </div>
 						</div>
 					</div>
@@ -248,7 +217,50 @@ window.addEventListener("DOMContentLoaded", function(){
 			</div>
 		</div>
 		
-			 <!--  최신순 / 공감(인기)순 -->
+		<!--  여기로 이사 -->
+		<div class = "row mt-5">
+			<div class = "col-8"></div>
+			<div class = "col">
+			<!-- 검색 -->
+				<form action="./allPromotionReviewPage" method="get">
+					<div class="row"> 
+						<div class="col-4 pe-1">
+							<select name="promoReview_searchType" class="form-select">
+								<option value="promotion_review_title" selected>제목</option>
+								<option value="promotion_review_content">내용</option>
+								<option value="nickname">작성자</option>
+							</select>				
+						</div>
+						<div class="col-5 px-0">
+							<input name="promoReview_searchWord" type="text" class="form-control">
+						</div>
+						<div class="col-1 d-grid px-1">
+							 <button type="submit" class="btn btn-outline-dark">
+							  	<span class="bi bi-search"></span>
+							</button>
+						</div>
+					</div>
+				</form>
+			</div>
+			<div class = "col-1">
+				<c:choose>
+					<c:when test="${!empty sessionUser }">
+						<form action="writePromotionReviewPage" method = "post">
+							<button class = "form-control btn orangeButton">글쓰기</button>
+						</form>
+					</c:when>
+					<c:otherwise>
+						<form action="../../user/loginPage" method = "post">
+							<button class = "form-control btn orangeButton">글쓰기</button>
+						</form>
+					</c:otherwise>
+				</c:choose>
+			</div>
+		</div>
+		
+		
+		
+		<!--  최신순 / 공감(인기)순 -->
 			<div class = "row mt-5">
 				<!--  최신 순 -->
 				<div class = "col">

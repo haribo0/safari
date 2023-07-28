@@ -198,8 +198,8 @@ body1 {
 <div class="modal" id="usedChatModal" tabindex="-1">
 	  <div class="modal-dialog">
 	    <div class="modal-content">
-	      <div class="modal-header position-relative" style="background: #EAEAEA;">
- 	        <div class="modal-title">
+	      <div class="modal-header position-relative px-3" style="background: #EAEAEA; padding: 20px 0px;">
+ 	        <div class="modal-title ms-1 position-absolute top-50 start-50 translate-middle">
 	        	<h5 class="modal-title ms-1">
 					채팅방 목록
 	        	</h5>
@@ -223,7 +223,7 @@ body1 {
 <div class="modal" id="chatModal" tabindex="-1">
   <div class="modal-dialog">
     <div class="modal-content">
-      <div class="modal-header position-relative px-3" style="background: #EAEAEA; padding: 10px 0px;">
+      <div class="modal-header position-relative px-3" style="background: #EAEAEA; padding: 9px 0px;">
       		<i class="bi bi-chevron-left fs-4 p-0" onclick="reloadChatRoomList()"></i>
       		<h5 class="modal-title ms-1 position-absolute top-50 start-50 translate-middle" id="modalTitle">
 	        	</h5>
@@ -270,7 +270,7 @@ body1 {
 <div class="modal" id="writeReviewModal" tabindex="-1" >
   <div class="modal-dialog">
     <div class="modal-content">
-      <div class="modal-header position-relative px-3" style="background: #EAEAEA; padding: 10px 0px;">
+      <div class="modal-header position-relative px-3" style="background: #EAEAEA; padding: 9px 0px;">
        	<i class="bi bi-chevron-left fs-4 p-0" onclick="modalOnById()"></i>
        	<h5 class="modal-title ms-1 position-absolute top-50 start-50 translate-middle">거래 후기 보내기</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -292,7 +292,7 @@ body1 {
 <div class="modal" id="myWroteReviewModal" tabindex="-1" >
   <div class="modal-dialog">
     <div class="modal-content">
-      <div class="modal-header position-relative px-3" style="background: #EAEAEA; padding: 10px 0px;">
+      <div class="modal-header position-relative px-3" style="background: #EAEAEA; padding: 9px 0px;">
         <i class="bi bi-chevron-left fs-4 p-0" onclick="modalOnById()"></i>
        	<h5 class="modal-title ms-1 position-absolute top-50 start-50 translate-middle">내가 보낸 거래 후기</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -339,7 +339,7 @@ body1 {
 <div class="modal" id="receiverWroteReviewModal" tabindex="-1" >
   <div class="modal-dialog">
     <div class="modal-content">
-      <div class="modal-header position-relative px-3" style="background: #EAEAEA; padding: 10px 0px;">
+      <div class="modal-header position-relative px-3" style="background: #EAEAEA; padding: 9px 0px;">
       	<i class="bi bi-chevron-left fs-4 p-0" onclick="receiverCloseAndMyOpen()"></i>
         <h5 class="modal-title ms-1 position-absolute top-50 start-50 translate-middle">받은 거래 후기</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -2405,7 +2405,7 @@ function successPayment(partner_order_id, partner_user_id,item_name,item_code,to
 	xhr.onreadystatechange = function(){
 	    if(xhr.readyState == 4 && xhr.status == 200){
 	        const response = JSON.parse(xhr.responseText);
-	        reloadChatList(requestId);
+	        reloadChatList(partner_order_id);
 	    }
 	}
 	//get
@@ -2765,7 +2765,7 @@ function startLiveChat(categoryId) {
 
 
 	// post 방식
-	xhr.open("post", "../cs/startLiveChat");
+	xhr.open("post", "../user/startLiveChat");
 	xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 	xhr.send("categoryId="+categoryId);
 }
@@ -2813,7 +2813,7 @@ function sendMsg() {
     }
 
     //post
-	xhr.open("post", "../cs/sendLiveChatMsg");
+	xhr.open("post", "../user/sendLiveChatMsg");
 	xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
 	xhr.send("sendLiveChatMsg="+inputValue+"&chatId="+liveChatId);
 
@@ -3039,7 +3039,7 @@ function getMsg() {
 	}
 
 	// get 방식
-	xhr.open("get", "../cs/getLiveChatMsgList?chatId="+liveChatId);
+	xhr.open("get", "../user/getLiveChatMsgList?chatId="+liveChatId);
 	xhr.send();
 
 }
@@ -3095,7 +3095,7 @@ function saveFeedback() {
 	}
 
 	// post 방식
-	xhr.open("post", "../cs/saveLiveChatRating");
+	xhr.open("post", "../user/saveLiveChatRating");
 	xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 	xhr.send("chat_id="+liveChatId+"&rating="+ratingValue+"&text_review="+textReview);
 

@@ -47,11 +47,13 @@ public class PickController {
 		///////////
 		
 		
-		//골라줘요 메인페이지
+		//골라줘요 메인페이지 //게시물 옵션 이미지 추가. 
 		@RequestMapping("pick/mainPage")
 		public String pickMainPage(Model model) {
 			
 			List<Map<String, Object>> pickBoardList = pickService.selectAllPickBoards();
+			
+			//게시물 옵션 이미지 추가.//리스트 //맵
 			
 			model.addAttribute("pickBoardList", pickBoardList);
 			
@@ -104,7 +106,6 @@ public class PickController {
 		@RequestMapping("pick/writeContentProcess")
 		public String pickWriteContentProcess(HttpSession session, PickDto pickDto, int [] category) {
 			
-			System.out.println("야호...!!!");
 			
 			UserDto sessionUser = (UserDto)session.getAttribute("sessionUser");
 			
@@ -117,6 +118,22 @@ public class PickController {
 			return "redirect:/community/pick/mainPage";
 		}
 		
+		
+		//골라줘요 해시태그 작성 프로세스 
+		@RequestMapping("pick/writeHashtagContentProcess")
+		public String writeHashtagContentProcess(HttpSession session, PickDto pickDto, int [] category) {
+			
+			
+			UserDto sessionUser = (UserDto)session.getAttribute("sessionUser");
+			
+			int user_id = sessionUser.getId();
+			pickDto.setUser_id(user_id);
+
+			pickService.registerPickBoard(pickDto, category);
+			
+			
+			return "redirect:/community/pick/mainPage";
+		}
 		
 		
 		//골라줘요 게시판 상세보기 //좋아요 추가 //댓글 리스트로 조회
@@ -244,7 +261,7 @@ public class PickController {
 		}
 		
 
-	// 강사 코드
+	// 골라줘요 옵션 투표 프로세스 
 	@RequestMapping("pick/voteProcess")	
 	public String voteProcess(int pick_id, PickOptionVoteDto pickOptionVoteDto, HttpSession session) {
 		UserDto sessionUser = (UserDto)session.getAttribute("sessionUser");

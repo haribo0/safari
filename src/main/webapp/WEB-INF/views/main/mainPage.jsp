@@ -10,232 +10,192 @@
 <!-- 메타 섹션 -->
 <jsp:include page="../common/meta.jsp"></jsp:include>
 <!-- 메타 섹션 -->
-<style>
-.crs-1{height:600px; background: url("https://static.vecteezy.com/system/resources/previews/004/299/835/non_2x/online-shopping-on-phone-buy-sell-business-digital-web-banner-application-money-advertising-payment-ecommerce-illustration-search-free-vector.jpg"); background-size: cover; background-repeat: no-repeat;}
-.crs-2{height:600px; background: url("https://images.pexels.com/photos/17504246/pexels-photo-17504246.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"); background-size: cover; background-repeat: no-repeat;}
-.crs-3{height:600px; background: url("https://images.pexels.com/photos/16573228/pexels-photo-16573228.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"); background-size: cover; background-repeat: no-repeat;}
-.crs-4{height:600px; background: url("https://images.pexels.com/photos/3647075/pexels-photo-3647075.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"); background-size: cover; background-repeat: no-repeat;}
-
-</style>
 </head>
 <body>
-	<!-- 헤더 섹션 -->
-	<jsp:include page="../common/header.jsp"></jsp:include>
-	<!-- 헤더 섹션 -->
+   <!-- 헤더 섹션 -->
+   <jsp:include page="../common/header.jsp"></jsp:include>
+   <!-- 헤더 섹션 -->
 
-	<div class="container bg-light">
+   <div class="container bg-light">
 		<div class="row">
-			<div id="carouselExampleCaptions" class="carousel slide">
-			  <div class="carousel-indicators">
-			    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-			    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
-			    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
-			    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="3" aria-label="Slide 4"></button>
-			  </div>
-			  <div class="carousel-inner">
-			    <div class="carousel-item crs-1 active">
-			      <div class="carousel-caption d-none d-md-block">
-			      </div>
-			    </div>
-			    <div class="carousel-item crs-2">
-			      <div class="carousel-caption d-none d-md-block">
-			        <h5>대여</h5>
-			        <p>값비싼 물건 손 쉽게 대여하세요!</p>
-			      </div>
-			    </div>
-			    <div class="carousel-item crs-3">
-			      <div class="carousel-caption d-none d-md-block">
-			        <h5>경매</h5>
-			        <p>평소 가지고 싶었던 물건 꼭 get하세요!</p>
-			      </div>
-			    </div>
-			   	<div class="carousel-item crs-4">
-			      <div class="carousel-caption d-none d-md-block">
-			        <h5>커뮤니티</h5>
-			        <p>즐겁게 정보를 공유해요!</p>
-			      </div>
-			    </div>
-			  </div>
-			  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
-			    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-			    <span class="visually-hidden">Previous</span>
-			  </button>
-			  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
-			    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-			    <span class="visually-hidden">Next</span>
-			  </button>
-			</div>
-		</div>
-
-	</div>
-
-	<div class="container mt-5 pt-5 pb-3">
-		<div class="row justify-content-between">
-			<div class="col d-flex justify-content-center">
-				<div class="card w-100 shadow ">
-				  <div class="card-body">
-				  	<div class="row">
-				  		<div class="col">
-						    <span class="card-text fw-bold border border-secondary-subtle px-2 py-1 rounded-3">중고</span>
-						    <p class="card-text mt-2" style="font-size: 18px;">채팅 기반으로 편리한 중고 거래</p>
-				  		</div>
-				  	</div>
-				  </div>
-				</div>
-			</div>
-			<div class="col d-flex justify-content-center">
-				<div class="card w-100 shadow ">
-				  <div class="card-body">
-				  	<div class="row">
-				  		<div class="col">
-						    <span class="card-text fw-bold border border-secondary-subtle px-2 py-1 rounded-3">대여</span>
-						    <p class="card-text mt-2" style="font-size: 18px;">합리적 가격 대여</p>
-				    	</div>
+			<div class="col bg-white">
+				<div id="carouselExample" class="carousel slide">
+				  <div class="carousel-inner">
+				    <div class="carousel-item active">
+				      <a href="${pageContext.request.contextPath}/rental/mainPage">
+				      	<img src="${pageContext.request.contextPath}/resources/img/rental/rental_banner_1.jpg" class="d-block w-100" alt="...">
+				      </a>
 				    </div>
-				    <div class="row">
-				    	<div class="col">
-				    		<img class="img-fluid" alt="" src="${pageContext.request.contextPath}/resources/img/main/img_item1.png">
-				    	</div>
+				    <div class="carousel-item">
+				      <a href="${pageContext.request.contextPath}/rental/mainPage">
+				      	<img src="${pageContext.request.contextPath}/resources/img/rental/rental_banner_2.jpg" class="d-block w-100" alt="...">
+				      </a>
+				    </div>
+				    <div class="carousel-item">
+				      <a href="${pageContext.request.contextPath}/rental/mainPage">
+				      	<img src="${pageContext.request.contextPath}/resources/img/rental/rental_banner_3.jpg" class="d-block w-100" alt="...">
+				      </a>
 				    </div>
 				  </div>
-				</div>
-			</div>
-			<div class="col d-flex justify-content-center">
-				<div class="card w-100 shadow ">
-				  <div class="card-body">
-				  	<div class="row">
-				  		<div class="col">
-				    		<span class="card-text fw-bold border border-secondary-subtle px-2 py-1 rounded-3">경매</span>
-				    		<p class="card-text mt-2" style="font-size: 18px;">실시간 시스템도입의 경매</p>
-				    	</div>
-				    </div>
-				  </div>
-				</div>
-			</div>
-			<div class="col d-flex justify-content-center">
-				<div class="card w-100 shadow ">
-				  <div class="card-body">
-				  	<div class="row">
-				  		<div class="col">
-				    		<span class="card-text fw-bold border border-secondary-subtle px-2 py-1 rounded-3" >커뮤니티</span>
-				    		<p class="card-text mt-2" style="font-size: 18px;">다양한 정보 공유의 장</p>
-			    		</div>
-			    	</div>
-				  </div>
+				  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+				    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+				    <span class="visually-hidden">Previous</span>
+				  </button>
+				  <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+				    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+				    <span class="visually-hidden">Next</span>
+				  </button>
 				</div>
 			</div>
 		</div>
-	</div>
-	
-	
-	
-	<div class="container mt-5 pt-5 pb-3">
-		<div class="card text-center">
-		  <div class="card-header">
-		    Featured
-		  </div>
-		  <div class="card-body">
-		    <h5 class="card-title">Special title treatment</h5>
-		    <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-		    <a href="#" class="btn btn-primary">Go somewhere</a>
-		  </div>
-		  <div class="card-footer text-body-secondary">
-		    2 days ago
-		  </div>
-		</div>
-	</div>
 
-	<div class="container mt-5 pt-5 pb-3">
-		<div id="carouselExampleFade" class="carousel slide carousel-fade">
-		  <div class="carousel-inner">
-		    <div class="carousel-item bg-secondary active" style="height: 400px;">
-		      <img src="" class="d-block w-100" alt="...">
-		    </div>
-		    <div class="carousel-item bg-secondary" style="height: 400px;">
-		      <img src="" class="d-block w-100" alt="...">
-		    </div>
-		    <div class="carousel-item bg-secondary" style="height: 400px;">
-		      <img src="" class="d-block w-100" alt="...">
-		    </div>
-		  </div>
-		  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="prev">
-		    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-		    <span class="visually-hidden">Previous</span>
-		  </button>
-		  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="next">
-		    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-		    <span class="visually-hidden">Next</span>
-		  </button>
-		</div>
-	</div>
+   </div>
+
+   <div class="container mt-5 pt-5 pb-3">
+      <div class="row justify-content-between">
+         <div class="col d-flex justify-content-center">
+            <div class="card w-100 shadow ">
+              <div class="card-body">
+                 <div class="row">
+                    <div class="col">
+                    	<div class="row">
+                    		<div class="col py-3 text-center fw-bold ">
+                    			<p class="fs-4">중고</p>
+                    		</div>
+                    	</div>
+                    	<div class="row">
+		                   <div class="col text-center">
+		                      <img class="img-fluid" alt="" src="${pageContext.request.contextPath}/resources/img/main/img_item1.png" style="max-height: 240px;">
+		                    	<p class="text-secondary">중고 매물 모두 한 곳에서!</p>
+		                   </div>
+		                </div>
+                    </div>
+                 </div>
+              </div>
+            </div>
+         </div>
+         <div class="col d-flex justify-content-center">
+            <div class="card w-100 shadow ">
+              <div class="card-body">
+                <div class="row">
+                    <div class="col">
+                    	<div class="row">
+                    		<div class="col py-3 text-center fw-bold">
+                    			<p class="fs-4">대여</p>
+                    		</div>
+                    	</div>
+                    	<div class="row">
+		                   <div class="col text-center">
+		                      <img class="img-fluid" alt="" src="${pageContext.request.contextPath}/resources/img/main/img_item1.png" style="max-height: 240px;">
+		                    	<p class="text-secondary">합리적인 대여비!</p>
+		                   </div>
+		                </div>
+                    </div>
+                 </div>
+              </div>
+            </div>
+         </div>
+         <div class="col d-flex justify-content-center">
+            <div class="card w-100 shadow ">
+              <div class="card-body">
+                <div class="row">
+                    <div class="col">
+                    	<div class="row">
+                    		<div class="col py-3 text-center fw-bold">
+                    			<p class="fs-4">경매</p>
+                    		</div>
+                    	</div>
+      	                <div class="row">
+		                   <div class="col text-center">
+		                      <img class="img-fluid" alt="" src="${pageContext.request.contextPath}/resources/img/main/img_item1.png" style="max-height: 240px;">
+                    			<p class="text-secondary">나도 입찰자!</p>
+		                   </div>
+		                </div>
+                    </div>
+                 </div>
+              </div>
+            </div>
+         </div>
+      </div>
+   </div>
+   
+   <div class="container mt-5 pt-5 pb-3">
+      <div class="row shadow p-5">
+        <div class="col text-center">
+          <h3 class="card-title fw-bold">커뮤니티 페이지 오픈!</h3>
+          <p class="card-text mb-5">사파리의 커뮤니티로 풍부한 정보를 채워보세요!</p>
+          <a href="#" class="btn btn-primary">더 보기</a>
+        </div>
+      </div>
+   </div>
 
 
-	<div class="container mt-5 pt-5 pb-3">
-		<div class="row">
-			<div class="col d-flex justify-content-center">
-				<div class="card border-dark mb-3">
-				  <div class="card-header">Header</div>
-				  <div class="card-body">
-				    <h5 class="card-title">Dark card title</h5>
-				    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-				  </div>
-				</div>
-			</div>
-			<div class="col d-flex justify-content-center">
-				<div class="card border-dark mb-3">
-				  <div class="card-header">Header</div>
-				  <div class="card-body">
-				    <h5 class="card-title">Dark card title</h5>
-				    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-				  </div>
-				</div>
-			</div>
-		</div>
-	</div>
+   <div class="container mt-5 pt-5 pb-3">
+      <div class="row">
+         <div class="col-6 d-flex justify-content-center">
+            <div class="card border-dark mb-3 w-100">
+              <div class="card-header">새 소식</div>
+              <div class="card-body">
+                <h5 class="card-title">사파리 커뮤니티 오픈</h5>
+                <p class="card-text">이웃과 소통하며 다양하고 풍부한 정보를 공유하세요.</p>
+              </div>
+            </div>
+         </div>
+         <div class="col-6 d-flex justify-content-center">
+            <div class="card border-dark mb-3 w-100">
+              <div class="card-header">경매</div>
+              <div class="card-body">
+                <h5 class="card-title">실시간 경매 페이지 오픈</h5>
+                <p class="card-text">실시간 경매 진행으로 채팅과 배팅을 한번에 즐겨보세요.</p>
+              </div>
+            </div>
+         </div>
+      </div>
+   </div>
 
-	<div class="container mt-5 pt-5 pb-3">
-		<div class="accordion" id="accordionPanelsStayOpenExample">
-		  <div class="accordion-item">
-		    <h2 class="accordion-header">
-		      <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
-		        Accordion Item #1
-		      </button>
-		    </h2>
-		    <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show">
-		      <div class="accordion-body">
-		        <strong>This is the first item's accordion body.</strong> It is shown by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
-		      </div>
-		    </div>
-		  </div>
-		  <div class="accordion-item">
-		    <h2 class="accordion-header">
-		      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false" aria-controls="panelsStayOpen-collapseTwo">
-		        Accordion Item #2
-		      </button>
-		    </h2>
-		    <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse">
-		      <div class="accordion-body">
-		        <strong>This is the second item's accordion body.</strong> It is hidden by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
-		      </div>
-		    </div>
-		  </div>
-		  <div class="accordion-item">
-		    <h2 class="accordion-header">
-		      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseThree" aria-expanded="false" aria-controls="panelsStayOpen-collapseThree">
-		        Accordion Item #3
-		      </button>
-		    </h2>
-		    <div id="panelsStayOpen-collapseThree" class="accordion-collapse collapse">
-		      <div class="accordion-body">
-		        <strong>This is the third item's accordion body.</strong> It is hidden by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
-		      </div>
-		    </div>
-		  </div>
-		</div>
-	</div>
+   <div class="container mt-5 pt-5 pb-3">
+      <div class="accordion" id="accordionPanelsStayOpenExample">
+        <div class="accordion-item">
+          <h2 class="accordion-header">
+            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
+              사파리 코인이 무엇인가요?
+            </button>
+          </h2>
+          <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show">
+            <div class="accordion-body">
+              <p>사파리 코인은 사파리 페이지 내에서 유저가 가상으로 예치하여 현금처럼 사용 할수 있는 재화 입니다.</p>
+            </div>
+          </div>
+        </div>
+        <div class="accordion-item">
+          <h2 class="accordion-header">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false" aria-controls="panelsStayOpen-collapseTwo">
+              중고 서비스는 채팅이 가능한가요?
+            </button>
+          </h2>
+          <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse">
+            <div class="accordion-body">
+              <p>네, 물론입니다. 채팅을 통하여 코인전송까지 가능합니다.</p>
+            </div>
+          </div>
+        </div>
+        <div class="accordion-item">
+          <h2 class="accordion-header">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseThree" aria-expanded="false" aria-controls="panelsStayOpen-collapseThree">
+              사파리 대여는 가격이 왜이렇게 저렴한가요?
+            </button>
+          </h2>
+          <div id="panelsStayOpen-collapseThree" class="accordion-collapse collapse">
+            <div class="accordion-body">
+              <p>저희가 제공해 드리는 대여 서비스는 다양한 니즈를 위해 여러 제공업체와 협약을 맺어 합리적인 가격으로 제공드릴수 있습니다.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+   </div>
 
-	<!-- 푸터 섹션 -->
-	<jsp:include page="../common/footer.jsp"></jsp:include>
-	<!-- 푸터 섹션 -->
+   <!-- 푸터 섹션 -->
+   <jsp:include page="../common/footer.jsp"></jsp:include>
+   <!-- 푸터 섹션 -->
 </body>
 </html>
