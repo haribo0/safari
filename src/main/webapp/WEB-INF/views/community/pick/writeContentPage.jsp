@@ -81,6 +81,12 @@
 									<input type="hidden" name="user_id" value="${sessionUser.id}">
 									
 									
+									<div class="form-group mt-4 mb-4">
+							      <div class="form-control " style="font-size: 20px; font-family: 'Noto Sans', sans-serif; box-shadow: none;">
+							        <input id="title" name="title" placeholder="제목을 입력해주세요." style="width: 100%; border: none; outline: none; padding: 0;"></input>
+							      </div>
+							     </div>
+									
 								    
 								  	 <%-- select option--%> 
 									  <div class="form-group"> 

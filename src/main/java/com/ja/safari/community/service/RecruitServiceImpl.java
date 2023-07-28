@@ -56,12 +56,13 @@ public class RecruitServiceImpl {
 	
 	
 	
-	//구인구직 게시물 전체조회 //좋아요 count 추가 
+	//구인구직 게시물 전체조회 //좋아요 count 추가 //구인구직 이미지링크 추가
 	public List<Map<String, Object>> selectAllRecruitBoards(int recruitPageNum, String recruit_searchType, String recruit_searchWord) {
 		
 		List<Map<String, Object>> recruitBoardList = new ArrayList<>();
 		
 		List<RecruitDto> recruitDtoList = recruitSqlMapper.selectAllRecruitBoards(recruitPageNum, recruit_searchType, recruit_searchWord);
+		
 		
 		for(RecruitDto recruitDto : recruitDtoList) {
 			
@@ -69,11 +70,17 @@ public class RecruitServiceImpl {
 			
 			UserDto userDto = userSqlMapper.selectUserDtoById(recruitDto.getUser_id());
 			
+			//이미지 링크 추가
+			List<RecruitImgLinkDto> recruitImgLinkDtoList = recruitSqlMapper.selectAllRecruitImg(recruitDto.getId());
+			int recruitImgCount = recruitSqlMapper.selectAllRecruitImgByBoardId(recruitDto.getId());
+			
 			int recruitLikeCount = recruitSqlMapper.countLikeByRecruitBoardId(recruitDto.getId());
 			
 			map.put("recruitDto", recruitDto);
 			map.put("userDto", userDto);
 			map.put("recruitLikeCount", recruitLikeCount);
+			map.put("recruitImgLinkDtoList", recruitImgLinkDtoList); //이미지 링크 추가
+			map.put("recruitImgCount", recruitImgCount); //이미지 링크 추가
 			
 			recruitBoardList.add(map);
 		}

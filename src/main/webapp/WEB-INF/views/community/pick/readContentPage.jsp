@@ -350,8 +350,8 @@
 			<div class="row">
 			
 			<!-- 왼쪽 -->
-			<div class="col" style="background-color:lightgrey;">
-				왼쪽
+			<div class="col">
+				
 			</div>
 			<!-- 왼쪽 -->
 			
@@ -363,7 +363,7 @@
 					<div class="row">
 						<div class="col" style="width:990px;"> 
 						
-							<%-- 골라줘요 항목 --%>
+							<%-- 골라줘요 본문--%>
 								<div class="align-middle ms-4 me-4 mb-4" style="text-align:start">
 								<hr>
 									
@@ -395,6 +395,7 @@
 									
 									<br>
 									
+									<%-- 골라주세요 옵션 foreach --%>
 									<div class="row">
 										<div class="col fs-5 fw-bold">
 											골라주세요 옵션
@@ -422,8 +423,9 @@
 												  </div>
 											</c:forEach>
 										</div>
+									<%-- 골라주세요 옵션 foreach --%>
 										
-
+									<%-- 골라주세요 상세 내용 --%>
 									<div class="row">
 										<div class="col fs-5 fw-bold">
 											골라주세요 상세 내용
@@ -435,6 +437,7 @@
 											${map.pickDto.content}
 										</div>
 									</div>	
+									<%-- 골라주세요 상세 내용 --%>
 										
 										<%-- 해시태그 --%>
 										<div class="mt-3">
@@ -445,7 +448,7 @@
 										<%-- 해시태그 --%>
 									</div>
 								</div>
-								<%-- 골라줘요 항목 --%>
+								<%-- 골라줘요 본문--%>
 						
 						<%-- 좋아요 
 						<br>
@@ -475,7 +478,7 @@
 							<%-- AJAX 좋아요 --%>
 							
 							<%-- AJAX 댓글 --%>
-							<div class="container">
+							<%-- <div class="container">
 								<div class="row">
 									<div class="col-7">
 										<textarea id="commentTextBox" class="form-control"></textarea>
@@ -495,7 +498,7 @@
 									</div>
 								</div>
 							</div>
-							<%-- AJAX 댓글 --%>
+							AJAX 댓글 --%>
 					
 								<%-- 댓글작성 --%>
 								<div class="row">
@@ -586,8 +589,8 @@
 			
 			
 			<!-- 오른쪽 -->
-			<div class="col" style="background-color:lightgrey;">
-				오른쪽
+			<div class="col">
+				<img class="img-fluid ms-3 mt-3" src="https://apple.contentsfeed.com/RealMedia/ads/Creatives/jobkorea/230718_seoul_al_ssky/230718_seoul_120600.png" alt="...">
 			</div>
 			<!-- 오른쪽 -->
 			
