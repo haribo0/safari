@@ -20,6 +20,7 @@ import com.ja.safari.dto.HelpImgDto;
 import com.ja.safari.dto.PickDto;
 import com.ja.safari.dto.PromotionReviewDto;
 import com.ja.safari.dto.PromotionReviewImgDto;
+import com.ja.safari.dto.ProreviewRentalCategoryDto;
 import com.ja.safari.dto.QuestionDto;
 import com.ja.safari.dto.QuestionImgDto;
 import com.ja.safari.dto.RecruitDto;
@@ -274,6 +275,7 @@ public class UserServiceImpl {
 			UserDto userDto = userSqlMapper.selectUserDtoById(promotionReviewDto.getUser_id());
 			
 			List<PromotionReviewImgDto> promotionReviewImgList = promotionReviewMapper.selectByPromoReviewImgId(promotionReviewDto.getId());
+			ProreviewRentalCategoryDto rentalItemCategory = promotionReviewMapper.getRentalItemCategory(promotionReviewDto.getId()); 
 			
 			int countPromotionReviewComment = promotionReviewCommentMapper.countPromotionReviewComment(promotionReviewDto.getId());
 			
@@ -284,6 +286,7 @@ public class UserServiceImpl {
 			map.put("promotionReviewImgList", promotionReviewImgList);
 			map.put("countPromotionReviewComment", countPromotionReviewComment);
 			map.put("countLikeByPromotionReview", countLikeByPromotionReview);
+			map.put("rentalItemCategory", rentalItemCategory);
 			
 			promoReviewMyPostList.add(map);
 			
@@ -424,7 +427,8 @@ public class UserServiceImpl {
 	        UserDto userDto = userSqlMapper.selectUserDtoById(promotionReviewDto.getUser_id());
 	       
 	        List<PromotionReviewImgDto> promotionReviewImgList = promotionReviewMapper.selectByPromoReviewImgId(promotionReviewDto.getId());
-			
+	        ProreviewRentalCategoryDto rentalItemCategory = promotionReviewMapper.getRentalItemCategory(promotionReviewDto.getId()); 
+	        
 			int countPromotionReviewComment = promotionReviewCommentMapper.countPromotionReviewComment(promotionReviewDto.getId());
 			int countLikeByPromotionReview = promotionReviewMapper.countLikeByPromotionReviewId(promotionReviewDto.getId());
 	        
@@ -433,6 +437,7 @@ public class UserServiceImpl {
 	        map.put("promotionReviewImgList", promotionReviewImgList);
 			map.put("countPromotionReviewComment", countPromotionReviewComment);
 			map.put("countLikeByPromotionReview", countLikeByPromotionReview);
+			map.put("rentalItemCategory", rentalItemCategory);
 
 	        promoReviewByMyLikeList.add(map);
 	        

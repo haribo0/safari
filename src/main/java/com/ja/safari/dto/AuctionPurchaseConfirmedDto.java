@@ -5,17 +5,11 @@ import java.util.Date;
 public class AuctionPurchaseConfirmedDto {
 	
 	private int partner_order_id;
-	private int auction_delivery_after_payment_id;
+	private int delivery_payment_id;
 	private Date reg_date;
 	
 	public AuctionPurchaseConfirmedDto() {
 	
-	}
-
-	public AuctionPurchaseConfirmedDto(int partner_order_id, int auction_delivery_after_payment_id, Date reg_date) {
-		this.partner_order_id = partner_order_id;
-		this.auction_delivery_after_payment_id = auction_delivery_after_payment_id;
-		this.reg_date = reg_date;
 	}
 
 	public int getPartner_order_id() {
@@ -26,12 +20,12 @@ public class AuctionPurchaseConfirmedDto {
 		this.partner_order_id = partner_order_id;
 	}
 
-	public int getAuction_delivery_after_payment_id() {
-		return auction_delivery_after_payment_id;
+	public int getDelivery_payment_id() {
+		return delivery_payment_id;
 	}
 
-	public void setAuction_delivery_after_payment_id(int auction_delivery_after_payment_id) {
-		this.auction_delivery_after_payment_id = auction_delivery_after_payment_id;
+	public void setDelivery_payment_id(int delivery_payment_id) {
+		this.delivery_payment_id = delivery_payment_id;
 	}
 
 	public Date getReg_date() {
@@ -41,7 +35,7 @@ public class AuctionPurchaseConfirmedDto {
 	public void setReg_date(Date reg_date) {
 		this.reg_date = reg_date;
 	}
-	
-	
+
+
 
 }

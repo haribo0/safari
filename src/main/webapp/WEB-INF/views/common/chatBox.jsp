@@ -2405,7 +2405,7 @@ function successPayment(partner_order_id, partner_user_id,item_name,item_code,to
 	xhr.onreadystatechange = function(){
 	    if(xhr.readyState == 4 && xhr.status == 200){
 	        const response = JSON.parse(xhr.responseText);
-	        reloadChatList(requestId);
+	        reloadChatList(partner_order_id);
 	    }
 	}
 	//get
@@ -2765,7 +2765,7 @@ function startLiveChat(categoryId) {
 
 
 	// post 방식
-	xhr.open("post", "../cs/startLiveChat");
+	xhr.open("post", "../user/startLiveChat");
 	xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 	xhr.send("categoryId="+categoryId);
 }
@@ -2813,7 +2813,7 @@ function sendMsg() {
     }
 
     //post
-	xhr.open("post", "../cs/sendLiveChatMsg");
+	xhr.open("post", "../user/sendLiveChatMsg");
 	xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
 	xhr.send("sendLiveChatMsg="+inputValue+"&chatId="+liveChatId);
 
@@ -3039,7 +3039,7 @@ function getMsg() {
 	}
 
 	// get 방식
-	xhr.open("get", "../cs/getLiveChatMsgList?chatId="+liveChatId);
+	xhr.open("get", "../user/getLiveChatMsgList?chatId="+liveChatId);
 	xhr.send();
 
 }
@@ -3095,7 +3095,7 @@ function saveFeedback() {
 	}
 
 	// post 방식
-	xhr.open("post", "../cs/saveLiveChatRating");
+	xhr.open("post", "../user/saveLiveChatRating");
 	xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 	xhr.send("chat_id="+liveChatId+"&rating="+ratingValue+"&text_review="+textReview);
 

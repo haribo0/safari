@@ -338,16 +338,16 @@
 												<div class = "col">
 													<div class = "row">
 														<div class = "col">
-															<div class= "row mt-1">
+															<div class= "row mt-2">
 															<!--  카테고리 -->
-																<div class = "col">
+																<div class = "col text-secondary" style = "font-size:13px;">
 																	${map.rentalItemCategory.main_category_name}
 																 	<c:if test="${map.rentalItemCategory.sub_category_name != null}">
 																 	> ${map.rentalItemCategory.sub_category_name}
 																 	</c:if>
 																</div>
 															</div>
-														 	<div class= "row mt-1">
+														 	<div class= "row">
 														 		<div class = "col fw-semibold fs-6" style="display: -webkit-box; -webkit-line-clamp: 1; -webkit-box-orient: vertical; overflow: hidden;">
 															 		<a href="../../safari/community/promotion/contentPromotionReviewPage?id=${map.promotionReviewDto.id }" style="text-decoration: none; color: inherit;">
 															 			${map.promotionReviewDto.promotion_review_title }
@@ -390,44 +390,7 @@
 										</c:if>							
 										</c:forEach>
 									</div>
-									
-									<!-- 리워드 페이징(임시로 들고옴) -->
-								<div class = "row mt-3 d-flex justify-content-center">
-									<div class = "col-2 ms-0">
-										<nav aria-label="Page navigation">
-										    <ul class="pagination mb-0">
-										    	<c:choose>
-										    		<c:when test="${startPage <= 1}">
-										    			<li class="page-item disabled"><a class="page-link" href="./myAllCommunityPostListPage?page=${startPage-1}${promoReview_searchQueryString}">&lt;</a></li>
-										    		</c:when>
-										    		<c:otherwise>
-										    			<li class="page-item"><a class="page-link" href="./myAllCommunityPostListPage?page=${startPage-1}${promoReview_searchQueryString}">&lt;</a></li>
-										    		</c:otherwise>
-										    	</c:choose>
-										    	
-										    	<c:forEach begin="${startPage}" end="${endPage}" var="index">
-										    		<c:choose>
-										    			<c:when test="${index == currentPageNum}">
-										    				<li class="page-item active"><a class="page-link bg-secondary" href="./myAllCommunityPostListPage?page=${index}${promoReview_searchQueryString}">${index}</a></li>
-										    			</c:when>
-										    			<c:otherwise>
-										    				<li class="page-item"><a class="page-link" href="./myAllCommunityPostListPage?page=${index}${promoReview_searchQueryString}">${index}</a></li>
-										    			</c:otherwise>
-										    		</c:choose>
-										    	</c:forEach>
-										    	
-										    	<c:choose>
-										    		<c:when test="${endPage >= totalPage}">
-										    			<li class="page-item disabled"><a class="page-link" href="./myAllCommunityPostListPage?page=${endPage+1}${promoReview_searchQueryString}">&gt;</a></li>
-										    		</c:when>
-										    		<c:otherwise>
-										    			<li class="page-item"><a class="page-link" href="./myAllCommunityPostListPage?page=${endPage+1}${promoReview_searchQueryString}">&gt;</a></li>
-										    		</c:otherwise>
-										    	</c:choose>
-										    </ul>
-										</nav>
-									</div>
-								</div>
+
 									
 									
 								</div> 

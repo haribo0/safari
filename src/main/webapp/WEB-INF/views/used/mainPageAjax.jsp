@@ -61,13 +61,13 @@
 	<!-- 헤더 섹션 -->
 	<jsp:include page="../common/header.jsp"></jsp:include>
 	<!-- 헤더 섹션 -->
-	<div class="container-fluid">
+	<div class="container">
 		<div class="row">
 			<div class="col">
 				<div id="carouselExample" class="carousel slide">
 				  <div class="carousel-inner">
 				    <div class="carousel-item active">
-				      <img src="/safari/resources/img/used/bannerTop.jpeg" class="d-block img-fluid" alt="...">
+				      <img src="/safari/resources/img/used/bannerTop.jpeg" class="d-block" alt="..." height="317">
 				    </div>
 				    <div class="carousel-item">
 				      <img src="/safari/resources/img/used/listBanner.jpeg" class="d-block img-fluid" alt="...">
@@ -94,7 +94,7 @@
 	</div> -->
 	<div class="row mt-5 mb-2">
 		<div class="col text-center">
-			<img alt="bannerMiddle" src="/safari/resources/img/used/middleBanner.png" height="420px" width="1630px">
+			<img alt="bannerMiddle" src="/safari/resources/img/used/middleBanner.png" height="400px" width="1620px">
 		</div>
 	</div>
 	<div class="container mt-5 mb-5">
@@ -195,11 +195,11 @@
 				</div>
 			</c:forEach>
 		</div>
-		<div class="row mt-2">
+		<!-- <div class="row mt-2">
 			<div class="col">
 				<img class="img-fluid" alt="banner2" src= "/safari/resources/img/used/bannerBottom1.png">
 			</div>
-		</div>
+		</div> -->
 	</div>
 	
 	<!-- 푸터 섹션 -->
