@@ -9,6 +9,12 @@
 <title>사파리 | 로그인</title>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
 <link rel="stylesheet" href="/safari/resources/style/common.css" type="text/css">
+<style>
+.hr-container {
+    text-align: center;
+    margin: 0 45%;
+  }
+</style>
 </head>
 <body>
 	<!-- 헤더 섹션 -->
@@ -27,17 +33,16 @@
 		 <!-- 커뮤니티 메뉴바 -->
       <div class="row">
          <div class="col">
-           <jsp:include page="../../community/communityTopNavi.jsp"></jsp:include>
+           <jsp:include page="../../community/communityTopNavi2.jsp"></jsp:include>
          </div>
       </div>
       <!-- 커뮤니티 메뉴바 --> 
 		
 		<!-- 게시판 제목 글자 -->
-	      <div class="row mb-2">
-	      <div class="col">
-	     <h4 class="text fw-bold ms-2"> 궁금해요 </h4>
-	      </div>
-	      </div>
+	   <div class="hr-container mt-4">
+  		 <h4 class="text fw-bold text-center">궁금해요</h4>
+  		 <hr>
+	   </div>
 	  <!-- 게시판 제목 글자 -->
 		
 
@@ -46,7 +51,7 @@
 	<!-- <div class = "container"> -->
 	
 	<%--QuestionBoardList--%>
-	<div class="row">
+	<div class="row mt-4">
 	
 	<div class="col">
 		<table class="table">
@@ -69,7 +74,7 @@
 					<td>${map.userDto.nickname}</td>
 					<td style="text-align: left;">
 					<div style="display: inline-block;">
-				  	<a class="text-black text-decoration-none" href="/safari/community/question/questionReadContentPage/${map.questionDto.id}">
+				  	<a class="text-black fw-medium text-decoration-none" href="/safari/community/question/questionReadContentPage/${map.questionDto.id}">
 				  	<span class="badge rounded-pill text-bg-danger opacity-75" style="font-size: 61%; position: relative; top: -3px;">Best</span>
 				  	${map.questionDto.title}</a>
 				  	<c:if test="${map.questionDto.points>=1}">

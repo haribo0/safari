@@ -133,7 +133,7 @@ window.addEventListener("DOMContentLoaded", function(){
 		<div class = "row mt-5">
 			<div class = "col">
 				<h1 class="text-start fs-3 fw-semibold">
-				<a href="./allPromotionReviewPage" style="text-decoration: none; color: inherit;">
+				<a href="/safari/community/promotion/allPromotionReviewPage" style="text-decoration: none; color: inherit;">
 					<b>ALL REVIEW</b>
 				</a>
 				</h1>			
@@ -141,7 +141,7 @@ window.addEventListener("DOMContentLoaded", function(){
 			<div class = "col"></div>
 			<div class = "col">
 				<!-- 검색 -->
-			<form action="./allPromotionReviewPage" method="get">
+			<form action="/safari/community/promotion/allPromotionReviewPage" method="get">
 				<div class="row"> 
 					<div class="col-4 pe-1">
 						<select name="promoReview_searchType" class="form-select">
@@ -180,53 +180,24 @@ window.addEventListener("DOMContentLoaded", function(){
 		</div>
 
 		
-	 <!--  최신순 / 공감(인기)순 => 나중에 수정 -->
+	 <!-- 리스트 카테고리 -->
 		<div class = "row mt-5">
-			<div class = "col"> <!-- 리스트 카테고리 -->
-				<ul class="list-group">
-				  <li class="list-group-item border border-0 py-2"><a class="btn fs-5 text fw-bold py-1" href="./promotionReviewMainPage">메인으로</a></li>
-				  <li class="list-group-item border border-0 py-2"><a class="btn fs-5 text fw-bold py-1" href="#collapse1" data-bs-toggle="collapse">가구</a></li>
-				  	<div>
-						<ul class="list-group ms-4">
-							<li class="list-group-item border-0"><a href="#" class="btn py-0 text-body-secondary">침대</a></li>
-							<li class="list-group-item border-0"><a href="#" class="btn py-0 text-body-secondary">테이블</a></li>
-							<li class="list-group-item border-0"><a href="#" class="btn py-0 text-body-secondary">소파</a></li>
-							<li class="list-group-item border-0"><a href="#" class="btn py-0 text-body-secondary">서랍장</a></li>
-						</ul>
-					</div>
-					
-				  <li class="list-group-item border border-0 py-2"><a class="btn fs-5 text fw-bold py-1" href="#collapse2" data-bs-toggle="collapse">생활가전</a></li>
-				  	<div>
-						<ul class="list-group ms-4">
-							<li class="list-group-item border-0"><a href="#" class="btn py-0 text-body-secondary">커피머신</a></li>
-							<li class="list-group-item border-0"><a href="#" class="btn py-0 text-body-secondary">선풍기</a></li>
-							<li class="list-group-item border-0"><a href="#" class="btn py-0 text-body-secondary">공기청정기</a></li>
-							<li class="list-group-item border-0"><a href="#" class="btn py-0 text-body-secondary">에어컨</a></li>
-							<li class="list-group-item border-0"><a href="#" class="btn py-0 text-body-secondary">안마의자</a></li>
-						</ul>
-					</div>
-					
-				  <li class="list-group-item border border-0 py-2"><a class="btn fs-5 text fw-bold py-1" href="#collapse3" data-bs-toggle="collapse">주방가전</a></li>
-				  	<div>
-						<ul class="list-group ms-4">
-							<li class="list-group-item border-0"><a href="#" class="btn py-0 text-body-secondary">레인지</a></li>
-							<li class="list-group-item border-0"><a href="#" class="btn py-0 text-body-secondary">밥솥</a></li>
-							<li class="list-group-item border-0"><a href="#" class="btn py-0 text-body-secondary">식기세척기</a></li>
-						</ul>
-					</div>
-					
-				  <li class="list-group-item border border-0 py-2"><a class="btn fs-5 text fw-bold py-1" href="#collapse4" data-bs-toggle="collapse">전자기기</a></li>
-				  	<div>
-						<ul class="list-group ms-4">
-							<li class="list-group-item border-0"><a href="#" class="btn py-0 text-body-secondary">노트북</a></li>
-							<li class="list-group-item border-0"><a href="#" class="btn py-0 text-body-secondary">태블릿pc</a></li>
-							<li class="list-group-item border-0"><a href="#" class="btn py-0 text-body-secondary">프로젝터</a></li>
-							<li class="list-group-item border-0"><a href="#" class="btn py-0 text-body-secondary">스피커</a></li>
-						</ul>
-					</div> 
+			<div class = "col"> 
+				<ul class="list-group" style="top: 115.23px; z-index: 50;">
+				  <li class="list-group-item border border-0 ps-0 pt-2 pb-0"><a href="/safari/community/promotion/allPromotionReviewPage" class="btn ps-0 text fw-bold py-1" href="#" style="font-size: 17px;">전체보기</a></li>
+				  <c:forEach items="${promoReviewCategory}" var="map" varStatus="status">
+					  <li class="list-group-item border border-0 ps-0 pb-0 pt-3"><div class="btn text fw-bold ps-0 py-1" style="font-size: 17px;">${map.categoryItem.main_category_name}</div></li>
+	  				  	<div class="" id="">
+							<ul class="list-group">
+								<c:forEach items="${map.subCategoryList}" var="subTitle">
+										<li class="list-group-item border-0 ps-0 py-2"><a href="/safari/community/promotion/allPromotionReviewPage/?subCategoryId=${subTitle.id}" class="btn ps-0 py-0 text-body-secondary" style="font-size: 16px;">${subTitle.sub_category_name}</a></li>
+								</c:forEach>
+							</ul>
+						</div>
+				  </c:forEach>
 				</ul>
 			</div>
-			<!--  리뷰 -->
+			<!--  리뷰 게시물들 -->
 			<div class = "col-10">
 			
 				<!--  조회수 타이틀 -->
@@ -248,14 +219,14 @@ window.addEventListener("DOMContentLoaded", function(){
 							<div class="card border border-1 shadow-sm mx-1 pb-4" style="width:15rem; height: 460px; background-color: #FAFAFA;">
 								<div class = "row">
 									<div class = "col">
-									<a href="./contentPromotionReviewPage?id=${map.promotionReviewDto.id}" style="text-decoration: none; color: inherit;">				
+									<a href="/safari/community/promotion/contentPromotionReviewPage?id=${map.promotionReviewDto.id}" style="text-decoration: none; color: inherit;">				
 										<img src="/uploadPromoFiles/${map.promotionReviewImgList[0].rental_review_img }"
 									  	   class="card-img-top" alt="리워드게시물사진" height="200" width="200" >
 									</a>
 									</div>
 								</div>
 								<div class = "row mt-1 mx-1 px-1">
-									<div class = "col text-end">
+									<div class = "col text-end" style = "cursor: pointer;">
 										<c:choose>
 								  			<c:when test="${!empty sessionUser && (map.realCheck != 0)}">
 								  				<i id = "heartBox${map.promotionReviewDto.id}" class = "text-danger bi bi-heart-fill fs-5"
@@ -277,7 +248,7 @@ window.addEventListener("DOMContentLoaded", function(){
 									</div>
 								</div>
 								<div class = "row px-1">
-								<a href="./contentPromotionReviewPage?id=${map.promotionReviewDto.id}" style="text-decoration: none; color: inherit;">
+								<a href="/safari/community/promotion/contentPromotionReviewPage?id=${map.promotionReviewDto.id}" style="text-decoration: none; color: inherit;">
 									<div class = "col text-start mx-2">
 										<h5 class="card-title mt-1 fw-semibold" style="font-size: 18px;">		    
 										    ${map.promotionReviewDto.promotion_review_title }   
@@ -286,7 +257,7 @@ window.addEventListener("DOMContentLoaded", function(){
 									</div>
 								</a>
 								</div>
-								<a href="./contentPromotionReviewPage?id=${map.promotionReviewDto.id}" style="text-decoration: none; color: inherit;">
+								<a href="/safari/community/promotion/contentPromotionReviewPage?id=${map.promotionReviewDto.id}" style="text-decoration: none; color: inherit;">
 								<div class = "row mt-1 mx-0 px-1">
 									<div class = "col d-flex align-items-start">
 										<img src="${data.userDto.profile_img_link}" class="rounded-circle" style="width: 25px; height: 25px;" alt="프로필사진">
@@ -311,7 +282,7 @@ window.addEventListener("DOMContentLoaded", function(){
 				
 				<div class = "row mt-3"></div>
 				
-				<!--  조회수 높은 순과 게시물 리스트의 선 -->
+				<!--  모든 게시물 타이틀 -->
 					<div class = "row mt-5 mb-3">
 						<div class = "col fs-5 fw-semibold fst-italic text-start">
 						모든 게시물
@@ -329,17 +300,24 @@ window.addEventListener("DOMContentLoaded", function(){
 							  </button>
 							  <ul class="dropdown-menu dropdown-menu-lg-end">
 							    <li><a class="dropdown-item" href="#">공감순</a></li>
-							    <li><a class="dropdown-item" href="#">대여리뷰순</a></li>
+							    <li><a class="dropdown-item" href="#">조회 높은순</a></li>
 							  </ul>
 							 </div>
 						</div>
 					</div> 
 				</div>
 				
+				<!--  검색 결과 x일 때 -->
+				<c:if test="${not empty searchMessage}">
+				    <div class="row mt-3" role="alert">
+				    	<div class = "col">
+				        ${searchMessage}				    	
+				    	</div>
+				    </div>
+				</c:if>
 				
-				
-				
-				<!--  어쩜조아... 리뷰 게시글들 -->
+					
+				<!--  리뷰 게시물 목록 -->
 				<div class = "row mt-3">			
 				<c:forEach items="${promoReviewList}" var="map" varStatus="status">
 					<div class = "col mb-3 mt-1"> 
@@ -347,7 +325,7 @@ window.addEventListener("DOMContentLoaded", function(){
 				
 						<div class = "row">
 							<div class = "col-4">			
-								<a href="./contentPromotionReviewPage?id=${map.promotionReviewDto.id}" style="text-decoration: none; color: inherit; display: block;">
+								<a href="/safari/community/promotion/contentPromotionReviewPage?id=${map.promotionReviewDto.id}" style="text-decoration: none; color: inherit; display: block;">
 						  		<img src="/uploadPromoFiles/${map.promotionReviewImgList[0].rental_review_img }"
 						  	   	class="card-img-top" alt="리워드게시물사진" height="150" width="100" >	  
 						 		</a>
@@ -356,7 +334,7 @@ window.addEventListener("DOMContentLoaded", function(){
 						  <div class="card-body px-0 pt-1">
 							<div class = "row">
 							 	<div class = "col">
-							 		<a href="./contentPromotionReviewPage?id=${map.promotionReviewDto.id}" style="text-decoration: none; color: inherit; display: block;">		  		
+							 		<a href="/safari/community/promotion/contentPromotionReviewPage?id=${map.promotionReviewDto.id}" style="text-decoration: none; color: inherit; display: block;">		  		
 							  		<h5 class="card-title fw-semibold" style="font-size: 18px;">	
 								   		${map.promotionReviewDto.promotion_review_title} 
 								   		<span class="comment-count">[${map.countPromotionReviewComment}]</span>	    	  	
@@ -364,7 +342,7 @@ window.addEventListener("DOMContentLoaded", function(){
 							    	</a>
 							 	</div>
 							 	<!--  공감버튼. 내가 누른 하트 유무-->
-							  	<div class = "col-1 text-end">
+							  	<div class = "col-1 text-end" style = "cursor: pointer;">
 							  		<c:choose>
 							  			<c:when test="${!empty sessionUser && (map.realCheck != 0)}">
 							  				<i id = "heartBox${map.promotionReviewDto.id}" class = "text-danger bi bi-heart-fill fs-5"
@@ -377,7 +355,7 @@ window.addEventListener("DOMContentLoaded", function(){
 							  		</c:choose>	
 							  	</div>
 							</div>			    
-							<a href="./contentPromotionReviewPage?id=${map.promotionReviewDto.id}" style="text-decoration: none; color: inherit; display: block;">	    
+							<a href="/safari/community/promotion/contentPromotionReviewPage?id=${map.promotionReviewDto.id}" style="text-decoration: none; color: inherit; display: block;">	    
 						    <div class="d-flex align-items-center">
 			                    <img src="${data.userDto.profile_img_link}" class="rounded-circle" style="width: 25px; height: 25px;" alt="프로필사진">
 			                    <p class="card-text fs-6 mt-2 ms-2">${map.userDto.nickname}</p>
@@ -407,7 +385,7 @@ window.addEventListener("DOMContentLoaded", function(){
 	
 		
 	
-		<!-- 페이징-->
+		<!-- 페이징 -->
 		<div class = "row mt-3 d-flex justify-content-center">
 			<div class = "col-2 ms-0">
 				<nav aria-label="Page navigation">

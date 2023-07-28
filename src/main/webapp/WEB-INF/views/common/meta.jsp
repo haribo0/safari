@@ -13,3 +13,4 @@
   rel="stylesheet"
   href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css"
 />
+<link rel="icon" type="image/png" sizes="96x96"  href="/safari/resources/img/main/logoOrange.png"/>

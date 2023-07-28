@@ -223,7 +223,7 @@
 			</div>
 		</div>
 		<div class="row flex-wrap justify-content-between mt-4">
-			<c:forEach items="${rentalItemList}" var="map" begin="0" end="${ rentalItemList.size() - 1 < 9 ? rentalItemList : 9 }" step="1" varStatus="status">
+			<c:forEach items="${rentalItemList}" var="map" begin="0" end="${ rentalItemList.size() - 1 < 9 ? rentalItemList.size() : 9 }" step="1" varStatus="status">
 				<div class="col mb-5 item-box" style="cursor: pointer;">
 					<div class="row imgBox">
 						<div class="col">
@@ -250,7 +250,7 @@
 					<!-- 현재 순서가 마지막인 경우에만 실행될 내용 -->
 					<!-- 만약 나머지가 4일 경우를 제외하고는 col을 더 만들어줘야함 (5-(status%5)) -->
 					<c:if test="${(status.index%5) < 4 }">
-						<c:forEach begin="0" end="${4-(status.index % 5)}" varStatus="">
+						<c:forEach begin="0" end="${3-(status.index % 5)}" varStatus="">
 							<!-- 빈 칼럼 추가  -->
 							<div class="col"></div>
 					</c:forEach>

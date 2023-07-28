@@ -196,10 +196,10 @@ window.addEventListener("DOMContentLoaded", function(){
 
 <div class="container main_box">
 	<!--  뒤로가기 버튼 -->
-	<div class = "row mt-3">
+	<div class = "row mt-3 mb-3">
 		<div class = "col-1">
-		<a href="./allPromotionReviewPage" style="text-decoration: none; color: #ff6f0f;">
-			<i class="bi bi-arrow-left-square-fill fs-1"></i>
+		<a href="./allPromotionReviewPage" style="text-decoration: none; color: white;">
+			<i class="bi bi-arrow-left-square fs-1" style="color:#525452;"></i>
 		</a>
 		</div>
 		<div class = "col-9"></div>
@@ -226,31 +226,40 @@ window.addEventListener("DOMContentLoaded", function(){
 	<!--  사진 첨부(게시물 등록자가 올린것들?) -->
 		
 		<div class = "col"> 
-			<div class = "row sticky-top">
+			<div class = "row mt-2 sticky-top">
 				<div class = "col">
-					<!--  대여 상품명 & 상호 -->
-					<div class = "row mt-5">
-						<div class = "col fs-5 fw-semibold">
-							대여 상품명
-							<i class="bi bi-box"></i>
-						</div>
-					</div>
-					<div class = "reviewlist container border border-1 mt-3" style="border-radius: 10px;">
-						<div class = "row mt-2">
-							<div class = "col">
-								상호명 business_name...
+				<!-- 	style="border-radius: 10px;"-->
+					<div style = "border-left: 10px solid #72A56C;">
+						<!--  대여 상품명 & 상호 -->
+						<div class = "row mx-1 mt-2">
+							<div class = "col text-secondary" style = "font-size:14px;">
+								${rentalPromotionReviewInfoList[0].promoReviewRentalInfoDto.business_name}
 							</div>
 						</div>
+						<div class = "row mx-1">
+							<div class = "col mb-1 fw-semibold" style = "font-size:18px;">
+								${rentalPromotionReviewInfoList[0].promoReviewRentalInfoDto.title }
+							</div>
+						</div>
+						
 					</div>	
 		
 					<!--  상세 게시물 사진 -->
 					<div class = "row mt-3">
 						<div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="true">
 							 <div class="carousel-indicators">
-								<button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-							    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+								<button type="button" data-bs-target="#carouselIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+							    <button type="button" data-bs-target="#carouselIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
 							  
 							 </div>
+							 <c:if test="${data.promotionReviewImgDtoList.size() == 1 }">
+							 	<div class="carousel-inner">
+								 <div class="carousel-item">
+							     	<img src="/uploadPromoFiles/${data.promotionReviewImgDtoList[0].rental_review_img }" class="d-block w-100" alt="...">
+							    </div>
+						  	</div>
+							 </c:if>
+							 
 							 <div class="carousel-inner">
 								 <div class="carousel-item active">
 								    <img src="/uploadPromoFiles/${data.promotionReviewImgDtoList[0].rental_review_img }" class="d-block w-100" alt="...">
@@ -259,11 +268,11 @@ window.addEventListener("DOMContentLoaded", function(){
 							     	<img src="/uploadPromoFiles/${data.promotionReviewImgDtoList[1].rental_review_img }" class="d-block w-100" alt="...">
 							    </div>
 						  	</div>
-							 <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+							 <button class="carousel-control-prev" type="button" data-bs-target="#carouselIndicators" data-bs-slide="prev">
 							  	<span class="carousel-control-prev-icon" aria-hidden="true"></span>
 							    <span class="visually-hidden">Previous</span>
 							 </button>
-							 <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+							 <button class="carousel-control-next" type="button" data-bs-target="#carouselIndicators" data-bs-slide="next">
 							 	<span class="carousel-control-next-icon" aria-hidden="true"></span>
 							    <span class="visually-hidden">Next</span>
 							 </button>
@@ -289,8 +298,8 @@ window.addEventListener("DOMContentLoaded", function(){
 		<div class = "col-1 mt-5">
 			<div class = "row sticky-top">
 				<div class = "col">
-			<div class="d-flex" style="height: 400px;">
-				  <div class="vr"></div>
+					<div class="d-flex" style="height: 400px;">
+				  	<div class="vr"></div>
 				</div>
 			</div>
 			</div>
@@ -307,12 +316,12 @@ window.addEventListener("DOMContentLoaded", function(){
 							<!--  공감수 + 조회수 top5 -->
 							
 							<c:forEach items="${bestPromotionReviewPostList}" var="map" varStatus="status">
-							<c:if test="${map.promoReviewPostRankDto.promoReview_rank < 6}">
+							<c:if test="${map.promoReviewPostRankDto.promoReview_rank < 5}">
 								<span class="badge text-bg-warning">BEST</span>
 							</c:if>
-							${map.promoReivewPostRank.promoReview_rank }
 							</c:forEach>
 					
+							${map.promoReivewPostRank.promoReview_rank }
 							 
 							
 							 
@@ -358,7 +367,7 @@ window.addEventListener("DOMContentLoaded", function(){
 							</div>
 						</div>
 						<div class = "col"></div>
-						<div class = "col-1 mx-2 d-flex justify-content-center align-items-center">
+						<div class = "col-1 mx-2 d-flex justify-content-center align-items-center" style = "cursor: pointer;">
 						<!--  공감하트버튼 -->
 							<i id = "heartBox" onclick="togglePromotionReviewLike()" class="text-danger bi bi-heart fs-4"></i>
 							&nbsp;
@@ -431,7 +440,7 @@ window.addEventListener("DOMContentLoaded", function(){
 											<form action="./writePromotionReivewCommentProcess" method="post">
 												<div class = "row mt-3">
 													<div class = "col">
-													${data.userDto.nickname }
+													${sessionUser.nickname }
 													</div>
 												</div>
 												<div class = "row mt-1">

@@ -40,7 +40,7 @@
 		<!-- 커뮤니티 메뉴바 -->
 		<div class="row">
 			<div class="col">
-				<jsp:include page="../../community/communityTopNavi.jsp"></jsp:include>
+				<jsp:include page="../../community/communityTopNavi2.jsp"></jsp:include>
 			</div>
 		</div>
 		<!-- 커뮤니티 메뉴바 -->

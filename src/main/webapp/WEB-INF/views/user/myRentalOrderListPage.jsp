@@ -27,6 +27,8 @@
   border-radius: 10px;
   position: relative;
 }
+.gray-line{border-top:1px solid #e5e5e5;}
+.gray-line-dark{border-top:1.5px solid #838383;}
 
 /*  */ /* 별점 */ /*  */
 #full-stars-example-two {
@@ -76,6 +78,117 @@
 </style>
 </head>
 <body>
+
+<!--최종 정산 모달 -->
+<div class="modal fade" id="modalFinSettlement">
+  <div class="modal-dialog">
+	    <div class="modal-content">
+	      <div class="modal-header position-relative">
+	        <h1 class="modal-title position-absolute top-50 start-50 translate-middle fs-5">최종 정산</h1>
+	        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+	      </div>
+	      <div class="modal-body">
+	      	<div class="container">
+ 	      		<div class="row flex-column mt-2 p-1">
+	      			<div class="col py-2 px-3 border rounded-1">
+	      				<div class="row">
+	      					<div class="col ">
+			      				<p class="fw-bold mb-2" style="font-size: 17px;">상품정보</p>	      					
+	      					</div>
+	      				</div>
+	      				<div class="row">
+			      			<div class="col border-top">
+			      				<div class="row justify-content-between ">
+			      					<div class="col-4 my-auto">
+					      				<img class="modalFinModalTopImage img-fluid" alt="" src="">
+			      					</div>
+			      					<div class="col align-items-center my-auto">
+					      				<div class="text-secondary  mb-0" style="font-size: 14px;">대여 기간 <span class="modalFinStartDateP"></span> - <span class="modalFinEndDateP"></span></div>
+					      				<div class="modal-tit fw-bold fs-6 mt-1"></div>
+					      				<div><span class="modalFinUsedPriceP mt-2"></span><small> 원 / 월</small></div>
+			      					</div>
+			      				</div>
+			      			</div>
+	      				</div>
+	      			</div>
+	      			
+	      			<div class="col pt-2 pb-3 px-3 mt-3 border rounded-1">
+	      				<div class="row">
+							<div class="col py-2 d-flex justify-content-between">
+								<p class="mb-0 fw-bold" style="font-size: 17px;">주문 상세</p>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col pt-2 pb-0 d-flex justify-content-between">
+								<small class="text-secondary">&#x2514; 시작일</small>
+								<p class="mb-0"><span class="modalFinStartDateS"></span></p>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col pt-2 pb-0 d-flex justify-content-between">
+								<small class="text-secondary">&#x2514; 종료일</small>
+								<p class="mb-0"><span class="modalFinEndDateS"></span></p>
+							</div>
+						</div>
+	      			</div>
+	      			
+	      			
+					<div class="col py-2 px-3 mt-3 border rounded-1">
+						<div class="row">
+							<div class="col py-2 d-flex justify-content-between">
+								<p class="mb-0 fw-bold" style="font-size: 17px;">정산 상세</p>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col pt-2 pb-0 d-flex justify-content-between">
+								<small class="text-secondary">&#x2514; 보증금</small>
+								<p class="mb-0"><span class="modalFinDeposit"></span>원</p>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col pt-2 pb-0 d-flex justify-content-between">
+								<small class="text-secondary">&#x2514; 약정 할인 취소금 </small>
+								<p class="mb-0">( - ) <span class="modalFinCancelFee"></span>원</p>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col pt-2 pb-0 d-flex justify-content-between">
+								<p class="ms-2 mb-1">반환 상품 상태 정산</p>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col pt-2 pb-0 d-flex justify-content-between">
+								<small class="text-secondary">&#x2514; 부분 분실 </small>
+								<p class="mb-0">( - ) <span class="modalFinPartialLoss"></span>원</p>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col pt-2 pb-0 d-flex justify-content-between">
+								<small class="text-secondary">&#x2514; 부분 파손 </small>
+								<p class="mb-0">( - ) <span class="modalFinPartialDamage"></span>원</p>
+							</div>
+						</div>
+						<div class="row mt-3 border-top">
+							<div class="col py-2 d-flex justify-content-between">
+								<p>총계</p>
+								<p class="fw-bold fs-5"><span class="modalFinFinPriceP"></span>원</p>
+							</div>
+						</div>
+					</div>
+	      		</div>
+	      		
+	      	</div>
+			<p class="modalFinReturn_desc"></p>
+	      </div>
+	      
+	      <div class="modal-footer">
+	        <span class="btn btn-outline-dark" data-bs-dismiss="modal">확인</span>
+	      </div>
+	    </div>
+  </div>
+</div>		
+
+<!--최종 정산 모달 -->
 <!-- 반납 모달 -->
 <div class="modal fade" id="modalReturn">
   <div class="modal-dialog">
@@ -131,13 +244,16 @@
 						</div>
 						<div class="row mt-3 border-top">
 							<div class="col py-2 d-flex justify-content-between">
-								<p>총계</p>
+								<p>총 금액</p>
 								<p class="fw-bold fs-5"><span class="finPriceP"></span>원</p>
+								
 							</div>
 						</div>
+						
 					</div>
 	      		</div>
 	      		
+	      		<div class="text-secondary" style="font-size: 14px;">* 위 금액은 보증금 반납시 </div>
 	      		<div class="row justify-content-between">
 	      			<div class="col">
 	      				<div class="row justify-content-between">
@@ -304,40 +420,80 @@
 	  <div class="modal-dialog">
 	  <form action="">
 		    <div class="modal-content">
-		      <div class="modal-header">
+		      <div class="modal-header bg-light">
 		        <h5 class="modal-title">대여 반납 확인서</h5>
 		        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 		      </div>
 		      <div class="modal-body">
-		      	<div class="row border rounded-2 mx-auto" style="width: 99%;">
+			      <div class="row px-2">
+			      		<div class="col px-4 fw-bold">
+			      			상품정보
+			      		</div>
+			      	</div>
+		      		<div class="row px-4 mt-2">
+			      		<div class="col gray-line-dark">
+			      		</div>
+			      	</div>
+		      	
+		      	<div class="row py-2 mt-1 mx-auto" style="width: 99%;">
 		      		<div class="col-3">
 		      			<img class="confirmModalImg img-fluid" alt="" src="">
 		      		</div>
 		      		<div class="col d-flex flex-column justify-content-center">
-		      			<p class="mb-0 confirmModalItemTitle fs-5 fw-medium"></p>
-		      			<p class="mb-0 confirmModalItemDesc"></p>
+		      			<div class="mb-0 confirmModalItemTitle fw-medium"></div>
+		      			<div class="mb-0 confirmModalItemDesc text-secondary" style="font-size: 14px;"></div>
+		      			<div class="mb-0 confirmPrice mt-2" style="font-size: 14px;"></div>
+		      		</div>
+		      	</div>
+
+		      	
+		      	<div class="row mt-3 mx-auto border rounded-2" style="width: 99%; font-size: 13px;">
+		      		<div class="col pb-2 mb-1">		      	
+				      	<div class="row mt-3">
+				      		<div class="col px-4 fw-bold" style="font-size: 16px;">
+				      			반납내역
+				      		</div>
+				      	</div>
+				      	<div class="row px-2 mt-3">
+				      		<div class="col gray-line">
+				      		</div>
+				      	</div>
+				      	
+		      			<div class="row mt-2 justify-content-between">
+		      				<div class="col px-4 py-2">
+		      					기존반납일
+		      				</div>
+		      				<div class="col px-4 text-end py-2 userDesc">
+		      				</div>
+		      			</div>
+		      			<div class="row justify-content-between">
+		      				<div class="col px-4 py-2">
+		      					반환 보증금
+		      				</div>
+		      				<div class="col px-4 text-end py-2 confirmDeposit fw-medium">
+		      				</div>
+		      			</div>
 		      		</div>
 		      	</div>
 		      	
-		      	<div class="row my-3">
-		      		<div class="col mt-3 text-center">
-		      			<p class="mb-0 userDesc"></p>
-		      		</div>
+		      	<div class="row px-3 mb-2 mt-3" style="margin-top: 6px;">
+	        		<div class="text-secondary" style="font-size: 11px;">* 반납 신청 후 반드시 일주일 내에 택배로 물품을 반납하셔야합니다. 일주일 내로 택배 접수<br>&nbsp; 처리가 되지 않을 경우 정기 결제가 계속 진행 될 수 있습니다. </div>	      			
+	        		<div class="text-secondary mt-1" style="font-size: 11px;">* 일주일 내로 택배 접수 처리가 되지 않을 경우 정기 결제가 계속 진행 될 수 있습니다. </div>	      			
 		      	</div>
+<!-- 		      	
+  		      	<div class="row my-3">
+		      		<div class="col fw-bold text-center">
+		      			반납 신청 하시겠습니까?
+		      		</div>
+		      	</div> -->
 		      	
 		      </div>
 		      
-		      <div class="modal-footer flex-column justify-content-start">
-		      	<div class="row">
-		      		<div class="col px-0">
-		        		<small class="text-secondary">일주일 내 대여 제품을 택배로 보내주시면 감사하겠습니다.</small>
-		      		</div>
-		      	</div>
-		      
+		      <div class="modal-footer justify-content-end bg-light" style="padding: 8px 14px;">
 		      	<div class="row">
 		      		<div class="col px-0">
 				        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">취소</button>
-				        <button type="button" class="btn btn-dark"  id="confirmSubmitReturn">반납</button>
+				        <button type="button" class="btn btn-dark"  id="confirmSubmitReturn">반납신청</button>
 		      		</div>
 		      	</div>
 		      </div>
@@ -419,9 +575,15 @@
 										</div>
 										<div class="col my-auto pe-5">
 										<a href="${pageContext.request.contextPath}/rental/productDescPage?id=${data.product.id}">
-											<p class="mb-0 "><small>${data.rentalBusinessDto.business_name}</small></p>
-											<p class="mb-2 fs-5 fw-medium" >${data.product.title }</p>
-											<p class="mb-0 " style="font-size: 15px;">대여기간 <fmt:formatDate pattern="yyyy-MM-dd" value="${data.orderedItem.start_date }" /> - <fmt:formatDate pattern="yyyy-MM-dd" value="${data.orderedItem.end_date }" /></p>	
+											<div class="mb-0 my-auto"><small>${data.rentalBusinessDto.business_name}</small>
+											
+											<c:if test="${data.orderState == '대여중'}">
+												<span class="ms-2 mb-0 d-inline-block" style="color: #fff; border:1px solid #f68a42; background:#f68a42; padding:0px 6px; font-size: 10px; border-radius: 12px; position: relative; bottom: 1.2px;">대여중</span>
+											</c:if>
+											
+											</div>
+											<div class="mb-2 fs-6 fw-medium" >${data.product.title }</div>
+											<div class="mb-0 " style="font-size: 15px;">대여기간 <fmt:formatDate pattern="yyyy-MM-dd" value="${data.orderedItem.start_date }" /> - <fmt:formatDate pattern="yyyy-MM-dd" value="${data.orderedItem.end_date }" /></div>	
 										</a>
 										</div>
 									</div>
@@ -432,95 +594,38 @@
 								</div>
 								
 																						
-								<div class="col d-flex justify-content-center align-items-center">
-								<c:choose>
-										<c:when test="${data.isCompleted == 'Y'}">
-											<span class="mb-0 fw-bold text-secondary">대여종료</span>				
-									    </c:when>
-									    
-										<c:when test="${data.rentalItemReturnDto.is_item_returned == 'N'}">
-											<span class="mb-0 fw-bold" style="color: #f68a42">회수중</span>				
-									    </c:when>
-									    
-									    <c:when test="${data.rentalItemReturnDto.is_item_returned == 'Y'}">
-											<span class="mb-0 fw-bold" style="color: #f68a42">정산중</span>				
-									    </c:when>
-									    <c:when test="${data.orderedItem.is_shipped == 'N'}">
-							                <div class="mb-0 fw-bold" style="color: #f68a42">배송중</div>
-							            </c:when>
-							            
-					            		<c:when test="${data.rentalItemReturnDto.is_item_returned == 'N' && data.isCompleted == 'N' }">
-					            			<div class="mb-0 fw-bold" style="color: #f68a42">회수중</div>
-					            		</c:when>
-									    
-									    
-										<c:otherwise>
-											<c:choose>
-												<c:when test="${data.orderedItem.is_shipped == 'N' }">
-													<span class="mb-0 fw-bold" style="color: #f68a42">주문완료</span>										
-												</c:when>
-												<c:when test="${data.orderedItem.is_shipped == 'Y'}">
-													<span class="mb-0 fw-bold" style="color: #f68a42">대여중</span>
-												</c:when>
-											</c:choose>
-										</c:otherwise>
-									    
-									</c:choose>
+								<div class="col d-flex justify-content-center align-items-center" style="font-size: 15px;">
+									${data.orderState}
 								</div>
 								
 								<div class="col d-flex justify-content-center align-items-center">
-									<div class="row">
-										<div class="col">
-											<c:choose>
-											    <c:when test="${data.isCompleted == 'Y' && data.myReviewCount == 0}">
-											        <button type="button" class="btn btn-outline-dark my-2 px-2 py-1" style="font-size:13px;" data-order-id="${data.orderedItem.id}" data-bs-toggle="modal" data-bs-target="#modalReview">대여리뷰작성</button>																				
-											    </c:when>
-											    <c:when test="${data.isCompleted == 'Y' && data.myReviewCount >= 1}">
-											        <button class="btn btn-outline-dark my-2 px-2 py-1" onclick="placeReviewDate(${data.orderedItem.id})" style="font-size:13px;">내가 쓴 리뷰</button>																				
-											    </c:when>
-											    
-											    
-											    
-											    <c:when test="${data.isCompleted != 'Y'}">
-											        <c:choose>
-											            <c:when test="${data.orderedItem.is_shipped == 'N'}">
-											                <!-- <div class="p-1" style="font-size:14px;">배송중</div> -->
-											            </c:when>
-											            
-									            		<c:when test="${data.rentalItemReturnDto.is_item_returned == 'N' && data.isCompleted == 'N' }">
-									            			<div class=" p-1" style="font-size:14px;">회수중</div>
-									            		</c:when>
-											            		
-											            <c:otherwise>
-											            	<c:choose>
-											            		<c:when test="${data.rentalItemReturnDto.is_item_returned != 'Y'}">
-													                <button type="button" class="btn btn-outline-dark px-2 py-1" style="font-size:13px;" onclick="returnCheck(this)"
-													                	data-image-link="${data.product.main_img_link}" 
-													                	data-product-title="${data.product.title}" 
-													                	data-product-desc="${data.product.item_description}"
-													                	data-order-id="${data.orderedItem.id}" 
-													                	data-original-price="${data.orderedItem.original_price}" 
-													                	data-rego-price="${data.orderedItem.price}" 
-													                	data-startdate="${data.orderedItem.start_date }" 
-													                	data-enddate="${data.orderedItem.end_date}" 
-													                	data-deposit="${data.orderedItem.deposit}" 
-													                	>
-													               		 대여반납신청
-													                </button>
-											            		</c:when>
-											            		
-											            		<c:when test="${data.rentalItemReturnDto.is_item_returned == 'Y' && data.isCompleted != 'Y' }">
-											            			<button type="button" class="btn btn-outline-secondary px-2 py-1" style="font-size:13px;" disabled>최종 정산중</button>
-											            		</c:when>
-											            		
-											            		<c:otherwise>
-											            			<div class=" p-1" style="font-size:13px;">배송전</div>
-											            		</c:otherwise>
-											            	</c:choose>
-											            </c:otherwise>
-											        </c:choose>
-											    </c:when>
-											</c:choose>
+									<div class="row" style="width: 100%;">
+										<div class="col d-flex flex-column justify-content-center">
+										
+											<button class="btn btn-outline-dark my-2 px-2 py-1" onclick="orderDetail()" style="font-size:13px;">주문 상세</button>	
+											
+											<c:if test="${data.orderState == '대여중'}">
+								                <button type="button" class="btn btn-dark px-2 py-1" style="font-size:13px;" onclick="returnCheck(this)"
+								                	data-image-link="${data.product.main_img_link}" 
+								                	data-product-title="${data.product.title}" 
+								                	data-product-desc="${data.product.item_description}"
+								                	data-order-id="${data.orderedItem.id}" 
+								                	data-original-price="${data.orderedItem.original_price}" 
+								                	data-rego-price="${data.orderedItem.price}" 
+								                	data-startdate="${data.orderedItem.start_date }" 
+								                	data-enddate="${data.orderedItem.end_date}" 
+								                	data-deposit="${data.orderedItem.deposit}" 
+								                	>
+								               		 반납신청
+								                </button>
+						            		</c:if>
+											<c:if test="${data.orderState == '반납완료'  && data.myReviewCount == 0}">
+								            	<button type="button" class="btn btn-dark px-2 py-1" style="font-size:13px;" data-order-id="${data.orderedItem.id}" data-bs-toggle="modal" data-bs-target="#modalReview">리뷰 작성</button>																				
+						            		</c:if>
+											<c:if test="${data.isCompleted == 'Y' && data.myReviewCount >= 1}">
+											    <button class="btn btn-dark px-2 py-1" onclick="placeReviewDate(${data.orderedItem.id})" style="font-size:13px;">내가 쓴 리뷰</button>																				
+						            		</c:if>
+										
 										</div>
 									</div>
 								</div>	
@@ -534,7 +639,7 @@
 		</div>
 	</div>
 	
-	<div class="modal modal-lg" id="showMyReviewModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal " id="showMyReviewModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-md modal-dialog-centered"> 
     <div class="modal-content">
       <div class="modal-header bg-light">
@@ -551,8 +656,9 @@
 	      </div>
 	     
 	  </div>
-	   <div class="modal-footer bg-light">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">창닫기</button>
+	  
+	   <div class="modal-footer bg-light" style="padding: 10px 10px;">
+        <button type="button" class="btn btn-dark" data-bs-dismiss="modal">창닫기</button>
       </div> 
   </div>
 </div>
@@ -747,7 +853,7 @@ function returnCheck(e) {
     modalTit.innerText = productTitle
     usedPriceP.innerText = parseInt(price).toLocaleString()
     regiMonthP.innerText = regiMonth
-    usedMonthP.innerText = calcMonth
+    usedMonthP.innerText = calcMonth + 1;
     startDateP.innerText = formattedStartedDate
     endDateP.innerText = formattedEndDate
     minusPriceP.innerText = calcedPrice.toLocaleString()
@@ -776,18 +882,50 @@ function returnCheck(e) {
     const confirmModalItemDesc = document.querySelector('.confirmModalItemDesc')
     const userDesc = document.querySelector('.userDesc')
     const confirmSubmitReturn = document.querySelector('#confirmSubmitReturn')
-    
+    const confirmDeposit = document.querySelector('.confirmDeposit')
+    const confirmPrice = document.querySelector('.confirmPrice')
+
     confirmModalImg.setAttribute('src', '/safariImg/'+dataImageLink)
     confirmModalItemTitle.innerText = productTitle
     confirmModalItemDesc.innerText = productDesc
+    confirmDeposit.innerText = parseInt(deposit).toLocaleString('ko-KR') + '원'
+    confirmPrice.innerText = parseInt(price).toLocaleString('ko-KR') + '원/월'
     
-    userDesc.innerHTML = `기존 반납일은 <span class="fw-medium">\${formattedEndDate}</span> 입니다.`
+    
+    userDesc.innerHTML = formattedEndDate
     confirmSubmitReturn.setAttribute('onclick', 'returnProcessSingle(' + orderId + ')')
+    
+    /*  최종 정산 모달생성 */
+   	const modalFinModalTopImage = document.querySelector('.modalFinModalTopImage') 
+   	const modalFinStartDateP = document.querySelector('.modalFinStartDateP') 
+   	const modalFinStartDateS = document.querySelector('.modalFinStartDateS') 
+   	const modalFinEndDateP = document.querySelector('.modalFinEndDateP') 
+   	const modalFinEndDateS = document.querySelector('.modalFinEndDateS') 
+   	const modalFinUsedPriceP = document.querySelector('.modalFinUsedPriceP') 
+   	const modalFinDeposit = document.querySelector('.modalFinDeposit')
+   	const modalFinFinPriceP = document.querySelector('.modalFinFinPriceP')
+   	const modalFinCancelFee = document.querySelector('.modalFinCancelFee')
+   	const modalFinPartialLoss = document.querySelector('.modalFinPartialLoss')
+   	const modalFinPartialDamage = document.querySelector('.modalFinPartialDamage')
+    
+   	modalFinModalTopImage.setAttribute('src', '/safariImg/'+dataImageLink)
+   	modalFinStartDateP.innerText = formattedStartedDate
+   	modalFinEndDateP.innerText = formattedEndDate
+   	modalFinUsedPriceP.innerText = parseInt(price).toLocaleString()
+   	modalFinDeposit.innerText = parseInt(deposit).toLocaleString()
+   	modalFinStartDateS.innerText = formattedStartedDate
+   	modalFinEndDateS.innerText = formattedEndDate
+   	
+/*    	modalFinFinPriceP.innerText =
+	modalFinCancelFee.innerText =
+	modalFinPartialLoss.innerText =
+	modalFinPartialDamage.innerText = */
     
     // 오늘 날짜가 대여 시작일 보다 이전이거나 계약 기간의 90퍼센트 이상인 경우 - 추가 정산 XXX
     if(returnPercentage > 90  || startDateObj > currentDate ) {
     	const returnModal1 = bootstrap.Modal.getOrCreateInstance("#modalConfirm");
-    	returnModal1.show();
+    	/* const returnModal3 = bootstrap.Modal.getOrCreateInstance("#modalFinSettlement");
+    	returnModal3.show(); */
     	return; 
     	
     } else { // 그 외에는 할인 기간 계산 
@@ -796,6 +934,13 @@ function returnCheck(e) {
     }
     
 
+}
+
+function orderDetail() {
+	
+	const returnModal3 = bootstrap.Modal.getOrCreateInstance("#modalFinSettlement");
+	returnModal3.show();
+	
 }
 
 
@@ -846,7 +991,29 @@ function getMonthDiffer(startMonth, endMonth) {
 }
 
 
+/* 조건반납 */
+function returnProcessSingle(orderId) {
+	const xhr = new XMLHttpRequest()
+	xhr.onreadystatechange = function() {
+		if(xhr.readyState == 4 && xhr.status == 200){
+			const response = JSON.parse(xhr.responseText);
+			if(response.result == "success"){
+				mySessionId = response.id; 
+				
+				location.href = '/safari/user/myOrderListPage'
+				 
+			}
+			
+		}
+	}
+	
+	xhr.open("get", "../rental/rentalReturnProcessSingle?rental_order_id="+orderId);
+	xhr.send();	
+}
 
+
+
+/* 일반 반납 */
 function returnProcess(orderId,refundMoney,productTitle) {
 /* 	console.log('리턴프로세스 매개변수 orderId:: ',orderId )
 	console.log('리턴프로세스 매개변수 refundMoney:: ',refundMoney )

@@ -50,7 +50,8 @@ public class PromotionReviewController {
 			String promoReview_searchType,
 			String promoReview_searchWord,
 			PromotionReviewCommentDto promotionReviewCommentDto,
-			HttpSession session
+			HttpSession session,
+			Integer subCategoryId
 			) {
 
 		UserDto sessionUser = (UserDto)session.getAttribute("sessionUser");
@@ -61,7 +62,7 @@ public class PromotionReviewController {
 			sessionId = sessionUser.getId();
 		}
 		
-		List<Map<String, Object>> promoReviewList = promotionReviewService.getPromotionReviewList(page, promoReview_searchType, promoReview_searchWord, promotionReviewCommentDto, sessionId);		
+		List<Map<String, Object>> promoReviewList = promotionReviewService.getPromotionReviewList(page, promoReview_searchType, promoReview_searchWord, promotionReviewCommentDto, sessionId, subCategoryId);		
 	
 		List<Map<String, Object>> orderByLikePromoReviewList = promotionReviewService.orderByPromotionReviewLikes(sessionId); 
 		
@@ -82,7 +83,7 @@ public class PromotionReviewController {
 		if(userDto == null) return "redirect:/user/loginPage";
 
 		model.addAttribute("mainCategoryList", rentalBusinessService.getRentalMainCategoryList());
-		//model.addAttribute("rentalItemList", promotionReviewService.getRentalItems());
+		// model.addAttribute("rentalItemList", promotionReviewService.getRentalItems());
 
 
 		return "/community/promotion/writePromotionReviewPage";
@@ -163,6 +164,9 @@ public class PromotionReviewController {
 		List<Map<String, Object>> promoCommentDtoList = promotionReviewCommentService.getpromotionReviewCommentDtoList(id);
 
 		List<Map<String, Object>> bestPromotionReviewPostList = promotionReviewService.bestPromoReviewPost(id);
+
+		// 비지니스 정보나오는지 실험
+		List<Map<String, Object>> rentalPromotionReviewInfoList = promotionReviewService.getProReviewRentalItemList(id);
 		
 		// html escape(enter키)
 		PromotionReviewDto promotionReviewDto = (PromotionReviewDto)map.get("promotionReviewDto");
@@ -176,7 +180,8 @@ public class PromotionReviewController {
 		model.addAttribute("data", map);
 		model.addAttribute("promoCommentDtoList", promoCommentDtoList);
 		model.addAttribute("bestPromotionReviewPostList", bestPromotionReviewPostList);
-
+		model.addAttribute("rentalPromotionReviewInfoList", rentalPromotionReviewInfoList);
+		
 		return "/community/promotion/contentPromotionReviewPage";
 	}
 
@@ -289,7 +294,8 @@ public class PromotionReviewController {
 				String promoReview_searchType,
 				String promoReview_searchWord,
 				PromotionReviewCommentDto promotionReviewCommentDto,
-				HttpSession session
+				HttpSession session,
+				Integer subCategoryId
 				) {
 
 
@@ -303,10 +309,11 @@ public class PromotionReviewController {
 
 		List<Map<String, Object>> topViewCount = promotionReviewService.topViewCount(sessionId);
 
-		List<Map<String, Object>> promoReviewList = promotionReviewService.getPromotionReviewList(page, promoReview_searchType, promoReview_searchWord, promotionReviewCommentDto, sessionId);
+		List<Map<String, Object>> promoReviewList = promotionReviewService.getPromotionReviewList(page, promoReview_searchType, promoReview_searchWord, promotionReviewCommentDto, sessionId, subCategoryId);
+		
+		List<Map<String, Object>> promoReviewCategory = promotionReviewService.getPromotionCategoryList();	
+		
 		int promotionReviewCount = promotionReviewService.getPromotionReviewCount(promoReview_searchType, promoReview_searchWord);
-
-
 
 		int totalPage = (int)Math.ceil(promotionReviewCount/10.0);
 
@@ -316,7 +323,8 @@ public class PromotionReviewController {
 		if(endPage > totalPage) {
 			endPage = totalPage;
 		}
-
+		
+		
 		model.addAttribute("promoReviewList", promoReviewList);
 		model.addAttribute("topViewCount", topViewCount);
 		model.addAttribute("totalPage", totalPage);
@@ -329,8 +337,14 @@ public class PromotionReviewController {
 			promoReview_searchQueryString += "&promoReview_searchType=" + promoReview_searchType;
 			promoReview_searchQueryString += "&promoReview_searchWord=" + promoReview_searchWord;
 		}
+		 if (promoReviewList.isEmpty()) {
+		        model.addAttribute("searchMessage", "검색 결과가 존재하지 않습니다.");
+		    }
 
+		
+		
 		model.addAttribute("promoReview_searchQueryString", promoReview_searchQueryString);
+		model.addAttribute("promoReviewCategory", promoReviewCategory);
 
 		return "/community/promotion/allPromotionReviewPage";
 	}

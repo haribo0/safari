@@ -17,6 +17,9 @@
   background-color: #f4f4f4!important; /* 원하는 연한 색상으로 변경 */
 }
 
+  #totalQuestionLikeCount {
+    font-size: 14px;
+  }
 </style>
 
 <script>
@@ -179,7 +182,7 @@ window.addEventListener("DOMContentLoaded", function(){
 					<span class="fw-medium fs-5">${map.questionDto.title}</span>
 					<c:if test="${map.questionDto.points>=1}">
 					<span class="badge rounded-pill text-bg-warning opacity-75" style="font-size: 80%; position: relative; left: 2px; bottom: 2px;">
-					<span class="text-black">${map.questionDto.points}p</span></span>
+					<span class="text-black" style="font-size: 12px;">${map.questionDto.points}p</span></span>
 					</c:if>
 					<c:if test="${map.questionDto.points==0}"></c:if>
 				</div>	
@@ -195,7 +198,7 @@ window.addEventListener("DOMContentLoaded", function(){
 				 <div class="col">
 				 </div>
 				 <div class="col text-end">
-				 	<span style="font-size: 0.9rem; color: gray;"><i class="bi bi-clock"></i> <fmt:formatDate value="${map.questionDto.reg_date}" pattern="yyyy-MM-dd HH:mm"/></span>
+				 	<span style="font-size: 13px; color: gray;"><i class="bi bi-clock"></i> <fmt:formatDate value="${map.questionDto.reg_date}" pattern="yyyy-MM-dd HH:mm"/></span>
 				</div>
 			</div>
 			
@@ -236,7 +239,7 @@ window.addEventListener("DOMContentLoaded", function(){
 			<%--ajax 좋아요--%>
 			<i id="heartQuestionBox" onclick="toggleQuestionLike()"
 				class="fs-5 text-danger bi bi-heart"></i>&nbsp; <span
-				id="totalQuestionLikeCount"></span>
+				id="totalQuestionLikeCount" class="font-size: 12px"></span>
 			<%--ajax 좋아요--%>
 			 
 			 

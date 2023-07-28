@@ -60,6 +60,42 @@
 	<jsp:include page="../common/header.jsp"></jsp:include>
 	<!-- 헤더 섹션 -->
 
+
+
+	<div class="container">
+		<div class="row">
+			<div class="col">
+				<div id="carouselExample" class="carousel slide">
+				  <div class="carousel-inner">
+				    <div class="carousel-item active">
+				      <a href="${pageContext.request.contextPath}/rental/mainPage">
+				      	<img src="${pageContext.request.contextPath}/resources/img/rental/rental_banner_1.jpg" class="d-block w-100" alt="...">
+				      </a>
+				    </div>
+				    <div class="carousel-item">
+				      <a href="${pageContext.request.contextPath}/rental/mainPage">
+				      	<img src="${pageContext.request.contextPath}/resources/img/rental/rental_banner_2.jpg" class="d-block w-100" alt="...">
+				      </a>
+				    </div>
+				    <div class="carousel-item">
+				      <a href="${pageContext.request.contextPath}/rental/mainPage">
+				      	<img src="${pageContext.request.contextPath}/resources/img/rental/rental_banner_3.jpg" class="d-block w-100" alt="...">
+				      </a>
+				    </div>
+				  </div>
+				  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+				    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+				    <span class="visually-hidden">Previous</span>
+				  </button>
+				  <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+				    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+				    <span class="visually-hidden">Next</span>
+				  </button>
+				</div>
+			</div>
+		</div>
+	</div>
+	
 	<div class="container">
 		<div class="row">
  			<div class="col-2 mt-4">
@@ -89,7 +125,7 @@
 				<div class="row flex justify-content-between pt-1 pb-3 my-2 mt-1">
 	 				<c:forEach items="${rentalItemList}" var="map" begin="0" end="5" step="1">
 						<div class="col-2 position-relative">
-							<div class="position-absolute px-2" style="top: 8px; right: 14px; background:#B0DDFF; color: #fff; border-radius: 24px; z-index: 50; font-size: 12px;">
+							<div class="position-absolute px-2" style="top: 8px; right: 18px; background:#D0D0D0; color: #fff; border-radius: 24px; z-index: 50; font-size: 12px;">
 								AD
 							</div>
 							<div class="card border border-0">
@@ -122,22 +158,6 @@
 									</div>
 								</div>
 							
-<%-- 							  	<div class="d-flex justify-content-between">
-							    	<p class="text-dark mb-0"><a href="${pageContext.request.contextPath}/rental/productDescPage?id=${map.rentalItemDto.id}" class="text-decoration-none d-inline-block text-dark fw-bold" style="font-size: 15px;">${map.rentalItemDto.title}</a></p>
-							  	</div>
-							    <p class="mb-0"><a href="${pageContext.request.contextPath}/rental/productDescPage?id=${map.rentalItemDto.id}" class="w-100 text-decoration-none d-inline-block text-body-secondary" style="overflow:hidden; text-overflow:ellipsis; white-space:nowrap; font-size: 14px;">${map.rentalItemDto.item_description}</a></p>
-							    <div class="d-flex justify-content-between">
-								    <p class="mb-0"><b class="text-dark"><a href="${pageContext.request.contextPath}/rental/productDescPage?id=${map.rentalItemDto.id}" class="text-decoration-none d-inline-block text-dark" style="font-size: 15px;"><fmt:formatNumber value="${map.rentalItemDto.price}" pattern="#,##0" /> 원 </a></b><span style="font-size: 13px;">/ 월</span></p>
-							    </div>
-							    <div>
-							  		<p class="mb-0">
-							  			<!-- <span style="font-size: 12px;">좋아요</span> -->
-							  			<i class="bi bi-heart"></i>
-							  			<span  onclick="toggleLike(${map.rentalItemDto.id})" class="fw-bold totalLikeCount" style="font-size: 12px;"></span>
-							  			<i id="heartBox" onclick="toggleLike(${map.rentalItemDto.id})" class="bi bi-heart heart_box text-danger" data-item-id="${map.rentalItemDto.id}" style="font-size: 18px;"></i>
-							  		</p>							    
-							    </div> --%>
-							    
 							  </div>
 							 </div>
 						</div>
@@ -162,7 +182,7 @@
 				</div>
 				
 				
-				<div class="row justify-content-between mt-5 pb-2">
+				<div class="row justify-content-between mt-4 pb-2">
 					<div class="col px-0">
 						<p class="mb-0 mt-3 ps-0 fs-5 fw-bold">카테고리</p>
 					</div>

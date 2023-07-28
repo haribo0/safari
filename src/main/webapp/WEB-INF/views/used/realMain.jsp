@@ -44,7 +44,7 @@
 	  overflow: hidden; /* 넘친 텍스트를 숨김 */
 	  text-overflow: ellipsis; /* 넘친 텍스트를 "..."으로 표시 */
 	}
-	.btn-qna{position: fixed; bottom: 80px; right: 120px; border-radius: 60px; padding: 0 0;}
+	.btn-qna{position: fixed; bottom: 80px; right: 70px; border-radius: 60px; padding: 0 0;}
 	.btn-circle{width: 50px; height: 52px; border-radius: 50%; display: flex; flex-direction:column; justify-content: center; align-items: center; font-size: 2rem; cursor: pointer;}
 	.btn-circle i{color: #5e5e5e; font-size: 24px;}
 	.btn-tit{font-size:13px;}
@@ -76,6 +76,19 @@
 			<jsp:include page="../used/categoryNavi.jsp"></jsp:include>
 			<div class="col">
 				<div class="row" id="listParent"></div>
+				<div class="row pt-3">
+					<div class="col py-3 d-flex justify-content-center">
+						<ul class="d-flex px-0">
+							<li class="mx-1 " style="list-style: none;"><a class="btn" href="#"><i class="fa-solid fa-angles-left" style="color: #9ba4ab;"></i></a></li>
+							<li class="mx-1 rounded-1 btnNavi" style="background: #8baac1; list-style: none; border: 1px solid #81a3bd;"><a class="btn text-white" href="#">1</a></li>
+							<li class="mx-1 " style="list-style: none;"><a class="btn" href="#">2</a></li>
+							<li class="mx-1 " style="list-style: none;"><a class="btn" href="#">3</a></li>
+							<li class="mx-1 " style="list-style: none;"><a class="btn" href="#">4</a></li>
+							<li class="mx-1 " style="list-style: none;"><a class="btn" href="#">5</a></li>
+							<li class="mx-1 " style="list-style: none;"><a class="btn" href="#"><i class="fa-solid fa-angles-right" style="color: #9ba4ab;"></i></a></li>
+						</ul>
+					</div>
+	</div>
 			</div>
 		</div>
 			<div class="row mt-1"></div>

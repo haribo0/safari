@@ -24,6 +24,7 @@ import com.ja.safari.dto.RentalReturnExtraCharge;
 import com.ja.safari.dto.RentalReviewDto;
 import com.ja.safari.dto.RentalSubCategoryDto;
 import com.ja.safari.dto.RentalSurchargeBillDto;
+import com.ja.safari.dto.UserCoinDto;
 import com.ja.safari.rental.mapper.RentalBusinessSqlMapper;
 import com.ja.safari.user.mapper.UserSqlMapper;
 
@@ -499,13 +500,33 @@ public class RentalBusinessServiceImpl {
 	public void returnComplete(RentalReturnExtraCharge[] extraChargeList) {
 		// TODO : 1. 추가금 있으면 추가금 인서트 / 2. 보증금에서 추가금 빼고 코인 반납 / 3. 반납/주문 완료 처리 
 		
+		int totalExtraCharge = 0;
+		
 		// 1. 추가금 프로세스 (일단은 추가금 DB에 인서트만 )
 		for(RentalReturnExtraCharge extraCharge : extraChargeList) {
 			if(extraCharge.getCharge() == 0) continue;
+			totalExtraCharge+=extraCharge.getCharge();
 			rentalSqlMapper.insertExtraCharge(extraCharge);
 		}
 		
-		// 2. 완료 처리 
+		// 2. 보증금 반환 
+		RentalOrderDto rentalOrderDto = rentalSqlMapper.getOrderDtoByReturnId(extraChargeList[0].getReturn_id());
+		RentalItemReturnDto rentalItemReturnDto = rentalSqlMapper.getItemReturnDtoByOrderId(rentalOrderDto.getId());
+		
+		int deposit = rentalOrderDto.getDeposit();
+		
+		// 보증금에서 상태 정산금과 기간할인취소금 빼기 
+		int depositToReturn = deposit - totalExtraCharge - rentalItemReturnDto.getDiscount_revocation();
+		
+		UserCoinDto userCoinDto = new UserCoinDto();
+		int coinPk = userSqlMapper.getOnChargeCoinPk();
+		userCoinDto.setId(coinPk);
+		userCoinDto.setCoin_transaction(depositToReturn);
+		userCoinDto.setTransaction_detail("대여 보증금 반환");
+		userCoinDto.setUser_id(rentalOrderDto.getUser_id());
+		userSqlMapper.insertUserCoin(userCoinDto);
+		
+		// 3. 반품 및 정산 완료 처리 
 		rentalSqlMapper.returnCompleteById(extraChargeList[0].getReturn_id());
 	}
 	

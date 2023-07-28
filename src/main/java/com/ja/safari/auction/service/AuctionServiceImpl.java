@@ -272,6 +272,29 @@ public class AuctionServiceImpl {
 		return auctionSqlMapper.getAuctionProductSubCategory(id);
 	}
 	
+	// 검색
+	public List<Map<String, Object>> searchAuction(String searchWord) {
+		
+		 List<Map<String, Object>> auctionSearchList = new ArrayList<>();
+		
+		 List<AuctionItemDto> auctionDtoList = auctionSqlMapper.searchAuction(searchWord);
+		 
+		 for (AuctionItemDto auctionDto : auctionDtoList) {
+			 
+			 Map<String, Object> map = new HashMap<>();
+		
+			 // 경매 리스트에서 메인 이미지 출력
+			 AuctionItemImgDto auctionItemImgDto = auctionSqlMapper.getAuctionImg(auctionDto.getId());
+			 
+			 map.put("auctionImgDto", auctionItemImgDto);
+			 map.put("auctionDto", auctionDto);
+		
+			 auctionSearchList.add(map);
+		 }
+			
+		return auctionSearchList;
+		
+	}
 	
 	// 경매 물품 상세페이지 접속
 	public Map<String, Object> getAuctionProductDetail(int id) {
