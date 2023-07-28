@@ -66,10 +66,37 @@
 	<%-- 배너 --%>
 	<div class = "row mt-4">
 		<div class = "col" >
-			<img src="/safari/resources/img/community/banerer4.png" class="img-fluid">
+			<div id="carouselExample" class="carousel slide">
+				  <div class="carousel-inner">
+				    <div class="carousel-item active">
+				      <a href="${pageContext.request.contextPath}/community/mainPage">
+				      	<img src="${pageContext.request.contextPath}/resources/img/community/banerer4.png" class="img-fluid">
+				      </a>
+				    </div>
+				    <div class="carousel-item">
+				      <a href="${pageContext.request.contextPath}/community/mainPage">
+				      	<img src="${pageContext.request.contextPath}/resources/img/community/banerer5.png" class="d-block w-100" alt="...">
+				      </a>
+				    </div>
+				    <div class="carousel-item">
+				      <a href="${pageContext.request.contextPath}/rental/mainPage">
+				      	<img src="${pageContext.request.contextPath}/resources/img/rental/rental_banner_3.jpg" class="d-block w-100" alt="...">
+				      </a>
+				    </div>
+				  </div>
+				  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+				    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+				    <span class="visually-hidden">Previous</span>
+				  </button>
+				  <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+				    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+				    <span class="visually-hidden">Next</span>
+				  </button>
+				</div>
 		</div>
 	</div>
 	
+			
 	<%-- 첫번째 줄 --%>
 	<div class = "row mt-4">
 		<div class = "col">
