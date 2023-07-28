@@ -189,7 +189,7 @@ window.addEventListener("DOMContentLoaded", function(){
 					<div class = "col" style="width: 18rem; height: 400px;">
 						<div class="card border border-0" >
 							<a href="./contentPromotionReviewPage?id=${map.promotionReviewDto.id }"> 
-						  <img src="/uploadPromoFiles/${map.promotionReviewImgList[0].rental_review_img }"
+						  <img src="/safariImg/${map.rentalItemDto.main_img_link }"
 						  	   class="card-img-top" alt="리워드게시물사진" height="300">
 						  </a>
 						  <div class="card-body text-center">
