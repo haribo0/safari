@@ -147,6 +147,17 @@ public class RestAuctionController {
 		return map;
 	}
 	
+	// 검색
+	@RequestMapping("searchAuction")
+	public Map<String, Object> searchAuction(String searchWord) {
+		
+		Map<String, Object> map  =  new HashMap<>();
+		
+		map.put("getAuctionList", auctionService.searchAuction(searchWord));
+		
+		return map;
+	}
+	
 	// 경매 물품 등록
 	@RequestMapping("registerProductProcess")
 	public Map<String, Object> registerProductProcess(HttpSession session, AuctionItemDto auctionItemDto, 
@@ -1046,7 +1057,7 @@ public class RestAuctionController {
 		
 		Map<String, Object> map = new HashMap<String, Object>();
 		
-		auctionPurchaseConfirmedDto.setAuction_delivery_after_payment_id(auctionDeliveryAfterPaymentId);
+		auctionPurchaseConfirmedDto.setDelivery_payment_id(auctionDeliveryAfterPaymentId);
 		auctionPurchaseConfirmedDto.setPartner_order_id(id);
 		auctionService.registerPurchaseConfirmed(auctionPurchaseConfirmedDto);
 		
