@@ -6,7 +6,16 @@ a{text-decoration: none; color: #333; -webkit-font-smoothing: antialiased; -moz-
 .ico_sns i{cursor: pointer;}
 
 .search_box{background-image:url('../img/magnifying-glass-solid.svg'); background-size: 16px; background-position: 90% 50%;  background-repeat:no-repeat; padding-left:20px;}
-
+.orangeButton{
+	background: #ff6f0f;
+	font-weight: bold;
+	color: white;
+}
+.orangeButton:hover{
+	background: #FF812C;
+	font-weight: bold;
+	color: white;
+}
 
 .input_box {
 	border: 1px solid #ccc;

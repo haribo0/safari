@@ -30,6 +30,10 @@
   width: 300px;
 }    
 
+.text-like {
+	color: #FF7777;
+}
+
 .overflow {
   white-space: nowrap; /* 텍스트를 한 줄로 표시 */
   overflow: hidden; /* 넘친 텍스트를 숨김 */
@@ -68,6 +72,9 @@
 				    </div>
 				    <div class="carousel-item">
 				      <img src="${pageContext.request.contextPath}/resources/img/rental/rental_banner_3.jpg" class="d-block w-100" alt="...">
+				    </div>
+				    <div class="carousel-item">
+				    	<img class="d-block w-100" src="/safari/resources/img/auction/auctionBanner.jpg">
 				    </div>
 				  </div>
 				  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
@@ -717,16 +724,7 @@ function getAuctionListByRandom() {
                 won.classList.add("ms-1");
                 won.innerText = "원";
                 
-                const heartCol = document.createElement("div");
-                heartCol.classList.add("col-2", "text-end", "me-3");
-                
-                const heartSpan = document.createElement("i");
-                heartSpan.classList.add("bi", "bi-heart", "text-danger");
-                
-                heartCol.appendChild(heartSpan);
-                
-                <!-- i id="heartBox" class="bi bi-heart text-danger fs-5"></i> -->
-                
+               
                 col3.appendChild(price);
                 col3.appendChild(won);
              
@@ -734,9 +732,24 @@ function getAuctionListByRandom() {
                 row3.appendChild(col3);
                 //row3.appendChild(heartCol);
                 
+                const row4 = document.createElement("div");
+                row4.classList.add("row");
+                
+                const heartCol = document.createElement("div");
+                heartCol.classList.add("col");
+                
+                const heartSpan = document.createElement("i");
+                heartSpan.classList.add("bi", "text-like", "bi-heart-fill");
+                
+                heartCol.appendChild(heartSpan);
+                
+                row4.appendChild(heartCol);
+               
+
 				col.appendChild(row1);
 				col.appendChild(row2);
 				col.appendChild(row3);
+				//col.appendChild(row4);
             	
 				randomListBox.appendChild(col);
             	

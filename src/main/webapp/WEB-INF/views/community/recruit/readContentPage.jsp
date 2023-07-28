@@ -526,7 +526,7 @@
 							  							      
 							  							       <div class="col-3 me-2">
 																<c:forEach items="${map.recruitImgLinkDtoList}" var="recruitImgLinkDto">
-																	<img src="/uploadFiles/${recruitImgLinkDto.img_link}"><br>
+																	<img src="/uploadFiles/${recruitImgLinkDto.img_link}" class="img-fluid"><br>
 																</c:forEach>
 							  							      	</div>
 							  							      

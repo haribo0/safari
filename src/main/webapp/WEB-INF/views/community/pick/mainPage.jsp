@@ -6,7 +6,6 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<link rel="icon" type="image/png" sizes="96x96"  href="/safari/resources/img/main/logoOrange.png"/>
 <title>482 | 사고 파는 이웃들의 이야기</title>
 
 <!-- 메타 섹션 -->
@@ -25,16 +24,26 @@
 	   height: 124px;
 	   object-fit: cover;
 	 }
+.orangeButton{
+	background: #ff6f0f;
+	font-weight: bold;
+	color: white;
+}
+.orangeButton:hover{
+	background: #FF812C;
+	font-weight: bold;
+	color: white;
+}
+
+
  </style>
 
 </head>
 <body>
 		<!-- 헤더 섹션 -->
-		<div class="row">
-			<div class="col">
+
 				<jsp:include page="../../common/header.jsp"></jsp:include>
-			</div>
-		</div>
+
 		<!-- 헤더 섹션 -->
 	
 		<!-- 커뮤니티 메뉴바 -->
@@ -50,9 +59,9 @@
 			<div class="row">
 			
 			<!-- 왼쪽 -->
-			<div class="col">
-				
-			</div>
+			<!-- <div class="col">
+				<img class="img-fluid ms-3 mt-4" src="https://api.linkareer.com/attachments/233888" alt="...">
+			</div> -->
 			<!-- 왼쪽 -->
 			
 			<!-- 가운데 -->
@@ -425,7 +434,7 @@
 			
 			<!-- 오른쪽 -->
 			<div class="col">
-				<img class="img-fluid ms-3 mt-4" src="https://apple.contentsfeed.com/RealMedia/ads/Creatives/jobkorea/230718_seoul_al_ssky/230718_seoul_120600.png" alt="...">
+				<img class="img-fluid ms-3 mt-4" src="https://api.linkareer.com/attachments/233888" alt="...">
 			</div>
 			<!-- 오른쪽 -->
 			

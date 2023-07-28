@@ -152,14 +152,13 @@ input[id="tab03"]:checked ~ .con3 {
  background-color: #f4f4f4!important;
  }
 
-.btn_auctionEnd{padding:4px 12px; background: #e9ecef; border:none; color: black; border-radius:8px; font-size: 14px; }
-.btn_auctionReady{padding:4px 12px; background: #e6edfe; border:none; color: #789efd; border-radius:8px; font-size: 14px; font-weight: bold;}
-.btn_auctionIng{padding:4px 12px; background: #dff5ea; border:none; color: #6db590; border-radius:8px; font-size: 14px; font-weight: bold;}
+.btn_auctionEnd{padding:4px 12px; background: #adb5bd; border:none; color: white; border-radius:8px; font-size: 14px; font-weight: bold;  pointer-events: none; }
+.btn_auctionReady{padding:4px 12px; background: #e6edfe; border:none; color: #789efd; border-radius:8px; font-size: 14px; font-weight: bold; pointer-events: none; }
+.btn_auctionIng{padding:4px 12px; background: #dff5ea; border:none; color: #6db590; border-radius:8px; font-size: 14px; font-weight: bold; pointer-events: none; }
 
-
-.btn_delivered{padding:4px 12px; background: #e9ecef; border:none; color: black; border-radius:8px; font-size: 14px;}
-.btn_canceled{padding:4px 12px; background: #e6edfe; border:none; color: #789efd; border-radius:8px; font-size: 14px;}
-.btn_ordered{padding:4px 12px; background: #dff5ea; border:none; color: #6db590; border-radius:8px; font-size: 14px;}
+.btn_delivered{padding:4px 12px; background: #e9ecef; border:none; color: black; border-radius:8px; font-size: 14px; pointer-events: none;}
+.btn_canceled{padding:4px 12px; background: #e6edfe; border:none; color: #789efd; border-radius:8px; font-size: 14px; pointer-events: none;}
+.btn_ordered{padding:4px 12px; background: #dff5ea; border:none; color: #6db590; border-radius:8px; font-size: 14px; pointer-events: none;}
 </style>
 </head>
 <body>
@@ -174,9 +173,9 @@ input[id="tab03"]:checked ~ .con3 {
 	 	
 	 	
 		 	<div class="row">
-		 		<div class="col fw-semibold" style="font-size: 18px">
+		 		<div class="col fw-medium" style="font-size: 18px">
 		 			<c:if test="${!empty sessionUser }">
-		 				<i class="bi bi-list-ul me-2"></i><span onclick="myBidListModal()" style="cursor:pointer;">내 입찰목록 실시간 확인</span>
+		 				<span onclick="myBidListModal()" style="cursor:pointer;"><i class="bi bi-list-ul me-2"></i>내 입찰목록 실시간 확인</span>
 		 			</c:if>
 		 		</div>
 		 		<div class="col text-end" style="font-size: 17px">
@@ -449,7 +448,7 @@ input[id="tab03"]:checked ~ .con3 {
 					 								<div class="col fw-bold" style="font-size: 18px">
 					 									입찰 안내
 					 								</div>
-					 								<div class="col mt-1 fw-semibold text-end me-4" style="cursor: pointer; font-size: 15px" onclick="bidNoticeModal()">
+					 								<div class="col mt-1 text-end me-4" style="cursor: pointer; font-size: 15px" onclick="bidNoticeModal()">
 			 											상세보기 <span class="ms-1" style="font-size: 13px"> > </span>
 			 										</div>
 					 							</div>
@@ -475,7 +474,7 @@ input[id="tab03"]:checked ~ .con3 {
 					 									 
 					 									 <div class="row mb-3">
 					 									 	<div class="col text-danger"> <!-- style="color: #ff6f0f;" --> 
-					 									 		• 경매 종료 시간 1분 이전 입찰 시, 종료 시간이 현재 시간으로부터 1분 자동연장됩니다.
+					 									 		• 경매 종료 시간 1분 이전 입찰 시, 종료 시간이 현재 시간으로부터 <span class="fw-bold">1분 자동연장</span>됩니다.
 					 									 	</div>
 					 									 </div>	 									 
 					 									
@@ -676,16 +675,19 @@ style="position: absolute; transform: translateX(70%);right: 50%;">
 						<div class="row mt-2">
 							<div class="col">
 								현재가 
-								<span class="text-danger fw-bold" id="currentPrice_modal">
+								<span class="text-danger fw-bold" id="currentPrice_modal" style="font-size: 18px">
 									
 								</span> 원
-								&nbsp;&nbsp;
-								즉시낙찰가
-								<span class="fw-bold">
-					 				<fmt:formatNumber value="${productDetail.auctionDto.max_price}" pattern="#,###"/>원
-					 			</span> 
-					 			&nbsp;&nbsp;
-					 			(시작가  <fmt:formatNumber value="${productDetail.auctionDto.start_price}" pattern="#,###"/>원)
+								<span class="ms-1">
+									즉시낙찰가
+								</span>
+								<span class="fw-semibold"  style="font-size: 18px">
+					 				<fmt:formatNumber value="${productDetail.auctionDto.max_price}" pattern="#,###"/></span> 
+					 				<span> 원</span>
+					 			
+					 			<span class="ms-1">
+					 				(시작가  <fmt:formatNumber value="${productDetail.auctionDto.start_price}" pattern="#,###"/> <span> 원</span>)
+								</span>
 							</div>										
 						</div>
 						
@@ -1467,8 +1469,12 @@ style="position: absolute; transform: translateX(70%);right: 50%;">
   <div class="modal-dialog modal-lg modal-dialog-centered"> 
     <div class="modal-content">
       <div class="modal-header bg-light">
-      	
-      		<!-- <h5 class="fw-bold ms-1">내 입찰목록</h5> -->
+      		<div class="row">
+      			<div class="col ms-2 fw-semibold" style="font-size: 18px">
+      				내 입찰목록
+      			</div>
+      		</div>
+      		
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div> 
       <div class="modal-body mb-3">

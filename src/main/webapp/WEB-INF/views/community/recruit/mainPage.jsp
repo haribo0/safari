@@ -128,9 +128,9 @@
 			<div class="row">
 			
 			<!-- 왼쪽 -->
-			<div class="col" >
+			<!-- <div class="col" >
 				
-			</div>
+			</div> -->
 			<!-- 왼쪽 -->
 			
 			<!-- 가운데 -->
@@ -725,8 +725,9 @@
 			 
 			
 			<!-- 오른쪽 -->
-			<div class="col" >
-				<img class="img-fluid ms-3" src="https://apple.contentsfeed.com/RealMedia/ads/Creatives/jobkorea/230718_seoul_al_ssky/230718_seoul_120600.png" alt="...">
+			<div class="col" ><!-- 
+				<img class="img-fluid ms-3" src="https://apple.contentsfeed.com/RealMedia/ads/Creatives/jobkorea/230718_seoul_al_ssky/230718_seoul_120600.png" alt="..."> -->
+			<img class="img-fluid ms-3" src="/safari/resources/img/community/rankingbanner.png" alt="...">
 			</div>
 			<!-- 오른쪽 -->
 			</div>

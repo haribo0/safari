@@ -107,7 +107,7 @@
 													<a href="/safari/auction/productDetail/${bidDto.auction_item_id}"
 													id="aid_${bidDto.auction_item_id}">
 														<img src="/auctionFiles/${bidDto.auction_item_img_link}" style="
-														width: 120px; height: 120px;" class="img-fluid"></a>
+														width: 140px; height: 120px;" class="img-fluid"></a>
 												</div>
 												<div class="col ms-2">
 													<div class="row mt-4">

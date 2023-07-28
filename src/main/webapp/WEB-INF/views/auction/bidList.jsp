@@ -86,7 +86,7 @@
 		
 		
 			<div class="row mt-4">
-				<div class="col fw-semibold fs-5">
+				<div class="col fw-semibold fs-5" >
 					내가 입찰한 경매 목록
 				</div>
 			</div>
@@ -126,9 +126,10 @@
 								</c:if>
 								<c:forEach items="${userBidList}" var="bidDto">
 									<tr>
+									
 										<td class="align-middle">
 										<div class="row">
-											<div class="col-3">
+											<div class="col-3 ms-1">
 												<a href="/safari/auction/productDetail/${bidDto.id}">
 													<img src="/auctionFiles/${bidDto.auction_item_img_link}" style="
 													width: 120px; height: 120px;" class="img-fluid"></a>
@@ -158,7 +159,7 @@
 									</td>
 									<td class="align-middle text-center">
 										<span id="bidCount_${bidDto.id}"></span>
-									</td>
+									</td> 
 									<td class="align-middle text-center">
 										<span id="remainTime_${bidDto.id}"></span>
 									</td>
