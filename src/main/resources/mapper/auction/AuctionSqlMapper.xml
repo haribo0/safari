@@ -1205,7 +1205,7 @@
 	<insert id="registerPurchaseConfirmed">
 		INSERT INTO auction_purchase_confirmed VALUES(
 			#{partner_order_id},
-			#{auction_delivery_after_payment_id},
+			#{delivery_payment_id},
 			SYSDATE
 		)
 	</insert>
