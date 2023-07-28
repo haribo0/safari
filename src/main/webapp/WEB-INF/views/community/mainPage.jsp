@@ -198,7 +198,7 @@
 							</a>
 						</div>
 						<div class = "row mt-3">
-							<div class = "col mx-2">
+							<div class = "col ms-3">
 							<c:forEach items="${newPostByHelpList}" var="map" varStatus="status" begin="0" end="4">  
 								<div class = "row mt-1 py-1">
 									<div class = "col-auto d-flex align-items-center badge rounded-pill text-bg-warning opacity-75 custom-badge" style="position: relative; top: 6px;">
@@ -282,7 +282,7 @@
 						</a>
 					</div>
 					<div class = "row mt-3">
-						<div class = "col mx-2">
+						<div class = "col ms-3">
 							<c:forEach items="${newPostByQuestionList}" var="map" varStatus="status" begin="0" end="4">  
 								<div class = "row mt-1 py-1">
 									<c:if test="${map.questionDto.points>=1}">
