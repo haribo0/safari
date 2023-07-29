@@ -1112,10 +1112,6 @@ function doReview() {
 	
 	
 // 파일 데이터 추가
-const mainImg = document.getElementById('finReviewFiles').files[0];
-if (mainImg) {
- formData.append('rental_review_img', mainImg);
-}
 
 const itemImgs = document.getElementById('finReviewFiles').files;
 for (let i = 0; i < itemImgs.length; i++) {
