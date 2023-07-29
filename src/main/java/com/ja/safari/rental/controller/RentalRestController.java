@@ -2,6 +2,7 @@ package com.ja.safari.rental.controller;
 
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -10,9 +11,13 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import javax.mail.Session;
 import javax.servlet.http.HttpServletResponse;
@@ -22,6 +27,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -31,6 +37,7 @@ import com.ja.safari.dto.RentalPeriodDiscDto;
 import com.ja.safari.dto.RentalReturnKakaopayAmount;
 import com.ja.safari.dto.RentalReturnKakaopayApprove;
 import com.ja.safari.dto.RentalReviewDto;
+import com.ja.safari.dto.RentalReviewImgDto;
 import com.ja.safari.dto.UserCoinDto;
 import com.ja.safari.dto.RentalItemDto;
 import com.ja.safari.dto.RentalItemLikeDto;
@@ -123,6 +130,72 @@ public class RentalRestController {
 		
 		return map;
 	}
+	
+	// 대여 리뷰 프로세스
+		@RequestMapping("writeRentalReviewProcess")
+		public Map<String, Object> writeRentalReviewProcess(HttpSession session, RentalReviewDto params, MultipartFile[] rental_review_img) {
+			Map<String, Object> map = new HashMap<String, Object>();
+			
+			System.out.println("리뷰 작성 테스트중");
+			List<RentalReviewImgDto> rentalReviewImgDtoList= new ArrayList<>();
+			
+			UserDto sessionUser = (UserDto)session.getAttribute("sessionUser");
+			int userId = sessionUser.getId();
+			params.setUser_id(userId);
+			
+			// 파일 저장 로직 
+			if(rental_review_img != null) {
+				
+				for(MultipartFile multipartFile : rental_review_img ) {
+					if(multipartFile.isEmpty()) { //예외처리
+						continue;
+					}
+				
+		
+				String rootFolder = "C:\\uploadFiles\\";
+		
+				// 날짜별 폴더 생성 로직 
+				SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
+				String today = sdf.format(new Date());
+				File targetFoler = new File(rootFolder + today); 
+				if(!targetFoler.exists()) {
+					targetFoler.mkdirs();
+				}
+				
+				// 저장 파일명 만들기 : 파일명 충돌 방지 = 랜덤 + 시간 
+				String fileName = UUID.randomUUID().toString();
+				fileName += "_" + System.currentTimeMillis();
+				
+				// 확장자 추출 
+				String originalFileName = multipartFile.getOriginalFilename();
+				String extString = originalFileName.substring(originalFileName.lastIndexOf("."));
+				String saveReviewFileName = today + "/" + fileName + extString;
+				
+				try {
+					multipartFile.transferTo(new File(rootFolder + saveReviewFileName));
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+
+				RentalReviewImgDto rentalReviewImgDto = new RentalReviewImgDto();
+				rentalReviewImgDto.setRental_review_img(saveReviewFileName);
+				
+				rentalReviewImgDtoList.add(rentalReviewImgDto);
+			} // 파일 업로드 관련 끝 
+			}
+			rentalService.writeRentalReview(params,rentalReviewImgDtoList);
+			
+						
+			map.put("result", "success");
+			return map;
+		}
+		
+	
+	
+	
+	
+	
+	
 	
 	
 	// 대여 신청 카카오결제 프로세스
@@ -339,71 +412,71 @@ public class RentalRestController {
 			
 			UserDto sessionUser = (UserDto)session.getAttribute("sessionUser");
 			
-//			try {
-//				URL kakaoAddressReady = new URL("https://kapi.kakao.com/v1/payment/ready");
-//				try {
-//					HttpURLConnection serverConn = (HttpURLConnection) kakaoAddressReady.openConnection(); // 컨트롤어에서 서버연결
-//					serverConn.setRequestMethod("POST");
-//					serverConn.setRequestProperty("Authorization", "KakaoAK 3b571b6edfbddf7b9912075b7f7c4172"); // 카카오에서 권장하는 헤더에 담을 어드민 키
-//					serverConn.setRequestProperty("Content-type", "application/x-www-form-urlencoded;charset=utf-8"); // utf-8 설정
-//					serverConn.setDoOutput(true); // 서버한테 전달 할 값이 있다 라는 true 표시
-//					
-//					String parameter = "cid=TC0ONETIME" // 가맹점 코드
-//							+ "&partner_order_id="+ returnPk // 가맹점 주문번호
-//							+ "&partner_user_id="+sessionUser.getId() // 가맹점 회원 id
-//							+ "&item_name="+product_title // 상품명
-//							+ "&quantity=1" // 상품수량
-//							+ "&total_amount="+discount_revocation // 총 금액
-//							+ "&tax_free_amount=0" // 상품 비과세 금액
-//							+ "&approval_url=http://localhost:8181/safari/rental/onReturnKakaoProcess?returnPk="+returnPk // 결제 성공시 결제 신청 프로세스로 이동
-//							+ "&fail_url=http://localhost:8181/safari/user/myOrderListPage" // 결제 실패 시
-//							+ "&cancel_url=http://localhost:8181/safari/user/myOrderListPage"; // 결제 취소 시
-//					
-//					OutputStream sender = serverConn.getOutputStream(); // 데이터들을 던저줄 객체
-//					DataOutputStream giver = new DataOutputStream(sender); // 위 객체에게 데이터를 줄 권한 줌
-//					//giver.writeBytes(parameter); // 형변환(바이트로 약속되어있음)
-//					//giver.writeUTF("&item_name="+rentalItemDto.getTitle()); // 한글깨짐으로 인하여 따로 넣어줌
-//					giver.write(parameter.getBytes(StandardCharsets.UTF_8)); // 형변환(바이트로 약속되어있음)
-//					giver.close(); // 보내고 비움: 자동으로 flush
-//					
-//					int resultKakao = serverConn.getResponseCode(); // 전송이 잘 되었는지 안되었는지 번호를 받음
-//					InputStream reciver; // 받는객체 생성
-//					
-//					if(resultKakao == 200) {
-//						reciver = serverConn.getInputStream(); // 200 성공일 경우
-//					} else {
-//						reciver = serverConn.getErrorStream(); // 성공 외 경우
-//					}
-//					
-//					InputStreamReader reader = new InputStreamReader(reciver); // 받은걸 읽음
-//					BufferedReader bfrd = new BufferedReader(reader); // 바이트를 읽기 위해 형변환 버퍼리더 생성
-//					String input = bfrd.readLine(); // 최종 json형태로 만들어져 있음
-//					
-//					ObjectMapper objectMapper = new ObjectMapper();
-//					
-//					RentalOrderKakaopayReady rentalOrderKakaopayReady = objectMapper.readValue(input, RentalOrderKakaopayReady.class);
-//					
-//					rentalOrderKakaopayReady.setPartner_user_id(sessionUser.getId());
-//					rentalOrderKakaopayReady.setCid("TC0ONETIME");
-//					rentalOrderKakaopayReady.setAmount(1);
-//					rentalOrderKakaopayReady.setPartner_order_id(returnPk);
-//					rentalOrderKakaopayReady.setItem_name(product_title);
-//					
-//					rentalService.saveKakaoReady(rentalOrderKakaopayReady);
-//					System.out.println("반납READY 준비됨!!!");
-//					System.out.println("반납READY:: " + rentalOrderKakaopayReady);
-//					
-//					map.put("result", "success");
-//					map.put("kakaoResult", input);
-//					
-//				} catch (IOException e) {
-//					// TODO Auto-generated catch block
-//					e.printStackTrace();
-//				}
-//			} catch (MalformedURLException e) {
-//				// TODO Auto-generated catch block
-//				e.printStackTrace();
-//			}
+			try {
+				URL kakaoAddressReady = new URL("https://kapi.kakao.com/v1/payment/ready");
+				try {
+					HttpURLConnection serverConn = (HttpURLConnection) kakaoAddressReady.openConnection(); // 컨트롤어에서 서버연결
+					serverConn.setRequestMethod("POST");
+					serverConn.setRequestProperty("Authorization", "KakaoAK 3b571b6edfbddf7b9912075b7f7c4172"); // 카카오에서 권장하는 헤더에 담을 어드민 키
+					serverConn.setRequestProperty("Content-type", "application/x-www-form-urlencoded;charset=utf-8"); // utf-8 설정
+					serverConn.setDoOutput(true); // 서버한테 전달 할 값이 있다 라는 true 표시
+					
+					String parameter = "cid=TC0ONETIME" // 가맹점 코드
+							+ "&partner_order_id="+ returnPk // 가맹점 주문번호
+							+ "&partner_user_id="+sessionUser.getId() // 가맹점 회원 id
+							+ "&item_name="+product_title // 상품명
+							+ "&quantity=1" // 상품수량
+							+ "&total_amount="+discount_revocation // 총 금액
+							+ "&tax_free_amount=0" // 상품 비과세 금액
+							+ "&approval_url=http://localhost:8181/safari/rental/onReturnKakaoProcess?returnPk="+returnPk // 결제 성공시 결제 신청 프로세스로 이동
+							+ "&fail_url=http://localhost:8181/safari/user/myOrderListPage" // 결제 실패 시
+							+ "&cancel_url=http://localhost:8181/safari/user/myOrderListPage"; // 결제 취소 시
+					
+					OutputStream sender = serverConn.getOutputStream(); // 데이터들을 던저줄 객체
+					DataOutputStream giver = new DataOutputStream(sender); // 위 객체에게 데이터를 줄 권한 줌
+					//giver.writeBytes(parameter); // 형변환(바이트로 약속되어있음)
+					//giver.writeUTF("&item_name="+rentalItemDto.getTitle()); // 한글깨짐으로 인하여 따로 넣어줌
+					giver.write(parameter.getBytes(StandardCharsets.UTF_8)); // 형변환(바이트로 약속되어있음)
+					giver.close(); // 보내고 비움: 자동으로 flush
+					
+					int resultKakao = serverConn.getResponseCode(); // 전송이 잘 되었는지 안되었는지 번호를 받음
+					InputStream reciver; // 받는객체 생성
+					
+					if(resultKakao == 200) {
+						reciver = serverConn.getInputStream(); // 200 성공일 경우
+					} else {
+						reciver = serverConn.getErrorStream(); // 성공 외 경우
+					}
+					
+					InputStreamReader reader = new InputStreamReader(reciver); // 받은걸 읽음
+					BufferedReader bfrd = new BufferedReader(reader); // 바이트를 읽기 위해 형변환 버퍼리더 생성
+					String input = bfrd.readLine(); // 최종 json형태로 만들어져 있음
+					
+					ObjectMapper objectMapper = new ObjectMapper();
+					
+					RentalOrderKakaopayReady rentalOrderKakaopayReady = objectMapper.readValue(input, RentalOrderKakaopayReady.class);
+					
+					rentalOrderKakaopayReady.setPartner_user_id(sessionUser.getId());
+					rentalOrderKakaopayReady.setCid("TC0ONETIME");
+					rentalOrderKakaopayReady.setAmount(1);
+					rentalOrderKakaopayReady.setPartner_order_id(returnPk);
+					rentalOrderKakaopayReady.setItem_name(product_title);
+					
+					rentalService.saveKakaoReady(rentalOrderKakaopayReady);
+					System.out.println("반납READY 준비됨!!!");
+					System.out.println("반납READY:: " + rentalOrderKakaopayReady);
+					
+					map.put("result", "success");
+					map.put("kakaoResult", input);
+					
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			} catch (MalformedURLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			
 			return map;
 		}
