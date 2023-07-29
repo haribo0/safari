@@ -569,12 +569,12 @@ input[id="tab03"]:checked ~ .con3 {
 	 							</div>
 	 							<%-- 가격 --%>
 	 							
-	 								<!-- <div class="row mt-5">
+	 								 <div class="row mt-4">
 	 									<div class="col"></div>
-	 								</div> -->
+	 								</div> 
 	 								
 	 						
-	 								<div class="row mt-5">
+	 								<div class="row mt-5" style="position: relative; top: 15px" >
  										<div class="col fw-bold fs-5">
  											실시간 채팅
  										</div>
@@ -814,7 +814,7 @@ style="position: absolute; transform: translateX(70%);right: 50%;">
 								<div id="inquiryInputBox" class="row mt-3" style="display: none;">
 								    <div class="col">
 								        <div class="d-flex">
-								            <textarea id="inquiryTextarea" class="form-control flex-grow-1 ms-1" rows="2" placeholder="문의 내용을 입력하세요"
+								            <textarea id="inquiryTextarea" class="form-control flex-grow-1 ms-1" rows="3" placeholder="문의 내용을 입력하세요"
 								            <%-- onkeydown="checkSendInquiry(event)"--%>></textarea>
 								            <input type="button" class="btn btn-dark ms-2" value="등록"
 								            onclick="registerAuctionInquiry()">
@@ -2368,7 +2368,8 @@ function renewInputBidBoxBefore() {
        button.style.pointerEvents = "none";
  
 
- 	   currentStatusBox.appendChild(statusText);	
+      /*   @@@@@@ 나중에 넣기 */
+ 	   //currentStatusBox.appendChild(statusText);	
  	   
    	    
    	    
@@ -4313,10 +4314,12 @@ function reloadChatList() {
 						  const rowInnerDiv1 = document.createElement('div');
 						  rowInnerDiv1.classList.add('row');
 						  const innerDiv1 = document.createElement('div');
+						  
 						  innerDiv1.className = 'col text-secondary text-start';
 						  innerDiv1.style.fontSize = "14px";
 						  if (msg.userDto.id == sellerId) {
-							  innerDiv1.innerText = msg.userDto.nickname + " (판매자)";
+							  innerDiv1.innerText = "판매자";
+							  innerDiv1.className = 'fw-semibold';
 						  } else {
 						 	 innerDiv1.innerText = msg.userDto.nickname;
 						  }
