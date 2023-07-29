@@ -1131,6 +1131,7 @@ xhr.onreadystatechange = function() {
    const modalReview = document.getElementById('modalReview')
    const modalReviewForClose = bootstrap.Modal.getOrCreateInstance("#modalReview");
    modalReviewForClose.hide();
+   location.reload();
    
  }
 }

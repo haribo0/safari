@@ -360,11 +360,11 @@ select option[value=""][disabled] {
 	</div>
 	
 	
-	<%-- 주소 등록 modal --%>
+<%-- 주소 등록 modal --%>
 <div class="modal" id="registerAddrModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg modal-dialog-centered"> 
     <div class="modal-content">
-      <div class="modal-header">
+      <div class="modal-header bg-light">
      	 <div class="row mb-0">
       			<div class="col ms-4 fs-5 fw-bold">배송지 등록</div>
       		</div>
@@ -381,6 +381,18 @@ select option[value=""][disabled] {
        			<div class="col-11">
 		       		
 		       		<table class="table" style="border-top: 1px solid #E2E3E5;">
+						<tr>
+		       				<td class="table table-light align-middle text-center " style="width: 150px;">받는사람</td>
+		       				<td class="align-middle"> 
+		       					<div class="row">
+		       						<div class="col">
+		       							 <input type="text" class="form-control ms-2" style="width: 200px; height: 30px;"
+		       							 id="addressee" > 
+		       							
+		       						</div>
+		       					</div>
+		       				</td>
+		       			</tr>			       		
 		       			<tr>
 		       				<td class="table table-light align-middle text-center " style="width: 150px;">배송지명</td>
 		       				<td class="align-middle"> 
@@ -398,7 +410,7 @@ select option[value=""][disabled] {
 		       				<td class="align-middle">
 		       					  <div class="row">
 				                    <div class="col">
-				                       <input type="text" class="form-control ms-2" oninput="oninputPhone(this)" maxlength="14" id="phone"
+				                       <input type="text" class="form-control ms-2" oninput="oninputPhone(this)" maxlength="13" id="phone"
 				                      style="width: 200px; height: 30px;">
 				                    </div>
 				                  </div>
@@ -451,6 +463,8 @@ select option[value=""][disabled] {
 </div>
 </div>
 <%-- 주소 등록 modal --%>
+
+
 	<!-- 푸터 섹션 -->
 	<jsp:include page="../common/footer.jsp"></jsp:include>
 	<!-- 푸터 섹션 -->
@@ -836,6 +850,7 @@ select option[value=""][disabled] {
 	// 주소 등록
 	function addUserAddress() {
 		
+		const addressee = document.getElementById("addressee");
 		const address_name = document.getElementById("address_name");
 		const phone = document.getElementById("phone");
 		const postcode = document.getElementById("postcode");
@@ -848,7 +863,10 @@ select option[value=""][disabled] {
 			content.innerHTML = "";
 			
 			const validateModal = bootstrap.Modal.getOrCreateInstance("#addrValidateModal");
-			if (address_name.value == "") {
+			if (addressee.value == "") {
+				content.innerText = "받는사람을 입력하세요";
+			}
+			  else if (address_name.value == "") {
 				content.innerText = "배송지명을 입력하세요";
 			} else if (phone.value == "") {
 				content.innerText = "연락처를 입력하세요";
@@ -875,6 +893,7 @@ select option[value=""][disabled] {
 				const registerAddrModal = bootstrap.Modal.getOrCreateInstance("#registerAddrModal");
 				registerAddrModal.hide();
 				
+				addressee.value = "";
 				address_name.value = "";
 				phone.value = "";
 				postcode.value = "";
@@ -885,11 +904,10 @@ select option[value=""][disabled] {
 				
 			}
 		}
-		xhr.open("post", "../user/addUserAddress");
+		xhr.open("post", "/safari/user/addUserAddress");
 		xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded;charset=utf-8");
-		xhr.send("address_name=" + address_name.value + "&phone=" + phone.value + "&address=" + address.value + "  " + detail_address.value);	
+		xhr.send("addressee=" + addressee.value + "&address_name=" + address_name.value + "&phone=" + phone.value + "&address=" + address.value + "  " + detail_address.value);	
 	}
-	
 	
 	
 	// 주소 리스트 불러오기
