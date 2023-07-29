@@ -724,8 +724,6 @@ registerButton.addEventListener("click", function(event) {
 
 function updateUserInfo() {
 	
-	
-	
 	const modal = bootstrap.Modal.getOrCreateInstance("#updateInfoModal");
   	const xhr = new XMLHttpRequest();
   	const formData = new FormData();

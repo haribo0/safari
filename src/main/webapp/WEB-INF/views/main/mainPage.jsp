@@ -54,9 +54,12 @@
    </div>
     <div class="container mt-5">
       <div class="row p-1">
+      
+        <div class="col-2 text-center"></div>
         <div class="col text-center">
           <img class="img-fluid" alt="" src="${pageContext.request.contextPath}/resources/img/main/BTM3.png">
         </div>
+        <div class="col-2 text-center"></div>
       </div>
    </div>
    <div class="container mt-5">
