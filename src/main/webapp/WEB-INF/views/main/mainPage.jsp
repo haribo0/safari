@@ -44,7 +44,7 @@
       </div>
    </div>
     <div class="container mt-5">
-      <div class="row p-1">
+      <div class="row p-1 pb-0">
         <div class="col fs-4 fw-semibold">
          	유저들의 대여 리뷰
         </div>
@@ -53,7 +53,7 @@
         </div>
       </div>
    </div>
-   <div class="container mt-5">
+   <div class="container mt-0">
       <div class="row p-1">
         <div class="col text-center">
           <img class="img-fluid" alt="" src="${pageContext.request.contextPath}/resources/img/main/commu2.png">
