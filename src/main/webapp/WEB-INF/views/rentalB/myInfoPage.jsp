@@ -308,13 +308,15 @@
 		        	
 				    
 				        <div class="form-group row mt-4">
+				        	<!-- <div class="col-1"></div> -->
 				            <label for="businessUserId" class="col-3 col-form-label fw-normal">아이디</label>
-				            <div class="col-4">
+				            <div class="col-6">
 				                <input type="text" class="form-control" id="businessUserId" name="business_userid" readonly>
 				            </div>
-				            <div class="col">
-				                <div class="btn btn-outline-dark" id="userIdBtn">중복확인</div>
-				            </div>
+				            <!-- <div class="col">
+				            	 
+				                <div class="btn btn-outline-dark" id="userIdBtn" onclick="checkUserId">중복확인</div>
+				            </div> -->
 				        </div>
 				        <!-- <div class="form-group row mt-1 ms-1">
 				            <div class="col-3">
@@ -582,13 +584,14 @@ const registerButton = document.getElementById("registerBtn");
 
 // 아이디 중복체크 관련 로직 수행 
 
-let idChecked = false;
+let idChecked = true;
 
-userIdButton.addEventListener("click", checkUserId);
+/* userIdButton.addEventListener("click", checkUserId);
 
 function checkUserId(){
 	
 	const userIdValue = document.getElementById("businessUserId").value;
+	console.log(userIdValue);
 	
 	const xhr = new XMLHttpRequest();
 	
@@ -630,7 +633,7 @@ userIdInput.addEventListener("input", function () {
 userIdInput.addEventListener("change", function () {
 	idCheckAlert.innerText = "";
 });
-
+ */
 
 // 비밀번호 확인 체크 
 
@@ -696,12 +699,12 @@ phoneBox.addEventListener("blur", function() {
 
 registerButton.addEventListener("click", function(event) {
 	
-	  if (!idChecked) {
+	  /* if (!idChecked) {
 	    event.preventDefault();
 	    alert("아이디 중복확인을 해주세요");
 	    userIdInput.focus();
 	    return;
-	  }
+	  } */
 	  if (!pwConfirmChecked) {
 	    event.preventDefault();
 	    alert("비밀번호 확인 후 다시 시도해주세요");
@@ -709,6 +712,7 @@ registerButton.addEventListener("click", function(event) {
 	    return;
 	  }
 	  if(!document.getElementById('regImg').files[0]) {
+		  alert("사업자 등록증 확인 후 다시 시도해주세요");
 		  return;
 	  }
 	
@@ -719,6 +723,8 @@ registerButton.addEventListener("click", function(event) {
 
 
 function updateUserInfo() {
+	
+	
 	
 	const modal = bootstrap.Modal.getOrCreateInstance("#updateInfoModal");
   	const xhr = new XMLHttpRequest();
@@ -732,25 +738,26 @@ function updateUserInfo() {
 	formData.append('business_name', document.getElementById('businessName').value);
 	formData.append('business_address', document.getElementById('businessAddress').value);
 	formData.append('addressDetail', document.getElementById('addressDetail').value);
+	formData.append('phone', document.getElementById('phone').value);
+	
+	console.log(formData);
 
 	// 파일 데이터 추가
 	const regImg = document.getElementById('regImg').files[0];
 	if (regImg) {
 	  formData.append('regImg', regImg);
 	}
-
   
-  
-  xhr.onreadystatechange = function() {
-    if (xhr.readyState == 4 && xhr.status == 200) {
-      const response = JSON.parse(xhr.responseText);
-      // 응답 처리
-      modal.hide();
-      
-    }
-  }
+	xhr.onreadystatechange = function() {
+	  if (xhr.readyState == 4 && xhr.status == 200) {
+	    const response = JSON.parse(xhr.responseText);
+	    // 응답 처리
+	    modal.hide();
+	    
+	  }
+	}
 
-  xhr.open("POST", "./productRegisterProcess");
+  xhr.open("POST", "./businessUpdateInfoProcess");
   xhr.send(formData);
 }
 
