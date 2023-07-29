@@ -50,7 +50,7 @@
          	유저들의 대여 리뷰
         </div>
         <div class="col-1 text-end fs-6 fw-semibold">
-         	더보기
+         	<a href="/safari/community/promotion/promotionReviewMainPage">더보기</a>
         </div>
       </div>
    </div>
@@ -64,12 +64,22 @@
       </div>
    </div>
    
+   <div class="container mt-4">
+      <div class="row p-1">
+        <div class="col text-center">
+          <a href="/safari/community/promotion/promotionReviewMainPage">
+          <img class="img-fluid" alt="" src="${pageContext.request.contextPath}/resources/img/main/darkGray.png">
+          </a>
+        </div>
+      </div>
+   </div>
    
    <div class="container mt-4">
       <div class="row p-1">
-      
-        <div class="col text-center">
-          <img class="img-fluid" alt="" src="${pageContext.request.contextPath}/resources/img/main/darkGray.png">
+        <div class="col">
+          <a href="/safari/community/promotion/promotionReviewMainPage">
+          <img class="img-fluid" alt="" src="${pageContext.request.contextPath}/resources/img/main/dd.png">
+          </a>
         </div>
       </div>
    </div>
@@ -88,7 +98,7 @@
         	<div class="row">
         		<div class="col">
         		<a href="/safari/community/mainPage" class="text-decoration-none">
-        		<img class="img-fluid" alt="" src="${pageContext.request.contextPath}/resources/img/main/CommuSelect.jpeg">
+        		<img class="img-fluid" alt="" src="${pageContext.request.contextPath}/resources/img/main/CommuSelect.jpeg" style="border-radius: 4px;">
         		</a>
         		</div>
         	</div>
@@ -107,7 +117,7 @@
         	<div class="row">
         		<div class="col">
         		<a href="/safari/community/help/mainPage" class="text-decoration-none">
-        		<img class="img-fluid" alt="" src="${pageContext.request.contextPath}/resources/img/main/CommuGo.jpeg">
+        		<img class="img-fluid" alt="" src="${pageContext.request.contextPath}/resources/img/main/CommuGo.jpeg" style="border-radius: 4px;">
         		</a>
         		</div>
         	</div>
@@ -126,7 +136,7 @@
         	<div class="row">
         		<div class="col">
         		<a href="/safari/community/question/mainPage" class="text-decoration-none">
-        		<img class="img-fluid" alt="" src="${pageContext.request.contextPath}/resources/img/main/CommuWhat.jpeg">
+        		<img class="img-fluid" alt="" src="${pageContext.request.contextPath}/resources/img/main/CommuWhat.jpeg" style="border-radius: 4px;">
         		</a>
         		</div>
         	</div>
@@ -145,7 +155,7 @@
         	<div class="row">
         		<div class="col">
         		<a href="/safari/community/recruit/mainPage" class="text-decoration-none">
-        		<img class="img-fluid" alt="" src="${pageContext.request.contextPath}/resources/img/main/CommuHiring.jpeg">
+        		<img class="img-fluid" alt="" src="${pageContext.request.contextPath}/resources/img/main/CommuHiring.jpeg" style="border-radius: 4px;">
         		</a>
         		</div>
         	</div>
