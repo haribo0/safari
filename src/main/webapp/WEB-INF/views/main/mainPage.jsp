@@ -43,7 +43,15 @@
         </div>
       </div>
    </div>	
-   
+   <div class="container mt-4">
+      <div class="row p-1">
+        <div class="col text-center">
+          <a href="/safari/community/promotion/promotionReviewMainPage">
+          <img class="img-fluid" alt="" src="${pageContext.request.contextPath}/resources/img/main/darkGray.png">
+          </a>
+        </div>
+      </div>
+   </div>
     <div class="container mt-5">
       <div class="row p-1 pb-0">
         <div class="col fs-4 fw-semibold">
@@ -64,15 +72,7 @@
       </div>
    </div>
    
-   <div class="container mt-4">
-      <div class="row p-1">
-        <div class="col text-center">
-          <a href="/safari/community/promotion/promotionReviewMainPage">
-          <img class="img-fluid" alt="" src="${pageContext.request.contextPath}/resources/img/main/darkGray.png">
-          </a>
-        </div>
-      </div>
-   </div>
+   
    
    <div class="container mt-4">
       <div class="row p-1">
@@ -84,7 +84,7 @@
       </div>
    </div>
     
-   <div class="container mt-5">
+   <div class="container mt-4">
       <div class="row p-1">
         <div class="col fs-4 fw-semibold">
          	커뮤니티
