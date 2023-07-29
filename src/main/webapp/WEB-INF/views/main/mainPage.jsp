@@ -57,7 +57,9 @@
    <div class="container mt-0">
       <div class="row p-1">
         <div class="col text-center">
+        	<a href="/safari/community/promotion/promotionReviewMainPage">
           <img class="img-fluid" alt="" src="${pageContext.request.contextPath}/resources/img/main/commu2.png">
+          	</a>
         </div>
       </div>
    </div>
@@ -162,81 +164,6 @@
    </div>
 	
    
-  <!--  <div class="container mt-5 pt-5 pb-3">
-      <div class="row shadow p-5">
-        <div class="col text-center">
-          <h3 class="card-title fw-bold">커뮤니티 페이지 오픈!</h3>
-          <p class="card-text mb-5">사파리의 커뮤니티로 풍부한 정보를 채워보세요!</p>
-          <a href="#" class="btn btn-primary">더 보기</a>
-        </div>
-      </div>
-   </div>
-
-
-   <div class="container mt-5 pt-5 pb-3">
-      <div class="row">
-         <div class="col-6 d-flex justify-content-center">
-            <div class="card border-dark mb-3 w-100">
-              <div class="card-header">새 소식</div>
-              <div class="card-body">
-                <h5 class="card-title">사파리 커뮤니티 오픈</h5>
-                <p class="card-text">이웃과 소통하며 다양하고 풍부한 정보를 공유하세요.</p>
-              </div>
-            </div>
-         </div>
-         <div class="col-6 d-flex justify-content-center">
-            <div class="card border-dark mb-3 w-100">
-              <div class="card-header">경매</div>
-              <div class="card-body">
-                <h5 class="card-title">실시간 경매 페이지 오픈</h5>
-                <p class="card-text">실시간 경매 진행으로 채팅과 배팅을 한번에 즐겨보세요.</p>
-              </div>
-            </div>
-         </div>
-      </div>
-   </div>
-
-   <div class="container mt-5 pt-5 pb-3">
-      <div class="accordion" id="accordionPanelsStayOpenExample">
-        <div class="accordion-item">
-          <h2 class="accordion-header">
-            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
-              사파리 코인이 무엇인가요?
-            </button>
-          </h2>
-          <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show">
-            <div class="accordion-body">
-              <p>사파리 코인은 사파리 페이지 내에서 유저가 가상으로 예치하여 현금처럼 사용 할수 있는 재화 입니다.</p>
-            </div>
-          </div>
-        </div>
-        <div class="accordion-item">
-          <h2 class="accordion-header">
-            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false" aria-controls="panelsStayOpen-collapseTwo">
-              중고 서비스는 채팅이 가능한가요?
-            </button>
-          </h2>
-          <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse">
-            <div class="accordion-body">
-              <p>네, 물론입니다. 채팅을 통하여 코인전송까지 가능합니다.</p>
-            </div>
-          </div>
-        </div>
-        <div class="accordion-item">
-          <h2 class="accordion-header">
-            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseThree" aria-expanded="false" aria-controls="panelsStayOpen-collapseThree">
-              사파리 대여는 가격이 왜이렇게 저렴한가요?
-            </button>
-          </h2>
-          <div id="panelsStayOpen-collapseThree" class="accordion-collapse collapse">
-            <div class="accordion-body">
-              <p>저희가 제공해 드리는 대여 서비스는 다양한 니즈를 위해 여러 제공업체와 협약을 맺어 합리적인 가격으로 제공드릴수 있습니다.</p>
-            </div>
-          </div>
-        </div>
-      </div>
-   </div> -->
-
    <!-- 푸터 섹션 -->
    <jsp:include page="../common/footer.jsp"></jsp:include>
    <!-- 푸터 섹션 -->
