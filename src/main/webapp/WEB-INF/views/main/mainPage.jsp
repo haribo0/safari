@@ -33,13 +33,13 @@
       </div>
       <div class="row p-1 mt-1">
         <div class="col-4 text-center">
-          <a href="/safari/used/mainPage"><img class="img-fluid" alt="" src="${pageContext.request.contextPath}/resources/img/main/mainUsed.png"></a>
+          <a href="/safari/used/mainPage"><img class="img-fluid" alt="" src="${pageContext.request.contextPath}/resources/img/main/mainUsed1.png"></a>
         </div>
         <div class="col-4 text-center">
           <a href="/safari/rental/mainPage"><img class="img-fluid" alt="" src="${pageContext.request.contextPath}/resources/img/main/mainRental.png"></a>
         </div>
         <div class="col-4 text-center">
-          <a href="/safari/auction/mainPage"><img class="img-fluid" alt="" src="${pageContext.request.contextPath}/resources/img/main/mainAuction.png"></a>
+          <a href="/safari/auction/mainPage"><img class="img-fluid" alt="" src="${pageContext.request.contextPath}/resources/img/main/mainAuction1.png"></a>
         </div>
       </div>
    </div>	
