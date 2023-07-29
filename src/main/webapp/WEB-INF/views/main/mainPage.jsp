@@ -15,47 +15,61 @@
    <!-- 헤더 섹션 -->
    <jsp:include page="../common/header.jsp"></jsp:include>
    <!-- 헤더 섹션 -->
-
-   <div class="container bg-light">
-		<div class="row">
-			<div class="col bg-white">
-				<div id="carouselExample" class="carousel slide">
-				  <div class="carousel-inner">
-				    <div class="carousel-item active">
-				      <a href="${pageContext.request.contextPath}/rental/mainPage">
-				      	<img src="${pageContext.request.contextPath}/resources/img/main/mainBanner1.png" class="d-block w-100" alt="...">
-				      </a>
-				    </div>
-				    <div class="carousel-item">
-				      <a href="${pageContext.request.contextPath}/rental/mainPage">
-				      	<img src="${pageContext.request.contextPath}/resources/img/main/mainBanner2.png" class="d-block w-100" alt="...">
-				      </a>
-				    </div>
-				  </div>
-				  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
-				    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-				    <span class="visually-hidden">Previous</span>
-				  </button>
-				  <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
-				    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-				    <span class="visually-hidden">Next</span>
-				  </button>
-				</div>
-			</div>
-		</div>
-
-   </div>
-	
-	<%-- <div class="container mt-1 pt-5 pb-3">
-      <div class="row">
+	<div class="container">
+      <div class="row p-1">
         <div class="col text-center">
-          <img src="${pageContext.request.contextPath}/resources/img/main/mainMiddleBanner.png" class="d-block w-100" alt="...">
+          <img class="img-fluid" alt="" src="${pageContext.request.contextPath}/resources/img/main/mainBanner.png">
         </div>
       </div>
-   </div> --%>
+   </div>	
+	<div class="container mt-5">
+      <div class="row p-1">
+        <div class="col-4 text-center">
+          <a href="/safari/used/mainPage"><img class="img-fluid" alt="" src="${pageContext.request.contextPath}/resources/img/main/mainUsed.png"></a>
+        </div>
+        <div class="col-4 text-center">
+          <a href="/safari/rental/mainPage"><img class="img-fluid" alt="" src="${pageContext.request.contextPath}/resources/img/main/mainRental.png"></a>
+        </div>
+        <div class="col-4 text-center">
+          <a href="/safari/auction/mainPage"><img class="img-fluid" alt="" src="${pageContext.request.contextPath}/resources/img/main/mainAuction.png"></a>
+        </div>
+      </div>
+   </div>	
+    <div class="container mt-5">
+      <div class="row p-1">
+        <div class="col fs-4 fw-semibold">
+         	유저들의 대여 리뷰
+        </div>
+        <div class="col-1 text-end fs-6 fw-semibold">
+         	더보기
+        </div>
+      </div>
+   </div>
+   <div class="container mt-5">
+      <div class="row p-1">
+        <div class="col text-center">
+          <img class="img-fluid" alt="" src="${pageContext.request.contextPath}/resources/img/main/commu2.png">
+        </div>
+      </div>
+   </div>
+    <div class="container mt-5">
+      <div class="row p-1">
+        <div class="col text-center">
+          <img class="img-fluid" alt="" src="${pageContext.request.contextPath}/resources/img/main/BTM3.png">
+        </div>
+      </div>
+   </div>
+   <div class="container mt-5">
+      <div class="row p-1">
+        <div class="col text-center">
+          <img class="img-fluid" alt="" src="${pageContext.request.contextPath}/resources/img/main/commu.png">
+        </div>
+      </div>
+   </div>
+   
 	
    
-   <div class="container mt-5 pt-5 pb-3">
+  <!--  <div class="container mt-5 pt-5 pb-3">
       <div class="row shadow p-5">
         <div class="col text-center">
           <h3 class="card-title fw-bold">커뮤니티 페이지 오픈!</h3>
@@ -128,7 +142,7 @@
           </div>
         </div>
       </div>
-   </div>
+   </div> -->
 
    <!-- 푸터 섹션 -->
    <jsp:include page="../common/footer.jsp"></jsp:include>
