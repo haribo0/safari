@@ -23,7 +23,15 @@
       </div>
    </div>	
 	<div class="container mt-4">
-      <div class="row p-1">
+		<div class="row p-1 pb-0">
+        <div class="col fs-4 fw-semibold">
+         	SAFARI
+        </div>
+        <div class="col-1 text-end fs-6 fw-semibold">
+         	
+        </div>
+      </div>
+      <div class="row p-1 mt-1">
         <div class="col-4 text-center">
           <a href="/safari/used/mainPage"><img class="img-fluid" alt="" src="${pageContext.request.contextPath}/resources/img/main/mainUsed.png"></a>
         </div>
@@ -35,14 +43,7 @@
         </div>
       </div>
    </div>	
-   <div class="container mt-4">
-      <div class="row p-1">
-      
-        <div class="col text-center">
-          <img class="img-fluid" alt="" src="${pageContext.request.contextPath}/resources/img/main/darkGray.png">
-        </div>
-      </div>
-   </div>
+   
     <div class="container mt-5">
       <div class="row p-1 pb-0">
         <div class="col fs-4 fw-semibold">
@@ -57,6 +58,16 @@
       <div class="row p-1">
         <div class="col text-center">
           <img class="img-fluid" alt="" src="${pageContext.request.contextPath}/resources/img/main/commu2.png">
+        </div>
+      </div>
+   </div>
+   
+   
+   <div class="container mt-4">
+      <div class="row p-1">
+      
+        <div class="col text-center">
+          <img class="img-fluid" alt="" src="${pageContext.request.contextPath}/resources/img/main/darkGray.png">
         </div>
       </div>
    </div>
