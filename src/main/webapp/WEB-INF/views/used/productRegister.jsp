@@ -17,7 +17,7 @@
 <body>
 <jsp:include page="../common/header.jsp"></jsp:include>
 <div class="container mt-5">
-    <h3 class="row justify-content-center mb-4">중고거래 상품 등록</h3>
+    <h3 class="row justify-content-center mb-4">중고거래 상품 등록11</h3>
     <div class="row">
     <div class="col-2"></div>
     <div class="col">

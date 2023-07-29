@@ -50,14 +50,12 @@ a {
 	
 	
 	<div class="container justify-content-center mb-5">
-		<div class="row mt-5 mb-5">
+		<div class="row mb-5">
 			<div class="col">
-				
-				
-				<div class="row">
-					<div class="col"></div>
-					<div class="col text-center">
-						<h2>LOGIN</h2>
+				<div class="row mt-5">
+					<div class="col mt-5"></div>
+					<div class="col text-center mt-5 mb-3">
+						<h1>LOGIN</h1>
 					  	 <!-- <a href="/safari/user/loginPage"><img src="/safari/resources/img/user/loginlogo.png"></a> -->
 					</div>
 					<div class="col">
@@ -65,11 +63,9 @@ a {
 					</div>
 				</div>
 				
-				<div class="row mt-3">
+				<div class="row mt-4">
 					<div class="col"></div>
-					<div class="col-5">
-					
-					
+					<div class="col-4">
 						<div class="row">
 							<div class="col">
 								<input type="text" class="form-control p-3" placeholder="아이디 또는 이메일" id="email">
@@ -84,9 +80,9 @@ a {
 						
 						<div class="row mt-2 mb-1">
 							
-							<div class="col">
+							<div class="col mb-1">
 								 <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-								  <label class="form-check-label ms-1" for="flexCheckDefault">
+								  <label class="form-check-label ms-1" for="flexCheckDefault" style="font-size: 15px;">
 								    아이디 저장
 								  </label>
 							</div>
@@ -101,7 +97,7 @@ a {
 						</div>
 					
 						
-						<div class="row mt-1">
+						<div class="row mt-1" style="font-size: 15px;">
 							<div class="col-auto text-secondary">
 								아이디 찾기
 							</div>
@@ -117,7 +113,7 @@ a {
 						
 						<div class="row mt-4">
 							<div class="col text-secondary text-center d-grid">
-								<div class="hr-sect">간편로그인</div> 
+								<div class="hr-sect fw-medium">간편로그인</div> 
 							</div>
 						</div>
 						
