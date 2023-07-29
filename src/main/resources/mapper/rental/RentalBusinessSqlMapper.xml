@@ -47,7 +47,7 @@
 			business_address = #{business_address},
 			phone = #{phone},
 			reg_date = SYSDATE
-		WHERE id = #{id}
+		WHERE business_userid = #{business_userid}
 	</update>
 	
 	<!-- 로그인 -->
