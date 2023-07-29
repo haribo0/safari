@@ -57,7 +57,8 @@ a {
 				<div class="row">
 					<div class="col"></div>
 					<div class="col text-center">
-					  	 <a href="/safari/user/loginPage"><img src="/safari/resources/img/user/loginlogo.png"></a>
+						<h2>LOGIN</h2>
+					  	 <!-- <a href="/safari/user/loginPage"><img src="/safari/resources/img/user/loginlogo.png"></a> -->
 					</div>
 					<div class="col">
 					
@@ -77,23 +78,22 @@ a {
 						
 						<div class="row mt-2">
 							<div class="col">
-								<input type="password" class="form-control p-3" placeholder="비밀번호"
-								id="pw" onkeydown="checkSendLogin(event)">
+								<input type="password" class="form-control p-3" placeholder="비밀번호" id="pw" onkeydown="checkSendLogin(event)">
 							</div>
 						</div>
 						
-						<div class="row mt-3 mb-1">
+						<div class="row mt-2 mb-1">
 							
 							<div class="col">
 								 <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-								  <label class="form-check-label ms-1" for="flexCheckDefault" >
+								  <label class="form-check-label ms-1" for="flexCheckDefault">
 								    아이디 저장
 								  </label>
 							</div>
 						
 						</div>
 						
-						<div class="row mt-3">
+						<div class="row mt-4">
 							<div class="col d-grid">
 								<input type="button" class="btn orangeButton p-2 fs-5" value="로그인" onclick="loginProcess()">
 								
@@ -101,12 +101,12 @@ a {
 						</div>
 					
 						
-						<div class="row mt-3">
-							<div class="col-auto">
+						<div class="row mt-1">
+							<div class="col-auto text-secondary">
 								아이디 찾기
 							</div>
 							
-							<div class="col">
+							<div class="col text-secondary">
 								비밀번호 찾기
 							</div>
 							
@@ -124,7 +124,7 @@ a {
 						<div class="row">
 							<div class="col">
 								<div class="row mt-3">
-									<div class="col text-center"  onclick="kakaoLogin()" style="cursor: pointer;">
+									<div class="col text-center" onclick="kakaoLogin()" style="cursor: pointer;">
 										<img src="/safari/resources/img/user/kakao_login_medium_wide.png" class="img-fluid">
 									</div>
 									<!-- <div class="col-auto">
