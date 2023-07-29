@@ -61,12 +61,92 @@
    </div>
    <div class="container mt-5">
       <div class="row p-1">
-        <div class="col text-center">
-          <img class="img-fluid" alt="" src="${pageContext.request.contextPath}/resources/img/main/commu.png">
+        <div class="col fs-4 fw-semibold">
+         	커뮤니티
+        </div>
+        <div class="col-1 text-end fs-6 fw-semibold my-auto">
+         	<a href="/safari/community/mainPage">더보기</a>
+        </div>
+      </div>
+      <div class="row p-1 mb-5">
+        <div class="col-3">
+        	<div class="row">
+        		<div class="col">
+        		<a href="/safari/community/mainPage" class="text-decoration-none">
+        		<img class="img-fluid" alt="" src="${pageContext.request.contextPath}/resources/img/main/CommuSelect.jpeg">
+        		</a>
+        		</div>
+        	</div>
+        	<div class="row">
+        		<div class="col ms-1 mt-2" style="font-size: 14px; color: #787070;">
+        			샌들? 운동화? 무엇을 살지
+        		</div>
+        	</div>
+        	<div class="row">
+        		<div class="col fw-semibold ms-1">
+        			골라줘요
+        		</div>
+        	</div>
+        </div>
+        <div class="col-3">
+        	<div class="row">
+        		<div class="col">
+        		<a href="/safari/community/help/mainPage" class="text-decoration-none">
+        		<img class="img-fluid" alt="" src="${pageContext.request.contextPath}/resources/img/main/CommuGo.jpeg">
+        		</a>
+        		</div>
+        	</div>
+        	<div class="row">
+        		<div class="col ms-1 mt-2 text-secondory" style="font-size: 14px; color: #787070">
+        			나에게는 능력자가 필요해!
+        		</div>
+        	</div>
+        	<div class="row">
+        		<div class="col fw-semibold ms-1">
+        			해주세요
+        		</div>
+        	</div>
+        </div>
+        <div class="col-3">
+        	<div class="row">
+        		<div class="col">
+        		<a href="/safari/community/question/mainPage" class="text-decoration-none">
+        		<img class="img-fluid" alt="" src="${pageContext.request.contextPath}/resources/img/main/CommuWhat.jpeg">
+        		</a>
+        		</div>
+        	</div>
+        	<div class="row">
+        		<div class="col ms-1 mt-2 text-secondory" style="font-size: 14px; color: #787070">
+        			이건 뭐지? 저건 뭐지? 세상에 궁금투성이
+        		</div>
+        	</div>
+        	<div class="row">
+        		<div class="col fw-semibold ms-1">
+        			궁금해요
+        		</div>
+        	</div>
+        </div>
+        <div class="col-3">
+        	<div class="row">
+        		<div class="col">
+        		<a href="/safari/community/recruit/mainPage" class="text-decoration-none">
+        		<img class="img-fluid" alt="" src="${pageContext.request.contextPath}/resources/img/main/CommuHiring.jpeg">
+        		</a>
+        		</div>
+        	</div>
+        	<div class="row">
+        		<div class="col ms-1 mt-2 text-secondory" style="font-size: 14px; color: #787070">
+        			오직 일자리를 찾는 사람들을 위한 모든 것
+        		</div>
+        	</div>
+        	<div class="row">
+        		<div class="col fw-semibold ms-1">
+        			구인구직
+        		</div>
+        	</div>
         </div>
       </div>
    </div>
-   
 	
    
   <!--  <div class="container mt-5 pt-5 pb-3">
