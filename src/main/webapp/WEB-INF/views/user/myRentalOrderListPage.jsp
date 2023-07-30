@@ -319,7 +319,6 @@
 <!-- 대여 리뷰 모달  -->
 <div class="modal fade" id="modalReview">
   <div class="modal-dialog">
-  	<form method="post" enctype="multipart/form-data">
 	    <div class="modal-content">
 	      <div class="modal-header  bg-light">
 	        <h1 class="modal-title fs-5 bg-light" id="exampleModalLabel">리뷰등록</h1>
@@ -366,7 +365,7 @@
 						<div class="col ">
 							<p class="mb-0 fw-bold">별점</p>
 			      			<div id="full-stars-example-two">
-			      			<input type="hidden" value="" name="rental_review_rating" class="ratingVal">
+			      			<input type="hidden" value="" name="rental_review_rating" id="finReviewRating" class="ratingVal">
 							    <div class="rating-group">
 							        <input disabled="" checked="" class="rating__input rating__input--none" name="rating3" id="rating3-none" value="0" type="radio">
 							        <label aria-label="1 star" class="rating__label" for="rating3-1"><i class="rating__icon rating__icon--star fa fa-xs fa-star" aria-hidden="true"></i></label>
@@ -392,7 +391,7 @@
 	      				 	</div>
 	      				 	<div class="row "> 
 		      				 	<div class="col"> 
-	      				 			<input type="text" name="rental_review_title" class="form-control mt-1"> 
+	      				 			<input type="text" name="rental_review_title" id="finReviewTitle" class="form-control mt-1"> 
 		      				 	</div>
 	      				 	</div>
 							      				
@@ -408,14 +407,12 @@
 	      				 	</div>
 	      				 	<div class="row"> 
 		      				 	<div class="col"> 
-	      				 			<textarea rows="4" cols="" class="form-control" name="rental_review_content mt-1"></textarea>
+	      				 			<textarea rows="4" cols="" class="form-control" id="finReviewContent" name="rental_review_content"></textarea>
 		      				 	</div>
 	      				 	</div>
 							
-							
 	      				</div>
 	      			</div>
-	      			
 					
 					
 	      			<div class="row my-3 mb-4">
@@ -427,7 +424,7 @@
 	      				 	</div>
 	      					<div class="row"> 
 		      				 	<div class="col"> 
-	      				 			<input name="rental_review_img" type="file" multiple accept="image/*" class="form-control">
+	      				 			<input name="rental_review_img" id="finReviewFiles" type="file" multiple accept="image/*" class="form-control">
 		      				 	</div>
 	      				 	</div>
 							
@@ -440,11 +437,10 @@
 	      
 	      <div class="modal-footer  bg-light">
 	        <span class="btn btn-outline-dark" data-bs-dismiss="modal">취소</span>
-	        <button type="submit" class="btn btn-dark">작성</button>
+	        <button class="btn btn-dark" onclick="doReview()">작성</button>
 	      </div>
 	      
 	    </div>
-    </form>
   </div>
 </div>
 <!-- 대여 리뷰 모달  -->			
@@ -664,7 +660,17 @@
 								                </button>
 						            		</c:if>
 											<c:if test="${data.orderState == '반납완료'  && data.myReviewCount == 0}">
-								            	<button type="button" class="btn btn-dark px-2 py-1" style="font-size:13px;" data-order-id="${data.orderedItem.id}" data-bs-toggle="modal" data-bs-target="#modalReview">리뷰 작성</button>																				
+								            	<button type="button" class="btn btn-dark px-2 py-1" 
+								            	 style="font-size: 13px;"
+								            	 data-startdate="${data.orderedItem.start_date }" 
+								            	 data-enddate="${data.orderedItem.end_date}"  
+								            	 data-image-link="${data.product.main_img_link}" 
+								            	 data-product-desc="${data.product.item_description}" 
+								            	 data-product-title="${data.product.title}"   
+								            	 data-order-id="${data.orderedItem.id}" 
+								            	 data-bs-toggle="modal" 
+								            	 data-bs-target="#modalReview">리뷰 작성</button>																				
+								            	 
 						            		</c:if>
 											<c:if test="${data.isCompleted == 'Y' && data.myReviewCount >= 1}">
 											    <button class="btn btn-dark px-2 py-1" onclick="placeReviewDate(${data.orderedItem.id})" style="font-size:13px;">내가 쓴 리뷰</button>																				
@@ -904,7 +910,7 @@ function returnCheck(e) {
     finPriceP.innerText = parseInt(refundMoney).toLocaleString('ko-KR')
 
     modalTopImage.setAttribute('src', '/safariImg/'+dataImageLink)
-    submitReturn.setAttribute('onclick', 'returnProcess(' + orderId + ',' + refundMoney + ', "'+ productTitle + '")')
+ 	submitReturn.setAttribute('onclick', 'returnProcess(' + orderId + ',' + refundMoney + ', "'+ productTitle + '")')
     let days = (endDateObj - startDateObj)
     
    /*  console.log(returnPercentage);
@@ -980,10 +986,6 @@ function returnCheck(e) {
     }
     
 }
-
-
-
-
 
 
 
@@ -1094,27 +1096,88 @@ function orderDetail(e) {
 	
 }
 
+let orderId
+
+
+//리뷰 작성 모달renew
+function doReview() {
+	console.log('리뷰 보내기!!')
+	const xhr = new XMLHttpRequest();
+	const formData = new FormData();
+	
+	formData.append('rental_id',orderId )
+	formData.append('rental_review_title',document.getElementById('finReviewTitle').value )
+	formData.append('rental_review_content',document.getElementById('finReviewContent').value )
+	formData.append('rental_review_rating',document.getElementById('finReviewRating').value )
+	
+	
+// 파일 데이터 추가
+
+const itemImgs = document.getElementById('finReviewFiles').files;
+for (let i = 0; i < itemImgs.length; i++) {
+ formData.append('rental_review_img', itemImgs[i]);
+}
+
+
+
+xhr.onreadystatechange = function() {
+ if (xhr.readyState == 4 && xhr.status == 200) {
+   const response = JSON.parse(xhr.responseText);
+   // 응답 처리
+   const modalReview = document.getElementById('modalReview')
+   const modalReviewForClose = bootstrap.Modal.getOrCreateInstance("#modalReview");
+   modalReviewForClose.hide();
+   location.reload();
+   
+ }
+}
+
+xhr.open("POST", "../rental/writeRentalReviewProcess?rental_id="+orderId);
+xhr.send(formData);
+}
+
+
+
 
 // 리뷰 작성 모달
 if (modalReview) {
 	modalReview.addEventListener('show.bs.modal', event => {
     const button = event.relatedTarget
-    const orderId = button.getAttribute('data-order-id')
+    orderId = button.getAttribute('data-order-id')
     const form = modalReview.querySelector('form')
     const ratingGroup = document.querySelector('.rating-group')
+    const productDesc = button.getAttribute('data-product-desc')
+    const dataImageLink = button.getAttribute('data-image-link')
+    const startDate = button.getAttribute('data-startdate')
+    const endDate = button.getAttribute('data-enddate')
+    
+    let startDateObj = new Date(startDate.replace('KST', 'GMT+0900'));    
+	let endDateObj = new Date(endDate.replace('KST', 'GMT+0900'));
+	
+	const yyyy2 = startDateObj.getFullYear();
+    const mm2 = String(startDateObj.getMonth() + 1).padStart(2, '0');
+    const dd2 = String(startDateObj.getDate()).padStart(2, '0');
+    formattedStartedDate = `\${yyyy2}-\${mm2}-\${dd2}`;
+    
+    const yyyy = endDateObj.getFullYear();
+    const mm = String(endDateObj.getMonth() + 1).padStart(2, '0');
+    const dd = String(endDateObj.getDate()).padStart(2, '0');
+    formattedEndDate = `\${yyyy}-\${mm}-\${dd}`;
+    
     let itemTitle = document.querySelector('.reviewItemTitle')
     let itemDesc = document.querySelector('.reviewItemDesc')
     let reviewPeriod = document.querySelector('.reviewPeriod')
     let reviewModalTopImage = document.querySelector('.reviewModalTopImage')
     
-    const dataImageLink = button.getAttribute('data-image-link')
     const dataItemTitle = button.getAttribute('data-product-title')
     const dataProduceDesc = button.getAttribute('data-produce-desc')
     const dataStartdate = button.getAttribute('data-startdate')
     
+    
     reviewModalTopImage.setAttribute('src', '/safariImg/'+dataImageLink)
    	itemTitle.innerText = dataItemTitle
     itemDesc.innerText = productDesc
+    reviewPeriod.innerText = `\${formattedStartedDate} ~ \${formattedEndDate}`
     
     ratingGroup.addEventListener('click', function() {
         let rentalReviewRating = document.querySelector('.ratingVal')
@@ -1124,10 +1187,9 @@ if (modalReview) {
     	let checkedInput = ratingGroup.querySelector('input:checked');
     	// Get the value of the checked input element
     	let ratingValue = checkedInput ? checkedInput.value : null;
+    	rentalReviewRating.value = ratingValue
     })
-	
-	
-    form.setAttribute('action', `../rental/writeRentalReviewProcess?rental_id=\${orderId}`)
+    
     
     setRegDate()
   })
@@ -1144,6 +1206,7 @@ function getMonthDiffer(startMonth, endMonth) {
 
 /* 조건반납 */
 function returnProcessSingle(orderId) {
+	
 	const xhr = new XMLHttpRequest()
 	xhr.onreadystatechange = function() {
 		if(xhr.readyState == 4 && xhr.status == 200){
@@ -1166,9 +1229,9 @@ function returnProcessSingle(orderId) {
 
 /* 일반 반납 */
 function returnProcess(orderId,refundMoney,productTitle) {
-/* 	console.log('리턴프로세스 매개변수 orderId:: ',orderId )
+ 	console.log('리턴프로세스 매개변수 orderId:: ',orderId )
 	console.log('리턴프로세스 매개변수 refundMoney:: ',refundMoney )
-	console.log('리턴프로세스 매개변수 productTitle:: ',productTitle ) */
+	console.log('리턴프로세스 매개변수 productTitle:: ',productTitle )
 	const xhr = new XMLHttpRequest()
 
 	xhr.onreadystatechange = function() {

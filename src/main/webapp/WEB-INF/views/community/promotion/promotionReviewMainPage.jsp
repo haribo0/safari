@@ -138,18 +138,19 @@ window.addEventListener("DOMContentLoaded", function(){
 			</div>
 			<div class = "col">
 				<div class = "row text-start ms-2 d-flex align-items-center">
-					<div class = "col">
+					<div class = "col" style="position: relative; top: 10px">
 					<a href="./allPromotionReviewPage" style="text-decoration: none; color: inherit;">
-						전체
+						<i class="bi bi-caret-right-fill"></i>
+						ALL REVIEW
 					</a>
-					 <div class="vr mx-3"></div>
-					<a href="#" style="text-decoration: none; color: inherit;">
+		<%--			<div class="vr mx-3"></div>
+		 			<a href="#" style="text-decoration: none; color: inherit;">
 						BEST
 					</a>
 					 <div class="vr mx-3"></div>
 					 <a href="#" style="text-decoration: none; color: inherit;">
 						임시
-					</a>
+					</a> --%>
 					</div>
 				</div>
 			</div>
@@ -188,7 +189,7 @@ window.addEventListener("DOMContentLoaded", function(){
 					<c:forEach items="${bestPromotionReviewPostList}" var="map" varStatus="status" begin="0" end="2">
 					<div class = "col" style="width: 18rem; height: 420px;">
 						<div class="card border border-0" >
-							<a href="./contentPromotionReviewPage?id=${map.promotionReviewDto.id }"> 
+							<a href="/safari/rental/productDescPage?id=${map.rentalItemDto.id }"> 
 						  <img src="/safariImg/${map.rentalItemDto.main_img_link }"
 						  	   class="card-img-top" alt="리워드게시물사진" height="300"> <!--  이미지 src 바꿔둠 -->
 						  </a>
