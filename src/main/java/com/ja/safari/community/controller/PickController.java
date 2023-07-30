@@ -94,6 +94,7 @@ public class PickController {
 		}
 */
 		
+		
 		//골라줘요 글쓰기 페이지 //골라줘요 옵션 추가.
 		@RequestMapping("pick/writeContentPage")
 		public String pickWriteContentPage(Model model) {

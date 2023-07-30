@@ -48,6 +48,21 @@ public class PickServiceImpl {
 	///////////
 
 	//골라줘요 게시판 작성하기 
+/*	public void registerPickBoard(PickDto pickDto) {
+		
+		int pick_id = pickSqlMapper.createPickPk();
+		
+		pickDto.setId(pick_id);
+		pickSqlMapper.registerPickBoard(pickDto);
+	}
+*/
+	
+	//해시태그 위해 골라줘요 pk값 가져오기
+	public int createPickPk() {
+		return pickSqlMapper.createPickPk();
+	}
+	
+	//골라줘요 게시판 작성하기 //해시태그 추가.
 	public void registerPickBoard(PickDto pickDto) {
 		
 		int pick_id = pickSqlMapper.createPickPk();
@@ -360,9 +375,13 @@ public class PickServiceImpl {
 			
 			map.put("userDto", userDto);
 			map.put("pickDto", pickDto);
-
+			
+			List<PickOptionValuesForVoteDto> pickOptionValuesForVoteDtoList = pickSqlMapper.getPickOptionValues(pickDto.getId());//추가.
+			map.put("pickOptionValuesForVoteDtoList", pickOptionValuesForVoteDtoList);//추가.
+			
 			newPostByPickList.add(map);
 		
+			
 		}		
 		
 		return newPostByPickList;

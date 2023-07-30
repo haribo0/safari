@@ -76,16 +76,50 @@
 					<%-- pickBoardList --%> 
 					<div class="row"  style="text-align:center">
 						<div class="col">
+								<div class="row mt-3">
+								
+								<%-- 검색--%>
+									<div class="col d-grid">
+								
+									<form action="./mainPage" method="get">
+										<div class="row"> 
+										
+											<div class="col-2">
+												<select name="pick_searchType" class="form-select">
+													<option value="title" selected>제목</option>
+													<option value="content">내용</option>
+													<!-- <option value="content">제목+내용</option> -->
+													<option value="nickname">작성자</option>
+												</select>				
+											</div>
+											
+											<div class="col-6">
+												<input name="pick_searchWord" type="text" class="form-control">
+											</div>
+											
+											<div class="col-1 ms-3" style="position:relative; right: 30px;">
+												 <button type="submit" class="btn btn-outline-dark">
+												  	<span class="bi bi-search"></span>
+												</button>
+											</div>
+													
+										</div>
+									</form>
+										
+									</div>
+								
+								<%-- 검색--%>
 							
 							<%-- 글쓰기버튼 --%>
-							<div class="row">
-								<div class="col text-end pe-5">
+							
+								<div class="col-2 text-end ">
 									<c:if test="${!empty sessionUser }">
-										<a href="/safari/community/pick/writeContentPage" class="btn btn-default px-2 text-body-secondary">글쓰기</a>
+										<a href="/safari/community/pick/writeContentPage" class=" orangeButton btn btn-default ">글쓰기</a>
 									</c:if>
 								</div>
-							</div>
+							
 							<%-- 글쓰기버튼 --%>
+							</div>
 							
 								<%-- 골라줘요 게시물  샘플 --%>
 								<div class="card mt-4 mb-3" style="padding: 8px;">
@@ -428,38 +462,7 @@
 								</c:forEach>	 --%>
 								<%-- 골라줘요 항목 foreach --%>
 							
-								<%-- 검색--%>
-								<div class="row mt-3">
-									<div class="col">
-								
-									<form action="./mainPage" method="get">
-										<div class="row"> 
-										
-											<div class="col-2">
-												<select name="pick_searchType" class="form-select">
-													<option value="title" selected>제목</option>
-													<option value="content">내용</option>
-													<!-- <option value="content">제목+내용</option> -->
-													<option value="nickname">작성자</option>
-												</select>				
-											</div>
-											
-											<div class="col-6">
-												<input name="pick_searchWord" type="text" class="form-control">
-											</div>
-											
-											<div class="col-1 ms-3" style="position:relative; right: 30px;">
-												 <button type="submit" class="btn btn-outline-dark">
-												  	<span class="bi bi-search"></span>
-												</button>
-											</div>
-													
-										</div>
-									</form>
-										
-									</div>
-								</div>
-								<%-- 검색--%>
+		
 							
 							<%-- 페이지 버튼 --%>
 							<div class="row">

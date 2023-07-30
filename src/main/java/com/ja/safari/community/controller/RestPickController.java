@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.ja.safari.community.service.PickServiceImpl;
 import com.ja.safari.dto.PickCommentDto;
+import com.ja.safari.dto.PickHashtagDto;
 import com.ja.safari.dto.PickLikeDto;
 import com.ja.safari.dto.UserDto;
 //import com.ja.safari.user.service.UserServiceImpl;
@@ -24,6 +25,13 @@ public class RestPickController {
 	
 	//@Autowired
 	//private UserServiceImpl userService;
+	
+	//createPk
+	@RequestMapping("pick/createPickPk")
+	public int createPickPk() {
+		int createPickPk = pickService.createPickPk();
+		return createPickPk;
+	}
 	
 	//골라줘요 ajax getMyId
 	@RequestMapping("pick/getMyId") 
@@ -130,6 +138,52 @@ public class RestPickController {
 		Map<String , Object> map = new HashMap<>();
 		
 		map.put("commentList", pickService.getCommentList(pick_id));
+		
+		map.put("result", "success");
+		return map;
+	}
+	
+	
+	
+	//AJAX 해시태그
+	@RequestMapping("pick/registerHashtag")
+	public Map<String, Object> registerHashtag(HttpSession session, PickHashtagDto params){
+		Map<String , Object> map = new HashMap<>();
+		
+		UserDto sessionUser = (UserDto)session.getAttribute("sessionUser");
+		params.setUser_id(sessionUser.getId());
+		
+		pickService.registerPickHashtag(params);
+		
+		map.put("result", "success");
+		return map;
+	}
+	
+	@RequestMapping("pick/deleteHashtag")
+	public Map<String, Object> deleteHashtag(int id){
+		Map<String , Object> map = new HashMap<>();
+		
+		pickService.deleteByPickHashtagId(id);
+		
+		map.put("result", "success");
+		return map;
+	}
+	
+	@RequestMapping("pick/updateHashtag")
+	public Map<String, Object> updateHashtag(PickHashtagDto params){
+		Map<String , Object> map = new HashMap<>();
+		
+		pickService.updatePickHashtag(params);
+		
+		map.put("result", "success");
+		return map;
+	}
+	
+	@RequestMapping("pick/getHashtagList")
+	public Map<String, Object> getHashtagList(int pick_id){
+		Map<String , Object> map = new HashMap<>();
+		
+		map.put("HashtagList", pickService.getHashtagList(pick_id));
 		
 		map.put("result", "success");
 		return map;

@@ -703,7 +703,11 @@
 									
 									<div style="display: flex; align-items: center; margin-left: 28px; word-wrap: break-word;">
 									  <input type="text" class="form-control border-0 bg-transparent" value="${pickCommentDto.pickCommentDto.content}" style="box-shadow: none; caret-color: transparent; flex-grow: 1; margin-right: -5px;">
-									  <button style="background: none; border: none; padding: 0; margin-right: 10px;"> <i class="bi bi-backspace-fill" style="color: black;"></i> </button>
+									
+									  <c:if test="${ pickCommentDto.userDto.id == sessionUser.id }">
+									  	<button style="background: none; border: none; padding: 0; margin-right: 10px;"> <i class="bi bi-backspace-fill" style="color: black;"></i> </button>
+									  </c:if>
+									  
 									</div>
 
 
