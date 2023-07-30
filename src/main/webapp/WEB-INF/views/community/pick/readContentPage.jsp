@@ -330,6 +330,42 @@
 
 	   object-fit: cover;
 	 }
+	 
+
+/*투표*/
+
+
+    .custom-button {
+    position: relative; /* 자식 요소의 위치를 설정하기 위해 필요 */
+    width: 213px; /* 버튼의 너비 설정 */
+    height: 40px; /* 버튼의 높이 설정 */
+    background-color: white; /* 초기 회색 배경 색상 */
+    border-radius: ; /* 둥근 테두리 설정 */
+    overflow: hidden; /* 넘어가는 부분은 숨김 */
+    padding: 0; /* 버튼의 내부 padding을 없애서 내부로 프로그래스 바가 들어가도록 함 */
+  }
+
+  .custom-progress {
+  	padding: 0;
+ 	margin: 0;
+    position: absolute; /* 버튼 내부에서 절대 위치로 설정 */
+    top: 0;
+    left: 0;
+    height: 40px;
+    max-width: 213px;
+    border-radius: ;
+    background-color: red; /* 파란색으로 채워질 색상 */
+    opacity: 0.6; /* 퍼센트에 따라 채워지는 영역의 투명도 설정 */
+  }
+  
+   .vote-text {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    font-weight: bold;
+  }
 </style>
 
 </head>
@@ -371,20 +407,24 @@
 						<div class="col" style="width:990px;"> 
 						
 							<%-- 골라줘요 본문--%>
-								<div class="align-middle ms-2 me-4 mb-4" style="text-align:start">
-								<hr>
+								<div class="align-middle " style="text-align:start">
+							
+									<div class="ms-2 me-2">
+										<hr>
+									</div>
 									
-									<div class="ms-2 me-2" style="font-size: 14px;">
-									
+									<div class="ms-3 me-4 mb-4">
+									<%-- 골라줘요 제목--%>
 									<div class="row">
-										<div class="col">
-										<span class="badge rounded-pill text-bg-dark mt-2 me-1 mb-3" style="padding: 6px 10px; font-size: 16px;">골라줘요</span> 
-										 ${map.userDto.nickname }
-										| <i class="bi bi-clock mt-2" style="font-size: 12px;"></i> <fmt:formatDate value="${map.pickDto.reg_date}" pattern="yyyy.MM.dd"/>
-										| views👀 · ${map.pickDto.views}
+										<div class="col-9">
+										
+											<span class="badge rounded-pill text-bg-dark mt-2 me-1 mb-3" style="padding: 6px 10px; font-size: 16px;">골라줘요</span> 
+											<span class="fw-bold " style="font-size: 22px;">${map.pickDto.title}</span> 
+											
 										</div>
 										
-										<div class="col me-1">
+										
+										<div class="col d-grid me-1">
 											<div style="display: flex; justify-content: flex-end;">  
 											<c:choose>
 												<c:when test="${sessionUser.id == map.userDto.id}">
@@ -410,14 +450,49 @@
 											</c:choose>
 											</div>
 										</div>
+										
+										
+									</div>
+									
+									
+									<div class="row">
+										<div class="col text-secondary ms-2 me-1" style="font-size: 16px;">
+											<span class="text-secondary me-1" style="font-size: 16px;">${map.userDto.nickname }</span>
+											<i class="bi bi-eye me-1" style="font-size: 18px;"></i>
+								    		${map.pickDto.views} &nbsp
+								    		<i class="bi bi-clock me-1" style="font-size: 14px;"></i>
+								    		<fmt:formatDate value="${map.pickDto.reg_date}" pattern="yyyy.MM.dd"/>
+											
+										</div>
+									</div>
+									<%-- 골라줘요 제목--%>
+									</div>
+									
+									<div class="ms-2 me-2">
+										<hr>
 									</div>
 									
 									<br>
 									
-									<%-- 골라주세요 옵션 foreach --%>
+									<div class="ms-3 me-4 mb-2">
+									<%-- 골라주세요 상세 내용 --%>
 									<div class="row">
 										<div class="col fs-5 fw-bold">
-											골라주세요 옵션
+											
+										</div>
+									</div>	
+										
+									<div class="row">
+										<div class="col mb-2">
+											${map.pickDto.content}
+										</div>
+									</div>	
+									<%-- 골라주세요 상세 내용 --%>
+									
+									<%-- 골라주세요 옵션 foreach --%>
+									<div class="row">
+										<div class="col mt-3 ms-1 fs-5 fw-bold">
+											투표하기 <i class="bi bi-reception-4"></i>
 										</div>
 									</div>	
 									
@@ -430,33 +505,78 @@
 												    <div class="d-felx justify-content-center">
 												    <img class="img-fluid cropped-image" src="/uploadFiles/${pickOptionValuesForVoteDto.img }" 
 												    class="rounded mx-auto d-block" alt="..." style="width: 200px; height: 250px;">
-												      <div class="card-body">
+												     <div class="card-body">
+												     
 												        <h6 class="card-title text-body-secondary mb-1">${pickOptionValuesForVoteDto.title }</h6>
-												        <p class="card-text mb-2">${pickOptionValuesForVoteDto.price }원 찜(${pickOptionValuesForVoteDto.product_zzim_count })</p>
+												        
+												        <div class="row">
+													        <div class="col">
+													        	<span class="card-text mb-2">${pickOptionValuesForVoteDto.price }원 </span>
+													        </div>
+												        
+													        <div class="col d-flex align-items-center justify-content-end">
+													        	<i class="bi bi-heart me-1"></i>${pickOptionValuesForVoteDto.product_zzim_count }
+													        </div>
+												        
+												        </div>
+												        
+												        
+												        
 												        <div class="text-center d-grid mt-3">
 												        	<a href="/safari/used/productDetail?productId=${pickOptionValuesForVoteDto.product_id }" class="btn btn-sm btn-outline-primary"><i class="bi bi-box-arrow-up-right"></i> 상세 보기</a>
 												        </div>
-												       </div></div>
-												    </div><a href="/safari/community/pick/voteProcess?pick_id=${map.pickDto.id }&pick_option_id=${pickOptionValuesForVoteDto.option_id}" class="btn btn-outline-secondary rounded-pill btn-sm mt-4" style="width: 250px;">${map.totalVoteCount == 0 ? 0 : pickOptionValuesForVoteDto.vote_cnt/map.totalVoteCount * 100}% VOTE (${pickOptionValuesForVoteDto.vote_cnt })</a>
-												      </div>
+												        
+												  	  </div>
+												   	 </div>
+												    </div>
+												    
+												    <%-- 투표 --%>
+												    <%-- <a href="/safari/community/pick/voteProcess?pick_id=${map.pickDto.id }&pick_option_id=${pickOptionValuesForVoteDto.option_id}" class="btn btn-outline-secondary rounded-pill btn-sm mt-4" style="width: 250px;">
+												    ${map.totalVoteCount == 0 ? 0 : pickOptionValuesForVoteDto.vote_cnt/map.totalVoteCount * 100}% VOTE (${pickOptionValuesForVoteDto.vote_cnt })
+												    </a> --%>
+												    <%-- 투표 --%>
+												    
+												    <%-- 투표2 --%>
+													<!-- 투표 버튼 --> <!-- 퍼센트 값을 반영하여 채워지는 영역 --><!-- 퍼센트 값을 계산한 후 정수로 변환하여 출력 -->
+													<%--<a href="/safari/community/pick/voteProcess?pick_id=${map.pickDto.id}&pick_option_id=${pickOptionValuesForVoteDto.option_id}" class="custom-button btn btn-outline-secondary rounded-pill mt-4 ">
+													  
+													   
+													    <div class="custom-progress rounded-pill" style="margin-left: 0px; width: ${map.totalVoteCount == 0 ? 0 : Math.round((pickOptionValuesForVoteDto.vote_cnt / map.totalVoteCount) * 100)}%;"></div>
+													  
+													</a>
+													
+													
+													<span id="votePercentage_${map.pickDto.id}">
+													  ${map.totalVoteCount == 0 ? 0 : Math.round((pickOptionValuesForVoteDto.vote_cnt / map.totalVoteCount) * 100)}% VOTE (${pickOptionValuesForVoteDto.vote_cnt})
+													</span>--%>
+													
+												    <%-- 투표2 --%>
+												    
+												    <%-- 투표3 --%>
+												    <a href="/safari/community/pick/voteProcess?pick_id=${map.pickDto.id}&pick_option_id=${pickOptionValuesForVoteDto.option_id}" class="custom-button btn btn-outline-secondary rounded-pill mt-4">
+													  <!-- 퍼센트 값을 반영하여 채워지는 영역 -->
+													  <div class="custom-progress" style="width: ${map.totalVoteCount == 0 ? 0 : Math.round((pickOptionValuesForVoteDto.vote_cnt / map.totalVoteCount) * 100)}%;"></div>
+													  <span class="vote-text" style="font-size: 16px; color: secondary;">
+													    <!-- 퍼센트 값을 계산한 후 정수로 변환하여 출력 -->
+													    ${map.totalVoteCount == 0 ? 0 : Math.round((pickOptionValuesForVoteDto.vote_cnt / map.totalVoteCount) * 100)}%  
+													    ${pickOptionValuesForVoteDto.vote_cnt}표
+													    <i class="bi bi-check-lg"></i>
+													      
+													  </span>
+													</a>
+												    <%-- 투표3 --%>
+												    
+												    
+												    
+												    
+												    
+												    </div>
 												  </div>
 											</c:forEach>
 										</div>
 									<%-- 골라주세요 옵션 foreach --%>
 										
-									<%-- 골라주세요 상세 내용 --%>
-									<div class="row">
-										<div class="col fs-5 fw-bold">
-											골라주세요 상세 내용
-										</div>
-									</div>	
-										
-									<div class="row">
-										<div class="col">
-											${map.pickDto.content}
-										</div>
-									</div>	
-									<%-- 골라주세요 상세 내용 --%>
+
 										
 										<%-- 해시태그 --%>
 										<div class="mt-3">
@@ -466,6 +586,8 @@
 										</div>
 										<%-- 해시태그 --%>
 									</div>
+									
+									
 								</div>
 								<%-- 골라줘요 본문--%>
 						
@@ -479,7 +601,9 @@
 						</div>--%>
 						<%-- 좋아요 --%>
 						
-						<div class="align-middle ms-4 me-4 mb-2" style="text-align:start"><hr></div>
+						<div class="ms-2 me-2">
+							<hr>
+						</div>
 						
 						
 						<%-- 목록으로 버튼 --%>

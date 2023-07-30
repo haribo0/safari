@@ -268,8 +268,8 @@
 	  							    	</div>
   							    	</div>
   							    	
-  							    	<%-- 제목 카드 --%>
-	  							    <div class="row">
+ 							    <%-- 제목 카드 --%>
+  							    <div class="row">
 										<div class="col-12 d-flex align-items-center ms-2 text-secondary" style="">
 							    		<i class="bi bi-eye me-1" style="font-size: 20px;"></i>
 							    		${map.recruitDto.views} &nbsp
