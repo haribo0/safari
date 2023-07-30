@@ -73,4 +73,7 @@ public interface RecruitSqlMapper {
 	//구인구직 게시물 최신순
 	public List<RecruitDto> newPostByRecruit();
 	
+	//구인구직 베스트 게시물
+	public List<RecruitDto> selectBestRecruitBoard();
+	
 }

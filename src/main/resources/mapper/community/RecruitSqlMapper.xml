@@ -173,4 +173,17 @@
 	FROM recruit_table
 	ORDER BY reg_date DESC
 	</select>
+	
+	<!-- 구인구직 베스트 게시물 -->
+	<select id="selectBestRecruitBoard" resultType="com.ja.safari.dto.RecruitDto">
+	select t1.* from(
+	select rt.*,(select count(*) from recruit_like_table rlt where rlt.recruit_id = rt.id)+ rt.views as recruitlikeAndViewCount
+	from recruit_table rt 
+	order by (select count(*) from recruit_like_table rlt where rlt.recruit_id = rt.id)*10 + rt.views*0.5 desc
+	)t1
+	<![CDATA[
+	where rownum <= 10
+	]]> 
+	</select>
+	
 </mapper>

@@ -134,11 +134,11 @@
 				const heartBox = document.getElementById("heartBox");
 				
 				if(response.isLiked){
-					heartBox.classList.remove("bi-heart");
-					heartBox.classList.add("bi-heart-fill");
+					heartBox.classList.remove("bi-bookmark");
+					heartBox.classList.add("bi-bookmark-fill");
 				}else{
-					heartBox.classList.remove("bi-heart-fill");
-					heartBox.classList.add("bi-heart");
+					heartBox.classList.remove("bi-bookmark-fill");
+					heartBox.classList.add("bi-bookmark");
 				}
 			}
 		}
@@ -324,6 +324,13 @@
 	});
 </script>
 
+<style>
+	/* 이미지 크롭 */
+	 .cropped-image {
+
+	   object-fit: cover;
+	 }
+</style>
 
 </head>
 
@@ -350,9 +357,9 @@
 			<div class="row">
 			
 			<!-- 왼쪽 -->
-			<div class="col">
+	<!--		<div class="col">
 				
-			</div>
+			</div> -->
 			<!-- 왼쪽 -->
 			
 			<!-- 가운데 -->
@@ -364,7 +371,7 @@
 						<div class="col" style="width:990px;"> 
 						
 							<%-- 골라줘요 본문--%>
-								<div class="align-middle ms-4 me-4 mb-4" style="text-align:start">
+								<div class="align-middle ms-2 me-4 mb-4" style="text-align:start">
 								<hr>
 									
 									<div class="ms-2 me-2" style="font-size: 14px;">
@@ -377,7 +384,7 @@
 										| views👀 · ${map.pickDto.views}
 										</div>
 										
-										<div class="col">
+										<div class="col me-1">
 											<div style="display: flex; justify-content: flex-end;">  
 											<c:choose>
 												<c:when test="${sessionUser.id == map.userDto.id}">
@@ -386,7 +393,19 @@
 												</c:when>
 											<%-- 여기에 책갈피(찜) 넣기 --%>
 												<c:otherwise>
-													<a href="/safari/community/pick/insertPickLikeProcess/${map.pickDto.id}" class="nav-link px-2 text-body-secondary"><i class="bi bi-bookmark font-weight-bold" ></i></a>
+													
+													<%-- AJAX 좋아요 --%>
+														<!-- <hr>
+														<a href="/safari/community/pick/insertPickLikeProcess/${map.pickDto.id}" class="nav-link px-2 text-body-secondary"><i class="bi bi-bookmark font-weight-bold" ></i></a>
+														
+														<i id="heartBox" onclick="toggleLike()" class="fs-1 text-danger bi bi-heart"></i>
+														<span id="totalLikeCount"></span> -->
+														
+														<div style="padding: ; background-color: ; border-radius: ;">
+														<i id="heartBox" onclick="toggleLike()" class=" text-danger bi bi-bookmark" style="font-size: 22px;"></i>
+														<span id="totalLikeCount" style="color: #6a6a6a;"></span>
+														</div>
+													<%-- AJAX 좋아요 --%>
 												</c:otherwise>
 											</c:choose>
 											</div>
@@ -409,8 +428,8 @@
 												  <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-center" >
 												  <div class="card">
 												    <div class="d-felx justify-content-center">
-												    <img class="img-fluid" src="/uploadFiles/${pickOptionValuesForVoteDto.img }" 
-												    class="rounded mx-auto d-block" alt="...">
+												    <img class="img-fluid cropped-image" src="/uploadFiles/${pickOptionValuesForVoteDto.img }" 
+												    class="rounded mx-auto d-block" alt="..." style="width: 200px; height: 250px;">
 												      <div class="card-body">
 												        <h6 class="card-title text-body-secondary mb-1">${pickOptionValuesForVoteDto.title }</h6>
 												        <p class="card-text mb-2">${pickOptionValuesForVoteDto.price }원 찜(${pickOptionValuesForVoteDto.product_zzim_count })</p>
@@ -471,11 +490,7 @@
 						</div>
 						<%-- 목록으로 버튼 --%>
 						
-							<%-- AJAX 좋아요 --%>
-								<hr>
-								<i id="heartBox" onclick="toggleLike()" class="fs-1 text-danger bi bi-heart"></i>
-								<span id="totalLikeCount"></span>
-							<%-- AJAX 좋아요 --%>
+							
 							
 							<%-- AJAX 댓글 --%>
 							<%-- <div class="container">

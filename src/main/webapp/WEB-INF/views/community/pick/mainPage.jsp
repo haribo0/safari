@@ -20,22 +20,27 @@
     
     /* 이미지 크롭 */
 	 .cropped-image {
-	   width: 124px;
-	   height: 124px;
+	   width: 170px;
+	   height: 170px;
 	   object-fit: cover;
 	 }
-.orangeButton{
-	background: #ff6f0f;
-	font-weight: bold;
-	color: white;
-}
-.orangeButton:hover{
-	background: #FF812C;
-	font-weight: bold;
-	color: white;
-}
+	 
+	.orangeButton{
+		background: #ff6f0f;
+		font-weight: bold;
+		color: white;
+	}
+	.orangeButton:hover{
+		background: #FF812C;
+		font-weight: bold;
+		color: white;
+	}
 
-
+	/* 페이징 */
+    .pagination .page-link {
+    	color: black !important;
+	}
+	
  </style>
 
 </head>
@@ -279,8 +284,8 @@
 													  <div class="col">
 													  <div class="card">
 													    <div class="d-flex justify-content-center" style="height: 170px; width: 170px;">
-													    <img class="img-fluid" src="/uploadFiles/${pickOptionValuesForVoteDto.img}" 
-													    class="rounded mx-auto d-block cropped-image" alt="..." style="height: 100%; width: 100%;">
+													    <img class="img-fluid rounded d-block cropped-image" src="/uploadFiles/${pickOptionValuesForVoteDto.img}" 
+													     alt="..." style="height: %; width: %;">
 														</div>
 													    
 													  </div>
@@ -422,6 +427,63 @@
 								</div>
 								</c:forEach>	 --%>
 								<%-- 골라줘요 항목 foreach --%>
+							
+								<%-- 검색--%>
+								<div class="row mt-3">
+									<div class="col">
+								
+									<form action="./mainPage" method="get">
+										<div class="row"> 
+										
+											<div class="col-2">
+												<select name="pick_searchType" class="form-select">
+													<option value="title" selected>제목</option>
+													<option value="content">내용</option>
+													<!-- <option value="content">제목+내용</option> -->
+													<option value="nickname">작성자</option>
+												</select>				
+											</div>
+											
+											<div class="col-6">
+												<input name="pick_searchWord" type="text" class="form-control">
+											</div>
+											
+											<div class="col-1 ms-3" style="position:relative; right: 30px;">
+												 <button type="submit" class="btn btn-outline-dark">
+												  	<span class="bi bi-search"></span>
+												</button>
+											</div>
+													
+										</div>
+									</form>
+										
+									</div>
+								</div>
+								<%-- 검색--%>
+							
+							<%-- 페이지 버튼 --%>
+							<div class="row">
+								<div class="col d-flex align-items-center justify-content-center mt-3 mb-4">
+									<nav aria-label="Page navigation example">
+									  <ul class="pagination mb-0">
+									   <li class="page-item"><a class="page-link" href="#">&lt;</a></li>   
+									   <c:forEach begin="1" end="${totalPickPage}" var="pickIndex">
+									   		<c:choose>
+									   			<c:when test="${pickIndex == currentPickPage}">
+									   				<li class="page-item"><a class="page-link" href="/safari/community/pick/mainPage?pickPage=${pickIndex}"><strong>${pickIndex}</strong></a></li>
+									   			</c:when>
+									   			<c:otherwise>
+									   				<li class="page-item"><a class="page-link" href="/safari/community/pick/mainPage?pickPage=${pickIndex}">${pickIndex}</a></li>
+									   			</c:otherwise>
+									   		</c:choose>
+									   	
+									   </c:forEach>
+									   <li class="page-item"><a class="page-link" href="#">&gt;</a></li>
+									  </ul>
+									 </nav>
+								</div>
+							</div>
+							<%--페이지 버튼  --%>
 							
 						</div>	
 					</div>	

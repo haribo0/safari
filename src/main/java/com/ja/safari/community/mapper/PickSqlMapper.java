@@ -33,7 +33,11 @@ public interface PickSqlMapper {
 	public void registerPickBoard(PickDto pickDto);
 	
 	//골라줘요 게시판 전체조회
-	public List<PickDto> selectAllPickBoards();
+	//public List<PickDto> selectAllPickBoards();
+	public List<PickDto> selectAllPickBoards(@Param("pickPage") int pickPage, @Param("pick_searchType") String pick_searchType, @Param("pick_searchWord") String pick_searchWord);
+	
+	//골라줘요 메인페이지 페이징 카운트
+	public int getPickBoardCount();
 	
 	//골라줘요 게시판 상세보기
 	public PickDto getPickBoardByBoardId(int id);
