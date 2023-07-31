@@ -26,7 +26,7 @@
 	</div>
 </c:if>
 
-<div class="container-fluid px-0 bg-white sticky-top" style="z-index: 100;">
+<div class="container-fluid px-0 bg-white sticky-top fw-medium" style="z-index: 100;">
 	<header class="py-3 mt-1">
 	    <div class="container px-0">
 	      <!-- <div class="d-flex flex-wrap align-items-center justify-content-around justify-content-lg-start"> -->
