@@ -20,22 +20,27 @@
     
     /* 이미지 크롭 */
 	 .cropped-image {
-	   width: 124px;
-	   height: 124px;
+	   width: 170px;
+	   height: 170px;
 	   object-fit: cover;
 	 }
-.orangeButton{
-	background: #ff6f0f;
-	font-weight: bold;
-	color: white;
-}
-.orangeButton:hover{
-	background: #FF812C;
-	font-weight: bold;
-	color: white;
-}
+	 
+	.orangeButton{
+		background: #ff6f0f;
+		font-weight: bold;
+		color: white;
+	}
+	.orangeButton:hover{
+		background: #FF812C;
+		font-weight: bold;
+		color: white;
+	}
 
-
+	/* 페이징 */
+    .pagination .page-link {
+    	color: black !important;
+	}
+	
  </style>
 
 </head>
@@ -71,166 +76,52 @@
 					<%-- pickBoardList --%> 
 					<div class="row"  style="text-align:center">
 						<div class="col">
+								<div class="row mt-3">
+								
+								<%-- 검색--%>
+									<div class="col d-grid">
+								
+									<form action="./mainPage" method="get">
+										<div class="row"> 
+										
+											<div class="col-2">
+												<select name="pick_searchType" class="form-select">
+													<option value="title" selected>제목</option>
+													<option value="content">내용</option>
+													<!-- <option value="content">제목+내용</option> -->
+													<option value="nickname">작성자</option>
+												</select>				
+											</div>
+											
+											<div class="col-6">
+												<input name="pick_searchWord" type="text" class="form-control">
+											</div>
+											
+											<div class="col-1 ms-3" style="position:relative; right: 30px;">
+												 <button type="submit" class="btn btn-outline-dark">
+												  	<span class="bi bi-search"></span>
+												</button>
+											</div>
+													
+										</div>
+									</form>
+										
+									</div>
+								
+								<%-- 검색--%>
 							
 							<%-- 글쓰기버튼 --%>
-							<div class="row">
-								<div class="col text-end pe-5">
+							
+								<div class="col-2 text-end ">
 									<c:if test="${!empty sessionUser }">
-										<a href="/safari/community/pick/writeContentPage" class="btn btn-default px-2 text-body-secondary">글쓰기</a>
+										<a href="/safari/community/pick/writeContentPage" class=" orangeButton btn btn-default ">글쓰기</a>
 									</c:if>
 								</div>
-							</div>
-							<%-- 글쓰기버튼 --%>
 							
-								<%-- 골라줘요 게시물  샘플 --%>
-								<div class="card mt-4 mb-3" style="padding: 8px;">
-								<div class="row">
+							<%-- 글쓰기버튼 --%>
+							</div>
+							
 								
-								<div class="col">
-									<div class="card-title d-flex align-items-center text-align-center text-start ms-3 mt-3">
-										<span class="fw-bold ms-3" style="font-size: 20px;">티셔츠 골라주세요</span>
-										<span class="text-secondary ms-2 " style="font-size: 13px;">마리아</span>
-									</div>
-								</div>
-								
-									<div class="col d-flex align-items-center justify-content-end mt-2 text-secondary me-4" style="font-size: 13px;">
-										<i class="bi bi-eye me-1" style="font-size: 20px;"></i>
-							    		240 
-							    		<i class="bi bi-clock ms-1 me-1" style="font-size: 16px;"></i>
-							    		2023.07.27
-									</div>
-								</div>
-								
-								
-								<div class="card-body">
-									<div class="row">
-									
-												  <%-- 골라줘요 투표 --%>
-												  <div class="col-md-3 mt-2 mb-4">
-													  <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-center" >
-													  
-													  <div class="row">
-													  <div class="col">
-													  <div class="card">
-													    <div class="d-flex justify-content-center" style="height: 170px; width: 170px;">
-													    <img class="img-fluid" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS846XsQCCwKyA_1OgKiAPhT9YvnBxekWgQ52joFgHsnRKSdsiMoiloEcVvyrpGAq5IUwY&usqp=CAU" 
-													    class="rounded mx-auto d-block cropped-image" alt="..." style="height: 100%; width: 100%;">
-														</div>
-													    
-													  </div>
-													  </div>
-													  </div>
-													  
-													  <div class="row">
-													  <div class="col mt-2">
-													  <h6 class=" text-body-secondary">아디다스 티셔츠</h6>
-													  </div>
-													  </div>
-													  
-												  </div>
-												  </div>
-												  <%-- 골라줘요 투표 --%>
-												  
-												  <%-- 골라줘요 투표 --%>
-												  <div class="col-md-3 mt-2 mb-4">
-													  <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-center" >
-													  
-													  <div class="row">
-													  <div class="col">
-													  <div class="card">
-													    <div class="d-flex justify-content-center" style="height: 170px; width: 170px;">
-													    <img class="img-fluid" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS846XsQCCwKyA_1OgKiAPhT9YvnBxekWgQ52joFgHsnRKSdsiMoiloEcVvyrpGAq5IUwY&usqp=CAU" 
-													    class="rounded mx-auto d-block cropped-image" alt="..." style="height: 100%; width: 100%;">
-														</div>
-													    
-													  </div>
-													  </div>
-													  </div>
-													  
-													  <div class="row">
-													  <div class="col mt-2">
-													  <h6 class=" text-body-secondary">아디다스 티셔츠</h6>
-													  </div>
-													  </div>
-													  
-												  </div>
-												  </div>
-												  <%-- 골라줘요 투표 --%>
-												  
-												   <%-- 골라줘요 투표 --%>
-												  <div class="col-md-3 mt-2 mb-4">
-													  <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-center" >
-													  
-													  <div class="row">
-													  <div class="col">
-													  <div class="card">
-													    <div class="d-flex justify-content-center" style="height: 170px; width: 170px;">
-													    <img class="img-fluid" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS846XsQCCwKyA_1OgKiAPhT9YvnBxekWgQ52joFgHsnRKSdsiMoiloEcVvyrpGAq5IUwY&usqp=CAU" 
-													    class="rounded mx-auto d-block cropped-image" alt="..." style="height: 100%; width: 100%;">
-														</div>
-													    
-													  </div>
-													  </div>
-													  </div>
-													  
-													  <div class="row">
-													  <div class="col mt-2">
-													  <h6 class=" text-body-secondary">아디다스 티셔츠</h6>
-													  </div>
-													  </div>
-													  
-												  </div>
-												  </div>
-												  <%-- 골라줘요 투표 --%>
-												  
-												   <%-- 골라줘요 투표 --%>
-												  <div class="col-md-3 mt-2 mb-4">
-													  <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-center" >
-													  
-													  <div class="row">
-													  <div class="col">
-													  <div class="card">
-													    <div class="d-flex justify-content-center" style="height: 170px; width: 170px;">
-													    <img class="img-fluid" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS846XsQCCwKyA_1OgKiAPhT9YvnBxekWgQ52joFgHsnRKSdsiMoiloEcVvyrpGAq5IUwY&usqp=CAU" 
-													    class="rounded mx-auto d-block cropped-image" alt="..." style="height: 100%; width: 100%;">
-														</div>
-													    
-													  </div>
-													  </div>
-													  </div>
-													  
-													  <div class="row">
-													  <div class="col mt-2">
-													  <h6 class=" text-body-secondary">아디다스 티셔츠</h6>
-													  </div>
-													  </div>
-													  
-												  </div>
-												  </div>
-												  <%-- 골라줘요 투표 --%>
-												  
-												
-												  
-									</div>
-									
-									
-									<%-- 해시태그 --%>
-									<div class="row">
-									<div class="col d-flex justify-content-start">
-										<div class="ms-3 mt-3">
-											<button type="button" class="btn btn-outline-secondary rounded-pill btn-sm">#해시태그</button>
-											<button type="button" class="btn btn-outline-secondary rounded-pill btn-sm">#해시태그</button>
-											<button type="button" class="btn btn-outline-secondary rounded-pill btn-sm">#해시태그</button>	
-										</div>
-									</div>
-									</div>
-									<%-- 해시태그 --%>
-									
-									
-									
-								</div>
-								</div>
-								<%-- 골라줘요 게시물  샘플 --%>
 								
 								
 							<%-- 골라줘요 게시물 foreach --%>
@@ -279,8 +170,8 @@
 													  <div class="col">
 													  <div class="card">
 													    <div class="d-flex justify-content-center" style="height: 170px; width: 170px;">
-													    <img class="img-fluid" src="/uploadFiles/${pickOptionValuesForVoteDto.img}" 
-													    class="rounded mx-auto d-block cropped-image" alt="..." style="height: 100%; width: 100%;">
+													    <img class="img-fluid rounded d-block cropped-image" src="/uploadFiles/${pickOptionValuesForVoteDto.img}" 
+													     alt="..." style="height: %; width: %;">
 														</div>
 													    
 													  </div>
@@ -422,6 +313,32 @@
 								</div>
 								</c:forEach>	 --%>
 								<%-- 골라줘요 항목 foreach --%>
+							
+		
+							
+							<%-- 페이지 버튼 --%>
+							<div class="row">
+								<div class="col d-flex align-items-center justify-content-center mt-3 mb-4">
+									<nav aria-label="Page navigation example">
+									  <ul class="pagination mb-0">
+									   <li class="page-item"><a class="page-link" href="#">&lt;</a></li>   
+									   <c:forEach begin="1" end="${totalPickPage}" var="pickIndex">
+									   		<c:choose>
+									   			<c:when test="${pickIndex == currentPickPage}">
+									   				<li class="page-item"><a class="page-link" href="/safari/community/pick/mainPage?pickPage=${pickIndex}"><strong>${pickIndex}</strong></a></li>
+									   			</c:when>
+									   			<c:otherwise>
+									   				<li class="page-item"><a class="page-link" href="/safari/community/pick/mainPage?pickPage=${pickIndex}">${pickIndex}</a></li>
+									   			</c:otherwise>
+									   		</c:choose>
+									   	
+									   </c:forEach>
+									   <li class="page-item"><a class="page-link" href="#">&gt;</a></li>
+									  </ul>
+									 </nav>
+								</div>
+							</div>
+							<%--페이지 버튼  --%>
 							
 						</div>	
 					</div>	

@@ -11,6 +11,8 @@ import org.springframework.stereotype.Service;
 
 import com.ja.safari.community.mapper.CommunitySqlMapper;
 import com.ja.safari.community.mapper.RecruitSqlMapper;
+import com.ja.safari.dto.HelpDto;
+import com.ja.safari.dto.HelpImgDto;
 import com.ja.safari.dto.PromotionReviewDto;
 import com.ja.safari.dto.PromotionReviewImgDto;
 import com.ja.safari.dto.PromotionReviewLikeDto;
@@ -87,6 +89,37 @@ public class RecruitServiceImpl {
 		
 		return recruitBoardList;
 	}
+	
+	//구인구직 메인페이지 best 리스트 조회 
+	public List<Map<String, Object>> selectBestRecruitBoard(){
+		
+		//화면에 출력해주기 위한 그릇(리스트)
+		List<Map<String, Object>> recruitBoardList = new ArrayList<>();
+		
+		List<RecruitDto> recruitDtoList = recruitSqlMapper.selectBestRecruitBoard();
+		
+		
+		for(RecruitDto recruitDto : recruitDtoList) {
+			
+			Map<String, Object> map = new HashMap<>();
+			
+			UserDto userDto = userSqlMapper.selectUserDtoById(recruitDto.getUser_id());
+			
+			List<RecruitImgLinkDto> recruitImgLinkDtoList = recruitSqlMapper.selectAllRecruitImg(recruitDto.getId());
+			
+			int recruitLikeCount = recruitSqlMapper.countLikeByRecruitBoardId(recruitDto.getId());
+			
+			map.put("recruitLikeCount", recruitLikeCount);
+			map.put("userDto", userDto);
+			map.put("recruitDto", recruitDto);
+			map.put("recruitImgLinkDtoList", recruitImgLinkDtoList);
+			
+			recruitBoardList.add(map);
+		}
+		
+		return recruitBoardList; 
+	}
+		
 	
 	//구인구직 게시물 개수 count
 	public int getRecruitBoardCount() {

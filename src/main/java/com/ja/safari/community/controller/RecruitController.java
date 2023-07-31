@@ -51,13 +51,21 @@ public class RecruitController  {
 		public String recruitMainPage(Model model, @RequestParam(value = "recruitPage", defaultValue = "1") int recruitPage, String recruit_searchType, String recruit_searchWord) {
 		  
 			List<Map<String, Object>> recruitBoardList = recruitService.selectAllRecruitBoards(recruitPage, recruit_searchType, recruit_searchWord);
+			
 			int recruitBoardCount = recruitService.getRecruitBoardCount();
-			int totalRecruitPage = (int) Math.ceil(recruitBoardCount / 10.0);
 			
 			model.addAttribute("recruitBoardList", recruitBoardList);
-			model.addAttribute("totalRecruitPage", totalRecruitPage);
 			
+			//페이지네이션
+			int totalRecruitPage = (int) Math.ceil(recruitBoardCount / 10.0);
+			
+			model.addAttribute("totalRecruitPage", totalRecruitPage);
 			model.addAttribute("currentRecruitPage", recruitPage);
+			
+			//베스트게시글
+			List<Map<String, Object>> recruitBestBoardList = recruitService.selectBestRecruitBoard();
+			
+			model.addAttribute("recruitBestBoardList", recruitBestBoardList);
 			
 			return "/community/recruit/mainPage"; 
 		}

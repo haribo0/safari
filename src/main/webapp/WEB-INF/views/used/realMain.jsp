@@ -59,8 +59,8 @@
 	<jsp:include page="../common/header.jsp"></jsp:include>
 	<!-- 헤더 섹션 -->
 	<div class="row">
-		<div class="col">
-			<img alt="banner1" src= "/safari/resources/img/used/listBanner.jpeg" class="img-fluid">
+		<div class="col text-center">
+			<img alt="banner1" src= "/safari/resources/img/used/listBanner.jpeg" class="img-fluid" width="1300px">
 		</div>
 	</div>
 	<div class="container-fluid d-flex align-items-center justify-content-between p-3 px-5 bg-light mb-2">

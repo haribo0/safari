@@ -177,6 +177,20 @@ window.addEventListener("DOMContentLoaded", function(){
 	refreshTotalLikeCount();
 	refreshMyHeart();
 });
+
+// 페이지 로드 시 스크롤 위치 저장
+window.addEventListener("load", function() {
+  const scrollPosition = sessionStorage.getItem("scrollPosition");
+  if (scrollPosition) {
+    document.getElementById("content").scrollTop = parseInt(scrollPosition);
+  }
+});
+
+// 페이지 unload 시 스크롤 위치 저장
+window.addEventListener("beforeunload", function() {
+  const scrollPosition = document.getElementById("content").scrollTop;
+  sessionStorage.setItem("scrollPosition", scrollPosition);
+});
 </script>
 
 <body>
@@ -188,7 +202,7 @@ window.addEventListener("DOMContentLoaded", function(){
 	<div class="container-fluid d-flex align-items-center justify-content-between p-3 px-5 mb-3 bg-light">
 		<div class="container">
 			<div class="row px-4">
-				<p class="mb-0 text-body-secondary"><span class="mx-2" style="font-size: 15px;">커뮤니티</span> &gt; <span class="mx-2" style="font-size: 15px;">써봤어요</span> &gt;<span class="mx-2" style="font-size: 15px;">어쩌고</span> </p>
+				<p class="mb-0 text-body-secondary"><span class="mx-2" style="font-size: 15px;">커뮤니티</span> &gt; <span class="mx-2" style="font-size: 15px;">리워드 리뷰</span> &gt;<span class="mx-2" style="font-size: 15px;">ALL REVIEW</span> </p>
 			</div>
 		</div>
 	</div>
@@ -224,9 +238,8 @@ window.addEventListener("DOMContentLoaded", function(){
 	
 	<div class = "row">
 	<!--  사진 첨부(게시물 등록자가 올린것들?) -->
-		
 		<div class = "col"> 
-			<div class = "row mt-2 sticky-top">
+			<div class = "row mt-2 sticky-top" style="top:115.23px;">
 				<div class = "col">
 				<!-- 	style="border-radius: 10px;"-->
 					<div style = "border-left: 10px solid #72A56C;">
@@ -245,38 +258,49 @@ window.addEventListener("DOMContentLoaded", function(){
 					</div>	
 		
 					<!--  상세 게시물 사진 -->
-					<div class = "row mt-3">
-						<div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="true">
-							 <div class="carousel-indicators">
-								<button type="button" data-bs-target="#carouselIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-							    <button type="button" data-bs-target="#carouselIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
-							  
-							 </div>
-							 <c:if test="${data.promotionReviewImgDtoList.size() == 1 }">
-							 	<div class="carousel-inner">
-								 <div class="carousel-item">
-							     	<img src="/uploadPromoFiles/${data.promotionReviewImgDtoList[0].rental_review_img }" class="d-block w-100" alt="...">
-							    </div>
-						  	</div>
-							 </c:if>
-							 
-							 <div class="carousel-inner">
-								 <div class="carousel-item active">
-								    <img src="/uploadPromoFiles/${data.promotionReviewImgDtoList[0].rental_review_img }" class="d-block w-100" alt="...">
-								 </div>
-								 <div class="carousel-item">
-							     	<img src="/uploadPromoFiles/${data.promotionReviewImgDtoList[1].rental_review_img }" class="d-block w-100" alt="...">
-							    </div>
-						  	</div>
-							 <button class="carousel-control-prev" type="button" data-bs-target="#carouselIndicators" data-bs-slide="prev">
-							  	<span class="carousel-control-prev-icon" aria-hidden="true"></span>
-							    <span class="visually-hidden">Previous</span>
-							 </button>
-							 <button class="carousel-control-next" type="button" data-bs-target="#carouselIndicators" data-bs-slide="next">
-							 	<span class="carousel-control-next-icon" aria-hidden="true"></span>
-							    <span class="visually-hidden">Next</span>
-							 </button>
-						</div>
+					<div class="row mt-3">
+					    <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="true">
+					        <div class="carousel-indicators">
+					            <c:choose>
+					                <c:when test="${data.promotionReviewImgDtoList.size() == 1}">
+					                    <!-- 사진이 1개인 경우 -->
+					                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+					                </c:when>
+					                <c:otherwise>
+					                    <!-- 사진이 여러 개인 경우 -->
+					                    <c:forEach items="${data.promotionReviewImgDtoList}" var="imgDto" varStatus="status">
+					                        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="${status.index}" class="${status.index == 0 ? 'active' : ''}" aria-current="${status.index == 0 ? 'true' : 'false'}" aria-label="Slide ${status.index+1}"></button>
+					                    </c:forEach>
+					                </c:otherwise>
+					            </c:choose>
+					        </div>
+					        <div class="carousel-inner">
+					            <c:choose>
+					                <c:when test="${data.promotionReviewImgDtoList.size() == 1}">
+					                    <!-- 사진이 1개인 경우 -->
+					                    <div class="carousel-item active">
+					                        <img src="/uploadPromoFiles/${data.promotionReviewImgDtoList[0].rental_review_img}" class="d-block w-100" alt="...">
+					                    </div>
+					                </c:when>
+					                <c:otherwise>
+					                    <!-- 사진이 여러 개인 경우 -->
+					                    <c:forEach items="${data.promotionReviewImgDtoList}" var="imgDto" varStatus="status">
+					                        <div class="carousel-item ${status.index == 0 ? 'active' : ''}">
+					                            <img src="/uploadPromoFiles/${imgDto.rental_review_img}" class="d-block w-100" alt="...">
+					                        </div>
+					                    </c:forEach>
+					                </c:otherwise>
+					            </c:choose>
+					        </div>
+					        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+					            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+					            <span class="visually-hidden">Previous</span>
+					        </button>
+					        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+					            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+					            <span class="visually-hidden">Next</span>
+					        </button>
+					    </div>
 					</div>
 					<div class = "row">
 						<div class = "col">
@@ -296,7 +320,7 @@ window.addEventListener("DOMContentLoaded", function(){
 		
 		<!--  중간 바 -->
 		<div class = "col-1 mt-5">
-			<div class = "row sticky-top">
+			<div class = "row sticky-top" style="top:115.23px;">
 				<div class = "col">
 					<div class="d-flex" style="height: 400px;">
 				  	<div class="vr"></div>
@@ -496,7 +520,7 @@ window.addEventListener("DOMContentLoaded", function(){
 	
 								
 					<!--  댓글 리스트 -->
-					<div class = "row mt-5">
+					<div class = "row mt-5" id="content">
 						<div class = "col">
 							<c:forEach items = "${promoCommentDtoList}" var = "mapPromoComment">
 							<div class = "row mt-1">

@@ -91,7 +91,7 @@ background-color: #F3F4F8 !important;
 										</c:if>
 							 			<c:forEach items="${pickByMyPost}" var="map" varStatus="status"> 
 										<div class = "col">
-											<div class = "row mb-4 mx-0 card border border-1" style = "width: 500px;" >
+											<div class = "row mb-4 mx-0 card border border-1 shadow-sm" style = "width: 500px;" >
 												<div class = "col">
 													<div class = "row">
 														<div class = "col">
@@ -149,7 +149,7 @@ background-color: #F3F4F8 !important;
 										</c:if>
 							  			<c:forEach items="${helpByMyPost}" var="map" varStatus="status"> 
 										<div class = "col">
-											<div class = "row mb-4 mx-0 card border border-1" style = "width: 500px;">
+											<div class = "row mb-4 mx-0 card border border-1 shadow-sm" style = "width: 500px;">
 												<div class = "col">
 													<div class = "row">
 														<div class = "col">
@@ -224,7 +224,7 @@ background-color: #F3F4F8 !important;
 										</c:if>
 								<c:forEach items="${questionByMyPost}" var="map" varStatus="status">   
 										<div class = "col">
-											<div class = "row mb-4 mx-0 card border border-1" style = "width: 500px;" >
+											<div class = "row mb-4 mx-0 card border border-1 shadow-sm" style = "width: 500px;" >
 												<div class = "col">
 													<div class = "row">
 														<div class = "col">
@@ -282,7 +282,7 @@ background-color: #F3F4F8 !important;
 										</c:if>
 							 			<c:forEach items="${recruitByMyPost}" var="map" varStatus="status"> 
 										<div class = "col">
-											<div class = "row mb-4 mx-0 card border border-1" style = "width: 500px;" >
+											<div class = "row mb-4 mx-0 card border border-1 shadow-sm" style = "width: 500px;" >
 												<div class = "col">
 													<div class = "row">
 														<div class = "col">
@@ -337,7 +337,7 @@ background-color: #F3F4F8 !important;
 										</c:if>
 										<c:forEach items="${proreviewByMyPost}" var="map" varStatus="status"> 
 										<div class = "col">
-											<div class = "row mb-4 mx-0 card border border-1" style = "width: 500px;" >
+											<div class = "row mb-4 mx-0 card border border-1 shadow-sm" style = "width: 500px;" >
 												<div class = "col">
 													<div class = "row">
 														<div class = "col">

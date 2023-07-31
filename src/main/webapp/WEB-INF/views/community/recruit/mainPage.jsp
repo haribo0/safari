@@ -103,6 +103,18 @@
 	   height: 124px;
 	   object-fit: cover;
 	 }
+	 
+	 /* 이미지 크롭 best*/
+	 .cropped-image-best {
+	   object-fit: cover;
+	 }
+	 
+	 /* 스티키 best 사이드바 : 없어도 똑같음.*/
+	 .sticky-top {
+      position: sticky;
+      top: 20px; /* 스티키 요소가 고정될 위치를 지정합니다. */
+      z-index: 999; /* 필요에 따라 적절한 z-index 값을 지정합니다. */
+    }
  </style>
 
 </head>
@@ -418,7 +430,8 @@
 						    </div>
 						    
 						    <div class="col-1 d-flex align-items-start justify-content-end me-3" style="font-size: 20px;">
-						    	<i class="bi bi-heart" ></i>
+						    	<span class="badge  mt-1 me-2" style="font-size: 12px; position: relative; top: -3px; color: #0095ff; background-color: ; border: 1px solid #0095ff;">D-6</span>
+						    	<i class="bi bi-heart" ></i> 
 						    </div>
 						    
 					  	</div>
@@ -672,13 +685,13 @@
 					
 						<%-- 페이지 버튼 --%>
 						<div class="row">
-								<div class="col d-flex align-items-center justify-content-center">
+								<div class="col d-flex align-items-center justify-content-center mt-3 mb-4">
 									<nav aria-label="Page navigation example">
 									  <ul class="pagination mb-0">
 									   <li class="page-item"><a class="page-link" href="#">&lt;</a></li>   
 									   <c:forEach begin="1" end="${totalRecruitPage}" var="recruitIndex">
 									   		<c:choose>
-									   			<c:when test="${recriotIndex == currentRecruitPage}">
+									   			<c:when test="${recruitIndex == currentRecruitPage}">
 									   				<li class="page-item"><a class="page-link" href="/safari/community/recruit/mainPage?recruitPage=${recruitIndex}"><strong>${recruitIndex}</strong></a></li>
 									   			</c:when>
 									   			<c:otherwise>
@@ -725,11 +738,60 @@
 			 
 			
 			<!-- 오른쪽 -->
-			<div class="col" ><!-- 
-				<img class="img-fluid ms-3" src="https://apple.contentsfeed.com/RealMedia/ads/Creatives/jobkorea/230718_seoul_al_ssky/230718_seoul_120600.png" alt="..."> -->
-			<img class="img-fluid ms-3" src="/safari/resources/img/community/rankingbanner.png" alt="...">
+			<div class="col" style="background-color: ; width: 250px;">
+				<!-- <img class="img-fluid ms-3" src="https://apple.contentsfeed.com/RealMedia/ads/Creatives/jobkorea/230718_seoul_al_ssky/230718_seoul_120600.png" alt="..."> -->
+				<!-- <img class="img-fluid ms-3" src="/safari/resources/img/community/rankingbanner.png" alt="..."> -->
+				
+				<div class="card sticky-top pt-2 pb-2 px-4">
+				
+				<div class="row mt-1 mb-1" style="height:px;">
+					<div class="col d-flex justify-content-center">
+					<strong style="font-size: 18px;">많이 본 공고</strong>
+					</div>
+				</div>
+				
+				<%--best recruitBoardList forEach 사이드바 --%>
+				<c:forEach items="${recruitBestBoardList}" var="map" varStatus="status">
+				<a href="/safari/community/recruit/readContentPage/${map.recruitDto.id}" style="text-decoration: none; color: inherit;">
+				<div class="row mt-2 mb-1" style="height:px;">
+					<div class="col">
+					<span class="fw-bold ms-1 me-2" style="font-size: 18px;">
+						${status.index + 1} 
+					</span>
+					<img src="/uploadFiles/${map.recruitImgLinkDtoList[0].img_link}"
+							class="me-2" style="height: 40px; width: 40px; border-radius: 50%; ">
+					
+					<span class="fw-bold" id="recruitTitle_${map.recruitDto.id}">
+				      ${map.recruitDto.title}
+				    </span>
+				    
+				    <script>
+				    var right_element = document.getElementById("recruitTitle_${map.recruitDto.id}");
+				    console.log(right_element);
+				   
+				    var text = right_element.textContent;
+
+				    if (text.length > 25) {
+				    	right_element.textContent = text.slice(0, 20) + '...';
+	
+				    }
+				    
+				    //var ranking = document.getElementById("recruitRanking_${map.recruitDto.id}");
+				    
+				    
+				    </script>
+				        
+						
+					</div>
+				</div>
+				</a>
+				</c:forEach>
+				<%--best recruitBoardList forEach 사이드바 --%>
+				
+				</div>
 			</div>
 			<!-- 오른쪽 -->
+			
 			</div>
 		</div>
 		<!-- 커뮤니티 컨테이너 -->

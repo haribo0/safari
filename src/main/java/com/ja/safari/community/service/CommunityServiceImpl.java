@@ -563,6 +563,7 @@ public class CommunityServiceImpl {
 	}
 
 
+	//골라줘요
 
 
 }

@@ -338,7 +338,7 @@ public class PromotionReviewController {
 			promoReview_searchQueryString += "&promoReview_searchWord=" + promoReview_searchWord;
 		}
 		 if (promoReviewList.isEmpty()) {
-		        model.addAttribute("searchMessage", "검색 결과가 존재하지 않습니다.");
+		        model.addAttribute("searchMessage", "원하시는 게시물을 찾지 못했어요.");
 		    }
 
 		

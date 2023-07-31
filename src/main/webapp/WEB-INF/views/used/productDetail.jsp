@@ -89,6 +89,11 @@
 .locationList{
 	font-size: 13px;
 }
+.overflow {
+	  white-space: nowrap; /* 텍스트를 한 줄로 표시 */
+	  overflow: hidden; /* 넘친 텍스트를 숨김 */
+	  text-overflow: ellipsis; /* 넘친 텍스트를 "..."으로 표시 */
+	}
 </style>	
 
 </head>
@@ -281,7 +286,7 @@
 						</div>
 					</div>
 					<div class="row mt-1">
-						<div class="col relatedTitle">
+						<div class="col relatedTitle overflow">
 							${map.productDto.title }
 						</div>
 					</div>

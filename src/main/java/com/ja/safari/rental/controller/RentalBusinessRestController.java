@@ -125,6 +125,7 @@ public class RentalBusinessRestController {
 			
 		} // 파일 업로드 관련 끝 
 		
+		// 주소 합치기 
 		if(addressDetail!=null && addressDetail!="") {
 			String address = rentalBusinessDto.getBusiness_address();
 			address += " "+addressDetail;

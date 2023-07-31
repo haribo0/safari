@@ -18,6 +18,13 @@
     height: 16px;
     padding: 2px 6px;
   }
+  
+      /* 이미지 크롭 골라줘요 */
+	 .cropped-image-pick {
+	   width: ;
+	   height: ;
+	   object-fit: cover;
+	 }
 </style>
 </head>
 <body>
@@ -66,10 +73,37 @@
 	<%-- 배너 --%>
 	<div class = "row mt-4">
 		<div class = "col" >
-			<img src="/safari/resources/img/community/banerer4.png" class="img-fluid">
+			<div id="carouselExample" class="carousel slide">
+				  <div class="carousel-inner">
+				    <div class="carousel-item active">
+				      <a href="${pageContext.request.contextPath}/community/mainPage">
+				      	<img src="${pageContext.request.contextPath}/resources/img/community/banerer4.png" class="img-fluid">
+				      </a>
+				    </div>
+				    <div class="carousel-item">
+				      <a href="${pageContext.request.contextPath}/community/mainPage">
+				      	<img src="${pageContext.request.contextPath}/resources/img/community/banerer5.png" class="d-block w-100" alt="...">
+				      </a>
+				    </div>
+				    <div class="carousel-item">
+				      <a href="${pageContext.request.contextPath}/rental/mainPage">
+				      	<img src="${pageContext.request.contextPath}/resources/img/rental/rental_banner_3.jpg" class="d-block w-100" alt="...">
+				      </a>
+				    </div>
+				  </div>
+				  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+				    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+				    <span class="visually-hidden">Previous</span>
+				  </button>
+				  <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+				    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+				    <span class="visually-hidden">Next</span>
+				  </button>
+				</div>
 		</div>
 	</div>
 	
+			
 	<%-- 첫번째 줄 --%>
 	<div class = "row mt-4">
 		<div class = "col">
@@ -322,10 +356,103 @@
 						<div class = "col mx-2">
 							<c:forEach items="${newPostByRecruitList}" var="map" varStatus="status" begin="0" end="4">  
 								<div class = "row mt-1 py-1">
-									<div class = "col-auto d-flex align-items-center" style = "font-size:13px; color: #387538; ">
-										[${map.recruitDto.location }]
+									<div class = "col-auto d-flex align-items-center" style = "font-size:13px; color: ; ">
+									
+										
+											<%-- 구인구직 카테고리  --%>
+											<span id="positionName_${map.recruitDto.id}" class="badge rounded-pill mt-1 " style="font-size: 12px; position: relative; top: -3px; color: #0095ff; background-color: transparent; border: 1px solid #0095ff;"></span>
+									<script>
+											 // 시작
+											    var positionCode = ${map.recruitDto.position_category_id};
+
+											    // 직무 코드에 따라 직무명 설정
+											    var positionName;
+											    switch (positionCode) {
+											        case 11:
+											            positionName= "사무";
+											            //document.getElementById("positionName_${recruitDto.recruitDto.id}").style.color = "red";
+											            break;
+											        case 12:
+											            positionName= "연구";
+											            break;
+											        case 13:
+											            positionName= "기술";
+											            break;
+											        case 14:
+											            positionName= "영업";
+											            break;
+											        
+											        case 21:
+											            positionName= "서비스";
+											            break;
+											        case 22:
+											            positionName= "예술";
+											            break;
+											        case 23:
+											            positionName= "스포츠";
+											            break;
+											        
+											        case 31:
+											            positionName= "보건";
+											            break;
+											        case 32:
+											            positionName= "교육";
+											            break;
+											        case 33:
+											            positionName= "금융";
+											            break;
+
+											        case 41:
+											            positionName= "물류";
+											            break;
+											        case 42:
+											            positionName= "생산";
+											            break;
+											             
+											        default:
+											            positionName= "기타";
+											            break;
+											    }
+											     
+											 
+											    switch (Math.floor(positionCode/10)) {
+										        case 1:
+										            document.getElementById("positionName_${map.recruitDto.id}").style.color = "#0095ff";
+										            document.getElementById("positionName_${map.recruitDto.id}").style.borderColor = "#0095ff";
+										            break;
+										        
+										        case 2:
+										        	document.getElementById("positionName_${map.recruitDto.id}").style.color = "#ff9200";
+										        	document.getElementById("positionName_${map.recruitDto.id}").style.borderColor = "#ff9200";
+										            break;
+										       
+										        
+										        case 3:
+										        	document.getElementById("positionName_${map.recruitDto.id}").style.color = "#93c400";
+										        	document.getElementById("positionName_${map.recruitDto.id}").style.borderColor = "#93c400";
+										            break;
+										       
+
+										        case 4:
+										        	document.getElementById("positionName_${map.recruitDto.id}").style.color = "#7a45e6";
+										        	document.getElementById("positionName_${map.recruitDto.id}").style.borderColor = "#7a45e6";
+										            break;
+										        
+										             
+										        default:
+										        	document.getElementById("positionName_${map.recruitDto.id}").style.color = "gray";
+										            break;
+										    }
+											    
+											    // 결과를 화면에 출력
+											    document.getElementById("positionName_${map.recruitDto.id}").textContent = positionName;
+											    //console.log( document.getElementById("positionName_${recruitDto.recruitDto.id}").textContent);
+												// 끝
+											</script>
+											<%-- 구인구직 카테고리  --%>
+										
 									</div>
-									<div class = "col p-0 mx-1" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+									<div class = "col p-0 me-1" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
 										<a href="/safari/community/recruit/readContentPage/${map.recruitDto.id}" style="text-decoration: none; color: inherit;">
 											${map.recruitDto.title }
 										</a>
@@ -354,7 +481,7 @@
 					</a>
 				</div>
 				<%-- 골라줘요 게시물 --%>
-				<!--  포이치 -->
+				<!--  포이치 
 				<div class = "row mt-4">
 					<div class = "col fw-semibold" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
 						제목
@@ -376,7 +503,41 @@
 					<div class = "col-2">
 						사진
 					</div>
-				</div>
+				</div>-->
+				
+				<%-- 골라줘요 forEach --%>
+				<div class="m-2">
+				<c:forEach items="${newPostByPickList}" var="map" varStatus="status" begin="0" end="4">  
+				<a href="/safari/community/pick/readContentPage/${map.pickDto.id}" style="text-decoration: none; color: inherit;">
+											
+										
+								<div class = "row mt-4 py-1">
+								<div class = "col fw-semibold">
+								${map.pickDto.title }
+								</div>
+								
+								<div class = "col-auto me-4 text-secondary text-end d-flex align-items-center" style = "font-size:13px;">
+									<fmt:formatDate value="${map.pickDto.reg_date}" pattern="yyyy/MM/dd" />
+								</div>
+								</div>
+								
+								<div class = "row mt-1 py-1">
+								
+								<c:forEach items="${map.pickOptionValuesForVoteDtoList}" var="pickOptionValuesForVoteDto">
+								<div class = "col">
+									<div class="d-flex justify-content-center" style="height: 80px; width: 80px;">
+											<img class="img-fluid rounded d-block cropped-image-pick" src="/uploadFiles/${pickOptionValuesForVoteDto.img}" 
+													     alt="..." style="height: %; width: %;">
+														</div>		  
+								</div>
+								</c:forEach>
+								
+								</div>
+								
+								</a>
+							</c:forEach>
+							</div>
+				<%-- 골라줘요 forEach --%>
 				<!--  포이치  끝 -->
 			</div>
 		</div>

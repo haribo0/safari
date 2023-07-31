@@ -12,14 +12,283 @@
 <jsp:include page="../../common/meta.jsp"></jsp:include>
 <!-- 메타 섹션 -->
 
-</head>
 
 <!-- 스타일 섹션 -->
 <style></style>
 <!-- 스타일 섹션 -->
 
 <!-- 스크립트 섹션-->
+<script>
+
+
+	//PathVariable
+	//const pickId = new URLSearchParams(location.search).get("id");
+	//const pathParts = window.location.pathname.split('/');
+	//const path = window.location.pathname;
+	//const parts = path.split('/');
+	//const pick_id = parts[parts.length - 1]; 
+	//const pickId = parseInt(pathParts[pathParts.length - 1], 10);
+	
+	//const pathParts = window.location.pathname.split('/');
+	//const pick_id = pathParts[pathParts.length - 1]; 
+	
+
+ function createPickPk() {
+<%--	 const pick_id = document.getElementById("pickPk").value;
+    const xhr = new XMLHttpRequest();
+    xhr.open("GET", "${pageContext.request.contextPath}/community/pick/createPickPk");
+    xhr.onreadystatechange = function() {
+      if (xhr.readyState === XMLHttpRequest.DONE) {
+        if (xhr.status === 200) {
+          const pick_id = parseInt(xhr.responseText);
+          console.log("Pick PK: " + pick_id);
+
+          // 받은 리턴값을 여기에서 활용할 수 있습니다.
+          // 예를 들어, 다른 함수 호출하거나 DOM 요소에 값을 출력할 수 있습니다.
+
+          // ...
+        } else {
+          console.error("오류 발생:", xhr.status);
+        }
+      }
+    };
+    xhr.send(); --%>
+    //const pick_id = document.getElementById("pickPk").value;
+    //console.log("Pick PK: " + pick_id);
+    
+	const xhr = new XMLHttpRequest();
+	
+	xhr.onreadystatechange = function(){
+		if(xhr.readyState == 4 && xhr.status == 200){
+			const response = JSON.parse(xhr.responseText);
+			console.log("response: " + response);
+			// js 작업..
+			const pick_id = document.getElementById("pickPk").value;
+			console.log("Pick PK: " + pick_id);
+			
+		}
+  }
+	
+	console.log("pick_id:", pick_id);
+	
+	function ajaxTemplete(){
+		
+		const xhr = new XMLHttpRequest();
+		
+		xhr.onreadystatechange = function(){
+			if(xhr.readyState == 4 && xhr.status == 200){
+				const response = JSON.parse(xhr.responseText);
+				// js 작업..
+			}
+		}
+		
+		//get
+		xhr.open("get", "요청 url?파라메터=값");
+		xhr.send();
+		
+		//post
+		xhr.open("post", "요청 url");
+		xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded"); 
+		xhr.send("파라메터=값");
+	}
+	
+	let mySessionId = null;
+	
+	function getSessionId(){
+		const xhr = new XMLHttpRequest();
+		
+		xhr.onreadystatechange = function(){
+			if(xhr.readyState == 4 && xhr.status == 200){
+				const response = JSON.parse(xhr.responseText);
+				// js 작업..
+				if(response.result == "success"){
+					mySessionId = response.id; 
+					console.log("mySessionId:", mySessionId);
+				}
+			}
+		}
+		
+		//get
+		//xhr.open("get", "${pageContext.request.contextPath}/user/getMyId", false); // 딱 여기만 쓰세요...false 동기식 호출..! 권장되지 않음
+		xhr.open("get", "${pageContext.request.contextPath}/community/pick/getMyId", false);
+		
+		xhr.send();		
+	}
+	
+
+		////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		//댓글
+		function registerHashtag(){
+		
+		if(!mySessionId) {
+			// 로그인 안되었있으니까...
+			return;
+		}
+		
+		const hashtagTextBox = document.getElementById("hashtagTextBox");
+		const hashtagTextValue = hashtagTextBox.value; 
+		
+		const xhr = new XMLHttpRequest();
+		
+		xhr.onreadystatechange = function(){
+			if(xhr.readyState == 4 && xhr.status == 200){
+				const response = JSON.parse(xhr.responseText);
+				// js 작업..
+				hashtagTextBox.value = "";
+				reloadHashtagList();
+			}
+		}
+		
+		//post
+		xhr.open("post", "${pageContext.request.contextPath}/community/pick/registerHashtag");
+		xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded"); 
+		xhr.send("pick_id=" + pick_id + "&content=" + HashtagTextValue);
+		
+	}
+	
+	function reloadHashtagList(){
+		const xhr = new XMLHttpRequest();
+		
+		xhr.onreadystatechange = function(){
+			if(xhr.readyState == 4 && xhr.status == 200){
+				const response = JSON.parse(xhr.responseText);
+				
+				document.getElementById("hashtagListBox").innerHTML = ""; //초기화 얘만 innerHTML 허용... 
+				
+				for(map of response.hashtagList){
+					const row1 = document.createElement("div");
+					row1.classList.add("row");
+					row1.classList.add("hashtagOuter");
+					row1.setAttribute("hashtagId" , map.pickHashtagDto.id);
+					
+					
+					const colHashtagBox = document.createElement("div");
+					colHashtagBox.classList.add("hashtagBox");
+					colHashtagBox.classList.add("col-8");
+					colHashtagBox.classList.add("bg-primary");
+					colHashtagBox.innerText = map.pickHashtagDto.content; // 데이터 세팅
+					row1.appendChild(colHashtagBox);
+
+					const colNickname = document.createElement("div"); 					
+					colNickname.classList.add("col-2");
+					colNickname.classList.add("bg-secondary");
+					colNickname.innerText = map.userDto.nickname; // 데이터 세팅
+					row1.appendChild(colNickname);
+					
+					if(mySessionId != null && map.pickHashtagDto.user_id){
+						const colDelete = document.createElement("div");
+						colDelete.classList.add("col-1");
+						colDelete.innerText = "삭제";
+						colDelete.setAttribute("onclick", "deleteHashtag("+map.pickHashtagDto.id+")");
+						row1.appendChild(colDelete);
+						
+						const colUpdate = document.createElement("div");
+						colUpdate.classList.add("col-1");
+						colUpdate.innerText = "수정";
+						colUpdate.setAttribute("onclick", "changeInputForUpdateHashtag(this)");
+						
+						row1.appendChild(colUpdate);
+					}
+					
+					document.getElementById("hashtagListBox").appendChild(row1);
+				}
+				
+				
+			}
+		}
+		
+		//get
+		xhr.open("get", "${pageContext.request.contextPath}/community/pick/getHashtagList?pick_id=" + pick_id);
+		xhr.send();
+	}	
+	
+	function deleteHashtag(id){
+		const xhr = new XMLHttpRequest();
+		
+		xhr.onreadystatechange = function(){
+			if(xhr.readyState == 4 && xhr.status == 200){
+				const response = JSON.parse(xhr.responseText);
+				// js 작업..
+				reloadHashtagList();
+			}
+		}
+		
+		//get
+		xhr.open("get", "${pageContext.request.contextPath}/community/pick/deleteHashtag?id=" + id);
+		xhr.send();
+		
+	}
+	
+	
+	function changeInputForUpdateHashtag(targetElement){
+		
+		const hashtagOuter = targetElement.closest(".hashtagOuter"); // 부모중에 css 접근자 문법에 맞는 엘리먼트를 가져온다.
+		
+		// const hashtagBox = hashtagOuter.getElementsByClassName("hashtagBox")[0];
+		const hashtagBox = hashtagOuter.querySelector(".hashtagBox");
+		
+		const tempValue = hashtagBox.innerText;
+		
+		hashtagBox.innerHTML = "";
+		
+		const inputTextHashtag = document.createElement("input");
+		inputTextHashtag.type = "text"
+		//inputTextHashtag.classList.add("form-control");
+		inputTextHashtag.classList.add("hashtagInputBox");
+		inputTextHashtag.value = tempValue;
+		hashtagBox.appendChild(inputTextHashtag);
+		
+		const inputButtonUpdate = document.createElement("button");
+		inputButtonUpdate.innerText = "수정 적용";
+		inputButtonUpdate.setAttribute("onclick" , "updateHashtag(this)");
+		hashtagBox.appendChild(inputButtonUpdate);
+		
+		
+		
+		targetElement.innerText = "수정취소";
+		targetElement.setAttribute("onclick", "cancelUpdate(this)");
+	}
+	
+	function updateHashtag(targetElement){
+		
+		const hashtagOuter = targetElement.closest(".hashtagOuter");
+		
+		const hashtagId = hashtagOuter.getAttribute("hashtagId");
+		console.log("hashtagId:", hashtagId);
+		const hashtagText = hashtagOuter.querySelector(".hashtagInputBox").value;
+		
+		const xhr = new XMLHttpRequest();
+		
+		xhr.onreadystatechange = function(){
+			if(xhr.readyState == 4 && xhr.status == 200){
+				const response = JSON.parse(xhr.responseText);
+				// js 작업..
+				reloadHashtagList();
+			}
+		}
+		
+		//post
+		xhr.open("post", "${pageContext.request.contextPath}/community/pick/updateHashtag");
+		xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded"); 
+		xhr.send("id=" + hashtagId + "&content=" + hashtagText);
+				
+		
+	}
+	
+	
+	
+	//사실상 시작 시점...
+	window.addEventListener("DOMContentLoaded", function(){
+		createPickPk();
+		getSessionId();
+		reloadHashtagList();
+		//setInterval(reloadHashtagList, 5000);
+	});
+</script>
 <!-- 스크립트 섹션 -->
+
+</head>
+
 
 <body>
 		<!-- 헤더 섹션 -->
@@ -33,7 +302,7 @@
 		<!-- 커뮤니티 메뉴바 -->
 		<div class="row">
 			<div class="col">
-				<jsp:include page="../../community/communityTopNavi.jsp"></jsp:include>
+				<jsp:include page="../../community/communityTopNavi2.jsp"></jsp:include>
 			</div>
 		</div>
 		<!-- 커뮤니티 메뉴바 -->
@@ -42,10 +311,10 @@
 		<div class="container main_box">
 			<div class="row">
 			
-			<!-- 왼쪽 -->
+			<!-- 왼쪽 
 			<div class="col" style="background-color:lightgrey;" >
 				왼쪽
-			</div>
+			</div>-->
 			<!-- 왼쪽 -->
 			
 			<!-- 가운데 -->
@@ -143,7 +412,7 @@
 									<%-- select option--%> 
 									
 									<%-- pick option 미리보기--%>
-									  pick option 미리보기
+									 <%-- pick option 미리보기
 									  <c:forEach items="${showAllProductList}" var="productDto">
 									  DTO 제목: ${productDto.title} <br>
 									  ${productDto.title}
@@ -157,9 +426,10 @@
 										  DTO 이미지링크: ${productDto.product_img_link}
 										  <img src="c://uploadFiles/${productDto.product_img_link}">
 										  </c:otherwise>
-									  </c:choose>
+									  </c:choose> 
+									  </c:forEach>--%>
 									 <%--  DTO 이미지링크: ${productDto.pickShowCardDto.product_img_link} <br> --%> 
-									  </c:forEach>
+									 
 									<%-- pick option 미리보기--%> 
 								    
 								    <div class="form-group mt-4 mb-4"> 
@@ -176,6 +446,10 @@
 							</form>
 							<%-- write from--%>	
 							
+							<%-- hashtag from--%>
+							
+							<%-- hashtag from--%>	
+							
 						</div>
 					</div>
 					<%-- getPickBoard --%>
@@ -185,8 +459,8 @@
 			<!-- 가운데 -->
 			
 			<!-- 오른쪽 -->
-			<div class="col" style="background-color:lightgrey;">
-				오른쪽
+			<div class="col">
+				<img class="img-fluid ms-3 mt-3" src="https://apple.contentsfeed.com/RealMedia/ads/Creatives/jobkorea/230718_seoul_al_ssky/230718_seoul_120600.png" alt="...">
 			</div>
 			<!-- 오른쪽 -->
 			</div>

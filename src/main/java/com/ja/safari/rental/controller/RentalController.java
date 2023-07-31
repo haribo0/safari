@@ -197,62 +197,6 @@ public class RentalController {
 	}
 	
 	
-	// 대여 리뷰 프로세스
-	@RequestMapping("writeRentalReviewProcess")
-	public String writeRentalReviewProcess(HttpSession session, int rental_review_rating, RentalReviewDto params, MultipartFile[] rental_review_img) {
-		
-		List<RentalReviewImgDto> rentalReviewImgDtoList= new ArrayList<>();
-		
-		UserDto sessionUser = (UserDto)session.getAttribute("sessionUser");
-		int userId = sessionUser.getId();
-		
-		params.setUser_id(userId);
-		params.setRental_review_rating(rental_review_rating);
-		
-		// 파일 저장 로직 
-		if(rental_review_img != null) {
-			
-			for(MultipartFile multipartFile : rental_review_img ) {
-				if(multipartFile.isEmpty()) { //예외처리
-					continue;
-				}
-			
-	
-			String rootFolder = "C:\\uploadFiles\\";
-	
-			// 날짜별 폴더 생성 로직 
-			SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
-			String today = sdf.format(new Date());
-			File targetFoler = new File(rootFolder + today); 
-			if(!targetFoler.exists()) {
-				targetFoler.mkdirs();
-			}
-			
-			// 저장 파일명 만들기 : 파일명 충돌 방지 = 랜덤 + 시간 
-			String fileName = UUID.randomUUID().toString();
-			fileName += "_" + System.currentTimeMillis();
-			
-			// 확장자 추출 
-			String originalFileName = multipartFile.getOriginalFilename();
-			String extString = originalFileName.substring(originalFileName.lastIndexOf("."));
-			String saveReviewFileName = today + "/" + fileName + extString;
-			
-			try {
-				multipartFile.transferTo(new File(rootFolder + saveReviewFileName));
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-
-			RentalReviewImgDto rentalReviewImgDto = new RentalReviewImgDto();
-			rentalReviewImgDto.setRental_review_img(saveReviewFileName);
-			
-			rentalReviewImgDtoList.add(rentalReviewImgDto);
-		} // 파일 업로드 관련 끝 
-		}
-		rentalService.writeRentalReview(params,rentalReviewImgDtoList);
-		
-		return "redirect:../user/myOrderListPage";
-	}
 	
 	
 	// 계약금 없는 반납

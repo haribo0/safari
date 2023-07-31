@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 //import com.ja.safari.community.service.CommunityServiceImpl;
 import com.ja.safari.community.service.PickServiceImpl;
@@ -47,11 +48,18 @@ public class PickController {
 		///////////
 		
 		
-		//골라줘요 메인페이지 //게시물 옵션 이미지 추가. 
+		//골라줘요 메인페이지 //게시물 옵션 이미지 추가. //페이징 추가.
 		@RequestMapping("pick/mainPage")
-		public String pickMainPage(Model model) {
+		public String pickMainPage(Model model, @RequestParam(value = "pickPage", defaultValue = "1") int pickPage, String pick_searchType, String pick_searchWord) {
 			
-			List<Map<String, Object>> pickBoardList = pickService.selectAllPickBoards();
+			//페이징
+			List<Map<String, Object>> pickBoardList = pickService.selectAllPickBoards(pickPage, pick_searchType, pick_searchWord);
+			int pickBoardCount = pickService.getPickBoardCount();
+			int totalPickPage = (int) Math.ceil(pickBoardCount / 10.0);
+			
+			model.addAttribute("pickBoardList", pickBoardList);
+			model.addAttribute("totalPickPage", totalPickPage);
+			model.addAttribute("currentPickPage", pickPage);
 			
 			//게시물 옵션 이미지 추가.//리스트 //맵
 			
@@ -85,6 +93,7 @@ public class PickController {
 			return "redirect:/community/pick/mainPage";
 		}
 */
+		
 		
 		//골라줘요 글쓰기 페이지 //골라줘요 옵션 추가.
 		@RequestMapping("pick/writeContentPage")

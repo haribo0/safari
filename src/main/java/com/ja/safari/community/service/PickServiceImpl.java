@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -47,6 +48,21 @@ public class PickServiceImpl {
 	///////////
 
 	//골라줘요 게시판 작성하기 
+/*	public void registerPickBoard(PickDto pickDto) {
+		
+		int pick_id = pickSqlMapper.createPickPk();
+		
+		pickDto.setId(pick_id);
+		pickSqlMapper.registerPickBoard(pickDto);
+	}
+*/
+	
+	//해시태그 위해 골라줘요 pk값 가져오기
+	public int createPickPk() {
+		return pickSqlMapper.createPickPk();
+	}
+	
+	//골라줘요 게시판 작성하기 //해시태그 추가.
 	public void registerPickBoard(PickDto pickDto) {
 		
 		int pick_id = pickSqlMapper.createPickPk();
@@ -64,13 +80,18 @@ public class PickServiceImpl {
 	}
 	
 	
+	//골라줘요 게시판 개수 count. 페이징.
+	public int getPickBoardCount() {
+		
+		return pickSqlMapper.getPickBoardCount();
+	}
 	
-	//골라줘요 게시판 전체 조회 //좋아요 count 추가 //댓글 count 추가
-		public List<Map<String, Object>> selectAllPickBoards() {
+	//골라줘요 게시판 전체 조회 //좋아요 count 추가 //댓글 count 추가 //페이징 추가.
+		public List<Map<String, Object>> selectAllPickBoards(int pickPageNum, String pick_searchType, String pick_searchWord) {
 			
 			List<Map<String, Object>> pickBoardList = new ArrayList<>();
 			
-			List<PickDto> pickDtoList = pickSqlMapper.selectAllPickBoards();
+			List<PickDto> pickDtoList = pickSqlMapper.selectAllPickBoards(pickPageNum, pick_searchType, pick_searchWord);//페이징 추가.
 			
 			
 			
@@ -354,9 +375,13 @@ public class PickServiceImpl {
 			
 			map.put("userDto", userDto);
 			map.put("pickDto", pickDto);
-
+			
+			List<PickOptionValuesForVoteDto> pickOptionValuesForVoteDtoList = pickSqlMapper.getPickOptionValues(pickDto.getId());//추가.
+			map.put("pickOptionValuesForVoteDtoList", pickOptionValuesForVoteDtoList);//추가.
+			
 			newPostByPickList.add(map);
 		
+			
 		}		
 		
 		return newPostByPickList;

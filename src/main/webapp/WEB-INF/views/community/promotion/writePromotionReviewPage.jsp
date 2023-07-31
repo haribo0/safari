@@ -127,7 +127,7 @@ window.addEventListener("DOMContentLoaded" , () => {
 				<div class = "col fs-6 text-center text-secondary">리워드</div>
 			</div>
 			<div class = "row mt-2">
-				<div class = "col fw-semibold fs-3 text-center">프로모션 리뷰 작성 </div>
+				<div class = "col fw-semibold fs-3 text-center">리워드 리뷰 작성 </div>
 			</div>
 			
 			<hr class="my-1 mt-3" style="border-color: gray;">
