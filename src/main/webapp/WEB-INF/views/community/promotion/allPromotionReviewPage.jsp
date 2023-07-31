@@ -260,7 +260,7 @@ window.addEventListener("DOMContentLoaded", function(){
 								<a href="/safari/community/promotion/contentPromotionReviewPage?id=${map.promotionReviewDto.id}" style="text-decoration: none; color: inherit;">
 								<div class = "row mt-1 mx-0 px-1">
 									<div class = "col d-flex align-items-start">
-										<img src="${data.userDto.profile_img_link}" class="rounded-circle" style="width: 25px; height: 25px;" alt="프로필사진">
+										<img src="${map.userDto.profile_img_link}" class="rounded-circle" style="width: 25px; height: 25px;" alt="프로필사진">
 										<p class="card-text fs-6 mt-2 ms-2 text-center">${map.userDto.nickname}</p>
 									</div>
 								</div>
@@ -357,7 +357,7 @@ window.addEventListener("DOMContentLoaded", function(){
 							</div>			    
 							<a href="/safari/community/promotion/contentPromotionReviewPage?id=${map.promotionReviewDto.id}" style="text-decoration: none; color: inherit; display: block;">	    
 						    <div class="d-flex align-items-center">
-			                    <img src="${data.userDto.profile_img_link}" class="rounded-circle" style="width: 25px; height: 25px;" alt="프로필사진">
+			                    <img src="${map.userDto.profile_img_link}" class="rounded-circle" style="width: 25px; height: 25px;" alt="프로필사진">
 			                    <p class="card-text fs-6 mt-2 ms-2">${map.userDto.nickname}</p>
 			                </div>
 						    <p class="card-text fs-6 mt-2 text-secondary" style="display: -webkit-box; -webkit-line-clamp: 2;
