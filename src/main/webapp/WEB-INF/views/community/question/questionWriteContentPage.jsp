@@ -60,9 +60,9 @@
 				  	</div>
 				  <label for="questionBoardFiles" class="file-upload-btn" style="margin-top: 10px;">
 				  <i class="bi bi-paperclip"></i>
-				  <span class="sr-only">파일 선택</span>
-				  </label>
-				  <input name="questionBoardFiles" type="file" onchange="readURLContent(this)" id="questionBoardFiles" style= "display: none;"  multiple accept= "image/*">
+				<span class="sr-only">파일 선택</span>
+				  </label> 
+				  <input class="form-control mt-2" name="questionBoardFiles" type="file" onchange="readURLContent(this)" id="questionBoardFiles" style= "display: none;"  multiple accept= "image/*">
 				
 				</div>
 			</div> 

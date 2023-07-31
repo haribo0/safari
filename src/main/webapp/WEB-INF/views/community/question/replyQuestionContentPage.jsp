@@ -35,7 +35,7 @@
 		<form action="/safari/community/question/writeQuestionReplyProcess" method="post">
 		
 	<div class="row">
-		<div class="col mt-5">
+		<div class="fs-4 fw-semibold col mt-5">
 				 ${sessionUser.nickname}님, 답변해주세요! <hr>
 			
 			  	  <input type="hidden" name="user_id" value="${sessionUser.id}">

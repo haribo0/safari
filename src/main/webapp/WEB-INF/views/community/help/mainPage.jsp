@@ -85,7 +85,7 @@
 			    	${helpImgDto.help_img_link}
 			    	<div class="card-body">
 				    	<div class="row">
-				    		<div class="col-3">
+				    		<div class="col-auto">
 				    		<%-- img --%>
 									<div class="row mt-1">
 										<div class="col">
@@ -101,28 +101,36 @@
 									</div>						
 				    		</div>
 				    	
-				    	<div class="col-7 mt-1">
-				    		
-				    		<a class="text-black text-decoration-none" href="/safari/community/help/readContentPage/${map.helpDto.id}">
-				    		<span class = "fw-semibold" style="font-size: 16px; position: relative; top: 1px;">
-				    		${map.helpDto.title}
-				    		<c:if test="${map.helpDto.points>=1}">
-						  	<span class="badge rounded-pill text-bg-warning opacity-75" style="font-size: 61%; position: relative; top: -3px;">${map.helpDto.points}p</span>
-						  	</c:if></span></a>
-						  	<span class="badge rounded-pill text-bg-danger opacity-75" style="font-size: 61%; position: relative; top: -3px;">Best</span>
-						  	<div class="row">
-			  				<div class="col" style="font-size: 14px; position: relative; top: 2px;">
-			  				${map.helpDto.location}
-			  				</div>
-				  			</div>
-				  			 <div class="row">
-				  				<div class="col" style="font-size: 14px; color: gray; position: relative; top: 1px;">
-				  				조회수 ${map.helpDto.views}
+				    	<div class="col-7 mt-1 py-1">
+				    		<div class = "row">
+				    			<div class = "col">
+						    		<div class="row">
+						    			<div class="col fw-semibold" style="font-size: 16px; position: relative; top: 1px;">
+								    		<a class="text-black text-decoration-none" href="/safari/community/help/readContentPage/${map.helpDto.id}">
+								    			${map.helpDto.title}
+										    		<c:if test="${map.helpDto.points>=1}">
+												  	<span class="badge rounded-pill text-bg-warning opacity-75" style="font-size: 61%; position: relative; top: -3px;">${map.helpDto.points}p</span>
+												  	</c:if>
+										  	</a>
+								  		</div>
+								  	</div>
+						  	<!-- <span class="badge rounded-pill text-bg-danger opacity-75" style="font-size: 61%; position: relative; top: -3px;">Best</span> -->
+								  	<div class="row">
+						  				<div class="col" style="font-size: 14px; position: relative; top: 2px;">
+						  					${map.helpDto.location}
+						  				</div>
+						  			</div>
+						  			 <div class="row">
+						  				<div class="col" style="font-size: 14px; color: gray; position: relative; top: 1px;">
+						  					조회수 ${map.helpDto.views}
+						  				</div>
+						  			</div> 
+				  			
 				  				</div>
-				  			</div> 
+				  			</div>
 					    </div>
 				    	
-				    	<div class="col text-end" style="position: relative;">
+				    	<div class="col-12 text-end" style="position: relative;">
 				    		<div style="position: absolute; bottom: 0; right: 10px;">
 				    		<i class="bi bi-heart text-danger" style="font-size: 21px;"></i>
 				    		<span style="font-size: 12px; position: relative; bottom: 5px; left: 1px;">${map.helpLikeCount}</span> &nbsp;
