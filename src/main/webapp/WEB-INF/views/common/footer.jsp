@@ -19,7 +19,7 @@
 			<div class="col">
 				<p class="mb-1 text-secondary" style="text-align: left; font-size: 14px;">사파리(주) | 대표이사: 사육사 | 사업자등록번호 123-45-67890 | 통신판매업신고번호 2023-강남-08 | 서울 강남구 테헤란로 7길 7(역삼동 에스코빌딩 6층)</p>
 				<p class="text-secondary" style="margin-bottom:30px; text-align: left; font-size: 14px;">이메일 상담 info@safari.com | 유선상담 1234-5678 © safari Co., Ltd.</p>
-				<p class="text-body-tertiary" style="text-align: left; font-size: 14px;">일부 상품의 경우 와디즈는 통신판매중개자이며 통신판매 당사자가 아닙니다.<br>해당되는 상품의 경우 상품, 상품정보, 거래에 관한 의무와 책임은 판매자에게 있으므로, 각 상품 페이지에서 구체적인 내용을 확인하시기 바랍니다.</p>
+				<p class="text-body-tertiary" style="text-align: left; font-size: 14px;">일부 상품의 경우 사파리는 통신판매중개자이며 통신판매 당사자가 아닙니다.<br>해당되는 상품의 경우 상품, 상품정보, 거래에 관한 의무와 책임은 판매자에게 있으므로, 각 상품 페이지에서 구체적인 내용을 확인하시기 바랍니다.</p>
 			</div>
 		</div>
 		<div class="row mt-4">
