@@ -360,7 +360,7 @@
 									
 										
 											<%-- 구인구직 카테고리  --%>
-											<span id="positionName_${map.recruitDto.id}" class="badge rounded-pill mt-1 me-2" style="font-size: 12px; position: relative; top: -3px; color: #0095ff; background-color: transparent; border: 1px solid #0095ff;"></span>
+											<span id="positionName_${map.recruitDto.id}" class="badge rounded-pill mt-1 " style="font-size: 12px; position: relative; top: -3px; color: #0095ff; background-color: transparent; border: 1px solid #0095ff;"></span>
 									<script>
 											 // 시작
 											    var positionCode = ${map.recruitDto.position_category_id};
@@ -452,7 +452,7 @@
 											<%-- 구인구직 카테고리  --%>
 										
 									</div>
-									<div class = "col p-0 mx-1" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+									<div class = "col p-0 me-1" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
 										<a href="/safari/community/recruit/readContentPage/${map.recruitDto.id}" style="text-decoration: none; color: inherit;">
 											${map.recruitDto.title }
 										</a>
@@ -508,17 +508,20 @@
 				<%-- 골라줘요 forEach --%>
 				<div class="m-2">
 				<c:forEach items="${newPostByPickList}" var="map" varStatus="status" begin="0" end="4">  
-								<div class = "row mt-1 py-1">
-								<div class = "col ">
+				<a href="/safari/community/pick/readContentPage/${map.pickDto.id}" style="text-decoration: none; color: inherit;">
+											
+										
+								<div class = "row mt-4 py-1">
+								<div class = "col fw-semibold">
 								${map.pickDto.title }
 								</div>
 								
-								<div class = "col-auto me-2 text-secondary text-end d-flex align-items-center" style = "font-size:13px;">
+								<div class = "col-auto me-4 text-secondary text-end d-flex align-items-center" style = "font-size:13px;">
 									<fmt:formatDate value="${map.pickDto.reg_date}" pattern="yyyy/MM/dd" />
 								</div>
 								</div>
 								
-								<div class = "row mt-1">
+								<div class = "row mt-1 py-1">
 								
 								<c:forEach items="${map.pickOptionValuesForVoteDtoList}" var="pickOptionValuesForVoteDto">
 								<div class = "col">
@@ -529,16 +532,9 @@
 								</div>
 								</c:forEach>
 								
-								
-								
-								
-								
 								</div>
 								
-								
-									
-									
-								
+								</a>
 							</c:forEach>
 							</div>
 				<%-- 골라줘요 forEach --%>

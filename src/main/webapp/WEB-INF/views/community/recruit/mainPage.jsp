@@ -752,6 +752,7 @@
 				
 				<%--best recruitBoardList forEach 사이드바 --%>
 				<c:forEach items="${recruitBestBoardList}" var="map" varStatus="status">
+				<a href="/safari/community/recruit/readContentPage/${map.recruitDto.id}" style="text-decoration: none; color: inherit;">
 				<div class="row mt-2 mb-1" style="height:px;">
 					<div class="col">
 					<span class="fw-bold ms-1 me-2" style="font-size: 18px;">
@@ -783,6 +784,7 @@
 						
 					</div>
 				</div>
+				</a>
 				</c:forEach>
 				<%--best recruitBoardList forEach 사이드바 --%>
 				

@@ -51,33 +51,27 @@
       <!-- 커뮤니티 메뉴바 --> 
      
      <!-- 베스트카드 -->
-     <div class="card border-0" style="background-color: #01a0ff;">
-     <c:forEach items="${questionBannerList}" var="map">
-     <a class="text-decoration-none" href="/safari/community/question/questionReadContentPage/${map.questionDto.id}">
-    <div class="row">
-    <div class="col-4 ms-5 d-flex align-items-center justify-content-center">
-	<img src="/safari/resources/img/community/coin1.png" style="height: 250px; width: 270px;">
-	</div>
-	<div class="col d-grid d-flex align-items-center justify-content-start opacity-75" style="height: 270px; width: 1000px; ">
-			<div class="m-4">
-			<div class="fw-bold" style="font-size: 45px;"> 
-			
-				<div class="row">
-					<div class="col text-center d-flex align-items-center justify-content-start">
-					<div class="opacity-100" style="color: white;">
-					
-					'${map.questionDto.title}'
-					<br> 에 대한 답변을 해주세요!</div>
-					</div>
-				</div>
-			</div>
-			</div>
-	</div>	
-	
-	</div>
-	</a>
-	</c:forEach>
-	</div>
+   	<div class="d-flex justify-content-center">
+  <div class="row">
+  	<div class="col">
+    <c:forEach items="${questionBannerList}" var="map">
+        <div class="row">
+          <div class="col fw-bold d-flex align-items-center justify-content-center text-center">
+		      <a class="text-decoration-none position-relative" href="/safari/community/question/questionReadContentPage/${map.questionDto.id}">
+		           <!--  <div style="position: relative;"> -->
+	              <img src="/safari/resources/img/community/questionbanner.png" style="height: 250px; width: 1284.66px; position: relative;">
+	              <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: white; font-size: 35px; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); ">
+	                '${map.questionDto.title}'<br>답변을 해주세요!
+	              </div>
+		           
+		      </a>
+          </div>
+        </div>
+    </c:forEach>
+    </div>
+  </div>
+</div>
+	<!-- </div> -->
 	<!-- 베스트카드 --> 
      
      <!-- 배너 --> 
@@ -95,7 +89,7 @@
 	<div class="row mt-4">
 	
 	<div class="col">
-		<table class="table"  style=" background-color: black;">
+		<table class="table"  style=" background-color: black; ">
 			<thead class="table-secondary">
 			<thead>
 			 <tr>
@@ -110,7 +104,7 @@
 			<tbody class="table-group-divider">
 			 <%-- best --%>
 			<c:forEach items="${questionBestBoardList}" var="map">
-				<tr class="table-secondary">
+				<tr style="background-color: #f0f0f0;">
 				  	<td><a class="text-black text-decoration-none" href="/safari/community/question/questionReadContentPage/${map.questionDto.id}">${map.questionDto.id}</a></td>
 					<td>${map.userDto.nickname}</td>
 					<td style="text-align: left;">

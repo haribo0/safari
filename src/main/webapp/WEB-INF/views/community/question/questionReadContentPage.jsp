@@ -285,9 +285,9 @@ window.addEventListener("DOMContentLoaded", function(){
 							 <fmt:formatDate value="${questionReply.questionReplyDto.reg_date}" pattern="yyyy.MM.dd a hh:mm"/> 
 					 		 </span>
 					 		 
-					 		 <c:if test="${sessionUser.id != questionReply.userDto.id }">
+					 		 <%-- <c:if test="${sessionUser.id != questionReply.userDto.id }">
 							<span class="text-secondary ms-2" style="font-size: 13px; font-weight: normal;">신고하기</span>
-							</c:if>
+							</c:if> --%>
 					 
 						 <c:if test="${sessionUser.id == questionReply.userDto.id }">
 						  <span class="text-secondary ms-2" style="font-size: 13px;">

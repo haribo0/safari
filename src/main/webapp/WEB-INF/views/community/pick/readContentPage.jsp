@@ -553,7 +553,7 @@
 												    <%-- 투표2 --%>
 												    
 												    <%-- 투표3 --%>
-												    <a href="/safari/community/pick/voteProcess?pick_id=${map.pickDto.id}&pick_option_id=${pickOptionValuesForVoteDto.option_id}" class="custom-button btn btn-outline-secondary rounded-pill mt-4">
+												    <a href="/safari/community/pick/voteProcess?pick_id=${map.pickDto.id}&pick_option_id=${pickOptionValuesForVoteDto.option_id}" class="custom-button btn btn-outline-secondary rounded-pill mt-4" onclick="onVoteButtonClick(this)">
 													  <!-- 퍼센트 값을 반영하여 채워지는 영역 -->
 													  <div class="custom-progress" style="width: ${map.totalVoteCount == 0 ? 0 : Math.round((pickOptionValuesForVoteDto.vote_cnt / map.totalVoteCount) * 100)}%;"></div>
 													  <span class="vote-text" style="font-size: 16px; color: secondary;">
@@ -564,6 +564,19 @@
 													      
 													  </span>
 													</a>
+													
+													<script>
+  function onVoteButtonClick(button) {
+    // 해당 버튼의 글씨를 빨간색으로 변경
+    const voteText = button.querySelector(".vote-text");
+    voteText.style.color = "red";
+
+    // 이후 추가적인 작업을 수행할 수 있습니다.
+    // 예를 들어, 서버로 투표 요청을 보내는 등의 작업을 수행할 수 있습니다.
+
+    // ...
+  }
+</script>
 												    <%-- 투표3 --%>
 												    
 												    
