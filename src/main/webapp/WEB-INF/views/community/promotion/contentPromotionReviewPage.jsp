@@ -202,7 +202,7 @@ window.addEventListener("beforeunload", function() {
 	<div class="container-fluid d-flex align-items-center justify-content-between p-3 px-5 mb-3 bg-light">
 		<div class="container">
 			<div class="row px-4">
-				<p class="mb-0 text-body-secondary"><span class="mx-2" style="font-size: 15px;">커뮤니티</span> &gt; <span class="mx-2" style="font-size: 15px;">써봤어요</span> &gt;<span class="mx-2" style="font-size: 15px;">어쩌고</span> </p>
+				<p class="mb-0 text-body-secondary"><span class="mx-2" style="font-size: 15px;">커뮤니티</span> &gt; <span class="mx-2" style="font-size: 15px;">리워드 리뷰</span> &gt;<span class="mx-2" style="font-size: 15px;">ALL REVIEW</span> </p>
 			</div>
 		</div>
 	</div>
