@@ -506,10 +506,15 @@
 				</div>-->
 				
 				<%-- 골라줘요 forEach --%>
+				<div class="m-2">
 				<c:forEach items="${newPostByPickList}" var="map" varStatus="status" begin="0" end="4">  
 								<div class = "row mt-1 py-1">
 								<div class = "col ">
 								${map.pickDto.title }
+								</div>
+								
+								<div class = "col-auto me-2 text-secondary text-end d-flex align-items-center" style = "font-size:13px;">
+									<fmt:formatDate value="${map.pickDto.reg_date}" pattern="yyyy/MM/dd" />
 								</div>
 								</div>
 								
@@ -525,9 +530,7 @@
 								</c:forEach>
 								
 								
-								<div class = "col-auto p-0 text-secondary text-end d-flex align-items-center" style = "font-size:13px;">
-									<fmt:formatDate value="${map.pickDto.reg_date}" pattern="yyyy/MM/dd" />
-								</div>
+								
 								
 								
 								</div>
@@ -537,6 +540,7 @@
 									
 								
 							</c:forEach>
+							</div>
 				<%-- 골라줘요 forEach --%>
 				<!--  포이치  끝 -->
 			</div>
