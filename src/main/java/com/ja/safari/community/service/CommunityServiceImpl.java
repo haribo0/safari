@@ -36,7 +36,7 @@ public class CommunityServiceImpl {
 	private PromotionReviewServiceImpl promotionReviewService;
 
 	
-	// 커뮤니티 메인 - 게시물 최신순 정렬
+	// 커뮤니티 메인 - 게시물 최신순 정렬 
 	public List<Map<String, Object>> newPostByCommunity(int sessionId) {
 		
 		List<CommunityPostDto> newPostCommunityList = communitySqlMapper.selectNewPostByCommunity();
@@ -50,10 +50,13 @@ public class CommunityServiceImpl {
 			
 			newPostByCommunityList.add(map);
 			
-		}		
+		}	
+			
 		
 		return newPostByCommunityList;
 	}
+	
+	
 	
 	// 커뮤니티 메인 - 게시물 인기순 정렬
 	public List<Map<String, Object>> bestPostByCommunity(int sessionId) {
