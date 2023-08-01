@@ -675,13 +675,14 @@
 					
 					<%-- 글쓰기버튼 --%>
 					<div class="row">
-						<div class="col text-end pe-5">
+						<div class="col text-end pe-3">
 							<c:if test="${!empty sessionUser }">
-								<a href="/safari/community/recruit/writeContentPage" class="btn btn-default px-2 text-body-secondary">글쓰기</a>
+								<a href="/safari/community/recruit/writeContentPage" class="btn btn-default orangeButton px-2 ">글쓰기</a>
 							</c:if>
 						</div>
 					</div>
 					<%-- 글쓰기버튼 --%>
+					
 					
 						<%-- 페이지 버튼 --%>
 						<div class="row">

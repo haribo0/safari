@@ -50,7 +50,7 @@
 		<!-- 커뮤니티 메뉴바 -->
 		<div class="row">
 			<div class="col">
-				<jsp:include page="../../community/communityTopNavi.jsp"></jsp:include>
+				<jsp:include page="../../community/communityTopNavi2.jsp"></jsp:include>
 			</div>
 		</div>
 		<!-- 커뮤니티 메뉴바 -->
@@ -89,17 +89,38 @@
 								<%-- headline --%>
 								
 								<%-- write content --%>
+								<div class="row">
+								<div class="col">
 								<div class="form-group mt-4 mb-4">
 							      <div class="form-control " style="font-size: 20px; font-family: 'Noto Sans', sans-serif; box-shadow: none;">
 							        <input id="title" name="title" placeholder="제목을 입력해주세요." style="width: 100%; border: none; outline: none; padding: 0;"></input>
 							      </div>
 							     </div>
-								
+							     
+							     </div>
+								</div>
+								 	
+
 								
 									<div class="row">
-  									<div class="col d-flex flex-column justify-content-start align-items-start text-start" style="font-size: 20px;">
+  									<div class="col d-grid d-flex flex-column justify-content-start align-items-start text-start" style="font-size: 20px;">
   									<label for="" class="col col-form-label fw-bold mb-2">모집조건</label>
   									</div>
+  									
+  									
+  									<div class="col-2 d-flex justify-content-end text-align-center align-items-center ms-2 mb-2">
+								     <span class="me-1 d-flex align-items-center text-align-center" style="color: red;"><i class="bi bi-check-lg"></i></span> 지원 종료일
+								    </div>
+								    
+								    
+								    <div class="col-3 ">
+								    <div class="form-group mt-1 mb-1">
+									    <div class="form-control" style="font-size: ; font-family: 'Noto Sans', sans-serif; box-shadow: none;">
+											<input type="date" name="end_date" style="width: 100%; border: none; outline: none; padding: 0;">
+										</div>
+									</div>
+								    </div>
+  									
   									</div>
   									
   									<%-- 조건 카드 --%>
@@ -114,7 +135,7 @@
 													<span class="working_condition_item" style=""></span> 
 													  <div class="input-group">
 													    <div class="d-flex align-items-center">
-													      <label for="position_category_id" class="input-group-text fw-bold" style="border: none; outline: none; background-color: white;">직무</label>
+													      <label for="position_category_id" class="input-group-text fw-bold" style="border: none; outline: none; background-color: ;">직무</label>
 													          <select class="form-select" id="position_category_id" name="position_category_id" style="font-size: ; font-family: 'Noto Sans', sans-serif; box-shadow: none;">
 													            <option value="11" selected="selected">사무</option>
 													            <option value="12">연구</option>
@@ -142,8 +163,8 @@
 												<span class="working_condition_item" style=""></span>
 													<div class="input-group">
 													<div class="d-flex align-items-center">
-													   <label for="numberInput" class="input-group-text fw-bold" style="border: none; outline: none; background-color: white;">급여</label>
-													    <input type="number" class="input-group-text me-2"  name="salary"  id="numberInput" oninput="updateRange()" style="width: 100px; font-size: ; font-family: 'Noto Sans', sans-serif; box-shadow: none;">
+													   <label for="numberInput" class="input-group-text fw-bold" style="border: none; outline: none; background-color: ;">급여</label>
+													    <input type="number" class="input-group-text me-2"  name="salary"  id="numberInput" oninput="updateRange()" style="background-color: white; width: 100px; font-size: ; font-family: 'Noto Sans', sans-serif; box-shadow: none;">
 													   <!--  <label for="rangeInput">Range:</label> -->
 													   만원
 													    <input class="ms-2" type="range" id="rangeInput" min="0" max="1000" value="0" oninput="updateNumber()">
@@ -169,8 +190,8 @@
 												<%-- 경력--%><%-- 나이제한을 바꾸기--%>
 												<div class="col-4">													<div class="input-group">
 													<div class="d-flex align-items-center">
-													   <label for="numberInput2" class="input-group-text fw-bold" style="border: none; outline: none; background-color: white;">경력</label>
-													    <input type="number" class="input-group-text me-2"  name="age_limit" id="numberInput2" oninput="updateRange2()" style="width: 70px; font-size: ; font-family: 'Noto Sans', sans-serif; box-shadow: none;">
+													   <label for="numberInput2" class="input-group-text fw-bold" style="border: none; outline: none; background-color: ;">경력</label>
+													    <input type="number" class="input-group-text me-2"  name="age_limit" id="numberInput2" oninput="updateRange2()" style="background-color: white; width: 70px; font-size: ; font-family: 'Noto Sans', sans-serif; box-shadow: none;">
 													   년
 													   <!--  <label for="rangeInput">Range:</label> -->
 													    <input class="ms-2" type="range" id="rangeInput2" min="0" max="30" value="0" oninput="updateNumber2()">
@@ -201,8 +222,8 @@
 													<span class="working_condition_item" style=""></span>
 													<div class="input-group">
 													<div class="d-flex align-items-center">
-													   <label for="opening" class="input-group-text fw-bold" style="border: none; outline: none; background-color: white;">인원</label>
-													   <input type="number" class="input-group-text me-2"  name="opening"  id="opening" style="width: 70px; font-size: ; font-family: 'Noto Sans', sans-serif; box-shadow: none;">
+													   <label for="opening" class="input-group-text fw-bold" style="border: none; outline: none; background-color: ;">인원</label>
+													   <input type="number" class="input-group-text me-2"  name="opening"  id="opening" style="background-color: white; width: 70px; font-size: ; font-family: 'Noto Sans', sans-serif; box-shadow: none;">
 													</div>
 													</div>
 												</div>
@@ -213,8 +234,8 @@
 													<span class="working_condition_item" style=""></span>
 													<div class="input-group ms-2">
 												    <div class="d-flex align-items-center">
-												      <label for="location" class="input-group-text fw-bold" style="border: none; outline: none; background-color: white;">위치</label>
-												          <select class="form-select" id="location" name="location" style="font-size: ; font-family: 'Noto Sans', sans-serif; box-shadow: none;">
+												      <label for="location" class="input-group-text fw-bold" style="border: none; outline: none; background-color: ;">위치</label>
+												          <select class="form-select" id="location" name="location" style="background-color: white; font-size: ; font-family: 'Noto Sans', sans-serif; box-shadow: none;">
 												            <option value="1" selected="selected">서울특별시</option>
 												            <option value="2">경기도</option>
 												            <option value="3">인천광역시</option>
@@ -243,11 +264,11 @@
 													<span class="working_condition_item" style=""></span>
 													  <div class="input-group ms-3">
 													    <div class="d-flex align-items-center">
-													      <label class="input-group-text fw-bold" style="border: none; outline: none; background-color: white;">성별</label>
-													      <div class="form-control" style="font-size: ; font-family: 'Noto Sans', sans-serif; box-shadow: none;">
-													        <label><input type="radio" name="gender" value="3" checked> 무관</label>
-													        <label><input type="radio" name="gender" value="1"> 남</label>
-													        <label><input type="radio" name="gender" value="2"> 여</label>
+													      <label class="input-group-text fw-bold" style="border: none; outline: none; background-color: ;">성별</label>
+													      <div class="ms-2" style="font-size: ; font-family: 'Noto Sans', sans-serif; box-shadow: none;">
+													        <label><input type="radio" name="gender" value="3" checked><span style="margin-right: 10px;"> 무관</span></label>
+													        <label><input class="ms-2" type="radio" name="gender" value="1"><span style="margin-right: 10px;"> 남</span></label>
+													        <label><input class="ms-2" type="radio" name="gender" value="2"><span style="margin-right: 10px;"> 여</span></label>
 													      </div>
 													    </div>
 													  </div>
@@ -263,12 +284,46 @@
 									</div>
 	  								<%-- 조건 카드 --%>	
   									
-  									<div class="row">
-					
-									
-										
-										
+  									<%-- 지원날짜 --%>
+								 	<%-- <div class="card p-2 mt-3">
+								 	
+								    <div class="row">
+								    지원시작일
+								    <!-- <div class="col-2 d-flex justify-content-start text-align-center align-items-center ms-2">
+								    지원 시작일
+								    </div>
+								    
+								    <div class="col d-grid">
+								    <div class="form-group mt-1 mb-1">
+									    <div class="form-control" style="font-size: ; font-family: 'Noto Sans', sans-serif; box-shadow: none;">
+											<input type="date" name="reg_date" style="width: 100%; border: none; outline: none; padding: 0;">
 										</div>
+									</div>
+								    </div>
+								    
+								    <div class="col">
+								    </div> -->
+								     지원시작일
+								     
+								      지원종료일
+								     <div class="col-2 d-flex justify-content-start text-align-center align-items-center ms-2">
+								    지원 종료일
+								    </div>
+								    
+								    <div class="col d-grid">
+								    <div class="form-group mt-1 mb-1">
+									    <div class="form-control" style="font-size: ; font-family: 'Noto Sans', sans-serif; box-shadow: none;">
+											<input type="date" name="end_date" style="width: 100%; border: none; outline: none; padding: 0;">
+										</div>
+									</div>
+								    </div>
+								    
+								    <div class="col">
+								    </div>
+								    지원종료일
+								    </div>
+								    </div> --%>
+								    <%-- 지원날짜 --%>
 								
 								<%--입력 박스--%> 
 								
@@ -393,6 +448,8 @@
 								    </div>
 								    </div>
 								    
+
+								    
 								    <div class="row">
 								    <div class="col">
 								    <div class="form-group mt-1 mb-1">
@@ -402,6 +459,8 @@
 									</div>
 								    </div>
 								    </div>
+								    
+								   
 								    
 							    </div>
 							    

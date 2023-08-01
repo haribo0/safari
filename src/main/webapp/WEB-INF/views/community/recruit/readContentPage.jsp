@@ -231,6 +231,8 @@
 								<%-- 본문 카드 --%>
 								<div class="card my-3">
   							      <div class="card-body">
+  							      
+  							      <div class="p-2 mt-2" style="width: ;">
   							     	<%-- 제목 카드 --%>
 	  							    <div class="row">
 										<div class="col d-grid" style="width: ;">
@@ -255,7 +257,7 @@
 										<%-- 여기에 책갈피(찜) 넣기 --%>
 											<c:otherwise>
 												<%-- AJAX 좋아요 --%>
-												<div style="padding: 20%; background-color: ; border-radius: 20%;">
+												<div style="padding: %; background-color: ; border-radius: 20%;">
 												<i id="heartBox" onclick="toggleLike()" class=" text-danger bi bi-bookmark" style="font-size: 22px;"></i>
 												<span id="totalLikeCount" style="color: #6a6a6a;"></span>
 												</div>
@@ -278,10 +280,11 @@
 							    		</div>
 						    		</div>
 								<%-- 제목 카드 --%>
+								</div>
 								
 								<hr>
 								<div class="row">
-								<div class="col" style="width: 950px;">
+								<div class="col  mb-1" style="width: 950px;">
 									<div class="working_condition">
 										<div class="row">
 										
@@ -552,7 +555,7 @@
 								
 							<%-- 목록으로 버튼 --%>
 							<div class="row">
-								<div class="col text-end ms-auto d-grid">
+								<div class="col text-end ms-auto d-grid mb-3">
 									<a href="/safari/community/recruit/mainPage" class="nav-link px-2 text-body-secondary"> 목록으로 </a>
 									<c:if test="${!empty sessionUser && sessionUser.id == data}">
 									</c:if>
