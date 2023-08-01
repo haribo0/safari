@@ -35,6 +35,18 @@
 	    height: 12px;
 	    background: #d2d2d2;
 	}
+	
+	.orangeButton {
+		background: #ff6f0f;
+		font-weight: bold;
+		color: white;
+	}
+	
+	.orangeButton:hover{
+	   background: #FF812C;
+	   font-weight: bold;
+	   color: white;
+	}
 </style>
 
 </head>
@@ -82,9 +94,9 @@
 										<strong style="font-size: 24px;">글쓰기 페이지<br></strong>
 									</div>
 									
-									<div class="col d-grid justify-content-end mr-2">
+									<!-- <div class="col d-grid justify-content-end mr-2">
 										<button class="nav-link px-2 text-body-secondary"><i class="bi bi-pencil-square"></i></button>
-									</div>
+									</div> -->
 								</div><hr>
 								<%-- headline --%>
 								
@@ -191,7 +203,7 @@
 												<div class="col-4">													<div class="input-group">
 													<div class="d-flex align-items-center">
 													   <label for="numberInput2" class="input-group-text fw-bold" style="border: none; outline: none; background-color: ;">경력</label>
-													    <input type="number" class="input-group-text me-2"  name="age_limit" id="numberInput2" oninput="updateRange2()" style="background-color: white; width: 70px; font-size: ; font-family: 'Noto Sans', sans-serif; box-shadow: none;">
+													    <input type="number" class="input-group-text me-2"  name="career" id="numberInput2" oninput="updateRange2()" style="background-color: white; width: 70px; font-size: ; font-family: 'Noto Sans', sans-serif; box-shadow: none;">
 													   년
 													   <!--  <label for="rangeInput">Range:</label> -->
 													    <input class="ms-2" type="range" id="rangeInput2" min="0" max="30" value="0" oninput="updateNumber2()">
@@ -481,6 +493,14 @@
 							 <%-- write content --%>
 								<%-- write content --%>
 								
+								<%-- 글쓰기 --%>
+								<div class="row">
+									<div class="col text-end p-2 me-2">
+								   		<button class="orangeButton btn btn-default" style="border: none;">글쓰기</button>
+								   		<!-- <button class="btn" style="background: #ff6f0f; font-weight: bold; color: white;">작성하기</button>  -->
+									</div>  
+								</div>
+								<%-- 글쓰기 --%>
 								
 							</form>	
 							</div>
