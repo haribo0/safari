@@ -215,7 +215,9 @@ window.addEventListener("DOMContentLoaded", function(){
 		<!--  간이 배너 -->
 		<div class = "row mt-5 mb-3">
 			<div class = "col">
-				<img src="/safari/resources/img/community/banerer3.png" class="img-fluid">
+				<a href="/safari/rental/mainPage" style="text-decoration: none; color: inherit;">
+					<img src="/safari/resources/img/community/banerer3.png" class="img-fluid">
+				</a>
 			</div>
 		</div>
 		
