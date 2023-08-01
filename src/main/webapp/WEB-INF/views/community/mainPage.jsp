@@ -507,9 +507,9 @@
 				
 				<%-- 골라줘요 forEach --%>
 				<div class="m-2">
-				<c:forEach items="${newPostByPickList}" var="map" varStatus="status" begin="0" end="4">  
+				<c:forEach items="${newPostByPickList}" var="map" varStatus="status" begin="0" end="2">  
 				<a href="/safari/community/pick/readContentPage/${map.pickDto.id}" style="text-decoration: none; color: inherit;">
-											
+										
 										
 								<div class = "row mt-4 py-1">
 								<div class = "col fw-semibold">
