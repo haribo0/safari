@@ -166,12 +166,6 @@
 						<div class = "col fs-5 mt-2 mx-2 fw-semibold">
 							인기 게시글
 						</div>
-						<div class = "col-1 p-0 me-3 d-flex align-items-center justify-content-end text-secondary">
-							<!--  공유버튼 -->
-							<a href="./help/mainPage" onclick="clip(); return false;" style="text-decoration: none; color: inherit;">
-								<span class = "bi bi-three-dots fs-5"></span>
-							</a>
-						</div>
 						<div class = "row mt-3">
 							<div class = "col mx-2">
 		  					<c:forEach items="${bestPostByCommunityList}" var="map" varStatus="status">  
