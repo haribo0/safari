@@ -176,7 +176,7 @@ window.addEventListener("DOMContentLoaded", function(){
 				</div>
 				<div class = "row mt-1">
 					<div class = "col text-center fs-5">
-						사람들이 많은 후기를 남긴 제품
+						사람들이 많은 반응을 보낸 리뷰의 제품
 					</div>
 				</div>
 			</div>
