@@ -95,18 +95,13 @@ background-color: #F3F4F8 !important;
 												<div class = "col">
 													<div class = "row">
 														<div class = "col">
-															<div class= "row mt-1">
-																<div class = "col">
-																	카테고리
-																</div>
-															</div>
-											<%-- 	 	<div class= "row mt-1"> 제목이 없어 고민..
+											 	 			<div class= "row mt-1">
 														 		<div class = "col fw-semibold fs-6" style="display: -webkit-box; -webkit-line-clamp: 1; -webkit-box-orient: vertical; overflow: hidden;">
 															 		<a href="../../safari/community/recruit/readContentPage?id=${map.RecruitDto.id }" style="text-decoration: none; color: inherit;">
-															 		<!--  	${map.pickDto.title } -->
+															 			${map.pickDto.title } 
 															 		</a>
 														 		</div>
-														 	</div>  --%>
+														 	</div>  
 														 	<div class = "row">
 														 		<div class = "col" style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">
 															 		<a href="/safari/community/pick/readContentPage/${map.pickDto.id}" style="text-decoration: none; color: inherit;">
@@ -153,11 +148,6 @@ background-color: #F3F4F8 !important;
 												<div class = "col">
 													<div class = "row">
 														<div class = "col">
-															<div class= "row mt-1">
-																<div class = "col">
-																	카테고리
-																</div>
-															</div>
 														 	<div class= "row mt-1">
 														 		<div class = "col fw-semibold fs-6" style="display: -webkit-box; -webkit-line-clamp: 1; -webkit-box-orient: vertical; overflow: hidden;">
 															 		<a href="/safari/community/help/readContentPage/${map.helpDto.id}" style="text-decoration: none; color: inherit;">
@@ -228,11 +218,6 @@ background-color: #F3F4F8 !important;
 												<div class = "col">
 													<div class = "row">
 														<div class = "col">
-															<div class= "row mt-1">
-																<div class = "col">
-																	카테고리
-																</div>
-															</div>
 														 	<div class= "row mt-1">
 														 		<div class = "col fw-semibold fs-6" style="display: -webkit-box; -webkit-line-clamp: 1; -webkit-box-orient: vertical; overflow: hidden;">
 															 		<a href="/safari/community/question/readContentPage/${map.recruitDto.id}" style="text-decoration: none; color: inherit;">
@@ -286,11 +271,6 @@ background-color: #F3F4F8 !important;
 												<div class = "col">
 													<div class = "row">
 														<div class = "col">
-															<div class= "row mt-1">
-																<div class = "col">
-																	카테고리
-																</div>
-															</div>
 														 	<div class= "row mt-1">
 														 		<div class = "col fw-semibold fs-6" style="display: -webkit-box; -webkit-line-clamp: 1; -webkit-box-orient: vertical; overflow: hidden;">
 															 		<a href="/safari/community/recruit/readContentPage/${map.recruitDto.id}" style="text-decoration: none; color: inherit;">

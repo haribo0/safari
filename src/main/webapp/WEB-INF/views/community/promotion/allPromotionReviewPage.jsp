@@ -392,10 +392,10 @@ window.addEventListener("DOMContentLoaded", function(){
 				    <ul class="pagination mb-0">
 				    	<c:choose>
 				    		<c:when test="${startPage <= 1}">
-				    			<li class="page-item disabled"><a class="page-link" href="./allPromotionReviewPage?page=${startPage-1}${promoReview_searchQueryString}">&lt;</a></li>
+				    			<li class="page-item disabled"><a class="page-link" href="${pageContext.request.contextPath}/community/promotion/allPromotionReviewPage?page=${startPage-1}${promoReview_searchQueryString}">&lt;</a></li>
 				    		</c:when>
 				    		<c:otherwise>
-				    			<li class="page-item"><a class="page-link" href="./allPromotionReviewPage?page=${startPage-1}${promoReview_searchQueryString}">&lt;</a></li>
+				    			<li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/community/promotion/allPromotionReviewPage?page=${startPage-1}${promoReview_searchQueryString}">&lt;</a></li>
 				    		</c:otherwise>
 				    	</c:choose>
 				    	
@@ -405,17 +405,17 @@ window.addEventListener("DOMContentLoaded", function(){
 				    				<li class="page-item active"><a class="page-link bg-secondary" style="border-color:gray;" href="./allPromotionReviewPage?page=${index}${promoReview_searchQueryString}">${index}</a></li>
 				    			</c:when>
 				    			<c:otherwise>
-				    				<li class="page-item"><a class="page-link" href="./allPromotionReviewPage?page=${index}${promoReview_searchQueryString}">${index}</a></li>
+				    				<li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/community/promotion/allPromotionReviewPage?page=${index}${promoReview_searchQueryString}">${index}</a></li>
 				    			</c:otherwise>
 				    		</c:choose>
 				    	</c:forEach>
 				    	
 				    	<c:choose>
 				    		<c:when test="${endPage >= totalPage}">
-				    			<li class="page-item disabled"><a class="page-link" href="./allPromotionReviewPage?page=${endPage+1}${promoReview_searchQueryString}">&gt;</a></li>
+				    			<li class="page-item disabled"><a class="page-link" href="${pageContext.request.contextPath}/community/promotion/allPromotionReviewPage?page=${endPage+1}${promoReview_searchQueryString}">&gt;</a></li>
 				    		</c:when>
 				    		<c:otherwise>
-				    			<li class="page-item"><a class="page-link" href="./allPromotionReviewPage?page=${endPage+1}${promoReview_searchQueryString}">&gt;</a></li>
+				    			<li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/community/promotion/allPromotionReviewPage?page=${endPage+1}${promoReview_searchQueryString}">&gt;</a></li>
 				    		</c:otherwise>
 				    	</c:choose>
 				    </ul>

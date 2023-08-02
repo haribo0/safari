@@ -163,7 +163,7 @@ function clip(){
 	textarea.select();
 	document.execCommand("copy");
 	document.body.removeChild(textarea);
-	alert("URL이 복사되었습니다.")
+	alert("URL가 복사되었습니다.")
 }
 
 function goToLoginPage() {
