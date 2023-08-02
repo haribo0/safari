@@ -568,8 +568,9 @@
 			<div class="row">
 			
 			<!-- 왼쪽 -->
-			<div class="col text-end mt-3 text-align-center">
-				<a href="/safari/community/pick/mainPage" class="btn btn-default orangeButton text-align-center text-center mb-3 d-flex align-items-center justify-content-center" style="width: 40px; height: 40px; font-size: 30px;"><i class="bi bi-reply-fill"></i> </a>  <!-- 목록으로  -->
+			<div class="col">
+				<!-- <a href="/safari/community/pick/mainPage" class="btn btn-default orangeButton text-align-center text-center mb-3 d-flex align-items-center justify-content-center" style="width: 40px; height: 40px; font-size: 30px;"><i class="bi bi-reply-fill"></i> </a>  목록으로 
+				 -->
 			</div>
 			<!-- 왼쪽 -->
 			
@@ -583,7 +584,9 @@
 						
 							<%-- 골라줘요 본문--%>
 								<div class="align-middle " style="text-align:start">
-							
+							 <a href="/safari/community/pick/mainPage" class="text-secondary text-decoration-none">
+								<i class="bi bi-chevron-left"></i> 목록으로
+							</a>
 									<div class="ms-2 me-2">
 										<hr>
 									</div>
@@ -666,7 +669,7 @@
 									
 									<%-- 골라주세요 옵션 foreach --%>
 									<div class="row">
-										<div class="col mt-3 ms-1 fs-5 fw-bold">
+										<div class="col mt-5 ms-1 fs-5 fw-bold">
 											투표하기 <i class="bi bi-reception-4"></i>
 										</div>
 									</div>	
