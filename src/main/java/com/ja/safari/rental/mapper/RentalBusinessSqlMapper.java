@@ -56,6 +56,9 @@ public interface RentalBusinessSqlMapper {
 	// 상품 id로 상품 dto 가져오기 
 	public RentalItemDto selectRentalItemDto(int itemId);
 	
+	// 반납 추가금  
+	public List<RentalReturnExtraCharge> getRentalReturnExtraCharges(int returnId);
+	
 	// 할인 가격 등록 
 	public void registerDiscountedPrice(RentalPeriodDiscDto rentalPeriodDiscDto);
 	

@@ -197,6 +197,18 @@ public class RentalBusinessServiceImpl {
 		}
 		return list;
 	}
+	
+	// 주문 아이디로 반납 dto 
+	public RentalItemReturnDto getItemReturnDtoByOrderId(int orderId) {
+		
+		return rentalSqlMapper.getItemReturnDtoByOrderId(orderId);
+	}
+	
+	// 주문 아이디로 반납 추가금
+	public List<RentalReturnExtraCharge> getRentalReturnExtraCharges(int returnId) {
+		
+		return rentalSqlMapper.getRentalReturnExtraCharges(returnId);
+	}
 
 	
 	// 계정 id로 주문 리스트 가져오기

@@ -18,10 +18,14 @@ import com.ja.safari.dto.CsLiveChatRating;
 import com.ja.safari.dto.CsQnaDto;
 import com.ja.safari.dto.CsQnaRating;
 import com.ja.safari.dto.KakaoUserInfo;
+import com.ja.safari.dto.RentalItemReturnDto;
 import com.ja.safari.dto.UserAddressDto;
 import com.ja.safari.dto.UserChargeCoinKakaoPayApproveDto;
 import com.ja.safari.dto.UserCoinDto;
 import com.ja.safari.dto.UserDto;
+import com.ja.safari.rental.controller.RentalBusinessController;
+import com.ja.safari.rental.service.RentalBusinessServiceImpl;
+import com.ja.safari.rental.service.RentalServiceImpl;
 import com.ja.safari.used.service.UsedServiceImpl;
 import com.ja.safari.user.service.UserServiceImpl;
 
@@ -37,6 +41,14 @@ public class UserRestController {
 	
 	@Autowired
 	private UsedServiceImpl usedService;
+	
+	@Autowired
+	private RentalServiceImpl rentalService;
+	
+	@Autowired
+	private RentalBusinessServiceImpl rentalBusinessService;
+	
+	
 	
 	// 사용자 로그인
 	@RequestMapping("loginProcess")
@@ -541,6 +553,32 @@ public class UserRestController {
 		  }else {
 			  usedService.updateProductRequestStatusByproductId(productId);
 			  map.put("result", "success");
+			  return map;
+		  }
+	  }
+	  
+	  // 렌탈 반납 정보 
+	  @RequestMapping("getRentalReturnDtoByOrderId")
+	  public Map<String, Object> getRentalReturnDtoByOrderId(HttpSession session, Integer orderId){
+		  Map<String, Object> map = new HashMap<String, Object>();
+		  UserDto sessionUser = (UserDto) session.getAttribute("sessionUser");
+		  
+		  RentalItemReturnDto rentalItemReturnDto = rentalBusinessService.getItemReturnDtoByOrderId(orderId);
+		  
+		  if(sessionUser == null) {
+			  map.put("result", "fail");
+			  map.put("reason", "login required");
+			  return map;
+		  } else {
+			  
+			  map.put("result", "success");
+			  map.put("returnDto", rentalItemReturnDto);
+			  map.put("returnExtraCharge", null);
+
+			  if(rentalItemReturnDto!=null) {
+				  map.put("returnExtraCharge", rentalBusinessService.getRentalReturnExtraCharges(rentalItemReturnDto.getId()));
+			  }
+			  
 			  return map;
 		  }
 	  }

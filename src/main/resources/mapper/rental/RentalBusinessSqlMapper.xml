@@ -337,6 +337,13 @@
 		WHERE id = #{orderId}
 	</select>
 	
+	<!-- 주문 id로 주문 가져오기 -->
+	<select id="getRentalReturnExtraCharges" resultType="com.ja.safari.dto.RentalReturnExtraCharge">
+		SELECT * 
+		FROM RENTAL_RETURN_EXTRA_CHARGE
+		WHERE return_id = #{returnId}
+	</select>
+	
 	<!-- 상품 가격 옵션 가져오기 -->
 	<select id="getDiscountedPriceList" resultType="com.ja.safari.dto.RentalPeriodDiscDto">
 		SELECT * 

@@ -142,35 +142,41 @@
 	      			<div class="col pt-0 pb-3 px-3 mt-3 border rounded-1">
 	      				<div class="row">
 							<div class="col py-2 d-flex justify-content-between border-bottom">
-								<p class="mb-0 fw-bold" style="font-size: 17px;">배송정보</p>
+								<p class="mb-0 fw-bold" style="font-size: 17px;" >배송정보</p>
 							</div>
 						</div>
 						<div class="row mt-1">
 							<div class="col pt-2 pb-0 d-flex justify-content-between">
 								<small class="text-secondary">수령인</small>
-								<p class="mb-0"><span class=""></span></p>
+								<p class="mb-0"><span class="" id="delivery_recipient"></span></p>
 							</div>
 						</div>
-						<div class="row">
+						<!-- <div class="row">
 							<div class="col pt-2 pb-0 d-flex justify-content-between">
 								<small class="text-secondary">연락처</small>
-								<p class="mb-0"><span class=""></span></p>
+								<p class="mb-0"><span class="" id="delivery_contact"></span></p>
 							</div>
-						</div>
+						</div> -->
 						<div class="row">
 							<div class="col pt-2 pb-0 d-flex justify-content-between">
 								<small class="text-secondary">주소</small>
-								<p class="mb-0"><span class=""></span></p>
+								<p class="mb-0"><span class="" id="delivery_address"></span></p>
 							</div>
 						</div>
 						
 	      			</div>
 	      			
 	      			
-					<div class="col px-3 mt-3 border rounded-1">
+					<div class="col px-3 mt-3 border rounded-1 " id="returnPart">
 						<div class="row">
 							<div class="col py-2 d-flex justify-content-between border-bottom ">
 								<p class="mb-0 fw-bold" style="font-size: 17px;">반납정보</p>
+							</div>
+						</div>
+						<div class="row mt-1">
+							<div class="col ms-1 pt-2 pb-0 d-flex justify-content-between">
+								<span class="" style=""> 반납신청일</span>
+								<p class="ms-2 mb-1"><span class="modalReturnDate" ></span> </p>
 							</div>
 						</div>
 						<div class="row mt-1">
@@ -179,10 +185,10 @@
 								<p class="ms-2 mb-1"><span class="modalFinDeposit"></span>원</p>
 							</div>
 						</div>
-						<div class="row">
+						<div class="row " id="">
 							<div class="col pt-2 pb-0 d-flex justify-content-between">
 								<small class="text-secondary">&#x2514; 약정 할인 취소금 </small>
-								<p class="mb-0">( - ) <span class="modalFinCancelFee"></span>원</p>
+								<p class="mb-0"> <span class="modalFinCancelFee">( - )</span>원</p>
 							</div>
 						</div>
 						<div class="row">
@@ -196,11 +202,14 @@
 								<p class="mb-0">( - ) <span class="modalFinPartialLoss"></span>원</p>
 							</div>
 						</div> -->
+						<div id="modalReturnFees">
 						<div class="row">
+							
 							<div class="col pt-2 pb-0 d-flex justify-content-between">
 								<small class="text-secondary">&#x2514; 부분 파손 </small>
 								<p class="mb-0">( - ) <span class="modalFinPartialDamage"></span>원</p>
 							</div>
+						</div>
 						</div>
 						<div class="row mt-3 border-top">
 							<div class="col py-3 d-flex justify-content-between">
@@ -637,6 +646,8 @@
 							                	data-product-title="${data.product.title}" 
 							                	data-product-desc="${data.product.item_description}"
 							                	data-order-id="${data.orderedItem.id}" 
+							                	data-order-name="${data.orderedItem.name}" 
+							                	data-order-address="${data.orderedItem.address}" 
 							                	data-original-price="${data.orderedItem.original_price}" 
 							                	data-rego-price="${data.orderedItem.price}" 
 							                	data-startdate="${data.orderedItem.start_date }" 
@@ -975,6 +986,11 @@ function returnCheck(e) {
     
     // 오늘 날짜가 대여 시작일 보다 이전이거나 계약 기간의 90퍼센트 이상인 경우 - 추가 정산 XXX
     if(returnPercentage > 90  || startDateObj > currentDate ) {
+    	
+    	
+    	
+    	
+    	
     	const returnModal1 = bootstrap.Modal.getOrCreateInstance("#modalConfirm");
     	/* const returnModal3 = bootstrap.Modal.getOrCreateInstance("#modalFinSettlement");
     	returnModal3.show(); */
@@ -1024,7 +1040,8 @@ function orderDetail(e) {
     const dataImageLink = button.getAttribute('data-image-link')
     const productDesc = button.getAttribute('data-product-desc')
     const form = modalReturn.querySelector('form')
-
+    
+    
     setRegDate()
     
     const remainMonth = getMonthDiffer(new Date(formattedDate),new Date(formattedEndDate))
@@ -1075,28 +1092,138 @@ function orderDetail(e) {
    	const modalFinCancelFee = document.querySelector('.modalFinCancelFee')
    	const modalFinPartialLoss = document.querySelector('.modalFinPartialLoss')
    	const modalFinPartialDamage = document.querySelector('.modalFinPartialDamage')
+   	const modalReturnDate = document.querySelector('.modalReturnDate')
+   	
+   	const modalRecipient = document.getElementById("delivery_recipient");
+   	const modalContact = document.getElementById("delivery_contact");
+   	const modalAddress = document.getElementById("delivery_address");
+   	const modalReturnPart = document.getElementById("returnPart");
+   	const modalReturnFees = document.getElementById("modalReturnFees");
+   	
     
    	modalFinModalTopImage.setAttribute('src', '/safariImg/'+dataImageLink);
-   	modalFinStartDateP.innerText = formattedStartedDate
-   	modalFinEndDateP.innerText = formattedEndDate
-   	modalFinUsedPriceP.innerText = parseInt(price).toLocaleString()
-   	modalFinDeposit.innerText = parseInt(deposit).toLocaleString()
-   	modalFinStartDateS.innerText = formattedStartedDate
-   	modalFinEndDateS.innerText = formattedEndDate
+   	modalFinStartDateP.innerText = formattedStartedDate;
+   	modalFinEndDateP.innerText = formattedEndDate;
+   	modalFinUsedPriceP.innerText = parseInt(price).toLocaleString();
+   	modalFinDeposit.innerText = parseInt(deposit).toLocaleString();
+   	modalFinStartDateS.innerText = formattedStartedDate;
+   	modalFinEndDateS.innerText = formattedEndDate;
    	
-   	console.log(formattedStartedDate);
+
+    const address = button.getAttribute('data-order-address');
+    const name = button.getAttribute('data-order-name');
    	
-/*    	modalFinFinPriceP.innerText =
-	modalFinCancelFee.innerText =
-	modalFinPartialLoss.innerText =
-	modalFinPartialDamage.innerText = */
-	
-	const returnModal3 = bootstrap.Modal.getOrCreateInstance("#modalFinSettlement");
-	returnModal3.show();
+   	modalRecipient.innerText =  name;
+   	modalAddress.innerText =  address;
+   		
+   		
+   	// d-none
+   	
+	const xhr = new XMLHttpRequest();
+
+	xhr.onreadystatechange = function() {
+		if(xhr.readyState == 4 && xhr.status == 200){
+			const response = JSON.parse(xhr.responseText);
+			
+			const returnDto = response.returnDto;
+			const extraCharge = response.returnExtraCharge;
+			
+			let totalExtraCharge = 0;
+			let totalDiscRevoc = 0;
+			
+			if(returnDto===null) {
+				modalReturnPart.className = 'col px-3 mt-3 border rounded-1 d-none';
+				
+			} else {
+				
+				modalReturnPart.className = 'col px-3 mt-3 border rounded-1';
+				
+				const returnDate = new Date(returnDto.reg_date);
+			    modalReturnDate.innerText = formatDate(returnDate);
+				
+				console.log(returnDate);
+				console.log(formatDate(returnDate));
+			    
+				if(returnDto.discount_revocation>0){
+					modalFinCancelFee.innerText = returnDto.discount_revocation;
+					totalDiscRevoc += returnDto.discount_revocation;
+				} else {
+					modalFinCancelFee.innerText = "-"
+				}
+				
+				modalReturnFees.innerHTML = "";
+				
+				
+				if(extraCharge != null){
+					
+					extraCharge.forEach((data)=>{
+						// Create the main container div with the class "row"
+						const mainContainer = document.createElement("div");
+						mainContainer.classList.add("row");
+
+						// Create the first inner div with the class "col pt-2 pb-0 d-flex justify-content-between"
+						const firstInnerDiv = document.createElement("div");
+						firstInnerDiv.classList.add("col", "pt-2", "pb-0", "d-flex", "justify-content-between");
+
+						// Create the <small> element with the class "text-secondary" and set its text content
+						const smallElement = document.createElement("small");
+						smallElement.classList.add("text-secondary");
+						smallElement.textContent = "└ "+data.reason;
+
+						// Create the <p> element with the class "mb-0" and set its text content
+						const pElement = document.createElement("p");
+						pElement.classList.add("mb-0");
+						pElement.textContent = data.charge+" 원";
+
+						// Create the <span> element with the class "modalFinCancelFee" and set its text content
+						const spanElement = document.createElement("span");
+						spanElement.classList.add("modalFinCancelFee");
+						// spanElement.textContent = data.charge;
+						// Set the content of this span element dynamically as needed (e.g., spanElement.textContent = "1000";)
+
+						firstInnerDiv.appendChild(smallElement);
+						firstInnerDiv.appendChild(pElement);
+						pElement.appendChild(spanElement);
+						mainContainer.appendChild(firstInnerDiv);
+						
+						modalReturnFees.appendChild(mainContainer);
+						
+						totalExtraCharge += data.charge;
+						
+					});
+					
+				} 
+				
+				
+				
+				modalFinFinPriceP.innerText = parseInt(deposit)-totalDiscRevoc-totalExtraCharge;
+				
+			}
+			
+			
+			
+			
+			const returnModal3 = bootstrap.Modal.getOrCreateInstance("#modalFinSettlement");
+			returnModal3.show();
+			
+		}
+	}
+
+	// get 방식 
+	xhr.open("get", "./getRentalReturnDtoByOrderId?orderId="+orderId);
+	xhr.send();
+   	
 	
 }
 
 let orderId
+
+function formatDate(date) {
+	const year = date.getFullYear();
+	const month = String(date.getMonth() + 1).padStart(2, "0"); // 월은 0부터 시작하므로 1을 더하고 두 자리로 맞춥니다.
+	const day = String(date.getDate()).padStart(2, "0"); // 날짜를 두 자리로 맞춥니다.
+	return `\${year}-\${month}-\${day}`;
+}
 
 
 //리뷰 작성 모달renew
