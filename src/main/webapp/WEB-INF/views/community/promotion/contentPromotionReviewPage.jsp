@@ -525,7 +525,7 @@ window.addEventListener("beforeunload", function() {
 							<c:forEach items = "${promoCommentDtoList}" var = "mapPromoComment">
 							<div class = "row mt-1">
 								<div class = "col-1"> <!--  프로필사진 -->
-									<img style="filter: grayscale(1);" src = "/safari/resources/img/user.jpg" alt = "UserImage" width="50px">
+									<img src = "${mapPromoComment.userDto.profile_img_link}" alt = "UserImage" width="50px">
 								</div>
 								<div class = "col">
 									<div class = "row">
