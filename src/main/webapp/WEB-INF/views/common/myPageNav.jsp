@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<div class="col-2 text-start">
+<div class="col-2 text-start mb-5">
 		<div style="border-bottom: 2px solid #222; height: 48px;">
 			<a href="./myPage" class="btn p-0"><h4 class="fw-bold mb-3" style="letter-spacing: -0.8px;">MY PAGE</h4></a>	
 		</div>
@@ -46,7 +46,7 @@
 					<li class="list-group-item border-0 py-1 ps-0"><a href="/safari/auction/bidList" class="btn py-0 text-body-secondary ps-0 fs-nav-small">입찰내역</a></li>
 					<li class="list-group-item border-0 py-1 ps-0"><a href="/safari/auction/successBidList" class="btn py-0 text-body-secondary ps-0 fs-nav-small">낙찰내역</a></li>
 					<li class="list-group-item border-0 py-1 ps-0"><a href="/safari/auction/wishList" class="btn py-0 text-body-secondary ps-0 fs-nav-small">찜</a></li>
-					<li class="list-group-item border-0 py-1 ps-0"><a href="/safari/auction/uploadAuctionList" class="btn py-0 text-body-secondary ps-0 fs-nav-small">경매 업로드 내역</a></li>
+					<li class="list-group-item border-0 py-1 ps-0"><a href="/safari/auction/uploadAuctionList" class="btn py-0 text-body-secondary ps-0 fs-nav-small">판매내역</a></li>
 			
 				</ul>
 			</div>

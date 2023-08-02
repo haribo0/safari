@@ -11,7 +11,7 @@
 <jsp:include page="../common/meta.jsp"></jsp:include>
 <!-- 메타 섹션 -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
-<link rel="stylesheet" href="/safari/resources/style/auction.css" type="text/css">
+<link rel="stylesheet" href="/safari/resources/style/common.css" type="text/css">
 <style>
 .orangeButton{
 	background: #ff6f0f;
