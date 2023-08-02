@@ -176,7 +176,7 @@ window.addEventListener("DOMContentLoaded", function(){
 				</div>
 				<div class = "row mt-1">
 					<div class = "col text-center fs-5">
-						사람들이 많은 후기를 남긴 제품
+						사람들이 많은 반응을 보낸 리뷰의 제품
 					</div>
 				</div>
 			</div>
@@ -190,8 +190,9 @@ window.addEventListener("DOMContentLoaded", function(){
 					<div class = "col" style="width: 18rem; height: 420px;">
 						<div class="card border border-0" >
 							<a href="/safari/rental/productDescPage?id=${map.rentalItemDto.id }"> 
-						  <img src="/safariImg/${map.rentalItemDto.main_img_link }"
-						  	   class="card-img-top" alt="리워드게시물사진" height="300"> <!--  이미지 src 바꿔둠 -->
+						  <img src="/uploadPromoFiles/${map.rentalItemDto.main_img_link }"
+						  	   class="card-img-top" alt="렌탈제품사진" height="300">
+						  	   <!--  이미지 src 바꿔둠 img src="/safariImg/${map.rentalItemDto.main_img_link }"  -->
 						  </a>
 						  <div class="card-body text-center">
 						  	<p class="card-text secondary fs-6 mt-1">
@@ -214,7 +215,9 @@ window.addEventListener("DOMContentLoaded", function(){
 		<!--  간이 배너 -->
 		<div class = "row mt-5 mb-3">
 			<div class = "col">
-				<img src="/safari/resources/img/community/banerer3.png" class="img-fluid">
+				<a href="/safari/rental/mainPage" style="text-decoration: none; color: inherit;">
+					<img src="/safari/resources/img/community/banerer3.png" class="img-fluid">
+				</a>
 			</div>
 		</div>
 		
@@ -316,7 +319,7 @@ window.addEventListener("DOMContentLoaded", function(){
 									  </div>
 								  		<a href="./contentPromotionReviewPage?id=${map.promotionReviewDto.id}" style="text-decoration: none; color: inherit;">
 									    <div class="d-flex align-items-center">
-						                    <img src="${data.userDto.profile_img_link}" class="rounded-circle" style="width: 25px; height: 25px;" alt="프로필사진">
+						                    <img src="${map.userDto.profile_img_link}" class="rounded-circle" style="width: 25px; height: 25px;" alt="프로필사진">
 						                    <p class="card-text fs-6 mt-2 ms-2">${map.userDto.nickname}</p>
 						                </div>
 									    <p class="card-text fs-6 mt-2" style="display: -webkit-box; -webkit-line-clamp: 3;
@@ -391,7 +394,7 @@ window.addEventListener("DOMContentLoaded", function(){
 							  			  </div>
 									   </div>
 									    <div class="d-flex align-items-center">
-						                    <img src="${data.userDto.profile_img_link}" class="rounded-circle" style="width: 25px; height: 25px;" alt="프로필사진">
+						                    <img src="${map.userDto.profile_img_link}" class="rounded-circle" style="width: 25px; height: 25px;" alt="프로필사진">
 						                    <p class="card-text fs-6 mt-2 ms-2">${map.userDto.nickname}</p>
 						                </div>
 									    <p class="card-text fs-6 mt-2" style="display: -webkit-box; -webkit-line-clamp: 3;

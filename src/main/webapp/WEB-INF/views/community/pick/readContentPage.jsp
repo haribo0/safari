@@ -152,7 +152,7 @@
 	
 		////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		//댓글
-		function registerComment(){
+	/*	function registerComment(){
 		
 		if(!mySessionId) {
 			// 로그인 안되었있으니까...
@@ -308,6 +308,169 @@
 				
 		
 	}
+	*/
+	
+	
+	
+	////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	//해시태그
+	function registerHashtag(){
+	
+		if(!mySessionId) {
+			// 로그인 안되었있으니까...
+			return;
+		}
+		
+		const hashtagTextBox = document.getElementById("hashtagTextBox");
+		const hashtagTextValue = hashtagTextBox.value; 
+		
+		const xhr = new XMLHttpRequest();
+		
+		xhr.onreadystatechange = function(){
+			if(xhr.readyState == 4 && xhr.status == 200){
+				const response = JSON.parse(xhr.responseText);
+				// js 작업..
+				hashtagTextBox.value = "";
+				reloadHashtagList();
+			}
+		}
+		
+		//post
+		xhr.open("post", "${pageContext.request.contextPath}/community/pick/registerHashtag");
+		xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded"); 
+		xhr.send("pick_id=" + pick_id + "&content=" + HashtagTextValue);
+		
+	}
+	
+	function reloadHashtagList(){
+		const xhr = new XMLHttpRequest();
+		
+		xhr.onreadystatechange = function(){
+			if(xhr.readyState == 4 && xhr.status == 200){
+				const response = JSON.parse(xhr.responseText);
+				
+				document.getElementById("hashtagListBox").innerHTML = ""; //초기화 얘만 innerHTML 허용... 
+				
+				for(map of response.hashtagList){
+					const row1 = document.createElement("div");
+					row1.classList.add("row");
+					row1.classList.add("hashtagOuter");
+					row1.setAttribute("hashtagId" , map.pickHashtagDto.id);
+					
+					
+					const colHashtagBox = document.createElement("div");
+					colHashtagBox.classList.add("hashtagBox");
+					colHashtagBox.classList.add("col-8");
+					colHashtagBox.classList.add("bg-primary");
+					colHashtagBox.innerText = map.pickHashtagDto.content; // 데이터 세팅
+					row1.appendChild(colHashtagBox);
+	
+					const colNickname = document.createElement("div"); 					
+					colNickname.classList.add("col-2");
+					colNickname.classList.add("bg-secondary");
+					colNickname.innerText = map.userDto.nickname; // 데이터 세팅
+					row1.appendChild(colNickname);
+					
+					if(mySessionId != null && map.pickHashtagDto.user_id){
+						const colDelete = document.createElement("div");
+						colDelete.classList.add("col-1");
+						colDelete.innerText = "삭제";
+						colDelete.setAttribute("onclick", "deleteHashtag("+map.pickHashtagDto.id+")");
+						row1.appendChild(colDelete);
+						
+						const colUpdate = document.createElement("div");
+						colUpdate.classList.add("col-1");
+						colUpdate.innerText = "수정";
+						colUpdate.setAttribute("onclick", "changeInputForUpdateHashtag(this)");
+						
+						row1.appendChild(colUpdate);
+					}
+					
+					document.getElementById("hashtagListBox").appendChild(row1);
+				}
+				
+				
+			}
+		}
+		
+		//get
+		xhr.open("get", "${pageContext.request.contextPath}/community/pick/getHashtagList?pick_id=" + pick_id);
+		xhr.send();
+	}	
+	
+	function deleteHashtag(id){
+		const xhr = new XMLHttpRequest();
+		
+		xhr.onreadystatechange = function(){
+			if(xhr.readyState == 4 && xhr.status == 200){
+				const response = JSON.parse(xhr.responseText);
+				// js 작업..
+				reloadHashtagList();
+			}
+		}
+		
+		//get
+		xhr.open("get", "${pageContext.request.contextPath}/community/pick/deleteHashtag?id=" + id);
+		xhr.send();
+		
+	}
+	
+	
+	function changeInputForUpdateHashtag(targetElement){
+		
+		const hashtagOuter = targetElement.closest(".hashtagOuter"); // 부모중에 css 접근자 문법에 맞는 엘리먼트를 가져온다.
+		
+		// const hashtagBox = hashtagOuter.getElementsByClassName("hashtagBox")[0];
+		const hashtagBox = hashtagOuter.querySelector(".hashtagBox");
+		
+		const tempValue = hashtagBox.innerText;
+		
+		hashtagBox.innerHTML = "";
+		
+		const inputTextHashtag = document.createElement("input");
+		inputTextHashtag.type = "text"
+		//inputTextHashtag.classList.add("form-control");
+		inputTextHashtag.classList.add("hashtagInputBox");
+		inputTextHashtag.value = tempValue;
+		hashtagBox.appendChild(inputTextHashtag);
+		
+		const inputButtonUpdate = document.createElement("button");
+		inputButtonUpdate.innerText = "수정 적용";
+		inputButtonUpdate.setAttribute("onclick" , "updateHashtag(this)");
+		hashtagBox.appendChild(inputButtonUpdate);
+		
+		
+		
+		targetElement.innerText = "수정취소";
+		targetElement.setAttribute("onclick", "cancelUpdate(this)");
+	}
+	
+	function updateHashtag(targetElement){
+		
+		const hashtagOuter = targetElement.closest(".hashtagOuter");
+		
+		const hashtagId = hashtagOuter.getAttribute("hashtagId");
+		console.log("hashtagId:", hashtagId);
+		const hashtagText = hashtagOuter.querySelector(".hashtagInputBox").value;
+		
+		const xhr = new XMLHttpRequest();
+		
+		xhr.onreadystatechange = function(){
+			if(xhr.readyState == 4 && xhr.status == 200){
+				const response = JSON.parse(xhr.responseText);
+				// js 작업..
+				reloadHashtagList();
+			}
+		}
+		
+		//post
+		xhr.open("post", "${pageContext.request.contextPath}/community/pick/updateHashtag");
+		xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded"); 
+		xhr.send("id=" + hashtagId + "&content=" + hashtagText);
+				
+		
+	}
+	
 	
 	
 	
@@ -317,7 +480,8 @@
 		getSessionId();
 		refreshTotalLikeCount();
 		refreshMyHeart();
-		reloadCommentList();
+		reloadHashtagList();
+		//reloadCommentList();
 		
 		//setInterval(reloadCommentList, 5000);
 		
@@ -332,9 +496,7 @@
 	 }
 	 
 
-/*투표*/
-
-
+	/*투표*/
     .custom-button {
     position: relative; /* 자식 요소의 위치를 설정하기 위해 필요 */
     width: 213px; /* 버튼의 너비 설정 */
@@ -366,6 +528,19 @@
     height: 100%;
     font-weight: bold;
   }
+  
+ 	/* 오렌지버튼 */
+  	.orangeButton {
+	background: #ff6f0f;
+	font-weight: bold;
+	color: white;
+	}
+	
+	.orangeButton:hover{
+	   background: #FF812C;
+	   font-weight: bold;
+	   color: white;
+	}
 </style>
 
 </head>
@@ -393,9 +568,10 @@
 			<div class="row">
 			
 			<!-- 왼쪽 -->
-	<!--		<div class="col">
-				
-			</div> -->
+			<div class="col">
+				<!-- <a href="/safari/community/pick/mainPage" class="btn btn-default orangeButton text-align-center text-center mb-3 d-flex align-items-center justify-content-center" style="width: 40px; height: 40px; font-size: 30px;"><i class="bi bi-reply-fill"></i> </a>  목록으로 
+				 -->
+			</div>
 			<!-- 왼쪽 -->
 			
 			<!-- 가운데 -->
@@ -408,7 +584,9 @@
 						
 							<%-- 골라줘요 본문--%>
 								<div class="align-middle " style="text-align:start">
-							
+							 <a href="/safari/community/pick/mainPage" class="text-secondary text-decoration-none">
+								<i class="bi bi-chevron-left"></i> 목록으로
+							</a>
 									<div class="ms-2 me-2">
 										<hr>
 									</div>
@@ -491,13 +669,13 @@
 									
 									<%-- 골라주세요 옵션 foreach --%>
 									<div class="row">
-										<div class="col mt-3 ms-1 fs-5 fw-bold">
-											투표하기 <i class="bi bi-reception-4"></i>
+										<div class="col mt-5 ms-2 fs-5 fw-bold">
+											투표하기 
 										</div>
 									</div>	
 									
 									
-										<div class="row">
+										<div class="row mt-1">
 											<c:forEach items="${map.pickOptionValuesForVoteDtoList }" var="pickOptionValuesForVoteDto">
 												  <div class="col-md-3 mt-2 mb-5">
 												  <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-center" >
@@ -566,17 +744,17 @@
 													</a>
 													
 													<script>
-  function onVoteButtonClick(button) {
-    // 해당 버튼의 글씨를 빨간색으로 변경
-    const voteText = button.querySelector(".vote-text");
-    voteText.style.color = "red";
-
-    // 이후 추가적인 작업을 수행할 수 있습니다.
-    // 예를 들어, 서버로 투표 요청을 보내는 등의 작업을 수행할 수 있습니다.
-
-    // ...
-  }
-</script>
+													  function onVoteButtonClick(button) {
+													    // 해당 버튼의 글씨를 빨간색으로 변경
+													    const voteText = button.querySelector(".vote-text");
+													    voteText.style.color = "red";
+													
+													    // 이후 추가적인 작업을 수행할 수 있습니다.
+													    // 예를 들어, 서버로 투표 요청을 보내는 등의 작업을 수행할 수 있습니다.
+													
+													    // ...
+													  }
+													</script>
 												    <%-- 투표3 --%>
 												    
 												    
@@ -598,6 +776,32 @@
 											<button type="button" class="btn btn-outline-secondary rounded-pill btn-sm">#해시태그</button>	
 										</div>
 										<%-- 해시태그 --%>
+										
+										<%-- AJAX 해시태그 --%>
+										<%--  <div class="container">
+											<div class="row">
+												<div class="col-7">
+													<textarea id="hashtagTextBox" class="form-control"></textarea>
+												</div>
+												<div class="col d-grid">
+													<input onclick="registerHashtag()" class="btn btn-primary" type="button" value="해시태그 작성">
+												</div>
+											</div>
+											<div class="row">
+												<div id="hashtagListBox" class="col">
+													<div class="row hashtagOuter">
+														<div class="hashtagBox col-8 bg-primary">내용..</div>
+														<div class="col bg-secondary">닉네임..</div>
+														<div class="col bg-success">삭제</div>
+														<div class="col bg-warning">수정</div>
+													</div>			
+												</div>
+											</div>
+										</div> --%>
+										<%-- AJAX 해시태그 --%>
+										
+										
+										
 									</div>
 									
 									
@@ -620,11 +824,11 @@
 						
 						
 						<%-- 목록으로 버튼 --%>
-						<div class="row">
+						<!-- <div class="row">
 							<div class="col text-end d-grid align-middle ms-4 me-4 mb-4">
 								<a href="/safari/community/pick/mainPage" class="nav-link px-2 text-body-secondary"> 목록으로 </a>  
 							</div>
-						</div>
+						</div> -->
 						<%-- 목록으로 버튼 --%>
 						
 							

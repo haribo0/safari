@@ -64,9 +64,9 @@
 			<div class="row">
 			
 			<!-- 왼쪽 -->
-			<!-- <div class="col">
-				<img class="img-fluid ms-3 mt-4" src="https://api.linkareer.com/attachments/233888" alt="...">
-			</div> -->
+			<div class="col">
+				<!--<img class="img-fluid ms-3 mt-4" src="https://api.linkareer.com/attachments/233888" alt="...">  -->
+			</div>
 			<!-- 왼쪽 -->
 			
 			<!-- 가운데 -->
@@ -93,7 +93,7 @@
 												</select>				
 											</div>
 											
-											<div class="col-6">
+											<div class="col-8">
 												<input name="pick_searchWord" type="text" class="form-control">
 											</div>
 											
@@ -114,7 +114,9 @@
 							
 								<div class="col-2 text-end ">
 									<c:if test="${!empty sessionUser }">
-										<a href="/safari/community/pick/writeContentPage" class=" orangeButton btn btn-default ">글쓰기</a>
+										<a href="/safari/community/pick/writeContentPage" class=" orangeButton btn btn-default ">
+										<i class="bi bi-pencil-square fa-icon text-white" style="font-size: 16px;"></i>
+										글쓰기</a>
 									</c:if>
 								</div>
 							
@@ -351,7 +353,7 @@
 			
 			<!-- 오른쪽 -->
 			<div class="col">
-				<img class="img-fluid ms-3 mt-4" src="https://api.linkareer.com/attachments/233888" alt="...">
+				<img class="img-fluid ms-3" style="margin: 80px;" src="https://api.linkareer.com/attachments/233888" alt="...">
 			</div>
 			<!-- 오른쪽 -->
 			

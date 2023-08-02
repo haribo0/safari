@@ -32,9 +32,9 @@
 	//const pathParts = window.location.pathname.split('/');
 	//const pick_id = pathParts[pathParts.length - 1]; 
 	
-
+<%--
  function createPickPk() {
-<%--	 const pick_id = document.getElementById("pickPk").value;
+	 const pick_id = document.getElementById("pickPk").value;
     const xhr = new XMLHttpRequest();
     xhr.open("GET", "${pageContext.request.contextPath}/community/pick/createPickPk");
     xhr.onreadystatechange = function() {
@@ -52,7 +52,7 @@
         }
       }
     };
-    xhr.send(); --%>
+    xhr.send(); 
     //const pick_id = document.getElementById("pickPk").value;
     //console.log("Pick PK: " + pick_id);
     
@@ -117,7 +117,7 @@
 	
 
 		////////////////////////////////////////////////////////////////////////////////////////////////////////////
-		//댓글
+		//해시태그
 		function registerHashtag(){
 		
 		if(!mySessionId) {
@@ -283,7 +283,7 @@
 		getSessionId();
 		reloadHashtagList();
 		//setInterval(reloadHashtagList, 5000);
-	});
+	});--%>
 </script>
 <!-- 스크립트 섹션 -->
 
@@ -311,10 +311,10 @@
 		<div class="container main_box">
 			<div class="row">
 			
-			<!-- 왼쪽 
-			<div class="col" style="background-color:lightgrey;" >
-				왼쪽
-			</div>-->
+			<!-- 왼쪽 --> 
+			<div class="col">
+				
+			</div>
 			<!-- 왼쪽 -->
 			
 			<!-- 가운데 -->
@@ -337,9 +337,9 @@
 									<strong style="font-size: 24px;">글쓰기 페이지<br></strong>
 								</div>
 								
-								<div class="col d-grid justify-content-end mr-2">
+								<!-- <div class="col d-grid justify-content-end mr-2">
 									<button class="nav-link px-2 text-body-secondary"><i class="bi bi-pencil-square"></i></button>
-								</div>
+								</div> -->
 							</div><hr>
 							<%-- headline --%>
 								
@@ -442,6 +442,16 @@
 								</div>	
 							</div>
 							<%-- write content --%>
+							
+							
+							<%-- 글쓰기 --%>
+							<div class="row">
+								<div class="col text-center p-2 me-3 mb-3">
+							   		<button class="orangeButton btn btn-default" style="border: none;">글쓰기</button>
+							   		<%--<button class="nav-link px-2 text-body-secondary"><i class="bi bi-pencil-square"></i></button>--%>
+								</div>  
+							</div>
+							<%-- 글쓰기 --%>
 							
 							</form>
 							<%-- write from--%>	

@@ -32,7 +32,16 @@
 	<!-- 헤더 섹션 -->
 	<jsp:include page="../../common/header.jsp"></jsp:include>
 	<!-- 헤더 섹션 -->
-		
+	
+	<!-- 커뮤니티 메뉴바 -->
+      <div class="row">
+         <div class="col">
+           <jsp:include page="../../community/communityTopNavi2.jsp"></jsp:include>
+         </div>
+      </div>
+      <!-- 커뮤니티 메뉴바 --> 
+	
+	
 	<!-- 시작 -->
 	<div class="row">
 		<!-- 왼쪽 -->
@@ -42,13 +51,7 @@
 		<%-- 내용 공간 --%>
 		<div class="col-8">
 		
-		 <!-- 커뮤니티 메뉴바 -->
-      <div class="row">
-         <div class="col">
-           <jsp:include page="../../community/communityTopNavi2.jsp"></jsp:include>
-         </div>
-      </div>
-      <!-- 커뮤니티 메뉴바 --> 
+
      
      <!-- 베스트카드 -->
    	<div class="d-flex justify-content-center">

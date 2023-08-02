@@ -36,6 +36,8 @@
 		]]>
 	</select>
 	
+
+	
 	<!--  커뮤니티 인기 게시글 -->
 	<select id="selectBestPostByCommunity" resultType="com.ja.safari.dto.CommunityPostDto">
 	SELECT
@@ -76,6 +78,10 @@
 	]]>
 	ORDER BY likeCount DESC
 	</select>
+	
+	
+	
+
 	
 	<select id="createPk" resultType="int">
 		select help_table_seq.nextval from dual
