@@ -66,7 +66,16 @@ public class HelpController {
 
 	//해주세요 글쓰기 페이지
 	@RequestMapping("help/writeContentPage")
-	public String writeContentPage() {
+	public String writeContentPage(HttpSession session) {
+
+		UserDto sessionUser = (UserDto) session.getAttribute("sessionUser");
+
+		if (sessionUser == null) {
+
+			return "redirect:/user/loginPage";
+
+		} 
+		
 		return "/community/help/writeContentPage";
 	}
 
@@ -128,7 +137,8 @@ public class HelpController {
 
 			helpService.registerHelpBoard(helpDto, helpImgDtoList);
 		}
-		return "redirect:./mainPage";
+		/* return "redirect:./mainPage"; */
+		return "redirect:/community/help/readContentPage/" + helpDto.getId();
 
 	}
 

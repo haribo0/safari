@@ -78,17 +78,23 @@
       </div>
 	  <!-- 게시판 제목 글자 -->
 		<%--best helpBoardList forEach  --%>
+		
 		<div class="row mb-5">
+		
 			<c:forEach items="${helpBestBoardList}" var="map">
+				
 			    <div class="col-6 mb-0 p-3">
+			    
 			    	<div class="card" style="border-top: 4px solid #ff6f0f;">
 			    	${helpImgDto.help_img_link}
-			    	<div class="card-body">
+			    	
+			    	<div onclick="location.href='/safari/community/help/readContentPage/${map.helpDto.id}'"class="card-body" style="cursor: pointer;">
 				    	<div class="row">
 				    		<div class="col-auto">
 				    		<%-- img --%>
 									<div class="row mt-1">
 										<div class="col">
+										<a class="text-black text-decoration-none" href="/safari/community/help/readContentPage/${map.helpDto.id}">
 										<c:if test="${map.helpImgCount>=1}">
 											<img src="/uploadFiles/${map.helpImgDtoList[0].help_img_link}"
 												class="cropped-image">
@@ -97,6 +103,7 @@
 											<img src="/safari/resources/img/community/no-image.gif"
 											class="cropped-image">
 											</c:if>
+											</a>
 										</div>
 									</div>						
 				    		</div>
@@ -143,6 +150,7 @@
 			  		</div>
 			  		</div></div>
 			    	</c:forEach>
+			    	
 				</div>
 				<%--best helpBoardList forEach  --%>
 		
@@ -259,6 +267,7 @@
 						<div class="d-flex justify-content-end">
 							<button class="btn orangeButton d-flex align-items-center justify-content-center" 
 							onclick="location.href='./writeContentPage'" style="background:#FF6F0F; color:white; font-weight:bold;">
+								<i class="bi bi-pencil-square fa-icon text-white" style="margin-right: 10px;"></i>
 								글쓰기
 							</button>
 						

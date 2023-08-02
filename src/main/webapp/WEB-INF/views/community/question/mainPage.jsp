@@ -104,7 +104,9 @@
 			<tbody class="table-group-divider">
 			 <%-- best --%>
 			<c:forEach items="${questionBestBoardList}" var="map">
-				<tr style="background-color: #f0f0f0;">
+			
+				<tr style="background-color: #f0f0f0; cursor: pointer;" onclick="location.href='/safari/community/question/questionReadContentPage/${map.questionDto.id}'">
+				
 				  	<td><a class="text-black text-decoration-none" href="/safari/community/question/questionReadContentPage/${map.questionDto.id}">${map.questionDto.id}</a></td>
 					<td>${map.userDto.nickname}</td>
 					<td style="text-align: left;">
@@ -127,6 +129,7 @@
 				  <td style="text-align: center;">${map.questionLikeCount}</td>
 				  <td style="text-align: center;"><fmt:formatDate value="${map.questionDto.reg_date}" pattern="yyyy.MM.dd"/></td>
 				</tr>
+				
 			</c:forEach>
 			 <%-- best --%>
 			 
