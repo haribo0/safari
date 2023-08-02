@@ -176,7 +176,7 @@ window.addEventListener("DOMContentLoaded", function(){
 				</div>
 				<div class = "row mt-1">
 					<div class = "col text-center fs-5">
-						사람들이 많은 후기를 남긴 제품
+						사람들이 많은 반응을 보낸 리뷰의 제품
 					</div>
 				</div>
 			</div>
@@ -215,7 +215,9 @@ window.addEventListener("DOMContentLoaded", function(){
 		<!--  간이 배너 -->
 		<div class = "row mt-5 mb-3">
 			<div class = "col">
-				<img src="/safari/resources/img/community/banerer3.png" class="img-fluid">
+				<a href="/safari/rental/mainPage" style="text-decoration: none; color: inherit;">
+					<img src="/safari/resources/img/community/banerer3.png" class="img-fluid">
+				</a>
 			</div>
 		</div>
 		

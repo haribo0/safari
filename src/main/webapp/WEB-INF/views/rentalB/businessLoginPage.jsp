@@ -31,6 +31,7 @@
 				</div>
 			
 			</div>
+			
 			<div class="col-5"></div>
 			<div class="col">
 				<div class="row my-5">
@@ -84,19 +85,33 @@
 						 
 					</div>
 				</div>
+				<div class="row my-5">
+					<div class="col d-grid">
+						 
+					</div>
+				</div>
+				<div class="row my-5">
+					<div class="col d-grid">
+						 
+					</div>
+				</div>
 			
 			</div>
 			<div class="col-5"></div>
+		</div>
+		<div class="row">
+			<div class="col-2"></div>
+			<div class="col">
+				<!-- 푸터 섹션 -->
+				<jsp:include page="../common/footer.jsp"></jsp:include>
+				<!-- 푸터 섹션 -->
+			</div>
 		</div>
 		
 	</div>
 
 	
 
-
-	<!-- 푸터 섹션 -->
-	<jsp:include page="../common/footer.jsp"></jsp:include>
-	<!-- 푸터 섹션 -->
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
 </body>	

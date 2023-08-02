@@ -50,6 +50,13 @@
 	<jsp:include page="../../common/header.jsp"></jsp:include>
 	<!-- 헤더 섹션 -->
 	
+	<!-- 커뮤니티 메뉴바 -->
+      <div class="row">
+         <div class="col">
+           <jsp:include page="../../community/communityTopNavi2.jsp"></jsp:include>
+         </div>
+      </div>
+	
 	<div class="row">
 		<!-- 왼쪽 -->
 		<div class="col"></div>
@@ -58,12 +65,7 @@
 		<%-- 내용 공간 --%>
 		<div class="col-8">
 		
-		<!-- 커뮤니티 메뉴바 -->
-      <div class="row">
-         <div class="col">
-           <jsp:include page="../../community/communityTopNavi2.jsp"></jsp:include>
-         </div>
-      </div>
+
       <!-- 커뮤니티 메뉴바 --> 
       
       <!-- 게시판 제목 글자 -->
@@ -254,7 +256,7 @@
 	
 	
 	
-	<!-- 글쓰기 버튼 -->	
+						<!-- 글쓰기 버튼 -->	
 						<div class="col text-end" >
 						<div class="d-flex justify-content-end">
 							<button class="btn orangeButton d-flex align-items-center justify-content-center" 

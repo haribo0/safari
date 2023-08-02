@@ -38,7 +38,7 @@
 			#{career},
 			0,
 			'모집중',
-			sysdate,
+			#{end_date},
 			sysdate
 		)
 	</insert>
