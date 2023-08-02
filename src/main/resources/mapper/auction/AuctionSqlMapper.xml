@@ -1275,12 +1275,9 @@
 		  SELECT *
 		    FROM (
 		      SELECT 
-		          DISTINCT(at.id), at.title, auction_item_img_link,
-		          (SELECT COUNT(*) FROM auction_item_like atl WHERE atl.auction_item_id = at.id) AS likeCount
+		          DISTINCT(at.id), at.title, auction_item_img_link
 		      FROM 
 		          auction_item at
-		      JOIN
-		          auction_item_like atl ON at.id = atl.auction_item_id
 			   JOIN (
 				    SELECT ai.*
 				    FROM auction_item_img ai

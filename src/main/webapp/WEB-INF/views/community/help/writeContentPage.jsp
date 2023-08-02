@@ -62,7 +62,7 @@
 				<input type="text" class="form-control" placeholder="위치"  name="location" maxlength="30" style="margin-top: 10px; max-width: 200px">
 				 </div>
 				  <!--  <input type="text" class="form-control" placeholder="포인트"  name="points" maxlength="10" style="margin-top: 10px;">-->
-				  <label for="helpBoardFiles" class="file-upload-btn" style="margin-top: 10px;">
+				  <label for="helpBoardFiles" class="file-upload-btn" style="margin-top: 20px;">
 				  <i class="bi bi-paperclip"></i>
 				  <span class="sr-only">파일 선택</span>
 				  </label>

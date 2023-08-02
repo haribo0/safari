@@ -522,7 +522,7 @@ window.addEventListener("DOMContentLoaded", function(){
 				
 					<%--ajax 댓글 랜더링 --%>
 						<div class="container">
-							<div class="row mt-1 mb-1">
+							<div class="row mt-2 mb-1">
 								<div class="col-11 px-0 mb-3 d-grid ">
 								
 									<textarea id="helpCommentTextBox"

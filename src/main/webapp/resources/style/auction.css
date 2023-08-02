@@ -36,9 +36,9 @@ a:hover {
     font-family: 'SUIT Variable', sans-serif;
 }
  */
-.btn_auctionEnd{padding:3px 10px; background: #e9ecef; border:none; color: black; border-radius:8px; font-size: 13px; font-weight: meidum; }
-.btn_auctionReady{padding:3px 10px; background: #e6edfe; border:none; color: #789efd; border-radius:8px; font-size: 13px; font-weight: bold;}
-.btn_auctionIng{padding:3px 10px; background: #dff5ea; border:none; color: #6db590; border-radius:8px; font-size: 13px; font-weight: bold;}
+.btn_auctionEnd{padding:3px 10px; background: #e9ecef; border:none; color: black; border-radius:8px; font-size: 13px; font-weight: meidum;  pointer-events: none; }
+.btn_auctionReady{padding:3px 10px; background: #e6edfe; border:none; color: #789efd; border-radius:8px; font-size: 13px; font-weight: bold; pointer-events: none; }
+.btn_auctionIng{padding:3px 10px; background: #dff5ea; border:none; color: #6db590; border-radius:8px; font-size: 13px; font-weight: bold; pointer-events: none; }
 
 
 

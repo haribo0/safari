@@ -166,7 +166,7 @@ window.addEventListener("DOMContentLoaded", function(){
 			<div class = "col-1">
 				<c:choose>
 					<c:when test="${!empty sessionUser }">
-						<form action="writePromotionReviewPage" method = "post">
+						<form action="/safari/community/promotion/writePromotionReviewPage" method = "post">
 							<button class = "form-control btn orangeButton">글쓰기</button>
 						</form>
 					</c:when>

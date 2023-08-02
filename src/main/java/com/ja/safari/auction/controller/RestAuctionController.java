@@ -143,7 +143,7 @@ public class RestAuctionController {
 		Map<String, Object> map  =  new HashMap<>();
 		
 		map.put("getAuctionList", auctionService.getAuctionListByStatus(status));
-		
+	
 		return map;
 	}
 	

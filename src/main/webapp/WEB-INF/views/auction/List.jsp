@@ -330,10 +330,10 @@ function updateAuctionCountDown(id) {
 	  		
 	  			if (!clock) {
 		  		const clockSpan = document.createElement("span");
-		  		clockSpan.classList.add("text-white", "fw-bold", "fs-2")
+		  		clockSpan.classList.add("text-white", "fw-bold", "fs-2", "text-center")
 		  		clockSpan.style.position = "absolute";
 		  		clockSpan.style.top = "65px";
-		  		clockSpan.style.left = "55px";
+		  		clockSpan.style.left = "48px";
 		  		clockSpan.style.fontSize = "15px";
 		  		clockSpan.innerText = formatDateTimeAuctionBefore(response.auctionItem.auctionDto.start_date);
 		  		clockSpan.id = "clockSpan_" + id;
@@ -484,11 +484,13 @@ function reloadAuctionList(mainCategoryId, subCategoryId) {
 	   
 	   if (status) {
 		  url = "/safari/auction/getAuctionListByStatus?status=" + status;
+		  console.log(status);
 	   } 
 	   
-	   if (searchWord) {
+	 /*   if (searchWord) {
 		   url = "/safari/auction/searchAuction?searchWord=" + searchWord;
-	   }
+		   console.log(searchWord);
+	   }  */
 	   
 	   else {      
 		   
@@ -533,6 +535,7 @@ function reloadAuctionList(mainCategoryId, subCategoryId) {
 		 				timeSpan.style.left = "22px";
 		 				timeSpan.style.fontSize = "15px";
 		 				timeSpan.style.border = "none";
+		 				
 		 				timeSpan.id = "timeSpan_" + data.auctionDto.id;
 		 				
 		 				col.appendChild(timeSpan);
@@ -1040,7 +1043,7 @@ window.addEventListener("DOMContentLoaded", function(){
 		
 		<div class="row mt-4">
 		
-			<div class="col mb-3 d-flex justify-content-center" style="position: relative; right: 30px; font-size: 14px;">
+			<div class="col mb-3 " >
 			
 			 <input class="form-check-input me-2" type="radio" id="radioStatus" name="radioStatus" value="" style="cursor:pointer";>
 			  <label class="form-check-label me-4" for="radioStatus">
@@ -1049,13 +1052,13 @@ window.addEventListener("DOMContentLoaded", function(){
 				
 			 <input class="form-check-input me-2" type="radio" id="radioStatusIng" name="radioStatus" value="ing" style="cursor:pointer";>
 			  <label class="form-check-label me-4" for="radioStatusIng">
-			    	진행중인 경매만 보기
+			    	진행중
 			  </label>
  		  		
 
 				<input class="form-check-input me-2" type="radio" id="radioStatusReady" name="radioStatus" value="ready" style="cursor:pointer";>
 				  <label class="form-check-label me-2" for="radioStatusReady">
-				    	준비중인 경매만 보기
+				    	준비중
 				  </label>				
 			</div>		
 			
@@ -1210,7 +1213,7 @@ window.addEventListener("DOMContentLoaded", function(){
 				<div class="col-1"></div>
 				
 				<div class="col-6">
-				  <label for="auctionItemImgFiles" class="col-form-label fw-medium">제품 이미지</label>
+				  <label for="auctionItemImgFiles" class="col-form-label fw-medium">상품 이미지</label>
 				  <input class="form-control" id="auctionItemImgFiles"
 				  		name="auctionItemImgFiles" type="file" multiple="multiple" accept="image/*">
 				</div>

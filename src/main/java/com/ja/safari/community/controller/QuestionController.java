@@ -71,7 +71,15 @@ public class QuestionController {
 
 		//궁금해요 게시물 작성 페이지
 		@RequestMapping("question/questionWriteContentPage")
-		public String questionWriteContentPage() {
+		public String questionWriteContentPage(HttpSession session) {
+			
+			UserDto sessionUser = (UserDto) session.getAttribute("sessionUser");
+
+			if (sessionUser == null) {
+
+				return "redirect:/user/loginPage";
+
+			} 
 			return "/community/question/questionWriteContentPage";
 		}
 

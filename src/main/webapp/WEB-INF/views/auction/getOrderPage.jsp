@@ -71,19 +71,19 @@
    						
    						
    						
-   						   <div class="row mt-2">
+   						   <div class="row">
     							<div class="col">
     							
-    								<div class="row">
+    								<!-- <div class="row">
     									<div class="col fw-semibold fs-5">
 		      								구매자 정보
 		      							</div>
 		      							<div class="col fw-semibold fs-5">
 		      								판매자 정보
 		      							</div>
-    								</div> 
+    								</div>  -->
     								
-    								<div class="row mt-2">
+    						<%-- 		<div class="row mt-2">
     									<div class="col">
     										<table class="table">
     											<tr>
@@ -162,9 +162,9 @@
     									
     									
     								
-    								</div>
+    								</div> --%>
     								
-    								<div class="row mt-3">
+    								<div class="row mt-1">
     									<div class="col fw-semibold fs-5">
     										낙찰 정보
     									</div>
@@ -333,7 +333,7 @@
 	    							</div>
 	    						</div>
 	    						
-	    						<div class="row mt-1">
+	    						<div class="row mt-1 mb-5">
 	    							<div class="col-11 ms-2 py-5 border border-1 rounded-2 bg-light">
 	    								
 	    								<div class="row">
@@ -549,8 +549,8 @@
     										</div>
     									</div>
     									
-    									<div class="row mt-2 mb-5">
-    										<div class="col bg-light p-2">
+    									<div class="row mt-5 mb-5">
+    										<div class="col rounded-1 bg-light p-2">
     											
     											<div class="row">
     												<div class="col ms-1" >
@@ -869,8 +869,12 @@
 <div class="modal" id="checkBoxModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered"> 
     <div class="modal-content">
-      <div class="modal-header">
-      		<h5 class="modal-title">결제 안내</h5>
+      <div class="modal-header bg-light">
+   		<div class="row">
+   			<div class="col fw-semibold">
+   				결제 안내
+   			</div>
+   		</div>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div> 
       <div class="modal-body">
@@ -916,10 +920,7 @@
 
   
       </div>
-      
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">창닫기</button>
-      </div>      
+        
    
     </div>
   </div>
