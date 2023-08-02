@@ -194,6 +194,12 @@
 		
 			<div class="col-1"></div>
 		</div>
+		<div class="row my-5">
+			<div class="col d-grid">
+				 
+			</div>
+		</div>
+		
 	</div>
 	
 	
@@ -205,7 +211,15 @@
 		<div class="col"> </div>
 	</div>
 
-	
+	<div class="row my-5">
+		<div class="col-2">
+		</div>
+		<div class="col">
+				<!-- 푸터 섹션 -->
+				<jsp:include page="../common/footer.jsp"></jsp:include>
+				<!-- 푸터 섹션 -->
+		</div>
+	</div>
 	
 	
 	
@@ -353,10 +367,6 @@
 	<!-- 정보 수정 모달 -->
 	
 	
-	
-	<!-- 푸터 섹션 -->
-	<jsp:include page="../common/footer.jsp"></jsp:include>
-	<!-- 푸터 섹션 -->
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
 
