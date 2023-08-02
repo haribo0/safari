@@ -36,8 +36,16 @@ public class CsController {
 //		model.addAttribute("lastAttendance", csService.getLastAttendanceLogByEmpId(empUser.getId()));
 		model.addAttribute("workState", csService.getWorkStateByEmpId(empUser.getId()));
 		
+		// 실시간 현황 리스트 직원별 
+		model.addAttribute("todayList", csService.getEmpListForToday() );
+		// 실시간 현황
+		model.addAttribute("todayStats", csService.getStatsToday() );
+		// 지난 주간 
+		model.addAttribute("weeklyList", csService.getLastWeekData() );
+
 		return "cs/mainPage";
 	}
+	
 	
 	@RequestMapping("loginPage") 
 	public String loginPage(){
@@ -62,7 +70,6 @@ public class CsController {
 		model.addAttribute("todayList", csService.getEmpListForToday() );
 		// 실시간 현황
 		model.addAttribute("todayStats", csService.getStatsToday() );
-		
 		// 지난 주간 
 		model.addAttribute("weeklyList", csService.getLastWeekData() );
 
