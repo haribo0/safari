@@ -669,13 +669,13 @@
 									
 									<%-- 골라주세요 옵션 foreach --%>
 									<div class="row">
-										<div class="col mt-5 ms-1 fs-5 fw-bold">
-											투표하기 <i class="bi bi-reception-4"></i>
+										<div class="col mt-5 ms-2 fs-5 fw-bold">
+											투표하기 
 										</div>
 									</div>	
 									
 									
-										<div class="row">
+										<div class="row mt-1">
 											<c:forEach items="${map.pickOptionValuesForVoteDtoList }" var="pickOptionValuesForVoteDto">
 												  <div class="col-md-3 mt-2 mb-5">
 												  <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-center" >

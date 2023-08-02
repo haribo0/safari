@@ -256,7 +256,7 @@
 	
 	
 	
-	<!-- 글쓰기 버튼 -->	
+						<!-- 글쓰기 버튼 -->	
 						<div class="col text-end" >
 						<div class="d-flex justify-content-end">
 							<button class="btn orangeButton d-flex align-items-center justify-content-center" 

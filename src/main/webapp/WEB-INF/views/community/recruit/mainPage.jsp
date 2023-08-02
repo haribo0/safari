@@ -714,7 +714,8 @@
 					<div class="row">
 						<div class="col text-end pe-3">
 							<c:if test="${!empty sessionUser }">
-								<a href="/safari/community/recruit/writeContentPage" class="btn btn-default orangeButton px-2 ">글쓰기</a>
+								<a href="/safari/community/recruit/writeContentPage" class="btn btn-default orangeButton px-2 ">
+								<i class="bi bi-pencil-square fa-icon text-white me-1" style="font-size: 16px;"></i>글쓰기</a>
 							</c:if>
 						</div>
 					</div>
@@ -744,6 +745,7 @@
 								</div>
 							</div>
 						<%--페이지 버튼  --%>
+						
 						
 <%-- 					recruitBoardList
 					<div class="row"  style="text-align:center">
@@ -784,22 +786,25 @@
 				
 				<div class="row mt-1 mb-1" style="height:px;">
 					<div class="col d-flex justify-content-center">
-					<strong style="font-size: 18px;">인기 공고<i class="bi bi-capslock-fill ms-2" style="color: red;"></i></strong>
+					<strong style="font-size: 18px;">인기 공고</strong>
+					
 					</div>
 				</div>
+				
+				<div class="row mt-1 mb-1 border-bottom"></div>
 				
 				<%--best recruitBoardList forEach 사이드바 --%>
 				<c:forEach items="${recruitBestBoardList}" var="map" varStatus="status">
 				<a href="/safari/community/recruit/readContentPage/${map.recruitDto.id}" style="text-decoration: none; color: inherit;">
-				<div class="row mt-2 mb-1" style="height:px;">
+				<div class="row mt-3 mb-1" style="height:px;">
 					<div class="col">
-					<span class="fw-bold ms-1 me-2" style="font-size: 18px;">
+					<span class="fw-bold ms-1 me-2 fst-italic" style="font-size: 18px;">
 						${status.index + 1} 
 					</span>
 					<img src="/uploadFiles/${map.recruitImgLinkDtoList[0].img_link}"
-							class="me-2" style="height: 40px; width: 40px; border-radius: 50%; ">
+							class="me-2" style="height: 35px; width: 35px; border-radius: 50%; ">
 					
-					<span class="fw-bold" id="recruitTitle_${map.recruitDto.id}">
+					<span class="" id="recruitTitle_${map.recruitDto.id}" >
 				      ${map.recruitDto.title}
 				    </span>
 				    
@@ -809,7 +814,7 @@
 				   
 				    var text = right_element.textContent;
 
-				    if (text.length > 25) {
+				    if (text.length > 30) {
 				    	right_element.textContent = text.slice(0, 20) + '...';
 	
 				    }
@@ -824,6 +829,7 @@
 				</div>
 				</a>
 				</c:forEach>
+				
 				<%--best recruitBoardList forEach 사이드바 --%>
 				
 				</div>

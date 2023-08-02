@@ -114,7 +114,9 @@
 							
 								<div class="col-2 text-end ">
 									<c:if test="${!empty sessionUser }">
-										<a href="/safari/community/pick/writeContentPage" class=" orangeButton btn btn-default ">글쓰기</a>
+										<a href="/safari/community/pick/writeContentPage" class=" orangeButton btn btn-default ">
+										<i class="bi bi-pencil-square fa-icon text-white" style="font-size: 16px;"></i>
+										글쓰기</a>
 									</c:if>
 								</div>
 							
