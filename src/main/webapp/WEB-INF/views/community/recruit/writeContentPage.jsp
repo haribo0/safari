@@ -495,7 +495,7 @@
 								
 								<%-- 글쓰기 --%>
 								<div class="row">
-									<div class="col text-end p-2 me-2">
+									<div class="col text-end p-2 mt-3 me-3">
 								   		<button class="orangeButton btn btn-default" style="border: none;">글쓰기</button>
 								   		<!-- <button class="btn" style="background: #ff6f0f; font-weight: bold; color: white;">작성하기</button>  -->
 									</div>  

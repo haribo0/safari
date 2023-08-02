@@ -358,7 +358,7 @@
 										<%-- 경력 --%>
 										<div class="col" style="width: 310px;">
 											<span class="working_condition_item" style="">경력</span>
-											${map.recruitDto.career}
+											
 											<c:choose>
 												<c:when test="${map.recruitDto.career < 1}">
 												<span class="text-secondary ms-3">신입</span>
