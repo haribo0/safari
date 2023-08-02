@@ -142,26 +142,77 @@
 		<!-- LEFT COL -->
 		<div class="col-1" ></div>
 		<div class="col-4" >
-			
-			<div class="card shadow-sm">
-			<div class="card-body ">
-				<div class="row border-bottom fs-5 fw-medium ps-1 pb-3">
-					<div class="col ">
-						주간 스케줄
-					</div>
-				</div>
-				<div class="row mt-3">
-					<div class="col ">
-						<div id='wrap'  >
-							<!-- calendar 태그 -->
-							<div id='calendar-wrap'>
-							  <div id='calendar'></div>
+			<div class="row mb-4">
+			  	<div class="col ">
+			  		<div class="card shadow-sm">
+						<div class="card-body ">
+							<div class="row border-bottom fs-5 fw-medium ps-1 pb-3">
+								<div class="col ">
+									내 평점 
+								</div>
+							</div>
+							<div class="row my-3 py-3 ms-1 fw-medium text-center border-bottom border-black border-2">
+								<div class="col-2 my-auto ">
+									
+								</div>
+								<div class="col  my-auto">
+									1대1 문의
+								</div>
+								<div class="col  my-auto">
+									실시간 문의 
+								</div>
+								<div class="col  my-auto">
+									총 평점 
+								</div>
+							</div>
+							<div class="row mt-3 ms-1 text-center">
+								<div class="col-2 my-auto fw-bold">
+									이시욱 
+									
+								</div>
+								<div class="col  my-auto me-1" style="font-size: 18px;">
+									<i class="bi bi-star-fill" style="color: #FFBC66;"></i> 5.0
+									
+								</div>
+								<div class="col  my-auto me-1" style="font-size: 18px;">
+									<i class="bi bi-star-fill" style="color: #FFBC66;"></i> 4.8
+									
+								</div>
+								<div class="col  my-auto me-1" style="font-size: 18px;">
+									<i class="bi bi-star-fill" style="color: #FFBC66;"></i> 4.9
+									
+								</div>
+							</div>
+						</div>
+						</div>
+			  	</div>
+		  	</div>
+		
+			<div class="row ">
+			  	<div class="col ">
+					<div class="card shadow-sm">
+						<div class="card-body ">
+							<div class="row border-bottom fs-5 fw-medium ps-1 pb-3">
+								<div class="col ">
+									주간 스케줄
+								</div>
+							</div>
+							<div class="row mt-3">
+								<div class="col ">
+									<div id='wrap'  >
+										<!-- calendar 태그 -->
+										<div id='calendar-wrap'>
+										  <div id='calendar'></div>
+										</div>
+									</div>
+								</div>
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
-			</div>
+			
+			
 			
 		</div>
 		<!-- LEFT COL -->
@@ -309,7 +360,7 @@
 			    			
 			    			<c:forEach var="map" items="${todayList}">
 			    			
-			    			
+			    				
 				    			<div class="row border-top py-3 text-center mx-1">
 					    			<div class="col fw-semibold  my-auto">
 				    					${map.emp.name}
@@ -372,6 +423,24 @@
 		
 	</div>
 	
+	<!-- 
+	<div class="row mt-4 mb-5">
+		<div class="col-1"></div>
+		<div class="col-4">
+			  
+			    
+			
+		</div>
+		<div class="col">
+			  	<div class="row ">
+				  	
+			  	</div>
+			    
+			
+		</div>
+		<div class="col-1"></div>
+	
+	</div> -->
 	
 	<%-- 
 	<!-- 3RD ROW -->
