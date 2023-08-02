@@ -574,7 +574,7 @@ input[id="tab03"]:checked ~ .con3 {
 	 								</div> 
 	 								
 	 						
-	 								<div class="row mt-5" style="position: relative; top: 15px" >
+	 								<div class="row mt-5" style="position: relative; top: 7px" >
  										<div class="col fw-bold fs-5">
  											실시간 채팅
  										</div>
@@ -583,7 +583,7 @@ input[id="tab03"]:checked ~ .con3 {
  									<div class="row mt-3">
  										<div class="col">
  											<div class="row">
-	 											<div class="col ms-2 shadow-sm" id="chatMessageBox" style="height: 500px; overflow: auto">
+	 											<div class="col ms-2 shadow-sm" id="chatMessageBox" style="height: 580px; overflow: auto">
 	 											
 	 											</div>
  											</div>
@@ -745,7 +745,7 @@ style="position: absolute; transform: translateX(70%);right: 50%;">
 									
 								<div class="row mt-2">
 									<div class="col"></div>
-									<div class="col-10 ms-4">
+									<div class="col-10 ms-1">
 										${productDetail.auctionDto.description}
 									</div>
 									<div class="col"></div>
@@ -1136,7 +1136,7 @@ style="position: absolute; transform: translateX(70%);right: 50%;">
       <div class="modal-body">
       	
       	<div class="row text-center">
-    		<div class="col">동시에 입찰한 금액이 있어 입찰하실 수 없습니다.</div>
+    		<div class="col">동시에 입찰한 사용자가 있어 입찰하실 수 없습니다.</div>
        </div>
   
       </div>
@@ -1291,7 +1291,7 @@ style="position: absolute; transform: translateX(70%);right: 50%;">
 				<div class="col-1"></div>
 				
 				<div class="col-6">
-				  <label for="modifyAuctionItemImgFiles" class="col-form-label fw-medium">제품 이미지</label>
+				  <label for="modifyAuctionItemImgFiles" class="col-form-label fw-medium">상품 이미지</label>
 				  <input class="form-control" id="modifyAuctionItemImgFiles"
 				  		name="auctionItemImgFiles" type="file" multiple="multiple" accept="image/*">
 				</div>
@@ -4199,7 +4199,7 @@ function sendMessage() {
     const chatContentBox = document.getElementById("chatContentBox");
     const chatContentValue = chatContentBox.value.trim();
 
-    if (chatContentValue == "") {
+    if (chatContentValue == "") {	
     	// 채팅 아무것도 입력 안했을 때 모달 띄우기
     	const blankChatModal = bootstrap.Modal.getOrCreateInstance("#blankChatModal");
     	blankChatModal.show();
@@ -4216,7 +4216,7 @@ function sendMessage() {
         if(xhr.readyState == 4 && xhr.status == 200){
             	const response = JSON.parse(xhr.responseText);
            		chatContentBox.value = "";
-           		reloadChatList();
+           		//reloadChatList();
         }
     }	
 	    	

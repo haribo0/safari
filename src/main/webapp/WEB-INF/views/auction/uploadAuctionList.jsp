@@ -25,6 +25,13 @@
   overflow: hidden; /* 넘친 텍스트를 숨김 */
   text-overflow: ellipsis; /* 넘친 텍스트를 "..."으로 표시 */
 }
+.text-overflow {
+  white-space: nowrap; /* 텍스트를 한 줄로 표시 */
+  overflow: hidden; /* 넘친 텍스트를 숨김 */
+  text-overflow: ellipsis; /* 넘친 텍스트를 "..."으로 표시 */
+  display: block;
+  width: 400px;
+}
 .text-orange {
 	color:#ff6f0f;
 }
@@ -119,8 +126,9 @@
 														<div class="row">
 															<div class="col fw-semibold">
 															<input type="hidden" value="${endedBidDto.auction_item_id}">
-																<span style="font-size: 16px;"><a href="/safari/auction/productDetail/${endedBidDto.auction_item_id}">
-																${endedBidDto.title}</a></span>
+																<span style="font-size: 16px;" class="text-overflow"><a href="/safari/auction/productDetail/${endedBidDto.auction_item_id}">
+																${endedBidDto.title}</a>
+																</span>
 															<input type="hidden" id="title_${endedBidDto.auction_item_id}" value="${endedBidDto.title}">	
 															</div>
 														</div>
@@ -509,13 +517,7 @@
       	
       	</div>
       
-      	
-      	
-      
-      <div class="modal-footer">
-      	
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">창닫기</button>
-      </div>      
+   
    
     </div>
   </div>
@@ -716,10 +718,7 @@
       		</div>
       	</div>
       
-      <div class="modal-footer">
-      	
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">창닫기</button>
-      </div>      
+          
    
     </div>
   </div>
