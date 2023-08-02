@@ -213,7 +213,7 @@
 						</div>
 						<div class="row mt-3 border-top">
 							<div class="col py-3 d-flex justify-content-between">
-								<p>총 반환 금액</p>
+								<p class="fs-5 fw-bold">총 반환 금액</p>
 								<p class="fw-bold fs-5"><span class="modalFinFinPriceP"></span>원</p>
 							</div>
 						</div>
@@ -1131,7 +1131,7 @@ function orderDetail(e) {
 			let totalExtraCharge = 0;
 			let totalDiscRevoc = 0;
 			
-			if(returnDto===null) {
+			if(returnDto===null || returnDto.is_completed==='N') {
 				modalReturnPart.className = 'col px-3 mt-3 border rounded-1 d-none';
 				
 			} else {
@@ -1141,11 +1141,9 @@ function orderDetail(e) {
 				const returnDate = new Date(returnDto.reg_date);
 			    modalReturnDate.innerText = formatDate(returnDate);
 				
-				console.log(returnDate);
-				console.log(formatDate(returnDate));
-			    
 				if(returnDto.discount_revocation>0){
-					modalFinCancelFee.innerText = returnDto.discount_revocation;
+					const formattedNumber1 = returnDto.discount_revocation.toLocaleString();
+					modalFinCancelFee.innerText = formattedNumber1;
 					totalDiscRevoc += returnDto.discount_revocation;
 				} else {
 					modalFinCancelFee.innerText = "-"
@@ -1173,7 +1171,10 @@ function orderDetail(e) {
 						// Create the <p> element with the class "mb-0" and set its text content
 						const pElement = document.createElement("p");
 						pElement.classList.add("mb-0");
-						pElement.textContent = data.charge+" 원";
+						// pElement.textContent = data.charge+" 원";
+						const formattedNumber2 = data.charge.toLocaleString(); // Convert the number to a formatted string with commas
+
+						pElement.textContent = formattedNumber2+" 원";
 
 						// Create the <span> element with the class "modalFinCancelFee" and set its text content
 						const spanElement = document.createElement("span");
@@ -1196,7 +1197,10 @@ function orderDetail(e) {
 				
 				
 				
-				modalFinFinPriceP.innerText = parseInt(deposit)-totalDiscRevoc-totalExtraCharge;
+				// modalFinFinPriceP.innerText = parseInt(deposit)-totalDiscRevoc-totalExtraCharge;
+				const finalPrice = parseInt(deposit)-totalDiscRevoc-totalExtraCharge;;
+				const formattedNumber3 = finalPrice.toLocaleString();
+				modalFinFinPriceP.innerText = formattedNumber3;
 				
 			}
 			
