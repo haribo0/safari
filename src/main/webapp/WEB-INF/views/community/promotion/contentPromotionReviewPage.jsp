@@ -595,7 +595,7 @@ window.addEventListener("beforeunload", function() {
 					 							<!--  내용 	${mapPromoComment.promotionReviewCommentDto.promotion_review_comment } -->
 					 							</div>
 										</div>
-										
+										</div>
 									</div>
 								</div>
 							</div>
