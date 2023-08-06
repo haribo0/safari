@@ -909,7 +909,7 @@ function getMySuccessfulBidPayAndDeliveryStatusList() {
 		    				  	
 		       					const selectButton = document.createElement("input");
 		    					selectButton.type = "button";
-		    					selectButton.classList.add("btn", "btn-sm", "btn-outline-secondary");
+		    					selectButton.classList.add("btn", "btn-sm", "btn-outline-dark");
 		    					selectButton.value = "배송조회";
 		    					selectButton.setAttribute("onclick", "deliveryStatusModal("+ data.id +")");
 		    					colButton.appendChild(selectButton);
@@ -941,7 +941,7 @@ function getMySuccessfulBidPayAndDeliveryStatusList() {
 	    				  	
 	       					const selectButton = document.createElement("input");
 	    					selectButton.type = "button";
-	    					selectButton.classList.add("btn", "btn-sm", "btn-outline-secondary");
+	    					selectButton.classList.add("btn", "btn-sm", "btn-outline-dark");
 	    					selectButton.value = "배송조회";
 	    					selectButton.setAttribute("onclick", "deliveryStatusModal("+ data.id +")");
 	    					
@@ -959,7 +959,7 @@ function getMySuccessfulBidPayAndDeliveryStatusList() {
 	    				  	
 	    					const buyButton = document.createElement("input");
 	    					buyButton.type = "button";
-	    					buyButton.classList.add("btn", "btn-sm", "btn-outline-secondary");
+	    					buyButton.classList.add("btn", "btn-sm", "btn-outline-dark");
 	    					buyButton.value = "구매확정";
 	    					buyButton.setAttribute("onclick", "getDeliverypkByBidpk("+ data.id + ")");
 	    				
@@ -985,7 +985,7 @@ function getMySuccessfulBidPayAndDeliveryStatusList() {
 	    				  	
 	    					const refundButton = document.createElement("input");
 	    					refundButton.type = "button";
-	    					refundButton.classList.add("btn", "btn-sm", "btn-outline-secondary");
+	    					refundButton.classList.add("btn", "btn-sm", "btn-outline-dark");
 	    					refundButton.value = "반품신청";
 	    					refundButton.setAttribute("onclick", "openRefundModal("+ data.id + ")");
 	    					

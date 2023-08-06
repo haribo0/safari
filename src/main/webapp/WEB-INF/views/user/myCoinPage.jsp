@@ -107,7 +107,7 @@
 							</div>
 						</div>
 						
-						<div class="row">
+						<div class="row mb-5">
 							<div class="col" id="coinHistory"></div>
 						
 						</div>

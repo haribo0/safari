@@ -635,7 +635,7 @@ input[id="tab03"]:checked ~ .con3 {
 		<div class="col"></div>
 	</div>
 	
-	
+	<jsp:include page="../common/footer.jsp"></jsp:include>
 	
 	
 	
