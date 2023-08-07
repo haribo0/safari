@@ -15,13 +15,9 @@
 
 ## ERD
 ![image](https://github.com/haribo0/safari/assets/77721961/1fb5de89-f5d3-40ef-8809-7baa749c9559)
+ERD URL : https://www.erdcloud.com/d/sYfJ5WigDzkXreyGo
 
+## 기능확인 더보기 (pdf)
 
+[482(사고파는이웃)_포트폴리오.pdf](https://github.com/haribo0/safari/files/12274864/482._.pdf)
 
-# 1. 제목(글머리) 작성
-# H1 제목  
-## H2 부제목
-### H3 소제목
-#### H4 제목4
-##### H5 제목5
-###### H6 제목6
