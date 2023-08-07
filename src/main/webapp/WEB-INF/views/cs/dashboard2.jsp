@@ -206,24 +206,6 @@
 }
 
 
-
-
-/* .highlight {
-    position: relative;
-}
-
-.highlight::before {
-    content: "";
-    position: absolute;
-    bottom: -2px; 
-    left: 0;
-    width: 100%;
-    height: 20px;
-    background-color: yellow; 
-    z-index: -1;
-} */
-
- 
 .height100{height: 576px !important;}
 
 
@@ -236,10 +218,6 @@
 <!-- 헤더 섹션 -->
 <jsp:include page="../common/csTopNav2.jsp"></jsp:include>
 <!-- 헤더 섹션 -->
-
-
-
-
 
 
 
@@ -626,7 +604,7 @@
 					    					0
 					    				</c:if>
 					    				<c:if test="${map.qna.reply_count > 0}">
-					    					${map.qna.reply_count / map.qna.qna_count * 100 > 100 ? 100 : map.qna.reply_count / map.qna.qna_count * 100}<span class="text-secondary" style="font-size: 0.7em">%</span>
+					    					${map.qna.reply_count / map.qna.qna_count * 100 > 100 ? 100 : map.qna.reply_count / map.qna.qna_count * 100} <span class="text-secondary" style="font-size: 0.7em">%</span>
 					    				</c:if>
 				    					<%-- 
 				    					${map.qna.reply_count == 0 ? 0 : map.qna.qna_count / map.qna.reply_count }
@@ -660,7 +638,7 @@
 					    			</div>
 					    			<div class="col  ">
 					    				<%-- ${map.chat.chat_count == 0 ? 0 : map.chat.chat_ended_count / map.chat.chat_count * 100}<span class="text-secondary" style="font-size: 0.7em">%</span> --%>
-				    				    <c:set var="ratio" value="${map.chat.chat_count == 0 ? 0 : map.chat.chat_ended_count / map.chat.chat_count}" />
+				    				    <c:set var="ratio" value="${map.chat.chat_count == 0 ? 0.0 : map.chat.chat_ended_count / map.chat.chat_count}" />
 									    <% double roundedRatio = Math.round((Double)pageContext.getAttribute("ratio") * 100.0); %>
 									    <%=roundedRatio%><span class="text-secondary" style="font-size: 0.7em">%</span>
 				    					<%-- ${map.chat.chat_ended_count == 0 ? 0 : map.chat.chat_count / map.chat.chat_ended_count } --%>
@@ -724,6 +702,11 @@
   </div>
 </div>
 
+
+<div class="row my-3" >
+  <div class="col">
+  </div>
+</div>
 
 	<!-- 푸터 섹션 -->
 	<jsp:include page="../common/footer.jsp"></jsp:include>
@@ -838,13 +821,24 @@ function getDataForChart() {
 			const response = JSON.parse(xhr.responseText);
 			
 			// bar chart 
-			let barLabels = [];
-			let	barData = [];
+			// let barLabels = [];
+			// let	barData = [];
+			let barLabels1 = [];
+			let	barData1 = [];
+			let barLabels2 = [];
+			let	barData2 = [];
 			response.list1.forEach(function(data){
-				barLabels.push(data.name);
-				barData.push(data.total_count);
+				//barLabels.push(data.name);
+				//barData.push(data.total_count);
+				barLabels1.push(data.name);
+				barData1.push(data.qna_count);
+				barLabels2.push(data.name);
+				barData2.push(data.chat_count);
+				/* console.log(data.name);
+				console.log(data.total_count); */
 			});
-			makeBarChart(barData,barLabels);
+			// makeBarChart(barData,barLabels);
+			makeBarChart(barData1,barLabels1,barData2);
 			
 			// donut chart 
 			let donutLabels = [];
@@ -852,6 +846,8 @@ function getDataForChart() {
 			response.list1.forEach(function(data){
 				donutLabels.push(data.name);
 				donutData.push(data.total_count);
+				console.log(data.name);
+				console.log(data.total_count);
 			});
 			makeDonutChart(donutData,donutLabels);
 			
@@ -874,45 +870,33 @@ function getDataForChart() {
 }
 
 
-function makeBarChart(d, l) {
+function makeBarChart(d1, l1, d2) {
 	const canvas = document.getElementById('barChart');
 	
 	new Chart(canvas, {
 	   type: 'bar',
 	   data: {
-	     labels: l,
+	     labels: l1,
 	     datasets: [{
-	       label: '직원별 문의 처리수',
-	       data: d,
-	       borderWidth: 1,
-	       /* backgroundColor: [
-	    	   //'rgba(54, 162, 235, 0.5)'
-	    		'#F6DFF9',
-	    		'#E0D5F1',
-	    		//'#D9C4E9',
-	    		'#FEE6EB',
-	    		'#FFD4E4'
-	    		#4DC9F6
-	    		
-				#F7464A,
-				#46BFBD,
-				#FDB45C,
-				#949FB1,
-				#4D5360,
-				#80b6f4,
-				#f49080,
-				#8ff49a,
-				#f4e280
- 
-    	    ] */
-	    	
+	       label: '1대1 문의 처리',
+	       data: d1,
+	       borderWidth: 1
+	     },
+	     {
+	       label: '실시간 문의 처리',
+	       data: d2,
+	       borderWidth: 1
 	     }]
 	   },
 	   options: {
 	     scales: {
-	       y: {
-	         beginAtZero: true
-	       }
+	    	 x: {
+	    	     stacked: true,
+	    	 },
+		     y: {
+		   	     stacked: true,
+		    	 // beginAtZero: true
+		     }
 	   
 	   
 	     }
@@ -1426,6 +1410,9 @@ document.addEventListener('DOMContentLoaded', function() {
     
     
  </script>
+ 
+ 
+ 
  
  
 

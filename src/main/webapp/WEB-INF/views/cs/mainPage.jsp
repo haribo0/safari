@@ -165,9 +165,9 @@
 									총 평점 
 								</div>
 							</div>
-							<div class="row mt-3 ms-1 text-center">
+							<div class="row my-2 ms-1 text-center">
 								<div class="col-2 my-auto fw-bold">
-									이시욱 
+									${empUser.name}
 									
 								</div>
 								<div class="col  my-auto me-1" style="font-size: 18px;">
@@ -376,25 +376,25 @@
 					    				${map.workState}
 				    					<%-- ${map.workState} --%>
 					    			</div>
-					    			<div class="col  fs-5">
+					    			<div class="col  ">
 				    					${map.qna.qna_count}
 					    			</div>
-					    			<div class="col  fs-5">
+					    			<div class="col  ">
 				    					${map.qna.reply_count}
 					    			</div>
-					    			<div class="col fs-6 my-auto "  >
+					    			<div class="col  my-auto "  >
 <!-- 				    					<div class=" my-auto fw-medium mx-3"   style="background: rgba(110, 218, 165, 0.3);"> -->
 				    					<div class=" my-auto fw-medium mx-3"   style="background: rgba(251, 205, 62, 0.25);">
 				    					${map.qnaAvgTime} 분 
 				    					</div>
 					    			</div>
-					    			<div class="col fs-5 ">
+					    			<div class="col  ">
 				    					${map.chat.chat_count}
 					    			</div>
-					    			<div class="col  fs-5">
+					    			<div class="col  ">
 				    					${map.chat.chat_ended_count}
 					    			</div>
-					    			<div class="col mx-auto fs-5 my-auto">
+					    			<div class="col mx-auto  my-auto">
 					    				<div class="btn_blue mx-auto my-auto fw-medium py-0" style="background: rgba(251, 205, 62, 0.25);" >
 				    					${map.chatAvgTime} 분 
 				    					</div>

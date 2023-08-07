@@ -21,19 +21,19 @@
 		<div class="col-3"></div>
 		<div class="col">
 			<div class="row mb-4">
-					<div class="col text-center fs-4"> 
-					    <a href="./mainPage" class="navbar-brand">
-					      <img class="img-fluid my-2 ms-4 me-3" width="100px" src="/safari/resources/img/logo0.png">
-					    </a>
-					</div>
+				<div class="col text-center fs-4"> 
+				    <a href="./mainPage" class="navbar-brand">
+				      <img class="img-fluid my-2 ms-4 me-3" width="100px" src="/safari/resources/img/logo0.png">
+				    </a>
 				</div>
-			<div class="card card-body py-3">
-			    <div class="row text-center mb-4 fs-4 fw-bold border-bottom my-1 pb-3">
+			</div>
+			<div class="card card-body ">
+			    <div class="row text-center mb-4 fs-4 fw-bold border-bottom my-1 pb-3 ">
 			    	<div class="col">
 			    		대여 사업체 회원 등록
 			    	</div>
 			    </div>
-			    <div class="row mt-5 mx-3">
+			    <div class="row mt-5 mx-3 ">
 			    <div class="col">
 			    <form id="registrationForm" action="./businessRegisterProcess" method="POST" enctype="multipart/form-data">
 			        <div class="form-group row mt-2">

@@ -29,11 +29,11 @@
 					
 					</div>
 				</div>
-				<div class="row mt-5">
-					<div class="col text-center fs-4">사업자 계정 로그인</div>
+				<div class="row mt-5 mb-1">
+					<div class="col text-center fs-5 fw-medium ">사업자 계정 로그인</div>
 				</div>
 				<form action="./businessLoginProcess" method="POST">
-				<div class="row mt-3">
+				<div class="row mt-5">
 					<div class="col">
 						<label for="uid" class="form-label">아이디</label>
 				        <input type="text" class="form-control" id="uid" placeholder="아이디" value="" required="" name="business_userid">

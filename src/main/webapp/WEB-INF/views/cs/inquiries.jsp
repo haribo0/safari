@@ -90,8 +90,8 @@
 								<div class="col fw-bolder">문의글 목록</div>
 							</div>
 							
-							<div class="row" id="">
-								<div class="col" id="">
+							<div class="row border-bottom" id="">
+								<div class="col overflow-y-scroll " id="" style="height: 630px;">
 									
 									
 									<!-- 문의 리스트 제목 들어갈 곳 -->

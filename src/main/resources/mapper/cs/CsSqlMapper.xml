@@ -552,8 +552,8 @@
 			FROM CS_EMP e
 			LEFT JOIN (
 				SELECT emp_id, COUNT(*) AS chat_count FROM CS_LIVE_CHAT lc
-				WHERE end_date < TRUNC(SYSDATE-1)
-				AND end_date >= TRUNC(SYSDATE-8)
+				WHERE end_date < TRUNC(sysdate, 'iw') - 1
+				AND end_date >= TRUNC(sysdate, 'iw') - 7
 				GROUP BY emp_id
 			) t1 ON e.id = t1.emp_id
 			LEFT JOIN (
@@ -574,8 +574,8 @@
 			FROM CS_EMP e
 			LEFT JOIN (
 				SELECT emp_id, COUNT(*) AS chat_count FROM CS_LIVE_CHAT lc
-				WHERE reg_date < TRUNC(SYSDATE-1)
-				AND reg_date >= TRUNC(SYSDATE-8)
+				WHERE reg_date < TRUNC(sysdate, 'iw') - 1
+				AND reg_date >= TRUNC(sysdate, 'iw') - 7
 				GROUP BY emp_id
 			) t1 ON e.id = t1.emp_id
 			LEFT JOIN (
