@@ -200,21 +200,24 @@ function getViewAll(mainId2,subId2,cityId2,townId2,statusId2,orderId2){
                     link2.href = `./productDetail?productId=\${map.productDto.id}`;
                     link2.classList.add("ms-1", "text-decoration-none", "text-black", "title");
                     link2.textContent = map.productDto.title;
-                    link2.style = ""
                   
                     divCol1.appendChild(link2);
                     
                   
                     const divCol2 = document.createElement("div");
-                    divCol2.classList.add("span", "ms-2", "btn-group", "pb-1");
+                    divCol2.classList.add("span", "ms-2", "btn-group", "pb-1", "position-relative");
+                    
                   
                     if (map.reservationCount > 0) {
+                    	link2.style.marginBottom = "-4px";
+                    	divCol2.style.height = "31px";
                     	const divReserve = document.createElement("div");
 
                     	const button = document.createElement("button");
                     	button.type = "button";
-                    	button.classList.add("btn", "btn-success", "btn-sm", "p-1", "btn-sm-custom");
+                    	button.classList.add("btn", "btn-success", "btn-sm", "p-1", "btn-sm-custom", "position-absolute");
                     	button.disabled = true;
+                    	
                     	button.textContent = "예약중";
 
                     	divReserve.appendChild(button);
@@ -223,11 +226,13 @@ function getViewAll(mainId2,subId2,cityId2,townId2,statusId2,orderId2){
                     }
                   
                     if (map.completeCount > 0) {
+                    	link2.style.marginBottom = "-4px";
+                    	divCol2.style.height = "31px";
                     	const divReserve = document.createElement("div");
 
                     	const button = document.createElement("button");
                     	button.type = "button";
-                    	button.classList.add("btn", "btn-secondary", "btn-sm", "p-1", "btn-sm-custom");
+                    	button.classList.add("btn", "btn-secondary", "btn-sm", "p-1", "btn-sm-custom", "position-absolute");
                     	button.disabled = true;
                     	button.textContent = "거래완료";
 
