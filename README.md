@@ -1,6 +1,6 @@
 # Safari Project
 ### 중고거래 기반 종합 포털사이트 
-![image](https://github.com/haribo0/safari/assets/77721961/2a526e66-b7d0-4ca2-9291-fd4ba8ebda1f)
+![image](https://github.com/haribo0/safari/assets/77721961/fae7f2fb-5325-4979-8267-99d7c67e36eb)
 
 <br>
 
