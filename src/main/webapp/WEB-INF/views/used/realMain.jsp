@@ -194,7 +194,7 @@ function getViewAll(mainId2,subId2,cityId2,townId2,statusId2,orderId2){
                     divRow2.classList.add("row");
                   
                     const divCol1 = document.createElement("div");
-                    divCol1.classList.add("col", "mt-2", "overflow", "d-flex", "justify-content-between");
+                    divCol1.classList.add("col", "mt-2", "overflow");
                   
                     const link2 = document.createElement("a");
                     link2.href = `./productDetail?productId=\${map.productDto.id}`;
