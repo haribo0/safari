@@ -1,6 +1,12 @@
 # safari
-# 중고거래 기반 종합 포털사이트 README
-![readme_mockup2](https://user-images.githubusercontent.com/112460466/210706312-6a44b60d-a42e-4210-b334-9e5983f70fb3.png)
+# 중고거래 기반 종합 포털사이트 
+![image](https://github.com/haribo0/safari/assets/77721961/2a526e66-b7d0-4ca2-9291-fd4ba8ebda1f)
 
-![image](https://github.com/haribo0/safari/assets/77721961/50d7da99-c059-498d-9061-47bffeca8133)
-![image](https://github.com/haribo0/safari/assets/77721961/f149fd3a-5f4c-4a2f-8a17-f1f0e9ea8d55)
+<br>
+
+## 프로젝트 소개
+- safari는 중고거래 마켓인 '당근마켓을' 모티브로 기획되어 유저 간의 '거래'와 그 안에서 일어나는 '상호작용'에서 아이디어를 확장시켜 대여, 경매, 커뮤니티 기능을 담고 있는 종합 포털사이트.
+
+
+## 개발환경
+- .![image](https://github.com/haribo0/safari/assets/77721961/a58b47c9-4f75-49ff-ba9c-ddb6f88090f7)
