@@ -13,9 +13,9 @@
 					<li class="list-group-item border-0 py-1 ps-0"><a href="../user/modifyProfile" class="btn py-0 text-body-secondary ps-0 fs-nav-small">회원정보수정</a></li>
 					<li class="list-group-item border-0 py-1 ps-0"><a href="../user/myCoinPage" class="btn py-0 text-body-secondary ps-0 fs-nav-small">코인관리</a></li>
 					<li class="list-group-item border-0 py-1 ps-0"><a href="../user/myAddressPage" class="btn py-0 text-body-secondary ps-0 fs-nav-small">배송지관리</a></li>
-					<li class="list-group-item border-0 py-1 ps-0"><a href="#" class="btn py-0 text-body-secondary ps-0 fs-nav-small">찜</a></li>
+					<!-- <li class="list-group-item border-0 py-1 ps-0"><a href="#" class="btn py-0 text-body-secondary ps-0 fs-nav-small">찜</a></li> -->
 					<li class="list-group-item border-0 py-1 ps-0"><a href="../user/myInquiryPage" class="btn py-0 text-body-secondary ps-0 fs-nav-small">1:1문의</a></li>
-					<li class="list-group-item border-0 py-1 ps-0"><a href="#" class="btn py-0 text-body-secondary ps-0 fs-nav-small">리뷰관리</a></li>
+					<!-- <li class="list-group-item border-0 py-1 ps-0"><a href="#" class="btn py-0 text-body-secondary ps-0 fs-nav-small">리뷰관리</a></li> -->
 				</ul>
 			</div>
 			
@@ -60,4 +60,12 @@
 				</ul>
 			</div>
 		</ul>
+		
+		<div class="row my-5">
+	    	<div class="col">
+    			&nbsp;
+	    	</div>
+    	</div>
+    	
 	</div>
+	

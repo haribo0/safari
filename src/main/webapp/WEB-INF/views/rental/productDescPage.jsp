@@ -132,6 +132,7 @@ window.addEventListener("DOMContentLoaded", function(){
 	getSessionId();
  	refreshTotalLikeCount();
 	refreshMyHeart();
+	getEstimatedDeliveryDate();
 	//setStarBox();
 	//setRewviewStarBox();
 });
@@ -256,7 +257,7 @@ progress::-webkit-progress-value {
 							<!-- <span class="">
 							<i class="fa-solid fa-truck"  style="color: #5FBDF7;font-size: ;"></i></span>  -->
  							<span class="fw-bolder"><i class="bi bi-truck fw-bolder" style="color: #5FBDF7;font-size: 19px;"></i></span> 
-							<span class="fw-bolder" style="color: #5FBDF7;font-size: 16px;">8/4</span> 
+							<span class="fw-bolder" style="color: #5FBDF7;font-size: 16px;" id="estimatedDeliveryDate">8/4</span> 
 							<span class="fw-light"> 이내 도착 예정 </span>
 							<span class="text-dark fw-bold"> 86%</span>
 							</div>
@@ -542,12 +543,51 @@ progress::-webkit-progress-value {
 			</div>					
 			
     	</div>
+    	
+    	
 	
 	
 	<!-- 푸터 섹션 -->
 	<jsp:include page="../common/footer.jsp"></jsp:include>
 	<!-- 푸터 섹션 -->
 <script>
+
+// 현재 날짜에 영업일 3일 더해주기 
+function addBusinessDays(date, days) {
+    const weekends = [0, 6];  // 일요일(0)과 토요일(6)
+    const resultDate = new Date(date);
+
+    while (days > 0) {
+        resultDate.setDate(resultDate.getDate() + 1);
+        if (!weekends.includes(resultDate.getDay())) {
+            days--;
+        }
+    }
+
+    return resultDate;
+}
+
+// 날짜 포맷 변환 MM/dd 
+function formatDate(date) {
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    return `\${month}/\${day}`;
+}
+
+
+// 예상 배송 날짜 
+function getEstimatedDeliveryDate() {
+	
+	const estimatedDeliveryDate = document.getElementById("estimatedDeliveryDate");
+	
+	const today = new Date();
+	const daysToAdd = 2;
+	const businessDate = addBusinessDays(today, daysToAdd);
+	const formattedDate = formatDate(businessDate);
+
+	estimatedDeliveryDate.innerText = formattedDate;
+	
+}
 
 function clipUrl() {
 	let url = '';
@@ -558,11 +598,11 @@ function clipUrl() {
 	textarea.select();
 	document.execCommand("copy");
 	document.body.removeChild(textarea);
-	alert("주소가 복사되었습니다!")
+	alert("주소가 복사되었습니다.")
 }
 
 function alert_warning(){
-	alert('준비중 입니다!')
+	alert('준비중 입니다.')
 }
 
 

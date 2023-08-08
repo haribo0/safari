@@ -14,7 +14,7 @@
 	 			<hr>
 	 			
 	 			<p class="mb-1 text-secondary fw-medium" style="text-align: left;">상담 가능 시간</p>
-	 			<p class="mb-1 text-secondary" style="text-align: left;">평일 오전 9시~ 오후 6시(주말, 공휴일 제외)</p>
+	 			<p class="mb-1 text-secondary" style="text-align: left;">365일 24시 상담 가능  |  실시간 문의</p>
 			</div>
 			<div class="col">
 				<p class="mb-1 text-secondary" style="text-align: left; font-size: 14px;">사파리(주) | 대표이사: 사육사 | 사업자등록번호 123-45-67890 | 통신판매업신고번호 2023-강남-08 | 서울 강남구 테헤란로 7길 7(역삼동 에스코빌딩 6층)</p>

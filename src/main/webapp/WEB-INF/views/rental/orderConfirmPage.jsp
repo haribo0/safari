@@ -140,7 +140,7 @@ select option[value=""][disabled] {
 							<div class="col border rounded-3 mt-4 overflow-hidden">
 								<div class="row">
 									<div class="col" style="background: #f5f5f5;">
-										<p class="mb-0 py-3 fw-bold">딜라이트홈</p>
+										<p class="mb-0 py-3 fw-bold" id="storeName"> ${data.rentalBusinessDto.business_name} </p>
 									</div>
 								</div>
 								<div class="row px-2 py-3">
@@ -223,7 +223,7 @@ select option[value=""][disabled] {
 												<p class="mb-1" style="font-size: 16px;">사용 가능코인 <span class="fw-bold" style="color: #f68a42;"><fmt:formatNumber value="${userCoinBalance }" pattern="#,##0" /></span></p>
 											</div>
 											<div class="col text-end">
-											<button class="btn orangeButton" onclick="toMyCoinPage()">충전하러가기</button>	
+											<button class="btn orangeButton" onclick="toMyCoinPage()">충전하기</button>	
 											</div>
 										</div>
 									</div>
@@ -357,6 +357,11 @@ select option[value=""][disabled] {
 			</div>
 		</div>
 		</div>
+		<div class="row my-5">
+	    	<div class="col">
+    			&nbsp;
+	    	</div>
+    	</div>
 	</div>
 	
 	
@@ -453,6 +458,8 @@ select option[value=""][disabled] {
       	<div class="col"></div>
       </div>
       
+      
+      
       <div class="modal-footer">
       	<input type="button" class="btn orangeButton" value="등록하기" onclick="addUserAddress()">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">창닫기</button>
@@ -512,9 +519,9 @@ select option[value=""][disabled] {
 			}
 		}
 		
-		console.log('calendarStart 길이:: ',calendarStart.length )
+		/* console.log('calendarStart 길이:: ',calendarStart.length )
 		console.log(myRange)
-		console.log(selectedAddr.value)
+		console.log(selectedAddr.value) */
 		
 		if(calendarStart.length > 1 && myRange != null && selectedAddr.value != null) {
 			console.log('다 채워짐!!!')
@@ -615,12 +622,27 @@ select option[value=""][disabled] {
         }).open();
     }
 	
-	// 오늘 이전 날짜 선택 안되게
+	// 날짜에 영업일 2일 더하기 
+    const addBusinessDays = (date, days) => {
+        const copy = new Date(date);
+        while (days > 0) {
+            copy.setDate(copy.getDate() + 1);
+            if (copy.getDay() !== 0 && copy.getDay() !== 6) {
+                days -= 1;
+            }
+        }
+        return copy;
+    };
+
+	
+	// 오늘 이전 날짜 선택 안되게 (오늘에서 +영업일2일이 minimum 날짜 )
 	const setDateInput = () => {
 	      const today = new Date();
-	      const yyyy = today.getFullYear();
-	      const mm = String(today.getMonth() + 1).padStart(2, '0');
-	      const dd = String(today.getDate()+7).padStart(2, '0');
+	      const businessDate = addBusinessDays(today, 2);
+
+	      const yyyy = businessDate.getFullYear();
+	      const mm = String(businessDate.getMonth() + 1).padStart(2, '0');
+	      const dd = String(businessDate.getDate()).padStart(2, '0');
 	      const formattedDate = `\${yyyy}-\${mm}-\${dd}`;
 	    
 	      document.getElementById('calendar_start').setAttribute('min', formattedDate);
@@ -632,17 +654,17 @@ select option[value=""][disabled] {
 		output.innerHTML = `\${slider.value}<small>개월</small>`;
 
 	  
-	// 종료일 및 할인가격
+		// 종료일 및 할인가격
 		// console.log(new Date('2023-06-22'))
-	  let calendarStart = document.querySelector('#calendar_start')
-	  let optionPeriod = document.querySelector('.optionPeriod')
-	  let hiddinDate = document.querySelector('#hiddin_date')
-	  let hiddenPrice = document.querySelector('#hidden_price')
-	  
-	  let startValue
-	  let periodValue
-	  // 반납일
-	  let returnDate
+		let calendarStart = document.querySelector('#calendar_start')
+		let optionPeriod = document.querySelector('.optionPeriod')
+		let hiddinDate = document.querySelector('#hiddin_date')
+		let hiddenPrice = document.querySelector('#hidden_price')
+		
+		let startValue
+		let periodValue
+		// 반납일
+		let returnDate
 	  
 		// 개월수 조절버튼
 		const increaseButton = document.getElementById('increase');
@@ -705,7 +727,7 @@ select option[value=""][disabled] {
 			returnBox.innerHTML =`
 				<small>반납 예정일은 </small> <sapn class="fw-bold">\${returnDate}</span> <small>입니다.</small>
 				`
-		  console.log(returnDate, '에 반납 하는 달...');
+		  // console.log(returnDate, '에 반납 하는 달...');
 		} return
 	}
 	  
@@ -713,12 +735,12 @@ select option[value=""][disabled] {
     
 	// 남은 대여 개월수 측정
 	function getMonthDiffer(startMonth, endMonth) {
-		  return (
-		    endMonth.getMonth() -
-		    startMonth.getMonth() +
-		    12 * (endMonth.getFullYear() - startMonth.getFullYear())
-		  );
-		}
+		return (
+		  endMonth.getMonth() -
+		  startMonth.getMonth() +
+		  12 * (endMonth.getFullYear() - startMonth.getFullYear())
+		);
+	}
 	//console.log('대여기간 ', getMonthDiffer(new Date('2023-06-19'), new Date('2024-06-19')), '개월 남았습니다.');
 	
 	// 남은 대여 일자수 측정
@@ -728,7 +750,7 @@ select option[value=""][disabled] {
 		  return Math.round(
 		    Math.abs(endDate - startDate) / msInDay 
 		  );
-		}
+	}
 	//console.log('대여기간 ', getDayDiffer(new Date('2023-06-17'), new Date('2023-09-19')), '일 남았습니다.');
 	
 	// 반납 하게 될 일자 찾기
@@ -837,7 +859,6 @@ select option[value=""][disabled] {
 	  phoneBox.value = numericValue;
 	});
 
-
 	
 	// 전화번호 형식 변경 함수
 	function oninputPhone(target) {
@@ -920,7 +941,7 @@ select option[value=""][disabled] {
 			if(xhr.readyState == 4 && xhr.status == 200){
 				const response = JSON.parse(xhr.responseText);
 				listAddrBox.textContent=''
-				addrUsrName = '${sessionUser.nickname}'
+				// addrUsrName = '${sessionUser.nickname}'
 				
 				response.addressList.forEach((val, i) => {
 					let divrow = document.createElement('div')
@@ -948,10 +969,10 @@ select option[value=""][disabled] {
 					
 					p2.className = 'mb-0 ms-3 mt-1 ps-1 text-secondary';
 					let phoneNumber = val.phone
-					console.log("뎅화:: ",phoneNumber)
+					// console.log("뎅화:: ",phoneNumber)
 					formattedPhoneNumber = `\${phoneNumber.slice(0, 3)}-\${phoneNumber.slice(3, 7)}-\${phoneNumber.slice(7)}`
-					console.log('전화번호:: ', formattedPhoneNumber)
-	 				p2.innerText = addrUsrName + ' ' + formattedPhoneNumber
+					// console.log('전화번호:: ', formattedPhoneNumber)
+	 				p2.innerText = val.addressee + ' ' + formattedPhoneNumber
 					
 					p.className = 'mb-0 ms-3 mt-2 ps-1'
 					p.innerText = val.address
@@ -967,7 +988,7 @@ select option[value=""][disabled] {
 					divrow.appendChild(divcol)
 					label.appendChild(divrow)
 					li.appendChild(label)
-					li.className = 'list-group-item w-100 list-addr-item border-0 shadow mb-3 px-3 rounded-3'
+					li.className = 'list-group-item w-100 list-addr-item border shadow-sm mb-3 px-3 rounded-3'
 					
 					listAddrBox.appendChild(li)
 					
@@ -990,6 +1011,7 @@ select option[value=""][disabled] {
 		setDateInput()
 		checkCoinBalance()
 	});
+	
 	</script>
 </body>
 </html>

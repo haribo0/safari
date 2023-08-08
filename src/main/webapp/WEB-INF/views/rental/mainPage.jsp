@@ -332,7 +332,7 @@
 					<div class="col d-flex justify-content-end">
 						<div class="dropdown">
 						  <a class="btn bg-light dropdown-toggle dropdownName" href="#" role="button" data-bs-toggle="dropdown">
-						    일반순
+						    최신순
 						  </a>
 						
 						  <ul class="dropdown-menu bg-light">
@@ -352,7 +352,7 @@
 					</div>
 				</div> -->
 
-				<div class="row flex-wrap pt-2">
+				<div class="row flex-wrap pt-2" id="productListBox">
 	 				<c:forEach items="${rentalItemList}" var="map" varStatus="status">
 		 				
 						<div class="col-3 mb-5 item-box" style="cursor: pointer;">
@@ -378,6 +378,7 @@
 					        </div><div class="row flex-wrap pt-2">
 					      </c:if>
 					</c:forEach>
+					
 					</div>
 				</div>
 				
@@ -593,6 +594,13 @@ window.addEventListener("DOMContentLoaded", function(){
 		refreshMyHeart(id)
 	}
 });
+
+
+function name() {
+	const productListBox = document.getElementById("productListBox");
+}
+
+
 
 var swiper = new Swiper(".mySwiper", {
     slidesPerView: 8,

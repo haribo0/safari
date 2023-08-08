@@ -699,6 +699,16 @@
 		</div>
 		</div>
 	</div>
+	<div class="row my-5">
+	    	<div class="col">
+    			&nbsp;
+	    	</div>
+    	</div>
+    	<div class="row my-5">
+	    	<div class="col">
+    			&nbsp;
+	    	</div>
+    	</div>
 	
 	<div class="modal " id="showMyReviewModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-md modal-dialog-centered"> 
