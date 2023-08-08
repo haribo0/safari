@@ -52,7 +52,7 @@
 								<div class="col">
 									<label for="email" class="form-label fw-medium">아이디 <span class="text-danger fw-bold">＊</span></label>
 									<input type="text" class="form-control" id="email" name="email"
-									placeholder="6~20자">
+									placeholder="이메일 형식으로 입력해주세요">
 								</div>
 							</div>
 							
@@ -63,6 +63,15 @@
 								</div>
 							</div>
 							<%-- 아이디 중복 --%>
+							
+							<%-- 이메일 형식 --%>
+							<div class="row mt-1" style="display: none;" id="incorrectIdBox">
+								<div class="col text-danger">
+									올바른 이메일 형식으로 입력해주세요.
+								</div>
+							</div>
+							<%-- 이메일 형식 --%>							
+							
 							
 							<%-- 아이디 사용 가능 --%>
 							<div class="row mt-1" style="display: none;" id="possibleIdBox">
@@ -77,18 +86,38 @@
 									<label for="pw" class="form-label fw-medium">비밀번호 <span class="text-danger fw-bold">＊</span></label>
 									<input type="password" class="form-control" id="pw" name="pw"
 									placeholder="문자, 숫자, 특수문자 포함 8~20자">
+								</div>
+							</div>
+							
+					<!-- 		<div class="row mt-4">
+								<div class="col">
+									<label for="pw" class="form-label fw-medium">비밀번호 <span class="text-danger fw-bold">＊</span></label>
+										<input type="password" class="form-control" id="pw" name="pw"
+									placeholder="문자, 숫자, 특수문자 포함 8~20자">
+								</div>
+							</div> -->
+							
+							<div class="row mt-1" style="display: none;" id="pwRegNotMatchBox">
+								<div class="col text-danger">
+									비밀번호는 문자, 숫자, 특수문자 포함 8~20자로 입력하셔야 합니다.
+								</div>
+							</div>									
+							
+							<div class="row">
+								<div class="col">
 									<input type="password" class="form-control mt-2" id="pwCheck"
 									placeholder="비밀번호 확인">
 								</div>
 							</div>
-					
-							
-							
+	
 							<div class="row mt-1" style="display: none;" id="pwNotMatchBox">
 								<div class="col text-danger">
 									입력하신 비밀번호가 일치하지 않습니다.
 								</div>
 							</div>
+							
+							
+						
 							
 							
 							<div class="row mt-4">
@@ -97,7 +126,14 @@
 									<input type="text" class="form-control" id="nickname" name="nickname"
 									placeholder="닉네임을 입력해주세요">
 								</div>
-							</div>								
+							</div>			
+							
+							<div class="row mt-1">
+								<div class="col text-danger" style="display: none;" id="nicknameBox">
+									이미 존재하는 닉네임입니다.					
+								</div>	
+							</div>
+												
 							
 							<div class="row mt-4">
 								<div class="col">
@@ -150,7 +186,7 @@
 							<div class="row mt-1">
 								<div class="col"></div>
 							</div>
-							<div class="row mt-4">
+							<div class="row mt-4 mb-5">
 								<div class="col d-grid">
 									<input type="button" class="btn orangeButton p-2" 
 									style="font-size: 20px;" value="가입하기"
@@ -222,6 +258,30 @@
 </div>
 <%--  Modal --%>
 
+
+<%-- 닉네임 확인 Modal --%>
+<div class="modal" id="nickCheckModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered"> 
+    <div class="modal-content">
+      <div class="modal-header bg-light">
+      	
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div> 
+      <div class="modal-body">
+    	<div class="row mt-2">
+    		<div class="col text-center">
+    			닉네임을 다시 입력해주세요
+    		</div>
+    	</div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">창닫기</button>
+      </div>      
+    </div>
+  </div>
+</div>
+<%--  Modal --%>
+
 <%-- 회원가입 완료 Modal --%>
 <div class="modal" id="joinSuccessModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered"> 
@@ -274,39 +334,82 @@ function ajaxTemplate() {
 // 회원가입 가능 여부 확인
 let idChecked = false;
 let pwChecked = false;
+let nickChecked = false;
 
 
-//아이디 입력 시 중복 체크
+// 아이디 입력 시 중복 체크
 document.querySelector("#email").addEventListener("keyup", existsUserId);
+// 이메일 형식 올바른지 체크
+/* document.querySelector("#email").addEventListener("keyup", rightnessUserId); */
 
-//아이디 중복 체크
-function existsUserId(){
+//이메일 형식 올바른지 체크
+function rightnessUserId() {
+	
+	const userIdValue = document.querySelector("#email").value;
+
+	const idRegEx = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
+	
+	const incorrectIdBox = document.querySelector("#incorrectIdBox");
+	
+	if (!idRegEx.test(userIdValue)) {
+		idChecked = false;
+		incorrectIdBox.style.display = "block";
+		
+	} else {
+		idChecked = true;
+		incorrectIdBox.style.display = "none";
+	}
+	
+}
+
+
+
+// 아이디 중복 체크 
+function existsUserId() {
     const userIdValue = document.querySelector("#email").value;
+
+    const existsIdBox = document.getElementById("existsIdBox");
+    const possibleIdBox = document.getElementById("possibleIdBox");
+
+    const incorrectIdBox = document.querySelector("#incorrectIdBox");
+    
+    const idRegEx = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/;
+
+    if (!idRegEx.test(userIdValue)) {
+        idChecked = false;
+        incorrectIdBox.style.display = "block";
+        possibleIdBox.style.display = "none"; // 추가: 이메일 형식이 맞지 않을 경우 possibleIdBox도 감추기
+        return;
+    } else {
+        idChecked = true;
+        incorrectIdBox.style.display = "none";
+
+        if (userIdValue == "") {
+            existsIdBox.style.display = "none";
+            possibleIdBox.style.display = "none";
+            idChecked = false;
+            return;
+        }
+    }
 
     const xhr = new XMLHttpRequest();
 
     xhr.onreadystatechange = function() {
-        if(xhr.readyState == 4 && xhr.status == 200){
+        if (xhr.readyState == 4 && xhr.status == 200) {
             const response = JSON.parse(xhr.responseText);
 
-            const existsIdBox = document.getElementById("existsIdBox");
-            const possibleIdBox = document.getElementById("possibleIdBox");
-
-            if(response.exists == true) {
+            if (response.exists == true) {
                 idChecked = false;
                 existsIdBox.style.display = "block";
                 possibleIdBox.style.display = "none";
-                
-                
             } else {
                 idChecked = true;
                 existsIdBox.style.display = "none";
                 possibleIdBox.style.display = "block";
-                
-                // 중복 확인 해놓고 다시 지워버릴 경우
+
                 if (userIdValue == "") {
-                	possibleIdBox.style.display = "none";
-                	idChecked = false;
+                    possibleIdBox.style.display = "none";
+                    idChecked = false;
                 }
             }
         }
@@ -328,22 +431,39 @@ function checkPwValue() {
 	const userPwCheckBox = document.getElementById("pwCheck");
 	
 	const pwNotMatchBox = document.getElementById("pwNotMatchBox");
+	const pwRegNotMatchBox = document.getElementById("pwRegNotMatchBox");
 	
+	const passwordRegEx = /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[@#$%^&!*])[A-Za-z\d@#$%^&!*]{8,20}$/;
+	
+	
+    if (!passwordRegEx.test(userPwBox.value)) {
+        pwChecked = false;
+        pwRegNotMatchBox.style.display = "block";
+        return;
+    } else {
+    	pwRegNotMatchBox.style.display = "none";
+    }
+	
+
 	if(userPwBox.value != userPwCheckBox.value) {
+		
 		pwNotMatchBox.style.display = "block";
 		pwChecked = false;
 		
 		if(userPwCheckBox.value == "") {
+			
 			pwNotMatchBox.style.display = "none";
 		}
 		
 	} else {
+		
 		pwNotMatchBox.style.display = "none";
 		pwChecked = true;
 		
 		if(userPwBox.value != userPwCheckBox.value) {
 			pwNotMatchBox.style.display = "block";
 			pwChecked = false;
+			
 		} else {
 			pwNotMatchBox.style.display = "none";
 			pwChecked = true;
@@ -360,6 +480,60 @@ function oninputPhone(target) {
         .replace(/(^02.{0}|^01.{1}|[0-9]{3,4})([0-9]{3,4})([0-9]{4})/g, "$1-$2-$3");
 }
 
+
+// 닉네임 중복 여부 확인
+document.querySelector("#nickname").addEventListener("keyup", checkNicknameValue);
+
+// 닉네임 중복 체크
+function checkNicknameValue() {
+	
+	 const nicknameBox = document.querySelector("#nicknameBox");
+	 const nicknameValue = document.querySelector("#nickname").value;
+	 
+	 
+	 const xhr = new XMLHttpRequest();
+	
+	 xhr.onreadystatechange = function() {
+	       if (xhr.readyState == 4 && xhr.status == 200) {
+	           const response = JSON.parse(xhr.responseText);
+	           
+	           
+	           if (response.exists == true) {
+	                nickChecked = false;
+	                nicknameBox.style.display = "block";
+	            } else {
+	            	nickChecked = true;
+	                nicknameBox.style.display = "none";
+
+	                if (nicknameValue == "") {
+	                	//nicknameBox.style.display = "none";
+	                    nickChecked = false;
+	                }
+	            }
+	           
+	           
+	           
+	       }
+	   }
+	 
+	  xhr.open("get", "/safari/user/existsNickname?nickname=" + nicknameValue);
+	  xhr.send();
+}
+
+
+const setDateInput = () => {
+    const today = new Date();
+
+    const yyyy = today.getFullYear();
+    const mm = String(today.getMonth() + 1).padStart(2, '0');
+    const dd = String(today.getDate()).padStart(2, '0');
+    const formattedDate = `\${yyyy}-\${mm}-\${dd}`;
+  
+    document.getElementById('birth').setAttribute('max', formattedDate);
+};
+
+
+
 // 회원가입 유효성 검사
 function checkValueAndSubmit() {
 	
@@ -371,12 +545,16 @@ function checkValueAndSubmit() {
 	const gender_m = document.getElementById("gender_M");
 	const gender_w = document.getElementById("gender_W");
 	const birth = document.getElementById("birth");
+
+	
 	
 	if (email.value == "") {
 		alert("아이디를 입력해주세요");
 		email.focus();
 		return;
-	} else if (pw.value == "") {
+	} 
+	
+	else if (pw.value == "") {
 		alert("비밀번호를 입력해주세요");
 		pw.focus();
 		return;
@@ -426,8 +604,19 @@ function checkValueAndSubmit() {
 	    }, 1000);
 		
 		return;
+	}
+	
+	else if (!nickChecked) {
+		const nickCheckModal = bootstrap.Modal.getOrCreateInstance("#nickCheckModal");
+		nickCheckModal.show();
+		setTimeout(function() {
+			nickCheckModal.hide();
+	    }, 1000);
 		
-	} else {
+		return;
+	} 
+	
+	else {
 		const frm = document.getElementById("frm");
 		frm.submit();
 		
@@ -436,11 +625,19 @@ function checkValueAndSubmit() {
 
 	    setTimeout(function() {
 	       joinSuccessModal.hide();
-	    }, 2000);
+	    }, 5000);
 	}
 	
 	
 }
+
+window.addEventListener("DOMContentLoaded", function(){
+
+	setDateInput();
+   
+ 
+});
+
 
 
 </script>	

@@ -16,9 +16,7 @@
 	font-weight: bold;
 	color: white;
 }
-.passBox {
-	width: 200px;
-}
+
 </style>
 </head>
 <body>
@@ -51,132 +49,87 @@
 				</div>
 				
 				<div class="row mt-3">
-					<div class="col-10">
+					<div class="col-9">
 						
-						
-						<div class="row">
-							<div class="col">
-								
-								<table class="table p-2" style="border-top: 1px solid #E2E3E5;">
-									<tr>
-										<td class="col-3 table-secondary text-center align-middle">아이디(이메일)</td>
-										<td>
-											<div class="row">
-												<div class="col ms-2">
-													${userInfo.email}
-												</div>
-											</div>
-										</td>
-									</tr>
-									<tr>
-										<td class="col-3 table-secondary text-center align-middle">비밀번호변경</td>
-										<td>
-											<div class="row">
-												<div class="col ms-2">
-													
-													<div class="row mb-2">
-														<div class="col mt-1">
-															현재 비밀번호
-														</div>
-														<div class="col-9 me-3">
-															<input type="password" class="form-control passBox me-2" id="nowUserPw" onchange="checkUserPw()"
-															style="float: left;">
-															<span id="isSame" style="position: relative; top: 3px; left: 3px;"></span>
-														</div>
-													</div>
-													
-													<div class="row mb-2">
-														<div class="col mt-1">
-															새 비밀번호
-														</div>
-														<div class="col-9 me-3">
-															<input type="password" class="form-control passBox me-2" id="newUserPw" onChange="checkUserPw()"
-															style="float: left;">
-															<span id="isExist" style="position: relative; top: 3px; left: 3px;"></span>
-														</div>
-													</div>		
-													
-													<div class="row mb-2">
-														<div class="col mt-1">
-															새 비밀번호 확인
-														</div>
-														<div class="col-9 me-3">
-															<input type="password" class="form-control passBox me-2" id="newUserPwCheck" onChange="checkNewUserPw()" style="float: left;">
-															<span id="isSameNew" style="position: relative; top: 3px; left: 3px;"></span>
-														</div>
-													</div>																									
-												
-												</div>
-											</div>
-										
-										</td>
-									</tr>										
-									<tr>
-										<td class="col-3 table-secondary text-center align-middle">닉네임</td>
-										<td>
-											<div class="row">
-												<div class="col ms-2">
-													${userInfo.nickname}
-												</div>
-											</div>
-										</td>
-									</tr>		
-									<tr>
-										<td class="col-3 table-secondary text-center align-middle">전화번호</td>
-										<td>
-											<div class="row" id="phoneInput">
-												<div class="col-auto mt-1 ms-2">
-													${userInfo.phone}
-												</div>
-												<div class="col">
-													<input type="button" class="btn btn-sm btn-outline-secondary" value="전화번호 변경"
-													onclick="changePhoneNumber()" id="phoneButton">
-												</div>
-											</div>
-											
-										</td>
-									</tr>	
-									<tr>
-										<td class="col-3 table-secondary text-center align-middle">성별</td>
-										<td>
-											<div class="row">
-												<div class="col ms-2">
-													
-												 	<input class="form-check-input" type="radio" id=""  value="" <c:if test="${userInfo.gender eq 'm'}">checked</c:if>>
-														  <label class="form-check-label me-5" for="">
-														    	남
-														  </label>		
-											 		<input class="form-check-input" type="radio" id="" name="" value="" <c:if test="${userInfo.gender eq 'w'}">checked</c:if>>
-														  <label class="form-check-label" for="">
-														    	여
-														  </label>																  										
-												</div>
-											</div>
-										</td>
-									</tr>	
-									
-									<tr>
-										<td class="col-3 table-secondary text-center align-middle">프로필사진</td>
-										<td>
-											<div class="row">
-												<div class="col ms-2">
-													  <input class="form-control" id="profileImgFiles"
-				  										name="profileImgFiles" type="file"  accept="image/*" style="width: 300px">
-												</div>
-											</div>
-										</td>
-									</tr>																																											
-								
-								</table>
-								
-								<div class="row mt-2">
-									<div class="col">
-										<input type="button" class="btn orangeButton" value="정보 수정하기">
-									</div>
-								</div>
-								
+						<div class="row border-top border-bottom p-2">
+							<div class="col fw-semibold">
+								닉네임
 							</div>
+							<div class="col-9">
+								
+								<input type="text" class="form-control" value="${userInfo.nickname}">
+							</div>	
 						</div>
+						
+						<div class="row border-bottom p-2">
+							<div class="col fw-semibold">
+								아이디 (이메일)
+							</div>
+							<div class="col-9">
+								
+								<input type="text" class="form-control" value="${userInfo.email}">
+							</div>	
+						</div>			
+
+	
+						
+						<div class="row border-bottom p-2">
+							<div class="col fw-semibold">
+								현재 비밀번호
+							</div>
+							<div class="col-9">
+								
+								<input type="password" class="form-control passBox me-2" id="nowUserPw" onchange="checkUserPw()"
+															style="float: left;">
+								<span id="isSame" style="position: relative; top: 3px; left: 3px;"></span>
+							</div>	
+						</div>		
+						
+						<div class="row border-bottom p-2">
+							<div class="col fw-semibold">
+								새 비밀번호
+							</div>
+							<div class="col-9">
+								<input type="password" class="form-control me-2" id="newUserPw" onChange="checkUserPw()"
+								style="float: left;">
+								<span id="isExist" style="position: relative; top: 3px; left: 3px;"></span>
+							</div>	
+						</div>	
+						
+						<div class="row border-bottom p-2">
+							<div class="col fw-semibold">
+								새 비밀번호 확인
+							</div>
+							<div class="col-9">
+								<input type="password" class="form-control me-2" id="newUserPwCheck" onChange="checkNewUserPw()" style="float: left;">
+								<span id="isSameNew" style="position: relative; top: 3px; left: 3px;"></span>
+							</div>	
+						</div>		
+						
+						<div class="row border-bottom p-2">
+							<div class="col fw-semibold">
+								연락처
+							</div>
+							<div class="col-9">
+								
+								<input type="text" class="form-control" value="${userInfo.phone}">
+							</div>	
+						</div>		
+						
+						<div class="row border-bottom p-2">
+							<div class="col fw-semibold">
+								프로필 사진
+							</div>
+							<div class="col-9">
+								
+								 <input class="form-control" id="profileImgFiles"
+				  										name="profileImgFiles" type="file"  accept="image/*" style="width: 300px">
+							</div>	
+						</div>															
+						
+																														
+									
+			
 					
 					</div>
 					<div class="col"></div>

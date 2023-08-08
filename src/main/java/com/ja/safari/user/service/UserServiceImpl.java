@@ -105,6 +105,21 @@ public class UserServiceImpl {
 			return false;
 		}
 	}
+	
+	// 닉네임 중복 체크
+	public boolean existsNickname(String nickname) {
+		
+		int count = userSqlMapper.existsNickname(nickname);
+		
+		if (count > 0) {
+			return true;
+		} else {
+			return false;
+		}
+		
+	}
+	
+	
 
 	// 주소 추가
 	public void addUserAddress(UserAddressDto userAddressDto) {

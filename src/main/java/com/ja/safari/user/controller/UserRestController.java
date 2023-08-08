@@ -23,7 +23,6 @@ import com.ja.safari.dto.UserAddressDto;
 import com.ja.safari.dto.UserChargeCoinKakaoPayApproveDto;
 import com.ja.safari.dto.UserCoinDto;
 import com.ja.safari.dto.UserDto;
-import com.ja.safari.rental.controller.RentalBusinessController;
 import com.ja.safari.rental.service.RentalBusinessServiceImpl;
 import com.ja.safari.rental.service.RentalServiceImpl;
 import com.ja.safari.used.service.UsedServiceImpl;
@@ -107,6 +106,8 @@ public class UserRestController {
 		return map;
 	}
 	
+	
+	
 	// 회원정보 수정 - 현재 비밀번호 확인
 	@RequestMapping("checkUserPw") 
 	public Map<String, Object> checkUserPw(HttpSession session) {
@@ -133,6 +134,20 @@ public class UserRestController {
 		map.put("exists", exists);
 		
 		return map;
+	}
+	
+	// 닉네임 중복 체크
+	@RequestMapping("existsNickname")
+	public Map<String, Object> existsNickname(String nickname) {
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		boolean exists = userService.existsNickname(nickname);
+		
+		map.put("exists", exists);
+		
+		return map;
+	
 	}
 	
 

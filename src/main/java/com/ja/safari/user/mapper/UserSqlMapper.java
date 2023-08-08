@@ -36,6 +36,8 @@ public interface UserSqlMapper {
 	// 아이디 중복 체크 
 	public int existsUserId(String email);
 	
+	// 닉네임 중복 체크
+	public int existsNickname(String nickname);
 	
 
 	

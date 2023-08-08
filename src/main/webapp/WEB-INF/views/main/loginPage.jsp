@@ -29,7 +29,7 @@ a {
         align-items: center;
         color: rgba(0, 0, 0, 0.35);
         font-size: 18px;
-        margin: 8px 0px;
+        margin: 10px 0px;
       }
   .hr-sect::before,
   .hr-sect::after {
@@ -68,7 +68,7 @@ a {
 					<div class="col-4">
 						<div class="row">
 							<div class="col">
-								<input type="text" class="form-control p-3" placeholder="아이디 또는 이메일" id="email">
+								<input type="text" class="form-control p-3" placeholder="이메일" id="email">
 							</div>
 						</div>
 						
@@ -91,13 +91,14 @@ a {
 						
 						<div class="row mt-4">
 							<div class="col d-grid">
-								<input type="button" class="btn orangeButton p-2 fs-5" value="로그인" onclick="loginProcess()">
+								<input type="button" class="btn orangeButton p-2 fs-4" value="로그인" onclick="loginProcess()"
+								style="height: 60px">
 								
 							</div>
 						</div>
 					
 						
-						<div class="row mt-1" style="font-size: 15px;">
+						<div class="row mt-2" style="font-size: 15px; position: relative; top: 3px">
 							<div class="col-auto text-secondary">
 								아이디 찾기
 							</div>
@@ -121,7 +122,7 @@ a {
 							<div class="col">
 								<div class="row mt-3">
 									<div class="col text-center" onclick="kakaoLogin()" style="cursor: pointer;">
-										<img src="/safari/resources/img/user/kakao_login_medium_wide.png" class="img-fluid">
+										<img src="/safari/resources/img/user/kakao_login_medium_wide.png" class="img-fluid" style="width: 440px">
 									</div>
 									<!-- <div class="col-auto">
 										<img src="/safari/resources/img/user/naver.png">
