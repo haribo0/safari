@@ -92,7 +92,7 @@ a {
 						<div class="row mt-4">
 							<div class="col d-grid">
 								<input type="button" class="btn orangeButton p-2 fs-4" value="로그인" onclick="loginProcess()"
-								style="height: 60px">
+								style="height: 56px">
 								
 							</div>
 						</div>

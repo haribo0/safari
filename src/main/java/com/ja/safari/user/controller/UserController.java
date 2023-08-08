@@ -1,7 +1,11 @@
 package com.ja.safari.user.controller;
 
+import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import javax.servlet.http.HttpSession;
 
@@ -9,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.ja.safari.auction.service.AuctionServiceImpl;
 import com.ja.safari.cs.service.CsServiceImpl;
@@ -273,9 +278,53 @@ public class UserController {
 	
 	// 회원가입 프로세스
 	@RequestMapping("userJoinProcess")
-	public String userJoinProcess(UserDto userDto) {
+	public String userJoinProcess(UserDto userDto, MultipartFile profileImageFile) {
 		
+		
+		// 프사 저장 로직
+		if (profileImageFile != null) {
+			// 이미지가 존재하지 않을 때
+
+			String rootFolder = "C:/auctionFiles/";
+
+			// 날짜별 폴더 생성 로직
+
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd"); // 날짜를 문자로 바꿔주는 역할
+			String today = sdf.format(new Date()); // new Date(): 오늘 날짜 출력
+
+			File targetFolder = new File(rootFolder + today); 
+
+			if (!targetFolder.exists()) {
+				targetFolder.mkdirs(); // 폴더 생성
+
+			}
+
+			// 저장 파일명 만들기. 핵심은 파일명 충돌 방지 = 랜덤 + 시간
+			String fileName = UUID.randomUUID().toString();
+			fileName += "_" + System.currentTimeMillis();
+
+			// 확장자 추출
+			String originalFileName = profileImageFile.getOriginalFilename(); // originalFileName : 사용자가 컴퓨터에 올리는 파일명
+			String ext = originalFileName.substring(originalFileName.lastIndexOf(".")); // lastindexof: 뒤에서부터 .의 위치를 찾아서
+																						// 숫자를 반환
+
+			// 슬래시 주의할 것 기억하기
+			String saveFileName = today + "/" + fileName + ext;
+
+			try {
+				// java.io.file 불러오기, 폴더를 포함한 파일명을 넣는다
+				// 다른 이미지이지만 파일명이 같은 경우, 충돌을 피하려면
+				profileImageFile.transferTo(new File(rootFolder + saveFileName));
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			userDto.setProfile_img_link(saveFileName);
+
+		}
+	
 		userService.joinUser(userDto);
+
+		
 		return "/main/loginPage";
 	}
 	

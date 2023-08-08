@@ -26,6 +26,7 @@ public interface UserSqlMapper {
 	
 	//로그인
 	public UserDto selectByIdAndPw(UserDto uerDto);
+
 	
 	// 회원정보 수정 - 현재 비밀번호 확인
 	public UserDto checkUserPw(int id);

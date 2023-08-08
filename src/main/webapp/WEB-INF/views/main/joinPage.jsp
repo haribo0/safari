@@ -44,7 +44,7 @@
 					</div>
 				</div>
 				
-				<form action="/safari/user/userJoinProcess" method="post" id="frm">
+				<form action="/safari/user/userJoinProcess" method="post" id="frm" enctype="multipart/form-data">
 					<div class="row mt-4">
 						<div class="col">
 					
@@ -139,7 +139,7 @@
 								<div class="col">
 									<label for="phone" class="form-label fw-medium">전화번호 <span class="text-danger fw-bold">＊</span></label>
 									<input type="text" class="form-control" id="phone" oninput="oninputPhone(this)" maxlength="13" name="phone"
-									placeholder="01000000000">
+									placeholder="전화번호를 입력해주세요">
 								</div>
 							</div>		
 							
@@ -179,11 +179,12 @@
 							<div class="row mt-4 mb-1">
 								<div class="col">
 									<label class="form-check-label me-4 fw-medium" for="profile_img_link ">프로필사진</label>
-									<input type="file" class="form-control mt-2" id="profile_img_link" name="profile_img_link">						
+									<input type="file" class="form-control mt-2" id="profile_img_link" name="profileImageFile"
+									accept="image/*">						
 								</div>
 							</div>
 							
-							<div class="row mt-1">
+							<div class="row mt-3">
 								<div class="col"></div>
 							</div>
 							<div class="row mt-4 mb-5">
@@ -343,7 +344,7 @@ document.querySelector("#email").addEventListener("keyup", existsUserId);
 /* document.querySelector("#email").addEventListener("keyup", rightnessUserId); */
 
 //이메일 형식 올바른지 체크
-function rightnessUserId() {
+/* function rightnessUserId() {
 	
 	const userIdValue = document.querySelector("#email").value;
 
@@ -361,7 +362,7 @@ function rightnessUserId() {
 	}
 	
 }
-
+ */
 
 
 // 아이디 중복 체크 

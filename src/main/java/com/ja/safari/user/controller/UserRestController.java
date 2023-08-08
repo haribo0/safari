@@ -150,6 +150,19 @@ public class UserRestController {
 	
 	}
 	
+	// 프사 조회
+	@RequestMapping("getUserProfileImage")
+	public Map<String, Object> getUserProfileImage(HttpSession session) {
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		UserDto sessionUser = (UserDto)session.getAttribute("sessionUser");
+		
+		map.put("profile_img_link", sessionUser.getProfile_img_link());
+		
+		return map;
+	}
+	
 
 	// 사용자 주소 추가
 	@RequestMapping("addUserAddress")
