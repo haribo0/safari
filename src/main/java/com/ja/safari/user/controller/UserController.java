@@ -283,7 +283,6 @@ public class UserController {
 		
 		// 프사 저장 로직
 		if (profileImageFile != null) {
-			// 이미지가 존재하지 않을 때
 
 			String rootFolder = "C:/auctionFiles/";
 
