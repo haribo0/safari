@@ -356,6 +356,7 @@ body1 {
   </div>
 </div>
 <!-- 상대방 리뷰 모달 -->
+
 <!-- 잔액 부족 경고 모달(코인 보유 금액 < 상품 금액)  -->
 <div class="modal" id="bidFailureLowerCoinModal" tabindex="-1">
   <div class="modal-dialog modal-dialog-centered" style="min-height: 67.5vh; background: rgba(0, 0, 0, 0.45);"> 
@@ -365,22 +366,40 @@ body1 {
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div> 
       <div class="modal-body">
-      	
       	<div class="row text-center">
     		<div class="col">코인이 부족하여 송금하기에 실패하였습니다.</div>
        </div>
-  
       </div>
-      
       <div class="modal-footer">
       	<input type="button" class="btn orangeButton" value="충전하기" onclick="location.href='/safari/user/myCoinPage'">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">창닫기</button>
       </div>      
-   
     </div>
   </div>
 </div>
 <!-- 잔액 부족 경고 모달(코인 보유 금액 < 상품 금액)  -->
+
+<!-- 0원일때 송금하기 경고 모달  -->
+<div class="modal" id="bidFailureZeroCoinModal" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered" style="min-height: 67.5vh; background: rgba(0, 0, 0, 0.45);"> 
+    <div class="modal-content">
+      <div class="modal-header">
+      	<h5>송금 실패</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div> 
+      <div class="modal-body">
+      	<div class="row text-center">
+    		<div class="col">나눔 상품으로 송금할 수 없습니다.</div>
+       </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">창닫기</button>
+      </div>      
+    </div>
+  </div>
+</div>
+<!-- 0원일때 송금하기 경고 모달  -->
+
 <!-- 송금 내역  -->
 <div class="modal" id="usedTransferSuccess" tabindex="-1">
   <div class="modal-dialog modal-dialog-centered" style="background: rgba(0, 0, 0, 0.45);"> 
@@ -1770,7 +1789,6 @@ function getProductInformation(requestId) {
             }else{
             	row1col2row2.innerText = response.map.productDto.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',') + '원';
             }
-            
 
             /* button */
             /*예약버튼 */
@@ -1820,7 +1838,23 @@ function getProductInformation(requestId) {
     	            const row2col4 = document.createElement('div');
     	            row2col4.classList.add('col', 'text-end', 'my-auto');
     	            
-    	            row2col4.innerHTML = '<img src="/safari/resources/img/used/coin2.png" width="26" height="28"><span style="color:" #919191cc;font-size:="" 16px;"="" class="fw-semibold"> 1,200</span><span style="color:gray;font-size:14px;"> 코인</span>';
+    	            const row2col4Img = document.createElement("img");
+    	            row2col4Img.src = "/safari/resources/img/used/coin2.png";
+    	            row2col4Img.width = 26;
+    	            row2col4Img.height = 28;
+
+    	            const row2col4span1 = document.createElement("span");
+    	            row2col4span1.style.color = "#7d7a7a";
+    	            row2col4span1.style.fontSize = "16px";
+    	            row2col4span1.classList.add("fw-semibold", "ms-1");
+    	            row2col4span1.textContent = response.myCoin.toLocaleString();
+
+    	            const row2col4span2 = document.createElement("span");
+    	            row2col4span2.style.color = "gray";
+    	            row2col4span2.style.fontSize = "14px";
+    	            row2col4span2.textContent = "코인";
+    	            
+    	            /* row2col4.innerHTML = '<img src="/safari/resources/img/used/coin2.png" width="26" height="28"><span style="color:" #919191cc;font-size:="" 16px;"="" class="fw-semibold"> 1,200</span><span style="color:gray;font-size:14px;"> 코인</span>'; */
     	            	
     	            row2.appendChild(row2col1);
     	            row2.appendChild(row2col2);
@@ -1835,6 +1869,12 @@ function getProductInformation(requestId) {
 
     	            row2col3.appendChild(row2col3Icon);
     	            row2col3.appendChild(row2col3Span);
+    	            
+    	            row2col4.appendChild(row2col4Img);
+    	            row2col4.appendChild(row2col4span1);
+    	            row2col4.appendChild(row2col4span2);
+    	            
+    	            
             	}else if(response.productRequestDto.status == '예약중'){
             		row2col1 = document.createElement('div');
     	            row2col1.classList.add('col-2', 'btn', 'btn-outline-secondary', 'text-dark', 'me-3', 'ms-2', 'btn-sm', 'p-1');
@@ -1867,7 +1907,21 @@ function getProductInformation(requestId) {
     				const row2col4 = document.createElement('div');
     	            row2col4.classList.add('col', 'text-end', 'my-auto');
     	            
-    	            row2col4.innerHTML = '<img src="/safari/resources/img/used/coin2.png" width="26" height="28"><span style="color:" #919191cc;font-size:="" 16px;"="" class="fw-semibold"> 1,200</span><span style="color:gray;font-size:14px;"> 코인</span>';
+    	            const row2col4Img = document.createElement("img");
+    	            row2col4Img.src = "/safari/resources/img/used/coin2.png";
+    	            row2col4Img.width = 26;
+    	            row2col4Img.height = 28;
+
+    	            const row2col4span1 = document.createElement("span");
+    	            row2col4span1.style.color = "#7d7a7a";
+    	            row2col4span1.style.fontSize = "16px";
+    	            row2col4span1.classList.add("fw-semibold", "ms-1");
+    	            row2col4span1.textContent = response.myCoin.toLocaleString();
+
+    	            const row2col4span2 = document.createElement("span");
+    	            row2col4span2.style.color = "gray";
+    	            row2col4span2.style.fontSize = "14px";
+    	            row2col4span2.textContent = "코인";
     	         
     	            row2.appendChild(row2col1);
     	            row2.appendChild(row2col2);
@@ -1882,6 +1936,10 @@ function getProductInformation(requestId) {
 
     	            row2col3.appendChild(row2col3Icon);
     	            row2col3.appendChild(row2col3Span);
+    	            
+    	            row2col4.appendChild(row2col4Img);
+    	            row2col4.appendChild(row2col4span1);
+    	            row2col4.appendChild(row2col4span2);
 
             	}else if(response.productRequestDto.status == '거래완료' && response.myWroteReviewCount == 0){
             		row2col1 = document.createElement('div');
@@ -1895,7 +1953,21 @@ function getProductInformation(requestId) {
     				const row2col4 = document.createElement('div');
     	            row2col4.classList.add('col', 'text-end', 'my-auto');
     	            
-    	            row2col4.innerHTML = '<img src="/safari/resources/img/used/coin2.png" width="26" height="28"><span style="color:" #919191cc;font-size:="" 16px;"="" class="fw-semibold"> 1,200</span><span style="color:gray;font-size:14px;"> 코인</span>';
+    	            const row2col4Img = document.createElement("img");
+    	            row2col4Img.src = "/safari/resources/img/used/coin2.png";
+    	            row2col4Img.width = 26;
+    	            row2col4Img.height = 28;
+
+    	            const row2col4span1 = document.createElement("span");
+    	            row2col4span1.style.color = "#7d7a7a";
+    	            row2col4span1.style.fontSize = "16px";
+    	            row2col4span1.classList.add("fw-semibold", "ms-1");
+    	            row2col4span1.textContent = response.myCoin.toLocaleString();
+
+    	            const row2col4span2 = document.createElement("span");
+    	            row2col4span2.style.color = "gray";
+    	            row2col4span2.style.fontSize = "14px";
+    	            row2col4span2.textContent = "코인";
 
     	            row2.appendChild(row2col1);
     	            row2.appendChild(row2col4);
@@ -1905,6 +1977,11 @@ function getProductInformation(requestId) {
 
     	            row2.appendChild(row2col1);
     	            row2.appendChild(row2col4);
+    	            
+    	            row2col4.appendChild(row2col4Img);
+    	            row2col4.appendChild(row2col4span1);
+    	            row2col4.appendChild(row2col4span2);
+    	            
             	}else if(response.productRequestDto.status == '거래완료' && response.myWroteReviewCount > 0){
             		row2col1 = document.createElement('div');
     	            row2col1.classList.add('col-3', 'btn', 'btn-outline-secondary', 'text-dark', 'me-3', 'ms-2', 'btn-sm', 'p-1');
@@ -1917,7 +1994,21 @@ function getProductInformation(requestId) {
     				const row2col4 = document.createElement('div');
     	            row2col4.classList.add('col', 'text-end', 'my-auto');
     	            
-    	            row2col4.innerHTML = '<img src="/safari/resources/img/used/coin2.png" width="26" height="28"><span style="color:" #919191cc;font-size:="" 16px;"="" class="fw-semibold"> 1,200</span><span style="color:gray;font-size:14px;"> 코인</span>';
+    	            const row2col4Img = document.createElement("img");
+    	            row2col4Img.src = "/safari/resources/img/used/coin2.png";
+    	            row2col4Img.width = 26;
+    	            row2col4Img.height = 28;
+
+    	            const row2col4span1 = document.createElement("span");
+    	            row2col4span1.style.color = "#7d7a7a";
+    	            row2col4span1.style.fontSize = "16px";
+    	            row2col4span1.classList.add("fw-semibold", "ms-1");
+    	            row2col4span1.textContent = response.myCoin.toLocaleString();
+
+    	            const row2col4span2 = document.createElement("span");
+    	            row2col4span2.style.color = "gray";
+    	            row2col4span2.style.fontSize = "14px";
+    	            row2col4span2.textContent = "코인";
 
     	            row2.appendChild(row2col1);
     	            row2.appendChild(row2col4);
@@ -1927,6 +2018,10 @@ function getProductInformation(requestId) {
 
     	            row2.appendChild(row2col1);
     	            row2.appendChild(row2col4);
+    	            
+    	            row2col4.appendChild(row2col4Img);
+    	            row2col4.appendChild(row2col4span1);
+    	            row2col4.appendChild(row2col4span2);
             	}
             	// 거래요청한 사람인 경우 : 소비자
             }else{
@@ -1948,13 +2043,31 @@ function getProductInformation(requestId) {
     				const row2col4 = document.createElement('div');
     	            row2col4.classList.add('col', 'text-end', 'my-auto');
     	            
-    	            row2col4.innerHTML = '<img src="/safari/resources/img/used/coin2.png" width="26" height="28"><span style="color:" #919191cc;font-size:="" 16px;"="" class="fw-semibold"> 1,200</span><span style="color:gray;font-size:14px;"> 코인</span>';
+    	            const row2col4Img = document.createElement("img");
+    	            row2col4Img.src = "/safari/resources/img/used/coin2.png";
+    	            row2col4Img.width = 26;
+    	            row2col4Img.height = 28;
+
+    	            const row2col4span1 = document.createElement("span");
+    	            row2col4span1.style.color = "#7d7a7a";
+    	            row2col4span1.style.fontSize = "16px";
+    	            row2col4span1.classList.add("fw-semibold", "ms-1");
+    	            row2col4span1.textContent = response.myCoin.toLocaleString();
+
+    	            const row2col4span2 = document.createElement("span");
+    	            row2col4span2.style.color = "gray";
+    	            row2col4span2.style.fontSize = "14px";
+    	            row2col4span2.textContent = "코인";
 
     	            row2.appendChild(row2col1);
     	            row2.appendChild(row2col4);
 
     	            row2col1.appendChild(row2col1Icon);
     	            row2col1.appendChild(row2col1Span);
+    	            
+    	            row2col4.appendChild(row2col4Img);
+    	            row2col4.appendChild(row2col4span1);
+    	            row2col4.appendChild(row2col4span2);
 
             	}else if(response.productRequestDto.status == '예약중'){
             		partner_order_id = response.productRequestDto.id;
@@ -1974,13 +2087,31 @@ function getProductInformation(requestId) {
     				const row2col4 = document.createElement('div');
     	            row2col4.classList.add('col', 'text-end', 'my-auto');
     	            
-    	            row2col4.innerHTML = '<img src="/safari/resources/img/used/coin2.png" width="26" height="28"><span style="color:" #919191cc;font-size:="" 16px;"="" class="fw-semibold"> 1,200</span><span style="color:gray;font-size:14px;"> 코인</span>';
+    	            const row2col4Img = document.createElement("img");
+    	            row2col4Img.src = "/safari/resources/img/used/coin2.png";
+    	            row2col4Img.width = 26;
+    	            row2col4Img.height = 28;
+
+    	            const row2col4span1 = document.createElement("span");
+    	            row2col4span1.style.color = "#7d7a7a";
+    	            row2col4span1.style.fontSize = "16px";
+    	            row2col4span1.classList.add("fw-semibold", "ms-1");
+    	            row2col4span1.textContent = response.myCoin.toLocaleString();
+
+    	            const row2col4span2 = document.createElement("span");
+    	            row2col4span2.style.color = "gray";
+    	            row2col4span2.style.fontSize = "14px";
+    	            row2col4span2.textContent = "코인";
 
     	            row2.appendChild(row2col1);
     	            row2.appendChild(row2col4);
 
     	            row2col1.appendChild(row2col1Icon);
     	            row2col1.appendChild(row2col1Span);
+    	            
+    	            row2col4.appendChild(row2col4Img);
+    	            row2col4.appendChild(row2col4span1);
+    	            row2col4.appendChild(row2col4span2);
 
             	}else if(response.productRequestDto.status == '거래완료' && response.myWroteReviewCount == 0){
             		row2col1 = document.createElement('div');
@@ -1994,7 +2125,21 @@ function getProductInformation(requestId) {
     				const row2col4 = document.createElement('div');
     	            row2col4.classList.add('col', 'text-end', 'my-auto');
     	            
-    	            row2col4.innerHTML = '<img src="/safari/resources/img/used/coin2.png" width="26" height="28"><span style="color:" #919191cc;font-size:="" 16px;"="" class="fw-semibold"> 1,200</span><span style="color:gray;font-size:14px;"> 코인</span>';
+    	            const row2col4Img = document.createElement("img");
+    	            row2col4Img.src = "/safari/resources/img/used/coin2.png";
+    	            row2col4Img.width = 26;
+    	            row2col4Img.height = 28;
+
+    	            const row2col4span1 = document.createElement("span");
+    	            row2col4span1.style.color = "#7d7a7a";
+    	            row2col4span1.style.fontSize = "16px";
+    	            row2col4span1.classList.add("fw-semibold", "ms-1");
+    	            row2col4span1.textContent = response.myCoin.toLocaleString();
+
+    	            const row2col4span2 = document.createElement("span");
+    	            row2col4span2.style.color = "gray";
+    	            row2col4span2.style.fontSize = "14px";
+    	            row2col4span2.textContent = "코인";
 
     	            row2.appendChild(row2col1);
     	            row2.appendChild(row2col4);
@@ -2004,6 +2149,11 @@ function getProductInformation(requestId) {
 
     	            row2.appendChild(row2col1);
     	            row2.appendChild(row2col4);
+    	            
+    	            row2col4.appendChild(row2col4Img);
+    	            row2col4.appendChild(row2col4span1);
+    	            row2col4.appendChild(row2col4span2);
+    	            
             	}else if(response.productRequestDto.status == '거래완료' && response.myWroteReviewCount > 0){
             		row2col1 = document.createElement('div');
     	            row2col1.classList.add('col-3', 'btn', 'btn-outline-secondary', 'text-dark', 'me-3', 'ms-2', 'btn-sm', 'p-1');
@@ -2016,7 +2166,21 @@ function getProductInformation(requestId) {
     				const row2col4 = document.createElement('div');
     	            row2col4.classList.add('col', 'text-end', 'my-auto');
     	            
-    	            row2col4.innerHTML = '<img src="/safari/resources/img/used/coin2.png" width="26" height="28"><span style="color:" #919191cc;font-size:="" 16px;"="" class="fw-semibold"> 1,200</span><span style="color:gray;font-size:14px;"> 코인</span>';
+    	            const row2col4Img = document.createElement("img");
+    	            row2col4Img.src = "/safari/resources/img/used/coin2.png";
+    	            row2col4Img.width = 26;
+    	            row2col4Img.height = 28;
+
+    	            const row2col4span1 = document.createElement("span");
+    	            row2col4span1.style.color = "#7d7a7a";
+    	            row2col4span1.style.fontSize = "16px";
+    	            row2col4span1.classList.add("fw-semibold", "ms-1");
+    	            row2col4span1.textContent = response.myCoin.toLocaleString();
+
+    	            const row2col4span2 = document.createElement("span");
+    	            row2col4span2.style.color = "gray";
+    	            row2col4span2.style.fontSize = "14px";
+    	            row2col4span2.textContent = "코인";
 
     	            row2.appendChild(row2col1);
     	            row2.appendChild(row2col4);
@@ -2026,53 +2190,12 @@ function getProductInformation(requestId) {
 
     	            row2.appendChild(row2col1);
     	            row2.appendChild(row2col4);
+    	            
+    	            row2col4.appendChild(row2col4Img);
+    	            row2col4.appendChild(row2col4span1);
+    	            row2col4.appendChild(row2col4span2);
             	}
             }
-
-
-
-            /* <c:if test="${sessionUser.getId() == map.productDto.user_id }">
-		 	<div class="row mt-1 mb-2">
-				<div class="col-1"></div>
-				<c:if test="${response.map.productRequestDto.status == '거래요청' && response.map.reservationCount == 0 && response.map.completeCount == 0 }">
-					<div class="col-1 text-center">
-						<a href="./productRequestStatusReservation?productId=${response.map.productRequestDto.product_id }&userId=${response.map.productRequestDto.user_id}" class="btn btn-dark btn-sm">예약하기</a>
-					</div>
-					<div class="col-1 text-center">
-						<a href="./productRequestStatusComplete?productId=${response.map.productRequestDto.product_id }&userId=${response.map.productRequestDto.user_id}" class="btn btn-dark btn-sm">거래완료</a>
-					</div>
-				</c:if>
-				<c:if test="${response.map.productRequestDto.status == '예약중' }">
-					<div class="col-1 text-center">
-						<a href="./productRequestStatusCancel?productId=${response.map.productRequestDto.product_id }&userId=${response.map.productRequestDto.user_id}" type="button" class="btn btn-dark btn-sm">예약취소</a>
-					</div>
-					<div class="col-1 text-center">
-						<a href="./productRequestStatusComplete?productId=${response.map.productRequestDto.product_id }&userId=${response.map.productRequestDto.user_id}" type="button" class="btn btn-dark btn-sm">거래완료</a>
-					</div>
-				</c:if>
-				<c:if test="${response.map.productRequestDto.status == '거래완료'}">
-					<div class="col-1 text-center">
-					</div>
-					<div class="col-1 text-center">
-						<button type="button" class="btn btn-danger btn-sm">리뷰 쓰기</button>
-					</div>
-				</c:if>
-				<c:if test="${response.map.productRequestDto.status == '거래요청' && response.map.reservationCount != 0}">
-					<div class="col-1 text-center">
-					</div>
-					<div class="col-1 text-center">
-					</div>
-				</c:if>
-				<c:if test="${response.map.productRequestDto.status != '거래완료' && response.map.completeCount != 0}">
-					<div class="col-1 text-center">
-					</div>
-					<div class="col-1 text-center">
-					</div>
-				</c:if>
-		 	</div>
-			</c:if>
-             */
-            /* 상품정보 */
 
             row1.appendChild(row1col1);
             row1col1.appendChild(row1col1Img);
@@ -2391,7 +2514,12 @@ function processPayment(partner_order_id, partner_user_id,item_name,item_code,to
 	if(total_amount>coinBalance){
 		const coinAlertwModal = bootstrap.Modal.getOrCreateInstance('#bidFailureLowerCoinModal');
 		coinAlertwModal.show();
+	}else if(total_amount == 0){
+		const coinZeroModal = bootstrap.Modal.getOrCreateInstance('#bidFailureZeroCoinModal');
+		coinZeroModal.show();
+		
 	}else{
+		getProductInformation(partner_order_id);
 		successPayment(partner_order_id, partner_user_id,item_name,item_code,total_amount);
 	}
 

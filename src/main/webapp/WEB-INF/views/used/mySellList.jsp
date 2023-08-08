@@ -434,7 +434,7 @@
 <!-- 상대방 리뷰 모달 -->
 
 <!-- 끌올 모달(시간 충족X) -->
-<div class="modal" id="updateRegDate3" tabindex="-1" >
+<div class="modal" id="updateRegDate1" tabindex="-1" >
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header position-relative px-3" style="padding: 10px 0px; height: 55px;">
@@ -539,31 +539,6 @@
 </div>
 </div>
 
-
-
-<!-- <div class="modal" id="updateRegDate2" tabindex="-1">
-	  <div class="modal-dialog">
-	    <div class="modal-content">
-	      <div class="modal-header position-relative">
- 	        <div class="modal-title">
-	        	<h5 class="modal-title ms-1">
-					끌어올리기
-	        	</h5>
- 	        </div>
-	        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-	      </div>
-	      <div class="modal-body px-0 pb-0 pt-0" style="height: 490px; width: 460px;">
-			<div class="chat-container overflow-y-scroll overflow-x-hidden" style="height:480px; width:480px" id="updateRegDate2">
-				지
-			</div>
-	      </div>
-	      <div class="modal-footer p-0">
-	      	<img class="img-fluid m-0" alt="chatAds" src="/safari/resources/img/used/updaateDateBanner5.png">
-	      </div>
-	    </div>
-	  </div>
-</div> -->
-<!-- 끌올 모달 -->
 
 <script>
 const listContainerBox = document.getElementById('listContainer');

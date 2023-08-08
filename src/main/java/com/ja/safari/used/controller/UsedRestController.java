@@ -23,6 +23,7 @@ import com.ja.safari.dto.UsedPurchaseReviewDto;
 import com.ja.safari.dto.UserCoinDto;
 import com.ja.safari.dto.UserDto;
 import com.ja.safari.used.service.UsedServiceImpl;
+import com.ja.safari.user.service.UserServiceImpl;
 
 
 @RestController
@@ -31,6 +32,9 @@ public class UsedRestController {
 	
 	@Autowired
 	UsedServiceImpl usedService;
+	
+	@Autowired
+	UserServiceImpl userService;
 	
 	// 상품 전체보기 -ajax 카테고리 정렬 및 모든 정렬 
 	@RequestMapping("getProductByAllCondition")
@@ -234,7 +238,7 @@ public class UsedRestController {
 		}
 	}
 	
-	// 채팅창 모달 내 상품 정보 및 상태 
+	// 채팅창 모달 내 상품 정보 및 상태
 	@RequestMapping("getProductInformation")
 	public Map<String, Object> getProductInformation(Integer requestId, HttpSession session){
 		Map<String, Object> map = new HashMap<>();
@@ -254,6 +258,7 @@ public class UsedRestController {
 		    map.put("requestCount", usedService.countProductRequestByProductId(productId));
 			map.put("productRequestDto", usedService.selectProductRequestByProductIdAndRequestId(productId, requesterId));
 			map.put("myWroteReviewCount", usedService.selectMyWroteReviewCount(requestId, sessionUser.getId()));
+			map.put("myCoin", userService.getUserCoinBalance(sessionUser.getId()));
 			map.put("result", "success");
 			return map;
 		}
@@ -552,7 +557,6 @@ public class UsedRestController {
 			return map;
 		}
 	}
-	
 	
 	
 	
