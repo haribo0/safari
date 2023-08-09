@@ -15,8 +15,12 @@ import com.ja.safari.dto.UserDto;
 
 public interface UserSqlMapper {
 
-	//회원가입
+	// 프사가 있는 회원가입
 	public void insert(UserDto uerDto);
+	
+	// 프사가 없는 회원가입
+	public void insertNoImg(UserDto userDto);
+	
 	
 	// 카카오 로그인시 최초 1회 정보 등록 
 	public void insertKakaoUser(UserDto uerDto);

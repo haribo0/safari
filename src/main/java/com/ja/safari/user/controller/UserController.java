@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.ja.safari.auction.service.AuctionServiceImpl;
@@ -278,11 +279,12 @@ public class UserController {
 	
 	// 회원가입 프로세스
 	@RequestMapping("userJoinProcess")
-	public String userJoinProcess(UserDto userDto, MultipartFile profileImageFile) {
+	public String userJoinProcess(UserDto userDto,  @RequestParam(value = "profileImageFile", required = false)  MultipartFile profileImageFile) {
 		
-		
+	
 		// 프사 저장 로직
-		if (profileImageFile != null) {
+		if (profileImageFile != null  && !profileImageFile.isEmpty()) {
+			
 
 			String rootFolder = "C:/auctionFiles/";
 
@@ -318,10 +320,13 @@ public class UserController {
 				e.printStackTrace();
 			}
 			userDto.setProfile_img_link(saveFileName);
+			userService.joinUser(userDto);
 
+		} else {
+			userService.insertNoImg(userDto);
 		}
 	
-		userService.joinUser(userDto);
+		
 
 		
 		return "/main/loginPage";

@@ -60,6 +60,11 @@ public class UserServiceImpl {
 		userSqlMapper.insert(userDto);
 	}
 	
+	// 프사 없는 회원가입
+	public void insertNoImg(UserDto userDto) {
+		userSqlMapper.insertNoImg(userDto);
+	}
+	
 	//로그인
 	public UserDto loginUser(UserDto userDto) {
 		UserDto user = userSqlMapper.selectByIdAndPw(userDto);
