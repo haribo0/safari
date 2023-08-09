@@ -385,7 +385,7 @@
 <!-- 거래 리뷰 checkbox 저장  -->
 <insert id="insertUsedCheckboxSelectedReview">
 	INSERT INTO used_checkbox_selected_review VALUES(
-	used_checkbox_selected_review_seq.nextval,
+	used_select_review_seq.nextval,
 	#{product_review_id},
 	#{review_checkbox_category_id}
 )
