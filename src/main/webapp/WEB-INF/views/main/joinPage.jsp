@@ -124,7 +124,7 @@
 								<div class="col">
 									<label for="nickname" class="form-label fw-medium">닉네임 <span class="text-danger fw-bold">＊</span></label>
 									<input type="text" class="form-control" id="nickname" name="nickname"
-									placeholder="닉네임을 입력해주세요"  maxlength="13">
+									placeholder="닉네임을 입력해주세요" >
 								</div>
 							</div>			
 							
