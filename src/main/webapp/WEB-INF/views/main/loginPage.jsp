@@ -333,7 +333,7 @@ function loginProcess() {
       } else {
         /* const loginFailModal = bootstrap.Modal.getOrCreateInstance("#loginFailModal");
         loginFailModal.show(); */
-        email.value = "";
+       // email.value = "";
         pw.value = "";
 
        /*  setTimeout(function() {
@@ -341,7 +341,7 @@ function loginProcess() {
         }, 2000); */
 
         alert("아이디 혹은 비밀번호가 일치하지 않습니다");
-        email.focus(); // 포커스 설정
+        pw.focus(); // 포커스 설정
         return;
       }
     }
