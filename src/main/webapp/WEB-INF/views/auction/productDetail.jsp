@@ -79,17 +79,6 @@ a {
 	text-decoration: none;
 }
 
-
-ul {
-	list-style: none;
-	position: relative;
-	right: 30px;
-}
-
-li {
-	float: left;
-	margin-right: 15px;
-}
  
 .nav-pills .nav-link.active, .nav-pills .show>.nav-link {
 	background-color: #E2E3E5;
@@ -166,10 +155,11 @@ input[id="tab03"]:checked ~ .con3 {
 	<jsp:include page="../common/header.jsp"></jsp:include>
 	<!-- 헤더 섹션 -->
 	
+	<div class="container">
 	 <div class="row">
-	 	<div class="col"></div>
+
 	 	<%-- 공간 시작 --%>
-	 	<div class="col-8">
+	 	<div class="col">
 	 	
 	 	
 		 	<div class="row">
@@ -225,58 +215,7 @@ input[id="tab03"]:checked ~ .con3 {
 	 						</div>
 	 					</div>
 	 					
-	 	<!-- 				<div class="row mt-5">
-	 						<div class="col">
-	 						
-	 							<div class="row">
-	 								<div class="col fs-5 fw-bold">
-	 									입찰 안내
-	 								</div>
-	 							</div>
-	 							
-	 							<div class="row mt-2">
-	 								<div class="col"> 
-	 									 <div class="row">
-	 										<div class="col-auto">
-	 											• 최소 <span style="color: #ff6f0f;">1,000원</span> 단위로 입찰하실 수 있습니다.
-	 										</div>
-	 										<div class="col fw-bold px-0" style="cursor: pointer;" onclick="bidNoticeModal()">
-	 											상세보기
-	 										</div>
-	 									</div>
-	 									
-	 									 <div class="row">
-	 									 	<div class="col">
-	 									 		• 현재 보유하신 코인보다 더 높은 금액은 입찰하실 수 없습니다.
-	 									 	</div>
-	 									 </div>
-	 									 
-	 									
-	 									 
-	 									 <div class="row">
-	 									 	<div class="col" style="color: #ff6f0f;">
-	 									 		• 경매 종료 시간 30초 이전 입찰 시, 경매 종료시간이 30초씩 자동연장됩니다.
-	 									 	</div>
-	 									 </div>	 									 
-	 									
-	 									<div class="row">
-	 										<div class="col">
-	 											• 같은 경매에 다른 회원과 동시에 입찰하였을 경우, 입찰에 실패하실 수 있습니다.
-	 										</div>
-	 									</div>
-	 									
- 										<div class="row">
-	 										<div class="col">
-	 											• 낙찰하신 후, 7일 이내에 결제하지 않으실 경우 유찰 처리되오니 주의하세요.
-	 										</div>
-	 									</div>	 									
-	 				
-	 								</div>
-	 							</div>
 	 
-	 						</div>
-	 					</div> -->
-	 					
 	 					
 	 					<div class="row mt-5">
 	 						<div class="col">
@@ -625,9 +564,10 @@ input[id="tab03"]:checked ~ .con3 {
 	 	
 	 	</div>
 	 	<%-- 공간 끝 --%>
-	 	<div class="col"></div>
+
 	 
 	 
+	 </div>
 	 </div>
 	
 	
@@ -719,7 +659,7 @@ style="position: absolute; transform: translateX(70%);right: 50%;">
 				<div class="col nav-pills nav-fill">
 					<ul class="nav nav-tabs" id="myTab" role="tablist">
 						<li class="nav-item" role="presentation">
-							<button class="ms-5 nav-link active text-dark fw-medium" id="auctioninfo-tab" data-bs-toggle="tab"
+							<button class="nav-link active text-dark fw-medium" id="auctioninfo-tab" data-bs-toggle="tab"
 								data-bs-target="#auctioninfo" type="button" role="tab" aria-controls="auctioninfo"
 								aria-selected="true">상품정보</button>
 						</li>	
