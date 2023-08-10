@@ -49,24 +49,25 @@
 						
 						
 						<div class="row mb-1 text-center">
-							<div class="col">
-								 <img src="/safari/resources/img/logo0.png" width="150px">
+							<div class="col fw-semibold fs-3">
+								 <!-- <img src="/safari/resources/img/logo0.png" width="150px"> -->
+								 회원정보 확인
 							</div>
 						</div>
 						
-						<div class="row mt-4 text-center fs-4">
+						<div class="row mt-3 text-center fs-4">
 							<div class="col">
 								 회원정보를 수정하시려면 비밀번호를 다시 한 번 입력하셔야 합니다.
 							</div>
 						</div>						
 						
-						<div class="row mt-2 mb-1 text-center">
-							<div class="col" style="font-size: 18px">
+						<div class="row mt-2 text-center">
+							<div class="col mb-2" style="font-size: 18px">
 								회원님의 개인정보 보호를 위한 본인 확인 절차이오니, 482 회원 로그인 시 사용하시는 비밀번호를 입력해주세요.
 							</div>
 						</div>
 						
-						<div class="row mt-4 bg-light p-4">
+						<div class="row mt-4 bg-light p-5">
 							<div class="col"></div>
 							<div class="col-5">
 							
