@@ -51,91 +51,117 @@
 				<div class="row mt-3">
 					<div class="col-9">
 						
-						<div class="row border-top border-bottom p-2">
-							<div class="col fw-semibold">
+						<div class="row border-top border-bottom p-3">
+							<div class="col fw-semibold" style="font-size: 18px;">
 								닉네임
 							</div>
 							<div class="col-9">
 								
-								<input type="text" class="form-control" value="${userInfo.nickname}">
+								<input type="text" 
+								id="nickname" class="form-control py-2" value="${userInfo.nickname}"
+								 style="width: 250px; pointer-events: none;">
 							</div>	
 						</div>
 						
-						<div class="row border-bottom p-2">
-							<div class="col fw-semibold">
+						<div class="row border-bottom p-3">
+							<div class="col fw-semibold" style="font-size: 18px">
 								아이디 (이메일)
 							</div>
 							<div class="col-9">
 								
-								<input type="text" class="form-control" value="${userInfo.email}">
+								<input type="text" class="form-control py-2" value="${userInfo.email}" 
+								style="pointer-events: none;" id="email">
 							</div>	
 						</div>			
 
 	
 						
-						<div class="row border-bottom p-2">
-							<div class="col fw-semibold">
-								현재 비밀번호
+						<div class="row border-bottom p-3">
+							<div class="col fw-semibold" style="font-size: 18px">
+								비밀번호
 							</div>
 							<div class="col-9">
+								<div class="row">
+									<div class="col-auto">
+										<input type="password" class="form-control me-2 py-2" id="userPw"
+																	style="width: 250px; float: left;" value="${sessionUser.pw}">
+									</div>
+									<div class="col">
+										<span id="pwRegNotMatch"
+										class="text-danger" style="display: none; position: relative; left: 1px; font-size: 17px">
+										비밀번호는 문자, 숫자, 특수문자 포함 8~20자로 입력하셔야 합니다.</span>
+									</div>	
 								
-								<input type="password" class="form-control passBox me-2" id="nowUserPw" onchange="checkUserPw()"
-															style="float: left;">
-								<span id="isSame" style="position: relative; top: 3px; left: 3px;"></span>
+								</div>
 							</div>	
 						</div>		
 						
-						<div class="row border-bottom p-2">
-							<div class="col fw-semibold">
-								새 비밀번호
+						<div class="row border-bottom p-3">
+							<div class="col fw-semibold" style="font-size: 18px">
+								비밀번호 확인
 							</div>
 							<div class="col-9">
-								<input type="password" class="form-control me-2" id="newUserPw" onChange="checkUserPw()"
-								style="float: left;">
-								<span id="isExist" style="position: relative; top: 3px; left: 3px;"></span>
+								<div class="row">
+									<div class="col-auto">
+										<input type="password" class="form-control me-2 py-2" id="userPwCheck"
+																style="width: 250px; float: left;">
+									</div>
+									<div class="col">
+										<span id="pwNotMatch"
+										class="text-danger" style="display: none; position: relative; top: 3px; left: 1px; font-size: 17px">
+										비밀번호가 일치하지 않습니다.</span>
+									</div>
+								</div>
+							
 							</div>	
-						</div>	
+						</div>								
 						
-						<div class="row border-bottom p-2">
-							<div class="col fw-semibold">
-								새 비밀번호 확인
-							</div>
-							<div class="col-9">
-								<input type="password" class="form-control me-2" id="newUserPwCheck" onChange="checkNewUserPw()" style="float: left;">
-								<span id="isSameNew" style="position: relative; top: 3px; left: 3px;"></span>
-							</div>	
-						</div>		
 						
-						<div class="row border-bottom p-2">
-							<div class="col fw-semibold">
+						
+						<div class="row border-bottom p-3">
+							<div class="col fw-semibold" style="font-size: 18px">
 								연락처
 							</div>
 							<div class="col-9">
 								
-								<input type="text" class="form-control" value="${userInfo.phone}">
+								<input style="width: 250px"
+								type="text" class="form-control py-2" value="${userInfo.phone}" maxlength="13" oninput="oninputPhone(this)"
+								id="phone">
 							</div>	
 						</div>		
 						
-						<div class="row border-bottom p-2">
-							<div class="col fw-semibold">
+						<div class="row border-bottom p-3">
+							<div class="col fw-semibold" style="font-size: 18px">
 								프로필 사진
 							</div>
 							<div class="col-9">
 								
-								 <input class="form-control" id="profileImgFiles"
-				  										name="profileImgFiles" type="file"  accept="image/*" style="width: 300px">
+								 <input class="form-control py-2" id="profileImgFile"
+				  										name="profileImgFile" type="file"  accept="image/*" style="width: 300px">
 							</div>	
-						</div>															
+						</div>		
 						
-																														
-									
-			
+	
 					
 					</div>
 					<div class="col"></div>
 				</div>
 				
-				
+				<div class="row mt-4">
+					<div class="col-5">
+						<div class="row">
+							<div class="col d-grid">
+								<input type="button" class="btn btn-outline-dark p-2 fs-5" value="취소"
+								onclick="location.href='/safari/user/myPage'">
+								
+							</div>
+							<div class="col d-grid">
+								<input type="button" class="btn btn-dark p-2 fs-5"
+								value="확인" onclick="modifyUserInfo()">
+							</div>
+						</div>
+					</div>
+				</div>			
 				
 			
 			
@@ -153,6 +179,13 @@
 <script>
 // 로그인된 세션 초기화
 let mySessionId = null;
+
+let nickChecked = false;
+let pwChecked = false;
+
+document.querySelector("#userPw").addEventListener("keyup", checkNewPwValue);
+document.querySelector("#userPwCheck").addEventListener("keyup", checkNewPwValue);
+
 // 세션가져오기
 function getSessionId(){
 	const xhr = new XMLHttpRequest();
@@ -170,91 +203,100 @@ function getSessionId(){
 	xhr.send();		
 }
 
-// 현재 비밀번호 확인
-function checkUserPw() {
-	const xhr = new XMLHttpRequest();
-	
-	xhr.onreadystatechange = function(){
-		if(xhr.readyState == 4 && xhr.status == 200){
-			const response = JSON.parse(xhr.responseText);
-			
-			if(response.result == "success"){
-				
-				document.getElementById("isSame").innerHTML = "";
-				document.getElementById("isExist").innerHTML = "";
-				
-				if (response.userPw.pw != document.querySelector("#nowUserPw").value) {
-					document.getElementById("isSame").innerText = "비밀번호가 일치하지 않습니다.";
-
-				} else if (response.userPw.pw == document.querySelector("#newUserPw").value) {
-					document.getElementById("isExist").innerText = "현재 비밀번호와 동일합니다.";
-				} 
-				
-			}
-		}
-	}
-
-	
-	xhr.open("get", "/safari/user/checkUserPw");
-	xhr.send();		
-
+//전화번호 형식 변경 함수
+function oninputPhone(target) {
+    target.value = target.value
+        .replace(/[^0-9]/g, '')
+        .replace(/(^02.{0}|^01.{1}|[0-9]{3,4})([0-9]{3,4})([0-9]{4})/g, "$1-$2-$3");
 }
 
-// 새 비밀번호 확인
-function checkNewUserPw() {
+
+
 	
-	  const newUserPw = document.querySelector("#newUserPw").value;
-	  const newUserPwCheck = document.querySelector("#newUserPwCheck").value;
-		
-	  document.getElementById("isSameNew").innerHTML = "";
-	  
-  	  if(newUserPw != null) {
-  	  if (newUserPw !== newUserPwCheck) {
-	    document.getElementById("isSameNew").innerText = "입력하신 비밀번호와 일치하지 않습니다.";
-	  } else {
-	    document.getElementById("isSameNew").innerText = "비밀번호가 일치합니다.";
-	  }
-  	  }
-}
-
-//전화번호 변경 버튼
-function changePhoneNumber() {
-  const button = document.getElementById("phoneButton");
-
-  if (button.value === "전화번호 변경") {
-    // "전화번호 변경" 버튼을 클릭한 경우
-    button.value = "전화번호 변경 취소";
-
-    const inputRow = document.createElement("div");
-    inputRow.classList.add("row", "mt-2");
-
-    const inputCol = document.createElement("div");
-    inputCol.classList.add("col-4", "ms-2");
-
-    const inputBox = document.createElement("input");
-    inputBox.type = "text";
-    inputBox.classList.add("form-control");
-    inputBox.id = "phoneNumberInput";
-
-    inputCol.appendChild(inputBox);
-    inputRow.appendChild(inputCol);
-
-    const container = document.getElementById("phoneInput");
-    container.appendChild(inputRow);
-    
-  } else {
-    // "전화번호 변경 취소" 버튼을 클릭한 경우
-    button.value = "전화번호 변경";
-
-    const inputRow = document.querySelector(".row.mt-2");
-    if (inputRow) {
-      inputRow.parentNode.removeChild(inputRow);
+// 비밀번호 확인
+function checkNewPwValue() {
+	
+	const pw = document.querySelector("#userPw");
+	const pwCheck = document.querySelector("#userPwCheck");
+	const pwRegNotMatchBox = document.querySelector("#pwRegNotMatch");
+	
+	const passwordRegEx = /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[@#$%^&!*])[A-Za-z\d@#$%^&!*]{8,20}$/;
+	
+    if (!passwordRegEx.test(pw.value)) {
+        pwChecked = false;
+        pwRegNotMatchBox.style.display = "block";
+        return;
+    } else {
+    	pwRegNotMatchBox.style.display = "none";
     }
-  }
+	
+	const pwNotMatchBox = document.querySelector("#pwNotMatch");
+	
+	if (pw.value != pwCheck.value) {
+		pwChecked = false;
+		pwNotMatchBox.style.display = "block";
+	} else {
+		pwChecked = true;	
+		pwNotMatchBox.style.display = "none";
+	}
+	
 }
 
-
+// 회원정보 수정
+function modifyUserInfo() {
 	
+	  const pw = document.querySelector("#userPw");
+	  const pwCheck = document.querySelector("#userPwCheck");
+	  const phone = document.querySelector("#phone");
+	  const profileImgFileInput = document.querySelector("#profileImgFile");
+	  
+	  if (pw.value == "") {
+		   alert("비밀번호를 입력하세요.");
+		   pw.focus();
+		   return;
+	   }
+	  if (pwCheck.value == "") {
+		   alert("비밀번호 확인란을 입력하세요.");
+		   pwCheck.focus();
+		   return;
+	   }
+	  if (phone.value == "") {
+		   alert("전화번호를 입력하세요.");
+		   phone.focus();
+		   return;
+	   }
+	  if (!pwChecked) {
+		  alert("비밀번호를 다시 입력해주세요.");
+		  pwCheck.value = "";
+		  pwCheck.focus();
+		  return;
+	  }
+	
+	
+	  const xhr = new XMLHttpRequest();
+	  
+	  xhr.onreadystatechange = function () {
+        if(xhr.readyState == 4 && xhr.status == 200){
+            const response = JSON.parse(xhr.responseText);
+            
+            window.location.href = "/safari/user/myPage";
+            
+            
+        }
+	  }
+	  
+	  const formData = new FormData();
+	  formData.append("pw", pw.value);
+	  formData.append("phone", phone.value);
+	
+	  // 이미지 파일 추가
+	  const imageFile = profileImgFileInput.files[0];
+	  formData.append("profileImgFile", imageFile);
+	  
+	  xhr.open("post", "/safari/user/modifyUserInfo");
+	  xhr.send(formData);	
+}
+
 
 
 window.addEventListener("DOMContentLoaded", function(){

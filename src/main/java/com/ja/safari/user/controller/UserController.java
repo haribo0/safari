@@ -114,7 +114,20 @@ public class UserController {
 		return "/main/kakaoLoginProcess";
 	}
 	
-
+	
+	// 회원정보 수정 페이지 접속 이전에 비밀번호 질문
+	@RequestMapping("checkPassword")
+	public String checkPassword(HttpSession session) {
+		
+		UserDto sessionUser = (UserDto)session.getAttribute("sessionUser");
+		if(sessionUser == null) {
+			return "redirect:/user/loginPage";
+		}
+		else {
+		   return "user/checkPassword";
+		}
+	}
+	
 	
 	
 	// 회원정보 수정 페이지

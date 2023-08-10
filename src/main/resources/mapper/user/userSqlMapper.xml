@@ -60,7 +60,6 @@
 		</select>
 
 		
-		
 		<!-- 회원정보 수정 - 현재 비밀번호 확인 -->
 		<select id="checkUserPw" resultType="com.ja.safari.dto.UserDto">
 			SELECT pw FROM user_table WHERE id = #{id}
@@ -69,14 +68,21 @@
 		<!-- 회원정보 수정 -->
 		<update id="modifyUserInfo">
 			UPDATE user_table
-				SET
-					email = #{email},
+				SET	
 					pw = #{pw},
-					nickname = #{nickname},
 					phone = #{phone},
-					gender = #{gender},
-					birth = #{birth},
-					profile_image_link = #{profile_image_link}
+					profile_img_link = #{profile_img_link}
+				WHERE
+					id = #{id}		
+		</update>
+		
+		<!-- 회원정보 수정 : 프사 x -->
+		<update id="modifyUserInfoNoImg">
+			UPDATE user_table
+				SET	
+					pw = #{pw},
+					phone = #{phone},
+					profile_img_link = null
 				WHERE
 					id = #{id}		
 		</update>

@@ -1,15 +1,21 @@
 package com.ja.safari.user.controller;
 
+import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.ja.safari.cs.service.CsServiceImpl;
 import com.ja.safari.dto.CsLiveChatDto;
@@ -108,21 +114,6 @@ public class UserRestController {
 	
 	
 	
-	// 회원정보 수정 - 현재 비밀번호 확인
-	@RequestMapping("checkUserPw") 
-	public Map<String, Object> checkUserPw(HttpSession session) {
-		
-		Map<String, Object> map = new HashMap<String, Object>();
-		
-		UserDto sessionUser = (UserDto)session.getAttribute("sessionUser");
-		
-		map.put("userPw", userService.checkUserPw(sessionUser.getId()));
-		
-		map.put("result", "success");
-		
-		return map;
-	}
-	
 	// 아이디 중복 체크
 	@RequestMapping("existsUserId") 
 	public Map<String, Object> existsUserId(String email)  {
@@ -166,6 +157,86 @@ public class UserRestController {
 		
 		return map;
 	}
+	
+	
+	// 수정 페이지 접속 이전 비밀번호 체크
+	@RequestMapping("checkPasswordProcess")
+	public Map<String, Object> checkPasswordProcess(HttpSession session) {
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		UserDto sessionUser = (UserDto)session.getAttribute("sessionUser");
+		
+		if (sessionUser == null) {
+			map.put("result", "fail");
+		} else {
+			map.put("userPw", userService.checkUserPw(sessionUser.getId()));
+		}
+		
+		return map;
+	}
+	
+	// 회원정보 수정
+	@RequestMapping("modifyUserInfo")
+	public Map<String, Object> modifyUserInfo(HttpSession session, UserDto userDto,
+			@RequestParam(value = "profileImgFile", required = false)  MultipartFile profileImgFile) {
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		UserDto sessionUser = (UserDto)session.getAttribute("sessionUser");
+		
+
+		
+		// 프사 저장 로직
+		if (profileImgFile != null  && !profileImgFile.isEmpty()) {
+			
+
+			String rootFolder = "C:/auctionFiles/";
+
+			// 날짜별 폴더 생성 로직
+
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd"); // 날짜를 문자로 바꿔주는 역할
+			String today = sdf.format(new Date()); // new Date(): 오늘 날짜 출력
+
+			File targetFolder = new File(rootFolder + today); 
+
+			if (!targetFolder.exists()) {
+				targetFolder.mkdirs(); // 폴더 생성
+
+			}
+
+			// 저장 파일명 만들기. 핵심은 파일명 충돌 방지 = 랜덤 + 시간
+			String fileName = UUID.randomUUID().toString();
+			fileName += "_" + System.currentTimeMillis();
+
+			// 확장자 추출
+			String originalFileName = profileImgFile.getOriginalFilename(); // originalFileName : 사용자가 컴퓨터에 올리는 파일명
+			String ext = originalFileName.substring(originalFileName.lastIndexOf(".")); // lastindexof: 뒤에서부터 .의 위치를 찾아서
+																						// 숫자를 반환
+
+			// 슬래시 주의할 것 기억하기
+			String saveFileName = today + "/" + fileName + ext;
+
+			try {
+				// java.io.file 불러오기, 폴더를 포함한 파일명을 넣는다
+				// 다른 이미지이지만 파일명이 같은 경우, 충돌을 피하려면
+				profileImgFile.transferTo(new File(rootFolder + saveFileName));
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			userDto.setId(sessionUser.getId());
+			userDto.setProfile_img_link(saveFileName);
+			userService.modifyUserInfo(userDto);
+
+		} else {
+			userDto.setId(sessionUser.getId());
+			userService.modifyUserInfoNoImg(userDto);
+		}
+
+	
+		return map;
+	}
+	
 	
 
 	// 사용자 주소 추가

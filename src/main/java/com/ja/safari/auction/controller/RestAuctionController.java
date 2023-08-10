@@ -258,7 +258,7 @@ public class RestAuctionController {
 					continue;
 				}
 
-				String rootFolder = "/Users/hailey/Documents/safariImg/";
+				String rootFolder = "C:/auctionFiles/";
 
 				// 날짜별 폴더 생성 로직
 

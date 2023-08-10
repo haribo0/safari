@@ -929,12 +929,12 @@ function registerAuctionProduct() {
 	 
 	    xhr.send(formData);	
 	    
-	    titleBox.value == "";
-	    descriptionBox.value == "";
-	    startPriceBox.value == "";
-	    maxPriceBox.value == "";
-	    startDateBox.value == "";
-	    endDateBox.value == "";
+	    titleBox.value = "";
+	    descriptionBox.value = "";
+	    startPriceBox.value = "";
+	    maxPriceBox.value = "";
+	    startDateBox.value = "";
+	    endDateBox.value = "";
 	    
 
 	  }	    

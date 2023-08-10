@@ -83,7 +83,7 @@ a {
 						
 						<div class="row mt-2">
 							<div class="col">
-								<input type="password" class="form-control p-3" placeholder="비밀번호 입력" id="pw" onkeydown="checkSendLogin(event)">
+								<input type="password" class="form-control p-3 mb-1" placeholder="비밀번호 입력" id="pw" onkeydown="checkSendLogin(event)">
 							</div>
 						</div>
 						

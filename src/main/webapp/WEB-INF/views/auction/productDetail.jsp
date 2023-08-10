@@ -4156,7 +4156,7 @@ function sendMessage() {
         if(xhr.readyState == 4 && xhr.status == 200){
             	const response = JSON.parse(xhr.responseText);
            		chatContentBox.value = "";
-           		//reloadChatList();
+           		reloadChatList();
         }
     }	
 	    	
@@ -4357,7 +4357,7 @@ function getAuctionCoinBalance() {
 
 window.addEventListener("DOMContentLoaded", function(){
     //사실상 시작 시점...
-    setInterval(getAuctionEndTimeInRealTime, 20);
+    setInterval(getAuctionEndTimeInRealTime, 200);
     
     const bidListBox = document.getElementById("bidListBox");
     bidListBox.scrollTop = 0;
@@ -4367,10 +4367,10 @@ window.addEventListener("DOMContentLoaded", function(){
     getSellerId();
     reloadInquiryList();
     
-    setInterval(updateAuctionCountDown, 100); 
+    setInterval(updateAuctionCountDown, 1000); 
     
    
-    setInterval(getNowMaxBiderId, 20);
+    setInterval(getNowMaxBiderId, 200);
     showInputBidBox();
     
    
@@ -4379,19 +4379,19 @@ window.addEventListener("DOMContentLoaded", function(){
     showAuctionStatusTitle();
     refreshTotalLikeCount();
 
-    setInterval(reloadBidList, 100);
+    setInterval(reloadBidList, 1000);
  
     refreshMyHeart();
 
-    setInterval(getCurrentPrice, 100);
+    setInterval(getCurrentPrice, 1000);
  
-    setInterval(getBidCount, 100);
+    setInterval(getBidCount, 1000);
     
    
 
     showInputBidBox();  
     
-    setInterval(reloadChatList,100);
+    setInterval(reloadChatList, 1000);
     
     
     showAuctionInfo();

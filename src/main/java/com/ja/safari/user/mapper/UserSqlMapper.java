@@ -37,6 +37,9 @@ public interface UserSqlMapper {
 	
 	// 회원정보 수정
 	public void modifyUserInfo(UserDto userDto);
+	
+	// 회원정보 수정 - 프사 x
+	public void modifyUserInfoNoImg(UserDto userDto);
 
 	// 아이디 중복 체크 
 	public int existsUserId(String email);
