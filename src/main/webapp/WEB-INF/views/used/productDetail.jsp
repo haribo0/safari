@@ -210,7 +210,7 @@
 						 <img style="filter:grayscale(1)" class="rounded-circle" alt="img" src="/safari/resources/img/user.jpg" width="50" height="50" onclick="showYourProfile()">
 					</c:when>	
 					<c:otherwise>
-						<img class="rounded-circle" alt="img" src="/safari/resources/img/used/user2.png" width="50" height="50" onclick="showYourProfile()">
+						<img class="rounded-circle" alt="img" src="/safarifile/${productUser.profile_img_link }" width="50" height="50" onclick="showYourProfile()">
 						<%-- <img style="filter:grayscale(1)" class="img-fluid rounded-circle" alt="img" src="/safarifile/${productUser.profile_img_link}" width="35" height="35"> --%>
 					</c:otherwise> 
 				</c:choose>
