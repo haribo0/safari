@@ -6,7 +6,8 @@
 			<div class="col d-flex align-items-center">
 				<div class="row w-100">
 					<div class="col-2 d-flex justify-content-center position-relative">
-					  <div class="border border-white rounded-circle" style="width: 100px; height: 100px; overflow: hidden;" id="profileImage">
+					  <div class="border border-white rounded-circle" style="width: 100px; height: 100px; overflow: hidden;">
+					    <img style="width: 100%; height: 100%"  id="profileImage">
 					    
 					  </div>
 					  <a href="#" class="btn position-absolute border border-white bg-dark" style="bottom: -8px; right:16px; border-radius: 50%;">
@@ -34,7 +35,7 @@
 function getUserProfileImage() {
 	
 	const profileImage = document.querySelector("#profileImage");
-	profileImage.innerHTML = "";
+	//profileImage.innerHTML = "";
 	
 	const xhr = new XMLHttpRequest();
 
@@ -45,15 +46,10 @@ function getUserProfileImage() {
 			if (!response.profile_img_link) {
 				return;
 			} else {
-			
-				const image = document.createElement("img");
-				image.src = "/auctionFiles/" + response.profile_img_link;
-				image.style.width = "100%";
-				image.style.height = "100%";
-	
-				console.log(response.profile_img_link);
 				
-				profileImage.appendChild(image);
+				// 본인이 설정한 이미지 경로마다 변경해주어야함.
+				profileImage.src = "/auctionFiles/" + response.profile_img_link;
+		
 				}
 			
 			}

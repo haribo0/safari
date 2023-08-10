@@ -158,7 +158,11 @@ public class UserRestController {
 		
 		UserDto sessionUser = (UserDto)session.getAttribute("sessionUser");
 		
-		map.put("profile_img_link", sessionUser.getProfile_img_link());
+		if (sessionUser == null) {
+			map.put("result", "fail");
+		} else {
+			map.put("profile_img_link", sessionUser.getProfile_img_link());
+		}
 		
 		return map;
 	}

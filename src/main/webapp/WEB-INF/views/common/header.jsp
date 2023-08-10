@@ -65,8 +65,9 @@
 	           				</div>
 	           				<div class="col">
 					        	<c:if test="${!empty sessionUser}">
-						          <a href="#" class="d-block link-body-emphasis text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-						            <img src="${pageContext.request.contextPath}/resources/img/main/profile.png" alt="mdo" width="32" height="32" class="rounded-circle">
+						          <a href="#" class="d-block link-body-emphasis text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"
+						          >
+						            <img class="rounded-circle" style="width: 32px; height: 32px;" id="profileImageHeader">
 						          </a>		        	
 					        	</c:if>
 					          <ul class="dropdown-menu text-small">
@@ -94,6 +95,54 @@
 	  </header>
  </div>
  
+<script>
+//프사 조회
+function getUserProfileImageHeader() {
+	
+	const profileImage = document.querySelector("#profileImageHeader");
+	
+	const xhr = new XMLHttpRequest();
 
+	xhr.onreadystatechange = function(){
+		if(xhr.readyState == 4 && xhr.status == 200){
+			const response = JSON.parse(xhr.responseText);
+
+			// 로그인이 되어있지 않을 경우 아래 구문 실행 x
+			if (response.result == "fail") {
+				return;
+			}
+			
+			// 로그인이 되어 있는 경우
+			else {
+			if (!response.profile_img_link) {
+
+				profileImage.src = "/safari/resources/img/user.jpg";
+	
+				profileImage.style.filter = "grayscale(1)";
+
+				return;
+			} else {
+			
+				// 본인이 설정한 이미지 경로마다 변경해주어야함.
+				profileImage.src = "/auctionFiles/" + response.profile_img_link;
+		
+				}
+			  }
+			
+			}
+			
+		}
+	
+	xhr.open("get", "/safari/user/getUserProfileImage");
+	xhr.send();		
+}
+
+window.addEventListener("DOMContentLoaded", function(){
+
+	getUserProfileImageHeader();
+		
+});
+
+</script>
 
  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
