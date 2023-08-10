@@ -35,7 +35,7 @@
 function getUserProfileImage() {
 	
 	const profileImage = document.querySelector("#profileImage");
-	//profileImage.innerHTML = "";
+	profileImage.innerHTML = "";
 	
 	const xhr = new XMLHttpRequest();
 
@@ -44,7 +44,8 @@ function getUserProfileImage() {
 			const response = JSON.parse(xhr.responseText);
 			
 			if (!response.profile_img_link) {
-				return;
+				profileImage.src = "/safari/resources/img/user.jpg";
+				profileImage.style.filter = "grayscale(1)";
 			} else {
 				
 				// 본인이 설정한 이미지 경로마다 변경해주어야함.
@@ -88,9 +89,9 @@ function getUserCoinBalance() {
 
 
 window.addEventListener("DOMContentLoaded", function(){
-	//getSessionId();
-	getUserCoinBalance(); 
 	getUserProfileImage();
+	getUserCoinBalance(); 
+	
 	
 });
 
