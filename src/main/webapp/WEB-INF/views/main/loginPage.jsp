@@ -55,30 +55,39 @@ a {
 				<div class="row mt-5">
 					<div class="col mt-5"></div>
 					<div class="col text-center mt-5 mb-3">
-						<h1>LOGIN</h1>
-					  	 <!-- <a href="/safari/user/loginPage"><img src="/safari/resources/img/user/loginlogo.png"></a> -->
+						<div class="row">
+							<div class="col fs-1 fw-semibold">
+								로그인
+							</div>
+						</div>
+						<div class="row">
+							<div class="col text-secondary">
+								482의 다양한 서비스와 혜택을 누리세요.
+							</div>
+						</div>
+					  	 
 					</div>
 					<div class="col">
 					
 					</div>
 				</div>
 				
-				<div class="row mt-4">
+				<div class="row mt-2">
 					<div class="col"></div>
 					<div class="col-4">
 						<div class="row">
 							<div class="col">
-								<input type="text" class="form-control p-3" placeholder="이메일" id="email">
+								<input type="text" class="form-control p-3" placeholder="이메일 입력" id="email">
 							</div>
 						</div>
 						
 						<div class="row mt-2">
 							<div class="col">
-								<input type="password" class="form-control p-3" placeholder="비밀번호" id="pw" onkeydown="checkSendLogin(event)">
+								<input type="password" class="form-control p-3" placeholder="비밀번호 입력" id="pw" onkeydown="checkSendLogin(event)">
 							</div>
 						</div>
 						
-						<div class="row mt-2 mb-1">
+						<div class="row mt-2 mb-1" style="font-size: 15px;">
 							
 							<div class="col mb-1">
 								 <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
@@ -86,43 +95,36 @@ a {
 								    아이디 저장
 								  </label>
 							</div>
+							
+							<div class="col text-end text-secondary">
+								<div class="row">
+									<div class="col px-0">
+										아이디 찾기
+									</div>
+									
+									<div class="col">
+										비밀번호 찾기
+									</div>
+								</div>
+							</div>
 						
 						</div>
 						
-						<div class="row mt-4">
+				
+						<div class="row mt-4 mb-1">
 							<div class="col d-grid">
-								<input type="button" class="btn orangeButton p-2 fs-4" value="로그인" onclick="loginProcess()"
+								<input type="button" class="btn orangeButton p-2 fs-5" value="로그인" onclick="loginProcess()"
 								style="height: 56px">
 								
 							</div>
 						</div>
 					
-						
-						<div class="row mt-2" style="font-size: 15px; position: relative; top: 3px">
-							<div class="col-auto text-secondary">
-								아이디 찾기
-							</div>
-							
-							<div class="col text-secondary">
-								비밀번호 찾기
-							</div>
-							
-							<div class="col text-end me-1">
-								<a href="./joinPage">회원가입</a>
-							</div>
-						</div>
-						
-						<div class="row mt-4">
-							<div class="col text-secondary text-center d-grid">
-								<div class="hr-sect fw-medium">간편로그인</div> 
-							</div>
-						</div>
-						
+		
 						<div class="row">
 							<div class="col">
-								<div class="row mt-3">
+								<div class="row mt-2">
 									<div class="col text-center" onclick="kakaoLogin()" style="cursor: pointer;">
-										<img src="/safari/resources/img/user/kakao_login_medium_wide.png" class="img-fluid" style="width: 440px">
+										<img src="/safari/resources/img/user/kakaoLoginImg.png" class="img-fluid" style="width: 440px">
 									</div>
 									<!-- <div class="col-auto">
 										<img src="/safari/resources/img/user/naver.png">
@@ -132,6 +134,17 @@ a {
 									</div> -->
 								</div>
 							</div>
+						</div>
+						
+						<div class="row mt-5 text-center">
+							<div class="col text-secondary" style="font-size: 15px">
+								아직 482 계정이 없으신가요? 
+								<span class="ms-1 text-primary">
+									<a href="./joinPage" style="text-decoration: underline;">회원가입</a>
+								</span>
+							</div>
+							
+						
 						</div>
 						
 					
