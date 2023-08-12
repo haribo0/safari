@@ -623,246 +623,6 @@
 	<jsp:include page="../common/footer.jsp"></jsp:include>
 	<!-- 푸터 섹션 -->
 
-<%-- 주소 등록 modal --%>
-<div class="modal" id="registerAddrModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg modal-dialog-centered"> 
-    <div class="modal-content">
-      <div class="modal-header">
-     	 <div class="row mb-0">
-      			<div class="col ms-4 fs-5 fw-bold">배송지 등록</div>
-      		</div>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div> 
-      <div class="modal-body">
-      	
-      	<div class="row text-center fw-bold fs-5">
-    		
-       </div>
-       
-       <div class="row mt-3">
-       		<div class="col"></div>
-       			<div class="col-11">
-		       		
-		       		<table class="table" style="border-top: 1px solid #E2E3E5;">
-		       			<tr>
-		       				<td class="table table-light align-middle text-center " style="width: 150px;">배송지명</td>
-		       				<td class="align-middle"> 
-		       					<div class="row">
-		       						<div class="col">
-		       							 <input type="text" class="form-control ms-2" style="width: 200px; height: 30px;"
-		       							 id="address_name" > 
-		       							
-		       						</div>
-		       					</div>
-		       				</td>
-		       			</tr>	
-		       			<tr>
-							<td class="table table-light align-middle text-center" style="width: 150px;">연락처</td>
-		       				<td class="align-middle">
-		       					  <div class="row">
-				                    <div class="col">
-				                       <input type="text" class="form-control ms-2" oninput="oninputPhone(this)" maxlength="14" id="phone"
-				                      style="width: 200px; height: 30px;">
-				                    </div>
-				                  </div>
-		       				</td>		       				
-		       			</tr>
-						<tr>
-							<td class="table table-light align-middle text-center" style="width: 150px;">주소</td>
-		       				<td>
-		       					<div class="row mt-1">
-		       						<div class="col-auto">
-		       							<input type="text" class="form-control ms-2" id="postcode" style="width: 150px; height: 30px;">
-		       						</div>
-		       						<div class="col">
-		       							<input type="button" class="btn btn-sm btn-outline-secondary" value="우편번호 찾기"
-		       							onclick="daumPost()" > 
-		       						</div>
-		       					</div>
-		       					
-		       					<div class="row mt-2">
-		       						<div class="col">
-		       							<input type="text" id="address" class="form-control ms-2" style= "height: 50px;">
-		       						</div>
-		       					</div>
-		       					
-		       					<div class="row mt-2">
-		       						<div class="col">
-		       							<input type="text" id="detail_address" class="form-control ms-2" style="height: 30px;">
-		       						</div>
-		       					</div>
-		       				</td>		       				
-		       			</tr>		       			
-		       		</table>
-		       
-		  
-		      </div>
-     	    <div class="col"></div>
-      </div>
-      
-      <div class="row mt-4">
-      	<div class="col"></div>
-      </div>
-      
-      <div class="modal-footer">
-      	<input type="button" class="btn orangeButton" value="등록하기" onclick="addUserAddress()">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">창닫기</button>
-      </div>      
-   
-    </div>
-  </div>
-</div>
-</div>
-<%-- 주소 등록 modal --%>
-
-
-<%-- 주소 수정 modal --%>
-<div class="modal" id="modifyAddrModal"  data-id="" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg modal-dialog-centered"> 
-    <div class="modal-content">
-      <div class="modal-header">
-      		<div class="row mb-0">
-      			<div class="col ms-4 fs-5 fw-bold">배송지 수정</div>
-      		</div>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div> 
-      <div class="modal-body">
-      	
-      	<div class="row text-center fw-bold fs-5">
-    		<div class="col"></div>
-       </div>
-       
-       <div class="row mt-3">
-       		<div class="col"></div>
-       			<div class="col-11">
-		       		
-		       		<table class="table" style="border-top: 1px solid #E2E3E5;">
-		       			<tr>
-		       				<td class="table table-light align-middle text-center " style="width: 150px;">배송지명</td>
-		       				<td class="align-middle"> 
-		       					<div class="row">
-		       						<div class="col">
-		       							 <input type="text" class="form-control ms-2" style="width: 200px; height: 30px;"
-		       							 id="address_name" > 
-		       							
-		       						</div>
-		       					</div>
-		       				</td>
-		       			</tr>	
-		       			<tr>
-							<td class="table table-light align-middle text-center" style="width: 150px;">연락처</td>
-		       				<td class="align-middle">
-		       					  <div class="row">
-				                    <div class="col">
-				                      <input type="text" class="form-control ms-2" oninput="oninputPhone(this)" maxlength="14" id="original_phone"
-				                      style="width: 200px; height: 30px;">
-				                    </div>
-				                  </div>
-		       				</td>		       				
-		       			</tr>
-						<tr>
-							<td class="table table-light align-middle text-center" style="width: 150px;">주소</td>
-		       				<td>
-		       					<div class="row mt-1">
-		       						<div class="col-auto">
-		       							<input type="text" class="form-control ms-2" id="original_postcode" style="width: 150px; height: 30px;">
-		       						</div>
-		       						<div class="col">
-		       							<input type="button" class="btn btn-sm btn-outline-secondary" value="우편번호"
-		       							onclick="daumPost()"> 
-		       						</div>
-		       					</div>
-		       					
-		       					<div class="row mt-2">
-		       						<div class="col">
-		       							<input type="text" id="original_address" class="form-control ms-2" style= "height: 50px;">
-		       						</div>
-		       					</div>
-		       					
-		       					<div class="row mt-2">
-		       						<div class="col">
-		       							<input type="text" id="original_detail_address" class="form-control ms-2" style="height: 30px;">
-		       						</div>
-		       					</div>
-		       				</td>		       				
-		       			</tr>		       			
-		       		</table>
-		       
-		  
-		      </div>
-     	    <div class="col"></div>
-      </div>
-      
-      <div class="row mt-4">
-      	<div class="col"></div>
-      </div>
-      
-      <div class="modal-footer">
-      	<input type="button" class="btn orangeButton" value="등록하기" onclick="modifyUserAddress()">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">창닫기</button>
-      </div>      
-   
-    </div>
-  </div>
-</div>
-</div>
-<%-- 주소 수정 modal --%>
-
-
-<%-- 주소 등록 alert --%>
-<div class="modal" id="addrValidateModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered"> 
-    <div class="modal-content">
-      <div class="modal-header">
-      	
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div> 
-      <div class="modal-body">
-      	
-      	<div class="row text-center">
-    		<div class="col" id="validateContent"> </div>
-       </div>
-  
-      </div>
-      
-      <div class="modal-footer">
-      	
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">창닫기</button>
-      </div>      
-   
-    </div>
-  </div>
-</div>
-<%-- 주소 등록 alert --%>
-
-
-<%-- 주소 삭제 alert --%>
-<div class="modal" id="removeAddrModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered"> 
-    <div class="modal-content">
-      <div class="modal-header">
-      		<h5 class="modal-title">주소 삭제</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div> 
-      <div class="modal-body">
-      	
-      	<div class="row text-center">
-    		<div class="col"> 
-    			선택한 배송지를 삭제하시겠습니까?
-    		</div>
-       </div>
-  
-      </div>
-      
-      <div class="modal-footer">
-      	<input type="button" class="btn orangeButton" value="확인" onclick="removeUserAddress()">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
-      </div>      
-   
-    </div>
-  </div>
-</div>
-<%-- 주소 삭제 alert --%>
 
 
 <%-- 결제 모두 동의 체크 박스 alert --%>
@@ -901,7 +661,7 @@
   <div class="modal-dialog modal-dialog-centered"> 
     <div class="modal-content">
       <div class="modal-header bg-light">
-      		<h5 class="modal-title fw-semibold">배송지 변경</h5>
+      		<h5 class="ms-2 modal-title fw-semibold">배송지 변경</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div> 
       <div class="modal-body">
@@ -930,9 +690,127 @@
 
 
 
+<%-- 배송지 추가 모달 --%>
+<div class="modal" id="addAddressModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered"> 
+    <div class="modal-content">
+      <div class="modal-header bg-light">
+      		<i class="bi bi-chevron-left fs-5 p-0" data-bs-dismiss="modal" aria-label="Close" style="cursor: pointer;"></i>
+      		<h5 class="ms-2 modal-title fw-semibold">배송지 추가</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div> 
+      <div class="modal-body">
+      	
+      	<div class="row mt-2">
+      		<div class="col-11 ms-3" style="height: 400px; overflow:auto;">
+      		
+      			<div class="row">
+      				<div class="col">	
+      					<div class="input-group">
+      						<span class="input-group-text">
+	      						<i class="bi bi-person fs-5"></i>
+	      					</span>
+	      					<input type="text" class="form-control" placeholder="받는 사람" id="add_addressee">
+      					</div>
+      				</div>
+      			</div>
+      			
+      			<div class="row mt-3">
+      				<div class="col">	
+      					<div class="input-group">
+      						<span class="input-group-text">
+	      						<i class="bi bi-bag fs-5"></i>
+	      					</span>
+	      					<input type="text" class="form-control" placeholder="배송지명" id="address_name">
+      					</div>
+      				</div>
+      			</div>      
+
+				<div class="row mt-3">
+      				<div class="col">	
+      					<div class="input-group">
+      						<span class="input-group-text">
+	      						<i class="bi bi-phone fs-5"></i>
+	      					</span>
+	      					<input type="text" class="form-control" placeholder="연락처"
+	      					oninput="oninputPhone(this)" maxlength="13" id="phone">
+      					</div>
+      				</div>
+      			</div>            			
+      			
+      			
+      		<div class="row mt-4">
+      			<div class="col">
+      				<input type="button" class="btn btn-sm btn-outline-dark" value="우편번호 찾기"
+					onclick="daumPost()" > 
+      			</div>
+      		</div>		
+
+      		
+			<div class="row mt-3">
+			    <div class="col">
+			        <div class="input-group">
+			            <span class="input-group-text">
+			                <i class="bi bi-geo-alt fs-5"></i>
+			            </span>
+			            <div class="d-flex flex-column" style="width: 380px">
+			                <input type="text" class="form-control" placeholder="주소" id="address">
+			                <input type="text" class="form-control" placeholder="상세주소" id="detail_address">
+			            </div>
+			        </div>
+			    </div>
+			</div>		
+			
+			<div class="row mt-4">
+				<div class="col d-grid">
+					<input type="button" class="btn btn-outline-primary" value="배송지 등록"
+					onclick="addUserAddress()">
+				</div>
+			</div>	
+      				        		
+      		
+      		</div>
+      		
+      	</div>
+
+      </div>
+   
+    </div>
+  </div>
+</div>
+
+<%-- 배송지 추가 모달 --%>
+
+<%-- 주소 등록 alert --%>
+<div class="modal" id="addrValidateModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered"> 
+    <div class="modal-content">
+      <div class="modal-header">
+      	
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div> 
+      <div class="modal-body">
+      	
+      	<div class="row text-center">
+    		<div class="col" id="validateContent"> </div>
+       </div>
+  
+      </div>
+      
+      <div class="modal-footer">
+      	
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">창닫기</button>
+      </div>      
+   
+    </div>
+  </div>
+</div>
+<%-- 주소 등록 alert --%>
 
 
-<%-- 배송지 변경 모달 --%>
+
+
+
 <script>
 
 let selectedAddressId = null;
@@ -1024,7 +902,7 @@ function daumPost(){
             } else { // 사용자가 지번 주소를 선택했을 경우(J)
                 addr = data.jibunAddress;
             }
-            document.getElementById('postcode').value = data.zonecode;
+            //document.getElementById('postcode').value = data.zonecode;
             document.getElementById('address').value = addr;
             document.getElementById('detail_address').focus();
         }
@@ -1043,8 +921,34 @@ function modifyAddressModal() {
 			const response = JSON.parse(xhr.responseText);
 			const shouldAutoScroll = isScrolledToBottom(addressListBox); 
 
-			for (data of response.addressList) {
+			if (response.addressCount == 0) {
 				
+				const row = document.createElement("div");
+				row.classList.add("row", "mb-2", "p-1");
+				
+				const col = document.createElement("div");
+				col.classList.add("col", "border", "border-1", "rounded-2", "text-center");
+				
+				const noRow = document.createElement("div");
+				noRow.classList.add("row", "mt-3", "mb-3");
+				
+				const noCol = document.createElement("div");
+				noCol.classList.add("col");
+				noCol.style.fontSize = "18px";
+				
+				noCol.innerText = "등록된 배송지가 없습니다.";
+				
+				noRow.appendChild(noCol);
+				col.appendChild(noRow);
+				
+				row.appendChild(col);
+
+				addressListBox.appendChild(row);
+			}
+			else {
+			
+			for (data of response.addressList) {
+
 				//console.log(response.addressList[0]);
 				const row = document.createElement("div");
 				row.classList.add("row", "mb-2", "p-1");
@@ -1121,6 +1025,7 @@ function modifyAddressModal() {
 
 				addressListBox.appendChild(row);
 				
+				}
 			}
 			
 			const addRow = document.createElement("div");
@@ -1133,6 +1038,7 @@ function modifyAddressModal() {
 			addButton.type = "button";
 			addButton.classList.add("btn", "btn-outline-primary");
 			addButton.value = "+  배송지 추가";
+			addButton.setAttribute("onclick", "addAddressModal()");
 			
 			addCol.appendChild(addButton);
 			addRow.appendChild(addCol);	
@@ -1158,7 +1064,84 @@ function modifyAddressModal() {
 }
 
 
-// 주소 수정
+// 배송지 추가 모달 열기
+function addAddressModal() {
+	
+	const addAddressModal = bootstrap.Modal.getOrCreateInstance("#addAddressModal");
+	addAddressModal.show();
+}
+
+
+//주소 등록
+function addUserAddress() {
+	
+	const addressee = document.getElementById("add_addressee");
+	const address_name = document.getElementById("address_name");
+	const phone = document.getElementById("phone");
+	const address = document.getElementById("address");
+	const detail_address = document.getElementById("detail_address");
+	
+	if (addressee.value == "" || address_name.value == "" || phone.value == "" || address.value == "") {
+		
+		const content = document.getElementById("validateContent");
+		content.innerHTML = "";
+		
+		const validateModal = bootstrap.Modal.getOrCreateInstance("#addrValidateModal");
+		if (addressee.value == "") {
+			content.innerText = "받는사람을 입력하세요";
+		}
+		  else if (address_name.value == "") {
+			content.innerText = "배송지명을 입력하세요";
+		} else if (phone.value == "") {
+			content.innerText = "연락처를 입력하세요";
+		} else if (address.value == "") {
+			content.innerText = "주소를 입력하세요";
+		}
+		
+		validateModal.show();
+		
+		setTimeout(function() {
+			validateModal.hide();
+		}, 1000);
+		
+		return;
+	}
+	
+	
+	
+	const xhr = new XMLHttpRequest();	
+	xhr.onreadystatechange = function(){
+		if(xhr.readyState == 4 && xhr.status == 200){
+			const response = JSON.parse(xhr.responseText);
+
+			modifyAddressModal();
+			
+			const addAddressModal = bootstrap.Modal.getOrCreateInstance("#addAddressModal");
+			addAddressModal.hide();
+			
+			addressee.value = "";
+			address_name.value = "";
+			phone.value = "";
+			address.value = "";
+			detail_address.value = "";
+		}
+	}
+	xhr.open("post", "/safari/user/addUserAddress");
+	xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded;charset=utf-8");
+	xhr.send("addressee=" + addressee.value + "&address_name=" + address_name.value + "&phone=" + phone.value + "&address=" + address.value + "  " + detail_address.value);	
+}
+
+
+
+// 전화번호 형식 변경 함수
+function oninputPhone(target) {
+    target.value = target.value
+        .replace(/[^0-9]/g, '')
+        .replace(/(^02.{0}|^01.{1}|[0-9]{3,4})([0-9]{3,4})([0-9]{4})/g, "$1-$2-$3");
+}
+
+
+//주소 수정
 function modifyAddress(id) {
 
 	const addressee = document.querySelector("#addressee");
@@ -1190,277 +1173,6 @@ function modifyAddress(id) {
 	xhr.open("get", "/safari/auction/changeAddressInOrderPage?id=" + id);
 	xhr.send();
 	
-}
-
-// 전화번호 형식 변경 함수
-function oninputPhone(target) {
-    target.value = target.value
-        .replace(/[^0-9]/g, '')
-        .replace(/(^02.{0}|^01.{1}|[0-9]{3,4})([0-9]{3,4})([0-9]{4})/g, "$1-$2-$3");
-}
-
-// 주소 등록
-function addUserAddress() {
-	
-	const address_name = document.getElementById("address_name");
-	const phone = document.getElementById("phone");
-	const postcode = document.getElementById("postcode");
-	const address = document.getElementById("address");
-	const detail_address = document.getElementById("detail_address");
-	
-	if (address_name.value == "" || phone.value == "" || address.value == "") {
-		
-		const content = document.getElementById("validateContent");
-		content.innerHTML = "";
-		
-		const validateModal = bootstrap.Modal.getOrCreateInstance("#addrValidateModal");
-		if (address_name.value == "") {
-			content.innerText = "배송지명을 입력하세요";
-		} else if (phone.value == "") {
-			content.innerText = "연락처를 입력하세요";
-		} else if (address.value == "") {
-			content.innerText = "주소를 입력하세요";
-		}
-		
-		validateModal.show();
-		
-		setTimeout(function() {
-			validateModal.hide();
-		}, 1000);
-		
-		return;
-	}
-	
-	
-	
-	const xhr = new XMLHttpRequest();	
-	xhr.onreadystatechange = function(){
-		if(xhr.readyState == 4 && xhr.status == 200){
-			const response = JSON.parse(xhr.responseText);
-			
-			const registerAddrModal = bootstrap.Modal.getOrCreateInstance("#registerAddrModal");
-			registerAddrModal.hide();
-			
-			address_name.value = "";
-			phone.value = "";
-			postcode.value = "";
-			address.value = "";
-			detail_address.value ="";
-			
-			getMyaddressList();
-			
-		}
-	}
-	xhr.open("post", "/safari/user/addUserAddress");
-	xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded;charset=utf-8");
-	xhr.send("address_name=" + address_name.value + "&phone=" + phone.value + "&address=" + address.value + "  " + detail_address.value);	
-}
-
-// 주소 수정
-function modifyUserAddress(id) {
-	
-	const address_name = document.getElementById("original_address_name");
-	const phone = document.getElementById("original_phone");
-	const postcode = document.getElementById("original_postcode");
-	const address = document.getElementById("original_address");
-	const detail_address = document.getElementById("original_detail_address");
-	
-	if (address_name.value == "" || phone.value == "" || address.value == "") {
-		
-		const content = document.getElementById("validateContent");
-		content.innerHTML = "";
-		
-		const validateModal = bootstrap.Modal.getOrCreateInstance("#addrValidateModal");
-		if (address_name.value == "") {
-			content.innerText = "배송지명을 입력하세요";
-		} else if (phone.value == "") {
-			content.innerText = "연락처를 입력하세요";
-		} else if (address.value == "") {
-			content.innerText = "주소를 입력하세요";
-		}
-		
-		validateModal.show();
-		
-		setTimeout(function() {
-			validateModal.hide();
-		}, 1000);
-		
-		return;
-	}
-	
-	
-	
-	const xhr = new XMLHttpRequest();	
-	xhr.onreadystatechange = function(){
-		if(xhr.readyState == 4 && xhr.status == 200){
-			const response = JSON.parse(xhr.responseText);
-			
-			const modifyAddrModal = bootstrap.Modal.getOrCreateInstance("#modifyAddrModal");
-			modifyAddrModal.hide();
-			
-			address_name.value = "";
-			phone.value = "";
-			postcode.value = "";
-			address.value = "";
-			detail_address.value ="";
-			
-			getMyaddressList();
-		}
-	}
-			
-	xhr.open("post", "/safari/user/modifyUserAddress");
-	xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded;charset=utf-8");
-	xhr.send("address_name=" + address_name.value + "&phone=" + phone.value + "&address=" + address.value +
-			  " " + detail_address.value + "&id=" + id);
-	
-	
-}
-
-
-//주소 리스트 불러오기
-function getMyaddressList() {
-	
-	const xhr = new XMLHttpRequest();	
-	xhr.onreadystatechange = function(){
-		if(xhr.readyState == 4 && xhr.status == 200){
-			const response = JSON.parse(xhr.responseText);
-			
-			const addrBox = document.querySelector("#userAddrRow");
-			addrBox.innerHTML = "";
-			
-			if (response.addressCount == 0) {
-				 
-            	const row = document.createElement("div");
-            	row.classList.add("row", "border-bottom",  'py-2');
-            	
-            	const col = document.createElement("div");
-            	col.classList.add("col", "text-center");
-            	col.setAttribute("colspan", "4");
-            	col.innerText = "등록된 배송지가 없습니다.";
-            	
-            	row.appendChild(col);
-     
-            	addrBox.appendChild(row);
-   
-				
-			}
-			
-			else {
-			for (data of response.addressList) {
-			
-				const row = document.createElement("div");
-				row.classList.add("row", "border-bottom", "py-2");
-	
-				// 배송지명
-				const adNameCol = document.createElement("div");
-				adNameCol.classList.add("col");
-				
-				const adNameRow = document.createElement("div");
-				adNameRow.classList.add("row");
-				
-				const adCol = document.createElement("div");
-				adCol.classList.add("col");
-				adCol.style.fontSize = "18px";
-				adCol.innerText = data.address_name; 
-				
-				adNameRow.appendChild(adCol);
-				adNameCol.appendChild(adNameRow);
-				
-				row.appendChild(adNameCol);
-				// 배송지명
-				
-				// 주소
-				const addrCol = document.createElement("div");
-				addrCol.classList.add("col-5");
-				
-				const addrRow = document.createElement("div");
-				addrRow.classList.add("row");
-				
-				const aCol = document.createElement("div");
-				aCol.classList.add("col");
-				aCol.style.fontSize = "16px";
-				aCol.innerText = data.address;
-				
-				addrRow.appendChild(aCol);
-				addrCol.appendChild(addrRow);
-				
-				row.appendChild(addrCol);
-				// 주소
-				
-				
-				// 연락처
-				const phoneCol = document.createElement("div");
-				phoneCol.classList.add("col");
-				
-				const phoneRow = document.createElement("div");
-				phoneRow.classList.add("row");
-				
-				const pCol = document.createElement("div");
-				pCol.classList.add("col");
-				pCol.style.fontSize = "18px";
-				pCol.innerText = data.phone;
-				
-				phoneRow.appendChild(pCol);
-				phoneCol.appendChild(phoneRow);
-				
-				row.appendChild(phoneCol);
-				// 받는 사람
-				
-				// 관리
-				const manageCol = document.createElement("div");
-				manageCol.classList.add("col");
-				
-				const manageRow = document.createElement("div");
-				manageRow.classList.add("row");
-				
-				
-				const mCol = document.createElement("div");
-				mCol.classList.add("col");
-				
-				const modifyButton = document.createElement("i");
-				modifyButton.classList.add("bi", "bi-pencil-square", "fs-5", "text-secondary");
-				modifyButton.style.cursor = "pointer";
-				
-				modifyButton.onclick = function (id) {
-  	                return function () {
-  	                	modifyAddrPage(id);
-  	                };
-  	              }(data.id);
-				
-				
-				// onclick 이벤트 적기
-				
-				const deleteButton = document.createElement("i");
-				deleteButton.classList.add("bi", "bi-trash3", "ms-4", "fs-5", "text-secondary");
-				deleteButton.style.cursor = "pointer";
-				
-				deleteButton.onclick = function (id)  {
-  	                return function () {
-  	                	removeAddrPage(id);
-  	                };
-  	              }(data.id);
-					
-				
-				// onclick 이벤트 적기
-				
-				mCol.appendChild(modifyButton)
-				mCol.appendChild(deleteButton);
-				
-
-				manageRow.appendChild(mCol);
-				manageCol.appendChild(manageRow);
-				row.appendChild(manageCol);
-				
-				// 관리
-				
-				addrBox.appendChild(row);
-			}
-		  }
-		}
-	}
-	
-	xhr.open("get", "/safari/user/getUserAddress");
-	xhr.send();	
 }
 
 

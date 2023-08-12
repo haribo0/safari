@@ -994,7 +994,7 @@ window.addEventListener("DOMContentLoaded", function(){
 		                    <input name="auction_searchWord" type="text" class="form-control"
 		                           placeholder="상품명을 입력하세요" id="searchAuctionName"
 		                           onkeydown="enterSearchAuction(event)">
-		                    	<span class="input-group-text" ">
+		                    	<span class="input-group-text">
 		                        <span class="bi bi-search" onclick="searchAuction()" style="cursor: pointer;"></span>
 		                   		<span class="bi bi-x-circle-fill" onclick="clearSearch()" style="cursor: pointer; display: none;"></span>
 		                    </span>

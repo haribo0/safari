@@ -639,6 +639,11 @@
 		SELECT * FROM user_address_table WHERE user_id = #{userId} ORDER BY id DESC	
 	</select>
 	
+	<!--  주문화면에서 설정하였던 배송지 수 출력 -->
+	<select id="getMyAddressCount" resultType="int">
+		SELECT COUNT(*) FROM user_address_table WHERE user_id = #{userId}
+	</select>
+	
 	<!-- 주문화면에서 배송지 변경 모달에서 주소 선택 -->
 	<select id="changeAddressInOrderPage" resultType="com.ja.safari.dto.UserAddressDto">
 		SELECT * FROM user_address_table WHERE user_id = #{user_id} AND id = #{id}

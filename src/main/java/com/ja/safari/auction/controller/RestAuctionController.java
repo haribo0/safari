@@ -784,6 +784,7 @@ public class RestAuctionController {
 		Map<String, Object> map = new HashMap<>();
 		
 		map.put("addressList", auctionService.getMyAddressListInOrderPage(userId));
+		map.put("addressCount", auctionService.getMyAddressCount(userId));
 		
 		return map;
 	}

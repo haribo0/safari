@@ -236,6 +236,9 @@ public interface AuctionSqlMapper {
 	// 주문화면에서 배송지 변경 버튼 클릭 후 설정된 조회 
 	public List<UserAddressDto> getMyAddressListInOrderPage(int userId);
 	
+	// 주문화면에서 설정하였던 배송지 수 출력
+	public int getMyAddressCount(int userId);
+	
 	// 주문화면에서 배송지 변경 모달에서 주소 선택
 	public UserAddressDto changeAddressInOrderPage(UserAddressDto userAddressDto);
 	
