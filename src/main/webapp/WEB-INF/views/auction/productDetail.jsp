@@ -4235,12 +4235,22 @@ function reloadChatList() {
 						  innerDiv2.className = 'col text-start ps-1 pt-1';
 						  const imageElement = document.createElement('img');
 						  imageElement.className = 'img-fluid rounded-circle';
-						  imageElement.style.filter = "grayscale(1)";
-						  if(true) {
+						  
+						  
+						  if (msg.userDto.profile_img_link != null) {
+							  imageElement.src = '/auctionFiles/' + msg.userDto.profile_img_link;
+						  } else {
+							  imageElement.src = '/safari/resources/img/user.jpg';
+							  imageElement.style.filter = "grayscale(1)";
+						  }
+						  
+						  
+						  
+					/* 	  if(true) {
 							  imageElement.src = '/safari/resources/img/user.jpg';
 						  } else {
 							  // imageElement.src = '/safariImg/'+response.user.profile_img_link;
-						  }
+						  } */
 						  imageElement.style.width = '46px';
 						  imageElement.style.height = '46px';
 						  innerDiv2.appendChild(imageElement);
