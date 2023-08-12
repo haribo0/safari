@@ -231,7 +231,7 @@
 		      															</div>
 		      														</div>
 		      														<div class="row">
-		      															<div class="col fw-semibold" style="font-size: 18px;">
+		      															<div class="col fw-semibold overflow" style="font-size: 18px; width: 300px">
 		      																<a href="/safari/auction/productDetail/${orderInfo.auction_item_id}">
 		      																	${orderInfo.title}
 		      																</a>	
@@ -534,7 +534,7 @@
    													<div class="row mt-3">
 														<div class="col d-grid fs-4">
 															<input type="button" class="btn btn-lg orangeButton pe-0 ps-0" value="결제하기"
-															onclick="kakaoPayModal()">
+															onclick="kakaoPayModal()" id="payButton">
 														</div>
 													</div>
 													
@@ -970,6 +970,7 @@ function getRemainCoinBalance() {
 	
 	nowMyCoin.innerText = new Intl.NumberFormat('ko-KR').format(userCoinBalance);
 	remainCoinBox.innerText =  new Intl.NumberFormat('ko-KR').format(userCoinBalance - bidPrice.value);
+	
 	
 }
 
@@ -1600,6 +1601,25 @@ function getNowCoinBalance() {
  					coinBalance.innerText = new Intl.NumberFormat('ko-KR').format(response.coins);
  					userCoinBalance = response.coins;
  					getRemainCoinBalance(); 
+ 					
+ 					// 결제 버튼 활성화 여부 체크
+ 					const payButton = document.querySelector("#payButton");
+ 					
+ 					const bidPrice = document.querySelector("#bid_price");
+ 					
+ 					const bidPriceValue = parseInt(bidPrice.value);
+ 	
+ 					
+ 					if (response.coins < bidPriceValue) {
+ 						payButton.classList.remove("orangeButton");
+ 						payButton.style.backgroundColor = "#E2E3E5";
+ 						payButton.classList.add("fw-semibold", "opacity-50");
+ 						payButton.style.pointerEvents = "none";
+ 					}
+ 					
+ 					
+ 					
+ 					
  				}
  			}
  		}
