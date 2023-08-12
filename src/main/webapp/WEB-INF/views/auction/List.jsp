@@ -823,6 +823,20 @@ function getProductSubcategoriesList(subCategories) {
 // 물품 등록 가능 여부 확인
 let isChecked = false;
 
+
+const setDateInput = () => {
+    let dateStartElement = document.getElementById('start_date');
+    let dateStart = new Date(new Date().getTime() - new Date().getTimezoneOffset() * 60000).toISOString().slice(0, -8);
+    dateStartElement.value = ''; // 처음에는 시간 값을 비워줌
+    dateStartElement.setAttribute("min", dateStart);
+
+    let dateEndElement = document.getElementById('end_date');
+    let dateEnd = new Date(new Date().getTime() - new Date().getTimezoneOffset() * 60000).toISOString().slice(0, -8);
+    dateEndElement.value = ''; // 처음에는 시간 값을 비워줌
+    dateEndElement.setAttribute("min", dateEnd);
+};
+
+
 // 경매 물품 등록
 function registerAuctionProduct() {
 	
@@ -945,6 +959,7 @@ window.addEventListener("DOMContentLoaded", function(){
 
     //사실상 시작 시점...
     getSessionId();
+    setDateInput();
     getProductMainCategoriesForMenu();
     
     
@@ -961,50 +976,7 @@ window.addEventListener("DOMContentLoaded", function(){
 	<!-- 헤더 섹션 -->
 
 	<div class="container main_box">
-		<!-- <h1 class="text-center fs-3">
-			<img class="img-fluid" src="/safari/resources/img/auction/auctionBanner.jpg">
-		</h1> -->
 		
-	<!-- <div class="row mt-2">
-		<div class="col">
-			<div class="row mt-2 mb-1">
-				<div class="col">
-					
-						<i class="bi bi-exclamation-circle fs-5 me-1"></i>
-						<span class="fw-semibold fs-5">경매 등록 이용안내</span>
-				</div>
-			</div>
-			
-			<div class="row">
-				<div class="col">
-					경매를 등록하실 때 제품명을 자세히 입력해주세요.
-				</div>
-			</div>
-			<div class="row">
-				<div class="col">
-					경매종료일은 <span class="fw-semibold">경매시작일로부터 한 달 이내</span>로 설정하실 수 있습니다.
-				</div>
-			</div>
-			
-		</div> -->
-		
-	
-		
-	<!-- 	<div class="col justify-content-end">
-			<div class="row mt-2 mb-1">
-				<div class="col">
-					<i class="bi bi-exclamation-circle fs-5 me-1"></i>
-						<span class="fw-semibold fs-5">경매 이용 시 참고사항</span>
-				</div>
-			</div>
-			
-			<div class="row">
-				<div class="col">
-					진행중인 경매의 <span class="fw-semibold">현재가는 <span class="text-danger">실시간으로</span> 업데이트</span>되고 있습니다.
-				</div>
-			</div>
-		</div>
-	</div>	  -->
 		
 	<div class="row mt-3">
 		<jsp:include page="./sidemenu.jsp"></jsp:include>

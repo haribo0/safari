@@ -4368,6 +4368,8 @@ function getAuctionCoinBalance() {
 window.addEventListener("DOMContentLoaded", function(){
     //사실상 시작 시점...
     setInterval(getAuctionEndTimeInRealTime, 200);
+    showInputBidBox();
+    setInterval(getNowMaxBiderId, 200);
     
     const bidListBox = document.getElementById("bidListBox");
     bidListBox.scrollTop = 0;
@@ -4379,13 +4381,7 @@ window.addEventListener("DOMContentLoaded", function(){
     
     setInterval(updateAuctionCountDown, 1000); 
     
-   
-    setInterval(getNowMaxBiderId, 200);
-    showInputBidBox();
-    
-   
-    
-    
+
     showAuctionStatusTitle();
     refreshTotalLikeCount();
 
