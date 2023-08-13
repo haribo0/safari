@@ -18,5 +18,6 @@
 ERD URL : https://www.erdcloud.com/d/sYfJ5WigDzkXreyGo
 
 ## 기능확인 더보기 (pdf)
-[482(사고파는이웃)_포트폴리오.pdf](https://github.com/haribo0/safari/files/12275043/482._.pdf)
+[482(사고파는이웃)-포트폴리오.pdf](https://github.com/haribo0/safari/files/12329772/482.-.pdf)
+
 
