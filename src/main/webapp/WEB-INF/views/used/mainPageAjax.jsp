@@ -94,7 +94,7 @@
 	</div> -->
 	<div class="row mt-5 mb-2">
 		<div class="col text-center">
-			<img alt="bannerMiddle" src="/safari/resources/img/used/middleBanner.png" height="400px" width="1620px">
+			<img alt="bannerMiddle" src="/safari/resources/img/used/middleBanner.png" height="400px" width="1340px">
 		</div>
 	</div>
 	<div class="container mt-5 mb-5">
