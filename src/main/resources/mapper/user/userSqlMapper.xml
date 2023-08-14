@@ -142,8 +142,8 @@
 			UPDATE
 			  user_address_table 
 			  SET 
+			  	addressee = #{addressee},
 			    address = #{address},
-			    addressee = #{addressee},
 			    address_name = #{address_name},
 			    phone = #{phone}
 			 WHERE id = #{id}   

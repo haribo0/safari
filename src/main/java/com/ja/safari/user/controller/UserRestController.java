@@ -302,7 +302,10 @@ public class UserRestController {
 		  }
 		  
 			params.setUser_id(sessionUser.getId());
+
 			userService.modifyUserAddress(params);
+			
+		
 			
 			map.put("result", "success");
 		   return map;

@@ -25,6 +25,7 @@
 .custom-table-secondary {
   background-color: #E2E3E5!important; /* 원하는 연한 색상으로 변경 */
 }
+
 </style>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 </head>
@@ -695,7 +696,8 @@
   <div class="modal-dialog modal-dialog-centered"> 
     <div class="modal-content">
       <div class="modal-header bg-light">
-      		<i class="bi bi-chevron-left fs-5 p-0" data-bs-dismiss="modal" aria-label="Close" style="cursor: pointer;"></i>
+      		<i class="bi bi-chevron-left p-0" data-bs-dismiss="modal" aria-label="Close" style="cursor: pointer;"></i> 
+      		<!-- <i class="bi bi-chevron-left p-0" onclick="modifyAddressModal()" style="cursor: pointer;"></i> -->
       		<h5 class="ms-2 modal-title fw-semibold">배송지 추가</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div> 
@@ -719,7 +721,7 @@
       				<div class="col">	
       					<div class="input-group">
       						<span class="input-group-text">
-	      						<i class="bi bi-bag fs-5"></i>
+	      						<i class="bi bi-truck fs-5"></i>
 	      					</span>
 	      					<input type="text" class="form-control" placeholder="배송지명" id="address_name">
       					</div>
@@ -912,9 +914,12 @@ function daumPost(){
 // 배송지 변경 모달 열기
 function modifyAddressModal() {
 	
+/* 	const addAddressModal = bootstrap.Modal.getOrCreateInstance("#addAddressModal");
+	addAddressModal.hide();  */
+	
 	const addressListBox = document.querySelector("#myAddressList");
 	addressListBox.innerHTML = "";
-	
+
 	const xhr = new XMLHttpRequest();	
 	xhr.onreadystatechange = function(){
 		if(xhr.readyState == 4 && xhr.status == 200){
@@ -1067,6 +1072,9 @@ function modifyAddressModal() {
 // 배송지 추가 모달 열기
 function addAddressModal() {
 	
+/* 	const modifyAddressModal = bootstrap.Modal.getOrCreateInstance("#modifyAddressModal");
+	modifyAddressModal.hide();  */
+	
 	const addAddressModal = bootstrap.Modal.getOrCreateInstance("#addAddressModal");
 	addAddressModal.show();
 }
@@ -1174,6 +1182,8 @@ function modifyAddress(id) {
 	xhr.send();
 	
 }
+
+
 
 
 //카카오페이 결제 창
