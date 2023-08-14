@@ -355,7 +355,7 @@
 				    <progress class="my-auto ms-3 progress progress-custom" id="progress4" value="70" min="0" max="100" style="width: 400px;"></progress>
 				    <!-- <span id="review4" class="text-secondary" style="font-size: 14px"></span> -->
 				</div>
-    			<div class="col text-start" style="font-size: 16px;font-weight: 600;color: #6f6e6e;">상위 20%</div>
+    			<div class="col text-start" style="font-size: 16px;font-weight: 600;color: #6f6e6e;">lv 4</div>
 			</div>	
 	     	<div class="row mt-3" style="font-size: 18px;">
    				<div class="col-auto ms-3 my-auto fw-semibold pb-1" style="color: #ff6f0f;border-bottom: 3px;border-bottom-color: #ff6f0f;border-bottom-style: solid;">판매 물품 (6)</div>
