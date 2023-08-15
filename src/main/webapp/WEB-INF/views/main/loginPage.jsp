@@ -120,21 +120,27 @@ a {
 						</div>
 					
 		
-						<div class="row">
+						<div class="row mb-1">
 							<div class="col">
 								<div class="row mt-2">
 									<div class="col text-center" onclick="kakaoLogin()" style="cursor: pointer;">
 										<img src="/safari/resources/img/user/kakaoLoginImg.png" class="img-fluid" style="width: 440px">
 									</div>
-									<!-- <div class="col-auto">
-										<img src="/safari/resources/img/user/naver.png">
-									</div>
-									<div class="col">
-										<img src="/safari/resources/img/user/facebook.png">
-									</div> -->
+									
 								</div>
 							</div>
 						</div>
+						
+ 						<div class="row">
+							<div class="col">
+								<div class="row mt-2">
+									<div class="col text-center"  style="cursor: pointer;">
+										<img src="/safari/resources/img/user/naver.png" class="img-fluid" style="width: 440px">
+									</div>
+									
+								</div>
+							</div>
+						</div>						
 						
 						<div class="row mt-5 text-center">
 							<div class="col text-secondary" style="font-size: 15px">
