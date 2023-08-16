@@ -77,7 +77,7 @@
 							<div class="col-5 text-center">상품정보</div>
 							<div class="col-2 text-center">가격</div>
 							<div class="col-2 text-center">구매일자</div>
-							<div class="col text-center">비고</div>
+							<div class="col text-center"> </div>
 						</div>
 					<div class="cotainer">
 					<c:if test="${empty list}">
