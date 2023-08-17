@@ -209,7 +209,7 @@ a {
 						</li>	
 					  
 			            <li class="nav-item" role="presentation">
-			                <button class="nav-link text-dark fw-medium" id="question-tab" data-bs-toggle="tab"
+			                <button class="nav-link text-dark fw-medium" id="findPw-tab" data-bs-toggle="tab"
 			                    data-bs-target="#findPw" type="button" role="tab"
 			                    aria-controls="question" aria-selected="false" style="font-size: 18px">비밀번호 찾기</button>
 			            </li>
@@ -480,7 +480,7 @@ a {
 </div>
 <%-- Modal --%>
 
-<%-- 회원가입 완료 Modal --%>
+<%-- 비밀번호 수정 Modal --%>
 <div class="modal" id="renewPwSuccessModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered"> 
     <div class="modal-content">
@@ -846,6 +846,10 @@ function resetModalInputs() {
 	
 	const userPwBox = document.querySelector("#renewEnterPw");
 	const userPwCheckBox = document.querySelector("#renewCheckPw");
+	
+	const renewPwBox = document.querySelector("#renewPwBox");
+	
+	//const findIdTab = document.querySelector("#findId-tab");
 
     nickname.value = ""; // 닉네임 입력값 초기화
     phone.value = "";    // 전화번호 입력값 초기화
@@ -862,8 +866,10 @@ function resetModalInputs() {
     showUserIdInfo.style.display = "none";
     
     findPwBox.style.display = "block";
+    renewPwBox.style.display = "none";
     
  
+    //findIdTab.setAttribute("aria-selected", "true");
 }
 
 //모달 창을 닫을 때 이벤트 처리
