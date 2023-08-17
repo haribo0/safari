@@ -281,8 +281,8 @@
 		       							<input type="text" class="form-control ms-2" id="original_postcode" style="width: 150px; height: 30px;">
 		       						</div>
 		       						<div class="col">
-		       							<input type="button" class="btn btn-sm btn-outline-secondary" value="우편번호"
-		       							onclick="daumPost()"> 
+		       							<input type="button" class="btn btn-sm btn-outline-secondary" value="우편번호 찾기"
+		       							onclick="modifyDaumPost()"> 
 		       						</div>
 		       					</div>
 		       					
@@ -354,7 +354,7 @@
   <div class="modal-dialog modal-dialog-centered"> 
     <div class="modal-content">
       <div class="modal-header">
-      		<h5 class="modal-title">주소 삭제</h5>
+      		<h5 class="modal-title">배송지 삭제</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div> 
       <div class="modal-body">
@@ -425,6 +425,27 @@ function daumPost(){
 }
 
 
+//다음 주소 api
+function modifyDaumPost(){
+    new daum.Postcode({
+        oncomplete: function(data) {
+            // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분입니다.
+            // 예제를 참고하여 다양한 활용법을 확인해 보세요.
+            
+            //사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
+            if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
+                addr = data.roadAddress;
+            } else { // 사용자가 지번 주소를 선택했을 경우(J)
+                addr = data.jibunAddress;
+            }
+            document.getElementById('original_postcode').value = data.zonecode;
+            document.getElementById('original_address').value = addr;
+            document.getElementById('original_detail_address').focus();
+        }
+    }).open();
+}
+
+
 // 주소 등록 모달 열기
 function registerAddrPage() {
 	
@@ -437,15 +458,35 @@ function registerAddrPage() {
 //주소 수정 모달 열기
 function modifyAddrPage(id) {
 	
+	const addressee = document.getElementById("original_addressee");
+	const address_name = document.getElementById("original_address_name");
+	const phone = document.getElementById("original_phone");
+
+	const address = document.getElementById("original_address");
+	const detail_address = document.getElementById("original_detail_address");
+	
+	addressee.innerHTML = "";
+	address_name.innerHTML = "";
+	phone.innerHTML = "";
+	address.innerHTML = "";
+
+	selectedAddressId = id;
+	
+	
 	const xhr = new XMLHttpRequest();	
 	xhr.onreadystatechange = function(){
 		if(xhr.readyState == 4 && xhr.status == 200){
 			const response = JSON.parse(xhr.responseText);
 			
-	
+			addressee.value = response.addrInfo.addressee;
+			address_name.value = response.addrInfo.address_name;
+			phone.value = response.addrInfo.phone;
+			//postcode.value = response.addrInfo.postcode;
+			address.value = response.addrInfo.address;
+			//detail_address.value = response.addrInfo.detail_address;
+		
 	
 			const modifyAddrModal = bootstrap.Modal.getOrCreateInstance("#modifyAddrModal");
-			modifyAddrModal._element.dataset.id = id; // id 값을 data-id 속성에 설정
 			modifyAddrModal.show();
 		}
 	}
@@ -524,21 +565,27 @@ function addUserAddress() {
 }
 
 // 주소 수정
-function modifyUserAddress(id) {
+function modifyUserAddress() {
 	
+	const addressee = document.getElementById("original_addressee");
 	const address_name = document.getElementById("original_address_name");
 	const phone = document.getElementById("original_phone");
 	const postcode = document.getElementById("original_postcode");
 	const address = document.getElementById("original_address");
 	const detail_address = document.getElementById("original_detail_address");
+
 	
-	if (address_name.value == "" || phone.value == "" || address.value == "") {
+	if (addressee.value == "" || address_name.value == "" || phone.value == "" || address.value == "") {
 		
 		const content = document.getElementById("validateContent");
 		content.innerHTML = "";
 		
 		const validateModal = bootstrap.Modal.getOrCreateInstance("#addrValidateModal");
-		if (address_name.value == "") {
+		
+		if (addressee.value == "" ) {
+			content.innerText = "받는사람을 입력하세요";
+		}
+		  else if (address_name.value == "") {
 			content.innerText = "배송지명을 입력하세요";
 		} else if (phone.value == "") {
 			content.innerText = "연락처를 입력하세요";
@@ -565,11 +612,13 @@ function modifyUserAddress(id) {
 			const modifyAddrModal = bootstrap.Modal.getOrCreateInstance("#modifyAddrModal");
 			modifyAddrModal.hide();
 			
+			addressee.value = "";
 			address_name.value = "";
 			phone.value = "";
 			postcode.value = "";
 			address.value = "";
 			detail_address.value ="";
+			selectedAddressId = null;
 			
 			getMyaddressList();
 		}
@@ -577,8 +626,8 @@ function modifyUserAddress(id) {
 			
 	xhr.open("post", "/safari/user/modifyUserAddress");
 	xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded;charset=utf-8");
-	xhr.send("address_name=" + address_name.value + "&phone=" + phone.value + "&address=" + address.value +
-			  " " + detail_address.value + "&id=" + id);
+	xhr.send("addressee=" + addressee.value + "&address_name=" + address_name.value + "&phone=" + phone.value + "&address=" + address.value +
+			  " " + detail_address.value + "&id=" + selectedAddressId);
 	
 	
 }
@@ -762,7 +811,6 @@ function removeAddrPage(id) {
 function removeUserAddress() {
 	
 	const id = selectedAddressId;
-	console.log(id);
 	
 	const xhr = new XMLHttpRequest();	
 	xhr.onreadystatechange = function(){
@@ -782,29 +830,7 @@ function removeUserAddress() {
 	xhr.send();
 }
 
-	/* function getMyaddressList() {
-		let inputAddr = document.querySelector("#usr_address")
-		let listAddrBox = document.querySelector('.list_addr_box')
-		const item = document.querySelector('.list-group-item')
-		const xhr = new XMLHttpRequest();
-		
-		xhr.onreadystatechange = function(){
-			if(xhr.readyState == 4 && xhr.status == 200){
-				const response = JSON.parse(xhr.responseText);
-				inputAddr.value = ''
-				listAddrBox.textContent=''
-				for(data of response.addressList) {
-					let li = document.createElement('li')
-					li.classList.add("list-group-item")
-					li.innerText = data.address
-					listAddrBox.appendChild(li)
-				}
-			}
-		}
-		
-		xhr.open("get", "./getUserAddress");
-		xhr.send();	
-	} */
+	
 
 window.addEventListener("DOMContentLoaded", function(){
 	getSessionId();

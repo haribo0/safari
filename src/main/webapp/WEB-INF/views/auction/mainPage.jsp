@@ -154,7 +154,7 @@
 			 		</div>
 				</div>
 				
-				<div class="row mt-3" id="randomAuctionList">
+				<div class="row mt-3 mb-5" id="randomAuctionList">
 			
 			
 			

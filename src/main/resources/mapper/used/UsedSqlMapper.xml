@@ -443,7 +443,7 @@ WHERE ROWNUM <= 4
         )
     ORDER BY reg_date DESC
 	)
-	WHERE ROWNUM <= 8
+	WHERE ROWNUM <= 12
 	]]>
 </select>
 

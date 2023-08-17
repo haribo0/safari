@@ -176,6 +176,54 @@ public class UserRestController {
 		return map;
 	}
 	
+	// 아이디 찾기
+	@RequestMapping("findIdForEmailAndPhone") 
+	public Map<String, Object> findIdForEmailAndPhone(UserDto userDto) {
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		map.put("findUserIdCount", userService.findUserIdCount(userDto));
+		map.put("findUserId", userService.findUserId(userDto));
+		
+		return map;
+	}
+	
+	// 비밀번호 찾기
+	@RequestMapping("findPw") 
+	public Map<String, Object> findPw(HttpSession session, UserDto userDto) {
+		
+		// 닉네임을 이용하여 pk를 불러오고 세션에 저장
+		UserDto findUser = userService.findUserPkForNickname(userDto);
+		session.setAttribute("findUserPk", findUser);
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		map.put("findUserPwCount", userService.findUserPwCount(userDto));
+
+		return map;
+	}	
+	
+	// 비밀번호 찾기 - 변경
+	@RequestMapping("renewUserPw")
+	public Map<String, Object> renewUserPw(HttpSession session, UserDto userDto) {
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		// pk 세션 받아오기
+		UserDto userPk = (UserDto) session.getAttribute("findUserPk");
+		userDto.setId(userPk.getId());
+		
+		userService.renewUserPw(userDto);
+		
+		// 세션 remove
+		session.removeAttribute("findUserPk");
+		
+		return map;
+	}
+
+	
+	
+	
 	// 회원정보 수정
 	@RequestMapping("modifyUserInfo")
 	public Map<String, Object> modifyUserInfo(HttpSession session, UserDto userDto,
@@ -302,7 +350,10 @@ public class UserRestController {
 		  }
 		  
 			params.setUser_id(sessionUser.getId());
+
 			userService.modifyUserAddress(params);
+			
+		
 			
 			map.put("result", "success");
 		   return map;

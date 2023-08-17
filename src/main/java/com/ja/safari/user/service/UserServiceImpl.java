@@ -89,6 +89,34 @@ public class UserServiceImpl {
 		
 	}
 	
+	
+	// 아이디 찾기
+	public int findUserIdCount(UserDto userDto) {
+		return userSqlMapper.findUserIdCount(userDto);
+	}
+	
+	public UserDto findUserId(UserDto userDto) {
+		return userSqlMapper.findUserId(userDto);
+	}
+	// 아이디 찾기
+	
+
+	// 비밀번호 찾기
+	public int findUserPwCount(UserDto userDto) {
+		return userSqlMapper.findUserPwCount(userDto);
+	}
+	
+	// 비밀번호 찾기 - 닉네임으로 pk 탐색
+	public UserDto findUserPkForNickname(UserDto userDto) {
+		return userSqlMapper.findUserPkForNickname(userDto);
+	}
+	
+	// 비밀번호 찾기 - 변경
+	public void renewUserPw(UserDto userDto) {
+		userSqlMapper.renewUserPw(userDto);
+	}
+	
+	
 	// 회원정보 수정 - 현재 비밀번호 확인
 	public UserDto checkUserPw(int id) {
 		return userSqlMapper.checkUserPw(id);

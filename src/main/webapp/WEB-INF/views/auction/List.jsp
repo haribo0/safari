@@ -1015,7 +1015,7 @@ window.addEventListener("DOMContentLoaded", function(){
 		
 		<div class="row mt-4">
 		
-			<div class="col mb-3 " >
+			<div class="col mt-1 mb-4" >
 			
 			 <input class="form-check-input me-2" type="radio" id="radioStatus" name="radioStatus" value="" style="cursor:pointer";>
 			  <label class="form-check-label me-4" for="radioStatus">
@@ -1037,26 +1037,28 @@ window.addEventListener("DOMContentLoaded", function(){
 		
 		
 			
-			<div class="col mb-4 text-end me-5" style="position: relative; top: 3px;">
+	<!-- 		<div class="col mb-4 text-end me-5" style="position: relative; top: 3px;">
 				<div class="row">	
 					<div class="col d-flex justify-content-end text-end">
 						<ul>
 							<li style="float:left;" class="pe-3 fw-bold">마감임박순</li>
+							<li style="float:left;" class="pe-3">최신순</li>
 							<li style="float:left;" class="pe-3">입찰순</li>
-							<li style="float:left;" class="pe-3">추천순</li>
-							<li style="float:left;">최신순</li>
+							<li style="float:left;" class="pe-3">낮은가격순</li>
+							<li style="float:left;">높은가격수</li>
+							
 						</ul>
 					
 					</div>	  	
 				  </div>
-			</div>
+			</div> -->
 			
 			
 			
 		</div>
 		
 			<!--  전체 row -->
-			<div class="row me-4" id="auctionProductList">
+			<div class="row mt-2 me-4" id="auctionProductList">
 			
 			</div>
 				

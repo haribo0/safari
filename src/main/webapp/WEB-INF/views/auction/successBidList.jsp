@@ -1020,7 +1020,7 @@ function getMySuccessfulBidPayAndDeliveryStatusList() {
 	    				  	
 	    					const selectButton = document.createElement("input");
 	    					selectButton.type = "button";
-	    					selectButton.classList.add("btn", "btn-sm", "btn-outline-secondary");
+	    					selectButton.classList.add("btn", "btn-sm", "btn-outline-dark");
 	    					selectButton.value = "배송조회";
 	    					selectButton.setAttribute("onclick", "deliveryStatusModal("+ data.id +")");
 	    					

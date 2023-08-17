@@ -59,6 +59,46 @@
 			SELECT * FROM user_table WHERE email = #{email} AND pw = #{pw}
 		</select>
 
+
+		<!--  아이디 비번 찾기 -->
+		
+		<!--  아이디 찾기 -->
+		<select id="findUserIdCount" resultType="int">
+			SELECT COUNT(*)
+			    FROM user_table
+			    WHERE nickname = #{nickname}
+			          AND phone = #{phone}
+		</select>		
+		
+		<select id="findUserId" resultType="com.ja.safari.dto.UserDto">
+			SELECT nickname, email
+			    FROM user_table
+			    WHERE nickname = #{nickname}
+			          AND phone = #{phone}
+		</select>
+		
+		
+		<!--  비밀번호 찾기 -->
+		<select id="findUserPwCount" resultType="int">
+			SELECT COUNT(*)
+			    FROM user_table
+			    WHERE email = #{email}
+			          AND nickname = #{nickname}
+			          AND phone = #{phone}
+		</select>
+		
+		<!--  비밀번호 찾기 - 닉네임으로 pk 탐색 -->
+		<select id="findUserPkForNickname" resultType="com.ja.safari.dto.UserDto">
+			SELECT id FROM user_table WHERE email = #{email}
+		</select>
+		
+		<!--  비밀번호 찾기 - 변경 -->
+		<update id="renewUserPw">
+			UPDATE user_table SET pw = #{pw} WHERE id = #{id}     
+		</update>
+		<!--  아이디 비번 찾기 -->
+		
+		
 		
 		<!-- 회원정보 수정 - 현재 비밀번호 확인 -->
 		<select id="checkUserPw" resultType="com.ja.safari.dto.UserDto">
@@ -142,8 +182,8 @@
 			UPDATE
 			  user_address_table 
 			  SET 
+			  	addressee = #{addressee},
 			    address = #{address},
-			    addressee = #{addressee},
 			    address_name = #{address_name},
 			    phone = #{phone}
 			 WHERE id = #{id}   
