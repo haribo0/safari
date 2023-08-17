@@ -663,11 +663,7 @@ style="position: absolute; transform: translateX(70%);right: 50%;">
 								data-bs-target="#auctioninfo" type="button" role="tab" aria-controls="auctioninfo"
 								aria-selected="true">상품정보</button>
 						</li>	
-					   <!-- <li class="nav-item" role="presentation">
-		                <button class="nav-link text-dark fw-bold" id="review-tab" data-bs-toggle="tab"
-		                    data-bs-target="#review" type="button" role="tab"
-		                    aria-controls="review" aria-selected="false">입금/배송정보</button>
-	            		</li> -->
+					  
 			            <li class="nav-item" role="presentation">
 			                <button class="nav-link text-dark fw-medium" id="question-tab" data-bs-toggle="tab"
 			                    data-bs-target="#question" type="button" role="tab"
@@ -719,16 +715,7 @@ style="position: absolute; transform: translateX(70%);right: 50%;">
 					</div>
 				
 		
-					<div class="tab-pane fade" id="review" role="tabpanel"
-						aria-labelledby="review-tab">
-						
-						<div class="row mt-2">
-							<div class="col text-center">
-								
-							</div>
-						</div>
-						
-					</div>
+				
 						
 					
 					<%-- 상품문의 --%>	
@@ -740,7 +727,7 @@ style="position: absolute; transform: translateX(70%);right: 50%;">
 							<div class="col-11 ms-4">
 								<div class="row">
 									<div class="col-auto text-start mt-2 ms-1" style="font-size: 16px;">
-										<a href="/safari/user/myInquiryPostPage">※ 상품 문의사항이 아닌 반품관련 문의는 고객센터 1:1 문의를 이용해주시기 바랍니다.</a>
+										<a href="/safari/user/myInquiryPostPage">※ 상품 문의사항이 아닌 반품 문의는 고객센터 1:1 문의를 이용해주시기 바랍니다.</a>
 									</div>
 									<div class="col text-end">
 										<button class="btn orangeButton" onclick="toggleInquiryInputBox()">
