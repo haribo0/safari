@@ -1152,7 +1152,7 @@ function reloadPayAndDeliveryStatus() {
 	    	  
 	    	  const orderInfoButton = document.createElement("input");
 	    	  orderInfoButton.type="button";
-	    	  orderInfoButton.classList.add("btn", "btn-sm", "btn-outline-secondary");
+	    	  orderInfoButton.classList.add("btn", "btn-sm", "btn-outline-dark");
 	    	  orderInfoButton.value = "주문조회";
 	    	  
 	    	  payStatus.innerHTML = "";
@@ -1187,7 +1187,7 @@ function reloadPayAndDeliveryStatus() {
 	    			  const col1 = document.createElement("div");
 	    			  col1.classList.add("col");
 	    			  
-	    			  statusButton.classList.add("btn-outline-secondary");
+	    			  statusButton.classList.add("btn-outline-dark");
 					  statusButton.value = "배송하기";
 					  statusButton.setAttribute("onclick", "startDeliveryModal(" + data.id + ")");
 					 
@@ -1217,7 +1217,7 @@ function reloadPayAndDeliveryStatus() {
 		    			 payStatus.innerText = "배송중";
 
 		    		 }
-		    		 statusButton.classList.add("btn-outline-secondary");
+		    		 statusButton.classList.add("btn-outline-dark");
 	    			 statusButton.value = "주문조회";
 	    			 statusButton.setAttribute("onclick", "checkDeliveryModal(" + data.id + ")");
 	    			 
