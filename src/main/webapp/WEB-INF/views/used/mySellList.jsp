@@ -1139,8 +1139,6 @@ function sold(map) {
         col2Container.textContent = formattedNumber+'원';
       }
 	  
-  	  
-  	  /* col2Container.textContent = map.productDto.price.toLocaleString() + '원'; */
 
   	  const col2DateContainer = document.createElement('div');
   	  col2DateContainer.classList.add('col-2', 'my-auto', 'text-center');
