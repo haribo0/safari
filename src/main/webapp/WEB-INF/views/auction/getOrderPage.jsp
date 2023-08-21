@@ -480,7 +480,7 @@
     																	총 배송비 
     																	<span class="ms-2">
     																		<input type="button" class="btn btn-outline-secondary btn-sm" value="상세보기"
-    																		style="font-size: 14px;">
+    																		style="font-size: 14px;" onclick="shipModal()">
     																	</span>
     																</div>
     															</div>
@@ -656,6 +656,99 @@
   </div>
 </div>
 <%-- alert --%>
+
+<%-- 배송비 모달 --%>
+<div class="modal" id="shipModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered"> 
+    <div class="modal-content">
+      <div class="modal-header bg-light">
+      		<h5 class="ms-2 modal-title fw-semibold">배송비 정보</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div> 
+      <div class="modal-body">
+      	
+      	<div class="row mt-2">
+      		<div class="col-11 ms-3">
+      			
+      			<div class="row">
+      				<div class="col fw-semibold fs-5">
+      					482 배송상품
+      				</div>
+      			</div>
+      			
+      			<div class="row mt-3">
+      				<div class="col">
+      				
+      					<div class="row">
+      						<div class="col">
+      							일반상품 배송비
+      						</div>
+      					</div>
+      					
+     					<div class="row mt-2">
+      						<div class="col">
+      							총 배송비
+      						</div>
+      					</div>      					
+      				
+      				</div>
+      				<div class="col">
+      				
+						<div class="row">
+      						<div class="col text-end">
+      							<span class="fw-semibold">0</span> 원
+      						</div>
+      					</div>   
+      					
+     					<div class="row mt-2">
+      						<div class="col text-end">
+      							<span class="fw-semibold">0</span> 원
+      						</div>
+      					</div>           					   				
+      				
+      				</div>      				
+      			</div>
+      			
+      			<div class="row mt-4 border-bottom">
+      				<div class="col"></div>
+      			</div>
+      			
+				<div class="row mt-3">
+      				<div class="col">
+      				
+      					<div class="row">
+      						<div class="col">
+      							합계
+      						</div>
+      					</div>
+
+      				</div>
+      				<div class="col">
+      				
+						<div class="row">
+      						<div class="col text-end">
+      							<span class="fw-semibold fs-5 text-danger">0</span> 원
+      						</div>
+      					</div>   
+      									   				
+      				
+      				</div>      				
+      			</div>      			
+      		
+      			
+      		</div>
+      	</div>
+
+  
+      </div>
+        
+   
+    </div>
+  </div>
+</div>
+
+<%-- 배송비 모달 --%>
+
 
 <%-- 배송지 변경 모달 --%>
 <div class="modal" id="modifyAddressModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -911,6 +1004,12 @@ function daumPost(){
     }).open();
 }
 
+//배송비 모달 열기
+function shipModal() {
+	const shipModal = bootstrap.Modal.getOrCreateInstance("#shipModal");
+	shipModal.show();
+}
+
 // 배송지 변경 모달 열기
 function modifyAddressModal() {
 	
@@ -1067,6 +1166,8 @@ function modifyAddressModal() {
 	xhr.open("get", "/safari/auction/getMyAddressListInOrderPage?userId=" + mySessionId);
 	xhr.send();	
 }
+
+
 
 
 // 배송지 추가 모달 열기

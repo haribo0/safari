@@ -59,7 +59,7 @@
 		
 			    <div class="row">
 					<div class="col">
-						• &nbsp; 진행중인 경매의 <span class="fw-semibold">현재가는 <span class="text-danger">실시간으로</span> 업데이트</span> 되고 있습니다.
+						• &nbsp; 진행중인 경매의 <span class="fw-semibold">현재가는 실시간으로 업데이트</span>되고 있습니다.
 					</div>
 				</div>		
 				

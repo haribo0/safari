@@ -691,11 +691,11 @@
 			    dt.reg_date AS delivery_reg_date,
 			    CASE WHEN pc.partner_order_id IS NOT NULL THEN 'Yes' ELSE 'No' END AS purchase_confirmed,
 			    dt.delivery_status AS delivery_status, 
-			    ati.auction_item_img_link AS auction_item_img_link
+			    ati.auction_item_img_link AS auction_item_img_link, t1.end_date
 			FROM (
 			    SELECT
 			        bt.id, bt.auction_item_id, at.user_seller_id, at.title, ut.nickname, bt.user_buyer_id,
-             		               akp.amount,
+             		               akp.amount, at.end_date,
 			        CASE WHEN akp.partner_order_id IS NOT NULL THEN 'Yes' ELSE 'No' END AS payment_exists
 			    FROM
 			        auction_item_bid_request bt

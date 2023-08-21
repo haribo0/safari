@@ -59,14 +59,9 @@
 				</div>
 			</div>
 			
-	
-			<div class="row mt-4">
-   				<div class="col">
-   					• &nbsp; 입찰하신 경매 목록 중에서 현재 진행중인 경매만 표시됩니다.
-   				</div>
-   			</div>
+
    			
-   			<div class="row mt-1">
+   			<div class="row mt-4">
    				<div class="col">
    					• &nbsp; 본인이 최고입찰자일 경우 최고입찰가는 <span class="text-success">초록색</span>으로 표시됩니다.
    				</div>
@@ -93,14 +88,15 @@
 			
 			<div class="row mt-3">
 				<div class="col">
-					 <input class="form-check-input me-2" type="radio" id="radioStatusIng" name="radioStatus" value="ing" style="cursor:pointer";>
-					  <label class="form-check-label me-4" for="radioStatusIng">
-					    	진행중인 경매만 보기
-					  </label>
-					  <input class="form-check-input me-2" type="radio" id="radioStatus" name="radioStatus" value="" style="cursor:pointer";>
+					<input class="form-check-input me-2" type="radio" id="radioStatus" name="radioStatus" value="" style="cursor:pointer";>
 	  					<label class="form-check-label me-4" for="radioStatus">
 	    					전체보기
-	  				</label>	
+	  					</label>	
+					 <input class="form-check-input me-2" type="radio" id="radioStatusIng" name="radioStatus" value="ing" style="cursor:pointer";>
+					  <label class="form-check-label me-4" for="radioStatusIng">
+					    	진행중
+					  </label>
+
 				</div>
 			</div>
 

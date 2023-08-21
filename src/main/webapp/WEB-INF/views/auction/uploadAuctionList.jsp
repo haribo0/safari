@@ -76,7 +76,7 @@
 					
 					<div class="row">
 						<div class="col">
-							• &nbsp; 경매가 종료된 후, 낙찰자가 <span class="fw-semibold">7일 이내</span>에 결제하지 않으면 경매를 재시작하실 수 있습니다.
+							• &nbsp; 경매가 종료된 후, 낙찰자가 <span class="fw-semibold">7일 이내</span>에 결제하지 않으면 유찰처리됩니다.
 						</div>
 					</div>		
 					
@@ -973,7 +973,7 @@ function showDeliveryDetail(id) {
         		paymentPhone.innerText =  response.addressDetail.phone;
         		paymentMessage.innerText =  response.addressDetail.delivery_message;
         	} else {
-        		console.log("주소 정보 없음");
+        		
         	}
         	
     	 }
@@ -1228,8 +1228,20 @@ function reloadPayAndDeliveryStatus() {
 	    	  }
 	    	  // 결제 대기중일때
 	    	  else {
-	    		  payStatus.innerText = "결제대기중";
+
+	      		  const auctionEndDate = new Date(data.end_date);
+	    		  const nowDate = new Date();
 	    		  
+	    		  const sevenDaysLater = new Date(auctionEndDate.setDate(auctionEndDate.getDate() + 7));
+	    		  
+	    		  if (nowDate > sevenDaysLater) {
+	    			 
+	    			  payStatus.innerText = "유찰"; 
+	    			  processStatus.innerText = "(미결제)";
+	    		  
+		    	  } else {
+		    		  payStatus.innerText = "결제대기중";  
+		    	  }
 	    	  }
 	      	}
 	    

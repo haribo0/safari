@@ -22,10 +22,7 @@
 <link rel="stylesheet" href="/safari/resources/style/auction.css" type="text/css">
 <style>
 
-  .form-check-input:checked {
-   	border-color: black;
-      background-color: black; /* 원하는 색상으로 변경 */
-  }  
+
 .overflow {
   white-space: nowrap; /* 텍스트를 한 줄로 표시 */
   overflow: hidden; /* 넘친 텍스트를 숨김 */

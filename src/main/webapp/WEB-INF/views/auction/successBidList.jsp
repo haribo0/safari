@@ -64,9 +64,21 @@
 				
 					<div class="row">
 						<div class="col">
-							• &nbsp; 경매종료일로부터 <span class="fw-bold text-danger">7일 이내</span>에 결제하셔야 판매자로부터 제품을 수령받으실 수 있습니다.
+							• &nbsp; 경매종료일로부터 <span class="fw-bold text-danger">7일 이내</span>에 결제하셔야 유찰처리되지 않습니다.
 						</div>
 					</div>		
+					
+					<div class="row">
+						<div class="col">
+							• &nbsp; 배송완료된 제품은 배송완료일로부터 7일 이내에 반품 요청이 없는 경우 자동으로 구매확정 처리됩니다.
+						</div>
+					</div>		
+					
+					<div class="row">
+						<div class="col">
+								  &nbsp;&nbsp; <span class="ms-1">(배송완료일을 기준으로 7일 후 자동 구매확정 처리되는 것입니다.)</span>  
+						</div>
+					</div>											
 					
 					
 					<div class="row mt-4 mb-2">
@@ -87,7 +99,7 @@
 								<tr class="text-center">
 									<td class="custom-table-secondary" style="width: 50%">상품정보</td>
 									<td class="custom-table-secondary">낙찰가</td>
-									<td class="custom-table-secondary">낙찰시간</td>
+									<td class="custom-table-secondary">입찰시간</td>
 									<td class="custom-table-secondary">경매종료일</td>
 									<td class="custom-table-secondary">상태</td>
 								</tr>
@@ -334,7 +346,7 @@
 		      						<div class="col">
 		      							
 		      							<div class="row">
-		      								<div class="col fw-semibold text-secondary">배송일시</div>
+		      								<div class="col fw-semibold text-secondary" id="deliveryText"></div>
 		      								<div class="col-8 text-end" id="deliveryDate"></div>
 	
 		      							</div>
@@ -682,11 +694,14 @@ function deliveryStatusModal(id) {
         	
         	const deliveryDateBox = document.querySelector("#deliveryDate");
         	// 배송일자
+        	
+        	const deliveryTextBox = document.querySelector("#deliveryText");
+        	
         	if (!response.deliveryStatusDto.delivery_reg_date) {
+        		deliveryTextBox.innerText = "배송일시";
         		deliveryDateBox.innerText = "예정";
         	} else {
-        		const deliveryDate = new Date(response.deliveryStatusDto.delivery_reg_date);
-        		deliveryDateBox.innerText = formatTime(deliveryDate);
+        
         	}
  
         	
@@ -697,10 +712,22 @@ function deliveryStatusModal(id) {
         	} else {
         		
         		if(response.deliveryStatusDto.delivery_status == "배송중") {
+        			deliveryTextBox.innerText = "배송일시";
+        			
+        			const deliveryDate = new Date(response.deliveryStatusDto.delivery_reg_date);
+            		deliveryDateBox.innerText = formatTime(deliveryDate);
+        			
         			ds_deliveryIng.classList.add("text-orange");
         			icon_deliveryIng.classList.add("text-orange");
         			
         		} else if (response.deliveryStatusDto.delivery_status == "배송완료") {
+        			deliveryTextBox.innerText = "배송완료일";
+        			
+           			const deliveryDate = new Date(response.deliveryStatusDto.delivery_reg_date);
+           			const oneDaysLater = new Date(deliveryDate.setDate(deliveryDate.getDate() + 1));
+           			
+            		deliveryDateBox.innerText = formatTime(oneDaysLater);
+            		
         			ds_deliveryComplete.classList.add("text-orange");
         			icon_eliveryComplete.classList.add("text-orange");
         		}
@@ -804,13 +831,40 @@ function getMySuccessfulBidPayAndDeliveryStatusList() {
 	    	  
 	    	  let myStatus = document.getElementById("myStatus_" + data.id);
 	    	  myStatus.innerHTML = "";
-	    	  console.log(data.payment_exists);
 	    	  
 	    	  // 결제를 하지 않았을 경우
 	    	  if (data.payment_exists == 'No') {
 	    		  
-	    		  console.log(data.payment_exists);
+	    		  const auctionEndDate = new Date(data.end_date);
+	    		  const nowDate = new Date();
 	    		  
+	    		  const sevenDaysLater = new Date(auctionEndDate.setDate(auctionEndDate.getDate() + 7));
+	    		  
+	    		  if (nowDate > sevenDaysLater) {
+	    			  const row = document.createElement("div");
+		    		  row.classList.add("row");
+		    		  
+		    		  const col = document.createElement("div");
+		    		  col.classList.add("col");
+	
+		    		  col.innerText = "유찰";
+		    		  
+		    		  row.appendChild(col);
+		    		  
+	    			  const row1 = document.createElement("div");
+		    		  row1.classList.add("row");
+		    		  
+		    		  const col1 = document.createElement("div");
+		    		  col1.classList.add("col");
+		    		  
+		    		  col1.innerText = "(미결제)";
+		    		  
+		    		  row1.appendChild(col1);
+		    		
+		    		  myStatus.appendChild(row); 
+		    		  myStatus.appendChild(row1); 
+	    		  }
+	    		  else {
 	    		  const row  = document.createElement("div");
 	    		  row.classList.add("row");
 	    		  
@@ -826,7 +880,6 @@ function getMySuccessfulBidPayAndDeliveryStatusList() {
 	    		   payButton.onclick = function(dataId) {
 	    			    return function() {
 	    			        location.href = "/safari/auction/getOrderPage?id=" + dataId;
-	    			        console.log(dataId);
 	    			    };
 	    			}(data.id); 
 	    			
@@ -837,7 +890,9 @@ function getMySuccessfulBidPayAndDeliveryStatusList() {
     	          
     	          row.appendChild(col);
 	              
-    	          myStatus.appendChild(row);    
+    	          myStatus.appendChild(row); 
+	    		  
+	    		  }
 	    	  } 
 	    	  // 결제를 하였을 경우
 	    	  else {
@@ -1108,7 +1163,6 @@ function getDeliverypkByBidpk(id) {
 	  
 	  const confirmButton = document.getElementById("buyCompleteConfirmButton");
 	  
-	  console.log(id, deliveryId);
 	  confirmButton.setAttribute("onclick", "purchaseConfirmed(" + id + "," + deliveryId + ")");
 	
 	   
@@ -1145,7 +1199,23 @@ function purchaseConfirmed(id, deliveryId) {
 	        
 	        buyRow.appendChild(buyCol);
 	        
+			const rowButton = document.createElement("div");
+			rowButton.classList.add("row", "mt-1");
+		  	
+		  	const colButton = document.createElement("div");
+		  	colButton.classList.add("col");
+		  	
+			const selectButton = document.createElement("input");
+			selectButton.type = "button";
+			selectButton.classList.add("btn", "btn-sm", "btn-outline-dark");
+			selectButton.value = "배송조회";
+			selectButton.setAttribute("onclick", "deliveryStatusModal("+ id +")");
+			colButton.appendChild(selectButton);
+			rowButton.appendChild(colButton);
+	        
+	        
 	        myStatusNew.appendChild(buyRow);
+	        myStatusNew.appendChild(rowButton);
 	      	
 	      	
 	      
