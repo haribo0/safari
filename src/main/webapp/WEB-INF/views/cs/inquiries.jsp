@@ -328,11 +328,14 @@ function dateToTimeDifference(date) {
 	const seconds = Math.floor(timeDifference / 1000);
 	const minutes = Math.floor(seconds / 60);
 	const hours = Math.floor(minutes / 60);
+	const days = Math.floor(hours / 24);
 
 	let formattedTime;
 
 	// 시/분/초 중 하나 정해서 표시 
-	if (hours >= 1) {
+	if (hours >= 24) {
+	  formattedTime = `\${days} 일 전`;
+	} else if (hours >= 1) {
 	  formattedTime = `\${hours} 시간 전`;
 	} else if (minutes >= 1) {
 	  formattedTime = `\${minutes} 분 전`;
@@ -430,6 +433,16 @@ function getInquiryDetail(qnaId) {
 				// Append the second column to the second row
 			row2.appendChild(col2);
 
+			/* const mainDiv = document.createElement('div');
+			mainDiv.className = 'row bg-light pb-4 px-3 rounded text-start';
+			const innerDiv = document.createElement('div');
+			innerDiv.className = 'col pb-1';
+			const spanElement = document.createElement('span');
+			spanElement.className = 'text-secondary';
+			spanElement.textContent = 
+			innerDiv.appendChild(spanElement);
+			mainDiv.appendChild(innerDiv); */
+
 				
 				
 			/* Row3 */
@@ -477,9 +490,9 @@ function getInquiryDetail(qnaId) {
 
 				const spanElement = document.createElement("span");
 				spanElement.classList.add("text-secondary");
-				//spanElement.textContent = "from 고객지원팀 ";
+				spanElement.textContent = "고객지원팀 "+ qna.empDto.nickname;
 
-				// secondColumnDiv.appendChild(spanElement);
+				secondColumnDiv.appendChild(spanElement);
 				secondRowDiv.appendChild(secondColumnDiv);
 				
 				inquiryDetailContainer.appendChild(row4);

@@ -682,6 +682,9 @@ function reloadChatMsg() {
 					  
 					  chatMsgContainer.appendChild(row1);
 				  }else {
+					  
+					  // 고객이 보낸 메세지 
+					  
 					  const colIcon = document.createElement('div');
 					  colIcon.classList.add('col-auto', 'my-auto', 'ms-2', 'text-left');
 					  
@@ -699,8 +702,9 @@ function reloadChatMsg() {
 					  innerDiv2.className = 'col text-start ps-1 pt-1';
 					  const imageElement = document.createElement('img');
 					  imageElement.className = 'img-fluid rounded-circle';
-					  imageElement.style.filter = "grayscale(1)";
+					  
 					  if(response.user.profile_img_link === null) {
+						  imageElement.style.filter = "grayscale(1)";
 						  imageElement.src = '/safari/resources/img/user.jpg';
 					  } else {
 						  imageElement.src = '/safariImg/'+response.user.profile_img_link;

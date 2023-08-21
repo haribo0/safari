@@ -172,7 +172,7 @@
 	<select id="getInquiryListByEmpId" resultType="com.ja.safari.dto.CsQnaDto">
 		SELECT * FROM cs_qna
 		WHERE emp_id = #{empId}
-		ORDER BY qna_reply DESC, id DESC 
+		ORDER BY reply_date DESC, id DESC 
 	</select>
 	
 	<!-- id로 | 1대1문의 가져오기 -->

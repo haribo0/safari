@@ -11,7 +11,14 @@
 <jsp:include page="../common/meta.jsp"></jsp:include>
 <!-- 메타 섹션 -->
 <style>
-.btn-qna{position: fixed; bottom: 80px; right: 70px; background-color: #f5f5f5; width: 68px; height: 68px; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 3rem; cursor: pointer;}
+/* .btn-qna{position: fixed; bottom: 80px; right: 70px; background-color: #f5f5f5; width: 68px; height: 68px; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 3rem; cursor: pointer;} */
+
+	.btn-qna{position: fixed; bottom: 80px; right: 70px; border-radius: 60px; padding: 0 0;}
+	.btn-circle{width: 50px; height: 52px; border-radius: 50%; display: flex; flex-direction:column; justify-content: center; align-items: center; font-size: 2rem; cursor: pointer;}
+	.btn-circle i{color: #5e5e5e; font-size: 24px;}
+	.btn-tit{font-size:13px;}
+	
+
 .coin-box{position: relative;}
 .coin-box::before {content: ''; width:1px; height: 60%; background: #5e5e5e; display:block; position: absolute; top: 50%; transform:translateY(-50%); left: 0px;}
 
@@ -27,9 +34,13 @@
 </head>
 <body>
 
-<div class="btn-qna shadow-lg">
-<i class="bi bi-question-circle"></i>
-</div>
+<!-- <div class="btn-qna shadow-lg">
+<i class="bi bi-question-circle"></i> -->
+<!-- </div> -->
+
+	<!-- Chat Box -->
+	<jsp:include page="../common/chatBox.jsp"></jsp:include>
+	<!-- Chat Box -->
 
 	<!-- 헤더 섹션 -->
 	<jsp:include page="../common/header.jsp"></jsp:include>
@@ -38,6 +49,7 @@
 	<!-- 마이페이지 상단 블럭 -->
 	<jsp:include page="../common/myPageTop.jsp"></jsp:include>
 	<!-- 마이페이지 상단 블럭 -->
+	
 	
 	<div class="container d-flex mt-5 px-0">
 		<div class="row w-100">
@@ -54,7 +66,7 @@
 					<h5>1대1 문의</h5>						
 				</div>
 				<div class="col text-end">
-					<a href="./myInquiryPostPage" class="btn orangeBtn btn-sm px-5">문의 작성</a>
+					<a href="./myInquiryPostPage" class="btn orangeBtn btn-sm px-5 fw-bold">문의 작성</a>
 				</div>
 			</div>
 			

@@ -56,23 +56,57 @@ public class CsServiceImpl {
 	// 직원 리스트 불러오기 
 	public List<Map<String, Object>> getEmployeeList() {
 		
+		// 근무 날인지 확인 
+		Calendar calendar = Calendar.getInstance();
+        int dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
+        int hourOfDay = calendar.get(Calendar.HOUR_OF_DAY);
+		
 		List<Map<String, Object>> list = new ArrayList<Map<String,Object>>();
 		
 		for (CsEmpDto csEmpDto : csSqlMapper.getEmployeeList()) {
 			Map<String, Object> map = new HashMap<String, Object>();
 			map.put("empDto", csEmpDto);
 			// TODO :출근 기록 없을 경우 null 오류 처리해주기 !! 
+			
 			// 직원 아이디로 최근 출근부 최근 기록 
 			List<CsAttendanceLogDto> csAttendanceLogDtos = csSqlMapper.getRecentAttendanceLogDtos(csEmpDto.getId());
-			if(csAttendanceLogDtos.size() == 0) {
-				map.put("workStatus", "휴무");
-			} else {
-				CsAttendanceLogDto csAttendanceLogDto = csAttendanceLogDtos.get(0);
-				map.put("workStatus", csAttendanceLogDto.getTime_out()==null ? "근무" : "휴무");
+//			if(csAttendanceLogDtos.size() == 0) {
+//				map.put("workStatus", "휴무");
+//			} else {
+//				CsAttendanceLogDto csAttendanceLogDto = csAttendanceLogDtos.get(0);
+//				map.put("workStatus", csAttendanceLogDto.getTime_out()==null ? "근무" : "휴무");
+//			}
+			
+			String workState = "휴무";
+			
+			
+			// 해당일에 근무 일 경우 
+			for(CsScheduleDto scheduleDto : csSqlMapper.getScheduleByEmpId(csEmpDto.getId())) {
+				
+				// 최근 출퇴근 기록 가져오기 
+				List<CsAttendanceLogDto> attList = csSqlMapper.getRecentAttendanceLogDtos(csEmpDto.getId());
+				
+				// 해당일에 근무 일 경우 
+				if(getWeekdayAsInteger(scheduleDto.getWeekday()) == dayOfWeek) {
+					// 근무 기록 없거나 마지막 기록에 퇴근 시간이 있으면
+					if(attList.size()==0) workState = (hourOfDay < scheduleDto.getEnd_time() ? "출근전" : "퇴근");
+					else if(attList.get(0).getTime_out()!=null) {
+						workState = (hourOfDay < scheduleDto.getEnd_time() ? "출근전" : "퇴근");
+					} else {
+						workState = "근무";
+					}
+				} else { // 근무일 아닐경우 
+					if(attList.size()==0) continue;
+					else if(attList.get(0).getTime_out()==null) {
+						workState = "근무";
+					}
+				}
 			}
+			
 			
 			// 직원 스케줄 가져오기 
 			map.put("scheduleList", csSqlMapper.getScheduleByEmpId(csEmpDto.getId()));
+			map.put("workStatus", workState);
 			
 			list.add(map);
 		}

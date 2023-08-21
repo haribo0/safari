@@ -3116,7 +3116,8 @@ function getMsg() {
 			if(response.isChatEnded) {
 				// 메세지 못 보내게
 				const sendMsgBtn = document.getElementById("sendMsg");
-				sendMsgBtn.classList.add("disabled");
+				
+				sendMsgBtn.className = "send-button disabled btn btn-dark ms-3 px-3";
 				// 상담이 종료되었습니다.
 				const rDiv = document.createElement('div');
 				rDiv.classList.add('row','py-2');
@@ -3146,7 +3147,7 @@ function getMsg() {
 				if(feedbackBtnActive) {
 					btn1Div.className = 'btn btn-dark px-3';
 				} else {
-					btn1Div.className = 'btn btn-dark px-3';
+					btn1Div.className = 'btn btn-dark px-3 disabled';
 				}
 				btn1Div.textContent = "문의 평가하기";
 				btn1Div.id = "feedbackBtn";
@@ -3213,6 +3214,7 @@ function saveFeedback() {
 			// 평가 후에는 평가 남기기 버튼 disable
 			const feedbackBtn = document.getElementById("feedbackBtn");
 			feedbackBtn.classList.add("disabled");
+			feedbackBtn.removeEventListener('click', feedback);
 			feedbackBtnActive = false;
 
 			// 문의 평가 모달 닫기

@@ -60,7 +60,7 @@
 				<div class="col-3">근무일</div>
 				<div class="col">출근</div>
 				<div class="col">퇴근</div>
-				<div class="col">근무상태</div>
+				<!-- <div class="col">근무상태</div> -->
 			</div>
 			
 			
@@ -398,10 +398,10 @@ function getEmployeeList() {
 				rowDiv.appendChild(col7Div);
 
 				// 근무상태 열 생성
-				const col8Div = document.createElement('div');
+				/* const col8Div = document.createElement('div');
 				col8Div.classList.add('col');
 				col8Div.textContent = map.workStatus;
-				rowDiv.appendChild(col8Div);
+				rowDiv.appendChild(col8Div); */
 
 				// 첫 번째 줄과 구분선(hr) 추가
 				listBox.appendChild(rowDiv);
