@@ -240,13 +240,13 @@ public class UsedController {
 		UserDto sessionUser = (UserDto)session.getAttribute("sessionUser");
 		if(sessionUser!=null) {
 			model.addAttribute("result", usedService.selectProductRequestCountByUser(productId, sessionUser.getId()));
+			model.addAttribute("chatCount", usedService.selectChatCountByProductIdAndUserId(productId, sessionUser.getId()));
 		}else {
 			model.addAttribute("result", false);
 		}
 	    model.addAttribute("reservationCount", usedService.countProductRequestReservation(productId));
 	    model.addAttribute("completeCount", usedService.countProductRequestComplete(productId));
 	    model.addAttribute("requestCount", usedService.countProductRequestByProductId(productId));
-	    model.addAttribute("chatCount", usedService.selectChatCountByProductIdAndUserId(productId, sessionUser.getId()));
 		model.addAttribute("map", map);
 		model.addAttribute("list", list);
 		// 거래요청 List

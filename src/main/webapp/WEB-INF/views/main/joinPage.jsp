@@ -184,10 +184,54 @@
 								</div>
 							</div>
 							
-							<div class="row mt-3">
-								<div class="col"></div>
+							<div class="row mt-4">
+								<div class="col">
+								
+									<div class="row mt-2">
+										<div class="col rounded-1 bg-light py-2 mx-1">
+										
+											<div class="row ms-3 mt-1">
+												<div class="col form-check" >
+												  <input class="form-check-input fs-5" type="checkbox" value="" id="flexCheckDefault">
+												  <label class="form-check-label" for="flexCheckDefault">
+												    <span class="fw-semibold fs-5 ms-2">전체 동의</span>
+												  </label>
+												</div>
+												<div class="col text-end">
+												<i class="bi bi-chevron-down"></i>
+												</div>
+											
+											</div>
+											
+											<div class="row ms-3 mt-1">
+												<div class="col ms-3">
+													
+													<div class="row">
+														<div class="col">
+															회원 정보와 서비스 이용에 대한 안내와 개인정보 수집,  
+														</div>
+													</div>
+													
+													<div class="row">
+														<div class="col">
+															이용 동의가 포함되어 있습니다.
+														</div>
+													</div>
+												
+												</div>
+											
+											</div>
+										
+										
+										
+										
+										</div>
+									</div>
+								
+								
+								</div>
 							</div>
-							<div class="row mt-4 mb-5">
+							<div class="row mt-5 mb-5">
 								<div class="col d-grid">
 									<input type="button" class="btn orangeButton p-2" 
 									style="font-size: 20px;" value="가입하기"
@@ -535,8 +579,24 @@ const setDateInput = () => {
 
 
 
+
 // 회원가입 유효성 검사
 function checkValueAndSubmit() {
+	
+	
+/*    const agreeCheckbox = document.getElementById("flexCheckDefault");
+  
+   // 동의 체크박스를 누르지 않으면 결제 창 띄우지 못하게 방지
+   if (!agreeCheckbox.checked) {
+    
+	   const checkBoxModal = bootstrap.Modal.getOrCreateInstance("#checkBoxModal"); 
+	   checkBoxModal.show();
+		
+		setTimeout(function() { // 1초 뒤 모달 창 삭제
+			checkBoxModal.hide();
+		}, 2000);
+      return;
+    }	 */	
 	
 	const email = document.getElementById("email");
 	const pw = document.getElementById("pw");
@@ -570,7 +630,7 @@ function checkValueAndSubmit() {
 	} else if (phone.value == "") {
 		alert("전화번호를 입력해주세요");
 		phone.focus();
-		return;
+		return; 
 	} else if (!gender_m.checked && !gender_w.checked) {
 	    alert("성별을 선택해주세요");
 	    return;
