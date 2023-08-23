@@ -64,12 +64,30 @@
 						<div class="row border-bottom py-2 fw-medium">
 							<div class="col"> 경매 </div>
 						</div>
+						
 						<div class="row my-2">
 							<div class="col"> 
-								hi <br> hi <br> hi
-							
+									
+								<div>경매 참여하기</div>	
+								
+							 </div>
+						</div>
+						
+						<div class="row my-2">
+							<div class="col"> 
+									
+									
+								
 							 </div>
 						</div>		
+						
+						<div class="row my-2">
+							<div class="col"> 
+									
+								
+								
+							 </div>
+						</div>																
 									
 					</div>
 				</div>
