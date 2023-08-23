@@ -13,4 +13,10 @@ public class MainController {
 		
 		return "/main/mainPage";
 	}
+	// 메인페이지 페이징
+	@RequestMapping("mainPage2")
+	public String mainPage2() {
+		
+		return "/main/mainPage2";
+	}
 }
