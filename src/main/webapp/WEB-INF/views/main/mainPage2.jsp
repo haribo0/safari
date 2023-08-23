@@ -18,15 +18,20 @@
 	<div class="container">
 	
 	  <div class="row p-1 mx-0 py-2">
-	  	<div class="col" style="background-color: #fce17c;">
+	  	<div class="col card shadow-sm py-2" >
 	  		
-			<div class="row mt-2 my-1">
-				<div class="col mx-2">
-					 모티브로 기획되어 유저 간의 '거래'와 그 안에서 일어나는 '상호작용'에서 아이디어를 확장시켜 대여, 경매, 커뮤니티 기능을 담고 있는 종합 포털사이트
+			<div class="row my-3 text-center">
+				<div class="col mx-2 fw-bold fs-5 mt-2">
+					482 사고 파는 이웃 
+				</div>
+			</div>
+			<div class="row text-center mb-2">
+				<div class="col mx-2 ">
+					사파리 플랫폼은 중고거래, 대여, 경매, 커뮤니티 기능을 결합한 온라인 서비스로, 다양한 활동을 한 곳에서 편리하게 즐길 수 있는 공간을 제공합니다.
 				</div>
 			</div>
 			
-			<div class="row my-4">
+			<div class="row my-4 mx-1">
 				<div class="col-3">
 					<div class="card px-3">
 				
@@ -35,7 +40,9 @@
 						</div>
 						<div class="row my-2">
 							<div class="col"> 
-								hi <br> hi <br> hi
+								hi <br> 
+								hi <br> 
+								hi
 							
 							 </div>
 						</div>
