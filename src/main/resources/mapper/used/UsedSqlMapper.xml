@@ -520,7 +520,7 @@ WHERE ROWNUM <= 4
 </select>
 
 <!-- 해당 상품에 대한 채팅 개수 -->
-<select id="selectChatCountByProductIdAndUserId" resultType="int">
+<select id="selectChatCountByProductIdAndUserId" resultType="Integer">
 	SELECT count(*) FROM PRODUCT_REQUEST WHERE product_id in (SELECT id FROM product WHERE user_id=#{userId} AND product_id=#{productId})
 </select>
 

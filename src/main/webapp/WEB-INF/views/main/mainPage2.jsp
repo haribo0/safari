@@ -32,7 +32,7 @@
 			</div>
 			
 			<div class="row my-4 mx-1">
-				<div class="col-3">
+				<div class="col">
 					<div class="card px-3">
 				
 						<div class="row border-bottom py-2 fw-medium">
@@ -40,7 +40,8 @@
 						</div>
 						<div class="row my-2">
 							<div class="col"> 
-								hi <br> 
+								<a href="http://localhost:8181/safari/used/mainPage" class="text-decoration-none text-black">중고 메인</a>
+								<br>
 								hi <br> 
 								hi
 							
@@ -50,7 +51,7 @@
 				
 					</div>
 				</div>
-				<div class="col-3">
+				<div class="col">
 					<div class="card px-3">
 					
 						<div class="row border-bottom py-2 fw-medium">
@@ -65,7 +66,7 @@
 				
 					</div>
 				</div>
-				<div class="col-3">
+				<div class="col">
 					<div class="card  px-3">
 				
 						<div class="row border-bottom py-2 fw-medium">
@@ -98,7 +99,22 @@
 									
 					</div>
 				</div>
-				<div class="col-3">
+				<div class="col">
+					<div class="card px-3">
+					
+						<div class="row border-bottom py-2 fw-medium">
+							<div class="col"> 대여 판매자 </div>
+						</div>
+						<div class="row my-2">
+							<div class="col"> 
+								hi <br> hi <br> hi
+							
+							 </div>
+						</div>
+				
+					</div>
+				</div>
+				<div class="col">
 					<div class="card  px-3">
 						
 					<div class="row border-bottom py-2 fw-medium">
