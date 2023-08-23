@@ -152,7 +152,7 @@ public class RentalRestController {
 					}
 				
 		
-				String rootFolder = "C:\\uploadFiles\\";
+				String rootFolder = "/Users/hailey/Documents/safariImg/";
 		
 				// 날짜별 폴더 생성 로직 
 				SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
