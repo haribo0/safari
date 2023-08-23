@@ -380,9 +380,7 @@
 					</c:forEach>
 					
 					</div>
-				</div>
-				
-				<div class="row mt-5 pt-3">
+					<div class="row mt-5 pt-3">
 					<div class="col py-3 d-flex justify-content-center">
 						<ul class="d-flex px-0">
 							<li class="mx-1 " style="list-style: none;"><a class="btn" href="#"><i class="fa-solid fa-angles-left" style="color: #9ba4ab;"></i></a></li>
@@ -394,6 +392,9 @@
 						</ul>
 					</div>
 				</div>
+				</div>
+				
+				
 				
 			</div>
 		</div>
@@ -596,8 +597,13 @@ window.addEventListener("DOMContentLoaded", function(){
 });
 
 
-function name() {
+
+function sortProductList() {
+	
 	const productListBox = document.getElementById("productListBox");
+	
+	
+	
 }
 
 

@@ -124,7 +124,7 @@ function getUserProfileImageHeader() {
 			} else {
 			
 				// 본인이 설정한 이미지 경로마다 변경해주어야함.
-				profileImage.src = "/auctionFiles/" + response.profile_img_link;
+				profileImage.src = "/safariImg/" + response.profile_img_link;
 		
 				}
 			  }
