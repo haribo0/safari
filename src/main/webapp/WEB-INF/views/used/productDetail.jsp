@@ -264,10 +264,10 @@
 	    	<a href="./deleteProduct?productId=${map.productDto.id }" type="button" class="btn btn-outline-secondary btn-sm">삭제</a>
 	    	</div>
 	    		<c:if test="${completeCount > 0}">
-	    			<div class="col text-end my-auto pe-0"><button class="btn btn-sm fw-semibold btn-secondary" style="padding: 6px 25px;font-size: 16px;" onclick="reloadChatRoomList()">대화 중인 채팅방 ${map.chatCount }</button></div>
+	    			<div class="col text-end my-auto pe-0"><button class="btn btn-sm fw-semibold btn-secondary" style="padding: 6px 25px;font-size: 16px;" onclick="reloadChatRoomList()">대화 중인 채팅방 ${chatCount }</button></div>
 	    		</c:if>
 	    		<c:if test="${completeCount == 0}">
-	    			<div class="col text-end my-auto pe-0"><button class="btn btn-sm fw-semibold" style="background: #ff6f0f; color: white; padding: 6px 25px;font-size: 16px;" onclick="reloadChatRoomList()">대화 중인 채팅방 1</button></div>
+	    			<div class="col text-end my-auto pe-0"><button class="btn btn-sm fw-semibold" style="background: #ff6f0f; color: white; padding: 6px 25px;font-size: 16px;" onclick="reloadChatRoomList()">대화 중인 채팅방 ${chatCount }</button></div>
 	    		</c:if>
 	    	</c:if>
     	</div>
