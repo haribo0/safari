@@ -519,4 +519,11 @@ WHERE ROWNUM <= 4
 	SELECT * FROM PRODUCT_REQUEST WHERE product_id=#{productId} AND user_id=#{userId}
 </select>
 
+<!-- 해당 상품에 대한 채팅 개수 -->
+<select id="selectChatCountByProductIdAndUserId" resultType="int">
+	SELECT count(*) FROM PRODUCT_REQUEST WHERE product_id in (SELECT id FROM product WHERE user_id=#{userId} AND product_id=#{productId})
+</select>
+
+
+
 </mapper>

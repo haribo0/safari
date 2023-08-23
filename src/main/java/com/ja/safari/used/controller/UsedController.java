@@ -246,6 +246,7 @@ public class UsedController {
 	    model.addAttribute("reservationCount", usedService.countProductRequestReservation(productId));
 	    model.addAttribute("completeCount", usedService.countProductRequestComplete(productId));
 	    model.addAttribute("requestCount", usedService.countProductRequestByProductId(productId));
+	    model.addAttribute("chatCount", usedService.selectChatCountByProductIdAndUserId(productId, sessionUser.getId()));
 		model.addAttribute("map", map);
 		model.addAttribute("list", list);
 		// 거래요청 List

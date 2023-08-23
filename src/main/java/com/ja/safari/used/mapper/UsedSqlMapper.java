@@ -165,7 +165,8 @@ public interface UsedSqlMapper {
 	public List<ProductRequestDto> selectMyBuyListByUserId(Integer uesrId);
 	// 거래요청 - 상품id, 유저id 
 	public ProductRequestDto selectProductRequestByProductIdAndUserId(@Param("userId")Integer userId, @Param("productId")Integer productId);
-	
+	// 해당 상품에 대한 채팅 개수 
+	public Integer selectChatCountByProductIdAndUserId(@Param("userId")Integer userId, @Param("productId")Integer productId);
 	
 	
 	

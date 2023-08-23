@@ -777,6 +777,9 @@ public class UsedServiceImpl {
 		return list;
 	}
 	
-	
+	// 해당 상품에 대한 채팅 개수 
+	public Integer selectChatCountByProductIdAndUserId(Integer productId, Integer userId) {
+		return usedSqlMapper.selectChatCountByProductIdAndUserId(userId, productId);
+	}
 	
 }
