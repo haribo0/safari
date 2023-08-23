@@ -7,7 +7,7 @@
 		</div>
 		<ul class="list-group mt-3">
 		<li class="list-group-item border border-0 pb-0 ps-0">
-			<a class="btn text fw-bolder py-1 ps-0" href="#">회원정보</a></li>
+			<a class="btn text fw-bolder py-1 ps-0" href="#" style="pointer-events: none;">회원정보</a></li>
 		  	<div class="" id="">
 				<ul class="list-group">
 					<li class="list-group-item border-0 py-1 ps-0"><a href="../user/checkPassword" class="btn py-0 text-body-secondary ps-0 fs-nav-small">회원정보수정</a></li>
@@ -21,7 +21,7 @@
 			
 		
 		  <li class="list-group-item border border-0 pb-0 ps-0">
-		  <a class="btn text fw-bolder py-1 ps-0 mt-2" href="#collapse1">중고</a></li>
+		  <a class="btn text fw-bolder py-1 ps-0 mt-2" href="#collapse1" style="pointer-events: none;">중고</a></li>
 		  	<div class="" id="">
 				<ul class="list-group">
 					<li class="list-group-item border-0 py-1 ps-0"><a href="/safari/user/selectMySellList" class="btn py-0 text-body-secondary ps-0 fs-nav-small">판매내역</a></li>
@@ -31,7 +31,7 @@
 			</div>
 			
 		  <li class="list-group-item border border-0 pb-0 ps-0">
-		  <a class="btn text fw-bolder py-1 ps-0 mt-2" href="#">대여</a></li>
+		  <a class="btn text fw-bolder py-1 ps-0 mt-2" href="#" style="pointer-events: none;">대여</a></li>
 		  	<div class="" id="">
 				<ul class="list-group">
 					<li class="list-group-item border-0 py-1 ps-0"><a href="./myOrderListPage" class="btn py-0 text-body-secondary ps-0 fs-nav-small">주문내역</a></li>
@@ -40,7 +40,7 @@
 			</div>
 			
 		  <li class="list-group-item border border-0 pb-0 ps-0">
-		  <a class="btn text fw-bolder py-1 ps-0 mt-2" href="#" >경매</a></li>
+		  <a class="btn text fw-bolder py-1 ps-0 mt-2" href="#" style="pointer-events: none;">경매</a></li>
 		  	<div class="" id="">
 				<ul class="list-group">
 					<li class="list-group-item border-0 py-1 ps-0"><a href="/safari/auction/bidList" class="btn py-0 text-body-secondary ps-0 fs-nav-small">입찰내역</a></li>
@@ -52,7 +52,7 @@
 			</div>
 			
 		  <li class="list-group-item border border-0 pb-0 ps-0">
-		  <a class="btn text fw-bolder py-1 ps-0 mt-2" href="#" >커뮤니티</a></li>
+		  <a class="btn text fw-bolder py-1 ps-0 mt-2" href="#" style="pointer-events: none;">커뮤니티</a></li>
 		  	<div class="" id="">
 				<ul class="list-group">
 					<li class="list-group-item border-0 py-1 ps-0"><a href="./myAllCommunityPostListPage" class="btn py-0 text-body-secondary ps-0 fs-nav-small">내가쓴게시글</a></li>

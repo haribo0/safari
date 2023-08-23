@@ -70,7 +70,7 @@
 							<div class="col-9">
 								
 								<input type="text" class="form-control py-2" value="${userInfo.email}" 
-								style="pointer-events: none;" id="email">
+								style="pointer-events: none; width: 310px;" id="email">
 							</div>	
 						</div>			
 
@@ -137,7 +137,7 @@
 							<div class="col-9">
 								
 								 <input class="form-control py-2" id="profileImgFile"
-				  										name="profileImgFile" type="file"  accept="image/*" style="width: 300px">
+				  										name="profileImgFile" type="file"  accept="image/*" style="width: 310px">
 							</div>	
 						</div>		
 						

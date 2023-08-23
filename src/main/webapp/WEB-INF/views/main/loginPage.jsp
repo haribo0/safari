@@ -11,7 +11,7 @@
 <jsp:include page="../common/meta.jsp"></jsp:include>
 <!-- 메타 섹션 -->
 </head>
-<link rel="stylesheet" href="/safari/resources/style/auction.css" type="text/css">
+
 <style>
 .orangeButton{
 	background: #ff6f0f;
