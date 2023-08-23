@@ -630,7 +630,7 @@ function checkValueAndSubmit() {
 	} else if (phone.value == "") {
 		alert("전화번호를 입력해주세요");
 		phone.focus();
-		return;
+		return; 
 	} else if (!gender_m.checked && !gender_w.checked) {
 	    alert("성별을 선택해주세요");
 	    return;
