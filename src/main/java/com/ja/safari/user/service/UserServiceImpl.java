@@ -640,4 +640,11 @@ public class UserServiceImpl {
 		return list;
 	}
 	
+	
+	// 테스트 로그인 -  사용자
+	public UserDto selectTestUser(UserDto userDto) {
+		return userSqlMapper.selectTestUser(userDto);
+	}
+	
+	
 }

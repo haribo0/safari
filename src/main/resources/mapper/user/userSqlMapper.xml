@@ -349,4 +349,11 @@
 		WHERE qu_like.user_id = #{user_id}
 		</select>
 		
+		
+		
+		<!--  테스트 로그인 - 사용자 -->
+		<select id="selectTestUser" resultType="com.ja.safari.dto.UserDto">
+			SELECT * FROM user_table WHERE email = #{email} and pw = #{pw}
+		</select>
+		
 </mapper>

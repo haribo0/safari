@@ -151,4 +151,12 @@ public interface UserSqlMapper {
 	public List<QuestionDto> selectQuestionByPostMyLike(int user_id);
 	
 	
+
+	
+	
+	// 테스트 로그인 -  사용자
+	public UserDto selectTestUser(UserDto userDto);
+	
+	
+	
 }

@@ -74,7 +74,7 @@
 						
 						<div class="row my-2">
 							<div class="col"> 
-									
+									<a href="../main/testLogin" class="text-decoration-none text-black">테스트 로그인</a>
 								<div>경매 참여하기</div>	
 								
 							 </div>
