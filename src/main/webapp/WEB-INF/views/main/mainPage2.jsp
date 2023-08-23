@@ -38,13 +38,11 @@
 						<div class="row border-bottom py-2 fw-medium">
 							<div class="col"> 중고 </div>
 						</div>
+
 						<div class="row my-2">
 							<div class="col"> 
-								<a href="http://localhost:8181/safari/used/mainPage" class="text-decoration-none text-black">중고 메인</a>
-								<br>
-								hi <br> 
-								hi
-							
+								<a href="../main/testLogin?type=a" class="text-decoration-none text-black">중고 참여하기</a>
+	
 							 </div>
 						</div>
 				
@@ -57,10 +55,11 @@
 						<div class="row border-bottom py-2 fw-medium">
 							<div class="col"> 대여 </div>
 						</div>
+						
 						<div class="row my-2">
 							<div class="col"> 
-								hi <br> hi <br> hi
-							
+								<a href="../main/testLogin?type=b" class="text-decoration-none text-black">대여 서비스 이용</a>
+	
 							 </div>
 						</div>
 				
@@ -75,9 +74,8 @@
 						
 						<div class="row my-2">
 							<div class="col"> 
-									<a href="../main/testLogin" class="text-decoration-none text-black">테스트 로그인</a>
-								<div>경매 참여하기</div>	
-								
+									<a href="../main/testLogin?type=c" class="text-decoration-none text-black">경매 참여하기</a>
+	
 							 </div>
 						</div>
 						
@@ -107,8 +105,8 @@
 						</div>
 						<div class="row my-2">
 							<div class="col"> 
-								hi <br> hi <br> hi
-							
+								<a href="../main/testLogin?type=d" class="text-decoration-none text-black">판매자 이용</a>
+	
 							 </div>
 						</div>
 				
@@ -122,10 +120,10 @@
 						</div>
 						<div class="row my-2">
 							<div class="col"> 
-								hi <br> hi <br> hi
-							
+								<a href="../main/testLogin?type=e" class="text-decoration-none text-black">고객관리 이용</a>
+	
 							 </div>
-						</div>		
+						</div>
 				
 					</div>
 				</div>

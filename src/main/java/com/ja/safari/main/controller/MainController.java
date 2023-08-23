@@ -39,9 +39,17 @@ public class MainController {
 		
 		session.setAttribute("sessionUser", userService.selectTestUser(params));
 		
+		if (type.equals("a")) {
+			return "redirect:/used/mainPage";
+		} else if (type.equals("b")) {
+			return "redirect:/rental/mainPage";
+		} else if (type.equals("c")) {
+			return "redirect:/auction/mainPage";
+		} else  {
+			return "redirect:/main/mainPage2";
+		} 
 		
 		
 		
-		return "redirect:/main/mainPage2";
 	}
 }
