@@ -925,7 +925,7 @@ select option[value=""][disabled] {
 				
 			}
 		}
-		xhr.open("post", "/safari/user/addUserAddress");
+		xhr.open("post", "../user/addUserAddress");
 		xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded;charset=utf-8");
 		xhr.send("addressee=" + addressee.value + "&address_name=" + address_name.value + "&phone=" + phone.value + "&address=" + address.value + "  " + detail_address.value);	
 	}
@@ -1002,7 +1002,7 @@ select option[value=""][disabled] {
 	}
 
 	function toMyCoinPage() {
-		window.location.href = "/safari/user/myCoinPage"
+		window.location.href = "/user/myCoinPage"
 	}
 
 	window.addEventListener("DOMContentLoaded", function(){
