@@ -369,7 +369,8 @@
 	  		<div class="row mb-5">
 			
 				<div class="col-4 mb-3">
-					<div class="row">
+				<img alt="" src="/safari/resources/img/used/profileSellList.png" width="555px">
+					<!-- <div class="row">
 						<div class="col">
 						<a href="./productDetail?productId=109" class="text-decoration-none text-black p-0">
 						<img alt="img" class="img-fluid bestImg" src="/safarifile/2023/07/25/3729ba5c-54db-4770-8e9e-20b127841da1_1690266177719.png">
@@ -537,7 +538,7 @@
 				      <div class="col ms-1 text-secondary" style="font-size: 14px;">
 				        <i class="bi bi-heart"></i> 1 &nbsp;&nbsp;<i class="bi bi-chat-dots"></i> 0
 				      </div>
-				    </div>	
+				    </div>	 -->
 				</div>
 			
 		</div>
