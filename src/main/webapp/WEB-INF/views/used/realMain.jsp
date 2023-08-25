@@ -63,13 +63,13 @@
 			<img alt="banner1" src= "/safari/resources/img/used/listBanner.jpeg" class="img-fluid" width="1300px">
 		</div>
 	</div>
-	<div class="container-fluid d-flex align-items-center justify-content-between p-3 px-5 bg-light mb-2">
+	<!-- <div class="container-fluid d-flex align-items-center justify-content-between p-3 px-5 bg-light mb-2">
 		<div class="container">
 			<div class="row px-4">
 				<p class="mb-0 text-body-secondary"><span class="mx-2" style="font-size: 15px;">홈</span> &gt; <span class="mx-2" style="font-size: 15px;">중고</span></p>
 			</div>
 		</div>
-	</div>
+	</div> -->
 	<div class="container">
 		<div class="row">
 		<div class="container main_box">

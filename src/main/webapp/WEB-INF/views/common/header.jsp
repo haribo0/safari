@@ -37,7 +37,7 @@
 	      		</a></h1>
 	      		
 	      		 <ul class="nav justify-content-center mx-3 fw-medium"  style="font-size: 20px;">
-		          <li class="me-4"><a href="${pageContext.request.contextPath}/used/mainPage" class="px-2 link-body-emphasis" 
+		          <li class="me-4"><a href="${pageContext.request.contextPath}/used/productList" class="px-2 link-body-emphasis" 
 		        >중고</a></li>
 		          <li class="me-4"><a href="${pageContext.request.contextPath}/rental/mainPage" class="px-2 link-body-emphasis"
 		          >대여</a></li>
