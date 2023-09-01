@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>  
-		<div class="row mt-5">
+		<div class="row mt-4">
 			<div class="col-2"></div>
 			<div class="col-2">
 				<select class="form-select" aria-label="Default select example" id="product_city">

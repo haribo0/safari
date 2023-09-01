@@ -72,26 +72,13 @@
 	</div> -->
 	<div class="container">
 		<div class="row">
-		<div class="container main_box">
+		<div class="container main_box mb-2">
 			<jsp:include page="../used/categoryNavi.jsp"></jsp:include>
 			<div class="col">
 				<div class="row" id="listParent"></div>
-				<div class="row pt-3">
-					<div class="col py-3 d-flex justify-content-center">
-						<ul class="d-flex px-0">
-							<li class="mx-1 " style="list-style: none;"><a class="btn" href="#"><i class="fa-solid fa-angles-left" style="color: #9ba4ab;"></i></a></li>
-							<li class="mx-1 rounded-1 btnNavi" style="background: #8baac1; list-style: none; border: 1px solid #81a3bd;"><a class="btn text-white" href="#">1</a></li>
-							<li class="mx-1 " style="list-style: none;"><a class="btn" href="#">2</a></li>
-							<li class="mx-1 " style="list-style: none;"><a class="btn" href="#">3</a></li>
-							<li class="mx-1 " style="list-style: none;"><a class="btn" href="#">4</a></li>
-							<li class="mx-1 " style="list-style: none;"><a class="btn" href="#">5</a></li>
-							<li class="mx-1 " style="list-style: none;"><a class="btn" href="#"><i class="fa-solid fa-angles-right" style="color: #9ba4ab;"></i></a></li>
-						</ul>
-					</div>
-	</div>
 			</div>
 		</div>
-			<div class="row mt-1"></div>
+			<div class="row mb-5"></div>
 		</div>
 	</div>
 	<!-- 푸터 섹션 -->

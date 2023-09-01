@@ -1532,8 +1532,7 @@ function reloadChatRoomList() {
   				col1Img.src = '/safari/resources/img/user.jpg';
   				col1Img.style = 'filter:grayscale(1)';
   			  }else{
-  				col1Img.src = '/safari/resources/img/used/user2.png';
-  				/* col1Img.src = '/safarifile/' + data.userDto.product_img_link; */
+  				col1Img.src = '/safarifile/' + data.userDto.profile_img_link;
   			  }
   			  
   			  col1.appendChild(col1Img);
@@ -2377,13 +2376,12 @@ function reloadChatList(requestId) {
 	  			  col1Img.width = 40;
 	  			  col1Img.height = 40;
 	  			  // 상대방이  프로필 사진 있을 떄
-	  			  console.log(response.receiverDto.profile_img_link == null);
 	  			  if(response.receiverDto.profile_img_link == null){
 	  				col1Img.src = '/safari/resources/img/user.jpg';
 	  				col1Img.style = 'filter:grayscale(1)';
 	  			  }else{
-	  				col1Img.src = '/safari/resources/img/used/user2.png';
-	  				/* col1Img.src = '/safarifile/' + data.userDto.product_img_link;  */
+	  				/* col1Img.src = '/safari/resources/img/used/user2.png'; */
+	  				col1Img.src = '/safarifile/' + data.receiverDto.product_img_link;
 	  			  }
 	  			  colIcon.appendChild(col1Img);
 
