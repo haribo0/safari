@@ -2381,7 +2381,7 @@ function reloadChatList(requestId) {
 	  				col1Img.style = 'filter:grayscale(1)';
 	  			  }else{
 	  				/* col1Img.src = '/safari/resources/img/used/user2.png'; */
-	  				col1Img.src = '/safarifile/' + data.receiverDto.product_img_link;
+	  				col1Img.src = '/safarifile/' + response.receiverDto.profile_img_link;
 	  			  }
 	  			  colIcon.appendChild(col1Img);
 
