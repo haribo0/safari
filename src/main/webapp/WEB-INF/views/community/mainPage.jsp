@@ -280,7 +280,7 @@
 									</div>
 								</div>
 								<div class = "row mt-2">
-									<div class = "col mx-2 pe-2 fw-semibold" style = "font-size:15px;">
+									<div class = "col mx-2 pe-2 fw-semibold" style = "font-size:15px; height:45px;">
 										${map.promotionReviewDto.promotion_review_title} 
 									</div>
 								</div>
