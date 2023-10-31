@@ -14,7 +14,7 @@
 ![image](https://github.com/haribo0/safari/assets/77721961/a58b47c9-4f75-49ff-ba9c-ddb6f88090f7)
 
 ## ERD
-![image](https://github.com/haribo0/safari/assets/77721961/1fb5de89-f5d3-40ef-8809-7baa749c9559)
+![erderd](https://github.com/haribo0/safari/assets/87968927/d084cbde-4aa6-463e-8b40-dbc7eb263d3b)
 ERD URL : https://www.erdcloud.com/d/F3YttBLxw4QdkxeoK
 
 ## 기능확인 더보기 (pdf)
