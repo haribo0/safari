@@ -15,7 +15,7 @@
 
 ## ERD
 ![image](https://github.com/haribo0/safari/assets/77721961/1fb5de89-f5d3-40ef-8809-7baa749c9559)
-ERD URL : https://www.erdcloud.com/d/sYfJ5WigDzkXreyGo
+ERD URL : https://www.erdcloud.com/d/F3YttBLxw4QdkxeoK
 
 ## 기능확인 더보기 (pdf)
 [482(사고파는이웃)-포트폴리오.pdf](https://github.com/haribo0/safari/files/12329772/482.-.pdf)
